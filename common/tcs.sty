@@ -1,0 +1,65 @@
+% Custom latex commands for TCS notes
+\ProvidesPackage{tcs}
+
+\usepackage{amsmath}
+
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\prob}{P}
+
+\DeclarePairedDelimiter{\parenthesesdelimiter}{(}{)}
+% prefer \pars{stuff} to \left(stuff\right) and similarly with \brackets, \braces and \set
+\def\pars{\parenthesesdelimiter*}
+\DeclarePairedDelimiter{\bracesdelimiter}{\{}{\}}
+\def\braces{\bracesdelimiter*}
+\DeclarePairedDelimiter{\bracketsdelimiter}{[}{]}
+\def\brackets{\bracketsdelimiter*}
+\DeclarePairedDelimiter{\absdelimiter}{|}{|}
+\def\abs{\absdelimiter*}
+\DeclarePairedDelimiter{\floordelimiter}{\lfloor}{\rfloor}
+\def\floor{\floordelimiter*}
+\DeclarePairedDelimiter{\ceildelimiter}{\lceil}{\rceil}
+\def\ceil{\ceildelimiter*}
+
+\let\set\braces
+% cardinality of a set
+\let\card\abs
+
+\DeclareRobustCommand{\stirling}{\genfrac\{\}{0pt}{}}
+\DeclareRobustCommand{\stirlingOne}{\genfrac[]{0pt}{}}
+
+% Better theorem styling
+\usepackage{thmtools}
+\declaretheorem[numberwithin=section,name=Twierdzenie]{theorem}
+\declaretheorem[numberwithin=section,name=Lemat]{lemma}
+\declaretheorem[numberwithin=section,name=Ćwiczenie]{exercise}
+\declaretheorem[numberwithin=section,name=Definicja]{definition}
+
+% Common sets
+\def\natural{\mathbb{N}}
+\def\integer{\mathbb{Z}}
+\def\real{\mathbb{R}}
+
+% Set theory
+\DeclareMathOperator{\im}{im}
+
+% Probability 
+\newcommand{\expected}[1]{\mathbb{E}\brackets{#1}}
+\DeclareMathOperator{\Var}{Var}
+\newcommand{\variance}[1]{\Var\brackets{#1}}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\covariance}[2]{\Cov\pars{#1, #2}}
+
+% Information theory
+\DeclareMathOperator{\Channel}{Channel}
+\DeclareMathOperator{\Enc}{Enc}
+\DeclareMathOperator{\Dec}{Dec}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Com}{Com}
+
+% Calculus
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+
+% Graphs
+\newcommand{\Deg}{\text{deg}}
+
