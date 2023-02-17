@@ -1,0 +1,10 @@
+Strony mogą być dowolnie przemapowane na pamięć fizyczną, więc tak naprawdę jak ustalimy na ilu stronach i jak są rozmieszczone zmienne to dostaniemy odpowiedź na pytanie.
+
+Strona pierwsza powinna być od jakiegoś adresu zerowego do 4095, strona druga od 4095 do 8 tysięcy z hakiem, strona trzecia od 8 tysięcy z hakiem + 1 do ponad dwunasty tysięcy. Stąd mamy, że $X$ znajdzie się na stronie drugiej, a $Y$ i $Z$ znajdą się na stronie trzeciej. 
+
+Teraz z tego jak te zmienne są trzymane na wirtualnych stronach musimy wywnioskować, gdzie znajdują się w pamięci fizycznej. Wiemy na pewno, że jako że $Y$ i $Z$ są na tej samej stronie wirtualnej (i $Z$ jest po $Y$) to będą one również na tej samej stronie fizycznej, w tej samej kolejności. $X$ nie jest z nimi na tej samej stronie, więc w pamięci fizycznej może być przed nimi lub po nich. To zostawia nas z dwoma permutacjami:
+
+\begin{enumerate}
+    \item \texttt{XYZ}
+    \item \texttt{YZX}
+\end{enumerate}

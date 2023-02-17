@@ -1,0 +1,3 @@
+Zauważmy tutaj bardzo sprytne posunięcie polegające na czekaniu na pierwsze dziecko. Jeśli plik jest odpowiednio duży, to ten \textit{cat} zapcha całego pipe'a do którego miał pisać i się zablokuje. Nikt z kolei tego nie odczyta, bo jeszcze nie ma nikogo po drugiej stronie. Wykonanie całego programu się efektywnie zwiesi (bo rodzic czeka aż \textit{cat} się skończy, a \textit{cat} czeka aż ktoś coś przeczyta z pipe'a) i to będzie na tyle.
+
+Natomiast gdy plik jest mały to po prostu, bardzo elegancko, pierwsze dziecko przepisze cały plik na wejście do pipe'a; drugie przepisze wszystko z tego pipe'a na stdout i program się zakończy. 

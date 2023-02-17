@@ -1,0 +1,5 @@
+Na początku warto powiedzieć, co tu się w ogóle dzieje: każde wywołanie programu (poza takim gdy \texttt{c} wynosi 0) się forkuje i execuje siebie samego z argumentem \texttt{c} pomniejszonym o 1, który ma czytać wiadomości od swojego ojca, który zmienił się w :kota:.
+
+Czyli, efektywnie, jak się to rozrysuje i chwilę pomyśli wyjdzie nam taki łańcuch kotów, które przepisują to co im napisano na swój output; jest to pewnego rodzaju głuchy telefon. 
+
+Problem jest jeden: deskryptory. Nie zamykamy deskryptorów. Duplikujemy je \textit{dup2}, ale nie zamykamy deskryptorów, które dostaliśmy przy utworzeniu pipe'a. Ponieważ deskryptory dziedziczą się do naszych dzieci, a nasze dzieci w dodatku majstrują kolejne pipe'y, szybko dołazimy do wniosku, że liczba deskryptorów jest liniowa od liczby \texttt{c}. A to już jest pewien problem, bo taki Minix dosyć szybko umrze dla wielu deskryptorów. W sumie Linux też, ale nieco wolniej. W każdym razie: chcemy po prostu zamykać deskryptory z pipe'ów po ich zduplikowaniu za pomocą \textit{dup2}. 

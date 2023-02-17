@@ -1,0 +1,6 @@
+Żeby rozwiązać to zadanie trzeba wiedzieć co robi \textit{fcntl} i flaga \texttt{FD\_CLOEXEC}.
+
+\textit{fcntl} to jest taka fajna funkcja do kontrolowania deskryptorów (między innymi ich flag). \texttt{FD\_CLOEXEC} to taka flaga deskryptora, która mówi, że w przypadku gdybyśmy robili execa to ten deskryptor należy zamknąć. Część ludzi mogła używać tego w swoich shellach na zasadzie magicznej linijki która naprawia problemy życiowe.
+
+W kodzie co robimy to bierzemy sobie flagi które nasz deskryptor z numerem 1 (\textit{stdout}) obecnie ma, po czym dorzucamy flagę \texttt{FD\_CLOEXEC} do tego zestawu flag. To powoduje, że po obu execach zamknie się nam stdout. \textit{cat} będzie usiłował wypisać coś na ten deskryptor, ale mu nie wyjdzie (bo się zamknął po execu) w związku z czym wywali na \textit{stderr} komunikat, że mu się nie udało nic wypisać bo deskryptor \textit{stdout} jest walnięty.  
+

@@ -1,0 +1,25 @@
+\subsection*{Odpowiedź oczekiwana}
+Trzeba jakoś wymusić, żeby strona w pamięci była dwukrotnie zmapowana w przestrzeni procesu.
+Innymi słowy -- żeby w pamieci fizycznej \texttt{arr[42]} odpowiadało dwóm miejscom w pamięci wirtualnej.
+W ten sposób inkrementując \texttt{arr[42]} zinkrementujemy też np. \texttt{arr[4138]} co zwiększy nam sumę o 2.
+
+Możemy do tego doprowadzić celowo używając \texttt{mmap} (w dość głupi sposób).
+W szczególności możemy zmapować dwa razy ten sam plik na naszą pamięć i ogarnąć sprawę tak, żeby \texttt{arr} wskazywał na pamięć gdzie jest zmapowany tenże plik.
+
+Podobną sztuczkę możemy zrobić ze stronami i w ten sposób nasz program ma ,,deterministyczne undefined behavior''
+
+Czy jest to bez sensu? Tak. Czy jest to możliwe? Tak. :|
+
+\subsection*{Spekulacje}
+Nie bardzo umiemy ustalić co może być tutaj dobrą odpowiedzią.
+Podejrzewamy, że mieliśmy zaalokowane mniej pamięci niż wynosi wartość zmiennej \textit{size} (hyhyhy, trolololo): chodzi o fakt, że wolno nam czytać wszystko z naszej pamięci (czyli ze stron które dostaliśmy), tj. system operacyjny nas nie zabije w ten sposób. Natomiast problem jest w tym, że rozmiar stron jest niezależny od tego ile pamięci sobie zażyczyliśmy.
+
+W związku z tym kod:
+\begin{minted}[frame=lines, linenos, fontsize=\small]
+{c++}
+    int* arr = malloc(10 * sizeof(int));
+    printf("\%d", arr[20]);
+\end{minted}
+
+Może wypisać absolutnie cokolwiek nie rzucając przy tym błędu.
+welp, standardy.

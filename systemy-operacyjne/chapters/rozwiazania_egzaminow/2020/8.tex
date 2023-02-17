@@ -1,0 +1,10 @@
+\epigraph{Nie jestem dumny z tego zadania}{dr hab. Jakub Kozik}
+
+Generalnie to zadanie jest lekko zepsute.
+
+\texttt{open} powoduje powiązania deskryptora z i-nodem, ale najpierw trzeba go znaleźć w systemie plików.
+Potrzebujemy więc z grubsza tyle odczytów ile wynosi głębokość (liczona w katalogach) ścieżki pliku, który otwieramy.
+
+\texttt{lseek} z tego co rozumiem to zdaje się nic nie rusza tylko ustawia jakieś dane w tablicy deskryptorów
+
+\texttt{read} czyta sobie reprezentację pliku do znalezienia odpowiedniego bajtu w pliku (no i czyta te kilka sektorów z dysku)

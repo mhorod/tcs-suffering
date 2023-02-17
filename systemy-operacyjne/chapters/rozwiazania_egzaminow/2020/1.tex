@@ -1,0 +1,25 @@
+Zdefiniujmy sobie radośnie oznaczenia:
+\begin{enumerate}
+    \item $p$ -- PID programu
+    \item $q$ -- PID dziecka tego programu
+    \item $r$ -- PID reapera
+    \item $x$ -- PID rodzica naszego programu
+\end{enumerate}
+
+Pierwsza linijka jest zawsze taka sama: \(p, x\).
+
+Znaczy, HAHA ŻARTUJEMY, bufor z printfa może się skopiować do dziecka jeśli się nie wypisało i będziemy mieć straszny syf. Nie rozpatrujemy tu tego przypadku.
+
+Co do pozostałych dwóch, będą one wyglądać różnie zależnie od tego czy rodzic zdążył już spaść z rowerka przed dzieckiem i kto pierwszy co wypisał. Należy zauważyć, że teoretycznie reaper może być również rodzicem naszego programu. Wtedy $r$ i $x$ to to samo. Super.
+
+Możemy zatem zaobserwować:
+
+\texttt{p x \\ 0 q p \\ q p x}
+
+albo
+
+\texttt{p x \\ q p x \\ 0 q p}
+
+albo
+
+\texttt{p x \\ q p x \\ 0 q r}

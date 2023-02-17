@@ -1,0 +1,5 @@
+Bo jest to kod biblioteki dynamicznie ładowanej (\texttt{so} oznacza Shared Object) więc może być tak, że wiele procesów naraz
+używa tego kodu. 
+Pisanie po współdzielonej pamięci nie jest natomiast zbyt dobrym pomysłem.
+
+Moglibyśmy dać każdemu procesowi osobną kopię, ale to nam zjada pamięć, bo te biblioteki nie są współdzielone bez powodu (są duże).

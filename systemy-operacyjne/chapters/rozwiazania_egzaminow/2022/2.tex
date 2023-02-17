@@ -1,0 +1,13 @@
+\begin{minted}[frame=lines, linenos, fontsize=\small]
+{c++}
+   int main() {
+     int fd[2];
+     pipe(fd);
+     
+     while(1) { 
+       write(fd[1], "A", 1);
+       //w koncu sie tu skonczy miejsce jesli nikt nie bedzie czytac
+     }
+   
+   }
+\end{minted}

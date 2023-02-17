@@ -1,0 +1,11 @@
+Zakładając że exec się uda wypisze on dwie kropki i umrze.
+
+Nastepnie po wysłaniu SIGINT do dzieci nie stanie się nic, bo handler = SIGIGN.
+
+Po SIGUSR1 do całej grupy procesów wypiszą się kolejne dwie kropki gdyż odpali się handler na całej grupie procesów.
+
+SIGUSR2 zamorduje nas wszystkich, więc finalnym outputem będzie 
+
+..
+
+..

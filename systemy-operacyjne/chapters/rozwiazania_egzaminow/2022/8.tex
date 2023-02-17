@@ -1,0 +1,4 @@
+Dobrym pomysłem jest, aby dziecko wykonało się najpierw, jako że, chances are, dziecko wywoła sobie radośnie exec. Jednocześnie, należy pamiętać, że dziecko i rodzic powinni mieć (teoretycznie) całkowicie oddzielną pamięć; nie musimy jednak jej klonować przy forku dopóki któryś z tych procesów actually czegoś nie napisze do pamięci (bo do tego momentu fakt, że pamięć między nimi jest współdzielona ujdzie nam na sucho).
+
+Jako, że dzieci mają tendencję do execowania siebie samych bez pisania do pamięci, fajnie byłoby, aby wykonały się najpierw (bo rodzic po forku może chcieć coś napisać do pamięci, co wymusi kopiowanie całej pamięci -- niespecjalnie efektywne, biorąc pod uwagę że pamięć dziecka po execu i tak pójdzie na śmietnik).
+

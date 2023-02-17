@@ -1,0 +1,9 @@
+Zobaczymy litery ,,a'', ,,c'' oraz ,,d''.
+
+Wynika to z faktu, że \texttt{printf} jest buforowany a \texttt{\_exit} bezceremonialnie kończy program.
+
+\texttt{write} nie jest buforowany, więc od razu zobaczymy jego wyjścia.
+
+\texttt{exit} natomiast grzecznie flushuje bufory zanim zakończy program.
+
+W takim razie tylko kombinacja \texttt{printf} + \texttt{\_exit} nie zostanie wyświetlona.
