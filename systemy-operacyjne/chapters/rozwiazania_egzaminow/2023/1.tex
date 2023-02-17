@@ -1,0 +1,8 @@
+Trzy.
+
+\texttt{setsid} tworzy nową, niezależną od innych procesów sesję.
+
+\texttt{kill 0 SIGUSR1} wyśle sygnał do wszystkich procesów w tej samej sesji, więc w obrębie jednej takiej
+grupy tylko jeden proces wypisze kropkę i od razu zabije wszystkich pozostałych.
+
+Takie sesje będą trzy -- sesja początkowego programu oraz jego dwóch wnuków, więc zobaczymy trzy kropki.

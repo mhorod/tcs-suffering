@@ -1,0 +1,9 @@
+\subsection{Odpowiedź oczekiwana}
+Początek pliku mamy od razu, a koniec pliku dopiero jak odczytamy bloki pośrednie.
+Asymptotycznie to jest czas logarytmiczny, ale w praktyce to drzewo jest bardzo rozgałęzione a dysk ma ograniczony rozmiar więc będzie to jakaś mała stała (rzędu 3).
+
+\subsection{Spekulacje}
+I-node trzyma plik jako takie drzewko, które zawiera wskaźniki do bezpośrednich danych  oraz wskaźniki do kolejnego poziomu na którym znowu są bezpośrednie dane oraz kolejne wskaźniki...
+
+Generalnie do pierwszych bajtów jest się łatwiej dostać bo nie wymagają skoków do tych pośrednich bloków,
+ a żeby odczytać coś z końca pliku to trzeba wykonać jakoś logarytmicznie wiele skoków i odczytów z dysku. (NOTE: Tego z logarytmicznością za kija nie jesteśmy pewni bo w sumie to nie rozumiemy co się dzieje, elo)

@@ -1,0 +1,5 @@
+To zadanie jest śmieszne.
+
+Rodzic po forku woła jeszcze raz maina, wypisuje kropkę, widzi $f$ równe 1 i sobie exituje.
+
+Natomiast dziecko odpala ten sam proces ponownie za pomocą execa (przy czym to jest nowy proces, bo exec and stuff, więc $f$ jest wyzerowane). W ten oto piękny sposób cały cykl życia się powtarza i otrzymujemy proces wypisujący kropki w nieskończoność. Jednocześnie zauważmy, że w dowolnym momencie pracują maksymalnie 2 procesy równolegle, więc raczej nie walniemy w limit liczby procesów. Nawet Minix się na tym nie krztusi, a to już jest osiągnięcie. 

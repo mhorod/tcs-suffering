@@ -1,0 +1,28 @@
+Po uważnym przeczytaniu tego kodu zauważamy o co tak naprawdę jest pytanie.
+Otóż chodzi o to, w jaki sposób programy wykonane przez \texttt{fork} oraz \texttt{exec} zachowują się względem obsługi sygnałów, którą ustawił rodzic.
+
+Mamy tutaj trzy sposoby na obsługę sygnału:
+\begin{enumerate}
+    \item ustawienie handlera
+    \item zablokowanie sygnału za pomocą \texttt{sigprocmask}
+    \item ustawienie sygnału \texttt{SIGINT} jako ignorowanego
+\end{enumerate}
+
+Śmieszna rzecz polega na tym, że \texttt{SIGUSR1} jest tutaj ,,blokowane'' poprzez ustawienie jakiegoś handlera (czyli tak naprawdę nie jest to blokada sygnału); to z kolei powoduje, że jak poleci exec to ten handler jest brutalnie i ordynarnie \textbf{wywalany}. 
+
+Natomiast w przypadku sygnałów \texttt{SIGUSR2} i \texttt{SIGINT} ustawiamy nie handler, a maskę sygnałów dla systemu. Maska sygnałów nie jest \textbf{wywalana} po execu, więc posłanie dziecku takich sygnałów generalnie go nie zakończy.
+
+Ponieważ jednak w kodzie najpierw dowalamy dziecku \texttt{SIGUSR1}, to spada ono z rowerka po wypisaniu jednej kropki. 
+
+Dla pełności podajemy jeszcze inne możliwe scenariusze (bo ten jest nudny):
+\begin{enumerate}
+    \item Najpierw strzelamy \texttt{SIGUSR2}, potem \texttt{SIGUSR1}, na końcu \texttt{SIGINT}.
+    
+    W takiej sytuacji wypisane są dwie kropki, bo tak jak napisaliśmy, maska jest zachowana przy \texttt{exec}u.
+    
+    \item Najpierw strzelamy \texttt{SIGINT}, potem \texttt{SIGUSR2}, na końcu \texttt{SIGUSR1}
+    
+    W tej sytuacji wypisane będą trzy kropki, bo \texttt{SIGINT} zostanie olany, \texttt{SIGUSR2} zablokowany, więc dopiero \texttt{SIGUSR1} ubije nam kota.
+\end{enumerate}
+
+TL;DR: Przy execu maski się dziedziczą, handlery nie. Ale heca. 

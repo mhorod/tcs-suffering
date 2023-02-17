@@ -1,0 +1,11 @@
+A dlaczego miałaby być wyzerowana? :|
+
+Nie rozmawialiśmy o tym skąd się może to wziąć, chyba po prostu za stary egzamin robimy :)
+
+Obsługa sygnałów może nam tutaj trochę namieszać.
+W momencie przyjścia sygnału odpala się handler, który musi działać na jakimś stosie. Stos ten rozszerzy nam tymczasowo 
+zwykły stos programu, a po zakończeniu obsługi zostaną tam śmieci z handlera.
+
+Ponadto dokładany jest też stan procesu oraz \texttt{siginfo} (przed stosem handlera).
+
+Nikt tego nie sprząta bo po co.

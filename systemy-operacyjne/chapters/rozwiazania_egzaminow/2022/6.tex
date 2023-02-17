@@ -1,0 +1,8 @@
+\begin{enumerate}
+    \item \textit{Ready} -- Jeżeli proces czeka aż procesor pozwoli mu zacząć dziamać 
+    \item \textit{Blocked} -- Jeśli proces czeka na jakieś zdarzenie (np. na odczyt \textit{read} czy dostanie odpowiedzi na wiadomośc na Minixie)
+    \item \textit{Swapped} -- Jeśli system uzna że nie ma odpowiednio dużo RAMu i musi zapisać stan jakiegoś procesu na dysk twardy to może czasem tak zrobić; wtedy status procesu jest \textit{swapped}.
+    \item \textit{Zombie} -- Proces umarł, ale rodzic jeszcze go jeszcze nie zwaitował, więc system musi trzymać o nim jakąś informację w tabeli procesów (np. status z jakim się on zakończył).
+\end{enumerate}
+
+Patrz: \url{https://www.geeksforgeeks.org/states-of-a-process-in-operating-systems/}

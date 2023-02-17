@@ -1,0 +1,16 @@
+% mom pick me up im scared
+
+Flagi w \texttt{mkfifo} zdają się jedynie ustawiać pozwolenia, żeby użytkownik mógł z niej czytać i pisać więc tym się nie przejmujemy.
+
+Pamiętamy, że \texttt{open} blokuje aż oba końce są otwarte, ale tutaj mamy taką zabawną sytuację, że robimy \texttt{O\_RDWR}, a to znaczy, że otwieramy oba końce naraz.
+
+W takim razie dziecko, otworzy sobie fifo, wpisze do niego TIC oraz odczyta z niego TIC jeszcze zanim rodzic zdąży wstać ze swojego \texttt{sleep(3)}.
+Oczywiście po zakończeniu roboty z fifo wypisze elegancko \texttt{TICTIC}
+na wyjście.
+
+Po tym wszystkim budzi się rodzic, który chciałby coś odczytać z pustego fifo; \texttt{read} mu powie, że spoko, gość na drugim końcu z pewnością coś zaraz napisze.
+Problem jest taki, że na drugim końcu jest ten sam proces, który właśnie wisi na readzie.
+
+Całe szczęście mamy alarm, który ubije rodzica, który czekałby tak w nieskończoność.
+
+Ostatecznie na wyjściu zobaczymy jedynie \texttt{TICTIC}

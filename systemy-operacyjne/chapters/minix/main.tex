@@ -1,0 +1,116 @@
+\section{Wstęp}
+Mamy na celu stworzyć serwer na Minixie, który implementuje mechanizm barier. 
+
+Bariera to taki cosiek, na którym procesy mogą czekać w oczekiwaniu na inne procesy.
+Konkretniej -- bariera ma ustaloną szerokość \( w \). Jeśli na barierze czeka co najmniej \( w \) procesów
+to wszystkie zostają wznowione. W przeciwym razie procesy nadal czekają.
+
+\section{Podstawa dzialania}
+
+Sama implementacja syscalli jest generalnie prosta i bazuje na jednej, fundamentalnej i trywialnej obserwacji: proces czekający na odpowiedź na wysłaną przez siebie wiadomość za pomocą mechanizmu \textit{sendrec} jest zablokowany do momentu otrzymania odpowiedzi. Jest to bardzo przydatne, bo to oznacza że nas serwer z barierami dostając syscalla mówiącego ,,ej zawieś mnie na takiej barierze'' po prostu nie musi na nią odpowiadać żeby proces sobie wisiał. W momencie gdy uznamy, że czas ,,puścić'' wszystkie procesy z danej bariery, po prostu posyłamy do każdego z nich jakąś wiadomość. 
+
+Można się zapytać, jak powinniśmy trzymać informacje o tym, które procesy są w jakiej barierze. Nasuwa się tu zwykła lista linkowana, ale po stronie systemu staramy się unikać wywołań funkcji \textit{malloc}. Wynika to z faktu, że to generuje potencjał na deadlock, bo wymaga zadzwonienia do jakiegoś serwera i zablokowania się (a jednocześnie sami jesteśmy serwerem i szybko może stać się głupia sytuacja). Korzystamy więc z istnienia makra \texttt{NR\_PROCS}, które jest ustalone na jakąś małą liczbę (presumably, 256). To oznacza, że możemy zaimplementować listę kursorowo, dowalając sobie ordynarnie tablicą na \texttt{NR\_PROCS} elementów. Fajnie. 
+
+Do dokladniejszej implementacji przejdziemy w kolejnych sekcjach.
+
+\section{Strona użytkownika}
+
+Od strony użytkownika implementacja wygląda tak, jak to robiliśmy w przypadku poprzednich zadań.
+\begin{itemize}
+    \item Dodajemy nagłówek \texttt{/usr/src/include/barriers.h}, w którym są definicje zadanych funkcji.
+    \item Aktualizujemy \texttt{/usr/src/include/Makefile} o tenże nagłówek
+    \item W pliku \texttt{/usr/src/lib/libc/sys-minix/barriers.c} piszemy implementację tych funkcji.
+        
+        Ponieważ nie znamy adresu naszego serwera to będziemy potrzebowali wywołać \texttt{minix\_rs\_lookup} z nagłówka \texttt{<minix/rs.h>}.
+        
+        Wykonujemy \texttt{\_syscall}\footnote{Dla fanów sportów ekstremalnych informujemy, że można po prostu użyć również gołego \textit{sendrec}-a. Nie powiemy kto tak zrobił, ale jego imię zaczyna się na ,,D'', a kończy na ,,ominik''. } i mapujemy errno z \texttt{EDEADSRCDST} na \texttt{EDEADEPT} żeby zgadzało się z opisem zadania.
+    \item Aktualizujemy \texttt{/usr/src/lib/libc/sys-minix/Makefile.inc}
+    \item opcjonalnie dodajemy sobie odpowiednie makra w \texttt{/usr/src/include/minix/com.h} -- nie trzeba wtedy pamiętać liczb syscalli ani pól wiadomości, w których znajdują się informacje.
+\end{itemize}
+
+\section{Serwer barier}
+    Warto zacząć od poczytania implementacji serwera \texttt{ipc} -- jest ona dość podobna do tego co my potrzebujemy zrobić. Generalnie to
+    \begin{enumerate}
+        \item Podpinamy się do SEF-a -- \texttt{env\_setargs(argc, argv); sef\_startup();}
+        \item W pętli odbieramy wiadomość -- \texttt{message m; sef\_receive(ANY, &m);}
+        \item Sprawdzamy \texttt{m.call\_type} i na jego podstawie wywołujemy odpowiednią funkcję lub stwierdzamy, że komuś się coś pomieszało.
+        \item Implementujemy podstawowe mechanizmy
+            \begin{itemize}
+                \item \texttt{do\_barrier\_init} po prostu inicjalizuje odpowiednią barierę i od razu odpowiada czy się udało czy nie
+                \item \texttt{do\_barrier\_destroy} podobnie po prostu deinicjalizuje barierę (o ile nikt na niej nie czeka) i od razu odpowiada
+                \item \texttt{do\_barrier\_wait} dodaje proces do kolejki bariery, ale nie odpowiada mu.
+                Zamiast tego jeśli kolejka jest pełna to budzimy wszystkie procesy, które się w niej znajdują wysyłając do nich pustą wiadomość, której \texttt{m\_type} wynosi \texttt{OK}.
+            \end{itemize}
+        
+    \end{enumerate}
+
+    Warto jeszcze może doprecyzować jak trzymać wszystkie te informacje sensownie.
+    Ponieważ będziemy musieli potem rozmawiać z procfs-em to polecamy taką implementację:
+    
+    W pliku \texttt{/usr/src/servers/barriers/structures.h} definiujemy \texttt{\#BARRIERS 256} 
+    oraz dwie struktury :
+    
+    Strukturę \texttt{barrier}, która trzyma:
+    \begin{itemize}
+        \item szerokość
+        \item liczbę oczekujących procesów
+        \item pierwszy element kolejki
+    \end{itemize}
+    
+    Oraz strukturę \texttt{item}, która trzyma:
+    \begin{itemize}
+        \item endpoint procesu
+        \item id bariery na której on czeka
+        \item następny proces
+        \item poprzedni proces
+    \end{itemize}
+    
+    Dane będziemy przechowywać w dwóch tablicach, których elementami będą powyższe struktury.
+    
+    Tak jak powiedzieliśmy wcześniej -- procesy trzymane są jako listy kursorowe tj. zamiast wskaźników trzymamy indeks w tablicy. Mając endpoint procesu, jego indeksem będzie slot w tabeli procesów, który możemy wyłuskać makrem \texttt{\_ENDPOINT\_P}.
+    
+    Aby uprościć sobie smutną implementację listy wiązanej warto zaimplementować kolejkę jako listę cykliczną z wartownikiem.
+
+\section {Jak dogadać się z PMem}
+Wszystko fajnie, ale w wymaganiach jest napisane, że serwer barier w przypadku gdy ktoś kto czekał w barierze i oberwał sygnałem ma przestać na niej czekać (analogicznie do tego, jak oberwanie sygnałem przerywa reada). Jak to realizujemy? Istnieje sobie serwer \textit{PM}, który zajmuje się właśnie sygnałami i takimi pięknymi rzeczami. W związku z powyższym, wystarczyłoby się tutaj ,,wstrzelić'' gdzieś PMowi do odpowiedniej funkcji i kazać mu informować nasz serwer, że jakiś proces oberwał właśnie sygnałem. Pojawia się tu spoiler: odpowiednie miejsce do takich akcji znajduje się w pliku \texttt{signal.c} (kto by pomyślał?), a funkcja która się tym zajmuje to \textit{unpause}. Można sobie spojrzeć na jej implementację -- jest tam już mechanizm dzwonienia do \textit{VFS}a w bardzo analogicznej sprawie.
+
+Możemy wręcz skopiować funkcję \texttt{tell\_vfs}, która wysyła wiadomość, tyle że do naszego serwera.
+Odbierając wiadomość potrzebujemy sprawdzić czy jest ona od PMa i wywalić przerwany/zabity proces oraz wysłać mu wiadomość z errno \texttt{EINTR}.
+
+Jeśli proces spadł z rowerka również chcemy poinformować o tym barriersa -- funkcja która się wywołuje, gdy proces oberwał sygnałem i umarł to \textit{sig\_proc\_exit}. 
+Można też skipnąć zbędne gadanie i pójść bezpośrednio do \texttt{proc\_exit}, na jedno wyjdzie. Chyba.
+
+Oczywiście pozostaje pytanie jak zrobić, żeby \textit{PM} wiedział, na jaki endpoint zadzwonić jeśli chodzi o serwer barier. Są różne podejścia:
+
+\begin{enumerate}
+    \item funkcja \textit{minix\_rs\_lookup}, która dzwoni do \textit{RS}a i prosi go o endpoint danego serwera: zły plan, prosto doprowadzić do deadlocku
+    \item dodanie do \textit{barriers}a kodu, który każe mu dzwonić do \textit{PM}a gdy \textit{barriers} wstaje, aby podać mu swój endpoint (i żeby \textit{PM} wiedział do kogo dzwonić). Wtedy też musimy jakoś informować \textit{PM}a o tym, że \textit{barriers} jest wyłączany, żeby nie próbował dzwonić do serwera który ktoś włączył, a potem wyłączył
+    \item wyszukiwanie \textit{barriersa} na pałę w tablicy procesów \textit{PM}a; wbrew pozorom nie jest to aż taki zły pomysł. While we're at it, przy iterowaniu przez tabelę procesów \textbf{zawsze sprawdzajcie flagę IN\_USE}. Inaczej zaczniecie łapać dane o procesach które zostały ubite; w szczególności możecie po resecie barriersa dowiedzieć się, że \textit{PM} źle adresuje wiadomości. Fun. 
+\end{enumerate}
+
+\section{Procfs}
+Kiedy wywołujemy \texttt{cat /proc/barriers} to naszym oczom powinno okazać się eleganckie podsumowanie stanu aktywnych barier.
+
+Idziemy zatem do \texttt{/usr/src/servers/procfs/root.c} i tam się bawimy:
+\begin{enumerate}
+    \item Do tablicy \texttt{root\_files} dopisujemy zgodnie ze wzorem odpowiednią linijkę
+    \item kopiujemy definicję dwóch tablic ze strukturami barier i procesów\
+    \item W funkcji \texttt{root\_barriers}
+        \begin{enumerate}
+            \item Szukamy serwera barier w tabeli \texttt{mproc}
+            \item Wywołujemy fajną funkcję \texttt{getsysinfo} dwa razy -- raz na tablicę barier, drugi na tablicę procesów
+            \item Jeśli wszystko dobrze poszło to możemy wypisać te dwie struktury używając funkcji \texttt{buf\_printf}
+        \end{enumerate}
+\end{enumerate}
+
+Dobra, ale \texttt{getsysinfo} samo nie zadziała (w końcu to tylko syscall, który wysyła wiadomość)\footnote{Ponownie, możemy tu też zamiast bawić się w jakieś owijki zrobić własnego sendreca i być hepi}, musimy jeszcze przekonać serwer barier, żeby na nie odpowiadał.
+
+Wracamy więc do serwera barier i sprawdzamy przypadkiem czy nie dostaliśmy wiadomości o typie \texttt{COMMON\_GETSYSINFO}.
+Jeśli tak to odpowiadamy na nie w dość prosty sposób.
+Aby wysłać jakąś tablicę \texttt{T} do gościa, który nas pyta wywołujemy po prostu:
+
+\texttt{sys\_datacopy(SELF, (vir\_bytes)T, m.m\_source, (vir\_bytes)m.SI\_WHERE, m.SI\_SIZE)}
+
+Sprawdzamy więc o którą tablicę jesteśmy pytani i odsyłamy mu jej zawartość.
+Tak jak wcześniej wpisywaliśmy makra w \texttt{com.h} tak tutaj warto w pliku\\
+\texttt{/usr/src/include/minix/sysinfo.h} dopisać sobie makra na informacje wyciągane od naszego serwera.
