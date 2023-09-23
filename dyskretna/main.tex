@@ -1,5 +1,5 @@
  % Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
-% A potem includujemy za pomocą \input{chapters/...}
+% A potem includujemy za pomocą \include{chapters/...}
 
 % Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
 
@@ -9,7 +9,6 @@
 % Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
 \usepackage{notatki}
 
-\fancyhead[L]{\textbf{\textit{MD}}}
 \author{
 }
 \title{TCS and shitposting}
@@ -20,39 +19,39 @@
 % Front page and table of contents
 \frontmatter
 
-\input{titlepage}
+\include{titlepage}
 
 \tableofcontents
-\input{license}
+\include{license}
 
 % Actual content
 \mainmatter
 
 \chapter{Kombinatoryka}
-\input{chapters/combinatorics/main}
+\include{chapters/combinatorics/main}
 
 \chapter{Zasada włączeń i wyłączeń}
-\input{chapters/exclusion-inclusion/main}
+\include{chapters/exclusion-inclusion/main}
 
 \chapter{Posety}
-\input{chapters/posets/main}
+\include{chapters/posets/main}
 
 \chapter{Twierdzenie Ramseya}
-\input{chapters/ramsey/main}
+\include{chapters/ramsey/main}
 
 \chapter{Funkcje tworzące}
-\input{chapters/generating_functions/main}
+\include{chapters/generating_functions/main}
 
 \chapter{Przepływy}
-\input{chapters/flows/main}
+\include{chapters/flows/main}
 
 \chapter{Skojarzenia}
-\input{chapters/matchings/main}
+\include{chapters/matchings/main}
 
 \chapter{Kolorowanie grafów}
-\input{chapters/graph-coloring/main}
+\include{chapters/graph-coloring/main}
 
 \chapter{Grafy, ale nie kolorowanie}
-\input{chapters/graph-misc/main}
+\include{chapters/graph-misc/main}
 
 \end{document}
