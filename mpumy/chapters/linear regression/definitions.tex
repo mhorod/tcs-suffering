@@ -1,0 +1,11 @@
+\section{Definicje}
+
+\begin{definition}
+Mówimy, że model (przewidujący wyjścia) jest \textbf{liniowy} jeśli jego wyjścia można opisać funkcją
+\[
+    f_\theta(x) = \theta_0 + \sum_{i=1}^k \theta_i \cdot \phi_i(x_i)
+\]
+gdzie funkcje \( \varphi_i \) są dowolne i nazywamy je \textbf{funkcjami bazowymi}.
+\end{definition}
+
+Zauważmy, że model jest liniowy pod względem parametru \( \theta \) a nie względem \( x \). Używając odpowiednich funkcji bazowych możemy opisywać funkcje \( f \) które nie są funkcjami liniowymi.

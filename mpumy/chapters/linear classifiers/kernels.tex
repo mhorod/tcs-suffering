@@ -1,0 +1,115 @@
+\section{Funkcje jądrowe}
+
+W praktyce dane rzadko są liniowe, a SVM umie dopasować tylko hiperpłaszczyznę.
+Aby sobie z tym poradzić moglibyśmy wprowadzić funkcje bazowe \( \phi \) tak jak miało to miejsce w przypadku regresji liniowej.
+
+Nasz problem jest wtedy postaci
+\[
+    \min_{w, b} \frac{1}{2} \norm{w}^2 + \frac{C}{m}\sum_{i=1}^m \pars{1 - y^{(i)} \cdot \pars{w^T \phi(x^{(i)}) + b}}
+\]
+co wiemy że jest równoważne maksymalizacji
+\[
+    \sum_{i=1}^m \alpha_i - \frac{1}{2} \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j \cdot y^{(i)}y^{(j)} \cdot \phi(x^{(i)})^T\phi(x^{(j)})
+\]
+pod warunkiem
+\[
+    \sum_{i=1}^m \alpha_i y^{(i)} = 0
+\]
+gdzie \( \alpha_i \in \brackets{0, \frac{C}{m}} \)
+
+Zauważamy, że możemy stworzyć funkcję jądrową \( \kappa \)
+\[
+    \kappa(x^{(i)}, x^{(j)}) = \phi(x^{(i)})^T\phi(x^{(j)}) = \dotproduct{ \phi(x^{(i)}), \phi(x^{(j)})}
+\]
+
+Przykładową funkcją jądrową, która jest fajna jest jądro gaussowskie:
+\[
+    \kappa(x, z) = \exp\pars{\frac{-\norm{x - z}^2}{2\tau^2}}
+\]
+
+\begin{definition}
+Dla jądra \( \kappa \) oraz elementów \( x^{(1)}, \dots, x^{(m)} \) definiujemy \textbf{macierz Grama}
+\[
+    K = \begin{bmatrix}
+    \kappa(x^{(1)}, x^{(1)}) & \hdots & \kappa(x^{(1)}, x^{(m)}) \\
+    \vdots & \ddots & \vdots \\
+    \kappa(x^{(m)}, x^{(1)}) & \hdots & \kappa(x^{(m)}, x^{(m)})
+    \end{bmatrix}
+\]
+\end{definition}
+
+\begin{theorem}[Mercer]
+    \( \kappa \) jest funkcją jądrową wtedy i tylko wtedy, gdy dla dowolnych obserwacji macierz Grama jest dodatnio półokreślona.
+\end{theorem}
+\begin{theorem}
+    Następujące warunki są równoważne:
+    \begin{itemize}
+        \item \( M \) jest dodadnio półokreślona
+        \item \( M = R^TR \) dla pewnego \( R \)
+        \item wartości własne \( M \) są nieujemne
+    \end{itemize}
+\end{theorem}
+
+\subsection{Przykłady funkcji jądrowych}
+\begin{itemize}
+    \item Jądro gaussowskie
+    \[
+        \kappa(x, z) = \exp\pars{\frac{-\norm{x - z}^2}{2\tau^2}}
+    \]
+    \item Dla skończonego zbioru \( D \) i jego podzbiorów \( A_1, A_2 \)
+    \[
+        \kappa(A_1, A_2) = 2^{\card{A_1 \cap A_2}}
+    \]
+    \item Dla rozkładu prawdopodobieństwa \( p \)
+    \[
+        \kappa(x, z) = p(x)p(z)
+    \]
+    \item Dla rodziny rozkładów \( \set{p_i : i \in \natural} \) oraz rozkładu wag \( p(i) \)
+    \[
+        \kappa(x, z) = \sum_{i \in \natural} p_i(x)p_i(z)p(i)
+    \]
+    \item Mnożenie przez stałą
+    \[
+        c\kappa(x, z)
+    \]
+    \item Mnożenie przez funkcję 
+    \[
+        f(x)\kappa(x, z)f(z)
+    \]
+    \item Suma
+    \[
+        \kappa_1(x, z) + \kappa_2(x, z)
+    \]
+    \item Przeliczalna suma
+    \[
+        \sum_{i \in \natural} \kappa_i(x, z)
+    \]
+    \item Iloczyn
+    \[
+        \kappa_1(x, z) \kappa_2(x, z)
+    \]
+    \item Zastosowanie wielomianu o nieujemnych współczynnikach
+    \[
+        P(\kappa(x, z))
+    \]
+    \item Zastosowanie funkcji wykładniczej
+    \[
+        \exp(\kappa(x, z))
+    \]
+    \item Złożenie z funkcją
+    \[
+        \kappa(\phi(x), \phi(z))
+    \]
+    \item Mnożenie przez symetryczną dodatnio półokreśloną macierz
+    \[
+        \kappa(x, z) = x^TAz
+    \]
+    \item Suma po współrzędnych
+    \[
+        \sum_{i=1}^k \kappa_i(x_i, z_i)
+    \]
+    \item Iloczyn po współrzędnych
+    \[
+        \prod_{i=1}^k \kappa_i(x_i, z_i)
+    \]
+\end{itemize}

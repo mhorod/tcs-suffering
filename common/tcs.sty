@@ -3,8 +3,11 @@
 
 \usepackage{amsmath}
 
+% Common stuff
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\prob}{P}
+\let\eps\varepsilon
 
 \DeclarePairedDelimiter{\parenthesesdelimiter}{(}{)}
 % prefer \pars{stuff} to \left(stuff\right) and similarly with \brackets, \braces and \set
@@ -19,10 +22,13 @@
 \def\floor{\floordelimiter*}
 \DeclarePairedDelimiter{\ceildelimiter}{\lceil}{\rceil}
 \def\ceil{\ceildelimiter*}
+\DeclarePairedDelimiter{\dotproductdelimiter}{\langle}{\rangle}
+\def\dotproduct{\dotproductdelimiter*}
 
 \let\set\braces
 % cardinality of a set
 \let\card\abs
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
 
 \DeclareRobustCommand{\stirling}{\genfrac\{\}{0pt}{}}
 \DeclareRobustCommand{\stirlingOne}{\genfrac[]{0pt}{}}
@@ -30,10 +36,16 @@
 % Better theorem styling
 \usepackage{thmtools}
 \declaretheorem[numberwithin=section,name=Twierdzenie]{theorem}
-\declaretheorem[numberwithin=section,name=Lemat]{lemma}
-\declaretheorem[numberwithin=section,name=Ćwiczenie]{exercise}
-\declaretheorem[numberwithin=section,name=Definicja]{definition}
+\declaretheorem[numbered=no,name=Twierdzenie]{theorem*}
 
+\declaretheorem[numberwithin=section,name=Lemat]{lemma}
+\declaretheorem[numbered=no,name=Lemat]{lemma*}
+
+\declaretheorem[numberwithin=section,name=Ćwiczenie]{exercise}
+\declaretheorem[numbered=no,name=Ćwiczenie]{exercise*}
+
+\declaretheorem[numberwithin=section,name=Definicja]{definition}
+\declaretheorem[numbered=no,name=Definicja]{definition*}
 % Common sets
 \def\natural{\mathbb{N}}
 \def\integer{\mathbb{Z}}
@@ -42,12 +54,28 @@
 % Set theory
 \DeclareMathOperator{\im}{im}
 
-% Probability 
+% Probability
+\DeclareMathOperator{\prob}{P}
 \newcommand{\expected}[1]{\mathbb{E}\brackets{#1}}
 \DeclareMathOperator{\Var}{Var}
 \newcommand{\variance}[1]{\Var\brackets{#1}}
 \DeclareMathOperator{\Cov}{Cov}
 \newcommand{\covariance}[2]{\Cov\pars{#1, #2}}
+\newcommand\given[1][]{\:#1\vert\:}
+
+% Probability distributions
+\DeclareMathOperator{\Beta}{Beta}
+\DeclareMathOperator{\Binom}{Binom}
+\DeclareMathOperator{\Bern}{Bern}
+\DeclareMathOperator{\Poi}{Poi}
+\DeclareMathOperator{\Uni}{Uni}
+\DeclareMathOperator{\Normal}{\mathcal{N}}
+
+% Estimators
+\DeclareMathOperator{\bias}{bias}
+\newcommand{\mle}[1]{\widehat #1_{MLE}}
+\newcommand{\map}[1]{\widehat #1_{MAP}}
+\newcommand{\ls}[1]{\widehat #1_{LS}}
 
 % Information theory
 \DeclareMathOperator{\Channel}{Channel}
@@ -62,3 +90,8 @@
 
 % Graphs
 \newcommand{\Deg}{\text{deg}}
+
+% 
+\newcommand{\indicator}[1]{\mathbf{1}\brackets{#1}}
+
+\newcommand{\KL}[2]{\mathrm{KL}\pars{#1 \parallel #2}}

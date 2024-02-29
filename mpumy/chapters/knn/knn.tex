@@ -1,0 +1,36 @@
+\section{KNN}
+
+Co tu dużo mówić -- mamy jakieś dane, jak chcemy przewidywać wyjście dla nowych wartości to znajdujemy \( k \) najbliższych sąsiadów według jakiejś metryki i wybieramy najczęstszą odpowiedź.
+
+Wybór \( k \):
+\begin{itemize}
+    \item Za małe \( k \) jest podatne na szum/obserwacje odstające
+    \item Za duże \( k \) oznacza duży koszt obliczeniowy
+    \item Zazwyczaj chcemy nieparzyste \( k \)
+    \item Przyjmuje się, że \( k \leq \sqrt{m} \)
+\end{itemize}
+
+Optymalizacje:
+\begin{itemize}
+    \item Wybranie mniejszej liczby cech
+    \item Użycie kd-drzew aby szybko znajdować bliskie punkty
+    \item Nie liczyć odległości dokładnie tylko ją szacować
+    \item Eliminacja redundancji
+\end{itemize}
+
+\subsection{Wady i zalety}
+
+Zalety:
+\begin{itemize}
+    \item brak założeń o danych
+    \item prostota
+    \item wysoka dokładność
+    \item dobre dla regresji i klasyfikacji
+\end{itemize}
+
+Wady:
+\begin{itemize}
+    \item drogie obliczenia
+    \item potrzebujemy trzymać zbiór treningowy
+    \item mało istotne cechy są brane pod uwagę
+\end{itemize}

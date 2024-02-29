@@ -1,0 +1,76 @@
+\section{Analiza składowych głównych (PCA)}
+
+Mamy dane w jakiejś przestrzeni \( \real^d \). Szukamy hiperpłaszczyzny takiej, że jak zrzutujemy na nią punkty to otrzymamy wysoką wariancję.
+Równoważnie chcemy aby suma kwadratów odległości do tejże hiperpłaszczyzny była jak najmniejsza.
+
+Szukamy zatem rzutowania \( P : R^d \rightarrow R^l \), takiego że \( P^2 = P \)
+
+Ponieważ będziemy szukać odwzorowań liniowych to zakładamy, że nasze dane są wyśrodkowane tj. \( \sum_i x^{(i)} = 0 \)
+
+\subsection{Przestrzeń jednowymiarowa}
+
+W przypadku jednowymiarowym (\( l = 1 \)) nasze rzutowanie jest postaci \( \pi(x) = u^T x \) gdzie \( u \in \real^d \)
+
+Chcemy zmaksymalizować 
+\[
+    \Var\pars{u^T X}
+\]
+przy czym zakładamy, że \( \norm{u} = 1 \).
+
+Mamy ponadto
+\[
+    \Var\pars{u^T X} = u^T \Cov(X) u = \frac{1}{m} u^TX^TXu
+\]
+Dla skrócenia zapisu przyjmujemy \( C = X^TX\) i mówimy, że szukamy
+\[
+    \argmax_{u \in \real^d, \norm{u} = 1} u^T C u
+\]
+
+Aby pozbyć się warunku \( \norm{u} = 1 \) przerabiamy ten problem na znane i lubiane mnożniki Lagrange'a
+
+\[
+    L(u, \lambda) = u^T C u - \lambda(u^Tu - 1)
+\]
+
+dostajemy
+\[
+    \frac{\partial L}{\partial u} = 2Cu - 2 \lambda u
+\]
+Z czego mamy
+\[
+    Cu = \lambda u
+\]
+W takim razie \( u \) jest wektorem własnym, a ponadto:
+\[
+    u^T C u = u^T \lambda u = \lambda
+\]
+Szukamy zatem największej wartości własnej
+
+\subsection{Przestrzeń wielowymiarowa}
+
+Jeśli \( l > 1 \) to po prostu szukamy przestrzeni rozpiętej na \( l \) wektorach i analogicznie jak w przypadku \( l = 1 \) znajdujemy \( l \) największych wartości własnych macierzy \( X^TX \)
+
+
+\subsection{Zastosowanie SVD}
+Dzięki SVD mamy następujący algorytm na rzutowanie:
+\begin{enumerate}
+    \item Rozkładamy \( X = U\Sigma V^T \)
+    \item Wybieramy \( l \) największych wartości i wektorów własnych dostając macierz
+    \[
+         V_r = \begin{bmatrix}
+            v_1 \dots v_l
+            \end{bmatrix}
+    \]
+    \item Definiujemy rzutowanie
+    \[
+        \pi(x) = V_r^T x
+        \]
+\end{enumerate}
+
+\subsection{Wybór liczby składowych}
+
+Pozostaje pytanie -- jakie \( l \) wybieramy ?
+Ano takie, dla którego suma wybranych składowych jest wystarczająco duża np.
+\[
+    \frac{\sum_{i=1}^l \lambda_i}{\sum_{i=1}^d \lambda_i} \geq 0.95
+\]
