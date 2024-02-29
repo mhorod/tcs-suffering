@@ -1,0 +1,125 @@
+\section{Uogólnione modele liniowe}
+
+\subsection{Wykładnicza rodzina rozkładów}
+
+\begin{definition}
+Niech \( P_\Theta = \set{p(y \given \theta) : \theta \in \Theta} \) będzie parametryczną rodziną rozkładów.
+
+Mówimy, że \( P_\Theta \) jest \textbf{wykładniczą rodziną rozkładów} jeśli dla każdego \( \theta \in \Theta \) istnieje wektor \( \eta \) (parametr naturalny) oraz funkcje \( a(\eta), b(y), T(y) \) takie, że:
+\[
+    p(y \given \eta) = b(y)\exp\pars{\eta^T T(y) - a(\eta)}
+\]
+(nie mylić z rodziną wykładniczych rozkładów, to nie o to chodzi).
+\end{definition}
+
+\subsubsection{Rozkład Bernoulliego}
+
+Mamy rozkład z jednym parametrem \( \phi \), \( p(y \given \phi) = \phi^y(1-\phi)^{1-y} \)
+
+Rozpisujemy 
+\begin{align*}
+    \phi^y(1-\phi)^{1-y} 
+    &= \exp\pars{y \ln \phi + (1 - y) \ln (1 - \phi)} \\
+    &= \exp\pars{y (\ln \phi - \ln (1 - \phi)) + \ln (1 - \phi)} \\
+    &= \exp\pars{y \ln \frac{\phi}{\ln (1 - \phi)} + \ln (1 - \phi)} \\
+\end{align*}
+W efekcie czego dostajemy:
+\begin{itemize}
+    \item \( \eta = \ln \frac{\phi}{1 - \phi} \)
+    \item \( T(y) = y \)
+    \item \( a(\eta) = -\ln(1 - \phi) = \ln(1 + e^\eta) \)
+    \item \( b(y) = 1 \)
+\end{itemize}
+
+\subsubsection{Rozkład normalny}
+
+
+\subsection{Uogólnione modele liniowe}
+
+Chcemy przewidywać wartości \( y \) na podstawie obserwacji \( x \) z jakiejś przestrzeni \( X \times Y \)
+
+Założenia modelu:
+\begin{itemize}
+    \item Dla wejścia \( x \) oraz parametru \( \theta \) zmienna \( y \given x, \theta \) pochodzi z wykładniczej rodziny rozkładów o parametrze \( \eta \)
+    \item \( \eta = \theta^T x \)
+    \item \( h_\theta(x) = \expected{T(y) \given x, \theta} \)
+    \item \( g(\eta) = \expected{T(y) \given \eta} \) to \textbf{kanoniczna funkcja odpowiedzi}
+    \item \( g^{-1}(\eta) \) to \textbf{kanoniczna funkcja łącząca}
+\end{itemize}
+
+\subsubsection{Regresja liniowa}
+
+W regresji liniowej z szumem gaussowskim mamy \( p(y \given x) \sim \Normal(\mu, \sigma^2) \)
+
+Niech \( \sigma^2 \) będzie ustalone.
+Wtedy \( \set{\Normal(\mu, \sigma^2) : \mu \in \real } \) jest rodziną wykładniczą.
+
+Kładziemy \( \eta = \mu, T(y) = y, \expected{T(y) \given x, \theta} = \mu \), \( h_\theta(x) = \mu = \eta = \theta^T x \)
+
+\subsubsection{Regresja logistyczna}
+
+W regresji logistycznej mamy z kolei \( p(y \given x) \sim \Bern(\phi) \), co jest elegancką rodziną wykładniczą.
+
+Mamy \( \eta = \ln \frac{\phi}{1 - \phi} \) zatem \( \phi = \frac{1}{1 + \exp(-\eta)} \)
+
+Ponadto, ponieważ jest to indykator to mamy \( \expected{y \given x, \theta} = \phi \)
+czyli mamy
+\[
+    h_\theta(x) = \phi = \frac{1}{1 + \exp(-\theta^T x)}
+\]
+
+
+\subsubsection{Regresja wieloklasowa (softmax)}
+Załóżmy, że chcemy klasyfikować do więcej niż jednej klasy tj, \( Y = \set{1, \dots, K} \).
+
+Mamy więc 
+\[
+    p(y = i \given x) = \phi_i = \prod_{j=1}^K \phi_j^{\indicator{y=j}}
+\]
+przy czym
+\[
+    \sum_{i=1}^K \phi_i = 1
+\]
+aby dostać wykładniczą rodzinę przekształcamy:
+\begin{align*}
+    P(y \given x)
+        &= \exp\pars{\sum_{j=1}^K \indicator{y = j} \ln \phi_j} \\
+        &= \exp\pars{\ln \phi_K + \sum_{j=1}^K \indicator{y = j} (\ln \phi_j - \ln \phi_K)} \\
+        &= \exp\pars{\ln \phi_K + \sum_{j=1}^{K-1} \indicator{y = j} \ln \frac{\phi_j}{\phi_K}} \\
+\end{align*}
+Sprowadzamy do takiej a nie innej postaci, bo możemy, i ma ona fajne konsekwencje.
+
+Dostajemy
+\begin{itemize}
+    \item \( \eta_i  = \ln \frac{\phi_i}{\phi_K} \)
+    \item \( a(\eta) = -\ln \phi_K \)
+    \item \( b(y) = 1 \)
+    \item \( T(i) \) -- wektor długości \( K - 1 \) z jedynką na \(i\)-tym miejscu, \( T(K) = 0 \)
+\end{itemize}
+
+Zauważamy, że 
+\[
+    \frac{\phi_i}{\phi_K} = \exp(\eta_i)
+\]
+a ponadto
+\[
+    \frac{1}{\phi_K} = \sum_{i=1}^K \frac{\phi_i}{\phi_K} = \sum_{i=1}^K \exp(\eta_i)
+\]
+z czego
+\[
+    \phi_i = \frac{\exp(\eta_i)}{\sum_{i=1}^K \exp(\eta_i)}
+\]
+
+W takim razie
+\begin{align*}
+    h_\theta(x) 
+        &= \expected{T(y) \given x, \theta} \\
+        &= [\phi_1, \dots, \phi_{K-1}]^T 
+\end{align*}
+Czyli
+\begin{align*}
+    \theta_i 
+        &= \phi_i \\
+        &= \frac{\exp(\eta_i)}{\sum_{i=1}^K \exp(\eta_i)} \\
+        &= \frac{\exp(\theta^T_i x)}{\sum_{i=1}^K \exp(\theta^T_i x)}
+\end{align*}

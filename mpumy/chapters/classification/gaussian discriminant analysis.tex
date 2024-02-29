@@ -1,0 +1,33 @@
+\section{Gaussowska analiza dyskryminacyjna}
+
+Mamy dwie klasy \( Y = \set{0, 1} \)
+
+Zakładamy, że klasę \( 1 \) wybieramy z prawdopodobieństwem \( \phi \) oraz że w obrębie każdej klasy dane są generowane rozkładem normalnym, z tą samą macierzą kowariancji tj.
+\[
+    p(x \given y = i) \sim \Normal(\mu_i, \Sigma)
+\]
+gdzie
+\[
+    \Normal(x \given \mu_i, \Sigma) = \frac{1}{(2\pi)^{k/2}\sqrt{\card{\Sigma}}} 
+    \exp\pars{-\frac{(x - \mu_i)^T\Sigma^{-1}(x - \mu_i)}{2}}
+\]
+
+Mając dame etykiety będziemy chcieli znaleźć parametry \( \theta = (\phi, \mu_0, \mu_1, \Sigma) \).
+
+Maksymalizujemy log-wiarygodność
+
+\begin{align*}
+    \ell(\theta)
+        &= \ln \prod_{i=1}^m p(x^{(i)}, y^{(i)} \given \theta) \\
+        &= \ln \prod_{i=1}^m p(x^{(i)} \given y^{(i)}, \theta) p(y^{(i)} \given \theta) \\
+        &= \sum_{i=1}^m \ln p(x^{(i)} \given y^{(i)}, \theta) + \sum_{i=1}^m \ln p(y^{(i)} \given \theta) \\
+        &= \sum_{i=1}^m \ln \Normal(x^{(i)} \given \mu_{y^{(i)}}, \Sigma) + \sum_{i=1}^m \ln \pars{\phi^{y^{(i)}}(1 -  \phi)^{1 - y^{(i)}}}
+\end{align*}
+
+Założenie, że oba rozkłady mają tę samą macierz kowariancji jest istotne -- dzięki temu dostajemy
+\[
+    p(y = 1 \given x) = \frac{1}{1 + \exp(-\eta^T x)}
+\]
+gdzie \( \eta \) jest stałą wyznaczoną na podstawie parametrów modelu.
+
+Innymi słowy -- mamy tutaj regresję logistyczną, jeśli macierze kowariancji byłyby różne to już nie byłoby tak wesoło.

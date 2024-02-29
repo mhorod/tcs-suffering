@@ -1,0 +1,37 @@
+\section{k-means}
+
+\subsection{k-means}
+Tutaj ustalamy a priori liczbę klastrów \( k \) i wykonujemy algorytm:
+\begin{enumerate}
+    \item Wylosuj \( k \) punktów \( \mu_1, \dots, \mu_k \) -- będą to ,,centroidy''  naszych klastrów
+    \item Aż do stabilizacji powtarzaj:
+    \begin{enumerate}
+        \item Przydziel każdy punkt x do klastra najbliższego \( \mu_i \)
+        \item Policz prawdziwe centroidy tak uzyskanych klastrów
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{k-means++}
+
+Jeśli mamy pecha i wybierzemy słabe centroidy to k-means daje złe wyniki.
+Aby sobie nieco z tym poradzić chcemy wybierać centroidy w trochę bardziej zbalansowany sposób -- tak aby były one mniej więcej równo rozłożone po przestrzeni.
+
+Oczekiwany błąd jest co najwyżej \( 8(\lg k + 2) \) razy gorszy niż minimalny jaki możemy uzyskać.
+
+\subsection{Wady i zalety}
+
+Zalety:
+\begin{itemize}
+    \item Proste
+    \item dobre dla dużych i kulistych danych
+    \item działa w czasie liniowym
+    \item klastry są zwarte
+\end{itemize}
+
+Wady:
+\begin{itemize}
+    \item wymaga wielu przebiegów ze względu na randomizację
+    \item wymaga skalowania danych
+    \item działa tylko na danych numerycznych
+    \item nie radzi sobie z niekulistymi kształtami
+\end{itemize}

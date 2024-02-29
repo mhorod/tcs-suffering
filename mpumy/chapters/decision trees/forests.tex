@@ -1,0 +1,82 @@
+\section{Lasy losowe}
+
+\subsection{Bootstrapping}
+\begin{definition}
+Niech \( S = \set{x^{(1)}, \dots, x^{(m)}} \subseteq X \)
+
+\textbf{Próbą bootstrapową} z próbki \( S \) nazywamy dowolny \( m \)-elementowy multizbiór elementów wybranych \( S \) losowanych jednostajnie ze zwracaniem.
+\end{definition}
+
+Można wyliczyć, że w takiej próbce znajdzie się ok. 63\% obserwacji z \( S \)
+
+Okazuje się, że jeśli szacujemy jakiś parametr \( \phi \) zgodnie z którym zostały wybrane dane do \( S \) to histogram na próbkach boostrapowych jest podobny do niezależnie utworzonych próbek.
+
+Dzięki bootstrapowaniu możemy wygenerować dużo próbek co jest pomocne gdy nie mamy dostępu do całej populacji.
+
+Ponadto mamy ciekawą własność -- niech \( Z_1, \dots, Z_n \) będą parami niezależnymi zmiennymi z tego samego rozkładu o średniej \( \mu \) i wariancji \( \sigma^2 \).
+
+Mamy wtedy
+\[
+    \expected{\frac{1}{n}\sum_{i=1}^n Z_i} = \mu
+\]
+oraz
+\[
+    \Var\pars{\frac{1}{n}\sum_{i=1}^n Z_i} = \frac{\sigma^2}{n}
+\]
+dostaliśmy mniejszą wariancję.
+
+Jedyny problem jest taki, że próbki są niezależne pod warunkiem oryginalnej próbki \( S \), ale są zależne względem całej populacji.
+
+\subsection{Bagging - bootstrap aggregate}
+Niech \( S_1, \dots, S_B \) będą niezależnymi \( m \)-elementowymi zbiorami treningowymi.
+Dostajemy \( B \) hipotez \( \widehat h_1(x), \dots, \widehat h_B(x) \) na podstawie których tworzymy nową hipotezę.
+
+Dla regresji:
+\[
+    \widehat h(x) = \frac{1}{B} \sum_{i=1}^B \widehat h_i(x)
+\]
+podobnie dla klasyfikacji
+\[
+    \widehat h(x) = \argmax_{k \in \set{1, \dots, K}} \frac{1}{B} \sum_{i=1}^B \indicator{\widehat h_i(x) = k}
+\]
+
+W praktyce mimo zależności uśrednianie hipotez daje sensowne wyniki.
+
+\subsection{Błąd out-of-bag}
+
+Jak zauważyliśmy, każda próbka zawiera ok. 63\% obserwacji, pozostałe potraktujemy jako dane walidacyjne.
+
+Dla \( x^{(i)} \in S \) definiujemy zbiór próbek do których nie trafił:
+\[
+    S^{(i)} = \set{b : x^{(i)} \notin S_b}
+\]
+
+Tworzymy hipotezę out-of-bag:
+\[
+    \widehat h_{OOB}\pars{x^{(i)}} = \frac{1}{\card{S^{(i)}}} \sum_{b \in S^{(i)}} \widehat h_b\pars{x^{(i)}}
+\]
+
+Błąd dla tej hipotezy nazywamy błędem out-of-bag.
+
+\subsection{Las losowy}
+Las losowy powstaje przez utworzenie wielu drzew decyzyjnych, każde na innej próbce bootstrapowej.
+Podczas konstrukcji drzewa w każdym węźle losujemy podzbiór cech do którego rozważań się zawężamy.
+
+
+\subsection{Wady i zalety}
+
+Zalety:
+\begin{itemize}
+    \item mają mniejszą wariancję niż drzewa decyzyjne -- mniejsze przeuczenie
+    \item radzą sobie z brakującymi danymi
+    \item dobre dla dużych wielowymiarywych danych
+    \item mniej wrażliwe na zmiany w obserwacjach
+\end{itemize}
+
+Wady:
+\begin{itemize}
+    \item mniej intuicyjne
+    \item nie zawsze dobre dla regresji
+    \item jeszcze dłużej się liczy niż drzewa decyzyjne
+    \item ryzyko przeuczenia gdy cechy są silnie skorelowane
+\end{itemize}

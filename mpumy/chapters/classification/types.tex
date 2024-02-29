@@ -1,0 +1,32 @@
+\section{Rodzaje klasyfikacji}
+
+\subsection{Klasyfikacja generatywna}
+
+W klasyfikacji generatywnej staramy się dla każdej klasy określić jej rozkład. Kiedy dostajemy nowe wejście sprawdzamy z jakim prawdopodobieństwem należy do której z klas i na tej podstawie przydzielamy mu etykietę.
+
+Co ciekawe takie podejście da się stosować w uczeniu bez nadzoru.
+
+Przykładowe klasyfikatory:
+\begin{itemize}
+    \item Naiwny Bayes
+    \item Sieci Bayesowskie
+    \item Pola Markowa
+    \item GANy
+    \item gaussowska analiza dyskryminacyjna
+\end{itemize}
+
+\subsection{Klasyfikacja dyskryminatywna}
+
+W klasyfikacji dyskryminatywnej z kolei staramy się rozgraniczyć dane od siebie -- nie interesuje nas dokładnie w jaki sposób powstają dane.
+Decyzję dla nowego wejścia podejmujemy sprawdzając po której stronie granicy się znajduje.
+
+Na ogół to podejście sprawdza się w uczeniu nadzorowanym -- skądś musimy mieć dane treningowe na podstawie których tworzymy granice, a danych dobrze jak jest sensownie dużo.
+
+Przykładowe klasyfikatory:
+\begin{itemize}
+    \item Regresja logistyczna
+    \item SVM
+    \item Sieci neuronowe
+    \item KNN
+    \item drzewa decyzyjne
+\end{itemize}
