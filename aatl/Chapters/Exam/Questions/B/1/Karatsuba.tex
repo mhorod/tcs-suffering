@@ -1,0 +1,31 @@
+Algorytm mnożenia Karatsuby opiera się o technikę, dziel i zwyciężaj oraz zauważeniem jednego ciekawego faktu jak możemy oszczędzić jedno mnożenie.
+\newline \newline
+Idea:
+\newline
+Na wejściu otrzymujemy dwie liczby A oraz B, n-cyfowe ( mogą być różnych rozmiarów ale to jest tylko kwestia techniczna jak to rozwiązać ), możemy założyć, że są to liczby w systemie binarnym i $n$ jest potęgą dwójki ( jak nie to dopychamy zerami od przodu ).
+\newline \newline
+Następnie podzielmy nasze liczby na pół (względem długości zapisu) i przedstawmy je jako:
+
+$$A = A_1 \cdot K + A_0 $$
+$$B = B_1 \cdot K + B_0 $$
+Gdzie $K = 2^{n/2}$.
+\newline \newline
+Zauważmy teraz, że $$A \cdot B = A_1  B_1  K^2 + A_1  B_0  K + A_0  B_1  K + A_0  B_0$$
+Jest to zwykłe mnożenie po rozbiciu $A$ oraz $B$. Zauważmy, że mnożenie przez $K$ jest w czasie $\bigO(n)$, gdyż jest to zwykłe przesunięcie bitowe oraz dodawanie jest również w czasie $\bigO(n)$ więc jedynymi trudnościami są tutaj iloczyny w postaci $A_i B_j$.
+\newline \newline
+Następną rzeczą, na którą musimy wpać jest jak zaoszczędzić jedno mnożenie.
+
+$$(A_0 + A_1)(B_0 + B_1) = A_0 B_0 + A_0 B_1 + A_1 B_0 + A_1 B_1$$
+Z czego wynika
+
+$$(A_0 + A_1)(B_0 + B_1) - A_0 B_0 - A_1 B_1 = A_0 B_1 + A_1 B_0$$
+
+A więc możemy obliczyć rekurencyjnie $A_0 B_0$ oraz $A_1 B_1$. Następnie policzyć rekurencyjnie $(A_0 + A_1)(B_0 + B_1)$ i odjąć od niego $A_0 B_0$ oraz $A_1 B_1$ i otrzymać $A_0 B_1 + A_1 B_0$. Teraz wystarczy podłożyć to do naszego wzoru:
+$$A \cdot B = A_1  B_1  K^2 + A_1  B_0  K + A_0  B_1  K + A_0  B_0$$
+
+$$A \cdot B = A_1  B_1  K^2 + (A_1  B_0  + A_0  B_1 ) K + A_0  B_0$$
+
+$$A \cdot B = A_1  B_1  K^2 + ((A_0 + A_1)(B_0 + B_1) - A_0 B_0 - A_1 B_1) K + A_0  B_0$$
+I jak widać musimy wykonać tylko 3 różne mnożenia rekurencyjnie.
+\newline \newline
+Dzięki temu otrzymujemy następującą postać złożoności $T(n) = 3T(\frac{n}{2}) + \bigO(n)$. Co dzięki Uniwersalnemu twierdzeniu o rekurencji mówi nam, że złożoność całego algorytmu wynosi $\bigO(n^{\log_2 3}) \approx \bigO(n^{1.59})$

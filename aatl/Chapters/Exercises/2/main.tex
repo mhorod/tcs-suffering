@@ -1,0 +1,107 @@
+\section{Zestaw 2 - Liczby pierwsze, grupy cykliczne}
+\subsection{Zadanie 1}
+$\textbf{Treść:}$  \\ \newline
+Pokazać, że w grupie cyklicznej rzędu n jest dokładnie $\phi(n)$ generatorów.
+\\
+\\
+$\textbf{Rozwiązanie:}$ \\
+\\
+Wiemy, że skoro mamy grupe cykliczną to istnieje $g$ generator, a więc weźmy sobie owy generator. Teraz wszystkie elementy grupy są w postaci $g^{k}$, gdzie $1 \leq k \leq n$.
+\\
+\\
+ Oznaczmy sobie $s = \frac{n}{\gcd(n,k)}$ teraz $g^{k^{s}}$ na pewno wynosi $e$ (element neutralny) gdyż potęga przy $g$ dzieli $n$, ale my chcemy aby n-krotne złożenie było najmniejszym który otrzymuje element neutralny a z tego wynika że $\gcd(n,k) = 1$, a z definicji $\phi(n)$ to jest liczba takich $k \leq n$, że $\gcd(n,k) = 1$, a więc $\phi(n)$ jest liczbą generatorów takiej grupy.\\ 
+
+
+
+\subsection{Zadanie 2}
+$\textbf{Treść:}$ \\ \newline
+W protokole Diffiego-Hellmana dana jest grupa ($G$, $\cdot$), i pewien jej generator
+$g$, jedna strona losuje $a \in \mathbb{Z}$, druga $b \in \mathbb{Z}$, po czym przesyłają sobie odpowiednio $g^{a}$
+i $g^{b}$ – uzgodnionym kluczem symetrycznym jest $g^{ab}$.
+\\
+\\
+ Pokaż, że wybór grupy $G = (\mathbb{Z}_{n}, +)$ jest bardzo złym pomysłem (czyli: znajdź szybki algorytm łamania tego protokołu).
+ \\
+ \\
+ $\textbf{Rozwiązanie:}$ \\
+
+ 
+ Zauważmy że w grupie $(\mathbb{Z}_{n},+)$ $g^{a}$ oznacza to samo co $ga$. Oznaczmy sobie $z = ga$. Teraz możemy stworzyć rówanie na kongruencji $ga = ga$ mod $n = ga = z$ mod $n$ znamy $g$ oraz $ga = z$ a chcemy obliczyć $a$, a więc musimy obliczyć $(g)a = z$ mod $n$. Co odpowiada dokładnie Chińskiemu twierdzeniu o resztach ze współczynnikiem liniowym ($a * x = b$ mod $c$) co robimy dokładnie w A na satori. Jak robimy na satori:\\ \\
+ mamy $ab = c$ mod $n$, szukamy $\gcd(a,n)$. Jeżeli $\gcd(a,n) \neq 1$ to sprawdzamy czy $b$ mod $\gcd(n,a) = 0$. Jeżeli tak nie jest to układ nie ma rozwiązania czyli takie a NIE MOŻE istnieć co oznacza że g nie był generatorem. W przeciwnym wypadku wydzielam $a,b,n$ przez owe $\gcd(n,a)$ wiemy że nie jest to dzielenie modulo tylko normalne na liczbach bo każdy element jest przez nie podzielny wiec jest ok. Po takiej operacji wiemy że $\gcd(n,a) = 1$ więc możemy zastosować rozszerzony algorytm eulidesa do znalezienia takich $u,v$, że $au + vn = 1$ przekszatałcając rówanie otrzymujemy, że $au = 1 - vn$ wymnóżmy teraz nasze rówanie modularne razy $u$ i otrzymujemy $uax = ub$ mod $n$ podkładając za $au = 1 - vn$ otrzymujemy $(1 - vn)x = ub$ mod $n$ wiemy że $n | vn$ czyli otrzymujemy $x = ub$ mod $n$ a owy szukany $x$ jest szukaną przez nas potęga w owej grupie. Algorytm jest wielomianowy od rozmiaru wejścia czyli jest raczej szybki.
+
+
+
+\subsection{Zadanie 3}
+$\textbf{Treść:}$ \\ \newline
+Pokazać, że $Z_{3}[i]^{*}
+ =$ \{ $a + bi$ : $a$, $b$ $\in \mathbb{Z}_{3}$, ($a$, $b$) $\neq$ ($0$, $0$) \}, gdzie $i^{2} = $ -$1$, z
+mnożeniem "naturalnym", jest grupą (i to przemienną).
+\\
+\\
+$\textbf{Rozwiązanie:}$ \\
+\\
+Element neutralny: $e = (1,0)$: $(a + bi)(1 + 0i) = a + bi$
+\\ \\
+Mnożenie naturalne jest przemienne wiec jest ona przemienna.
+\\ \\
+A resztę udowodni za nas fakt że $(1 + 2i)$ jest generatorem ( zamkniętość na złożenie oraz istnienie elementu odwrotnego )
+\\ \\
+Dowód $1 + 2i$ jako generatora (przepałowanie 8 mnożeń):
+\\ \\
+$(1 + 2i)(1 + 2i) = 1 + 4i -4 = i = g^{2}$\\
+$i(1 + 2i) = i - 2 = 1 + i = g^{3}$\\
+$(1 + i)(1 + 2i) = 1 + 3i - 2 = 2 = g^{4}$\\
+$2(1+2i) = 2 + 4i = 2 + i = g^{5}$\\
+$(2 + i)(1 + 2i) = 2 + 5i -2 = 2i = g^{6}$\\
+$2i(1 + 2i) = 2i - 4 = 2 + 2i = g^{7}$\\
+$(2 + 2i)(1 + 2i) = 2 + 6i - 4 = 1 = g^{8}$\\
+$1(1 + 2i) = 1 + 2i = {g}$\\
+\\
+Właśnie otrzymaliśmy $1 + 2i$ generuje wszystkie elementy grupy (zamkniętość na złożenie) i teraz jak weźmiemy dowolny element $g^{k}$, gdzie $1 \leq k \leq 8$ to wystarczy go wymnożyć przez element  $g^{8-k}$, gdyż $g^{k}g^{8-k} = g^8 = 1$
+
+\subsection{Zadanie 4}
+$\textbf{Treść:}$ \\ \newline
+Udowodnij, że istnieje nieskończenie wiele liczb pierwszych postaci $4k + 3$.
+\\
+\\
+$\textbf{Rozwiązanie:}$ \\
+
+Dowód nie wprost:
+\\
+\newline \textbf{Hipoteza}: Załóżmy że ilość $p$ pierwszych w postaci $4k + 3$ jest skończona.
+\\ \newline
+A więc weźmy sobie $a = p_{1}p_{2}...p_{n}$, gdzie $p_{i}$ jest w postaci $4k + 3$ i są to wszystkie takie liczby. Wiemy z Hipotezy w takim razie że $a$ jest skońcone. Wiemy jeszcze że liczby pierwsze są nieparzyste ( z wyjątkiem 2) więc albo są w postaci $4k + 1$ albo $4k + 3$. W takim razie weźmy sobie na cel $4a - 1$. Jest ono nie podzielne przez żadną z liczb $p_{i}$ w postaci $4k + 3$ gdż $4(p_{1}p_{2}...p_{n}) - 1 = -1$ mod $p_{i}$ dla każdego $p_{i}$ z naszego zbioru (gdyż lewa cześć jest podzielna przez każde $p_{i}$ a z tego wynika że albo $a$ jest pierwsze albo ma same czynniki pierwsze w postaci $4k + 1$ co jest nie możliwe gdyż $a = 3$ mod $4$ a biorąc iloczyn dowolnej ilosci liczb przystających do $1$ mod $4$ otrzymamy liczbe przystającą do $1$ mod $4$ czyli $a$ jest pierwsze oraz a nie należało do naszego zbioru liczb pierwszych w postaci $4k+3$, a jest w takiej postaci SPRZECZNOŚĆ gdyż wzieliśmy wszystkie takie a było ich skończenie wiele.
+\\ \\
+Czyli musi być nieskonczenie wiele liczb w postaci $4k +3$.
+
+
+
+\subsection{Zadanie 5}
+$\textbf{Treść:}$ \\ \newline
+Pokaż, że jeśli liczba pierwsza $p$ dzieli $n^{2} +1$
+dla pewnego $n$, to $p = 1$ mod $4$.
+Wyprowadź z tego dowód, że istnieje nieskończenie wiele liczb pierwszych postaci $4k + 1$.
+\\
+\\
+$\textbf{Rozwiązanie:}$ \\
+
+Dowód pierwszej części: \\ \\
+\textbf{Fakt:} $p$ i $n$ muszą być względnie pierwsze.
+\\
+\\ Dowód tego faktu (nie wprost):\\ \\
+Zakładamy że nie są względnie pierwsze co oznacza że $p | n$ (gdyż $p$ jest pierwsze czyli ma dokładnie $2$ dzielniki siebie oraz $1$ a $1$ być nie może bo były by względnie pierwsze). A wiec $p | n$. Wynika z tego, że $p | n^{2}$ czyli $n^{2} = 0$ mod $p$ co implikuje że $n^{2} + 1 = 1$ mod $p$ a więc mamy sprzeczność gdyż $p \neq 1$ co dowodzi nam powyższy fakt.
+\\
+\\
+Dowód nie wprost (zakładamy, że $p$ jest w postaci $4k + 3$
+Z faktu że $n$ i $p$ są względnie pierwsze wiemy, że $n^{2}$ i $p$ są względnie pierwsze. Przenosząc $1$ na drugą strone mamy $n^{2} = -1$ mod $p$ (gdyż z założenia $p | n^{2} + 1$, wymnażająć to rówanie przez $n^{2}$ mamy $n^{4} = 1$ mod $p$. Możemy teraz zauważyć że dla każdego $k$ zachodzi $n^{4k} = 1$ mod $p$ (poprostu odpowiednio domnażając $n^{4}$)\\ \\
+Z małego twierdzenia fermata mamy również, że $n^{p-1} = 1$ mod $p$, więc z założenia mamy $p = 4k+3$ podstawiając mamy $n^{4k+3-1} = n^{4k+2} = n^{4k}n^{2} = 1(-1) = -1$ mod $p$ SPRZECZNOŚĆ czyli $p$ musi być w postaci $4k + 1$ ( bo jest albo w postaci $4k + 1$ albo $4k + 3$. Co dowodzi nam pierwszą część.
+\\
+\\
+Dowód drugiej części (będzie nie wprost):
+\\
+\\
+Załóżmy, że jest skończenie wiele liczb pierwszych w postaci $4k + 1$. Weźmy sobie zbiór $A = $\{$ p: p = 4k +1$, oraz $p$ pierwsze\} wiemy, że $A$ jest skończone. Weźmy wieć sobie $z = \prod_{p \in A} p$. Wiemy że jest on skończony z założeń. Weźmy sobie teraz liczbę $c = z^{2} + 1$. Z pierwszej części wiemy że liczbę w takiej postaci dzielą tylko liczbe pierwsze w postaci $4k+1$.
+ Ale żadna z naszych liczb jej nie dzieli ($z = 0$ mod $p$, co daje $z^{2} = 0$ mod $p$, czyli $z^{2} + 1 = 1$ mod $p$ dla każdego $p \in A$). Co oznacza, że nasze $z$ też jest pierwsze i jest w postaci $4k + 1$ i nie należało ono do $A$. Mamy więc SPRZECZNOŚĆ. Co dowodzi postawionego twierdzenia.
+
+
+

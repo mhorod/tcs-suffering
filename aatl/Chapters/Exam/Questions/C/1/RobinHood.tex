@@ -1,0 +1,13 @@
+Jak wszyscy wiedzą liczby pierwsze spełniają twierdzenie Fermata, tj. $a^{p-1}\equiv_p 1$. No i fajnie by było gdybyśmy mogli sobie odpalić ten test na naszej liczbie i wtedy mówimy czy ona jest pierwsza czy nie. Problem w tym że są liczby złożone, które i tak spełniają to twierdzenie. Dlatego trzeba zmodyfikować Fermata, by lepiej działał.\\
+Najpierw ważny fakt - w grupie $Z_p$ istnieją tylko dwa takie elementy $x$, że $x^2\equiv_p 1$ (oczywiście są to $1$ i $p-1$), ponieważ $(x-1)(x+1)\equiv_px^2-1\equiv_p0$. A dla grup $Z_n$ chyba jest ich więcej, bo wiem że dla $15$ się psuje.\\
+Przechodząc do algorytmu samego w sobie, pytamy czy $n$ jest pierwsza:\\
+\begin{enumerate}
+\item Sprawdzamy czy Fermat działa, jeśli nie, to zwracamy NIE
+\item liczymy sobie maksymalną potęge $2$ w $n-1$, czyli szukamy takiego $s$, że $n-1=2^sk$
+\item Losujemy jakieś $a \in [1,2,...,n-1]$
+\item Liczymy po kolei każde $a^{2^ik}$
+\item Jeśli wystąpiła sytuacja, że dla $a^{2^ik}=1$ zaszło $a^{2^{i-1}k}\neq1$ i $a^{2^{i-1}k}\neq-1$, to zwracamy NIE
+\item zwracamy PRAWDOPODOBNIE TAK
+\end{enumerate}
+Podany algorytm zwraca NIE z 100\% poprawnością, a tak to może się mylić z prawdopodobieniestwem, jakimś $\frac{1}{4}$.\\
+Można udowodnić, że dla liczb $n<2^{64}$ wystarczy sprawdzić $a$ ze zbioru pierwszych 12 liczb pierwszych. BARK DOWODÓW OBECNIE
