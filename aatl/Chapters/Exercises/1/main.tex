@@ -1,0 +1,104 @@
+\section{Zestaw 1}
+\subsection{Zadanie 1}
+\subsubsection{Wzór na $\phi(n)$}
+Zauważmy, że liczb mniejszych równych od n które sa kandydatami na bycie wzglednie pierwszymi z n jest n. Więc mamy:
+$$n$$
+Wśród tych n liczb $n/p_1$ dzieli sie przez $p_1$, wiec nie sa one wzglednie pierwsze z n. Zatem musimy pozbyć sie ich z naszego n:
+$$n - \frac{n}{p_1}$$
+Teraz wypadalłby pozbyć sie liczb podzielnych przez $p_2$. Jest ich dokładnie $n/p_2$. I wszystko byłoby good, gdyby nie to że w naszym n sa też liczby które dziela sie przez $p_1 p_2$ i zostały one już odjete wcześniej (gdy odejmowaliśmy $p_1$). Zatem musimy je dodać z powrotem, by nie odejmować ich podwójnie. Wiec mamy:
+$$n - \frac{n}{p_1} - \frac{n}{p_2} + \frac{n}{p_1 p_2}$$
+Dla $p_3$ chcemy odjać $n/p_3$ ale musimy dodać zarówno $n/(p_3 p_2)$, jak i $n/(p_3 p_1)$ (bo wcześniej je odjeliśmy, a teraz chcemy je dodać z $p_3$). Trzeba zwrócić uwage też na liczbe $p_1 p_2 p_3$, która została odjeta od nas raz ($n/p_3$) a dodana dwa razy ($n/(p_1 p_2)$ i $n/(p_1 p_2)$). Wiec trzeba ja dodać by wyjść na zero (chcemy wyjść na zero bo ta liczba została odjeta w pierwszym kroku przy pomocy $p_1$):
+$$n (1- \frac{1}{p_1} - \frac{1}{p_2} - \frac{1}{p_3} + \frac{1}{p_1 p_2} + \frac{1}{p_1 p_3} + \frac{1}{p_2 p_3} - \frac{1}{p_1 p_2 p_3})$$
+No i łatwo zauważyć patern. Idac kolejnymi liczbami odpowiednio je dodajemy i usuwamy. Stosujemy zasade właczen i wyłaczen i otrzymujemy wzór (można to zapisać sumami, ale wtedy brzydko to wyglada):
+$$\phi(n) = n (1- \frac{1}{p_1} - ... - \frac{1}{p_s} + \frac{1}{p_1 p_2} + ... + \frac{1}{p_s p_{s-1}} + ... + (-1)^s \frac{1}{p_1 ... p_s})$$
+Co jak sie przyjrzymy teleskopuje sie do:
+$$\phi(n) = n (1- \frac{1}{p_1})(1 - \frac{1}{p_2})...(1 - \frac{1}{p_s})$$
+Co było do pokazania. $\blacksquare$
+
+\subsubsection{Multiplikatywnosc}
+Niech $n=ab$, gdzie $a, b$ sa wzglednie pierwsze. Przyjmijmy poniższe oznaczenia:
+$$a=p_1^{\alpha_1}p_2^{\alpha_2}...p_s^{\alpha_s}$$
+$$b=q_1^{\beta_1}q_2^{\beta_2}...q_r^{\beta_r}$$
+Jako ze $n=ab$ to:
+$$n=p_1^{\alpha_1}...p_s^{\alpha_s}q_1^{\beta_1}...q_r^{\beta_r}$$
+Z pierwszego popunktu wiemy też że:
+$$\phi(a) = a (1- \frac{1}{p_1})(1 - \frac{1}{p_2})...(1 - \frac{1}{p_s})$$
+$$\phi(b) = b (1- \frac{1}{q_1})(1 - \frac{1}{q_2})...(1 - \frac{1}{q_r})$$
+Jako że a i b sa wzglednie pierwsze, to $p_i \neq q_j$ dla każdego $i, j$.
+$$\phi(n) = n (1- \frac{1}{p_1})...(1 - \frac{1}{p_s})(1 - \frac{1}{q_1})...(1 - \frac{1}{q_r})$$
+Ale $\phi(n)$ można zapisać również jako:
+$$\phi(n) = a(1- \frac{1}{p_1})...(1 - \frac{1}{p_s}) b(1 - \frac{1}{q_1})...(1 - \frac{1}{q_r})$$
+Po czym zauważamy że lewa strona iloczynu to $\phi(a)$, a prawa to $\phi(b)$.
+Zatem otrzymujemy:
+$$\phi(n) = \phi(a)\phi(b) $$
+Co było do pokazania. $\blacksquare$
+
+\subsection{Zadanie 2}
+\subsubsection{Suma dzielników n}
+Niech $n=ab$, gdzie $a, b$ sa wzglednie pierwsze. Przyjmijmy poniższe oznaczenia:
+$$a=p_1^{\alpha_1}p_2^{\alpha_2}...p_s^{\alpha_s}$$
+$$b=q_1^{\beta_1}q_2^{\beta_2}...q_r^{\beta_r}$$
+Jako ze $n=ab$ to:
+$$n=p_1^{\alpha_1}...p_s^{\alpha_s}q_1^{\beta_1}...q_r^{\beta_r}$$
+Patrzac na rozkład liczby a zauważamy że jej dzielniki sa postaci: $p_1^{i_1} \cdot p_2^{i_2} \cdot ... \cdot p_s^{i_s}$, gdzie $ 0\leq i_j \leq\alpha_j$ dla $j\leq s$. Zatem suma dzielnikow liczby a to suma wszystkich mozliwych kombinacji $i_1 ... i_s$. Zatem wzór na sume dzielnikow a ma postac:
+$$\sigma (a) = ( p_1^0+p_1^1 + ...+p_1^{\alpha_1}) ( p_2^0+p_1^1 + ...+p_2^{\alpha_2})... ( p_s^0+p_s^1 + ...+p_s^{\alpha_s})$$
+Analogicznie dla $b$ i $n$ otrzymujemy:
+$$\sigma (b) = ( q_1^0+q_1^1 + ...+q_1^{\beta_1}) ( q_2^0+q_1^1 + ...+q_2^{\beta_2})... ( q_r^0+q_r^1 + ...+q_r^{\beta_r})$$
+$$\sigma (n) = ( p_1^0+p_1^1 + ...+p_1^{\alpha_1})... ( p_s^0+p_s^1 + ...+p_s^{\alpha_s})( q_1^0+q_1^1 + ...+q_1^{\beta_1}) ... ( q_r^0+q_r^1 + ...+q_r^{\beta_r})$$
+Zauważany że prawa strona wyrażenia to $\sigma(b)$, a lewa to $\sigma(a)$, zatem otrzymujemy:
+$$\sigma(n) = \sigma(a)\sigma(b) $$
+Co było do pokazania. $\blacksquare$
+\subsubsection{Liczba dzielników n}
+Dowód na liczbe dzielników przeprowadzamy jak wyżej, zauważajac, że:
+$$d(a) = (1+\alpha_1) ( 1+\alpha_2)... ( 1+\alpha_s)$$
+Czemu? Patrzymy na $\sigma (a)$. Czynnik zawierajacy $p_i$ wyprodukuje wszystkie potegi $p_i$, ktorych jest $\alpha_i + 1$
+Zatem liczby dzielników liczb $b, n$ sa dane wzorem:
+$$d(b) = (1+\beta_1) ( 1+\beta_2)... ( 1+\beta_r)$$
+$$d(n) = (1+\alpha_1)... ( 1+\alpha_s)(1+\beta_1)... ( 1+\beta_r)$$
+Zatem otrzymujemy:
+$$d(n) = d(a)d(b) $$
+Co było do pokazania. $\blacksquare$
+
+\subsection{Zadanie 3}
+Gdyby nie była właśnie godzina 2 to bym zrobił to zadanie...
+
+\subsection{Zadanie 4}
+BSO $b\leq a$. Niech $F_n$ to bedzie pierwsza liczba Fibonacciego wieksza lub równa $a$. Spójrzmy jak działa algorytm Euklidesa w zależnoci od tego jakiej wielkości jest $b$:
+\begin{enumerate}
+\item $b\leq F_{n-2}$\\
+Ponieważ $a\%b < b \leq F_{n-2}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-2}$.
+\item $F_{n-2}< b\leq F_{n-1}$\\
+Ponieważ $a\%b < b \leq F_{n-1}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-1}$.
+\item  $F_{n-1}< b \leq F_{n}$\\
+Jako że zachodzi:
+$$F_{n-1}< b$$
+$$2F_{n-1}< 2b$$
+$$F_n=F_{n-1}+F_{n-2}\leq 2F_{n-1}< 2b$$
+$$b \leq a \leq F_n < 2b$$
+To mamy $a\%b = a-b$. Z kolejnych nierównoci;
+$$a\leq F_{n-1}+F_{n-2} =  F_n$$
+$$F_{n-2} \leq  F_{n-1}$$
+$$F_{n-1}< b$$
+Otrzymujemy:
+$$a\%b=a-b\leq F_{n-2}$$
+Zatem w nastepnym wykonaniu funkcji dostaniemy przypadek pierwszy
+\end{enumerate}
+Ponieważ w każdym kroku schodzimy o 1 lub o 2 w dół (a jak nie, to w nastepnym nadrabiamy 2 krokami) to funkcja wywoła sie co najwyżej $n$ razy.
+Zauwazmy, że n-ta liczba Fibonacciego jest przedstawiana wzorem (Binet's formula):
+$$F_n = \frac{\phi^n}{\sqrt{5}} -\frac{(- \phi)^{-n}}{\sqrt{5}}$$
+Przy czym zauważmy że element który odejmujemy jest $\leq1$. Wiec możemy sobie przybliżyć (z góry):
+$$F_n = \phi^n$$
+$$log_{\phi}(F_n) = n$$
+Zatem funkcja wywoła sie$ log_{\phi}(F_n) + O(1)$ razy. Przy czym $F_n = a$.
+
+\subsection{Zadanie 5}
+\subsubsection{Teza}
+Używamy rozszerzonego algorytmu Euklidesa by otrzymać liczby $r$ i $s$ takie że $$g = gcd(m_1, m_2) = rm_1+sm_2$$ Wtedy rozwiazaniem równania bedzie:
+$$x = \frac{a_1sm_2 +a_2rm_1}{g}$$
+\subsubsection{Dowód}
+$$x=\frac{a_1sm_2 +a_2rm_1}{g} =\frac{a_1(g-rm_1)+a_2rm_1}{g}= \frac{a_1g+(-a_1+a_2)rm_1}{g}=$$
+$$= a_1+ \frac{(-a_1+a_2)rm_1}{g}$$
+$$a_1+ \frac{(-a_1+a_2)rm_1}{g}\equiv a_1 mod (m_1)$$
+Analogicznie
+$$a_2+ \frac{(-a_2+a_1)sm_2}{g}\equiv a_2 mod (m_2)$$
+Zaprezentowawne rozwiazanie działa. $\blacksquare$

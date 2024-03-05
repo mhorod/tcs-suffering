@@ -1,0 +1,30 @@
+\subsubsection{Przygotowanie do Algorytmu:}
+\begin{itemize}
+    \item Wbieramy dwie duże liczby pierwsze $p,q$, takie, że $q \mid p-1$.(Standardowo $q$ ma 256 bitów, a $p$ ma 2048.)
+    \item Znajdujemy element $a$, taki, że rząd $a$ modulo $p$ wynosi $q$. (Robimy to losując $g$ oraz podstawiając $a = g^{\frac{p-1}{q}} \mod p$, teraz jeżeli $a \neq 1$, to $a^q = 1 \mod p$, gdyż $q$ jest liczbą pierwszą (A mamy tw. Lagrange)
+    \item Podajemy do wiadomości publicznej $p,q,a$ (Są one stałą częścią algorytmu)
+\end{itemize}
+\subsubsection{Generacja kluczy:}
+\begin{itemize}
+    \item Wylosuj $x \in \{0,...,p-1\}$, oraz oblicz $y = a^x$.
+    \item Wartość $x$ to klucz prywatny.
+    \item Wartość $y = a^x$ to klucz publiczny.
+\end{itemize}
+Możemy zaobserwować, że aby odtworzyć klucz prywatny z klucza publicznego to musimy rozwiązać problem logarytmu dyskretnego.
+\subsubsection{Podpisywanie wiadomości:}
+\begin{itemize}
+    \item Generujemy hash $H$ wiadomości, którą chcemy podpisać (Pamiętamy, że wartości $a,p,q$ są znane oraz mamy nasze klucze).
+    \item Losujemy $k$, takie, że $1 < k < q$.
+    \item Obliczamy $r = (a^k \mod p) \mod q$.
+    \item Obliczamy $s = \frac{H + x\cdot r}{k} \mod q$
+    \item Zwróć parę $(r,s)$.
+\end{itemize}
+\subsubsection{Weryfikacja podpisu:}
+\begin{itemize}
+    \item Oblicz $\alpha = \frac{H}{s} \mod q$.
+    \item Oblicz $\beta = \frac{r}{s} \mod q$.
+    \item Oblicz $\gamma = (a^{\alpha}\cdot y^{\beta} \mod p) \mod q$.
+    \item Sprawdź czy $\gamma = r$.
+\end{itemize}
+\subsubsection{Dowód działania:}
+Oznaczmy sobie $w = (H + x\cdot r)^{-1} \mod q$ (czyli odwrotność $s$ ale bez $k$ jeszce). Teraz $\alpha = w\cdot k\cdot H \mod q, \beta = w\cdot r \cdot k$. Wiemy, że $a$ ma rząd $q$ modulo $p$ co oznacza, że dla dowolnego $t$ zachodzi $a^t \mod p = a^{t \mod q} \mod p$. Rozpiszmy teraz $\gamma = (a^{\alpha}\cdot y^{\beta} \mod p) \mod q = (a^{w\cdot k\cdot H \mod q} \cdot (a^{x})^{w\cdot r \cdot k} \mod p) \mod q  = a^{k\cdot w \cdot (H + x\cdot r) \mod q}\mod p \mod q$. A z definicji $w$ jest odwrotnością $(H + x\cdot r)$ modulo $q$, czyli Zachodzi $\gamma = (a^k \mod p) \mod q$ co z definicji wynosi $r$. Co należało pokazać.

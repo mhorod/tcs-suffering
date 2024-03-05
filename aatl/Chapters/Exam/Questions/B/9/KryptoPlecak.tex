@@ -1,0 +1,23 @@
+Kryptowaluty... Nie to nie o tym ta część :( \newline
+\subsubsection{SubSet-Sum Definicja:}
+Mamy sobie zbiór liczb $V = \{v_1,v_2,...,v_2\}$ oraz liczbę $s$, stwierdź czy zbiór $A \subseteq V$ taki, że $\sum_{v \in A} v = s$.
+\newline
+Jak już wiadomo z ASD jest to problem NP-zupełny czyli nie spodziewamy się rozwiązania wielomianowego (no chyba, że P = NP).
+
+\subsubsection{Definicja ciągu nadrosnącego:}
+Ciągiem nadrosnącym nazywamy taki ciąg $v_1,v_2,...,v_n$, taki, że dla każdego $i$ zachodzi $v_i > v_1 + v_2 + ... + v_{i-1}$.
+\newline
+\newline
+Jak możemy zauważyć problem SUBSET-SUM jest prostu dla ciągu nadrosnącego ( poprostu robimy zachłana od największych i można prosto udowodnić, że jeżeli możemy wziąc jakiś największy to musimy go wziąć )
+
+\subsubsection{Idea kryptosystemu plecakowego}
+\begin{itemize}
+    \item Bierzemy sobie nadrosnący ciąg $v_1,...,v_n$, $m > \sum_i v_i$ oraz $a$ względnie pierwsze z $m$.
+    \item Konstruujemy ciąg $w_1,...,w_n$, tak, że $w_i = a\cdot v_i \mod m$
+    \item Kluczem publicznym jest ciąg $w_1,...,w_n$.
+    \item Szyfrowanie: chcąc zaszyforwać $n$-bitową wiadomość $b_1,...,b_n$ (gdzie $b_i$ to $i$-ty bit) wyonujemy $s = \sum_i w_i\cdot b_i$, i wysyłamy $s$.
+    \item Deszyfrowanie: mamy $s = \sum_i b_i\cdot w_i$, zauważmy, że z konstrukcji $w_i = v_i \cdot a \mod m$, więc weźmy sobie odwrotność $a$ modulo $m$ i oznaczmy je jako $c$. Wynika z tego, że $s \cdot c = \sum_i b_i \cdot v_i \mod m$. A wiemy z definicji, że $m > \sum_i v_i$, czyli możemy to jednozancznie wyliczyć naszym algorytmem zachłannym.
+\end{itemize}
+
+\subsubsection{Dlaczego nie stosujemy kryptosystemu plecakowego:}
+Okazuje się, że owy problem jest tylko szczególnym przypadkiem problemu SUBSET-SUM wiec NIE! musi być on NP-zupełny. Co więcej znany jest algorytm wielomianowy go rozwiązujący więc ten problem jest w P(Adi Shamir (1982)).

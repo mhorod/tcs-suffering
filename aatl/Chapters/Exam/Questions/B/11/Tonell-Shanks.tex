@@ -1,0 +1,50 @@
+Zacznijmy od kilku twierdzeń:\newline \newline
+Twierdzenie 1.\newline
+Grupa cykliczna $G$, taka, że $|G| = n = 2m$, ma dokładnie $m$ kwadratów (czyli połowe swojego rozmiaru). Oraz każdy kwadrat ma dokładnie dwa pierwiastki. (co więcej pokażemy, że parzyste potęgi generatora to kwadraty, a nieparzyste nie)
+\newline \newline
+Dowód:\newline
+Weźmy sobie $g$ generator grupy $G$, zauważmy, że każdy element grupy $G$ należy do zbioru $\{g^0,g^1,g^2,...,g^{2m-1}\}$, czyli potęgi generatora wynosą są modulo $2m$. A rozważmy dwa przypadki:
+\begin{itemize}
+    \item 1. $a = g^k = g^{2j}$, $k$ jest parzyste (czyli jest w parzystą potęgą generatora):
+    \newline
+    Wtedy możemy zauważyć, że piewiastkami są $g^j,g^{j+m}$, gdyż $(g^{j})^2 = g^{2j} = a$ oraz $(g^{j+m})^2 = g^{2j+2m} = g^{2j} = a$ oraz nie ma żadnego innego.
+    \item 2. $a = g^k$, $k$ jest nieparzyste:
+    \newline
+    Załóżmy teraz nie wprost, że istnieje $b$, ktore jest pierwiastkiem i jest w postaci $b = g^j$, wynika z tego, że $b^2 = g^{2j} = a = g^{k}$, co oznacza, że $2j = k \mod 2m$, co prowadzi do sprzeczności, gdyż $k$ jest nie parzyste a reszta z dzielenia jak i wspołczynnik przez który bierzemy modulo jest parzysty.
+\end{itemize}
+Czyli udowodniliśmy sobie pierwsze twierdzenie.
+\newline \newline
+Twierdzenie 2.\newline
+Mamy grupę cykliczna $G$, taka, że $|G| = n = 2m$. Element równanie $x^2 = a$, takie, że $x,a \in G$ ma rozwiązanie (co oznacze, że a jest kwadratem) wtedy i tylko wtedy, gdy $a^m = 1$ (dla nie kwadratów $a^m = -1$ ($1,-1$ są to tylko symbole, gdyż grupa $G$ to nie muszą być liczby).
+\newline \newline
+Dowód:\newline
+Mamy przypadki (pokaże dwa reszta idzie analogicznie):
+\begin{itemize}
+    \item 1. $a$ jest kwadratem:\newline
+    Z poprzedniego twierdzenia wynika, że jeżeli $a$ jest kwadratem to jest w postaci $a = g^{2j}$. Wiec z tego wynika, że $a^m = g^{2jm} = g^0$, gdyż potęgi generatora bierzemy modulo $2m$.
+    \item 2. $a$ nie jest kwadratem:\newline
+    Z poprzedniego Tw wiemy, że $a$ jest w postaci $a = g^j$, gdzie $j$ jest nie parzyste, a więc $g^{mj} = g^m = -1$, gdyż bierzemy potęgi generatora modulo $2m$, a $j$ jest nie parzyste.
+\end{itemize}
+Idea algorytmu:
+Mamy grupę $G$, $|G| = n = 2m$.
+\begin{itemize}
+    \item 1. $q = m$, $t = n$
+    \item 2. wylosuj $z$, które nie jest kwadratem, czyli gdy zajdzie $z^m \neq 1$ (powtarzaj ten krok dopóki dobrze nie wylosujesz)
+    \item 3. Dopóki $2 \mid q$ wykonaj $q := \frac{q}{2}$, $t := \frac{t}{2}$. Jeżeli dla nowego $q,t$ $a^qz^t \neq 1$ to $t := t + m$. I powtórz ten krok.
+    \item 4. Zwróć $a^{\frac{q+1}{2}}z^{\frac{t}{2}}$
+\end{itemize}
+Zauważ, że w każdym kroku algorytmu trzymamy niezmiennik, że $a^qz^t = 1$. A więc to co zwróciliśmy $a^{\frac{q+1}{2}}z^{\frac{t}{2}} = x$, i zobaczmy że jest to poprawny wynik. $x^2 = a^{q+1}z^{t} = a\cdot a^qz^t = a$ czyli działa. \newline
+Niezmienniki jakie utrzymujemy:
+\begin{itemize}
+    \item $a^qz^t = 1$
+    \item Jeżeli $2^r \mid q$ to $2^{r+1} \mid t$
+\end{itemize}
+Początkowo oczywiście jest to spełnione.
+Krok w niezmiennikach:
+\begin{itemize}
+    \item Jeżeli $a^{\frac{q}{2}}z^{\frac{t}{2}} = 1$, to trywialnie niezmienniki są spełnione.
+    \item W przeciwnym wypadku $a^{\frac{q}{2}}z^{\frac{t}{2}} = -1$ (gdyż jakby się przyjrzeć w rozpisanie tego to zmniejszamy potęgę generatora dwukrotnie wiec może to być tylko $-1$). A z definicji $z$ i Tw 2 wiemy,że $z^m = -1$, więc po operacji $t := \frac{t}{2} + m$ mamy $a^{\frac{q}{2}}z^{\frac{t}{2}}z^m = -1\cdot -1 = 1$, czyli jest ok oraz wiemy, że $m$ jest wielkrotnością $2q$ więc drugi niezmiennik dalej zachodzi.
+\end{itemize}
+Zauważmy jeszcze, że z Tw 1 połowa elementów nie jest kwadratami więc w punkcie 2. losujemy z prawdopodobieństwem $\frac{1}{2}$ (czyli w oczekiwaniu po stałej liczbie kroków mamy dobre $z$).
+\newline \newline
+Zauważmy również, że cały algorytm ma $\bigO(\log n)$ iteracji (a w czasie iteracji mamy mnożenia, dzielenia i podnoszenie do potęgi) więc jest on wielomianowy.
