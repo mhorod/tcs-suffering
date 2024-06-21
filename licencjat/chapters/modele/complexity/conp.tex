@@ -1,0 +1,62 @@
+\begin{definition}
+     \(  L \in  \conp \iff \complement{L} \in \np \).
+\end{definition}
+
+\begin{lemma}
+    \( L \) jest C-trudny wtedy i tylko wtedy, gdy \( \complement{L} \) jest  coC-trudny. 
+\end{lemma}
+
+\begin{proof}
+
+Dowodzimy równoważność w obie strony:
+
+\begin{itemize}
+    \item     \( \implies \)
+    
+    Weźmy sobie \( L' \in C\). Jako, że \(L\) jest trudne, to \(L' <_{p} L\).  Wiemy wobec tego, że istnieje taka funkcja \(f\), obliczalna w czasie wielomianowym, że \( x \in L' \iff f(x) \in L\).
+    
+    Równoważnie, \( x \not\in L' \iff f(x) \not \in L\). No ale to z kolei oznacza, że \( x \in \complement{L'} \iff f(x) \in \complement{L}\). Wobec tego, dla każdego problemu należącego do \(coC\) jest tak, że redukuje się on do \( \complement{L} \), czyli \(\complement{L}\) jest \(coC\)-trudny.
+
+    \item \( \impliedby \) 
+    Centralnie piszemy to samo, ale w drugą stronę.
+    
+    
+    Bierzemy sobie \( L' \in coC\). Z racji faktu, że \(L\) jest trudne mamy, że \(L' <_{p} \complement{L}\). To oznacza, że istnieje funkcja \(f\), taka że \( x \in L' \iff f(x) \in \complement{L} \). 
+    
+    Równoważnie, \( x \not \in L' \iff f(x) \not \in \complement{L} \). Z tego wiemy, że \( x \in \complement{L'} \iff f(x) \in L \). Wobec tego, każdy problem z \(C\) redukuje się do \(L\), czyli \(L\) jest \(C\)-trudne. 
+    
+
+\end{itemize}
+
+\end{proof}
+
+
+Pokażemy teraz problem \(\conp\)-zupełny. 
+
+\begin{definition}
+    Problem \textsc{TAUTOLOGY} definiujemy jako problem w którym:
+    \begin{itemize}
+        \item wejście: formuła rachunku zdań \( \varphi \)
+        \item wyjście: Czy \( \varphi \) jest tautologią tj. czy każde wartościowanie wartościuje \( \varphi \) na 1 ?
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}
+    \( \textsc{TAUTOLOGY} \) jest \( \textsc{coNP} \)-zupełny.
+\end{theorem}
+\begin{proof}
+    Pokażemy że \( \overline{\textsc{TAUTOLOGY}} \) jest \( \textsc{NP} \)-zupełny.
+    
+    Mamy zatem formułę \( \varphi \) i chcemy sprawdzić czy tautologią nie jest, czyli czy istnieje wartościowanie \( v \) takie, że \( v(\varphi) = 0 \). 
+    
+    Nie jest trudno zauważyć, że \( v(\lnot \varphi) = 0 \iff v(\varphi) = 1 \).
+    
+    Z tego mamy, że:
+    
+    \begin{enumerate}
+        \item \( \textsc{SAT} <_p \overline{\textsc{TAUTOLOGY}}\), bo dostając zapytanie czy formuła \( \varphi \) jest spełnialna możemy ją zanegować i sprawdzić czy po zanegowaniu \textit{nie} jest tautologią (jeśli nie było świadków spełnialności, to formuła będzie tautologią; jeśli byli, to nie będzie). Z tego mamy, że \(\overline{\textsc{TAUTOLOGY}}\) jest \(\np\)-trudny, bo zredukowaliśmy do niego inny problem \(\np\)-trudny.
+        \item \(\overline{\textsc{TAUTOLOGY}} <_p \textsc{SAT} \), bo dostając zapytanie czy formuła \( \varphi \) \textit{nie} jest tautologią możemy ją zanegować i sprawdzić czy jest spełnialna. Rozumowanie analogiczne do tego z poprzedniego punktu. Z tego otrzymujemy, że \(\overline{\textsc{TAUTOLOGY}}\) jest w \(\np\), bo możemy przeprowadzić wielomianową redukcję tego problemu do problemu z klasy \(\np\). 
+    \end{enumerate}
+    
+    Skoro \(\overline{\textsc{TAUTOLOGY}}\) jest w \(\np\) oraz jest \(\np\)-trudny, to wiemy że jest on \(\np\)-kompletny. A skoro tak, to \(\textsc{TAUTOLOGY}\) musi być \(\conp\)-kompletny, co należało dowieść. 
+\end{proof}

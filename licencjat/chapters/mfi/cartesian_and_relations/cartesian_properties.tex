@@ -1,0 +1,73 @@
+Iloczyn kartezjański ma parę przyjemnych własności przy działaniu na zbiorach w~konkretnej postaci.
+\begin{itemize}
+    \item \(x \times \emptyset = \emptyset\)
+        \begin{proof}
+            Inkluzja \(x \times \emptyset \supseteq \emptyset\) jest trywialna. Wystarczy pokazać inkluzję w~drugą stronę, tzn. \(z \in x \times \emptyset \implies z \in \emptyset\). 
+            
+            Jeśli założymy, że \(z \in x \times \emptyset\), to z~definicji \(\exists_a\exists_b z = \pars{a, b}\) oraz \(a \in x \land b \in \emptyset\). Możemy zatem spokojnie postawić sobie implikację
+            \begin{equation*}
+                a \in x \land b \in \emptyset \implies z \in \emptyset
+            \end{equation*}
+            ponieważ jej poprzednik jest fałszywy, a~do fałszywego poprzednika możemy dołożyć dowolny następnik, jaki nam się podoba.
+        \end{proof}
+    \item \(x \times \pars{y \cup z} = \pars{x \times y} \cup \pars{x \times z}\)
+        \begin{proof}
+            Przejdziemy tutaj raz przez prawdziwe królestwo kwantyfikatorów, a~w~kolejnych podpunktach będziemy już dowodzić bardziej intuicyjnie.
+            \begin{equation*}
+                \begin{split}
+                    \xi \in x \times \pars{y \cup z}
+                        \iff& \exists_{a \in x}\exists_{b \in y \cup z} \xi = \pars{a, b}\\
+                        \iff& \exists_{a \in x}\exists_b\pars{\pars{b \in y \lor b \in z} \land \xi = \pars{a, b}}\\
+                        \iff& \exists_{a \in x}\exists_b\pars{\pars{b \in y \land \xi = \pars{a, b}} \lor \pars{b \in z \land \xi = \pars{a, b}}}\\
+                        \iff& \exists_{a \in x}\pars{\exists_b\pars{b \in y \land \xi = \pars{a, b}} \lor \exists_b\pars{b \in z \land \xi = \pars{a, b}}}\\
+                        \iff& \pars{\exists_{a \in x}\exists_b\pars{b \in y \land \xi = \pars{a, b}}} \lor \pars{\exists_{a \in x}\exists_b\pars{b \in z \land \xi = \pars{a, b}}}\\
+                        \iff& \pars{\exists_{a \in x}\exists_{b \in y}\xi = \pars{a, b}} \lor \pars{\exists_{a \in x}\exists_{b \in z}\xi = \pars{a, b}}\\
+                        \iff& \xi \in \pars{x \times y} \lor \xi \in \pars{x \times z}\\
+                        \iff& \xi \in \pars{x \times y} \cup \pars{x \times z}
+                \end{split}
+            \end{equation*}
+            Skorzystaliśmy tutaj z~rozdzielności konjunkcji względem alternatywy oraz z~faktu, że
+            \begin{equation*}
+                \exists_v\pars{\varphi \lor \psi} \iff \pars{\exists_v\varphi} \lor \pars{\exists_v\psi}
+            \end{equation*}
+        \end{proof}
+    \item \(x \times \pars{y \cap z} = \pars{x \times y} \cap \pars{x \times z}\)
+        \begin{proof}
+            \begin{equation*}
+                \begin{split}
+                    \pars{a, b} \in x \times \pars{y \cap z}
+                        \iff& a \in x \land b \in y \cap z\\
+                        \iff& a \in x \land \pars{b \in y \land b \in z}\\
+                        \iff& \pars{a \in x \land b \in y} \land \pars{a \in x \land b \in z}\\
+                        \iff& \pars{a, b} \in \pars{x \times y} \land \pars{a, b} \in \pars{x \times z}\\
+                        \iff& \pars{a, b} \in \pars{x \times y} \cap \pars{x \times z}
+                \end{split}
+            \end{equation*}
+            Skorzystaliśmy tu z~rozdzielności konjunkcji względem niej samej.
+        \end{proof}
+    \item \(x \times \pars{y \setminus z} = \pars{x \times y} \setminus \pars{x \times z}\)
+        \begin{proof}
+            \begin{equation*}
+                \begin{split}
+                    \pars{a, b} \in x \times \pars{y \setminus z}
+                        \iff& a \in x \land b \in \pars{y \setminus z}\\
+                        \iff& a \in x \land \pars{b \in y \land b \not\in z}\\
+                        \iff& \pars{a \in x \land b \in y} \land \pars{a \in x \land b \not \in z}\\
+                        \iff& \pars{a, b} \in \pars{x \times y} \land \pars{a, b} \not\in \pars{x \times z}\\
+                        \iff& \pars{a, b} \in \pars{x \times y} \setminus \pars{x \times z}
+                \end{split}
+            \end{equation*}
+            Ponownie skorzystaliśmy tu z~rozdzielności konjunkcji względem niej samej.
+        \end{proof}
+\end{itemize}
+Ponadto, iloczyn kartezjański jest też \emph{monotoniczny} ze względu na każdą współrzędną. Zgadza się to z~intuicją --- jeśli na jednej ze współrzędnych mamy ,,więcej'' możliwości wyboru elementu, to również zbiór możliwych par będzie ,,większy''.
+\begin{itemize}
+    \item \(x \subseteq y \implies \pars{x \times z} \subseteq \pars{y \times z}\)
+        \begin{proof}
+            Załóżmy, że \(\pars{a, b} \in \pars{x \times z}\). Oznacza to, że \(a \in x\) i~\(b \in z\). Skoro \(a \in x\) oraz \(x \subseteq y\), to \(a \in y\). Skoro zatem \(a \in y\) i~\(b \in z\), to \(\pars{a, b} \in \pars{y \times z}\). To dowodzi postulowanej inkluzji.
+        \end{proof}
+    \item \(x \subseteq y \implies \pars{z \times x} \subseteq \pars{z \times y}\)
+        \begin{proof}
+            Analogiczny jak dla pierwszej współrzędnej.
+        \end{proof}
+\end{itemize}

@@ -1,0 +1,173 @@
+Relacje mają bardzo dużo różnych własności. Większość z~nich nie jest szczególnie ciekawa, natomiast trafiają się perełki, które bardzo zapadają w~pamięć, ponieważ da się je przeczytać jak słowa. Tak, tak, mam na myśli słynne ,,rusot równa się rotusot''. Do tego też dotrzemy.
+\begin{description}
+    \item[Pierwsza grupa własności.] Przyjmijmy, że mamy następujące trzy relacje:
+        \begin{align*}
+            R &\subseteq A \times B\\
+            S &\subseteq B \times C\\
+            T &\subseteq C \times D
+        \end{align*}
+        Wtedy
+        \begin{itemize}
+            \item \(T \composition \pars{S \composition R} = \pars{T \composition S} \composition R\)\qquad (składanie relacji jest łączne --- własność znana także jako ,,to-sor równa się tos-or'')
+                \begin{proof}
+                    ,,Typ'' się zgadza, ponieważ obie strony są podzbiorami \(A \times D\).
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{a, d} \in T \composition \pars{S \composition R}
+                                \iff& a \in A \land d \in D \land \exists_{c \in C}\pars{\pars{a, c} \in S \composition R \land \pars{c, d} \in T}\\
+                                \iff& a \in A \land d \in D\\
+                                    &\land \exists_{c \in C} \pars{\pars{\exists_{b \in B} \pars{\pars{a, b} \in R \land \pars{b, c} \in S}} \land \pars{c, d} \in T}\\
+                                \iff& a \in A \land d \in D\\
+                                    &\land \exists_{c \in C}\exists_{b \in B}\pars{\pars{a, b} \in R \land \pars{b, c} \in S \land \pars{c, d} \in T}\\
+                                \iff& a \in A \land d \in D\\
+                                    &\land \exists_{b \in B} \pars{\pars{a, b} \in R \land \pars{\exists_{c \in C} \pars{\pars{b, c} \in S \land \pars{c, d} \in T}}}\\
+                                \iff& a \in A \land d \in D \land \exists_{b \in B} \pars{\pars{a, b} \in R \land \pars{b, d} \in T \composition S}\\
+                                \iff& \pars{a, d} \in \pars{T \composition S} \composition R
+                        \end{split}
+                    \end{equation*}
+                \end{proof}
+            \item \(\pars{S \composition R}^{-1} = R^{-1} \composition S^{-1}\)
+                \begin{proof}
+                    Zauważamy najpierw, że zgadza się ,,typ'', ponieważ obie strony są podzbiorami \(C \times A\).
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{c, a} \in \pars{S \composition R}^{-1}
+                                \iff& \pars{a, c} \in \pars{S \composition R}\\
+                                \iff& a \in A \land c \in C \land \exists_{b \in B} \pars{\pars{a, b} \in R \land \pars{b, c} \in S}\\
+                                \iff& a \in A \land c \in C \land \exists_{b \in B} \pars{\pars{b, a} \in R^{-1} \land \pars{c, b} \in S^{-1}}\\
+                                \iff& \pars{c, a} \in R^{-1} \composition S^{-1}
+                        \end{split}
+                    \end{equation*}
+                \end{proof}
+            \item \(R \subseteq \lproj{R} \times \rproj{R}\)
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{a, b} \in R
+                                \implies& a \in A \land b \in B \land \pars{\exists_{y \in B} \pars{a, y} \in R} \land \pars{\exists_{x \in A} \pars{x, b} \in R}\\
+                                \iff& \pars{a \in A \land \exists_{y \in B} \pars{a, y} \in R} \land \pars{b \in B \land \exists_{x \in A} \pars{x, b} \in R}\\
+                                \iff& a \in \lproj{R} \land b \in \rproj{R}\\
+                                \iff& \pars{a, b} \in \lproj{R} \times \rproj{R}
+                        \end{split}
+                    \end{equation*}
+                    Pierwsze przejście jest tylko implikacją. Oczywiście jeśli \(\pars{a, b} \in R\), to możemy powiedzieć, że zarówno \(a\), jak i~\(b\) mają parę w~\(R\). Jednak z~samego faktu, że \(a\)~i~\(b\) mają parę w~\(R\), nie wynika jeszcze, że \(a\)~i~\(b\)~\emph{są} parą w~\(R\). Dlatego w~ogólnym przypadku mamy tu zaledwie inkluzję, a~nie równość, co łatwo zobaczyć na przykładzie:
+                    \begin{align*}
+                        A &= \set{a_0, a_1}\\
+                        B &= \set{b_0, b_0}\\
+                        R &= \set{\pars{a_0, b_0}, \pars{a_1, b_1}}\\
+                        \lproj{R} &= \pars{a_0, a_1}\\
+                        \rproj{R} &= \pars{b_0, b_1}\\
+                        \lproj{R} \times \rproj{R} &= \set{\pars{a_0, b_0}, \pars{a_0, b_1}, \pars{a_1, b_0}, \pars{a_1, b_1}}\\
+                        R &\subsetneq \lproj{R} \times \rproj{R}
+                    \end{align*}
+                \end{proof}
+            \item \(\lproj{\pars{S \composition R}} \subseteq \lproj{R}\)
+                \begin{proof}
+                    Zwróćmy uwagę, że \(S \composition R \subseteq A \times C\). Mamy
+                    \begin{equation*}
+                        \begin{split}
+                            a \in \lproj{\pars{S \composition R}}
+                                \iff& a \in A \land \exists_{c \in C} \pars{a, c} \in S \composition R\\
+                                \iff& a \in A \land \exists_{c \in C}\exists_{b \in B} \pars{\pars{a, b} \in R \land \pars{b, c} \in S}\\
+                                \implies& a \in A \land \exists_{c \in C}\pars{\pars{\exists_{b \in B} \pars{a, b} \in R} \land \pars{\exists_{b \in B} \pars{b, c} \in S}}\\
+                                \implies& a \in A \land \exists_{c \in C}\pars{\exists_{b \in B} \pars{a, b} \in R}\\
+                                \implies& a \in A \land \exists_{b \in B} \pars{a, b} \in R\\
+                                \iff& a \in \lproj{R}
+                        \end{split}
+                    \end{equation*}
+                    Warto zauważyć, że trzy z~powyższych przejść są tylko implikacjami (bo zapominamy na przykład o~pewnych członach konjunkcji) i~nie jest to przypadek. Istotnie, zachodzi tylko inkluzja w~podaną stronę. Aby się o~tym przekonać możemy przyjąć
+                    \begin{align*}
+                        A &= \set{a}\\
+                        B &= \set{b}\\
+                        C &= \set{c}\\
+                        R &= \set{\pars{a, b}} \subseteq A \times B\\
+                        S &= \emptyset \subseteq B \times C
+                    \end{align*}
+                    Wtedy \(S \composition R = \emptyset\), zatem również \(\lproj{\pars{S \composition R}} = \emptyset\). Natomiast \(\lproj{R} = \set{a}\), więc istotnie zachodzi dowiedziona inkluzja (byłby przypał, gdyby było inaczej), ale nie ma równości.
+                \end{proof}
+            \item \(\rproj{\pars{S \composition R}} \subseteq \rproj{S}\)
+                \begin{proof}
+                    Analogiczny jak dla lewej projekcji.
+                \end{proof}
+            \item \(\lproj{\pars{R^{-1}}} = \rproj{R}\)
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            b \in \lproj{\pars{R^{-1}}}
+                                &\iff b \in B \land \exists_{a \in A}\pars{b, a} \in R^{-1}\\
+                                &\iff b \in B \land \exists_{a \in A}\pars{a, b} \in R\\
+                                &\iff b \in \rproj{R}
+                        \end{split}
+                    \end{equation*}
+                \end{proof}
+        \end{itemize}
+    \item[Druga grupa własności.] Przyjmijmy, że mamy następujące trzy relacje:
+        \begin{align*}
+            R &\subseteq B \times C\\
+            S &\subseteq B \times C\\
+            T &\subseteq A \times B
+        \end{align*}
+        Wtedy
+        \begin{itemize}
+            \item \(\pars{R \cup S}^{-1} = R^{-1} \cup S^{-1}\)
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{c, b} \in \pars{R \cup S}^{-1}
+                                \iff& \pars{b, c} \in R \cup S\\
+                                \iff& \pars{b, c} \in R \lor \pars{b, c} \in S\\
+                                \iff& \pars{c, b} \in R^{-1} \lor \pars{c, b} \in S^{-1}\\
+                                \iff& \pars{c, b} \in R^{-1} \cup S^{-1}
+                        \end{split}
+                    \end{equation*}
+                \end{proof}
+            \item \(\pars{R \cap S}^{-1} = R^{-1} \cap S^{-1}\)
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{c, b} \in \pars{R \cap S}^{-1}
+                                \iff& \pars{b, c} \in R \cap S\\
+                                \iff& \pars{b, c} \in R \land \pars{b, c} \in S\\
+                                \iff& \pars{c, b} \in R^{-1} \land \pars{c, b} \in S^{-1}\\
+                                \iff& \pars{c, b} \in R^{-1} \cap S^{-1}
+                        \end{split}
+                    \end{equation*}
+                \end{proof}
+            \item \(\pars{R^{-1}}^{-1} = R\)
+                \begin{proof}
+                    Zbyt skomplikowany, zdecydowanie wykracza poza materiał przedmiotu. Dlatego pomijamy.
+                \end{proof}
+            \item \(\pars{R \cup S} \composition T = \pars{R \composition T} \cup \pars{S \composition T}\)\qquad (rozdzielność złożenia względem sumy --- ,,rusot równa się rotusot'')
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{a, c} \in \pars{R \cup S} \composition T
+                                \iff& \exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{b, c} \in R \cup S}\\
+                                \iff& \exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{\pars{b, c} \in R \lor \pars{b, c} \in S}}\\
+                                \iff& \exists_{b \in B} \pars{\pars{\pars{a, b} \in T \land \pars{b, c} \in R} \lor \pars{\pars{a, b} \in T \land \pars{b, c} \in S}}\\
+                                \iff& \pars{\exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{b, c} \in R}}\\
+                                    &\lor \pars{\exists_{b \in B}\pars{\pars{a, b} \in T \land \pars{b, c} \in S}}\\
+                                \iff& \pars{a, c} \in \pars{R \composition T} \lor \pars{a, c} \in \pars{S \composition T}\\
+                                \iff& \pars{a, c} \in \pars{R \composition T} \cup \pars{S \composition T}
+                        \end{split}
+                    \end{equation*}
+                    Skorzystaliśmy tutaj z~rozdzielności konjunkcji względem alternatywy oraz rozbiliśmy kwantyfikator egzystencjonalny na alternatywie.
+                \end{proof}
+            \item \(\pars{R \cap S} \composition T \subseteq \pars{R \composition T} \cap \pars{S \composition T}\)
+                \begin{proof}
+                    \begin{equation*}
+                        \begin{split}
+                            \pars{a, c} \in \pars{R \cap S} \composition T
+                                \iff& \exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{b, c} \in R \cap S}\\
+                                \iff& \exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{\pars{b, c} \in R \land \pars{b, c} \in S}}\\
+                                \iff& \exists_{b \in B} \pars{\pars{\pars{a, b} \in T \land \pars{b, c} \in R} \land \pars{\pars{a, b} \in T \land \pars{b, c} \in S}}\\
+                                \implies& \pars{\exists_{b \in B} \pars{\pars{a, b} \in T \land \pars{b, c} \in R}}\\
+                                    &\land \pars{\exists_{b \in B}\pars{\pars{a, b} \in T \land \pars{b, c} \in S}}\\
+                                \iff& \pars{a, c} \in \pars{R \composition T} \land \pars{a, c} \in \pars{S \composition T}\\
+                                \iff& \pars{a, c} \in \pars{R \composition T} \cap \pars{S \composition T}
+                        \end{split}
+                    \end{equation*}
+                    Skorzystaliśmy tutaj z~rozdzielności konjunkcji względem niej samej oraz rozbiliśmy kwantyfikator egzystencjonalny --- tym razem na konjunkcji, więc przejście działa tylko w~jedną stronę.
+                \end{proof}
+        \end{itemize}
+\end{description}

@@ -1,0 +1,42 @@
+\subsection{Definiowanie przez schemat rekursji prostej}
+
+\begin{theorem}
+Niech dane będą zbiory \( A, Z \) oraz funkcje \( g: A \rightarrow Z, h : Z \times \natural \times A \rightarrow Z \).
+
+Wtedy istnieje dokładnie jedna funkcja \( f : \natural \times A \rightarrow Z \) dla której zachodzi
+\begin{enumerate}
+    \item \( f(0, a) = g(a) \) -- warunek początkowy (bazowy)
+    \item \( f(n', a) = h(f(n, a), n, a) \) -- rekursor
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+    Rozważmy zbiór 
+    \[
+        P = \set{ n \in \natural \mid \exists_{f_n} : f_n : n' \times A \rightarrow Z \text{ która spełnia zadane warunki }}
+    \]
+    
+    Pokażemy, że \( P \) jest induktywny.
+    
+    \begin{enumerate}
+        \item \( 0 \in P \)
+            
+            \( f_0 : \set{0} \times A \rightarrow Z \) definiujemy jako \( f(0, a) = g(a) \) i nic innego nie możemy zrobić.
+            
+        \item \( n \in P \implies n' \in P \)
+        
+            Mając \( f_n : n' \times A \rightarrow Z \) konstruujemy \( f_{n'} : n'' \times A \rightarrow Z \) w następujący sposób:
+            \[
+                f_{n'}(k, a) = \begin{cases}
+                    f_n(k, a) & \text{ gdy } k \leq n \\
+                    h(f_n(n, a), n, a) & \text{ gdy } k = n'
+                \end{cases}
+            \]
+            Ponieważ \( f_n \) spełniało oba warunki, a \( f_{n'} \) zdefiniowane jest jak jest to widać że \( f_{n'} \) również je spełnia.
+    \end{enumerate}
+    
+    W takim razie \( P \) jest induktywny, czyli \( P = \natural \). 
+    
+    Mamy też bardzo fajną własność, a mianowicie \( f_n \subset f_{n'} \) (bo funkcje rozszerzamy przez dorzucenie do nich par (argument, wynik)).
+    
+    Możemy zatem wziąć \( f = \bigcup P = \bigcup_{n \in \natural} f_n \) otrzymując funkcję zdefiniowaną na całym \( \natural \times A \).
+\end{proof}

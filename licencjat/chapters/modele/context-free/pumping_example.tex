@@ -1,0 +1,15 @@
+\begin{theorem}
+Język \( L = \set{a^nb^nc^n : n \in \natural} \) nie jest bezkontekstowy.
+\end{theorem}
+
+\begin{proof}
+Stosujemy lemat o pompowaniu dla języków bezkontekstowych. Pokażemy, że dla \(L\) nie zachodzi lemat o pompowaniu dla języków bezkontekstowych (a więc nie może być kontekstowy). W tym celu musimy pokazać, że:
+
+    \( \forall_{n_0 \in \natural} \) \\
+    \( \exists_{w \in L} : \card{w} \geq n_0 \) \\
+    \( \forall_{a, b, c, d, e \in \Sigma^*} \hspace{5pt} w = abcde \land |bcd| \leq n_0 \land |bd| \geq 1 \) \\
+    \( \exists_{i \in \natural} \hspace{5pt} a \cdot b^{i} \cdot c \cdot d^{i} \cdot e \not\in L\)
+
+Dla określonego \(n_0\) robimy słowo \(w = a^{n_0}b^{n_0}c^{n_0}\). Ma ono długość \(3n_0\) (obviously). Zauważam, że dla dowolnego podziału słowa \(w\) (które spełnia warunki lematu) będzie tak, że podciąg \( |bcd| \) (z racji faktu że ma długość maksymalnie \(n_0\) może zawierać dokładnie 1 lub dokładnie 2 litery ze zbioru liter \( \set{a,b,c} \). Tym samym kiedy zdepompujemy (ustawimy \(i=0\)) zredukujemy liczbę jednej lub dwóch liter występujących w słowie, ale nie wszystkich trzech. Tym samym będzie na pewno istnieć jedna litera która występuje \(n_0\) razy i (z racji zdepompowania) jakaś litera która występuje razy mniej. A wtedy takie słowo ewidetnie do tego języka nie należy (bo raczej prosto zauważyć, że warunkiem koniecznym ale niewystarczającym przynależenia do \(L\) jest to, by mieć tyle samo liter \(a, b, c\)).
+
+\end{proof}

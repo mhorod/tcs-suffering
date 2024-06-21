@@ -1,0 +1,66 @@
+\begin{theorem}
+Dla dowolnych zbiorów \(A, B, C\) zachodzi
+\begin{equation*}
+    \pars{A \times B}^C \eqnum A^C \times B^C
+\end{equation*}
+\end{theorem}
+\begin{proof}
+Korzystamy z~przemienności i~konstruujemy bijekcję
+\begin{equation*}
+    \alpha\colon A^C \times B^C \function \pars{A \times B}^C
+\end{equation*}
+Funkcja \(\alpha\)~przyjmuje parę funkcji \(\pars{C \function A, C \function B}\) i~zwraca funkcję \(C \function A \times B\). Definiujemy ją następująco:
+\begin{equation*}
+    \begin{split}
+        \alpha\pars{f, g}
+            &\coloneqq \pars{\text{taka funkcja \(\eta\), że \(\eta\pars{c} = \pars{f\pars{c}, g\pars{c}}\)}}\\
+            &\coloneqq \set{\pars{c, \pars{f\pars{c}, g\pars{c}}} : c \in C}
+    \end{split}
+\end{equation*}
+Inaczej:
+\begin{equation*}
+    \pars{\alpha\pars{f, g}}\pars{c} = \pars{f\pars{c}, g\pars{c}}
+\end{equation*}
+Musimy pokazać, że \(\alpha\)~jest bijekcją.
+\begin{description}
+    \item[Injektywność.] Weźmy różne pary \(\pars{f_1, g_1}, \pars{f_2, g_2} \in A^C \times B^C\). Skoro są to różne pary funkcji, to istnieje takie \(c_0 \in C\), że \(f_1\pars{c_0} \neq f_2\pars{c_0}\) lub istnieje takie \(c_0' \in C\), że \(g_1\pars{c_0'} \neq g_2\pars{c_0'}\). Bez straty ogólności, przyjmijmy pierwszą opcję. Widzimy, że
+    \begin{equation*}
+        \pars{\alpha\pars{f_1, g_1}}\pars{c_0} = \pars{f_1\pars{c_0}, g_1\pars{c_0}} \neq \pars{f_2\pars{c_0}, g_2\pars{c_0}} = \pars{\alpha\pars{f_2, g_2}}\pars{c_0}
+    \end{equation*}
+    Oznacza to, że \(\alpha\pars{f_1, g_1}\) i~\(\alpha\pars{f_2, g_2}\) są różnymi funkcjami --- tak, jak chcieliśmy.
+    \item[Surjektywność.] Weźmy \(h \in \pars{A \times B}^C\). Musimy pokazać, że istnieje para \(\pars{f_0, g_0} \in A^C \times B^C\) taka, że
+        \begin{equation*}
+            \alpha\pars{f_0, g_0} = h
+        \end{equation*}
+        Weźmy
+        \begin{gather*}
+            f_0\colon C \function A\\
+            f_0\pars{c} \coloneqq \text{lewy element pary \(h\pars{c}\)}
+        \end{gather*}
+        oraz
+        \begin{gather*}
+            g_0\colon C \function B\\
+            g_0\pars{c} \coloneqq \text{prawy element pary \(h\pars{c}\)}
+        \end{gather*}
+        Teraz dla dowolnego \(c_0 \in C\) mamy
+        \begin{equation*}
+            \pars{\alpha\pars{f_0, g_0}}\pars{c_0}
+                = \pars{f_0\pars{c_0}, g_0\pars{c_0}}
+                = \pars{\text{lewy z~\(h\pars{c_0}\)}, \text{prawy z~\(h\pars{c_0}\)}}
+                = h\pars{c_0}
+        \end{equation*}
+        co dowodzi, że \(\alpha\pars{f_0, g_0} = h\) jako funkcje.
+        
+        Jako bonus możemy zastanowić się, jak teoriomnogościowo wyciągać lewy i~prawy element pary uporządkowanej. Wykorzystamy definicję \ref{mfi:cartesian_and_relations:cartesian_definitions:def:ordered_pair}.
+        \begin{itemize}
+            \item \(\bigcup\bigcap p\) jest lewym elementem pary \(p\)
+                \begin{equation*}
+                    p = \pars{a, b} = \set{\set{a}, \set{a, b}} \overset{\bigcap}{\longrightarrow} \set{a} \overset{\bigcup}{\longrightarrow} a
+                \end{equation*}
+            \item \(\bigcup\pars{\bigcup p \setminus \bigcap p}\) jest prawym elementem pary \(p\)
+                \begin{equation*}
+                    p = \pars{a, b} = \set{\set{a}, \set{a, b}} \overset{\bigcap}{\longrightarrow} \set{a} \overset{\bigcup \setminus \pars{\mathord{\cdot}}}{\longrightarrow} \set{a, b} \setminus \set{a} = \set{b} \overset{\bigcup}{\longrightarrow} b
+                \end{equation*}
+        \end{itemize}
+\end{description}
+\end{proof}

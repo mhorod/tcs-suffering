@@ -1,0 +1,5 @@
+\textbf{Spooling} (simultaneous peripheral operations on-line) - polega na nie używaniu danego zasobu bezpośrednio, tylko na przekazywaniu zadań dla tego zasobu do specjalnego procesu (\textbf{spooler}), który kolejkuje i wykonuje te zadania. Sposób ten polega na tym, że urządzenie nie udostępnia biblioteki procedur, za pomocą których można komunikować się z urządzeniem, ale zamiast tego tworzony jest specjalny proces działający w tle (\textbf{daemon}) oraz dedykowany folder (nie musi to być folder w systemie pilków) - \textbf{spooling directory}. Procesy użytkownika umieszczają dane w tym folderze (w kolejności FIFO), a daemon decyduje w jaki sposób zlecić je do "wykonania" na urządzeniu.
+
+Typowym przykładem jest drukarka, która działa zbyt wolno, żeby dany program używał jej bezpośrednio. Dokumenty są więc przekazywane do spoolera, który po kolei je drukuje. Dzięki temu programy mogą wykonywać inne czynności w trakcie drukowania.
+
+Ogólnie, należy używać spoolingu w przypadku powolnych zasobów wyjściowych. Na pewno nie da się używać spoolingu w przypadku zasobów wejściowych i interaktywnych, wobec których programy muszą czekać na dane wejściowe.

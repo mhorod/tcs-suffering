@@ -1,0 +1,87 @@
+\subsubsection{Języki regularne i bezkontekstowe}
+
+\begin{theorem}
+    Zbiór języków regularnych nad danym alfabetem jest istotnym podzbiorem zbioru języków bezkonstekstowych nad tym samym alfabetem, tzn. \(\reg{\Sigma} \subsetneq  \cfl{\Sigma}\)
+\end{theorem}
+
+\begin{proof}
+    Dowodzić tej tezy możemy na 2 sposoby:
+    
+    \begin{enumerate}
+        \item Skorzystać z faktu, że ewidentnie da się symulować DFA przy pomocy PDA, a dowodziliśmy na modelach że jeśli istnieje DFA dla języka to ten jest regularny (i że jeśli istnieje PDA dla języka to jest on bezkontekstowy);
+        \item dowieść to bez korzystania z tego faktu. 
+    \end{enumerate}
+    
+    Istotność zawierania w obu przypadkach będzie wynikać z przykładu, który znajdzie się w sekcji \ref{cfl_example}.
+    
+    W tym dowodzie podejmiemy się tego drugiego, bo nie ma tak prosto. Dowodzić będziemy stosując indukcję strukturalną po wyrażeniu regularnym i pokazując, że można je ,,skonwertować'' w gramatykę bezkontekstową. 
+    
+    Na początek rozpatrujemy przypadek bazowy -- jeśli mamy wyrażenie regularne \(\alpha\) postaci \(a\) dla jakiegoś \(a \in \Sigma\), to, oczywiście, \(L(\alpha) = a\). Konstrukcja takiej CFG która rozpozna ten język jest trywialna -- wystarczy mieć jedną produkcję postaci \(S \rightarrow a\). 
+    
+    Teraz wykonujemy krok indukcyjny -- załóżmy, że mamy regexa postaci:
+    
+    \begin{enumerate}
+        \item \( \alpha_1 + \alpha_2\) -- z założenia indukcyjnego istnieją jakieś \(G_1\), \(G_2\) takie, że \(L(G_1) = L(\alpha_1)\) i \(L(G_2) = L(\alpha_2)\). Gramatyki \(G_1, G_2\) mają jakieś symbole startowe \(S_1, S_2\) -- robimy gramatykę \(G_s\) z dwoma produkcjami: 
+        \begin{enumerate}
+            \item \(S \rightarrow S_1\)
+            \item \(S \rightarrow S_2\)
+        \end{enumerate}
+        gdzie \(S\) to symbol startowy gramatyki \(G_s\). Zauważamy, że \(L(G_s) = L(\alpha_1 + \alpha_2)\), czyli jest super.
+        
+        \item \( \alpha_1 \alpha_2\) -- takie same założenia jak wcześniej, przy czym teraz gramatyka \(G_s\) wygląda tak:
+        
+        \begin{enumerate}
+            \item \(S \rightarrow S_1S_2\)
+        \end{enumerate}
+        
+        \item \( \alpha_1^*\) -- rozumowanie jak wcześniej, ale produkcje gramatyki \(G_s\) wyglądają tak:
+        
+        \begin{enumerate}
+            \item \( S \rightarrow S_1S\)
+            \item \( S \rightarrow \eps \)
+        \end{enumerate}
+    \end{enumerate}
+    No i w sumie to będzie na tyle. Robimy gramatykę z regexa i super. 
+\end{proof}
+
+\subsubsection{Języki bezkontekstowe i kontekstowe}
+
+\begin{theorem}
+Zbiór języków bezkontekstowych nad określonym alfabetem jest istotnym podzbiorem zbioru języków kontekstowych nad tym samym alfabetem, tzn. \(\cfl{\Sigma} \subsetneq \csl{\Sigma}\).
+\end{theorem}
+
+\begin{proof}
+Istotność zawierania będzie wynikać z sekcji \ref{csl_example}, gdzie pokażemy przykład języka kontekstowego który nie jest bezkontekstowy. Samo natomiast zawieranie wynika z faktu, że każdą gramatykę bezkontekstowa jest również gramatyką kontekstową, bo każdą produkcję z gramatyki bezkontekstowej postaci: 
+
+\[
+    A \rightarrow \beta 
+\]
+
+można zapisać w gramatyce kontekstowej jako:
+
+\[ 
+  \alpha_1 A \alpha_2 \rightarrow \alpha_1 \beta \alpha_2
+\]
+
+gdzie \(\alpha_1 = \alpha_2 = \eps\). 
+\end{proof}
+
+\subsubsection{Języki kontekstowe i rekurencyjne}
+\begin{theorem}
+Zbiór języków kontekstowych nad określonym alfabetem jest istotnym podzbiorem zbioru języków rekurencyjnych nad tym samym alfabetem, tzn. \(\csl{\Sigma} \subsetneq \r_{\Sigma}\).
+\end{theorem}
+
+\begin{proof}
+LBA to w szczególności Maszyna Turinga, ale z limitacją na rozmiar taśmy. W takim razie jeśli LBA rozpozna jakiś język, to MT też go rozpozna\footnote{Zaniepokojonych problemem stopu dla LBA informujemy, że problem stopu dla LBA jest rozstrzygalny; rozstrzygalność jego wynika z prostej rzeczy: mianowicie konfiguracji LBA jest skończenie wiele.}.
+
+Przykład języka, który jest rozpoznawany przez MT ale nie LBA prezentujemy w sekcji \ref{recursive-example}
+\end{proof}
+
+\subsubsection{Języki rekurencyjne i rekurencyjnie przeliczalne}
+\begin{theorem}
+Zbiór języków rekurencyjnych nad określonym alfabetem jest istotnym podzbiorem zbioru języków rekurencyjnie przeliczalnych nad tym samym alfabetem, tzn. \( \r \subsetneq \re \).
+\end{theorem}
+
+\begin{proof}
+Każda Maszyna Turinga z własnością stopu jest Maszyną Turinga, więc ten. Natomiast język stopu jest przykładem języka który jest rozpoznwany jedynie przez Maszyny Turinga bez własności stopu. Więcej na ten temat jest w sekcji \ref{lhp}.
+\end{proof}

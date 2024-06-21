@@ -1,0 +1,10 @@
+\begin{theorem}
+Wyrażenia regularne są zamknięte na dopełnienie.
+\end{theorem}
+\begin{proof}
+ Mając DFA \(A\) możemy ,,odwrócić'' wszystkie stany akceptujące, tzn. stworzyć DFA \(B\) takie, że \(F_B = \set{q \in Q_A : q \not \in F_A}\). Wtedy:
+ 
+ \[ 
+    w \not\in L(A) \iff \tilde \delta(s_a, w) \not \in F_A \iff \delta(s_a, w) \in F_B \iff w \in L(B)
+ \]
+\end{proof}

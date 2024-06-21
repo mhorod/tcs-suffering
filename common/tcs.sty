@@ -26,33 +26,37 @@
 \def\dotproduct{\dotproductdelimiter*}
 
 \let\set\braces
-% cardinality of a set
-\let\card\abs
-\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
 
 \DeclareRobustCommand{\stirling}{\genfrac\{\}{0pt}{}}
 \DeclareRobustCommand{\stirlingOne}{\genfrac[]{0pt}{}}
 
 % Better theorem styling
 \usepackage{thmtools}
+
+\theoremstyle{definition}
 \declaretheorem[numberwithin=section,name=Twierdzenie]{theorem}
-\declaretheorem[numbered=no,name=Twierdzenie]{theorem*}
-
 \declaretheorem[numberwithin=section,name=Lemat]{lemma}
-\declaretheorem[numbered=no,name=Lemat]{lemma*}
-
 \declaretheorem[numberwithin=section,name=Ćwiczenie]{exercise}
-\declaretheorem[numbered=no,name=Ćwiczenie]{exercise*}
-
 \declaretheorem[numberwithin=section,name=Definicja]{definition}
-\declaretheorem[numbered=no,name=Definicja]{definition*}
+\declaretheorem[numberwithin=section,name=Przykład]{example}
+\declaretheorem[numberwithin=section,name=Fakt]{fact}
+\declaretheorem[numbered=no,name=Pytanie]{question}
+
 % Common sets
 \def\natural{\mathbb{N}}
 \def\integer{\mathbb{Z}}
 \def\real{\mathbb{R}}
 
 % Set theory
+\let\set\braces
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\powerset}{\mathcal{P}}
+\renewcommand{\complement}[1]{\overline{#1}}
+\let\function\rightarrow
+\let\fIm\overrightarrow
+\newcommand{\fInvIm}[1]{\fIm{#1}^{-1}}
+\let\emptyset\varnothing
+
 
 % Probability
 \DeclareMathOperator{\prob}{P}
@@ -95,3 +99,55 @@
 \newcommand{\indicator}[1]{\mathbf{1}\brackets{#1}}
 
 \newcommand{\KL}[2]{\mathrm{KL}\pars{#1 \parallel #2}}
+
+% Relations
+\let\composition\circ
+\newcommand{\lproj}[1]{#1_\mathrm{L}} % projection to left coordinate
+\newcommand{\rproj}[1]{#1_\mathrm{P}} % projection to right coordinate
+
+% Cardinality
+\let\card\abs
+\newcommand{\numerosity}{\mathrm{\scriptscriptstyle m}}
+\newcommand{\eqnum}{\mathbin{\sim_\numerosity}}
+\newcommand{\leqnum}{\mathbin{\leq_\numerosity}}
+\newcommand{\ltnum}{\mathbin{<_\numerosity}}
+\newcommand{\geqnum}{\mathbin{\geq_\numerosity}}
+\newcommand{\gtnum}{\mathbin{<_\numerosity}}
+
+% notiff -- from https://tex.stackexchange.com/questions/75361/is-there-no-good-way-to-write-not-iff, CC-BY-SA 3.0
+\newcommand{\notiff}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{"}$\hidewidth\cr$\iff$}}}}
+
+% Statistics 
+\newcommand{\mean}[1]{\overline{#1}}
+
+% Algebra
+\def\vfield{\mathbb{V}}
+\def\fieldset{K}
+\def\field{\mathbb{\fieldset}}
+\def\reverse{{}^{-1}}
+\def\lin{{\mathrm{Lin}}}
+\newcommand{\dotpro}[2]{\langle #1, #2 \rangle}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+% TikZ
+\usepackage{pgfplots}
+\usepackage {tikz}
+\usepackage{tkz-euclide}
+\usetikzlibrary {positioning,angles,calc,intersections}
+
+% Complexity
+\def\p{\textsc{P}}
+\def\np{\textsc{NP}}
+\def\conp{\textsc{coNP}}
+\def\pspace{\textsc{PSPACE}}
+\def\npspace{\textsc{NPSPACE}}
+\def\exptime{\textsc{EXPTIME}}
+\def\re{\textsc{RE}}
+\def\r{\textsc{R}}
+\newcommand{\reg}[1]{\textsc{REG}_#1}
+\newcommand{\cfl}[1]{\textsc{CFL}_#1}
+\newcommand{\csl}[1]{\textsc{CSL}_#1}
+
+% Turing Machine
+\def\blank{\sqcup}

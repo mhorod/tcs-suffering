@@ -1,0 +1,80 @@
+Wiem, wiem, pytanie o kulach i urnach a ja tu z tym jak wygląda ciągłość w probabilistyce, ale w żadnym pytaniu wcześniej sobie tego nie zdefiniowaliśmy, więc brzmi to jak niezły moment by to teraz zrobić. 
+
+Jeśli jakaś zmienna losowa jest \textit{ciągła}, to musimy zacząć posługiwać się dystrybuantami\footnote{To wynika z faktu, że gdy dopuszczamy nieprzeliczalnie wiele zdarzeń to prawdopodobieństwo wystąpienia części z nich wyniesie 0 (mimo że mogą się zdarzyć) i bardziej nas interesuje prawdopodobieństwo tego, że zmienna wyląduje w jakimś przedziale.}, tzn. takimi funkcjami \( F: \real \rightarrow \real\), że:
+
+\[
+    F_X(x) = P(x \geq X)
+\]
+
+Dystrybuantę można generalizować na wiele zmiennych losowych jednocześnie:
+
+
+\[
+    F_{XY}(x,y) = \mathrm{P}(x \geq X \land y \geq Y)
+\]
+
+Jeśli \(X\) i \(Y\) są niezależne to ich wspólna dystrybuanta jest iloczynem ich ,,indywidualnych'' dystrybuant, tzn. 
+
+\[ 
+    F_{XY}(x,y) = F_X(x) \cdot F_Y(y)
+\]
+
+Ponadto definiujemy gęstość rozkładu \(f(x)\) jako pierwszą pochodną dystrybuanty, tzn.
+
+\[ 
+    f(x) = F'(x)
+\]
+
+I analogicznie możemy zdefiniować wspólną gęstość rozkładu \(f_{XY}(x,y)\) jako pochodną po współrzędnej \(x\) i \(y\) (tzn. \( \frac{\partial^2}{\partial x \partial y} F_{XY}(x,y) \)) dystrybuanty tychże dwóch zmiennych. 
+
+\begin{fact}
+Jeśli zmienne losowe \(X\) i \(Y\) są niezależne, to \(f_{XY}(x,y) = f_{X}(x) \cdot f_{Y}(y)\). 
+\end{fact}
+
+\begin{proof}
+    Skoro \(X\) i \(Y\) są niezależne, to:
+    
+    \[
+        F_{XY}(x,y) = F_{X}(x) \cdot F_{Y}(y)
+    \]
+    
+    a zatem 
+    
+    \[ 
+        \frac{\partial}{\partial x} F_{XY}(x,y) = \frac{\partial}{\partial x} \pars{F_{X}(x) \cdot F_{Y}(y)} = F_{Y}(y) \cdot f_{X}(x)
+    \]
+    więc 
+    \[ 
+        \frac{\partial^2}{\partial x \partial y} F_{XY}(x,y) = \frac{\partial}{\partial y} \pars{F_{Y}(x) \cdot f_{X}(x)} = f_{Y}(y) \cdot f_{X}(x)
+    \]
+\end{proof}
+
+Po co nam to wszystko? Bo teraz możemy sobie radośnie obliczać prawdopodobieństwo, że zmienna losowa przyjmie wartość w jakimś przedziale:
+
+\[ 
+    \mathrm{P}(a \leq x \leq b) = \int_{a}^{b} f(x) \; dx
+\]
+
+Podobnie możemy zrobić by policzyć prawdopodobieństwa zachowań wielu różnych zmiennych losowych, korzystając z ich wspólnych gęstości, na przykład:
+
+\[ 
+    \mathrm{P}(a \leq x \leq b \land c \leq y \leq d) = \int_{x=a}^{b}\int_{y=c}^{d} f_{XY}(x,y) \; dydx
+\]
+
+Co w przypadku gdy są one niezależne od siebie (co będzie częste w naszych rozważaniach) będzie można zapisać tak:
+
+\[ 
+    \mathrm{P}(a \leq x \leq b \land c \leq y \leq d) = \int_{x=a}^{b} f_{X}(x)\int_{y=c}^{d} f_{Y}(y) \; dydx
+\]
+
+A jak w tym przezabawnym probabilistycznym świecie wygląda definicja wartości oczekiwanej zmiennej losowej? Ano tak:
+
+\[ 
+    \expected{X} = \int_{-\infty}^{\infty} f(x) \cdot x \; dx 
+\]
+
+No i oczekiwana jakiejkolwiek zmiennej losowej od \(X\) zależnej, danej jakąś funkcją \(g(X)\) może zostać obliczona w taki sposób:
+
+\[ 
+    \expected{g(X)} = \int_{-\infty}^{\infty} f_{X}(x) \cdot g(x) \; dx
+\]

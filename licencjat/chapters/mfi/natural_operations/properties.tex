@@ -1,0 +1,52 @@
+\subsection{Własności operacji}
+
+Zdefiniowaliśmy operacje o których wiemy (a posteriori) że mają pewne własności np. przemienność i łączność. Zwykle te własności przyjmuje się jako dane, tu zobaczymy że faktycznie wynikają one z konstrukcji liczb.
+
+Większość z nich idzie bardzo podobnie (indukcyjnie) dlatego przedstawimy jedynie parę szkiców.
+
+\begin{lemma}
+    \( n + 0 = n \)
+\end{lemma}
+\begin{proof}
+    Może i wygląda to głupio, ale o dodawaniu wiemy z definicji tylko że \( 0 + n = n \), a jeszcze nie mamy przemienności.
+    
+    Robimy indukcję po \( n \)
+    \begin{itemize}
+        \item Baza: \( n = 0 \), mamy \( n + 0 = 0 + 0 = 0 = n \) z definicji
+        \item Krok indukcyjny: \( n' + 0 = (n + 0)' = n' \)
+    \end{itemize}
+\end{proof}
+
+\begin{lemma}
+    \( a' + b = a + b' \)
+\end{lemma}
+\begin{proof}
+    Robimy indukcję po \( a \)
+    \begin{itemize}
+        \item Baza: \( 0' + b = (0 + b)' = b' = 0 + b' \)
+        \item Krok indukcyjny: \( a'' + b \stackrel{\text{def.} +}{=} (a' + b)' \stackrel{\text{zał. ind}}{=} (a + b')' \stackrel{\text{def.} +}{=} a' + b' \)
+    \end{itemize}
+\end{proof}
+
+
+\begin{theorem}[Przemienność dodawania]
+    \( a + b = b + a \)
+\end{theorem}
+\begin{proof}
+    Robimy indukcję po \( a \)
+    \begin{itemize}
+        \item Baza: \( 0 + b = b = b + 0 \)
+        \item Krok indukcyjny: \( a' + b = a + b' = b' + a = b + a' \)
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[Prawo skróceń]
+    \( n + p = k + p \implies n = k \)
+\end{theorem}
+\begin{proof}
+    Indukcja po \( p \)
+    \begin{itemize}
+        \item Baza: \( n + 0 = k + 0 \implies n = k \) tak po prostu
+        \item Krok indukcyjny: \( n + p' = k + p' \implies n' + p = k' + p \implies n' = k' \implies n = k \)
+    \end{itemize}
+\end{proof}

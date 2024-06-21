@@ -1,0 +1,27 @@
+\begin{definition}
+    Mówimy, że maszyna M (deterministyczna lub nie) \textbf{działa w czasie} \( T : \natural \rightarrow \natural \) jeśli dla każdej konfiguracji startowej \( q_0 w \) każde obliczenie jest akceptujące lub odrzucające i ma długość co najwyżej \( T(\abs{w}) \)
+\end{definition}
+
+\begin{definition}
+    Mówimy, że funkcja \( f \) jest \textbf{redukcją wielomianową} (Karpa) jeśli istnieje wielomian \( p \) oraz Maszyna Turinga obliczająca \( f \) w czasie \( p \). 
+    
+    Jeśli istnieje redukcja wielomianowa z języka \( L_1 \) do języka \( L_2 \) to zapisujemy to jako \( L_1 \leq_p L_2 \)
+\end{definition}
+
+\begin{definition}
+    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-trudny} jeśli \( \forall_{L' \in C} L' \leq_p L \)
+\end{definition}
+\begin{definition}
+    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-zupełny} jeśli jest \(C\)-trudny i \( L \in C \)
+\end{definition}
+
+\begin{lemma}
+    Jeśli \( L_1 \) jest C-trudny i \( L_1 \leq_p L_2 \) to \( L_2 \) też jest C-trudny. 
+\end{lemma}
+
+\begin{proof}
+    Skoro \( L_1 \) jest C-trudny to znaczy, że dla każdego \( L' \in C \) mamy redukcję \( f \) z \( L' \) do \( L_1 \).
+    Mamy też redukcję \( g \) z \( L_1 \) do \( L_2 \).
+    
+    Składając \( g \circ f \) dostajemy redukcję z \( L' \)  do \( L_2 \) co dowodzi, że \( L_2 \) jest trudniejszy niż dowolny \( L' \in C \).
+\end{proof}

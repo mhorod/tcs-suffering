@@ -1,0 +1,14 @@
+W każdym momencie procesor działa albo w trybie użytkownika, albo w trybie uprzywilejowanym. W trybie uprzywilejowanym dostępne są instrukcje dające pełną kontrolę nad komputerem, a w trybie użytkownika dostęp ten jest ograniczony.
+
+\begin{figure}[H]  
+    \centering
+    \includegraphics[width=12cm]{chapters/sysopy/monolit/2560px-OS-structure.svg.png}
+\caption{Public domain, Wikimedia Commons; Model komunikacji z aplikacjami monolitu i mikro jądra}
+\end{figure}
+
+\subsection{Monolit}
+W monolitycznej architekturze cały system operacyjny działa w trybie uprzywilejowanym. W szczególności, wszystkie sterowniki urządzeń działają w trybie uprzywilejowanym, więc usterka w dowolnym z nich psuje działanie całego systemu operacyjnego. Proces użytkownika wykonuje żądanie systemowe poprzez bezpośrednie przejście do trybu uprzywilejowanego, w którym odpowiedni kod kernela obsługuje to żądanie.
+
+\subsection{Mikro jądro}
+W architekturze opartej na mikro jądrze dąży się, aby tylko niezbędne minimum kodu było wykonywane w trybie uprzywilejowanym. Wiele zadań systemu operacyjnego, takie jak zarządzanie procesami czy obsługa systemów plików jest wykonywana przez serwery, czyli specjalne procesy, które działają w trybie użytkownika, ale mogą prosić kernel o wykonywanie dla nich odpowiednich czynności. W szczególności, sterowniki urządzeń są tylko zwykłymi serwerami. Dzięki podziale zadań na różne serwery, cały system operacyjny staje się bardziej modularny, a usterka w pojedynczym serwerze nie koniecznie powoduje zepsucia działania całego systemu. Procesy użytkownika i serwery nigdy nie działają w trybie uprzywilejowanym. Procesy użytkownika wykonują żądania systemowe poprzez przekazywanie wiadomości do odpowiednich serwerów, a serwery realizują te żądania poprzez przekazywanie odpowiednich wiadomości do kernela. Tylko kernel działa w trybie uprzywilejowanym i musi być odpowiedzialny przynajmniej za przekazywanie wiadomości między procesami, mapowanie wirtualnej pamięci, przełączanie procesów, oraz bezpośrednią komunikację z urządzeniami.
+

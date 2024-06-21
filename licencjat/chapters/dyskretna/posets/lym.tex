@@ -1,0 +1,34 @@
+    \begin{theorem}[Nierówność LYM (Lubella, Yamamoto, Meshalkina)]
+       Przez $f_k$ oznaczmy liczbę elementów $k$-elementowych w danym antyłańcuchu w kracie $B_n$. Mamy wówczas:
+       \begin{equation}
+           \sum_{k=0}^{n} \frac{f_k}{\binom{n}{k}} \leq 1 
+       \end{equation}
+    \end{theorem}
+
+    \begin{proof}
+       Zdefiniujemy teraz dziwną strukturę, ale obiecuję że ona ma sens. Mamy jakiś antyłańcuch $F$ i definiujemy zbiór $C$, który dla każdego elementu z antyłańcucha $C$ trzyma wszystkie możliwe pary tego elementu i łańcucha maksymalnego w kracie zbiorów, do którego należy dany element antyłańcucha $F$. Jeden element z antyłańcucha w zbiorze $C$ może występować w różnych parach (np. jeśli przechodzi przez niego $k$ łańcuchów maksymalnych w kracie zbiorów to wystąpi on $k$ razy). 
+       
+       Ciekawszą obserwacją natomiast jest, że jeden łańcuch maksymalny w zbiorze $C$ może wystąpić maksymalnie raz. Wynika to z faktu, że gdyby wystąpił dwukrotnie, to znaczyłoby że dwa różne elementy z $F$ należą do jednego łańcucha, a więc są ze sobą porównywalne; prowadziłoby to do sprzeczności, bo z założenia te dwa elementy mają ze sobą nie być porównywalne, jako że należą do jednego antyłańcucha. 
+
+       Warto zauważyć, że liczba łańcuchów maksymalnych w kracie zbiorów \(B_n\) wynosi $n!$. Jest to dosyć prosta do udowodnienia obserwacja -- bierzemy sobie najwyższy element; elementów o mocy od niego mniejszej o 1 (tzn. takich że są ,,poziom niżej'') zawierających się w nim jest dokładnie $n$ (bo na $n$ sposobów mogę ,,wyrzucić'' z niego jakiś element tak, by powstał jego podzbiór mający moc mniejszą od niego o 1). Gdy mam zbiór mający $n-1$ elementów, mogę uzyskać podzbiór na $n-2$ elementowy na \(n-1\) sposobów, i tak dalej. ,,Wyrzucanie'' elementów w ten sposób aż nie otrzymamy zbioru pustego tworzy zawsze jakiś łańcuch maksymalny; oczywistym jest, że łańcuchy te są różne jak i to, że w ten sposób otrzymujemy wszystkie możliwe łańcuchy maksymalne. 
+
+       Oznacza to, że elementów w zbiorze $C$ jest maksymalnie $n!$, bo każdy łańcuch maksymalny występuje maksymalnie raz. Jednocześnie okazuje się, że możemy zliczyć ile dokładnie razy w zbiorze $C$ występuje dany element z antyłańcucha $F$. Weźmy sobie element $x \in F$; zauważmy, że przechodzi przez niego dokładnie $|x|! \cdot (n - |x|)!$ łańcuchów maksymalnych. Żeby to pokazać, stosujemy tę samą obserwację co powyżej, ale jakby ,,zawężamy'' kratę zbiorów do tego elementu, tzn. bierzemy taki jej podzbiór że mamy inną kratę zbiorów, gdzie $x$ jest ,,na górze'', a więc łańcuchów które idą ,,od dołu'' do $x$ jest $x!$. Podobne rozumowanie stosujemy by pokazać, że łańcuchów idących od $x$ ,,na górę'' jest $(n - |x|)!$, a więc wszystkich łańcuchów maksymalnych idących przez $x$ jest dokładnie $|x|! \cdot (n - |x|)!$. 
+       Mamy więc, że
+       \begin{equation*}
+            \sum_{x \in F} |x|! \cdot (n - |x|)! = |C| \leq |n!|
+       \end{equation*}
+       A zatem 
+       \begin{equation*}
+            \sum_{x \in F} |x|! \cdot (n - |x|)! \leq |n!|
+       \end{equation*}
+        \begin{equation*}
+            \sum_{x \in F} \frac{|x|! \cdot (n - |x|)!}{n!} \leq 1
+       \end{equation*}
+       \begin{equation*}
+            \sum_{x \in F} \frac{1}{\binom{n}{|x|}} \leq 1
+       \end{equation*}
+       Teraz żeby było ładniej mówimy, że $f_k$ to jest liczba elementów $F$ takich, że mają moc równą dokładnie $k$, skąd otrzymujemy już 
+        \begin{equation*}
+           \sum_{k=0}^{n} \frac{f_k}{\binom{n}{k}} \leq 1 
+       \end{equation*}
+     \end{proof}

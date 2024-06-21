@@ -1,0 +1,30 @@
+\begin{definition}[Definicja permutacyjna wyznacznika]
+Jeśli \(\field\) jest ciałem i \(n \in \natural\), to \textbf{wyznacznikiem} nazwiemy funkcję \(f : \fieldset^{n \times n}\) taką, że:
+
+\[
+f(A) = \sum_{\sigma \in S_n} \sgn(\sigma) \cdot A_{1, \; \sigma(1)} \cdot A_{2, \; \sigma(2)} \cdot A_{3, \; \sigma(3)} \cdot \dots \cdot A_{n, \; \sigma(n)} 
+\]
+
+gdzie \(A_{ij}\) oznacza komórkę macierzy znajdującą się w \(i\)-tym wierszu i \(j\)-tej kolumnie, a \(S_n\) oznacza zbiór wszystkich permutacji zbioru \(n\)-elementowego.
+
+\end{definition}
+
+\begin{definition}[Definicja ,,objętościowa'' wyznacznika]
+Niech \(\field\) będzie ciałem i \(n \in \natural\). Ponadto, niech \(v_1, v_2, v_3, \dots, v_n \in \fieldset^{n}\). Wówczas tuplę \((v_1, v_2, v_3, \dots, v_n) \in (\fieldset^{n})^{n}\) możemy trywialnie utożsamić z macierzą \(M \in \fieldset^{n \times n}\) (i vice versa), poprzez utożsamienie każdego wektora \(\fieldset^{n}\) z pojedynczym wierszem tej macierzy.
+
+Stosując taką notację, mówimy że funkcja \(f: \fieldset^{n \times n} \rightarrow \fieldset\) jest \textbf{wyznacznikiem}, jeśli spełnia następujące warunki: 
+
+\begin{enumerate}
+    \item \(f(v_1, v_2, \dots, \lambda v_i, \dots, v_n) = \lambda \cdot f(v_1, v_2, \dots, v_i, \dots, v_n) \)
+    \item \(f(v_1, v_2, \dots, v_i + v_{i}', \dots, v_n) = f(v_1, v_2, \dots, v_i, \dots, v_n) + f(v_1, v_2, \dots, v_{i}', \dots, v_n) \)
+    \item Jeżeli istnieje takie \(i\), że \(v_i = v_{i+1}\), to \(f(v_1, v_2, \dots, v_i, v_{i+1}, \dots v_n) = 0\)
+    \item \(f\) na macierzy identycznościowej przyjmuje wartość \(1\). 
+\end{enumerate}
+
+Postulaty te wynikają z chęci stworzenia funkcji obliczającej zorientowaną objętość wielowymiarowego równoległościanu (opisywanego wektorami).
+
+Można wykazać, że dla określonego \(n \in \natural\) istnieje dokładnie 1 funkcja spełniająca wyżej wymienione warunki. Definicja ta okazuje się być równoważna z tą wcześniejszą.
+
+\end{definition}
+
+Wyznacznik oznaczamy jako \(\det\).

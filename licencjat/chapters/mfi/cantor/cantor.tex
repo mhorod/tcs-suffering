@@ -1,0 +1,22 @@
+\begin{theorem}[Cantor]
+    Dla dowolnego zbioru \( A \)
+    \[
+        A \ltnum \powerset(A)
+    \]
+\end{theorem}
+\begin{proof}
+    Oczywiście \( A \leqnum \powerset(A) \) bo mamy iniekcję \( f: A \ni a \mapsto \set{a} \in \powerset(A) \)
+    
+    Załóżmy teraz nie wprost, że istnieje bijekcja \( f: A \function \powerset(A) \) i zdefiniujmy
+    \[
+        R = \set{ x \in A \mid x \notin f(x) }
+    \]
+    \( R \) zawiera jedynie elementy z \( A \), więc niewątpliwie \( R \in \powerset(A) \), a ponieważ \( f \) jest bijekcją to \( \exists x_0 : f(x_0) = R \).
+    
+    Mamy teraz dwie możliwości:
+    \begin{itemize}
+        \item Jeśli \( x_0 \in R = f(x_0) \) to \( x_0 \notin f(x_0) = R \)
+        \item Jeśli \( x_0 \notin R \) to \( x_0 \in f(x_0) = R \)
+    \end{itemize}
+    W obu przypadkach mamy sprzeczność, co dowodzi, że nie może istnieć bijekcja między \( A \) i \( \mathcal{P}(A) \)
+\end{proof}

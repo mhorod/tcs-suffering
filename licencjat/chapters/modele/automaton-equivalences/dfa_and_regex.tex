@@ -1,0 +1,47 @@
+    Pokażemy teraz, że dla dowolnego DFA \(A\) możemy skonstruować wyrażenie regularne \(\alpha\) takie, że \( L(A) = L(\alpha)\). 
+    
+     Czynimy obserwację, że jeśli \( w \in L(A) \) to istnieje ścieżka \( s \rightarrow q_f \in F \) idąca stanami
+    \[
+        q_1, q_2, \dots, q_{k+1}
+    \]
+    taka że \( s = q_1 \) i \( q_{k+1} \in F\).
+    
+    Definiujemy \( \alpha_{i, j}^k \) jako takie wyrażenie regularne, które reprezentuje wszystkie ścieżki prowadzące od \( q_i \) do \( q_j \), w której stany pośrednie należą do \( \set{q_1, \dots, q_k} \) (stany numerujemy \textit{arbitralnie} od 1, bo tak będzie wygodniej). Widzimy, że dla każdych \(i, j\):
+    
+    \[
+        \alpha_{i, j}^0 = \set{a \in \Sigma : \delta(q_i, a) = q_j } \cup \beta_{i, j}
+    \]
+    gdzie
+    \[
+        \beta_{i, j} = \begin{cases}
+            \varnothing & \text{ gdy } i \neq j \\
+            \set{\eps}
+        \end{cases}
+    \]
+    
+    Zauważmy teraz, że dla dowolnych \(k, i, j \leq |Q|, k \geq 1 \) jest tak, że:
+    
+    \[ 
+        \alpha^{k}_{ij} = \alpha^{k-1}_{ij} + \alpha^{k-1}_{ik} (\alpha^{k-1}_{kk})^* \alpha^{k-1}_{kj} 
+    \]
+    
+    To może wydawać się być overwhelming, więc to rozbijmy: 
+    
+    \begin{enumerate}
+        \item Pierwszy składnik sumy \( \alpha^{k-1}_{ij} \) mówi nam o sytuacji, kiedy przechodzimy ze stanu \(q_i\) do stanu \(q_j\) nie przechodząc przez \(q_k\)  ani stan o ,,wyższym'' numerze w porządku.
+        \item Drugi składnik sumy mówi o sytuacji, kiedy przechodzimy przez \(q_k\) (bo teraz możemy). W takiej sytuacji nasza wybitna podróż dzieli się na 3 segmenty, których wyrażenia regularne są relatywnie proste i które wypada skonkatenować, by mieć opis całej podróży:
+        
+        \begin{enumerate}
+            \item Przejście z \(q_i\) do \(q_k\) (po raz pierwszy w czasie podróży) -- opisywane wyrażeniem \(\alpha^{k-1}_{ik}\)
+            \item Chodzenie dowolną liczbę razy (być może 0) z \(q_k\) do \(q_k\) , po stanach po których nam wolno chodzić -- można to łatwo opisać wyrażeniem \( (\alpha^{k-1}_{kk})^* \) (gwiazdka oddaje to, że możemy chodzić wiele razy).
+            \item Przejście z \(q_k\) do \(q_j\) (po raz ostatni czas w podróży, tzn. po tym wyjściu z \(q_k\) już tam nie wrócimy) -- opisywane wyrażeniem \( \alpha^{k-1}_{kj}  \). 
+        \end{enumerate}
+    \end{enumerate}
+    
+    Okazuje się w takim razie, że dostaliśmy coś bardzo fajnego: mianowicie, pokazaliśmy że jak mamy DFA możemy sobie konstruować takie wyrażenia regularne dla kolejnych \(k\). Jest to absolutnie wspaniałe na mocy naszej wcześniejszej obserwacji, tzn. tego, że jeśli \(w \in L(A) \) to istnieje taka ścieżka w naszym DFA. W takim razie regex który opisuje tę ścieżkę ma postać:
+    
+    \[
+        \sum_{q_j \in F} \alpha^{k}_{ij}
+    \]
+    
+    gdzie \(k\) to liczba stanów, a \(q_i\) to stan początkowy. Jest to poprawnie zdefiniowane wyrażenie regularne, bo jego składowe są poprawnie zdefiniowane. Formalnie dowód tego, że wszystkie wyrażenia regularne tej postaci są poprawnie zdefiniowane można przeprowadzić pewnie jakąś indukcją; pozostawiamy to jako ćwiczenie dla czytelnika.
