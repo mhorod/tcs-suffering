@@ -1,0 +1,53 @@
+\begin{definition}[Iloczyn skalarny nad \(\real\)]
+Niech \(\field = (\real, +, \cdot)\) będzie ciałem, a \(\vfield = (V, \oplus, \odot, \field)\) będzie przestrzenią wektorową nad tym ciałem. 
+
+Wówczas \textbf{iloczynem skalarnym} nazwiemy funkcję \(f: V \times V \rightarrow \real\) taką, że:
+
+\begin{enumerate}
+    \item Jeśli \(v_1, v_2 \in V\), to zachodzi \(f(u,v) = f(v,u)\);
+    \item jeśli \(v_1, v_2, v_3 \in V\) i \(\lambda_1, \lambda_2 \in \real\), to zachodzi \(f(\lambda_1 v_1 + \lambda_2 v_2, v_3) = \lambda_1 f(v_1, v_3) + \lambda_2 f(v_2, v_3) \);
+    \item jeśli dla jakiegoś \(v \in V\) jest tak, że \(v \not = 0\), to \(f(v,v) > 0\). 
+\end{enumerate}
+
+W praktyce iloczyn skalarny wektorów \(v_1, v_2 \in V\) oznaczany jest jako \(\dotpro{v_1}{v_2}\). 
+\end{definition}
+
+\begin{definition}[Iloczyn skalarny nad \(\mathbb{C}\)]
+Niech \(\field = (\mathbb{C}, +, \cdot)\) będzie ciałem, a \(\vfield = (V, \oplus, \odot, \field)\) będzie przestrzenią wektorową nad tym ciałem. 
+
+Wówczas \textbf{iloczynem skalarnym} nazwiemy funkcję \(f: V \times V \rightarrow \mathbb{C}\) taką, że:
+
+\begin{enumerate}
+    \item Jeśli \(v_1, v_2 \in V\), to zachodzi \(f(u,v) = \overline{f(v,u)}\);
+    \item jeśli \(v_1, v_2, v_3 \in V\) i \(\lambda_1, \lambda_2 \in \real\), to zachodzi \(f(\lambda_1 v_1 + \lambda_2 v_2, v_3) = \lambda_1 f(v_1, v_3) + \lambda_2 f(v_2, v_3) \);
+    \item jeśli dla jakiegoś \(v \in V\) jest tak, że \(v \not = 0\), to \(f(v,v) > 0\). 
+\end{enumerate}
+
+W praktyce iloczyn skalarny wektorów \(v_1, v_2 \in V\) oznaczany jest jako \(\dotpro{v_1}{v_2}\). 
+\end{definition}
+
+\begin{definition}[Przestrzeń euklidesowa]
+Niech \(\field = (\real, +, \cdot)\) będzie ciałem, a \(\vfield = (V, \oplus, \odot, \field)\) przestrzenią wektorową nad tym ciałem. Ponadto, niech \(f: V \times V \rightarrow \real\) będzie iloczynem skalarnym nad \(\real\).
+
+Wówczas parę \((\vfield, f)\) nazwiemy \textbf{przestrzenią euklidesową}.
+\end{definition}
+
+\begin{definition}[Przestrzeń unitarna]
+Niech \(\field = (\mathbb{C}, +, \cdot)\) będzie ciałem, a \(\vfield = (V, \oplus, \odot, \field)\) przestrzenią wektorową nad tym ciałem. Ponadto, niech \(f: V \times V \rightarrow \mathbb{C}\) będzie iloczynem skalarnym nad \(\mathbb{C}\).
+
+Wówczas parę \((\vfield, f)\) nazwiemy \textbf{przestrzenią unitarną}.
+\end{definition}
+
+\begin{example}
+Przykładem przestrzeni euklidesowej \(\vfield, f\) jest przestrzeń gdzie: 
+\begin{enumerate}
+    \item \(\vfield = (\real^n, \oplus, \odot, \real)\) jest przestrzenią wektorową z wektorami \(\real^n\) i ,,standardowymi'' operacjami;
+    \item \(f(a, b) = \sum_{i=1}^{n} a_i b_i\)
+\end{enumerate}
+
+\end{example}
+
+\begin{definition}[Norma wektora]
+Niech \(\vfield\) będzie przestrzenią wektorową nad \(\field\). Wówczas funkcję \(\norm{\cdot}: V \rightarrow \fieldset\) taką, że \(\norm{v} = \sqrt{\dotpro{v}{v}}\)
+ nazwiemy \textbf{normą wektorową}.
+\end{definition}

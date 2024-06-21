@@ -1,0 +1,15 @@
+Zbiór procesów jest zakleszczony (\textbf{deadlocked}), jeśli każdy proces w tym zbiorze czeka na zdarzenie, które może być spowodowane tylko przez jeden z procesów w tym zbiorze.
+
+Jeśli przedstawimy procesy jako graf skierowany, gdzie krawędź oznacza czekanie na inny proces, oraz każdy proces czeka na co najwyżej jeden inny proces, to deadlock jest po prostu cyklem. Ogólniej, jeśli dany proces może czekać na dowolny z kilku innych procesów, to deadlock jest izolowaną silnie spójną składową.
+
+Przykładowo, jeden proces blokuje dostęp do zasobu A i czeka na dostęp do zasobu B, podczas gdy drugi proces blokuje dostęp do B i czeka na A.
+
+Wykrywanie deadlocków -- sprawdzanie co jakiś czas grafu przydziału zasobów i wykrywanie cykli. Po wykryciu cyklu jeden z procesów w tym cyklu jest przerywany i restartowany.
+
+Metody zapobiegania deadlocków:
+\begin{itemize}
+    \item pozwalanie na żądanie wielu zasobów równocześnie i nie pozwalanie na żądanie kolejnych zasobów, gdy jakieś już są przydzielone
+    \item pozwalanie na wywłaszczanie przydzielonych zasobów
+    \item ponumerowanie zasobów i pozwalanie na żądanie ich tylko w odpowiedniej kolejności (przykład structural prevention)
+    \item wymaganie od procesów uprzedniej deklaracji potencjalnie używanych zasobów i odpowiednie planowanie przydziału na podstawie tych informacji
+\end{itemize}

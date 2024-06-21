@@ -1,0 +1,35 @@
+ \label{ramsey}
+ \epigraph{W twierdzeniach ramseyowych nie chodzi o jakieś liczby, a o granice Twojej wyobraźni}{\textit{Student TCSu który uwalił egzamin}}
+    \begin{theorem}
+            Liczby
+    \begin{equation*}
+         R^{(k)}(l_1,l_2,l_3,\dots,l_s;s)
+    \end{equation*}
+    są zdefiniowane poprawnie. 
+    \end{theorem}
+
+    \begin{proof}
+        Prowadzimy indukcję po $k$, $s$ i $\sum_{i=1}^{s} l_i$. Sprawdzamy przypadki bazowe:
+        \begin{enumerate}
+            \item Gdy $k = 1$ poprawność wynika z zasady szufladkowej, $N = (l_1 - 1) + (l_2 - 1) + \dots + (l_s - 1) + 1$,
+            \item Gdy $s = 1$ chyba wszyscy widzimy dlaczego to jest trywialne,
+            \item Trzeci przypadek bazowy polega na tym, że dla jakiegoś $j$ $l_j = k$ ($k$ jest to minimalna wartość którą w ogóle może przyjąć jakiekolwiek $l_i$, inaczej to by nie miało sensu). W takim razie jest tak, że $R^{(k)}(l_1,l_2,l_3,\dots,l_j,\dots,l_s;s) = R^{(k)}(l_1,l_2,l_3,\dots,l_{j-1}, l_{j+1}, \dots,l_s;s-1)$. Wynika to z faktu, że jeśli pokolorujemy jakikolwiek podzbiór $k$-elementowy na kolor $j$ to wtedy to kolorowanie już jest ,,załatwione'', a więc rozpatrujemy przypadek złośliwego kolorowania gdzie kolor $j$ jest po prostu nieużywany. Legendy mówią, że ktoś fakt ten kiedyś dowiódł formalnie.
+        \end{enumerate}
+
+        Zostajemy obecnie z przypadkiem, gdzie mamy jakieś $k, s \geq 2$ i dla każdego $i$ jest tak, że $l_i > k$. Wprowadzamy oznaczenie:
+        \begin{equation*}
+            L_i = R^{(k)}(l_1,l_2,l_3,\dots, l_{i-1}, l_i - 1, l_{i+1}, \dots l_s;s)
+        \end{equation*}
+        I zauważamy, że $L_i$ z założenia indukcyjnego (bo zredukowaliśmy sumę $l_i$; formaliści mogą sobie podumać nad indukcją po wielu zmiennych i jak działa) jest zdefiniowane poprawnie (w sensie jest jakąś liczbą naturalną). Teraz definiujemy sobie pewną \textit{potężną} liczb służącą jako ograniczenie górne:
+        \begin{equation*}
+            N = R^{(k-1)}(L_1, L_2, L_3, \dots, L_s; s) + 1
+        \end{equation*}
+        Ponownie, jest ona poprawnie zdefiniowana z założenia indukcyjnego (bo kolorujemy teraz podzbiory $k-1$-elementowe). Po co ta jedynka na końcu? Zaraz się okaże. Przez $c$ oznaczajmy jakieś kolorowanie podzbiorów $k$-elementowych $[N]$ i zdefiniujmy sobie teraz kolorowanie $c'$, które koloruje podzbiory $k-1$-elementowe $[N]$. $c'$ definiujemy sobie w oparciu o $c$ w niezwykle fascynujący sposób. Wybieramy sobie jakiś wierzchołek $x$ z $[N]$ i mówimy, że kolorowanie $c'$ koloruje jakikolwiek $k-1$-elementowy podzbiór $[N] \setminus \{x\}$ (który nazwę $a$) na taki sam kolor, na który kolorowanie $c$ pokolorowałoby $a \cup \{x\}$. Pomocne może być tutaj narysowanie tej sytuacji.
+
+        W każdym razie, wiemy że mamy jakiś zbiór $L_j$ elementów z $N$, taki że mamy $L_1$ lub $L_2$ lub $\dots$ lub $L_s$ punktów takich, że każdy ich $k-1$-elementowy podzbiór koloruje się na ten sam kolor (w kolorowaniu $c'$).
+        
+        A skoro mamy zbiór $L_j$ elementów, to z definicji $L_j$ wiemy, że istnieje tu podzbiór $l_1$ lub $l_2$ lub \dots lub $l_j - 1$ lub \dots lub $l_s$ elementów taki, że każdy ich $k$-elementowy podzbiór ma ten sam kolor (w kolorowaniu $c$). Zauważam że jeśli własność ta zachodzi dla jakiegokolwiek $l_i$ gdzie $i \not = j$, to ta własność nam się przez przypadek właśnie udowodniła (i nawet nie użyliśmy naszego śmiesznego kolorowania). Zostaje przypadek gdy mamy $l_j - 1$ punktów takich, że ich każdy $k$-elementowy podzbiór jest pokolorowany na kolor $j$.
+
+        Pamiętacie kolorowanie $c'$? Teraz ono wchodzi do akcji, bo nasze $L_j$ musiało spełniać, że dowolny $k-1$-elementowy podzbiór $L_j$ (nazwijmy go ponownie $a$) ma ten sam kolor co $a \cup \{x\}$ w kolorowaniu $c$. Czyli skoro w tym $L_j$ mam $l_j - 1$ punktów, że każdy ich $k$-elementowy podzbiór ma kolor $j$ w $c$, to jak dorzucę $x$ do tego podzbioru to mam już zbiór $l_j$-elementowy i nadal wszystko jest kolorowane tak jak bym chciał żeby było. Sparse'owanie tego co się stało może trochę zająć, ale w sumie to udowodniliśmy twierdzenie Ramseya. Fajnie.  
+    \end{proof}
+  

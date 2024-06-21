@@ -1,0 +1,208 @@
+\begin{definition}
+\textbf{Przestrzeń wektorowa} to tupla \( \vfield = (V, \oplus, \odot, \field)\) taka, że: 
+
+\begin{enumerate}
+    \item \( \field = (K, +, \cdot) \) jest ciałem;
+    \item \( \oplus \) jest funkcją \( V \times V \rightarrow V\);
+    \item \( \odot \) jest funkcją \(K \times V \rightarrow V\);
+    \item \( (V, \oplus)\) jest grupą abelową;
+    \item spełnione są następujące własności:
+    \begin{enumerate}
+        \item dla dowolnego \( \lambda \in K \) i dowolnych \(x, y \in V\) jest tak, że \( \lambda \odot (x  \oplus y) = (\lambda \odot x) \oplus (\lambda \odot y) \);
+        \item dla dowolnych \( \lambda, \mu \in K\) i dla dowolnego \(x \in V\) mamy \( (\lambda + \mu) \odot x = (\lambda \odot x) \oplus (\mu \odot x)\);
+        \item dla dowolnych \( \lambda, \mu \in K\) i dla dowolnego \( x \in V\) mamy \((\lambda \cdot \mu) \odot x = \lambda \odot (\mu \odot x)\);
+        \item Jeśli \(1\) to element neutralny z \(\field\) względem operacji \(\cdot\), to dla dowolnego \(x \in V\) jest tak, że \(1 \odot x = x\). 
+    \end{enumerate}
+\end{enumerate}
+
+W praktyce \(\odot\) i \(\cdot\) notuje się w taki sam sposób (jako \(\cdot\)), a \(\oplus\) i \(+\) analogicznie (jako \(+\)). Formalnie to są jednak różne działania, które \textit{a priori} mogą mieć się do siebie nijak, o ile spełniają zapostulowane własności.
+
+Elementy \(V\) zwykliśmy określać mianem \textit{wektorów}, a elementy \(K\) mianem skalarów. 
+
+\end{definition}
+
+\begin{example}
+    Weźmy sobie jakieś ciało \(\field = (K, +, \cdot)\). Wówczas możemy sobie zdefiniować przestrzeń wektorową dla \(V = K^n\), gdzie \(n \in \natural\) (innymi słowy: dla tupli długości \(n\), zawierających elementy z \(K\)).
+    
+    Działanie \(\oplus\) możemy zdefiniować jako point-wise aplikację działania \(+\) z ciała: 
+    
+    \[ 
+        (a_1, a_2, a_3, \dots, a_n) \oplus (b_1, b_2, b_3, \dots, b_n) = (a_1 + b_1, a_2 + b_2, a_3 + b_3, \dots, a_n + b_n).
+    \]
+    Jak i działanie \(\odot\) możemy zdefiniować jako mnożenie point-wise, korzystając z działania \( \cdot \) z ciała:
+    
+    \[ 
+        \lambda \odot (a_1, a_2, a_3, \dots, a_n) = (\lambda \cdot a_1, \lambda \cdot a_2, \lambda \cdot a_3, \dots, \lambda \cdot a_n)
+    \]
+    
+    Uwaga: w praktyce (jak już pisaliśmy w definicji) coś takiego zapisze się tak: 
+    
+    \[ 
+        (a_1, a_2, a_3, \dots, a_n) + (b_1, b_2, b_3, \dots, b_n) = (a_1 + b_1, a_2 + b_2, a_3 + b_3, \dots, a_n + b_n).
+    \]
+    
+    \[ 
+        \lambda \cdot (a_1, a_2, a_3, \dots, a_n) = (\lambda \cdot a_1, \lambda \cdot a_2, \lambda \cdot a_3, \dots, \lambda \cdot a_n)
+    \]
+    
+    Ale podmiot liryczny niniejszego tekstu nie jest fanem takiego stanu rzeczy. Znaczy, tak później też zaczyna notować bo jest szybciej, ale warto mimo wszystko być świadomym.
+\end{example}
+
+\begin{example}
+    Analogicznie jak wyżej, ale z macierzami zawierającymi elementy z \(K\).
+\end{example}
+
+\begin{example}
+\label{fascinating}
+    Weźmy sobie \(\field = (K, +, \cdot)\). Wówczas doprawdy fascynującą przestrzenią wektorową jest:
+    \[ 
+        \vfield = (K, +, \cdot, \field)
+    \]
+    
+    Skalary z ciała są jednocześnie wektorami, a za dodawanie wektorów (i ich mnożenie) służą nam zwyczajne operacje dodawania i mnożenia z ciała. Wzruszające.
+\end{example}
+
+Zasadniczo, przestrzeń wektorową jesteśmy w stanie zdefiniować niemalże w identyczny sposób dla jakichkolwiek struktur o jasno zdefiniowanej semantyce ,,współrzędnych'' (np. dla wielomianów o współczynnikach z \(K\)). Nie są to, oczywiście, jedynie przestrzenie wektorowe które możemy sobie definiować. To nie jest tak, że przestrzenie wektorowe można jedynie definiować nad tuplami w \(\real^{n}\) (określanymi również jako wektory, haha).
+
+\begin{definition}
+Mówimy, że \(\vfield_2 = (V_2, \oplus, \odot, \field)\) jest \textbf{podprzestrzenią wektorową} \(\vfield_1 = (V_1, \oplus, \odot, \field)\) (oznaczane jako \(\vfield_2 \leq \vfield_1\)) jeśli:
+
+\begin{enumerate}
+    \item \( V_2 \subseteq V_1\);
+    \item \(V_2\) jest zamknięte na \(\oplus\)\footnote{Zamkniętość ta dotyczy wykonania \textbf{skończenie wielu} takich operacji. W nieskończoności może nas ,,wyrzucić''.}. 
+\end{enumerate}
+\end{definition}
+
+
+\begin{lemma}
+Dla przestrzeni wektorowej \(\vfield = (V, \oplus, \odot, \field)\) oraz dowolnych dwóch jej podprzestrzeni wektorowych:
+
+\[
+\mathbb{A} = (A, \oplus, \odot, \field) \leq \vfield
+\]
+\[
+\mathbb{B} = (B, \oplus, \odot, \field) \leq \vfield
+\]
+
+Mamy, że \(\mathbb{C} = (A \cap B, \oplus, \odot, \field)\) jest podprzestrzenią wektorową \(\vfield\).
+\end{lemma}
+\begin{proof}
+\begin{enumerate}
+    \item Jako, że \(A \subseteq V\) i \(B \subseteq V\), to trywialne mamy, że \( A \cap B \subseteq V\); 
+    \item Dla dowolnej pary \(x, y \in A \cap B\) wiemy, że \(x \oplus y \in A\) (bo \(x, y \in A\)) oraz, że \(x \oplus y \in B\) (bo \(x, y \in B\)) (korzystamy z faktu, że \(\mathbb{A} \leq \vfield\) oraz \( \mathbb{B} \leq \vfield\)).
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Mówimy, że \(\vfield_2 = (V_2, \oplus, \odot, \field)\) jest \textbf{podprzestrzenią generowaną zbiorem \(X\)} dla \(X \subseteq V\) (oznaczane również jako \(\lin(X)\) jeśli jest to najmniejsza podprzestrzeń przestrzeni \( \vfield = (V, \oplus, \odot, \field)\) zawierająca zbiór \(X\). Mamy, że: 
+
+\begin{align*}
+        V_2 = \lin(X) &= \bigcap \set{A \; : \; ((A, \oplus, \odot, \field) \leq \vfield) \land (X \subseteq A)} \\ 
+        &= \set{\sum_{i=1}^{n} \lambda_i x_i : \; \; n \in \natural, \; \; \lambda_1, \lambda_2, \dots, \lambda_n \in \field, \; \; x_1, x_2, \dots, x_n \in X}
+\end{align*}
+
+W ostatniej równości sumujemy się z użyciem operacji \( \oplus \). Jednocześnie \(\lambda_i x_i\) to formalnie \(\lambda_i \odot x_i\). 
+
+\end{definition}
+
+\begin{definition}
+Jeśli \( \vfield = (V, \oplus, \odot, \field)\) jest przestrzenią wektorową, to mówimy że wektor \(x\) jest \textbf{kombinacją liniową} wektorów z \(X \subseteq V\) jeśli \(x \in \lin(X)\). 
+
+Równoważnie, mówimy że \(x\) jest kombinacją liniową wektorów z \(X\), o ile istnieją takie \(x_1, x_2, \dots, x_n \in X\) i \(\lambda_1, \lambda_2, \dots, \lambda_n \in K\), że:
+
+\[
+    x = \sum_{i=1}^{n} \lambda_i x_i 
+\]
+
+gdzie \(\sum\) (ponownie) sumuje z użyciem operacji \(\oplus\).
+\end{definition}
+
+\begin{definition}
+\label{linear-dependence}
+Mówimy, że zbiór \(X \subseteq V\) (gdzie \( \vfield = (V, \oplus, \odot, \field) \)) jest \textbf{zbiorem liniowo niezależnym}, jeżeli dla każdego \(x \in X\) jest tak, że \(x \not\in \lin(X \setminus \set{x})\).
+
+Równoważnie, zbiór \(X\) jest liniowo niezależny jeżeli żaden \(x \in X\) nie jest kombinacją liniową elementów z \(X \setminus\set{x}\).
+
+Równoważnie, zbiór \(X\) jest liniowo niezależny jeżeli dla \(\lambda_1, \lambda_2, \dots, \lambda_n \in \fieldset\) i \(x_1, x_2, \dots, x_n \in V\) zachodzi:
+\[
+    \sum_{i=1}^{n} \lambda_i x_i = 0
+\]
+to \(\lambda_1 = \lambda_2 = \dots = \lambda_n = 0\).
+\end{definition}
+
+\begin{definition}[Baza]
+Mówimy, że zbiór \(X\) jest \textbf{bazą} przestrzeni wektorowej \( \vfield = (V, \oplus, \odot, \field)\), jeżeli \(\lin(X) = V\) oraz \(X\) jest liniowo niezależny.
+\end{definition}
+
+\begin{theorem}
+Każda przestrzeń wektorowa ma bazę.
+\end{theorem}
+\begin{proof}
+    Zdefiniujmy sobie przestrzeń wektorową \( \vfield = (V, \oplus, \odot, \field)\). Weźmy sobie jakieś \( G \subseteq V \) takie, że \(\lin(G) = V\). Takie \(G\) musi istnieć (w szczególności \(G = V\)). 
+    
+    Rozpatrzmy teraz zbiór \(P\), taki że:
+    
+    \[
+        P = \set{G': \; G' \subseteq G \land \text{\(G'\) jest liniowo niezależny}}
+    \]
+    
+    Na zbiorze \(P\) definiujemy poset \( \mathbb{P} = (P, \subseteq)\) (a więc uporządkowany relacją inkluzji.
+    
+    Teraz tego się nie spodziewaliście, bo wchodzi tu coś mocniejszego niż hiszpańska inkwizycja. To \textbf{lemat Kuratowskiego-Zorna}. Ponieważ relacja inkluzji w oczywisty sposób ,,tworzy'' nam porządek, wystarczy nam pokazać że majoranta dowolnego łańcucha w \(\mathbb{P}\) znajduje się w \(P\):
+    
+    \begin{enumerate}
+        \item Jako majorantę łańcucha \(L\) bierzemy \(M = \bigcup L\).
+        \item Dowodzimy, że \(M \in P\):
+        \begin{enumerate}
+            \item Zakładamy nie wprost, że \(M \not \in P\), a zatem \(M\) nie jest zbiorem liniowo niezależnym. 
+            \item Założenie nie wprost implikuje, że istnieje takie \(x \in M\), że jest ono kombinacją liniową  elementów z \(M \setminus \set{x}\). 
+            \item Zatem (z definicji) mamy, że istnieją takie \( \lambda_1, \lambda_2, \lambda_3, \dots, \lambda_n \in K\) oraz \( x_1, x_2, \dots, x_n \in M \setminus \set{x}\) że:
+            \[
+                x = \sum_{i=1}^{n} \lambda_i x_i
+            \]
+            \item Z tego, że \(M = \bigcup L\) wynika, że istnieją jakieś zbiory \(X_1, X_2, \dots, X_n \in M\) takie, że \(x_1 \in X_1, x_2 \in X_2, \dots, x_n \in X_n\). 
+            \item Bez straty ogólności \(X_1 \subseteq X_2 \subseteq \dots \subseteq X_n\) (jakiś porządek liniowy na nich musi być, bo należą do jednego łańcucha).
+            \item Wnioskujemy wobec tego, że \(x_1, x_2, \dots, x_n \in X_n\). 
+            \item Jako że \(x \in M\), to istnieje również jakieś \(X \in L\) takie, że \(x \in X\).
+            \item Jako, że \(X \in L\) i \(X_n \in L\) to te dwa byty są porównywalne:
+            \begin{enumerate}
+                \item Jeśli \(X \subseteq X_n\) to \(x \in X_n\). Zauważmy jednak, że jako że \(X_n \in P\), to jest on liniowo niezależny, a \(x\) z założenia nie wprost był kombinacją liniową \(x_1, x_2, \dots, x_n \in X_n\). Sprzeczność.
+                \item Jeśli \(X_n \subseteq X\), to \(x_1, x_2, \dots, x_n \in X\) (oraz oczywiście \(x \in X\)). Ponownie, \(x\) z założenia nie wprost jest kombinacją liniową \(x_1, x_2, \dots, x_n\), ale \(X\) jest liniowo niezależne (bo \(X \in P\)). Sprzeczność. 
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+    
+    W takim razie w \(\mathbb{P}\) znajduje się element maksymalny. Czym jest element maksymalny w \(\mathbb{P}\)? Otóż jest to maksymalny pod względem inkluzji zbiór \(\gamma \subseteq G\) taki, że jest liniowo niezależny.
+    
+    Zauważamy teraz 2 szokujące rzeczy dotyczące zbioru \( \gamma \):
+    
+    \begin{enumerate}
+        \item Dla dowolnego wektora \( v \in \gamma\) jest tak, że \( v \in \lin(\gamma)\). To jest ta mniej szokująca rzecz.
+        \item Dla dowolnego wektora \(v\) takiego, że \(v \in G\), ale \( v \not \in \gamma\) dzieje się coś iście skandalicznego. Rozpatrzmy sobie zbiór \( \gamma' = \gamma \cup \set {v} \). Niewątpliwie \(\gamma \subseteq \gamma'\). Jednak to \(\gamma\) jest elementem maksymalnym w \(\mathbb{P}\), co może oznaczać tylko jedno -- \(\gamma'\) jest liniowo zależny!
+        
+        Ale skoro \(\gamma\) nie jest liniowo zależny, a \(\gamma'\) już jest, to znaczy że \(v\) jest kombinacją liniową elementów z \(\gamma\). Czyli \( v \in \lin(\gamma)\). 
+    \end{enumerate}
+    
+    Z powyższych dwóch punktów wynika, że \(G \subseteq \lin(\gamma)\), skąd \(\lin(G) \subseteq \lin(\gamma)\). Jednocześnie \(\lin(G) = V\), czyli \(V = \lin(G) \subseteq \lin(\gamma)\). 
+    
+    Skoro \(\gamma\) generuje całe \(V\) i w dodatku jest liniowo niezależne to znaczy, że jest bazą \(\vfield\). 
+\end{proof}
+
+\begin{fact}
+Jeśli \(\vfield\) jest przestrzenią wektorową a \(B_1, B_2\) to jej bazy, to \(|B_1| = |B_2|\).
+\end{fact}
+
+\begin{definition}
+Jeśli \(\vfield\) jest przestrzenią wektorową, a \(B\) jest jej bazą, to \textbf{wymiarem \(\vfield\)} nazwiemy \(|B|\).
+\end{definition}
+
+
+\begin{example}
+    Załóżmy \(n \in \natural\) oraz \(\vfield = (\real^{n}, \oplus, \odot, \real)\) z \(\oplus\) i \(\odot\) działającymi ,,point-wise'' (jak we wcześniejszym przykładzie). 
+    
+    Wówczas bazą \(\vfield\) jest (na przykład) zbiór wektorów \(\set{(1, 0, \dots, 0), (0, 1, \dots, 0), \dots, (0, 0, \dots, 1)}\). Tym samym wymiar tej przestrzeni wektorowej to \(n\).
+\end{example}
+
+\begin{example}
+   W przykładzie \ref{fascinating} poruszyliśmy temat bardzo fascynującej przestrzeni wektorowej. Jej przykładową bazą jest \(\set{1}\), bo dowolny wektor \(\lambda\) możemy zapisać jako \(\lambda \cdot 1\). Tym samym jej wymiar to 1.
+\end{example}

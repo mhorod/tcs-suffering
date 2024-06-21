@@ -1,0 +1,21 @@
+Vertex cover (pokrycie wierzchołkowe). Mając dany graf nieskierowany $G=(V,E)$ znajdź podzbiór $V' \subseteq V$, taki że dla każdej krawędzi co najmniej jeden z jej końców jest w $V'$.
+
+Algorytm $2-$aproksymacji możemy opisać jednym zdaniem: \textit{znajdujemy zachłannie dowolny matching maksymalny na inkluzję}. Dokładniej rzecz biorąc wykonujemy poniższą procedurę:
+
+\begin{verbatim}
+V' = empty set
+while E is not empty:
+    let (u, v) = any edge from E
+    add u and v to V'
+    
+    remove edges incident to u or v from E
+    remove u and v from V
+\end{verbatim}
+
+Odpowiednia implementacja powyższego będzie miała złożoność liniową. Poprawność także łatwo uzasadnić - każda krawędź musiała być kiedyś usunięta z $E$, a aby do tego doszło co najmniej jeden z jej końców musiał trafić do $V'$.
+
+Pozostaje uzasadnić czemu ten algorytm jest $2-$aproksymacją, czyli czemu \(|V'| \leqslant 2 |OPT|\).
+
+Niech $u_1, v_1, u_2, v_2, \ldots, u_{|V'|/2}, v_{|V'|/2}$ będą kolejno wybieranymi krawędziami przez nasz algorytm. Zauważmy, że z każdej pary $(u_i, v_i)$ co najmniej jeden z tych wierzchołków należy do rozwiązania optymalnego, gdyż inaczej krawędź $u_iv_i$ nie byłaby pokryta. Zatem wielkość rozwiązania optymalnego wynosi co najmniej $|V'|/2$. 
+
+Łatwo wskazać przykład grafu dla którego jest to ścisłe ograniczenie, np. $C_2$, czyli pojedynczej krawędzi.

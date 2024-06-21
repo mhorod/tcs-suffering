@@ -1,0 +1,43 @@
+Możemy teraz przejść do udowadniania tego, co zostało nam nakazane w pytaniu (ale super)! 
+
+Wyobraźmy sobie zatem sytuację, gdzie w przedziale czasowym \((0, t]\) doszło do jakiegoś zdarzenia. Policzmy sobie prawdopodobieństwo, że w przedziale \((0, s]\) (dla jakiegoś \(s \leq t\)) \textit{nie} doszło do tego zdarzenia. 
+
+Uwaga techniczna: jak będziemy teraz notować rzeczy typu \(N(s)\) lub \(N(t)\) będziemy mieli na myśli \textit{ten sam proces}, a jako że przedziały których ,,dotyczą'' te zmienne losowe się pokrywają to będą one od siebie zależne. 
+
+No to jedziemy z tematem. 
+
+\begin{align*}
+    \p(N(s)=0 | N(t)=1) &= \frac{\p(N(s)=0 \land N(t)=1)}{\p(N(t)=1)}  \\
+    &= \frac{\p(N(s)=0 \land N(t-s)=1)}{\p(N(t)=1)}
+\end{align*}
+
+Tutaj uwaga: \(N(s)\) i \(N(t-s)\) będą już od siebie niezależne, bo te zmienne mają na celu opisywać niezależne od siebie przedziały. Tym samym możemy kontynuować nasze obliczenia:
+
+\begin{align*}
+    \frac{\p(N(s)=0 \land N(t-s)=1)}{\p(N(t)=1)} &= \frac{\p(N(s)=0) \cdot \p(N(t-s)=1)}{\p(N(t)=1)}  \\
+    &= \frac{e^{-\lambda s} \cdot \lambda (t-s) e^{-\lambda (t-s)}}{\p(N(t)=1)} \\ 
+    &= \frac{e^{-\lambda s} \lambda (t-s) e^{-\lambda t + \lambda s}}{\p(N(t)=1)} \\ 
+    &= \frac{\lambda (t-s) e^{-\lambda t}}{\p(N(t)=1)} \\
+    &= \frac{\lambda t e^{-\lambda t} - \lambda s e^{-\lambda t}}{\p(N(t)=1)} \\ 
+    &= \frac{\lambda t e^{-\lambda t} - \lambda s e^{-\lambda t}}{\lambda t e^{-\lambda t}} \\
+    &= 1 - \frac{\lambda s e^{-\lambda t} }{\lambda t e^{-\lambda t}} \\ 
+    &= 1 - \frac{s}{t}
+\end{align*}
+
+Czyli całkiem ewidentnie mamy tutaj do czynienia z rozkładem jednostajnym; w szczególności całkowicie obojętny jest mu parametr \(\lambda\) (co było do przewidzenia bo to rozkład jednostajny, ya know). 
+
+Żeby być całkowicie formalnymi w wykazaniu że to jest rozkład jednostajny to zdefiniujmy sobie zmienną losową \(X\) która jako wartość przyjmuje dokładny czas zdarzenia. 
+
+Widzimy, że dla \( a \in (0, t]\):
+
+\[ 
+    \p(X < a) = \p(N(a)=0 | N(t)=1) = 1 - \frac{s}{t}
+\]
+
+Zatem dystrybuanta jest taka:
+
+\[
+    F_X(a) = \p(X \geq a) = 1 - \p(X < a) = 1 - 1 + \frac{s}{t} = \frac{s}{t}
+\]
+
+Czyli dystrybuanta zmiennej \(X\) jest taka sama jak dystrybuanta zmiennej losowej rozkładu jednostajnego, a to kończy dowód. 

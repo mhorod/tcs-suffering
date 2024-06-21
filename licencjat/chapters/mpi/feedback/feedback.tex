@@ -1,0 +1,142 @@
+
+Jak zwykle, zanim zaczniemy to pokażemy pomocniczy lemat:
+\begin{lemma}
+    \label{if-expected-is-finite-then-variable-is-finite}
+    Niech \( X \) będzie dowolną zmienną losową ze skończoną wartością oczekiwaną, tj. \( \expected{X} \in \real \).
+    Wtedy
+    \[
+        P(X < \infty) = 1
+    \]
+\end{lemma}
+\begin{proof}
+    Korzystamy z nierówności Markowa
+    \[
+        P(X \geq n) \leq \frac{\expected{X}}{n}
+    \]
+    Zatem
+    \[
+        \lim_{n \rightarrow \infty} P(X \geq n) \leq \lim_{n \rightarrow \infty} \frac{\expected{X}}{n} = 0
+    \]
+\end{proof}
+
+
+Kule i urny jakie są każdy widzi. Rozważmy sobie jednak zabawny model, w którym mamy tylko dwie urny ale z takim twistem, że im więcej kul jest w urnie, tym większa szansa na to, że wrzucimy tam kolejną kulę.
+
+Konkretniej - jeśli w pierwszej urnie jest \( x \) kul a w drugiej \( y \) to prawdopodobieństwo, że kolejna kula trafi do pierwszej urny wynosi \[ \frac{x^p}{x^p + y^p} \] a do drugiej \[ \frac{y^p}{x^p + y^p} \] 
+dla ustalonego \( p \).
+
+Będziemy się zajmować \( p > 1 \) tzn. więcej kul dostaje ,,cięższa'' urna.
+
+\begin{theorem}
+    Dla dowolnego \( p > 1 \) oraz dowolnych warunków początkowych, z prawdopodobieństwem 1 od pewnego momentu kule wpadają tylko do jednej urny.
+\end{theorem}
+\begin{proof}
+    Przyjmijmy, że w obu urnach jest po jednej kuli, uprości to dowód, a rozumowanie pozostaje takie same.
+    
+    Rozważmy inny, choć podobny, proces.
+    Każda urna dostaje własny, niezależny licznik, który odlicza czas do przyjścia kolejnej kuli do tej konkretnej urny.
+    
+    Jeśli w pierwszej urnie jest \( x \) kul to czas oczekiwania na kolejną wynosi \( T_x \), które ma rozkład wykładniczy z parametrem \( x^p \).
+    
+    Podobnie dla drugiej urny -- jeśli jest w niej \( y \) kul to mamy zmienną \( U_y \) z parametrem \( y^p \).
+    
+    Zauważamy teraz fajną rzecz -- prawdopodobieństwo, że kolejna kula ląduje w pierwszej urnie wynosi dokładnie (co wynika z twierdzenia \ref{lemat8.5}):
+    \[
+         \frac{x^p}{x^p + y^p}
+    \]
+    a w drugiej:
+    \[
+        \frac{y^p}{x^p + y^p}
+    \]
+    Czyli nasz nowy proces jest taki sam jak oryginalny, cóż za zbieg okoliczności.
+    
+    Definiujemy ,,czasy nasycenia'', mające opisywać po jakim czasie liczba kul w urnach będzie dowolnie duża.
+    \[
+        X = \sum_{i=1}^\infty T_i
+    \]
+    \[
+        Y = \sum_{i=1}^\infty U_i
+    \]
+    
+    gdzie \(X\) jest czasem nasycenia dla pierwszej urny, a \(Y\) jest czasem nasycenia dla drugiej urny. 
+    
+    \begin{lemma}
+        Zmienne losowe \(X\) i \(Y\), opisujące czasy nasycenia, mają skończoną wartość oczekiwaną.
+    \end{lemma}
+    
+    \begin{proof}
+            
+        \[ 
+            \expected{X} = \expected{\sum_{i=1}^{\infty} T_i} = \sum_{i=1}^{\infty} \expected{T_i}
+        \]
+        
+        (drugie przejście jest legalne dla nieskończonej sumy pod warunkiem, że \( \sum_{i=1}^{\infty} \expected{|T_i| }\) jest zbieżny, ale to zaraz pokażemy) 
+        
+        i analogicznie:
+        
+        \[ 
+            \expected{Y} = \expected{\sum_{i=1}^{\infty} U_i} = \sum_{i=1}^{\infty} \expected{U_i}
+        \]
+        
+        Zarówno \(T_i\) jak i \(U_i\) to zmienne rozkładu wykładniczego o parametrze \(i^p\), a zatem 
+        
+        \[ 
+            \expected{T_i} = \expected{U_i} = \frac{1}{i^p}
+        \]
+        
+        Zauważamy teraz\footnote{(to jest mało szokujące odkrycie)}, że:
+        
+        \[
+            \sum_{i=1}^{\infty} \expected{|T_i| } =  \sum_{i=1}^{\infty} \expected{T_i}
+        \]
+        
+        A szereg 
+        
+        \[
+             \sum_{i=1}^{\infty} \expected{T_i} = \sum_{i=1}^{\infty} \frac{1}{i^p}
+        \]
+        
+        jest bezdyskusyjnie zbieżny z kryterium zbieżności dla szeregów harmonicznych. To po pierwsze pokazuje że nasze przejście na początku dowodu było legalne, a przy okazji pokazuje że \( \expected{X}\) jest skończona (analogiczne dla \(Y\)). 
+        
+    \end{proof}
+
+    \begin{lemma}
+        Czasy nasycenia z prawdopodobieństwem 1 są skończone.
+    \end{lemma}
+    \begin{proof}
+            Tego P\&C nie mówi, ale na to trzeba formalnie uważać (bo a priori nie wiemy, że jeśli zmienna ma skończoną oczekiwaną to z prawdopodobieństwem 1 \textit{zmienna} przyjmuje skończoną wartość.)
+            
+            Szczęśliwie dowiedliśmy wcześniej lemat \ref{if-expected-is-finite-then-variable-is-finite} i dzięki temu wiemy że w istocie \(X, Y\) z prawdopodobieństwem 1 są skończone.
+    \end{proof}
+    
+    \begin{lemma}
+        Z prawdopodobieństwem 1 czasy nasycenia są różne (tzn. \(X \not = Y\)). 
+    \end{lemma}
+    \begin{proof}
+        Rozpiszmy sobie warunek na to, że \(X = Y\). Wtedy
+        
+         \[
+        \sum_{i=1}^{\infty} T_i = \sum_{i=1}^{\infty} U_i
+        \]
+        
+        czyli 
+        
+        \[ 
+            T_1 = \sum_{i=1}^{\infty} U_i - \sum_{i=2}^{\infty} T_i 
+        \]
+        
+        możemy sobie wyobrazić sytuację, że ,,wylosowaliśmy'' już wszystkie wartości w eksperymencie poza \(T_1\); wtedy z powyższego wzoru dostaniemy ile \textbf{dokładnie} musi wynieść \(T_1\) by ten warunek zaszedł. Ale zaraz chwilunia, przecież \(T_1\) jest zmienną rozkładu wykładniczego, zmienną ciągłą, prawdopodobieństwo że przyjmie jakąś konkretną wartość wynosi 0. Czyli z prawdopodobieństwem 1 ten warunek nie zachodzi.
+    \end{proof}
+    
+   
+    
+    Bogaci w wiedzę że z prawdopodobieństwem 1 \(X \not = Y\) możemy bez straty ogólności założyć, że \( X > Y \). Oznacza to, że dla pewnego \( n \)
+    \[
+        \sum_{i=1}^n T_i < Y < \sum_{i=1}^{n+1} T_i
+    \]
+    a to z kolei oznacza, że:
+    \[
+        \exists_{M_0 \in \natural} \forall_{m > M_0}: \; \sum_{i=1}^n T_i < \sum_{i=1}^m U_i < \sum_{i=1}^{n+1} T_i
+    \]
+    W takim razie, dla odpowiednio dużych \( m \) pierwsza urna zawiera \( m \) kul, a druga urna zawiera jedynie \( n \) kul, czyli z prawdopodobieństwem 1 druga urna ,,utknęła'' na posiadaniu \( n \) kul, a to jest to co chcieliśmy pokazać.
+\end{proof}

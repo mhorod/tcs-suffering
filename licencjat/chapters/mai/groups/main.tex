@@ -1,0 +1,49 @@
+\subsection{Definicja}
+\begin{definition}
+Grupą nazywamy tuplę \((G, \cdot)\), gdzie:
+
+\begin{enumerate}
+    \item \(G\) to zbiór elementów grupy;
+    \item \(\cdot\) to funkcja z \(G \times G\) w \(G\), spełniająca następujące warunki:
+    \begin{itemize}
+    \item \textbf{Łączność} -- dla każdych trzech elementów \(a, b, c \in G\) jest spełnione: \(a\cdot(b\cdot c) = (a\cdot b)\cdot c\)
+    \item \textbf{Element neutralny} -- istnieje element \(e \in G\), taki, że dla każdego elementu \(a \in G\) prawdą jest \(e\cdot a = a\cdot e = a\)
+    \item \textbf{Element odwrotny} -- dla każdego elementu \(a\) istnieje element \(a^{-1}\), taki, że \(a \cdot a^{-1} = a^{-1} \cdot a = e\)
+\end{itemize}
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+Mówimy, że grupa jest \textbf{abelowa}, jeśli dla dowolnych dwóch elementów \(x, y \in G\) jest tak, że:
+
+\[ 
+    x \cdot y = y \cdot x
+\]
+\end{definition}
+
+\subsection{Przykłady}
+\begin{lemma}
+    Liczby całkowite ze składaniem \((\integer, +)\) są grupą.
+\end{lemma}
+\begin{proof}
+    Łączność jest oczywista. Element neutralny to \(0\), a żeby otrzymać element odwrotny dla \(a\), wystarczy wziąć \(-a\).
+\end{proof}
+
+\begin{lemma}
+    Dla każdego \(n \in \natural_{>0}\) wszystkie permutacji z operacją kompozycji \((S_n, \circ)\) są grupą.
+\end{lemma}
+\begin{proof}
+    Element neutralny to permutacja w której dla każdego \(i\) na miejscu \(i\) stoi liczba \(i\). Dla pokazania łączności wystarczy przy składaniu permutacji rozpatrzyć każdy element osobno.
+    
+    Żeby uzyskać element odwrotny z danej permutacji \(\sigma\), wystarczy zrobić taką permutacje \[
+    \sigma^{-1}(i) = j\text{, gdzie } \sigma(j = i)
+    \],
+    skoro każda permutacja jest bijekcją, to to się uda.
+\end{proof}
+
+\subsection{Zastosowania}
+
+Definicja grupy obejmuje wiele znanych struktur matematycznych, więc dowodząc jakieś twierdzenie dla grup, tak naprawdę dostajemy dużo wyników. Na przykład grupy są często wykorzystane w teorii liczb.
+
+Grupy są również użyteczne do definiowania innych obiektów matematycznych, np. ciał.

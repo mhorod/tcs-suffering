@@ -1,0 +1,9 @@
+Ograniczmy się do przypadku, gdy długości krawędzi spełniają nierówność trójkąta $d(u, w) \leqslant d(u, v) + d(v, w)$. 
+
+Problem w tej wersji także jest \np{}trudny - zauważmy że dowód z poprzedniego rozdziału używa jedynie krawędzi o wagach 1 i 2, a takowe nie zepsują nigdy nierówności trójkąta.
+
+Znajdźmy minimalne drzewo rozpinające $T$ dowolnie wybranym przez siebie algorytmem. Niech $L$ będzie listą wierzchołków w porządku dfs z arbitralnie wybranego korzenia (każda krawędź dwukrotnie, wierzchołek dodajemy do listy przy wejściu i każdym powrocie). Nasze rozwiązanie $L'$ to $L$ po usunięciu z niej powtórzeń. % dopisywać jak znaleźć MST?
+
+Niech 
+
+W wersji ogólnej problem nie jest aproksymowalny z żadną stałą aproksymacji (fakt z wykładu).

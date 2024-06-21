@@ -1,0 +1,30 @@
+\begin{definition}
+    Język \( \reg{\Sigma} \) definiujemy jako najmniejszy język nad alfabetem \( \Sigma' = \Sigma \cup \set{+, \cdot, ^*, 0, 1, (, )} \), który spełnia następujące warunki:
+    
+       \begin{itemize}
+        \item \( 0, 1 \in \reg{\Sigma} \)
+        \item \( \forall_{a \in \Sigma}: a \in \reg{\Sigma} \)
+        \item \( \forall_{d_1, d_2 \in \reg{\Sigma}}: (d_1 + d_2) \in \reg{\Sigma} \)
+        \item \( \forall_{d_1, d_2 \in \reg{\Sigma}}: (d_1 \cdot d_2) \in \reg{\Sigma} \)
+        \item \( \forall_{d \in \reg{\Sigma}}: d^* \in \reg{\Sigma} \)
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    \textbf{Wyrażenie regularne} nad alfabetem \( \Sigma \) definiujemy jako element języka  \( \reg{\Sigma} \).
+    
+\end{definition}
+
+Warto zaznaczyć, że operujemy jedynie na napisach bez żadnej intepretacji -- symbole są jedynie symbolami, które będziemy zaraz interpretować odpowiednio.
+
+Możemy teraz sobie dobrać do tego interpretację \( L: \reg{\Sigma} \rightarrow \powerset\pars{\Sigma^*} \)
+\begin{itemize}
+    \item \( L(0) = \varnothing \)
+    \item \( L(1) = \set{\eps} \)
+    \item \( L(a) = \set{a} \)
+    \item \( L(\alpha + \beta) = L(\alpha) \cup L(\beta) \)
+    \item \( L(\alpha \cdot \beta) = L(\alpha)L(\beta) \)
+    \item \( L(\alpha^*) = L(\alpha)^* \)
+\end{itemize}
+
+Stosując tę dosyć naturalną interpretację będziemy opisywać sobie języki. \textbf{Języki które można opisać za pomocą wyrażenia regularnego nazywamy językami regularnymi}.

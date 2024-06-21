@@ -1,0 +1,86 @@
+\subsection{Operacje}
+
+Uzbrojeni w schemat rekursji prostej możemy zdefiniować znane nam działania na liczbach naturalnych.
+
+Same zaś liczby oraz indukcję definiujemy w osobnym pytaniu -- \ref{mfi:nat_and_induction}
+
+\subsubsection{Dodawanie}
+
+Definiujemy:
+\begin{itemize}
+    \item \( A = Z = \natural \)
+    \item \( g(n) = n \)
+    \item \( h(p, n, a) = p' \)
+\end{itemize}
+
+Dostajemy
+\[
+    \begin{cases}
+        f(0, n) = g(n) = n \\
+        f(k', n) = h(f(k, n), k, n) = f(k, n)'
+    \end{cases}
+\]
+
+Dodawanie definiujemy jako \( a + b = f(a, b) \)
+
+Własności \( f \) możemy zapisać nieco intuicyjniej:
+\[
+    \begin{cases}
+        0 + n = n \\
+        1 + n = n' \\
+        (k + 1) + n = (k + n) + 1
+    \end{cases}
+\]
+
+
+\subsubsection{Mnożenie}
+Definiujemy:
+\begin{itemize}
+    \item \( A = Z = \natural \)
+    \item \( g(n) = 0 \)
+    \item \( h(p, n, a) = p + a \)
+\end{itemize}
+
+Dostajemy
+\[
+    \begin{cases}
+        f(0, n) = g(n) = 0 \\
+        f(k', n) = h(f(k, n), k, n) = f(k, n) + n
+    \end{cases}
+\]
+
+Mnożenie definiujemy jako \( a \cdot b = f(a, b) \)
+
+Własności \( f \) możemy zapisać jako:
+\[
+    \begin{cases}
+        0 \cdot n = n \\
+        (k + 1) \cdot n = k \cdot n + n
+    \end{cases}
+\]
+
+\subsubsection{Potęgowanie}
+Definiujemy:
+\begin{itemize}
+    \item \( A = Z = \natural \)
+    \item \( g(n) = 1 \)
+    \item \( h(p, n, a) = p \cdot a \)
+\end{itemize}
+
+Dostajemy
+\[
+    \begin{cases}
+        f(0, n) = g(n) = 1 \\
+        f(k', n) = h(f(k, n), k, n) = f(k, n) \cdot n
+    \end{cases}
+\]
+
+Mnożenie definiujemy jako \( b^a = f(a, b) \)
+
+Własności \( f \) możemy zapisać jako:
+\[
+    \begin{cases}
+        n^0 = 1 \\
+        n^{k + 1} = n^k \cdot n
+    \end{cases}
+\]

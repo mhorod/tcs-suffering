@@ -1,0 +1,53 @@
+\begin{theorem}
+Niech \(\field = (\fieldset, +, \cdot)\) będzie ciałem, a \(M \in \fieldset^{n \times n}\) będzie macierzą nad tym ciałem (gdzie \(n \in \natural\)). Ponadto, niech \(\lambda \in \fieldset\).  
+
+Następujące stwierdzenia są równoważne: 
+\begin{enumerate}
+    \item \(\lambda\) jest wartością własną macierzy \(M\).
+    \item \(\det{(M - \lambda I)}\) = 0, gdzie \(I\) to macierz identycznościowa (rozmiaru \(n \times n\)). 
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Zanim przejdziemy do rozumowania, przekształćmy równoważnie warunek na to, żeby \(\lambda\) było wartością własną:
+\begin{align*}
+        Mv = \lambda v \\
+        Mv - \lambda v = 0 \\ 
+        (M \cdot I - \lambda \cdot I) \cdot v = 0\\
+        (M - \lambda I) \cdot v = 0\\
+\end{align*}
+\( (1) \implies (2) \):
+Zakładamy \(\lambda\) jest wartością własną oraz (nie wprost), że \((M - \lambda I)\) ma niezerowy wyznacznik. W takim razie jest odwracalna. Lewostronnie więc mnożymy równanie przez jej odwrotność i otrzymujemy \(v = 0\) jako jedyne rozwiązanie (co przeczy założeniu że \(\lambda\) jest wartością własną). Otrzymana sprzeczność pokazuje, że wyznacznik musi być zerowy.
+
+\( (2) \implies (1) \):
+Załóżmy, że wyznacznik macierzy \(M - \lambda I\) jest zerowy. W takim razie wiemy, że zbiór wektorów tworzących wiersze macierzy \(M\) jest liniowo \textbf{zależny}. Z definicji liniowej zależności oznacza to, że istnieją takie \(\lambda_1, \lambda_2, \dots, \lambda_n \in \fieldset\) (przy czym oraz istnieje takie \(i\), że \(\lambda_i \not = 0\)) że:
+\[
+    \sum_{i=1}^{n} \lambda_i \cdot x_i = 0
+\]
+gdzie \(x_i\) to wektor znajdujący się w \(i\)-tym wierszu macierzy.
+
+Oznacza to, że wektor \(v = [\lambda_1, \lambda_2, \dots, \lambda_n]\) jest taki, że:
+\[
+    (M - \lambda I ) v = 0
+\]
+czyli \(v\) jest wektorem własnym, a \(\lambda\) wartością własną. Ale fajnie.
+
+\end{proof}
+
+\begin{definition}[Wielomian charakterystyczny]
+Niech \(\field = (\fieldset, +, \cdot)\) będzie ciałem, a \(M \in \fieldset^{n \times n}\) będzie macierzą nad tym ciałem (gdzie \(n \in \natural\)). 
+
+Funkcję \(f: \fieldset \rightarrow \fieldset\) nazwiemy \textbf{wielomianem charakterystycznym} macierzy \(M\), jeżeli \(f(x) = \det{(M - x \cdot I)}\). 
+\end{definition}
+
+\begin{fact}
+Niech \(\field = (\fieldset, +, \cdot)\) będzie ciałem, a \(M \in \fieldset^{n \times n}\) będzie macierzą nad tym ciałem, a \(f\) będzie wielomianem charakterystycznym macierzy \(M\).
+
+Jeśli jakieś \(\lambda \in \fieldset\) jest takie, że \(f(\lambda)=0\) (tzn. \(\lambda\) jest miejscem zerowym wielomianu \(f\)), to \(\lambda\) jest wartością własną macierzy \(M\).
+\end{fact}
+\begin{proof}
+\[
+    f(\lambda) = 0 \implies \det{(M - \lambda I)} = 0 \iff \text{\(\lambda\) jest wartością własną} 
+\]
+\end{proof}
+
+Z powyższego faktu wynika, że aby poznać wartości własne możemy szukać miejsc zerowych wielomianu charakterystycznego.

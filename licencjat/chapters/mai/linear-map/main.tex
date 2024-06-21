@@ -1,0 +1,60 @@
+\begin{definition}[Transformacja liniowa]
+Jeżeli \(\field = (\fieldset, +, \cdot) \) to ciało, a \(\vfield_1 = (V_1, \oplus_1, \odot_1, \field)\) i \( \vfield_2 = (V_2, \oplus_2, \odot_2, \field)\) są przestrzeniami wektorowymi nad tym ciałem, to funkcję \(f: \; V_1 \rightarrow V_2\) nazywamy \textbf{transformacją liniową}, jeżeli: 
+\begin{enumerate}
+    \item \( f(x+y) = f(x) + f(y) \)
+    \item dla \( \lambda \in \fieldset \) \(f(\lambda \odot_1 x) = \lambda \odot_2 f(x)\) (co zwykło się po prostu notować jako \( f(\lambda x) = \lambda f(x) \))
+\end{enumerate}
+
+Transformacja liniowa jest również określana jako \textbf{homomorfizm}.
+\end{definition}
+
+\begin{definition}[Morfizmy]
+Niech \(\field = (\fieldset, +, \cdot) \) to ciało, a \(\vfield_1 = (V_1, \oplus_1, \odot_1, \field)\) i \( \vfield_2 = (V_2, \oplus_2, \odot_2, \field)\) będą przestrzeniami wektorowymi nad tym ciałem.
+
+Niech \(f: V_1 \rightarrow V_2\) jest transformacją liniową. Wówczas: 
+
+\begin{enumerate}
+    \item Jeśli \(f\) jest iniektywna, nazwiemy ją \textbf{monomorfizmem};
+    \item jeśli \(f\) jest surjektywna, nazwiemy ją \textbf{epimorfizmem};
+    \item jeśli \(f\) jest bijektywna, nazwiemy ją \textbf{izomorfizem};
+    \item jeśli \(\vfield_1 = \vfield_2\), nazwiemy ją \textbf{endomorfizmem};
+    \item jeśli \(f\) jest bijektywna i jest endomorfizmem, nazwiemy ją \textbf{endomorfizmem bijektywnym}.
+\end{enumerate}
+\end{definition}
+
+
+\begin{fact}
+    Jeśli \(f: \vfield_1 \rightarrow \vfield_2\) jest transformacją liniową, to:
+    
+    \begin{enumerate}
+        \item \(f(0) = 0\)
+        \item Dla \(x \in V_1\) mamy \(f(-x) = -f(x)\), gdzie ,,\(-\)'' oznacza wzięcie elementu odwrotnego względem odpowiednio operacji \(\oplus_1\) i \(\oplus_2\).
+        \item Dla \(\lambda_0, \lambda_1, \dots, \lambda_n \in \fieldset\) oraz \(x_1, x_2, \dots, x_n \in V_1\) mamy, że:
+        \[ 
+            f\pars{\sum_{i=1}^{n} \lambda_i x_i} = \sum_{i=1}^{n} \lambda_i f(x_i)
+        \]
+    \end{enumerate}
+\end{fact}
+
+\begin{example}
+    Jeśli \(\vfield\) jest przestrzenią wektorową, to \(f: V \rightarrow V\) taka, że \(f(x) = x\) jest transformacją liniową.
+\end{example}
+
+\begin{example}
+    Jeśli \(\vfield = (V, \oplus, \odot, \field)\) jest przestrzenią wektorową wielomianów nad ciałem \(\field\) (tzn. \(V = \set{v \in \fieldset^{\natural} : \; \text{\(v\) ma skończenie wiele współrzędnych z niezerowymi wartościami}}\) i intuicyjnymi operacjami dodawania i wymnażania przez skalar), to operacja ,,wzięcia pochodnej'' wielomianu jest przekształceniem liniowym.
+\end{example}
+
+\begin{definition}[Transformacja wieloliniowa]
+    Jeśli \(\field\) jest ciałem, a \(\vfield_1, \vfield_2, \dots, \vfield_n\) oraz \(\mathbb{W}\) są przestrzeniami wektorowymi nad tym ciałem, to funkcję \(f\):
+    \[
+        f: V_1 \times V_2 \times \dots \times V_n \rightarrow W
+    \]
+    Nazywamy \textbf{odwzorowaniem wieloliniowym} jeśli dla każdego \(i\) zachodzi: 
+    
+    \begin{enumerate}
+        \item \( f(x_1, x_2, \dots, x_i + x_{i}', \dots, x_n) = f(x_1, x_2, \dots, x_i, \dots, x_n) + f(x_1, x_2, \dots, x_{i}', \dots, x_n) \)
+        \item \( f(x_1, x_2, \dots, \lambda x_i, \dots, x_n) = \lambda f(x_1, x_2, \dots, x_i, \dots, x_n) \)
+    \end{enumerate}
+    
+    gdzie \(x_1 \in V_1, x_2, \in V_2, \dots, x_n \in V_n\), a \(\lambda \in \fieldset\). 
+\end{definition}

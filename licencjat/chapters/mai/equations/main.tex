@@ -1,0 +1,158 @@
+\subsection{Reprezentacja równań w postaci macierzowej}
+
+Układy równań postaci: 
+\[ 
+    \begin{cases}
+        a_{1,1} \cdot x_1 + a_{1, 2} \cdot x_2 + \dots a_{1,n} \cdot x_n = b_1 \\ 
+        a_{2,1} \cdot x_1 + a_{2, 2} \cdot x_2 + \dots a_{2,n} \cdot x_n = b_2 \\
+        \hspace{10pt} \vdots \\
+        a_{m,1} \cdot x_1 + a_{m, 2} \cdot x_2 + \dots a_{m,n} \cdot x_n = b_m
+    \end{cases}
+\]
+
+będziemy zapisywać w ten sposób:
+
+\begin{align*}
+    \underbrace{
+        \begin{bmatrix}
+            a_{1, \; 1} & a_{1, \; 2} & \dots & a_{1,\; n}\\
+            a_{2, \; 1} & a_{2, \; 2} & \dots & a_{2,\; n} \\ 
+            \vdots & \vdots & \ddots & \vdots \\ 
+            a_{m, \; 1} & a_{m, \; 2} & \dots & a_{m, \; n}
+        \end{bmatrix}
+    }_{\text{Macierz \(A\)}}
+    \cdot
+    \underbrace{
+        \begin{bmatrix}
+            x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+        \end{bmatrix}
+    }_{\text{Wektor \(x\)}}
+    = 
+    \underbrace{
+    \begin{bmatrix}
+        b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_m
+    \end{bmatrix}
+    }_{\text{Wektor \(b\)}}
+\end{align*}
+
+Celem znalezienia rozwiązania oczywiście poszukiwać będziemy wektora \(x\), mając daną macierz \(A\) i wektor \(b\).
+
+\subsection{Wzory Cramera}
+
+\begin{theorem}[Wzory Cramera]
+    Jeśli \(A \in \real^{n \times n}\) jest kwadratową, odwracalną macierzą współczynników, a \(x \in \real^n\) i \(b \in \real^n\) wektorami, to równanie:
+    \[
+        Ax = b
+    \]
+    ma dokładnie jedno rozwiązanie. Rozwiązaniem tym jest wektor \(x\) taki, że jego \(i\)-ta współrzędna wynosi:
+    \[
+        x_i = \frac{\det{A_i[b]}}{\det{A}}
+    \]
+    gdzie jako \(A_i[b]\) rozumiemy macierz \(A\), gdzie w miejscu \(i\)-tej kolumny znajduje się wektor \(b\) (tzn. \(A_{1, \; i} = b_1\), \(A_{2, \; i} = b_2\) i tak dalej).
+\end{theorem}
+\begin{proof}
+Wyprowadzenie tych wzorów zdaje się być całkiem nieprzyjemne. Na szczęście nie musimy ich wyprowadzać (bo już ktoś to zrobił), a my jedynie udowodnimy ich poprawność, haha\footnote{W chwili pisania tych słów nie było wiadomo, czy taki trik przejdzie na egzaminie licencjackim.}!
+
+Po pierwsze musimy jednak zauważyć, że dla równania postaci \(Ax = b\) możemy otrzymać poprawny wynik, mnożąc przez macierz odwrotną do macierzy \(A\), tzn. \(A^{-1}\). Wynik to wtedy \(x = A^{-1}b\). Jest to również jedyne rozwiązanie (bo wykonaliśmy przekształcenie równoważne)\footnote{Formalnie należy jeszcze udowodnić, że jeśli istnieje jedno rozwiązanie, to \(A\) jest odwracalna.}. 
+
+Po drugie: pokazujemy, że dla równania postaci: 
+\[ 
+    I \cdot x = b
+\]
+wzór ten daje poprawny wynik. Chcemy zatem policzyć (dla każdego \(i\)):
+\[ 
+    x_i = \frac{\det{A_i[b]}}{\det{I}} = \det{A_i[b]}
+\]
+
+Oczywiście w przypadku takiego równania chcielibyśmy, by śmieszne wzorki dały nam, że dla każdego \(i\) jest tak, że \(x_i = b_i\).
+
+Pozostaje pytanie ile to \( \det{A_i[b]} \). Zobaczmy zatem jak wygląda ta macierz:
+
+\begin{align*}
+    \begin{bmatrix}
+            1 & 0 & \dots & b_1 & \dots & 0\\
+            0 & 1 & \dots & b_2 & \dots & 0 \\ 
+            \vdots & \vdots & \vdots & \ddots & \vdots \\ 
+            0 & 0 & \dots & b_n  & \dots & 1
+        \end{bmatrix}
+\end{align*}
+
+Korzystając z permutacyjnej definicji wyznacznika, łatwo widać że \( \det{A_i[b]} = b_i \) (bo \(b_i\) będzie na przekątnej). 
+
+Powiecie: dzięki wielkie ponton za ten fascynujący dowód, ale fakt działania wzorów Cramera w tak trywialnym przypadku średnio nam pomaga.
+
+Dlatego robimy teraz coś zabawnego: pokazujemy, że jeśli wymnożymy nasze równanie stronami (ze strony lewej) przez jakąś macierz odwracalną, to rozwiązanie dane nam przez wzory Cramera się nie zmieni. 
+
+\begin{lemma}[Kacpra Topolskiego]
+    Jeśli \(Q\) jest macierzą odwracalną (w szczególności ma niezerowy wyznacznik), to wzory Cramera dla równań:
+    \[ 
+        Ax = b
+    \]
+    i
+    \[ 
+        QAx = Qb
+    \]
+    dadzą identyczny wynik, tzn. 
+    \[
+        \forall_{i} \; \frac{\det{A_i[b]}}{\det{A}} = \frac{\det{(QA)_i[Qb]}}{\det{QA}}
+    \]
+\end{lemma}
+\begin{proof}
+Podstawowa obserwacja którą należy tutaj wykonać jest taka, że:
+
+\[ 
+    (QA)_i[Qb] = Q(A_i[b])
+\]
+
+Innymi słowy, jeśli wymnożymy macierze \(Q\) i \(A\) i potem do \(i\)-tej kolumny wstawimy wektor \(b\), to wynik nasz jest taki sam jakbyśmy do macierzy \(A\) wstawili do \(i\)-tej kolumny wektor \(b\), a potem wymnożyli ją z macierzą \(Q\).
+
+Może zdawać się to nieintuicyjne, więc zaczniemy ze spokojną obserwacją: zarówno w przypadku lewej, jak i prawej strony macierze te ,,różnią się'' z macierzą \(QA\) jedynie w \(i\)-tej kolumnie.
+
+W przypadku lewej strony jest to oczywiste (bo wzięliśmy macierz \(QA\) i wstawiliśmy coś do \(i\)-tej kolumny). 
+
+W przypadku prawej strony jest to również oczywiste, bo jeśli zmodyfikowaliśmy jedynie \(i\)-tą kolumnę w macierzy \(A\), to w mnożeniu macierzowym ta \(i\)-ta kolumna może ,,wpłynąć'' jedynie na wyniki które będą się znajdować w \(i\)-tej kolumnie wynikowej macierzy. 
+
+Tym samym, wystarczy nam teraz pokazać że wartości w \(i\)-tych kolumnach obu stron są identyczne. 
+
+Weźmy sobie zatem element z \(j\)-tego wiersza w \(i\)-tej kolumnie, zarówno dla strony lewej jak i prawej.
+
+W przypadku lewej strony, jest to \(j\)-ty element wektora \(Qb\). Innymi słowy:
+
+\[
+    (Qb)_{j} = Q_{j, \; 1} \cdot b_1 + Q_{j, \; 2} \cdot b_2 + \dots + Q_{j, \; n} \cdot b_n
+\]
+
+Po prawej stronie sytuacja rysuje się podobnie:
+
+\begin{align*}
+    Q(A_i[b])_{j, \; i} &= Q_{j, \; 1} \cdot (A_i[b])_{1, \; i} + Q_{j, \; 2} \cdot (A_i[b])_{2, \; i} + \dots + Q_{j, \; n} \cdot (A_i[b])_{n, \; i} \\ &=  
+     Q_{j, \; 1} \cdot b_1 + Q_{j, \; 2} \cdot b_2 + \dots + Q_{j, \; n} \cdot b_n \\ 
+     &= (Qb)_{j}
+\end{align*}
+
+Jeśli mamy tę obserwację, to zauważamy że:
+
+\begin{align*}
+    \frac{\det{(QA)_i[Qb]}}{\det{QA}} &= \frac{\det{Q(A_i[b])}}{\det{Q}\det{A}} \\ 
+    &= \frac{\det{Q} \det{A_i[b]}}{\det{Q}\det{A}} \\ 
+    &= \frac{\det{A_i[b]}}{\det{A}} 
+\end{align*}
+
+A to jest to, co chcieliśmy wykazać. 
+\end{proof}
+
+Jest to prawdziwie szokujące odkrycie, bo w ten sposób możemy już wykazać działanie wzorów Cramera dla dowolnego przypadku, gdzie mamy macierz odwrotną macierzy \(A\).
+
+Bierzemy równanie które dostaliśmy:
+\[
+Ax = b
+\]
+mnożymy je lewostronnie przez \(A^{-1}\):
+\[
+Ix = A^{-1}b
+\]
+otrzymujemy teraz równanie, dla którego wzory Cramera na pewno działają poprawnie i, co więcej, ma identyczne rozwiązanie z rozwiązaniem naszego równania. Jednocześnie dowiedliśmy, że mnożenie przez macierz odwracalną (taką jak \(A^{-1}\), bo jej odwrotnością jest \(A\)) zachowuje nam wynik zwracany przez wzory Cramera. Tym samym wnioskujemy, że dla równań postaci \(Ax = b\) również działają poprawnie (pod warunkiem, że istnieje macierz odwracalna). 
+
+\end{proof}
+
+\subsection{Eliminacja Gaussa}

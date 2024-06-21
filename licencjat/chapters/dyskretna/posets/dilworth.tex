@@ -1,0 +1,87 @@
+ \begin{theorem}[Twierdzenie Dilwortha]
+      Jeśli długość maksymalnego antyłańcucha w posecie wynosi $k$, poset ten da się pokryć w całości z użyciem $k$ łańcuchów.
+    \end{theorem}
+
+    \begin{proof}
+        Robimy indukcję po liczbie elementów posetu; gdy poset \(P\) składa się z jednego elementu, twierdzenie zachodzi w trywialny sposób. W dalszej części dowodu, pisząc \(P\) będziemy mieli na myśli zbiór, na którym zdefiniowany jest nasz poset (bo formalne poset to tupla).
+        
+        Załóżmy teraz, że mamy poset zdefiniowany na \(n\) elementach. Wiemy, że jego antyłańcuch maksymalny ma długość \(k\). Antyłańcuchów maksymalny spełniający ten warunek nie musi być jeden; oznaczymy zbiór wszystkich antyłańcuchów maksymalnych w tym posecie jako \(A\).
+        
+        Zdefiniujmy teraz (dla danego antyłańcucha maksymalnego \( \alpha \in A\) zbiory \(U_{\alpha}\) i \(D_{\alpha}\), które będziemy określać odpowiednio jako \textit{upset} i \textit{downset} antyłańcucha \(\alpha\). Do zbioru \(U_{\alpha}\) należą wszystkie elementy \(P\), takie że są (ostro) większe od jakiegokolwiek elementu z \(\alpha\). Do zbioru \(D_{\alpha}\) należą zaś wszystkie elementy \(P\), takie że są mniejsze (ostro) od jakiegokolwiek elementu z \(\alpha\). Bardziej formalnie:
+        \begin{equation*}
+            U_{\alpha} = \{\,x \in P \mid \exists_{y \in \alpha} \;  y \leq x \} \setminus \alpha
+        \end{equation*}
+        \begin{equation*}
+            D_{\alpha} = \{\,x \in P \mid \exists_{y \in \alpha} \; y \geq x \} \setminus \alpha
+        \end{equation*}
+
+        Pierwsza obserwacja którą należy wykonać, to taka że dla dowolnego \(\alpha \in A\) jest tak, że  \(U_{\alpha} \cup D_{\alpha} \cup \alpha = P\). Jest to oczywiste; jeśli istniałby jakiś element z \(P\) który nie należałby ani do downsetu \(\alpha\), ani do upsetu \(\alpha\), ani do antyłańcucha maksymalnego \(\alpha\), to z faktu że nie należy ani do downsetu ani do upsetu wynikałoby, że musiałby należeć do antyłańcucha maksymalnego \(\alpha\) (bo nie jest porównywalny z żadnym jego elementem).
+        
+        Druga obserwacja: dla dowolnego \(\alpha \in A\) nie istnieje element, który należy jednocześnie do \(U_{\alpha}\) i \(D_{\alpha}\). Aby dowieść tę obserwację, załóżmy nie wprost, że istnieją jakieś \(x, y, z \in P\) takie, że:
+        \begin{enumerate}
+            \item \(y, z \in \alpha\)
+            \item \( x \geq y\)
+            \item \( x \leq z\) 
+        \end{enumerate}
+        
+        Wówczas otrzymujemy, że \(y \leq x \leq z\), a więc z tranzytywności w posetach dostalibyśmy, że \(y \leq z\). To prowadziłoby do sprzeczności, bo założyliśmy że \(y, z \in \alpha\), a więc znajdują się w jednym antyłańcuchu (i nie mogą być porównywalne).
+
+        Udowodnimy teraz szybki lemacik.
+        
+        \begin{lemma}
+            \label{dilworth-lemma-1}
+            Następujące warunki są równoważne:
+            
+            \begin{enumerate}
+                \item Antyłańcuch maksymalny \(\alpha\) jest taki, że \(D_{\alpha} = \emptyset\);
+                \item Antyłańcuch maksymalny \(\alpha\) składa się \textbf{jedynie} ze wszystkich elementów minimalnych posetu \(P\). 
+            \end{enumerate}
+        \end{lemma}
+        \begin{proof}
+            \begin{enumerate}
+                \item \( (1) \implies (2) \); stosujemy dowód nie wprost. Załóżmy, że istnieje taki antyłańcuch maksymalny \(\alpha\), że \(D_{\alpha} = \emptyset\), ale do \(\alpha\) nie należy jakiś element minimalny z \(P\)\footnote{Należy również uważać na to, że nie możemy w tym dowodzie założyć \textit{czegokolwiek} o elementach w \(\alpha\) -- w szczególności \textit{a priori} możliwe jest, że \(\alpha\) zawiera jakieś elementy które nie są minimalne w \(P\).}. Nazwijmy go \(x\). Rozważmy zbiór \( \alpha' = \alpha \cup \set{x}\). Jeśli \(\alpha'\) jest antyłańcuchem, to znaczy że \(\alpha\) nie był antyłańcuchem maksymalnym i otrzymujemy sprzeczność z założeniami. Jeśli \(\alpha'\) nie jest antyłańcuchem, to oznacza że istnieje jakieś \(y \in \alpha\) takie, że \( y \leq x\) lub \(y \geq x\). 
+                
+                Nie może być tak, że \(y \leq x\), bo \(x\) jest elementem minimalnym w \(P\). Jeśli \(y \geq x\), to z kolei mamy, że \(x \in D_{\alpha}\), skąd otrzymujemy sprzeczność.
+                
+                Należy tutaj dodać, że ten dowód nie wprost pokazał jedynie, że \(\alpha\) w takim przypadku zawiera wszystkie elementy minimalne z \(P\), ale nie pokazaliśmy że \textit{nie należą do niego} inne elementy z \(P\). Na szczęście, wiedząc że wszystkie elementy minimalne z \(P\) znajdują się w \(\alpha\), wiemy że jakikolwiek inny element nie może się tam znaleźć (bo skoro nie jest minimalny to jest porównywalny z jakimś minimum, a więc nie należy do antyłańcucha). To już kończy dowód.
+                
+                \item \( (2) \implies (1) \); element minimalny to taki, że nie istnieje element który byłby od niego mniejszy. Z definicji \(D_{\alpha}\) musi zatem być tak, że \(D_{\alpha} = \emptyset\). 
+            \end{enumerate}
+        \end{proof}
+        
+        Niemal identycznym dowodem można posłużyć się, by dowieść następujący lemat:
+        
+        \begin{lemma}
+            \label{dilworth-lemma-2}
+            Następujące warunki są równoważne:
+            
+            \begin{enumerate}
+                \item Antyłańcuch maksymalny \(\alpha\) jest taki, że \(U_{\alpha} = \emptyset\);
+                \item Antyłańcuch maksymalny \(\alpha\) składa się \textbf{jedynie} ze wszystkich elementów maksymalnych posetu \(P\). 
+            \end{enumerate}
+        \end{lemma}
+
+        Teraz musimy rozpatrzyć trzy przypadki:
+        \begin{enumerate}
+            \item \( \exists_{\alpha \in A} \; U_{\alpha} = D_{\alpha} = \emptyset \) \\ 
+            W tym przypadku istnieje antyłańcuch maksymalny, którego upset i downset są puste. Nietrudno pokazać, że jest to jedyny antyłańcuch maksymalny (ale to nie ma znaczenia dla dowodu). Co ma znaczenie dla dowodu to to, że wystarczy z każdego elementu tego antyłańcucha utworzyć jednoelementowy łańcuch zawierający tylko siebie samego. Jako że \(\alpha\) ma \(k\) elementów, dostajemy podział \(P\) na \(k\) antyłańcuchów.
+            
+            \item \( \exists_{\alpha \in A} \; U_{\alpha} \not = \emptyset \wedge D_{\alpha} \not = \emptyset\) \\
+            Rozpatruję sobie posety na zbiorach \(B = A \cup U_{\alpha}\) i \(C = A \cup D_{\alpha}\). Jako, że \(U_{\alpha} \not = \emptyset\) i \(D_{\alpha} \not = \emptyset\), to z pewnością \( |B| < |P|\) i \( |C| < |P|\). W takim razie, \(B\) i \(C\) z założenia indukcyjnego da się podzielić na \(k\) łańcuchów.
+            
+            Ponadto, każdy element \(\alpha\) (zarówno w pokryciu łańcuchowym zbioru \(B\), jak i \(C\)) należy do łańcucha innego niż jakikolwiek inny element \(\alpha\), jako że 2 elementy z jednego antyłańcucha nie mogą znaleźć się w jednym łańcuchu. W dodatku, z definicji zbiorów \(U_{\alpha}\) i \(D_{\alpha}\) bezpośrednio wynika, że każdy element \(\alpha\) jest elementem najmniejszym w odpowiednim łańcuchu z pokrycia łańcuchowego zbioru \(B\), i elementem największym w odpowiednim łańcuchu ze zbioru \(C\). W takim razie po prostu ,,sklejam'' łańcuchy z \(B\) i \(C\) w danym elemencie z \(\alpha\) i mam poprawne pokrycie łańcuchowe całego posetu \(P\).
+            
+            \item Przypadek przeciwny do dwóch wcześniejszych; \(\forall_{\alpha \in A } \; U_{\alpha} = \emptyset \hspace{5pt} \mathbf{ALBO} \hspace{5pt} D_{\alpha} = \emptyset\) \\
+
+            Korzystając z lematów \ref{dilworth-lemma-1} i \ref{dilworth-lemma-2}, wiemy, że dla każdego \(\alpha \in A\) jest tak, że składa się (jedynie) ze wszystkich elementów maksymalnych lub ze wszystkich elementów minimalnych w \(P\). Nawiasem mówiąc, to bezpośrednio implikuje, że w tym przypadku \( |A| \leq 2 \), ale nie jest to specjalnie ważne. 
+            
+            Weźmy z \(P\) takie \(x, y\), że \(x\) jest elementem maksymalnym, a \(y\) jest elementem minimalnym w \(P\), przy czym chcemy, by te dwa elementy były porównywalne (tzn. \( x \geq y\)). Taka para dwóch elementów szczęśliwie zawsze istnieje -- jeśli w \(A\) istnieje antyłańcuch bez downsetu, to parę tę stanowi dowolne maksimum i jego świadek bycia w upsecie; analogicznie w dualnym przypadku.  Rozważmy więc poset \(P' = P \setminus \set{x,y} \). Zauważmy, że:
+            \begin{itemize}
+                \item \( |P'| = |P| - 2\), co pozwala nam zastosować założenie indukcyjne;
+                \item jako, że każde \( \alpha \in A\) zawierało zbiór wszystkich elementów maksymalnych lub minimalnych \(P\), wiemy że długość \textbf{wszystkich} antyłańcuchów maksymalnych zmniejszyła się o 1, a więc długość najdłuższego antyłańcucha wynosi \(k-1\).
+            \end{itemize}
+            To oznacza, że z założenia indukcyjnego \( P' \) możemy podzielić na \(k-1\) łańcuchów. Tak więc dodając do \(P'\) łańcuch \( \{x, y\} \) otrzymujemy podział \(P\) na \(k\) łańcuchów, a to kończy dowód.
+            
+    \end{enumerate}
+        
+     \end{proof}

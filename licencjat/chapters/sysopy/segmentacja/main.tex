@@ -1,0 +1,28 @@
+W przeciwieństwie do kernela, normalne procesy nie używają bezpośredniego, fizycznego adresowania pamięci, tylko wirtualną przestrzeń adresową, za pomocą której adresy w instrukcjach są tłumaczone na adresy fizyczne przez podjednostkę CPU zwaną MMU (Memory Management Unit). Każdy proces ma swoją własną, odizolowaną przestrzeń adresową mapowaną do przestrzeni fizycznej.
+
+\subsection{Segmentacja}
+Segmentacja polega na podziale wirtualnej przestrzeni adresowej na segmenty przeznaczone do różnych zastosowań, np. segmenty na kod, stos i dane. Programy używające segmentacji muszą do każdego adresu dołączyć informację, do którego segmentu należy. Segmenty są mapowane do offsetów pamięci fizycznej, do których są dodawane używane adresy.
+
+Segmentacja jest obecnie uznawana ze przestarzały mechanizm zastąpiony przez stronicowanie - w architekturze amd64 segmentacja nie jest w ogóle wspierana. Prawie wszystkie rozwiązania, które zapewnia segmentacja można dość łatwo częściowo zapewnić używając stronicowania. Na przykład, jeśli chcemy kilka łatwo rozszerzalnych liniowych przestrzeni adresowych, po prostu alokujemy bloki pamięci tych przestrzeni bardzo daleko od siebie w gigantycznej 64 bitowej wirtualnej przestrzeni adresowej.
+
+\subsection{Stronicowanie}
+Stronicowanie jest prostszym mechanizmem, w którym nie ma podziału na segmenty i jest tylko jedna wirtualna przestrzeń adresowa. Pamięć fizyczna jest dzielona na strony o rozmiarze zazwyczaj kilku kilobajtów, które są mapowane do niektórych stron w pamięci wirtualnej. Wobec tego danemu procesowi wydaje się, że jest więcej dostępnej pamięci niż fizycznie obecnej. Programy nie są świadome stronicowania i nie muszą dołączać do adresów dodatkowych informacji.
+
+\subsection{Segmentacja + Stronicowanie}
+
+Można również połączyć mechanizmy segmentacji i stronicowania -- segmentacja nie tłumaczy wtedy bezpośrednio na adres fizyczny, tylko na adres, który jest w drugiej kolejności tłumaczony przez stronicowanie.
+
+Ponieważ wirtualna przestrzeń adresowa jest bardzo duża, mapowanie stron jest zapisywane za pomocą tabel na kilku poziomach. Wirtualny adres jest dzielony na kilka części, z których każda określa numer wpisu w tabeli na odpowiednim poziomie lub numer bajtu w obrębie strony. Dla każdego adresu wirtualnego MMU odczytuje po kolei wpisy w odpowiednich tabelach i w ten sposób oblicza adres fizyczny. Żeby przyśpieszyć to tłumaczenie, MMU może cache'ować numery stron do TLB (Translation Lookaside Buffer).
+
+Każdy proces ma swoją własną strukturę tabel stron, więc przy zmianie kontekstu jest zmieniany specjalny rejestr trzymający adres tej struktury. Zmiana tego rejestru wymaga też unieważnienia TLB, co negatywnie wpływa na wydajność.
+
+W Linuxie strony są mapowane na żądanie w następujący sposób:
+\begin{itemize}
+    \item Stronicowanie jest używane do zaimplementowania pamięci wirtualnej. Każda strona pamięci może być też zapisana na dysku w pliku swap, albo partycji swap
+    \item Współdzielenie pamięci pomiędzy procesami jest zaimplementowane używając stronicowania. Kod bibliotek współdzielonych jest ładowany do pamięci raz, a potem współdzielony pomiędzy wszystkimi procesami używając stronicowania
+    \item Stronicowanie w Linuxie jest używane do wielu optymalizacji. Na przykład, gdy proces jest forkowany, to tylko jego tablica stron jest kopiowana, a nie cała pamięć
+    \item Gdy proces próbuje uzyskać dostęp do adresu, który nie jest zmapowany w tabeli stron, to procesor generuje błąd stronicowania (page fault), który powoduje przekazanie sterowania kernelowi
+    \item Kernel sprawdza, czy adres, do którego chciał uzyskać dostęp proces, jest poprawny.
+    \item Jeśli adres nie jest poprawny, to kernel wysyła do procesu sygnał o błędzie, który domyślnie zatrzymuje proces
+    \item Jeśli adres jest poprawny, to kernel uzupełnia odpowiednie informacje w tabeli stron i oddaje sterowanie procesowi w taki sposób, żeby ponownie wykonał tę instrukcję, która wcześniej spowodowała błąd stronicowania
+\end{itemize}

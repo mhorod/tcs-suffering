@@ -1,0 +1,55 @@
+\begin{definition}
+    Stany \( q_1, q_2 \) zadanego DFA są \textbf{A-równoważne} jeśli
+    \[
+        \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F
+    \]
+    i \textbf{A-rozróżnialne} jeśli
+    \[
+        \exists_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \notin F
+    \]
+\end{definition}
+
+
+\begin{lemma}
+    A-równoważnosć jest relacją równoważności.
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item Zwrotność: 
+            \[
+                \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_1, w) \in F
+            \]
+            raczej nie wymaga komentarza.
+        \item Symetryczność:
+            \[ 
+                \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F
+            \]
+            \[
+                \equiv 
+            \]
+            \[
+                \forall_{w \in \Sigma^*} \hat \delta(q_2, w) \in F \iff \hat \delta(q_1, w) \in F
+            \]
+            co wynika z przemienności równoważności.
+        \item Przechodniość; zakładając że mamy stany \(q_1\), \(q_2\) oraz \(q_3\) takie, że:
+        
+        \[ 
+             \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F
+        \]
+        
+        oraz 
+        
+        \[ 
+             \forall_{w \in \Sigma^*} \hat \delta(q_2, w) \in F \iff \hat \delta(q_3, w) \in F
+        \]
+        
+        trywialnie otrzymujemy, że:
+        
+        \[ 
+            \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F \iff \hat 
+                         \delta(q_3, w) \in F
+        \]
+        
+        czyli \(q_1\) i \(q_3\) również są A-równoważne. 
+    \end{enumerate}
+\end{proof}

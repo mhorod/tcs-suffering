@@ -1,0 +1,11 @@
+Biblioteki programistyczne mogą być używane albo w sposób statyczny, albo dynamiczny. \textbf{Linkowanie statyczne} powoduje załączenie kodu biblioteki do samego programu w trakcie kompilacji. \textbf{Linkowanie dynamiczne} powoduje ładowanie kodu biblioteki dopiero w trakcie działania programu, odczytując z pliku, który może być również wykorzystywany przez inne programy.
+
+Aby biblioteka mogła być linkowana dynamicznie, musi używać adresowania względnego, czyli być skompilowana do \textbf{position independent code}. Dzięki temu może być zmapowana do dowolnego miejsca w pamięci wirtualnej danego procesu, oraz różne procesy mogą wybierać dla niej różne miejsca.
+
+Dzięki linkowaniu dynamicznemu jest oszczędzana przestrzeń dyskowa oraz pamięć operacyjna, ponieważ ten sam kod jest wykorzystywany przez wiele programów. Kernel może zmapować ten sam fragment pamięci fizycznej zawierający kod biblioteki do adresów wirtualnych wielu procesów.
+
+Na Linuxie, programy używające biblioteki dynamiczne są uruchamiane za pomocą specjalnego programu \textit{ld-linux.so}, który poprzedza ich uruchomienie poprzez znalezienie i załadowanie potrzebnych bibliotek.
+
+Biblioteki dynamiczne mogą być ładowane w sposób leniwy -- funkcja z biblioteki jest początkowo przekierowaniem do kodu dynamic linkera, który zastępuje cel tego przekierowania odpowiednim załadowanym kodem biblioteki. Jest to osiągane poprzez \textbf{Procedure Linkage Table}. Dla każdej importowanej funkcji tworzone są odpowiednie informacje w tabeli PLT powiązane z \textbf{Global Offset Table} (GOT). 
+
+W GOT dane publiczne (eksportowane) traktowane są, jak zewnętrzne. Przestrzeń dla nich jest alokowana na stercie, nie zależą od IP, a więc znajdują się w nieznanych miejscach w pamięci. Aby dostęp do nich był możliwy, tworzona jest tablica z adresami danych zewnętrznych. Jest ona uzupełniana przez dynamic-linkera i znajduje się w sekcji danych biblioteki.

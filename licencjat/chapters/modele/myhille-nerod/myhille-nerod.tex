@@ -1,0 +1,55 @@
+\begin{definition}
+    Mówimy, że relacja jest \(L\)-kongruentna dla pewnego języka \(L \in \powerset(\Sigma^*)\) wtedy i tylko wtedy, gdy:
+    \begin{enumerate}
+        \item \(\forall_{v \in \Sigma^*} x \equiv y \implies xv \equiv yv \)
+        \item \( x \equiv y \implies (x \in L \iff y \in L)\)
+    \end{enumerate}
+\end{definition}
+
+
+\begin{theorem}[Myhill--Nerode]
+    Język \( L \) jest regularny wtedy i tylko wtedy gdy
+    istnieje relacja równoważności \( \equiv \subseteq \Sigma^* \times \Sigma^*\) o skończenie wielu klasach równoważności, która jest \(L\)-kongruentna.
+\end{theorem}
+\begin{proof} \( \)
+    \begin{description}
+        \item \( \implies \)
+        
+        Skoro \( L \) jest regularny to istnieje DFA \( A \), na podstawie którego definiujemy
+        \[
+            x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y)
+        \]
+        gdzie \(s\) jest stanem startowym w automacie \(A\).
+        
+        Należy teraz dowieść, że:
+        
+        \begin{enumerate}
+            \item Relacja ta jest \(L\)-kongruentna: \begin{enumerate}
+                \item \(x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y) = q \text{; jednocześnie (oczywiście) } \hat \delta(q, v) = \hat \delta(q, v) \implies xv \equiv yv\)
+                \item \(x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y) = q \), więc jeśli \(q \in F\) to warunek spełniony, a jeśli \(q \not \in F\) to również. 
+        
+            \end{enumerate} 
+            
+            \item Relacja ta ma skończenie wiele klas równoważności, bo funkcja \( \hat \delta \) może ,,przemapować'' dane słowo na maksymalnie \( |Q| \) stanów, a wszystkie słowa które ,,przechodzą'' na ten sam stan są ze sobą równoważne. 
+            
+        \end{enumerate}
+        
+        \item \( \impliedby \)
+        
+        Tworzymy automat, którego stanami są klasy równoważności słów wyznaczone przez relację \( \equiv \). Możemy tak zrobić, bo wiemy że klas równoważności jest skończenie wiele. Jako stany finalne ustalamy te klasy równoważności, w których wszystkie elementy należą do języka (z racji że jest to L-kongruencja wszystkie elementy klasy mogą albo należeć, albo nie należeć do języka). Stanem startowym jest klasa, do której należy \( \eps \). 
+        
+        Teraz żeby to się spięło i w ogóle, należy jeszcze ustalić jak wyglądają funkcje przejścia. Robimy to w ten sposób, że dla każdej klasy próbujemy ,,dokleić'' jedną literkę z alfabetu i dodajemy przejście do klasy, w której wylądują powstałe słowa. Warto tutaj zauważyć, że z racji że jest to L-kongruencja, jeśli dodam literkę \(a \in \Sigma \) do dowolnych słów z mojej klasy, to wszystkie słowa powstałe jako rezultat muszą znaleźć się w jednej klasie (z racji warunku pierwszego w definicji L-kongruencji). 
+        
+        Procedura ,,generowania przejścia'' jest wykonywana dla każdej klasy i każdej litery; zauważmy, że wówczas funkcja przejścia jest już poprawnie zdefiniowaną funkcją. 
+        
+        Teraz należy udowodnić, że powstały DFA akceptuje język, na którym zdefiniowana jest L-kongruencja. 
+        
+        Zauważamy, że \(\hat\delta(s, w) \) jest klasą równoważności, do której należy słowo \(w\). Dowód przebiega z pomocą indukcji po długości \(w\): gdy \(|w| = 0\), to \( w = \eps \) i z definicji \(q_s\) jako klasy zawierającej epsilon wszystko działa poprawnie.
+        
+        W kroku indukcyjnym, jeśli mamy słowo \(w' = wa\), to z założenia indukcyjnego wiemy, że \(\hat\delta(w)\) jest klasą równoważności, do której należy \(w\). Wówczas przejście po literze \(a\) z tamtej klasy prowadzi nas do klasy zawierającej słowo \(wa\), z tego jak zdefiniowaliśmy funkcję \(\delta\). 
+        
+        Cóż możemy zrobić z tą fascynującą obserwacją? Zauważyć, że teraz pokazanie że \(L(A) = L\) mamy teraz za darmo, bo jeśli \(w \in L\) to klasa równoważności która zawiera \(w\) jest stanem akceptującym; w przeciwnym razie nie jest. To dowodzi poprawności konstrukcji. 
+        
+        
+    \end{description}
+\end{proof}

@@ -1,0 +1,56 @@
+  % Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+
+
+\documentclass[12pt, a4paper, openany]{book} % TODO: add polish as a global option when babel is updated and `polish.ldf` becomes available
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\fancyhead[L]{\textbf{\textit{TCS}}}
+
+\begin{document}
+
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+\tableofcontents
+
+\input{license}
+Zawartość rozdziału \ref{sysopy} podchodzi z notatek zadedykowanych domenie publicznej (CC0 1.0); nie jest ona napisana przez wylistowanych (anonimowych) autorów tego opracowania.
+
+% Actual content
+\mainmatter
+
+% ROK 1, SEMESTR ZIMOWY
+\input{chapters/analiza/main}
+\input{chapters/mfi/main}
+\input{chapters/mai/main}
+%\input{chapters/pp/main}
+
+% ROK 1, SEMESTR LETNI
+\input{chapters/dyskretna/main}
+%\input{chapters/id/main}
+%\input{chapters/oop/main}
+%\input{chapters/mp/main}
+
+% ROK 2, SEMESTR ZIMOWY
+
+\input{chapters/mpi/main}
+%\input{chapters/asd1/main}
+\input{chapters/sysopy/main}
+%\input{chapters/sieci/main}
+
+% ROK 2, SEMESTR LETNI
+\input{chapters/modele/main}
+%\input{chapters/io/main}
+%\input{chapters/pn/main}
+
+% ROK 3, SEMESTR ZIMOWY
+%\input{chapters/analiza-algorytmów/main}
+
+
+\end{document}

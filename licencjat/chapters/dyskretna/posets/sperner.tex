@@ -1,0 +1,24 @@
+    \begin{theorem}[Twierdzenie Spernera]
+       Najdłuższy antyłańcuch \(F\) w kracie zbiorów $B_n$ ma moc $\binom{n}{\lfloor\frac{n}{2}\rfloor} = \binom{n}{\lceil\frac{n}{2}\rceil}$
+    \end{theorem}
+
+    \begin{proof}
+        Jesteśmy w stanie wskazać antyłańcuch takiej długości; jest to po prostu antyłańcuch w ,,warstwie'' $\lfloor n/2 \rfloor$ kraty $B_n$, tzn. wszystkie podzbiory $[n]$ mocy $\lfloor n/2 \rfloor$. Pokazujemy teraz, że nie istnieje dłuższy antyłańcuch, korzystając z faktu, że:
+       \begin{equation*}
+            \binom{n}{k} \leq \binom{n}{\lfloor\frac{n}{2}\rfloor} = \binom{n}{\lceil\frac{n}{2}\rceil}
+       \end{equation*}
+       a więc z nierówności LYM mamy, że:
+       \begin{equation*}
+           \sum_{k=0}^{n}\frac{f_k}{\binom{n}{\lfloor n/2 \rfloor}} \leq \sum_{k=0}^{n}\frac{f_k}{\binom{n}{k}} \leq 1
+       \end{equation*}
+       co dowodzi tezę bo w takim razie:
+       \begin{equation*}
+           \sum_{k=0}^{n}\frac{f_k}{\binom{n}{\lfloor n/2 \rfloor}} = 
+           |F| \cdot \frac{1}{\binom{n}{\lfloor n/2 \rfloor}} \leq 1
+        \end{equation*}
+        więc 
+        \begin{equation*}
+           |F| \leq \binom{n}{\lfloor n/2 \rfloor} =
+           \binom{n}{\lfloor n/2 \rfloor}
+       \end{equation*}
+       \end{proof}

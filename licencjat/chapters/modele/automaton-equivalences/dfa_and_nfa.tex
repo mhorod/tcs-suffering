@@ -1,0 +1,60 @@
+Na początek pokażemy konwersję DFA na NFA, a potem pokażemy dowód konwersji DFA na \(\eps\)-NFA. Ideowo są one takie same, ale dowód z konwersją na NFA jest o epsilon prostszy.
+
+
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \).
+    Następujące warunki są równoważne:
+    \begin{enumerate}
+            \item Istnieje DFA \( A_D \), dla którego \( L(A_D) = L \)
+        \item Istnieje NFA \( A_N \), dla którego \( L(A_N) = L \) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof} 
+    \begin{description}
+        \item ,,\( \implies \)''
+        
+        Każdy DFA jest NFA, bo każda funkcja jest relacją.
+            
+        \item ,,\( \impliedby \)''
+        
+        Niech \(A_N\) będzie NFA takim, że: 
+        \[ A_N = (Q, \Sigma, \delta, S, F) \]
+        
+        Korzystamy z faktu, że \( \tilde \delta \) jest elegancką funkcją i konstruujemy DFA \(A_D\) takie, że:
+        \[ A_D = (\powerset(Q), \Sigma, \tilde \delta, S, \mathcal{F}) \]
+        gdzie \( \mathcal{F} = \set{\beta \in \powerset(Q) \mid \beta \cap F \neq \varnothing} \)
+        
+        Intuicyjnie, tworzymy DFA, które w swoich stanach trzyma informację, w jakich stanach NFA mogłoby się znaleźć po przejściu tego samego prefiksu słowa. W związku z powyższym definicja \( \mathcal{F} \) jest całkiem intuicyjna, bo chcemy zaakceptować wtedy i tylko wtedy, gdy któreś obliczenie NFA znalazło się w stanie akceptującym.  
+        
+        Dla pełności potrzebujemy pokazać, że \( \hat \delta_{A_N}(S, u) \cap F \neq \varnothing \iff \hat \delta_{A_D}(S, u) \in \mathcal{F} \),
+        ale to mamy tak naprawdę z definicji, bo \( \hat \delta_{A_D} = \hat \delta_{A_N} \)
+    \end{description}
+\end{proof}
+
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \).
+    Następujące warunki są równoważne:
+    \begin{enumerate}
+            \item Istnieje DFA \( A_D \), dla którego \( L(A_D) = L \)
+        \item Istnieje \(\eps\)-NFA \( A_N \), którego \( L(A_N) = L \) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+     \begin{description}
+        \item ,,\( \implies \)''
+        
+        Każdy DFA jest \(\eps\)-NFA, bo każda funkcja jest relacją.
+            
+        \item ,,\( \impliedby \)''
+        
+        Niech \(A_N\) będzie \(\eps\)-NFA takim, że: 
+        \[ A_N = (Q, \Sigma, \delta, S, F) \]
+        
+        Ponownie jak w poprzednim przypadku, chcemy w stanach DFA ,,trzymać'' informacje o tym, w jakich stanach może znaleźć się \(\eps-NFA\). Jedyne co się zmienia to to, że mamy do czynienia z epsilonami. Jak o tym pomyślimy, to w sumie jednak nie jest to wielki problem, bo wystarczy chodzić po epsilon-domknięciach z użyciem funkcji \( \Delta \). 
+        
+        Konstruujemy więc \(A_D\), które jest DFA takim, że:
+        \[ A_D = (\powerset^{A_N, \eps}(Q), \Sigma, \Delta, S, \mathcal{F})\]
+        
+        gdzie \( \mathcal{F} = \set{\beta \in \powerset^{A_N, \eps}(Q) \mid \beta \cap F \neq \varnothing} \)
+    \end{description}
+\end{proof}

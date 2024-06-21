@@ -1,0 +1,10 @@
+\begin{definition}
+    Język \( L \) jest w klasie NP (nondeterministic polynomial) jeśli istnieje wielomian \( p \) oraz Niedeterministyczna Maszyna Turinga działająca w czasie \( p \).
+\end{definition}
+
+\begin{theorem}
+\(\textsc{SAT} \in \np \)
+\end{theorem}
+\begin{proof}
+Robimy NMT która ,,losuje'' wartościowanie formuły, a następnie sprawdza, czy formuła jest prawdziwa dla takiego wartościowania. Jeśli tak to akceptuje, jeśli nie to odrzuca. Jeśli formuła jest spełnialna, to dla \textit{któregoś} obliczenia uda się zaakceptować. 
+\end{proof}
