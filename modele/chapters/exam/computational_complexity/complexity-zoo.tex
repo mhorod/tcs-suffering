@@ -1,0 +1,62 @@
+\section{Klasy złożoności}
+
+\subsection{Definicje}
+
+\begin{definition}
+    Mówimy, że maszyna M (deterministyczna lub nie) \textbf{działa w czasie} \( T : \natural \rightarrow \natural \) jeśli dla każdej konfiguracji startowej \( q_0 w \) każde obliczenie jest akceptujące lub odrzucające i ma długość co najwyżej \( T(\abs{w}) \)
+\end{definition}
+
+\begin{definition}
+    Język \( L \) jest w klasie P (polynomial) jeśli istnieje wielomian \( p \)
+    oraz Deterministyczna Maszyna Turinga działająca w czasie \( p \) taka, że \( L(M) = L \)
+\end{definition}
+
+\begin{definition}
+    Język \( L \) jest w klasie NP (nondeterministic polynomial) jeśli istnieje wielomian \( p \) oraz Niedeterministyczna Maszyna Turinga działająca w czasie \( p \).
+\end{definition}
+
+\begin{definition}
+     \(  L \in  \conp \iff \complement{L} \in \np \).
+\end{definition}
+
+\begin{definition}
+    \( \textsc{PTIME} = \bigcup_{k=0}^\infty \textsc{TIME}(n^k) \)
+\end{definition}
+
+\begin{definition}
+    \( \textsc{NPTIME} = \bigcup_{k=0}^\infty \textsc{NTIME}(n^k) \)
+\end{definition}
+
+
+\begin{definition}
+    Mówimy, że funkcja \( f \) jest \textbf{redukcją wielomianową} (Karpa) jeśli istnieje wielomian \( p \) oraz Maszyna Turinga obliczająca \( f \) w czasie \( p \). 
+    
+    Jeśli istnieje redukcja wielomianowa z języka \( L_1 \) do języka \( L_2 \) to zapisujemy to jako \( L_1 \leq_p L_2 \)
+\end{definition}
+
+\begin{definition}
+    Mówimy, że Maszyna Turinga \(M\) ma wyrocznię dla języka \(L\), jeśli ,,ma ona dostęp'' do zbioru \(L\) (w czasie stałym), tj. wpisuje jakieś słowo na specjalną taśmę, przechodzi do odpowiedniego stanu \(q_?\) po czym na specjalnej taśmie wyjściowej w następnym kroku będzie miała odpowiedź \textsc{TAK} lub \textsc{NIE}, zależnie od tego czy dane słowo należy do \(L\) czy nie\footnote{Jest to zasadniczo bardzo podobne do redukcji Turinga z nierozstrzygalności i również nazywamy to redukcją Turinga.}.
+\end{definition}
+
+\begin{definition}
+    Język L jest w klasie \(P^{NP}\), jeśli istnieje taki wielomian \(p\) i taka deterministyczna Maszyna Turinga \(M\) z wyrocznią dla jakiegoś problemu z klasy \(\np\) taka, że \(L(M) = L\) i \(M\) działa w czasie \(p\). 
+\end{definition}
+
+\begin{definition}
+    Język L jest w klasie \(NP^{NP}\), jeśli istnieje taki wielomian \(p\) i taka niedeterministyczna Maszyna Turinga \(M\) z wyrocznią dla jakiegoś problemu z klasy \(\np\) taka, że \(L(M) = L\) i \(M\) działa w czasie \(p\). 
+\end{definition}
+
+\begin{definition}
+        \(  L \in  \textsc{coNP}^\textsc{NP} \iff \complement{L} \in \textsc{NP}^\textsc{NP} \).
+\end{definition}
+
+\begin{definition}
+    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-trudny} jeśli \( \forall_{L' \in C} L' \leq_p L \)
+\end{definition}
+\begin{definition}
+    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-zupełny} jeśli jest \(C\)-trudny i \( L \in C \)
+\end{definition}
+
+
+\subsection{Zawierania} 
+

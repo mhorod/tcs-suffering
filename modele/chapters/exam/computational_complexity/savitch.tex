@@ -1,0 +1,86 @@
+\section{Twierdzenie Savitcha}
+
+\begin{definition}
+    Definiujemy problem \textsc{REACHABILITY} jako:
+    \begin{itemize}
+        \item wejście: Nieskierowany graf \( G = (V, E) \), wierzchołki \(v_1\) i \(v_2\).
+        \item pytanie: Czy istnieje ścieżka z \(v_1\) do \(v_2\)? 
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}
+    Problem \textsc{REACHABILITY} można rozwiązać w \textsc{SPACE(\(\log^2(n)\))}.
+\end{theorem}
+
+\begin{proof}
+    
+    Konstruujemy algorytm, który sprawdza po kolei wszystkie możliwe wierzchołki ,,w połowie trasy'' między \(v_1\) a \(v_2\); jest on rekurencyjny. 
+
+  \begin{minted}{python}
+
+# The "limit" argument if because of memory usage issues
+# Thus, we will violate its semantics *a little* to keep the code simpler a bit
+# If there exists a path of length at most n,
+# then there exists path of length at most n+1
+# So doing the divide and conquer section of code, we will ceil it
+# Doesn't matter for performance, so shouldn't worry us
+# Just sayin'
+ 
+def reachable(v1, v2, limit): 
+    if limit == 0: 
+        # We can reach v2 from v1 in 0 steps iff v1 == v2
+        return v1 == v2
+        
+    if limit == 1:
+        if v1 != v2:
+            # We need to check our direct neighbours for any possible matches
+            for (v1, neighbour) in E:
+                if neighbour == v2:
+                    return True
+            # No neighbour matching v2 found, meaning that the path
+            # doesn't exist or is longer than the limit
+            return False
+        else:
+            # v1 is equal to v2, meaning we can get from v1 to v2
+            # in less than 1 step
+            return True 
+            
+    
+    # If the limit is greater than 1, we need to do divide-and-conquer approach
+    # Split the task into two, assuming every possible "in-between" point
+
+    for middle in V:
+        # We've kinda messed up semantics of "reachable" function,
+        # but it doesn't matter
+        if reachable(v1, middle, (limit/2)+1 )
+                and reachable(middle, v2, (limit/2) + 1):
+            return True
+    return False 
+\end{minted}
+    
+    Złożoność pamięciowa wychodzi ładnie, bo głębokość wywołań rekurencyjnych jest jakaś logarytmiczna, i w każdym wywołaniu trzymamy liczniki logarytmicznej długości. Stąd też mamy \(\log^2(n)\). 
+    
+    \begin{corollary}
+        \(\pspace = \npspace\) 
+    \end{corollary}
+    \begin{proof}
+        To, że \( \pspace \subset \npspace \) jest oczywiste. Skupmy się na drugim zawieraniu. 
+    
+        Rozważmy drzewo możliwych konfiguracji osiąganych przez niedeterministyczną Maszynę Turinga \(M\). Jeśli zużywa ona wielomianowo wiele pamięci, to znaczy że istnieje taki wielomian \(p\), że \(M\) zużywa maksymalnie \(p(n)\) pamięci roboczej, gdzie \(n\) to rozmiar wejścia. 
+        
+        Zauważamy, że liczbę możliwych konfiguracji maszyny \(M\) możemy przeszacować przez \(c^{p(n)}\), gdzie \(c\) jest jakąś stałą (np. \(c = |\Gamma| + |Q|\)). Zauważamy, że to co nas interesuje to to, czy z konfiguracji startowej możemy uzyskać konfigurację końcową. Centralnie jest to problem \textsc{REACHABILITY}, tyle że sąsiadów naszego grafu (czyli kolejne konfiguracje opisane funkcją przejścia) generujemy w locie. 
+        
+        Co zatem możemy zrobić, to ordynarnie generować po kolei wszystkie możliwe konfiguracje takie, że na taśmie znajduje się stan akceptujący i pytać, czy taka konfiguracja jest osiągalna z tej startowej. Zauważmy, że możemy reuse'ować pamięć, więc taka generacja kolejno wszystkich konfiguracji końcowych nas nie boli. 
+        
+        Innymi słowy, definiujemy sobie zbiór \(A\):
+        
+        \[ 
+            A = \set{w : \exists_{\alpha, \beta \in \Gamma} \exists_{q \in F} w = \alpha q\beta}
+        \]
+        
+        Nasza deterministyczna MT będzie generować go w ,,locie'' (nietrudno zobaczyć jak to można zrobić) i dla każdej otrzymanej teoretycznie możliwej konfiguracji końcowej pytać, czy da się ją osiągnąć z konfiguracji startowej.
+        
+        Jako, że \textsc{REACHABILITY} zużywa deterministycznie \(\log^2(n)\) pamięci, mamy że nasz algorytm będzie zużywać celem sprawdzenia osiągalności \(\log^2(c^{p(n)}) = p(n)^2 \cdot \log^2(c) \), co jest dosyć mocno wielomianowe. Miejsce zużyte na trzymanie na jakichś taśmach konfiguracji startowej i końcowej też jest wielomianowe, więc cały algorytm jest wielomianowy. 
+    \end{proof}
+    
+\end{proof}

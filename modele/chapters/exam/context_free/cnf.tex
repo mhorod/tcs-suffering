@@ -1,0 +1,112 @@
+ \section{Postać normalna Chomsky'ego}
+
+\begin{definition}
+    Mówimy, że symbol \(A \in N \cup \Sigma \) jest \textbf{generujący}, jeśli: 
+    \[ 
+    \exists_{w \in \Sigma^*}A \rightarrow_{G}^* w
+    \] 
+    
+\end{definition}
+
+\begin{definition}
+    Mówimy, że symbol \(A \in N \cup \Sigma\) jest \textbf{osiągalny}, jeśli: 
+    
+    \[ 
+        \exists_{\alpha, \beta \in (N \cup \Sigma)^*} S \rightarrow \alpha A \beta 
+    \]
+\end{definition}
+
+\begin{definition}
+    Mówimy, że symbol \(A \in N \cup \Sigma \) jest \textbf{użyteczny}, jeśli jest osiągalny i generujący. 
+\end{definition}
+
+\begin{definition}
+    Mówimy, że gramatyka G jest w \textbf{postaci normalnej Chomsky'ego} jeśli każda produkcja jest w jednej z następujących postaci: 
+    
+    \[
+        A \rightarrow BC 
+    \]
+    
+    gdzie \(B, C \in N \), oraz 
+    
+    \[ 
+        A \rightarrow a
+    \]
+    
+    gdzie \(A \in N\) oraz \(a \in \Sigma\). 
+    
+    Ponadto dopuszczamy, by dla stanu startowego \(S\) istniała produkcja \(S \rightarrow \eps\) (jeśli gramatyka akceptuje słowo puste), ale wówczas \(S\) nie może znaleźć się po prawej stronie żadnej produkcji. 
+    
+\end{definition}
+
+\begin{theorem}
+    Dla każdej gramatyki bezkontekstowej \(G\) istnieje gramatyka bezkontekstowa \(G'\) w postaci normalnej Chomsky'ego taka, że \(L(G) = L(G')\). 
+\end{theorem}
+
+\begin{proof}
+    Dowód ten jest prosty, ale uciążliwy w realizacji (bo ma wiele kroków). 
+    
+    Po pierwsze musimy pozbyć się nieterminali, które nie są użyteczne: 
+    
+    \begin{enumerate}
+        \item Symbole które nie są osiągalne znajdujemy najzwyklejszym DFSem puszczonym po produkcjach od symbolu startowego.
+        \item Symbole które nie są generujące ,,diagnozujemy'' ustawiając wszystkie terminale i epsilon jako ,,generujące''; następnie przechodzimy po wszystkich produkcjach i ustawiamy jako generujące wszystkie nieterminale \(N\) takie, że \( N \rightarrow \alpha \), gdzie \( \alpha \in N \cup \Sigma \) i każdy symbol w \(\alpha\) jest generujący. Robimy tak dopóki coś się zmienia; widać, że działa to poprawnie.
+    \end{enumerate}
+    
+   Poprawne działanie obu powyższych algorytmów formalnie należałoby dowieść indukcją, ale no, widać o co chodzi. 
+   
+   Teraz zostały nam produkcje które są jakkolwiek sensownej postaci; musimy zatem wziąć na celownik te, które nadal nam mieszają szybki.
+   
+   Po pierwsze, chcemy wywalić wszystkie produkcje \textit{wymazujące}, to znaczy produkcje postaci \( A \rightarrow \eps \). W tym celu robimy bardzo zabawny fikołek i jeśli mamy jakąś produkcję z nieterminala \(B\) postaci \(B \rightarrow \alpha A \beta\) (gdzie \(  \alpha, \beta \in N \)) to dodajemy jeszcze produkcję \(B \rightarrow \alpha \beta\), by móc zamodelować sytuację gdy \(A\) przechodzi na epsilon bez konieczności trzymania produkcji \( A \rightarrow \eps\). 
+   
+   Oczywiście, jeśli \(A\) występuje po prawej stronie jakiejś produkcji \(k\) razy, to dodajemy jakoś \(2^k-1\) produkcji tego typu (bo musimy dodać produkcję ,,symulującą zniknięcie'' \(A\) w dowolnym miejscu). 
+   
+   Gdy już pozbyliśmy się produkcji wymazujących, to musimy rozprawić się z produkcjami \textit{jednostkowymi}, czyli produkcjami typu \(A \rightarrow B\) (gdzie \(A, B \in N\)). Intuicyjnie chcemy móc zrobić ,,skok'' z \(A\) do produkcji na którze przechodzi \(B\). Sformalizowanie tego jest trochę zabawniejsze (tak by działało). 
+   
+   Definiujemy sobie zbiór wszystkich par nieterminali takich, że są w produkcjach jednostkowych: 
+   
+   \[ 
+        J = \set{(A, B) \in N^2 : A \rightarrow B}
+   \]
+   
+   Teraz robimy kurczę fikołka roku: \textbf{domykamy to przechodnio}. Teraz dla każdego elementu \(J\) postaci \(A, X\), jeśli \(X \rightarrow \gamma\) gdzie \(\gamma\) jest taką formą zdaniową, że nie składa się wyłącznie z jednego nieterminala, dodajemy produkcję \(A \rightarrow \gamma\). Dzięki porobieniu takich ,,skrótów'' do wszystkich możliwych miejsc możemy wyrąbać produkcje jednostkowe i wszystko będzie super.
+   
+   Teraz musimy się uporać z dziwnymi produkcjami, gdzie po prawej stronie występują jednocześnie nieterminale i terminale. Mowa o produkcjach typu \(A \rightarrow \alpha a \beta\), gdzie \(a\in\Sigma\), \(\alpha, \beta \in (N \cup \Sigma)^*\).  Co robimy w takiej sytuacji? W sumie to nic ciekawego, dodajemy jakiś nieterminal \(A_a\) i produkcję \( A_a \rightarrow a\), dzięki czemu produkcję \(A \rightarrow \alpha a \beta\) możemy transformować w \(A \rightarrow \alpha A_a \beta\).
+   
+   Po tych wszystkich transformacjach wszystko jest już postaci \(A \rightarrow \alpha \) gdzie \( \alpha \in N^*\) lub \(A \rightarrow a\), gdzie \(a \in \Sigma\). Zmierzamy w bardzo dobrym kierunku, a jedyne co nam zostało to zamiana produkcji, które po prawej stronie mają ostro więcej niż 2 nieterminale, czyli:
+   
+   \[ 
+        A \rightarrow A_1 A_2 A_3\dots A_k 
+   \]
+   
+   dla \(A,A_1, A_2, A_3, \dots, A_k \in N\). 
+   
+   Aby sobie z tym poradzić, wprowadzamy sobie nieterminale \(X_1, X_2, \dots, X_{k-2}\) :
+   
+   \[ 
+        X_1 \rightarrow A_2 X_2
+   \]
+   
+   \[ 
+        X_2 \rightarrow A_3 X_3
+    \] 
+    
+    \[ 
+        \dots
+    \] 
+    
+    \[ 
+        X_{k-3} \rightarrow A_{k-2} X_{k_2}
+    \]
+    
+    \[ 
+        X_{k-2} \rightarrow A_{k-1} A_{k}
+    \]
+    
+    Po wprowadzeniu takich nieterminali i takich produkcji, elegancko przerabiamy naszą problematyczną produkcję do postaci \( A \rightarrow A_1 X_1 \). Jeśli procedurę tę wykonamy dla wszystkich produkcji, to teraz wszystko, elegancko, po prawej stronie będzie mieć 2 nieterminale (jeśli będziemy je mieć). 
+    
+    Jeśli mamy literkę po prawej, to mamy jedną, więc jest super. 
+    
+    Teraz jeszcze technikalium: jeśli nasz język akceptuje puste słowo, to nieterminal startowy \(S\) musi przechodzić w epsilon; wtedy też nie chcemy by stan startowy pojawiał się po prawej stronie jakiejkolwiek produkcji. Wobec tego robimy nowy stan startowy \(S'\) i dajemy mu produkcje \(S' \rightarrow S\) oraz \(S' \rightarrow \eps\). To kończy naszą konwersję. 
+    
+\end{proof}

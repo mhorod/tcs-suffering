@@ -1,0 +1,383 @@
+\section{Automaty ze stosem}
+
+\subsection{Nieformalna definicja}
+Tak jak w przypadku DFA i NFA mieliśmy automaty z jakimiś stanami, które przechodziły (albo nie) po kolejnych literach, tak automaty ze stosem mają jeszcze dodatkowo stos, na podstawie którego możemy podejmować decyzję co zrobić.
+
+\subsection{Formalnie}
+\begin{definition}
+    \textbf{Automat ze stosem} (pushdown automaton PDA) definiujemy jako
+    \[
+        P = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) -- zbiór stanów
+        \item \( \Sigma \) -- skończony alfabet słów
+        \item \( \Gamma \) -- skończony alfabet stosu
+        \item \( \delta : Q \times (\Sigma \cup \set{\eps}) \times \Gamma \rightarrow \powerset\pars{Q \times \Gamma^*} \) -- funkcja przejścia
+        \item \( q_0 \) -- stan startowy
+        \item \( Z_0\) -- stosowy symbol startowy
+        \item \( F \subseteq Q \) -- zbiór stanów akceptujących
+    \end{itemize}
+\end{definition}
+Intuicyjnie \( \delta \) dla każdego stanu \( q \), litery \( a \), symbolu na szczycie stosu \( z \) oddaje zbiór nowych możliwych stanów wraz z symbolami które mają być dodane na stos.
+Symbol \( z \) jest usuwany ze szczytu stosu w momencie przejścia, wiele nowych symboli może zostać dodanych.
+Jeśli zdarzy się, że opróżnimy stos to mamy tak zwany przypał (automat się zacina), ale się tym nie przejmujemy.
+
+Warto zauważyć, że \( \delta(q, a, z) \) jest \textbf{zbiorem}, a więc PDA jest niedeterministyczny (automat może wybrać dowolne z przejść).
+Istnieje deterministyczna wersja PDA o której powiemy więcej w sekcji \nameref{cfl-subclassses}.
+
+
+\begin{definition}
+    \textbf{Konfiguracja} PDA to trójka
+    \[
+        (q, w, \gamma)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( q \) -- aktualny stan
+        \item \( w \) -- część słowa pozostała do przeczytania
+        \item \( \gamma \) -- (wszystkie) symbole na stosie
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Dla konfiguracji PDA \( P \) definiujemy relację \( \vdash_P \)
+    \[
+        (q, aw, X\beta) \vdash_P (p, w, \alpha \beta)
+        \iff
+        (p, \alpha) \in \delta(q, a, X)
+    \]
+\end{definition}
+
+\begin{definition}
+    Definiujemy \( \vdash_P^* \) zwrotne i przechodnie domknięcie \( \vdash_P \)
+\end{definition}
+
+Intuicja stojąca za \( \vdash_P \) i \( \vdash_P^* \) jest taka sama jak za \( \rightarrow_G \) i \( \rightarrow_G^* \) tj. chcemy opisać które konfiguracje są osiągalne z których.
+
+\begin{lemma}
+    \label{pda-stack-extending-lemma}
+    Dla PDA \( P \) jeśli
+    \[
+        (q, x, \alpha) \vdash_P^* (p, y, \beta)
+    \]
+    to
+    \[
+        (q, xw, \alpha\gamma) \vdash_P^* (p, yw, \beta\gamma)
+    \]
+\end{lemma}
+\begin{proof}
+    Skoro 
+    \[
+        (q, x, \alpha) \vdash_P^* (p, y, \beta)
+    \]
+    to znaczy że \( x = a_0a_1\dots a_{n-1}y \) oraz istnieje ciąg \( n \) przejść
+    \[
+        (q, a_0a_1\dots a_ny, \alpha) \vdash_P (q_1, a_1\dots a_ny, \alpha_1) \vdash_P \dots
+        \vdash_P (p, y, \beta)
+    \]
+    przy czym niektóre z \( a_i \) mogą być \( \varepsilon \) (bo PDA robi \(\varepsilon\)-przejścia).
+    
+    Zauważamy, że nigdy nie możemy wyjść poza \( x \) bo nie możemy dodawać liter do słowa, a także nie możemy opróżnić stosu bo to zatrzymuje automat.
+    
+    W takim razie możemy zastosować te same przejścia z \( \delta \) uzyskując ciąg
+   \[
+        (q, a_0a_1\dots a_nyw, \alpha\gamma) \vdash_P (q_1, a_1\dots a_nyw, \alpha_1\gamma) \vdash_P \dots
+        \vdash_P (p, yw, \beta\gamma)
+    \]
+\end{proof}
+
+\subsection{Akceptacja}
+\subsubsection{Akceptacja stanem akceptującym}
+\[
+    L(P) = \set{ w \mid (q_0, w, Z_0) \vdash_P^* (q_F, \eps, \gamma) \land q_F \in F} 
+\]
+
+\subsubsection{Akceptacja pustym stosem}
+\[
+    N(P) = \set{ w \mid (q_0, w, Z_0) \vdash_P^* (q, \eps, \eps)}
+\]
+
+\subsubsection{Równoważność akceptacji}
+Mamy dwie różne definicje tego co znaczy, że jakieś słowo jest akceptowane -- pytanie czy są one równoważne tj. czy jeśli mamy słowo \( w \in L(P) \) to umiemy skonstruować automat \( Q \) taki że \( w \in N(Q)  \) i na odwrót.
+
+Okazuje się że tak, te dwie definicje są równoważne.
+\begin{theorem}
+    \label{pda-type-equivalence}
+    Dla języka \( L \) następujące stwierdzenia są równoważne:
+    \begin{enumerate}
+        \item Istnieje \( P \) taki że \( L(P) = L \)
+        \item Istnieje \( Q \) taki że \( N(Q) = L \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \( \)
+
+    \begin{description}
+        \item \( (1) \implies (2) \)
+        
+        Dodajemy do \( \Gamma \) specjalny symbol \( \perp \), który będzie oznaczał dno stosu.
+        
+        Na początku \( \varepsilon \)-prześciami modyfikujemy stos tak, aby zawierał on \( Z_0\perp \).
+        
+        
+        Następnie tworzymy stan opróżniający stos \( q_{pop} \) oraz przejścia 
+        \[
+            \delta(q_{pop}, \varepsilon, z) = \set{(q_{pop}, \varepsilon)}
+        \]
+        oraz dla każdego stanu akceptującego \( q_F \in F \)
+        \[
+            \delta(q_F, \varepsilon, z) = \set{(q_{pop}, \varepsilon)}
+        \]
+        
+        gdzie \( z \in \Gamma\cup \set{\perp} \)
+        
+        Pokażemy teraz, że \( L(P) = N(Q) \)
+        \begin{description}
+            \item \( L(P) \subseteq N(Q) \)
+            
+            Niech \( w \in L(P) \). Z definicji \( L(P) \) mamy dla pewnego \( q_F \in F \)
+            \[
+                (q_0, w, Z_0) \vdash_P^* (q_F, \varepsilon, \gamma)
+            \]
+            Dzięki nowym przejściom mamy
+            \[
+                (q_F, \varepsilon, z\gamma) \vdash_Q (q_{pop}, \gamma)
+            \]
+            oraz
+            \[
+                (q_{pop}, \varepsilon, \gamma) \vdash_Q^* (q_{pop}, \varepsilon, \varepsilon)
+            \]
+            
+            Łącząc powyższe trzy otrzymujemy
+            \[
+                (q_0, w, Z_0) \vdash_Q^* (q_{pop}, \varepsilon, \varepsilon)
+            \]
+            zatem \( w \in N(Q) \)
+            
+            \item \( N(Q) \subseteq L(P) \)
+            
+            Niech \( w \in N(Q) \) czyli z definicji, dla pewnego \( q \) mamy
+            \[
+                (q_0, w, Z_0) \vdash_Q^* (q, \varepsilon, \varepsilon)
+            \]
+            
+            Zauważmy jednak, że zaczynamy z symbolem \( \perp \) na dnie stosu, którego musieliśmy się w którymś momencie pozbyć.
+            
+            Jedyne przejścia które na to pozwalają to dodane przez nas
+            \[
+                \delta(q_F, \varepsilon, \perp) = \set{(q_{pop}, \varepsilon)}
+            \]
+            oraz
+            \[
+                \delta(q_{pop}, \varepsilon, \perp) = \set{(q_{pop}, \varepsilon)}
+            \]
+            Ponado jeśli dla \( q \neq q_{pop} \)
+            \[
+                \delta(q, a, z) = {(q_{pop}, \gamma)}
+            \]
+            to musi być tak, że \( q \in F \).
+            
+            W takim razie, aby z konfiguracji startowej zaakceptować \( w \) przez pusty stos to musieliśmy przejść z \( q_F \) do \( q_{pop} \).
+            
+            Ponieważ od wyjścia z \( q_F \) wolno nam wykonywać jedynie \(\varepsilon\)-przejścia to skoro na końcu mamy konfigurację \( (q_{pop}, \varepsilon, \varepsilon) \) to w \( q_F \) musieliśmy mieć konfigurację \( (q_F, \varepsilon, \gamma) \) co jest równoważne faktowi, że \( w \in L(P) \).
+            
+            
+        \end{description}
+        
+        \item \( (2) \implies (1) \)
+        
+        Zaczynamy tak samo jak poprzednio, dodając symbol dna stosu do \( \Gamma \) i włożeniem go pod \( Z_0 \).
+        
+        Tworzymy jeden stan akceptujący \( q_{acc} \) oraz dla każdego stanu \( q \) dodajemy przejście
+        \[
+            \delta(q, \varepsilon, \perp) = \set{(q_{acc}, \varepsilon)}
+        \]
+        
+        Pokażemy teraz, że \( N(Q) = L(P) \)
+        
+        \begin{description}
+            \item \( N(Q) \subseteq L(P) \)
+            
+            Niech \( w \in N(Q) \). Mamy zatem 
+            \[
+                (q_0, w, Z_0) \vdash_Q^* (q, \varepsilon, \varepsilon)
+            \]
+            Z lematu \ref{pda-stack-extending-lemma} mamy 
+            \[
+                (q_0, w, Z_0\perp) \vdash_P^* (q, \varepsilon, \perp)
+            \]
+            
+            Dzięki nowym przejściom mamy
+            \[
+                (q, \varepsilon, \perp) \vdash_P (q_{acc}, \varepsilon, \varepsilon)
+            \]
+            czyli
+            \[
+                (q_0, w, Z_0\perp) \vdash_P^* (q_{acc}, \varepsilon, \varepsilon)
+            \]
+            i w efekcie \( w \in L(P) \)
+            
+            
+            \item \( L(P) \subseteq N(Q) \)
+            
+            Niech \( w \in L(P) \) czyli
+             \[
+                (q_0, w, Z_0) \vdash_Q^* (q_{acc}, \varepsilon, \gamma)
+            \]
+            
+            Ponieważ (poza inicjalizacją) nigdy nie dodajemy \( \perp \) na stos to jedyne przejścia które prowadzą z \( q \) do \( q_{acc} \) to
+            \[
+                (q, v, \perp) \vdash_P (q_{acc}, v, \varepsilon)
+            \]
+            Zauważmy, że skoro \( w \) zostało zaakceptowane to \( v = \varepsilon \).
+            
+            Ponadto, poza ostatnim, wszystkie przejścia które wykonuje \( P \) są legalne w \( Q \) z tym, że nie mają \( \perp \) na dnie stosu.
+            
+            W takim razie dla pewnego \( q \) mamy
+            \[
+                (q_0, w, Z_0) \vdash_Q^* (q, \varepsilon, \varepsilon)
+            \]
+            czyli \( w \in N(Q) \).
+            
+        \end{description}
+        
+    \end{description}
+\end{proof}
+
+\subsection{Równoważność PDA i CFG}
+
+\begin{theorem}
+    Niech \( L \) będzie językiem. Następujące stwierdzenia są równoważne:
+    \begin{enumerate}
+        \item Istnieje gramatyka bezkontekstowa \( G \) taka że \( L(G) = L \)
+        \item Istnieje PDA \( P \) taki że \( L(P) = L \)
+        \item Istnieje PDA \( Q \) taki że \( N(Q) = L \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \( \)
+    Oczywiście mamy \( (2) \iff (3) \) z twierdzenia \ref{pda-type-equivalence}.
+    Pokażemy, że \( (3) \iff (1) \)
+    
+    
+    \begin{description}
+        
+   
+        \item \( (3) \implies (1) \)
+        
+        Mając PDA \( P \) akceptujący pustym stosem chcemy stworzyć gramatykę \( G \), która w pewnym sensie symuluje ten automat. Będziemy chcieli żeby produkcje w gramatyce odpowiadały jakimś przejściom tego automatu. 
+        
+        Definiujemy nieterminale jako 
+        \[ N = \set{S} \cup\set{(q, z, p) : q, p \in Q, z \in \Gamma} \]
+        
+        Intuicyjnie chcemy, żeby taki nieterminal \( (q, z, p) \) reprezentował nam takie słowa \( w \), że 
+        \[
+            (q, w, z\gamma) \vdash_P^* (p, \varepsilon, \gamma)
+        \]
+        Dla każdego \( p \in Q \) dodajemy produkcję:
+        \[
+            S \rightarrow (q_0, Z_0, p)
+        \]
+        
+        Ponadto jeśli dla \( a \in \Sigma \) lub \( a = \varepsilon \) mamy
+        \[
+            (r, z_1 \dots z_n) \in \delta(q, a, z)
+        \]
+        to dodajemy dla wszystkich \( (r_1, \dots, r_{n-1}) \in Q^n \) produkcję:
+        \[
+            (q, z, p) \rightarrow a(r, z_1, r_1)(r_1, z_2, r_2)\dots(r_{n-1}, z_n, p)
+        \]
+        
+        Innymi słowy -- jeśli zdecydujemy, że chcemy przejść ze stanu \( q \) do stanu \( p \) ściągając przy tym \( z \) ze stosu i użyjemy przy tym 
+        przejścia automatu \( (q, z, p, r_1, z_1\dots z_n) \in \delta \)
+        to musimy teraz przejść ze stanu \( r \) do stanu \( p \) i ściągnąć wszystkie dodane symbole \( z_1, \dots, z_n \) -- nie wiemy jak to zrobimy, dlatego przechodzimy po wszystkich możliwych kombinacjach stanów pośrednich.
+        
+        Po drodze możemy przechodzić przez dowolne stany automatu -- stąd dodajemy taką produkcję dla każdych możliwych \( r_1, \dots, r_{n-1} \).
+        
+        
+        Pozostaje pokazać, że \( N(P) = L(G) \) -- to się robi jakąś indukcją.
+
+    
+        \item \( (1) \implies (3) \)
+        
+        Idea jest analogiczna jak poprzednio tylko tym razem z gramatyki \( G \) robimy automat \( P \). Na szczęście jest on niedeterministyczny więc będziemy mogli ,,zgadnąć'' produkcję a następnie za jej pomocą sparsować słowo z wejścia.
+        
+        
+        Zaczynamy od zmodyfikowania naszej gramatyki tak aby każda produkcja była postaci:
+        \[
+            A \rightarrow a
+        \]
+        gdzie \( w \in \Sigma \cup \set{\varepsilon} \)
+        
+        lub 
+        \[
+            A \rightarrow B_1 \dots B_n
+        \]
+        gdzie \( B_1, \dots, B_n \in N \)
+        
+        Robimy to w dwóch krokach:
+        \begin{enumerate}
+            \item Dla każdej litery \( a \in \Sigma \) dodajemy nieterminal \( A \) oraz produkcję \( A \rightarrow a \)
+            \item zastępujemy każde (poprzednio istniejące) wystąpienie litery \( a \) w produkcjach na nieterminal \( A \)
+        \end{enumerate}
+        
+        Zmiana jest niewielka, łatwo pokazać że dostajemy gramatykę produkującą ten sam język.
+        
+        
+        
+        Teraz tworzymy PDA akceptujący przez pusty stos:
+        \begin{itemize}
+            \item \( Q = \set{q} \) -- mamy jeden stan bo będziemy korzystać wyłącznie ze stosu
+            \item \( Z_0 = S \) -- stosowy symbol startowy jest początkowym nieterminalem gramatyki
+            \item alfabetem automatu jest \( \Sigma \)
+            \item \( \Gamma = N \) -- na stos będziemy dodawać jedynie nieterminale
+        \end{itemize}
+        
+        Ponadto prześcia definiujemy:
+        \begin{itemize}
+            \item Jeśli \( A \rightarrow a \) to 
+            \[
+                (q, \varepsilon) \in \delta(q, a, A)
+            \]
+            
+            \item Jeśli \( A \rightarrow B_1\dots B_n \) to
+            \[
+                (q, B_1\dots B_n) \in \delta(q, \varepsilon, A)
+            \]
+        \end{itemize}
+        
+        Innymi słowy -- na stosie będziemy trzymać nieterminale, które pozostały nam do przeparsowania.
+        Jeśli widzimy nieterminal stworzony dla litery \( a \) to zjadamy \( a \) z czytanego słowa i parsujemy dalej.
+        
+        Teraz pokazujemy, że faktycznie \( L(G) = N(P) \)
+        
+        Chcemy pokazać indukcją, że dla każdego \( n \in \natural \setminus \set{0} \) oraz każdych \( w, A, \beta \) zachodzi
+        \[
+            A \rightarrow_G^n w\beta \iff (q, w, A) \vdash_P^n (q, \varepsilon, \beta)
+        \]
+        przy czym w gramatyce robimy wywód lewostronny.
+        
+        \begin{itemize}
+            \item Baza indukcji \( n = 1 \)
+                
+                Ponieważ wykonujemy jedną produkcję/jedno przejście to są dwie sytuacje -- albo \( k = 0, w \in \Sigma \cup \set{\varepsilon} \) albo \( w = \varepsilon, k > 0 \).
+                
+                W pierwszym przypadku mamy
+                \[
+                    A \rightarrow_G w \iff (q, \varepsilon) \in \delta(q, w, A)
+                \]
+                natomiast w drugim
+                \[
+                    A \rightarrow_G B_1 \dots B_k \iff (q, B_1\dots B_k) \in \delta(q, \varepsilon, A)
+                \]
+                obie równoważności wynikają bezpośrednio z konstrukcji.
+                
+            \item Krok indukcyjny
+            
+            
+            
+        \end{itemize}
+        
+        
+    \end{description}
+\end{proof}

@@ -1,0 +1,92 @@
+\section{Własności języków rekurencyjnych i rekurencyjnie\texorpdfstring{\\}{}przeliczalnych}
+
+\subsection{Zamkniętość na przecięcie}
+
+\begin{theorem}
+    Języki rekurencyjne są zamknięte na przecięcie.
+\end{theorem}
+
+\begin{proof}
+    Mając maszynę Turinga z własnością stopu \(A\) i maszynę Turinga z własnością stopu \(B\) możemy stworzyć maszynę Turinga z własnością stopu \(C\), która najpierw symuluje maszynę \(A\) na swoim wejściu, a potem maszynę \(B\). Akceptuje wtedy i tylko wtedy, gdy obie maszyny akceptują. Zauważamy, żę ma ona własność stopu, bo jedyne ciekawe co robi to symuluje MT z własnością stopu. Tym samym przecięcie dwóch problemów z R musi również być w R.
+\end{proof}
+
+\begin{theorem}
+    Języki rekurencyjnie przeliczalne są zamknięte na przecięcie.
+\end{theorem}
+\begin{proof}
+    Konstrukcja przebiega identycznie jak w powyższym dowodzie, przy czym któraś z maszyn może się nam zaciąć na wejściu -- niespecjalnie nas to obchodzi, bo w takim razie dane słowo i tak nie należałoby do przecięcia dwóch języków. Tym samym mamy maszynę Turinga (niekoniecznie z własnością stopu) która akceptuje wtedy i tylko wtedy, gdy słowo należy do przecięcia dwóch języków rekurencyjnie przeliczalnych; tym samym ta klasa również jest zamknięta na przecięcie.  
+\end{proof}
+
+\subsection{Zamkniętość na konkatenację}
+
+\begin{theorem}
+    Języki rekurencyjne są zamknięte na konkatenację.
+\end{theorem}
+
+\begin{proof}
+    Mając maszyny Turinga \(M_1\) i \(M_2\) chcemy 
+\end{proof}
+
+\begin{theorem}
+    Języki rekurencyjnie przeliczalne są zamknięte na konkatenację.
+\end{theorem}
+
+\subsection{Zamkniętość na dopełnienie w językach rekurencyjnych}
+
+\begin{theorem}
+    \label{recursive-languages-closed-under-complement}
+    Języki rekurencyjne są zamknięte na dopełnienie.
+\end{theorem}
+\begin{proof}
+    Jeśli język jest rekurencyjny, to znaczy, że istnieje Maszyna Turinga \(M\) taka, że zwraca \textsc{TAK} lub \textsc{NIE} w zależności od tego, czy określone słowo do niego należy czy nie.
+    
+    W takim razie, otrzymując jakieś słowo \(w\) możemy otrzymać dopełnienie języka \(L(M)\) negując odpowiedź \(M\). Powstała maszyna ma nadal własność stopu, bo \(M\) ma własność stopu. 
+\end{proof}
+
+\subsection{Rozpacz przy dopełnianiu języków rekurencyjnie przeliczalnych}
+
+\begin{theorem}
+    Jeśli \( L \in RE \setminus R \), to \( \complement{L} \not \in RE\) 
+\end{theorem}
+\begin{proof}
+    Załóżmy, że \( L \in RE \setminus R \) i \( \complement{L} \in RE\). 
+    Mamy więc maszynę \( M \) rozpoznającą \( L \) oraz \( N \) rozpoznającą \( \complement{L} \)
+    
+    Konstruujemy DMT \( M' \) która:
+    \begin{enumerate}
+        \item Wczytuje wejście \( w \)
+        \item Aż do akceptacji:
+        \begin{enumerate}
+            \item wykonaj jeden krok symulacji \( M \) na \( w \)
+            \item wykonaj jeden krok symulacji \( N \) na \( w \)
+        \end{enumerate}
+        \item Jeśli \( M \) zaakceptowało to wypisz ,,TAK''
+        \item Jeśli \( N \) zaakceptowało to wypisz ,,NIE''
+    \end{enumerate}
+    
+    Oczywiście \( w \in L \lor w \in \complement{L} \) więc albo \( M \) zaakceptuje \( w \) albo zrobi to \( N \) -- któraś w końcu musi.
+    Stanie się to po skończonej liczbie kroków niezależnie od \( w \) zatem \( L(M') = M \) oraz \( M' \) ma własność stopu.
+    
+    Trochę przypał bo w takim razie \( L \in (RE \setminus R) \cap R \) czyli nie istnieje.
+    
+\end{proof}
+
+\subsection{Zamkniętość na sumę}
+
+\begin{theorem}
+    Języki rekurencyjne są zamknięte na sumę.
+\end{theorem}
+
+\begin{theorem}
+    Języki rekurencyjnie przeliczalne są zamknięte na sumę.
+\end{theorem}
+
+\subsection{Zamkniętość na gwiazdkę Kleenego}
+
+\begin{theorem}
+    Języki rekurencyjne są zamknięte na gwiazdkę Kleenego.
+\end{theorem}
+
+\begin{theorem}
+    Języki rekurencyjnie przeliczalne są zamknięte na gwiazdkę Kleenego.
+\end{theorem}

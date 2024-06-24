@@ -1,0 +1,75 @@
+\section{Własności języków regularnych}
+
+\subsection{Suma}
+
+\begin{theorem}
+Języki regularne są zamknięte na sumowanie.
+\end{theorem}
+\begin{proof}
+ Mając wyrażenia regularne \(\alpha_1\) i \(\alpha_2\) możemy zrobić wyrażenie \(\beta = \alpha_1 + \alpha_2\).
+\end{proof}
+
+\subsection{Przecięcie}
+\begin{theorem}
+Języki regularne są zamknięte na przecięcie.
+\end{theorem}
+\begin{proof}
+ Mając DFA \(A_1 = (Q_1, \Sigma, \delta_1, s_1, F_1)\) i DFA \(A_2 = (Q_2, \Sigma, \delta_2, s_2, F_2)\) możemy skonstruować DFA \(B\), które będzie rozpoznawać język \(L(A_1) \cap L(A_2)\), takie że:
+ 
+ \[
+    B = (Q', \Sigma, \delta', q', F')
+ \]
+ 
+ gdzie: 
+ 
+ \begin{itemize}
+     \item \( Q' = Q_1 \times Q_2 \)
+     \item \( \delta'(q_1, q_2) = (\delta_1(q_1), \delta_2(q_2)) \)
+     \item \( s' = (s_1, s_2) \)
+     \item \( F' = \set{(q_1, q_2) : q_1 \in F_1 \land q_2 \in F_2} \)
+     
+ \end{itemize}
+ 
+ Intuicyjnie: DFA \(B\) symuluje chodzenie po \(A_1\) i \(A_2\) akceptując wtedy i tylko wtedy, gdy w obu DFA dane słowo znalazłoby się w stanie akceptującym. Formalniej:
+ 
+ \[ 
+    w \in L(A_1) \cap L(A_2) \iff w \in L(A_1) \land w \in L(A_2) \iff  
+ \]
+ \[ 
+    \tilde \delta_1(s_1, w) \in F_1 \land \tilde \delta_2(s_2, w) \in F_2 \iff \delta'((s_1, s_2), w) \in F' \iff w \in L(B) 
+ \]
+ 
+\end{proof}
+
+\subsection{Dopełnienie}
+
+\begin{theorem}
+Wyrażenia regularne są zamknięte na dopełnienie.
+\end{theorem}
+\begin{proof}
+ Mając DFA \(A\) możemy ,,odwrócić'' wszystkie stany akceptujące, tzn. stworzyć DFA \(B\) takie, że \(F_B = \set{q \in Q_A : q \not \in F_A}\). Wtedy:
+ 
+ \[ 
+    w \not\in L(A) \iff \tilde \delta(s_a, w) \not \in F_A \iff \delta(s_a, w) \in F_B \iff w \in L(B)
+ \]
+\end{proof}
+
+\subsection{Konkatenacja}
+
+\begin{theorem}
+Wyrażenia regularne są zamknięte na konkatenację.
+\end{theorem}
+
+\begin{proof}
+ Mając wyrażenia regularne \(\alpha_1\) i \(\alpha_2\) możemy skonstruować wyrażenie regularne \( \alpha_1 \alpha_2 \). 
+\end{proof}
+
+\subsection{Gwiazdka Kleenego} 
+
+\begin{theorem}
+Wyrażenia regularne są zamknięte na gwiazdkę Kleenego.
+\end{theorem}
+
+\begin{proof}
+ Mając wyrażenie regularne \(\alpha\) możemy stworzyć wyrażenie \(\alpha^*\).
+\end{proof}

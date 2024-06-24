@@ -40,7 +40,9 @@
 \declaretheorem[numberwithin=section,name=Definicja]{definition}
 \declaretheorem[numberwithin=section,name=Przykład]{example}
 \declaretheorem[numberwithin=section,name=Fakt]{fact}
+\declaretheorem[numberwithin=section,name=Wniosek]{corollary}
 \declaretheorem[numbered=no,name=Pytanie]{question}
+
 
 % Common sets
 \def\natural{\mathbb{N}}
@@ -151,3 +153,8 @@
 
 % Turing Machine
 \def\blank{\sqcup}
+
+% Misc 
+\let\eps\varepsilon
+\let\len\abs
+\newcommand{\continuum}{\mathfrak{c}}

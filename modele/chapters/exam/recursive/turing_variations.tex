@@ -1,0 +1,130 @@
+\section{Niedeterministyczna Maszyna Turinga}
+
+\subsection{Definicja}
+
+\begin{definition}
+    Niedeterministyczną Maszynę Turinga definiujemy tak samo jak deterministyczną Maszynę Turinga, przy czym funkcja \( \delta \) zostaje relacją; ciągnie to za sobą dosyć oczywiste konsekwencje w definiowaniu relacji \( \vdash\).
+    
+    Co ciekawe, definicja języka akceptowanego się nie zmienia; nadal zwyczajnie chcemy mieć stan akceptujący w domknięciu przechodnim.
+\end{definition}
+
+\subsection{Równoważność z deterministyczną Maszyną Turinga}
+
+\begin{theorem}
+    Następujące stwierdzenia są równoważne dla dowolnego języka \( L \subset \Sigma^*\):
+    \begin{enumerate}
+        \item Istnieje deterministyczna Maszyna Turinga DM taka, że \(L(DM) = L\).
+        \item Istnieje niedeterministyczna Maszyna Turinga NM taka, że \(L(NM) = L \). 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Dowód faktu, że mając deterministyczną Maszynę Turinga możemy utworzyć niedeterministyczną Maszynę Turinga jest trywialny (każda funkcja jest relacją). 
+    
+    Skupmy się zatem na dowodzie w drugą stronę; mamy daną niedeterministyczną Maszynę Turinga \(N\) i chcemy stworzyć równoważną deterministyczną Maszynę Turinga \(M\). Aby to uczynić, będziemy (intuicyjnie) chodzić BFS-em po nieskończonym grafie konfiguracji maszyny \(N\).
+    
+    Formalizacja tego jest bardzo ciężka, mimo faktu że idea jest prosta (zatem podamy ideę). W alfabecie chcemy mieć jakiś separator, który jedyne do czego będzie używany, to do rozpatrywania kolejnych konfiguracji ,,w kolejce''. 
+    
+    Na początku ,,w kolejce'' konfiguracji do analizy mamy jedynie konfigurację startową. Mając głowicę w jakimś położeniu, znając jej stan i to co jest ,,na prawo'' od niej, dopisujemy do kolejki symbol separacji konfiguracji, a następnie całą naszą konfigurację po wykonanym którymś przejściu z maszyny \(N\). Procedurę tę wykonujemy dla każdego możliwego przejścia z \(N\). 
+    
+    Gdy ,,przerobimy'' wszystkie możliwe przejścia z \(N\) (dla każdej sytuacji jest ich skończenie wiele, więc zakodowanie tego jak \(M\) ma się zachowywać by wygenerować wszystkie te konfiguracji jest osiągalne), przechodzimy do następnej konfiguracji z~kolejki. No BFS, co tu jeszcze można powiedzieć?
+    
+    Za każdym razem, gdy analizujemy nową konfigurację, sprawdzamy czy zapisany w niej stan jest akceptujący; jeśli tak, to wtedy akceptujemy słowo. Jeśli nie ma zdefiniowanych przejść dla określonej sytuacji, to nie robimy nic i przechodzimy do kolejnej konfiguracji w kolejce.
+    
+    Again, formalizowanie tego wymagałoby wprowadzenia dodatkowych stanów które trzymałyby informacje o tym, co ,,widzi'' maszyna \(N\); ponadto wszystkie stany maszyny \(N\) muszą wejść do alfabetu taśmowego maszyny \(M\) by móc je również trzymać taśmie. To wszystko jest wykonywalne, ale przykre w implementacji. 
+\end{proof}
+
+\section{k-taśmowa maszyna Turinga}
+
+Jest równoważna zwykłej maszynie. Czemu ? Bo możemy trzymać wszystkie taśmy szeregowo na jednej taśmie. Aby zrobić przejście przechodzimy od lewej do prawej po całej taśmie i zbieramy informacje o położeniu i stanach głowic -- następnie wykonujemy odpowiednie przejścia rozszerzając przy tym reprezetancje taśm jeśli trzeba.
+
+
+\section{PDA z k stosami}
+
+Okazuje się że jeśli dodamy PDA drugi stos to jest on równoważny Maszynie Turinga -- pierwszego stosu będziemy używali jako taśmy, drugiego będziemy używali jako bufor aby móc dowolnie przeglądać i modyfikować pierwszy stos.
+
+
+\section{Uniwersalna Maszyna Turinga}
+
+Maszyny Turinga są super, ale czy taka maszyna potrafi zasymulować jakąś inną, być może dowolną maszynę? Otóż okazuje się że tak -- umiemy skonstruować taką Maszynę Turinga, która jak dostanie na wejściu zakodowaną Maszynę Turinga \( M \) oraz jej wejście \( w \) to będzie w stanie zasymulować zachowanie \( M \) na \( w \) i zwrócić (zakodowany w tym samym formacie co wejście) wynik symulacji.
+
+Niech \( M = (Q, \Sigma, \Gamma, \delta, q_0, \blank, F) \) będzie (deterministyczną) maszyną którą chcemy symulować. Pokażemy jak zakodować \( M \) nad alfabetem \( \Sigma_U = \set{0, 1} \).
+
+\begin{itemize}
+    \item Niech \( Q = \set{q_1, \dots, q_n} \)
+    
+    Kodujemy \( q_i \) jako ciąg \( i \) jedynek.
+    
+    \item \( \blank \) będziemy kodować jako pojedynczą jedynkę.
+    
+    
+    \item Podobnie niech \( \Sigma = \set{a_1, \dots, a_n} \)
+    
+    Kodujemy \( a_i \) jako ciąg \( i + 1 \) jedynek.
+    
+    \item Dla \( \Gamma = \set{z_1, \dots z_n} \)
+    
+    Kodujemy \( z_i \) jako ciąg \( i + \card{\Sigma + 1} \) jedynek -- dla odróżnienia od \( \Sigma \).
+    
+    \item \( \delta \) jest funkcją, czyli zbiorem par \( ((q_1, z_1), (q_2, z_2, \pm 1) \)
+    
+    Parę \( ((q_i, z_j), (q_k, z_l), 1) \) zakodujemy jako
+    
+    \[
+        \underbrace{1 \dots 1}_i
+        0
+        \underbrace{1 \dots 1}_j
+        0
+        \underbrace{1 \dots 1}_k
+        0
+        \underbrace{1 \dots 1}_l
+        0
+        1
+    \]
+    
+    Natomiast parę \( ((q_i, z_j), (q_k, z_l), -1) \) zakodujemy jako
+    
+    \[
+        \underbrace{1 \dots 1}_i
+        0
+        \underbrace{1 \dots 1}_j
+        0
+        \underbrace{1 \dots 1}_k
+        0
+        \underbrace{1 \dots 1}_l
+        0
+        11
+    \]
+    
+    Całą deltę kodujemy kodując wszystkie jej pary (w dowolnej kolejności) i oddzielając je dwoma zerami.
+    
+    \item \( F = \set{q_{i_1}, \dots q_{i_n}} \) kodujemy jako
+    \[
+        \underbrace{1 \dots 1}_{i_1} 0 \dots 0 \underbrace{1 \dots 1}_{i_n}
+    \]
+\end{itemize}
+
+Całą maszynę \( M \) zapisujemy wpisując \( \delta, q_0, F \) oddzielając je ciągiem \( 000 \).
+
+Słowo \( w = a_{i_1} \dots a_{i_n} \) kodujemy jako
+\[
+    \underbrace{1 \dots 1}_{i_1} 0 \dots 0 \underbrace{1 \dots 1}_{i_n}
+\]
+
+Teraz musimy jeszcze powiedzieć jak kodujemy konfigurację maszyny \( M \) a robimy to dość prosto --
+Konfigurację \( X_1 \dots X_k q_i X_{k+1} \dots X_n \) kodujemy jako
+\[
+    0\underbrace{1 \dots 1}_{\text{kod } X_1} 0 \underbrace{1 \dots 1}_{\text{kod } X_k} 00 \underbrace{1 \dots 1}_{\text{kod } q_i} 00 \underbrace{1 \dots 1}_{\text{kod } X_{k + 1}} 0 \underbrace{1 \dots 1}_{\text{kod } X_n} 0
+\]
+
+Możemy założyć, że kodowanie \( M \) jest zapisane na taśmie wejściowej po której nigdy nie piszemy, zaś konfigurację \( M \) będziemy trzymać na osobnej taśmie.
+
+Krok symulacji przebiega teraz następująco:
+\begin{enumerate}
+    \item Zlokalizuj głowicę \( M \) (szukamy \( 00 \))
+    \item Znajdź w kodowaniu \( \delta \) wpis odpowiadający przejściu na \( q_i X_k \)
+    \item Wykonaj zadane przejście -- możemy wpisać nową konfigurację na osobną, tymczasową taśmę i przepisać ją z powrotem na taśmę na której operujemy.
+    
+\end{enumerate}
+
+

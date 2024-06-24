@@ -1,0 +1,238 @@
+\section{Alfabet}
+\begin{description}
+    \item \( \Sigma = \set{0, 1} \) -- dla ustalenia uwagi, w~ogólności może to być dowolny niepusty skończony zbiór
+    \item \( \Sigma^i \) -- słowa długości \emph{dokładnie} \( i \)
+    \item \( \Sigma^0 = \set{\eps} \) -- język jednostkowy (przez \(\eps\) oznaczamy słowo puste)
+    \item \( \Sigma^* = \bigcup_{i=0}^\infty \Sigma^i \) -- wszystkie słowa
+    \item \( \Sigma^+ = \Sigma^* \setminus \set{\eps} \) -- wszystkie niepuste słowa
+\end{description}
+
+\section{Słowa}
+Nie wiemy co to są słowa.
+
+\section{Język}
+\begin{definition}[Język]
+    \textbf{Językiem} nad alfabetem \( \Sigma \) nazywamy dowolny podzbiór \( \Sigma^* \)
+\end{definition}
+
+Pytanie teoretyczno-abstrakcyjne -- czy każdy język ma skończony opis? 
+Otóż nie bardzo, bo programów (opisów) mamy przeliczalnie wiele (\(\aleph_0\), bo są to \emph{elementy} \(\Sigma^*\)), a możliwych języków mamy nieprzeliczalnie wiele (\(\continuum\), bo są to \emph{podzbiory} \(\Sigma^*\)).
+
+Ok, to teraz interesuje nas jakie języki są opisywalne -- tj. dla jakich języków istnieje program \( \Pi \) który dla ustalonego języka \( L \) oraz słowa \( z \) sprawdza, czy \( z \in L \).
+
+\section{Problemy obliczeniowe}
+Ogólnie mówiąc \textbf{problem decyzyjny} to problem pytający się czy jakiś obiekt spełnia określony warunek, tj. zwraca odpowiedź TAK/NIE.
+
+Jak się to ma do języków?
+Otóż nasze obiekty musimy umieć zakodować binarnie -- np. liczby możemy zapisać ich reprezentacją binarną, grafy macierzą incydencji (zapisujemy jej kolejne wiersze), itp.
+
+W takim razie języki to problemy obliczeniowe a pytanie ,,Czy dany obiekt spełnia warunek?'' zamieniamy na ,,Czy słowo opisujące ten obiekt należy do języka, w którym słowa to kody wszystkich poprawnych instancji?''.
+
+\section{Opis języka}
+Języki możemy scharakteryzować pod względem złożoności.
+
+Dostajemy coś, co się nazywa \textbf{hierarchią Chomsky'ego}
+\begin{enumerate}
+    \item języki regularne
+    \begin{enumerate}
+        \item automat skończony
+        \item gramatyka liniowa
+        \item wyrażenie regularne
+    \end{enumerate}
+    
+    \item języki bezkontekstowe
+    \begin{enumerate}
+        \item automat ze stosem
+        \item gramatyka bezkontekstowa
+    \end{enumerate}
+    
+    \item języki kontekstowe
+    \begin{enumerate}
+        \item gramatyka kontekstowa
+    \end{enumerate}
+    
+    \item języki rekurencyjnie przeliczalne
+    \begin{enumerate}
+        \item maszyna Turinga
+    \end{enumerate}
+\end{enumerate}
+
+\section{Operacje}
+\subsection{Na słowach}
+Słowa możemy traktować jako funkcję \(n \mapsto \Sigma\) (gdzie \( n \in \natural \) -- tzn. możemy zapytać taką funkcję, jaka literka jest pod danym indeksem. 
+
+\begin{definition}
+    \textbf{Konkatenacją} nazywamy funkcję
+        \begin{equation*}
+            {\cdot}\colon \Sigma^* \times \Sigma^* \mapsto \Sigma^*
+        \end{equation*}
+        zdefiniowaną następująco:
+        \begin{equation*}
+            \pars{v \cdot w}\pars{i} = \begin{cases}
+                v\pars{i} & \text{ gdy } i \leq \len{v}\\
+                w\pars{i - \len{v}} & \text{ gdy } \len{v} < i \leq \len{v} + \len{w}
+            \end{cases}
+        \end{equation*}
+        Mówiąc po ludzku, jest to po operacja sklejenia dwóch słów w~jedno.
+        Zazwyczaj będziemy pomijać kropkę i~zapisywać po prostu \(vw\).
+\end{definition}
+Własności konkatenacji:
+\begin{itemize}
+    \item łączność -- \( (ab)c = a(bc) \)
+    \item element neutralny -- \( a\eps = \eps a = a \)
+    \item \(\len{ab} = \len{a} + \len{b}\)
+\end{itemize}
+Zatem \( (\Sigma ^*, \cdot , \eps) \) to \emph{monoid}.
+\begin{definition}[Potęga słowa]
+\[
+    w^n = \begin{cases}
+        0 & \text{ gdy } n = 0 \\
+        w^{n-1}w & \text{ gdy } n > 0 
+    \end{cases}
+\]
+\end{definition}
+
+\subsection{Na językach:}
+\begin{itemize}
+    \item suma \( L_1 \cup L_2 \)
+    \item przecięcie \( L_1 \cap L_2 \)
+    \item katenacja
+        \begin{equation*}
+            L_1\cdot L_2 = \set{w_1w_2 : w_1 \in L_1 \land w_2 \in L_2}
+        \end{equation*}
+        Widzimy, że dla dowolnego \(L \subseteq \Sigma^*\):
+        \begin{gather*}
+            L\emptyset = \emptyset L = \emptyset\\
+            L\set{\eps} = \set{\eps}L = L
+        \end{gather*}
+    \item potęga
+        \begin{equation*}
+            L^n = \begin{cases}
+                \set{\varepsilon} & \text{ gdy } n = 0 \\
+                L^{n-1} \cdot L & \text{ gdy } n > 0
+            \end{cases}
+        \end{equation*}
+    \item gwiazdka Kleenego 
+        \begin{equation*}
+            L^* = \bigcup_{n=0}^\infty L^n
+        \end{equation*}
+\end{itemize}
+
+Dla rozróżnienia sklejanie słów będziemy nazywać \textit{konkatenacją} a sklejanie języków \textit{katenacją}.
+
+
+
+\section{Algebra Kleenego}
+Napis \(a \leq b\) jest skrótem dla \(a + b = b\).
+
+\begin{definition}[Algebra Kleenego]
+    \textbf{Algebrą Kleenego} nazywamy tuplę \( \mathbf{A} = (A, +, \cdot, ^*, 0, 1) \), która spełnia następujące warunki:
+    \begin{enumerate}
+        \item \((a + b) + c = a + (b + c)\)
+        \item \(a + b = b + a\)
+        \item \(a + a = a\)
+        \item \(a + 0 = a\)
+        \item \( (a \cdot b) \cdot c = a \cdot (b \cdot c) \)
+        \item \( a \cdot 1 = 1 \cdot a = a \)
+        \item \( a \cdot 0 = 0 \cdot a = 0 \)
+        \item \( a\cdot(b + c) = a\cdot b + a \cdot c \)
+        \item \( (a + b)c = ac + bc \)
+        \item \( 1 + aa^* \leq a^* \)
+        \item \( 1 + a^*a \leq a^* \)
+        \item \( ax + b \leq x \implies a^*b \leq x \)
+        \item \( xa + b \leq x \implies ba^* \leq x \)
+    \end{enumerate}
+\end{definition}
+Tak się składa, że
+\begin{equation*}
+    \pars{\powerset\pars{\Sigma^*}, {\cup}, {\cdot}, {}^*, \emptyset, \set{\eps}}
+\end{equation*}
+jest algebrą Kleenego.
+
+\begin{lemma}[Lemat Ardena]
+    Niech \(A, B, X \subseteq \Sigma^*\) i załóżmy, że
+    \begin{equation*}
+        A\cdot X \cup B = X
+    \end{equation*}
+    Wtedy język \(X = A^*B\) jest rozwiązaniem tego równania, przy czym
+    \begin{enumerate}[label={(\roman*)}]
+        \item jest rozwiązaniem najmniejszym w sensie~inkluzji
+        \item jeśli \(\eps \not\in A\), to jest jedynym rozwiązaniem
+    \end{enumerate}
+\end{lemma}
+\begin{proof} 
+    Pokażmy najpierw, że \(A^*B\) spełnia równanie.
+    \begin{equation*}
+        A\pars{A^*B} \cup B
+            = \pars{AA^*}B \cup B
+            = \pars{AA^*\cup \set{\eps}}B
+            = A^*B
+    \end{equation*}
+    Przyjrzyjmy się teraz dodatkowym wnioskom.
+    \begin{enumerate}[label={(\roman*)}]
+        \item Weźmy dowolne rozwiązanie \(X\).
+        
+            Najpierw pokażemy indukcyjnie że dla każdego \( k \) mamy \( A^kB \subseteq X \).
+            \begin{enumerate}[label={{\arabic*}.}]
+                \item Baza indukcji -- przyjmujemy \(k = 0\):
+                    \begin{equation*}
+                        A^0B = \set{\eps}B = B \subseteq X
+                    \end{equation*}
+                    Ostatnie zawieranie wynika bezpośrednio z~równania: \(X = AX \cup B\).
+                \item Krok indukcyjny -- zakładamy, że \(A^kB \subseteq X\) i~dowodzimy, że również \(A^{k + 1}B \subseteq X\). Wiemy, że \(A^{k + 1}B = AA^kB\). Ponieważ \(A^kB \subseteq X\), to \(AA^kB \subseteq AX \subseteq X\), gdzie ostatnią inkluzję ponownie bierzemy bezpośrednio z~równania.
+            \end{enumerate}
+            Co nam to daje? To, że
+            \begin{equation*}
+                \bigcup_{k \in \natural} A^kB \subseteq X
+            \end{equation*}
+            bo skoro każdy z~sumowanych zbiorów zawiera się w~\(X\), to ich suma też. Zwróćmy teraz uwagę, że
+            \begin{equation*}
+                \bigcup_{k \in \natural} A^kB = A^*B
+            \end{equation*}
+            i~mamy \(A^*B \subseteq X\), tak, jak chcieliśmy.
+        \item Załóżmy, że \( \eps \notin A\) i pokażmy, że jeśli \(X\) jest rozwiązaniem to \(X \subseteq A^*B\). Z~tego otrzymamy już równość, bo inkluzję w~drugą stronę udowodniliśmy w~poprzednim podpunkcie.
+            
+            Prowadzimy dowód nie wprost: załóżmy, że istnieją słowa należące do \(X\), ale nie do \(A^*B\). Niech \(w\) będzie najkrótszym takim słowem (w~przypadku remisu dowolnym z~najkrótszych).
+            
+            Zastanówmy się najpierw: czy może być \(w \in B\)? Otóż nie, ponieważ \(\eps \in A^*\), więc gdyby \(w \in B\), to \(w = \eps w \in A^*B\), a~przecież przed chwilą założyliśmy, że tak nie jest.
+            
+            Zatem \(w \not\in B\). Przypomnijmy, że \(w \in X = AX \cup B\), bo \(X\) jest rozwiązaniem naszego równania. Zatem skoro \(w \not\in B\), to siłą rzeczy \(w \in AX\), bo ma należeć do sumy. Oznacza to, że \(w = uv\) dla pewnych \(u \in A\), \(v \in X\).
+            
+            Niewątpliwie \(u \neq \eps\), bo \(\eps \not\in A\), na mocy założeń twierdzenia. Zatem długość \(v\) jest \emph{silnie mniejsza} od długości \(w\).
+            
+            Na koniec zastanówmy się, czy może zachodzić \(v \in A^*B\). Okazuje się, że nie może. Dlaczego? Bo gdyby tak było, to
+            \begin{equation*}
+                w = uv \in AA^*B
+            \end{equation*}
+            ale
+            \begin{equation*}
+                AA^*B
+                    = A\pars{\bigcup_{k = 0}^{\infty}A^k}B
+                    = \pars{\bigcup_{k = 1}^{\infty}A^k}B
+                    = \bigcup_{k = 1}^{\infty}\pars{A^kB}
+                    \subseteq \bigcup_{k = 0}^{\infty}\pars{A^kB}
+                    = \pars{\bigcup_{k = 0}^{\infty}A^k}B
+                    = A^*B
+            \end{equation*}
+            Czyli mielibyśmy \(w \in A^*B\), a~przecież założenie, że tak nie jest, już śni nam się po nocach.
+            
+            Znaleźliśmy zatem śmieszne słowo \(v\), które należy do \(X\), \emph{nie} należy do \(A^*B\), i~jest krótsze od \(w\). Ale chwila, przecież \(w\) miało być najkrótszym należącym do \(X\) i~nienależącym do \(A^*B\)! Uzyskana sprzeczność dowodzi tezy.
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+    \(\leq\) jest porządkiem częściowym
+\end{lemma}
+\begin{proof} Porządek częściowy musi spełniać trzy warunki:
+    \begin{enumerate}
+        \item zwrotność, czyli \( a \leq a \) -- z~warunku (3) dla algebry Kleenego mamy dokładnie \(a + a = a\).
+        \item przechodniość, czyli jeśli \(a \leq b\) oraz \(b \leq c\) to \(c \leq a\)
+            \begin{equation*}
+                a + c = a + \pars{b + c} = \pars{a + b} + c = b + c = c
+            \end{equation*}
+        \item antysymetryczność, czyli jeśli \(a \leq b\) oraz \(b \leq a\) to \(a = b \)
+            \begin{equation*}
+                b = a + b = b + a = a
+            \end{equation*}
+    \end{enumerate}
+\end{proof}

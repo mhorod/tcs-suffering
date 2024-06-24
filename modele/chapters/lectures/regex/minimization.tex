@@ -1,0 +1,72 @@
+\section{Minimalizacja automatu}
+
+\begin{definition}
+    Stany \( q_1, q_2 \) zadanego DFA są \textbf{A-równoważne} jeśli
+    \[
+        \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F
+    \]
+    i \textbf{A-rozróżnialne} jeśli
+    \[
+        \exists_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \notin F
+    \]
+\end{definition}
+
+\subsection{Algorytm D}
+\begin{itemize}
+    \item Wejście: DFA \( A \)
+    \item Wyjście: (trójkątna) macierz Boolowska \( M \), w której \( M_{i, j} = 1 \iff a_i, a_j \) są rozróżnialne
+\end{itemize}
+
+Na początku wypełniamy \( M \) zerami.
+Jeśli \( a_i \in F, a_j \notin F \) to \( M_{i, j} = 1 \)
+Dopóki macierz \( M \) się zmienia to dla każdych dwóch stanów \( q_1, q_2 \) oraz litery \( a \) jeśli \( \hat \delta(q_1, a) = q_k, \hat \delta(q_2, a) = q_l \) oraz \( M_{k, l} = 1 \) to \( M_{i, j} := 1 \) 
+
+\begin{lemma}
+    A-równoważnosć jest relacją równoważności
+\end{lemma}
+\begin{proof}
+    Wszystkie własności wynikają wprost z faktu, że 
+    w definicji mamy logiczną równoważność pod dużym kwantyfikatorem.
+\end{proof}
+
+\begin{lemma}
+    Relacja \(\sim_A\) A-równoważności jest kongruencją tzn.
+    \[
+        \forall_{T \in [Q]_{\sim_A}} 
+        \forall_{q_1, q_2 \in T}
+        \forall_{a \in \Sigma}
+        \exists_{T' \in [Q]_{\sim_A}}
+        \delta(q_1, a) \in T' \land \delta(q_2, a) \in T'
+    \]
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+Wszystko super, umiemy minimalizować automaty, ale pojawia się ważne pytanie -- Czy zminimalizowany automat jest \textit{najmniejszy} tj. czy ma najmniej stanów ze wszystkich automatów, które rozpoznają dany język?
+
+Otóż okazuje się, że tak -- w przeciwnym razie biorąc sumę dwóch równoważnych automatów, z których jeden ma mniej stanów, jakieś dwa stany większego automatu muszą być równoważne jednemu stanowi mniejszego, a co za tym idzie, ten większy nie był minimalny.
+
+\begin{theorem}[Myhill--Nerode]
+    Język \( L \) jest regularny wtedy i tylko wtedy gdy
+    istnieje relacja równoważności \( \equiv \subseteq \Sigma^* \times \Sigma^*\) o skończenie wielu klasach równoważności, która jest \(L\)-kongruentna tzn.
+    \begin{enumerate}
+        \item \(\forall_{v \in \Sigma^*} x \equiv y \implies xv \equiv yv \)
+        \item \( x \equiv y \implies (x \in L \iff y \in L)\)
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \( \)
+    \begin{description}
+        \item \( \implies \)
+        
+        Skoro \( L \) jest regularny to istnieje DFA \( A \), na podstawie którego definiujemy
+        \[
+            x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y)
+        \]
+        Łatwo sprawdzić że to działa.
+        
+        \item \( \impliedby \)
+        
+        Tworzymy automat, którego stanami są klasy równoważności słów wyznaczone przez relację \( \equiv \)
+    \end{description}
+\end{proof}

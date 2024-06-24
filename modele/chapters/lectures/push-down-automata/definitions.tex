@@ -1,0 +1,81 @@
+\section{Nieformalna definicja}
+Tak jak w przypadku DFA i NFA mieliśmy automaty z jakimiś stanami, które przechodziły (albo nie) po kolejnych literach, tak automaty ze stosem mają jeszcze dodatkowo stos, na podstawie którego możemy podejmować decyzję co zrobić.
+
+\section{Formalnie}
+\begin{definition}
+    \textbf{Automat ze stosem} (pushdown automaton PDA) definiujemy jako
+    \[
+        P = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) -- zbiór stanów
+        \item \( \Sigma \) -- skończony alfabet słów
+        \item \( \Gamma \) -- skończony alfabet stosu
+        \item \( \delta : Q \times (\Sigma \cup \set{\eps}) \times \Gamma \rightarrow \powerset\pars{Q \times \Gamma^*} \) -- funkcja przejścia
+        \item \( q_0 \) -- stan startowy
+        \item \( Z_0\) -- stosowy symbol startowy
+        \item \( F \subseteq Q \) -- zbiór stanów akceptujących
+    \end{itemize}
+\end{definition}
+Intuicyjnie \( \delta \) dla każdego stanu \( q \), litery \( a \), symbolu na szczycie stosu \( z \) oddaje zbiór nowych stanów wraz z symbolami które mają być dodane na stos.
+Symbol \( z \) jest usuwany ze szczytu stosu w momencie przejścia, wiele nowych symboli może zostać dodanych.
+Jeśli zdarzy się, że opróżnimy stos to mamy tak zwany przypał, ale się tym nie przejmujemy.
+
+\begin{definition}
+    \textbf{Konfiguracja} PDA to trójka
+    \[
+        (q, w, \gamma)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( q \) -- aktualny stan
+        \item \( w \) -- część słowa pozostała do przeczytania
+        \item \( \gamma \) -- (wszystkie) symbole na stosie
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Dla konfiguracji PDA \( P \) definiujemy relację \( \vdash_P \)
+    \[
+        (q, aw, X\beta) \vdash_P (p, w, \alpha \beta)
+        \iff
+        (p, \alpha) \in \delta(q, a, X)
+    \]
+\end{definition}
+
+\begin{definition}
+    Definiujemy \( \vdash_P^* \) jako zwrotne i przechodnie domknięcie \( \vdash_P \)
+\end{definition}
+
+\begin{lemma}
+    Dla PDA \( P \) jeśli
+    \[
+        (q, x, \alpha) \vdash_P^* (p, y, \beta)
+    \]
+    to
+    \[
+        (q, xw, \alpha\gamma) \vdash_P^* (p, yw, \beta\gamma)
+    \]
+\end{lemma}
+
+\section{Akceptacja}
+\subsection{Akceptacja stanem akceptującym}
+\[
+    L(P) = \set{ w \mid (q_0, w, Z_0) \vdash_P^* (q_F, \eps, \gamma) \land q_F \in F} 
+\]
+
+\subsection{Akceptacja pustym stosem}
+\[
+    N(P) = \set{ w \mid (q_0, w, Z_0) \vdash_P^* (q, \eps, \eps)}
+\]
+
+\subsection{Równoważność}
+Mamy dwie różne definicje tego co znaczy, że jakieś słowo jest akceptowane -- pytanie czy są one równoważne tj. czy jeśli mamy słowo \( w \in L(P) \) to umiemy skonstruować automat \( Q \) taki że \( w \in N(Q)  \) i na odwrót.
+
+Z \( P, L(P) \) łatwo jesteśmy w stanie skonstruować \( Q, N(Q) \) -- jeśli stan \( q_F \) był akceptujący to przechodzimy do stanu, który epsilon przejściami opróżniamy stos.
+
+Z \( Q, N(Q) \) 
+
+
+

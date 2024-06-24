@@ -1,0 +1,36 @@
+\section{Automat ograniczony liniowo (LBA)}
+
+
+\begin{definition}
+
+ \textbf{Linear-Bounded Automaton} to ograniczona MT będąca największą tuplą na tym przedmiocie 
+    \[
+        LBA = (Q, \Sigma, \Gamma, \delta, q_0, \blank, \vdash, \dashv, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) -- skończony zbiór stanów
+        \item \( \Sigma \subseteq \Gamma \) -- skończony alfabet wejściowy
+        \item \( \Gamma \) -- skończony alfabet taśmowy
+        \item \( \delta : Q \times \Gamma \rightarrow 
+        Q \times \Gamma \times \set{-1, +1}
+        \) -- stan, litera \( \rightarrow \) nowy stan, zmiana litery, ruch głowicą (lewo, prawo)
+    \end{itemize}
+    Przy czym jeśli \( ((q, \vdash), (q', X, d)) \in \delta \) to \( X = \vdash, d = 1 \) analogicznie po drugiej stronie taśmy
+    
+    \begin{itemize}
+        \item \( q_0 \) -- stan startowy
+        \item \( \blank \in \Gamma \setminus \Sigma \) -- pusty symbol / zero (domyślny symbol taśmy)
+        \item \( F \) -- zbiór stanów akceptujących
+    \end{itemize}
+    
+    Ponadto zakładamy, że \(Q \cap \Gamma = \varnothing\). 
+\end{definition}
+
+\begin{theorem}
+    Dla każdej CSG G istnieje LBA A takie że \(L(G) = L(A) \)
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}

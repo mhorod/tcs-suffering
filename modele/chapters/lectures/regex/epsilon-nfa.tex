@@ -1,0 +1,91 @@
+\newpage
+\section{epsilon-NFA}
+\begin{definition}
+    Definiujemy \( \epsilon \)-NFA jako NFA, z tym że:
+    \[
+        \delta: Q \times (\Sigma \cup \set{\eps}) \times Q
+    \]
+\end{definition}
+Bardziej intuicyjnie -- pozwalamy na przechodzenie krawędzią bez konsumowania obecnej litery.
+Niestety sprawia to, że przy tej definicji \( \epsilon \)-NFA nie jest jako tako NFA, który zawsze musi użyć obecnej litery.
+
+\begin{definition}
+    Definiujemy \(\mathbf{\epsilon}\)\textbf{-domknięcie} zbioru stanów \( B \) jako zbiór \( B^{A, \epsilon} \) taki, że
+    \[
+        B^{A, \epsilon} = \bigcup_{i=0}^\infty B_i^{A, \epsilon}
+    \]
+    gdzie
+    \[
+        B_i^{A, \epsilon} = \begin{cases}
+            B & \text{ gdy } i = 0 \\
+            \tilde \delta\pars{B_{i-1}^{A, \epsilon}, \epsilon} & \text{ gdy } i > 0
+        \end{cases}
+    \]
+\end{definition}
+\begin{definition}
+    Niech \(\powerset^{A, \epsilon}(Q) \) to zbiór wszystkich \(\epsilon\)-domkniętych zbiorów stanów.
+    Definiujemy \( \Delta :  \)
+\end{definition}
+
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \). Następujące warunki są równoważne:
+    \begin{enumerate}
+        \item Istnieje DFA rozpoznający L
+        \item Istnieje NFA rozpoznający L
+        \item Istnieje \(\epsilon\)-NFA rozpoznający L
+        \item Istnieje wyrażenie regularne opisujące L
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+
+    Wcześniej pokazaliśmy już, że (1) \( \iff \) (2).
+    Widać, że (2) \(\implies \) (3).
+    Możemy jeszcze łatwo pokazać, że (3) \( \implies \) (1) -- konstrukcja DFA wygląda podobnie jak dla NFA, z tym że stanami DFA są \( \powerset^{A, \epsilon}(Q) \), a funkcja przejścia to \( \Delta \)
+    
+    Pokażmy teraz, że (4) \( \implies \) (3), zrobimy to za pomocą indukcji strukturalnej po zadanym wyrażniu \( \alpha \)
+    
+    \begin{itemize}
+        \item \( \alpha = 0 \)
+        \[
+            A_0 = \pars{\set{s, f}, \Sigma, \varnothing, \set{s}, \set{f}} 
+        \]
+        
+        \item \( \alpha = a \in \Sigma \)
+        \[
+            A_a = \pars{\set{s, f}, \Sigma, \set{
+            \pars{
+            s, a, f
+            }
+            }, \set{s}, \set{f}} 
+        \]
+        
+        \item \( \alpha = \alpha_1 \cdot \alpha_2 \)
+        \[
+            A_{\cdot} = \pars{Q_1 \cup Q_2, }
+        \]
+        
+        \item \( \alpha = \alpha_1 + \alpha_2 \)
+        
+        \item \( \alpha = \alpha_1^* \)
+        
+         \item \( \alpha = 1 \)
+    \end{itemize}
+    
+    
+    Teraz pokażemy, że (1) \( \implies \) (4) co domknie nam równoważności.
+
+    Czynimy obserwację, że jeśli \( w \in L(A) \) to istnieje ścieżka \( s \rightarrow q_f \in F \) idąca stanami \( s = q_1, q_1, \dots, q_{k+1} \in F \)
+    
+    Definiujemy \( \alpha_{i, j}^k \) jako takie wyrażenie regularne, które reprezentuje wszystkie ścieżki prowadzące od \( q_i \) do \( q_j \), w której stany pośrednie należą do \( \set{q_1, \dots, q_k} \)
+    
+    \[
+        \alpha_{i, j}^0 = \set{a \in \Sigma : (q_i, a, q_j) \in \delta } \cup \beta_{i, j}
+    \]
+    gdzie
+    \[
+        \beta_{i, j} = \begin{cases}
+            \varnothing & \text{ gdy } i \neq j \\
+            \set{\eps}
+        \end{cases}
+    \]
+\end{proof}

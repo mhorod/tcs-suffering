@@ -1,0 +1,40 @@
+\section{Redukcje}
+
+\begin{lemma}
+    Jeśli \( L_1 \) jest C-trudny i \( L_1 \leq_p L_2 \) to \( L_2 \) też jest C-trudny. 
+\end{lemma}
+
+\begin{proof}
+    Skoro \( L_1 \) jest C-trudny to znaczy, że dla każdego \( L' \in C \) mamy redukcję \( f \) z \( L' \) do \( L_1 \).
+    Mamy też redukcję \( g \) z \( L_1 \) do \( L_2 \).
+    
+    Składając \( g \circ f \) dostajemy redukcję z \( L' \)  do \( L_2 \) co dowodzi, że \( L_2 \) jest trudniejszy niż dowolny \( L' \n C \)
+\end{proof}
+
+\begin{lemma}
+    \( L \) jest C-trudny wtedy i tylko wtedy, gdy \( \complement{L} \) jest  coC-trudny. 
+\end{lemma}
+
+\begin{proof}
+
+Dowodzimy równoważność w obie strony:
+
+\begin{itemize}
+    \item     \( \implies \)
+    
+    Weźmy sobie \( L' \in C\). Jako, że \(L'\) jest trudne, to \(L' <_{p} L\).  Wiemy wobec tego, że istnieje taka funkcja\footnote{obliczalna w czasie wielomianowym bla bla bla} \(f\), obliczalna w czasie wielomianowym, że \( x \in L' \iff f(x) \in L\).
+    
+    Równoważnie, \( x \not\in L' \iff f(x) \not \in L\). No ale to z kolei oznacza, że \( x \in \complement{L'} \iff f(x) \in \complement{L}\). Wobec tego, dla każdego problemu należącego do \(coC\) jest tak, że redukuje się on do \( \complement{L} \), czyli \(\complement{L}\) jest \(coC\)-trudny.
+
+    \item \( \impliedby \) 
+    Centralnie piszemy to samo, ale w drugą stronę.
+    
+    
+    Bierzemy sobie \( L' \in coC\). Z racji faktu, że \(L'\) jest trudne mamy, że \(L' <_{p} \complement{L}\). To oznacza, że istnieje funkcja \(f\), taka że \( x \in L' \iff f(x) \in \complement{L} \). 
+    
+    Równoważnie, \( x \not \in L' \iff f(x) \not \in \complement{L} \). Z tego wiemy, że \( x \in \complement{L'} \iff f(x) \in L \). Wobec tego, każdy problem z \(C\) redukuje się do \(L\), czyli \(L\) jest \(C\)-trudne. 
+    
+
+\end{itemize}
+
+\end{proof}

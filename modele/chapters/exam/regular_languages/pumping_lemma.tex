@@ -1,0 +1,54 @@
+\section{Lemat o pompowaniu} 
+
+\subsection{Twierdzenie}
+
+\begin{lemma}[O pompowaniu]
+    Jeśli \( L \) jest językiem regularnym to:
+    \[
+        \exists_{n > 0} : \forall_{w : \abs{w} \geq n} \exists_{xyz = w} : \abs{xy} \leq n \land \abs{y} \geq 1 \land \forall_{i \in \natural} : xy^iz \in L
+    \]
+\end{lemma}
+\begin{proof}
+    Skoro \( L \) jest językiem regularnym to istnieje DFA A, który rozpoznaje L.
+    
+    Niech \( n = \abs{Q} \) i weźmy dowolne słowo \( w \) dla którego \( m = \abs{w} \geq n \).
+    
+    Skoro słowo jest akceptowane to istnieje ścieżka \( s = q_0, \dots q_m \in F \)
+    
+    Mamy więc \( m + 1 > n \) stanów, czyli jakiś stan musi się powtarzać. 
+    Z takich stanów wybieramy \( q_i \), którego pierwsze powtórzenie jest najwcześniej. Niech \( q_j \) będzie drugim wystąpieniem stanu \( q_i \)
+    
+    Mamy zatem \( x = a_0\dots a_{i-1} \), \( y = a_i\dots a_{j-1} \), \( z = a_j \dots a_{m-1} \)
+    
+    Oczywiście \( \abs{xy} \leq n \) bo inaczej \( q_i \) nie powtarzałby się najwcześniej.
+    
+    Czynimy teraz fajną obserwację, mianowicie skoro  \( q_i = q_j \) to słowo \( y \) może wystąpić dowolną (również zerową) liczbę razy w akceptowanym słowie.
+    
+    Innymi słowy, dla dowolnego \( i \in \natural \) \( xy^iz \in L \)
+\end{proof}
+
+Proszę pamiętać, że jest to warunek konieczny, ale \textbf{nie jest on wystarczający} by język był regularny. Istnieją języki które zdecydowanie nie są regularne, a spełniają warunki przedstawione w lemacie o pompowaniu. 
+
+\subsection{Przykładowe zastosowania}
+
+Pokażemy najbardziej klasyczny przykład znany ludzkości. 
+
+\begin{theorem}
+    Język
+    \[
+        L = \set{a^nb^n : n \in \natural}
+    \]
+    nie jest językiem regularnym.
+\end{theorem}
+
+\begin{proof}
+    Będziemy usiłowali pokazać, że \(L\) \textit{nie} spełnia lematu o pompowaniu. To oznacza, że będziemy musieli pokazać, że zachodzi dla niego zaprzeczenie własności opisanej w tym lemacie. Innymi słowy, chcemy pokazać że:
+    
+    \[
+        \forall_{n>0} \exists_{w \in L} \forall_{xyz=w : |xy| \leq n \land |y| \geq 1} \exists_{i \in N} xy^iz \not \in L 
+    \]
+    
+    Prościej o tym myśleć jak o pewnej grze: nasz przeciwnik daje nam stałą \(n\); my odpowiadmy mu słowem; ten nam je dzieli na 3 części które spełniają warunki lematu, a my możemy ,,wypompować'' część \(y\). Wygrywamy jeśli słowo nie należy do \(L\). Jeśli mamy tutaj strategię wygrywającą, to znaczy że język nie jest regularny. 
+    
+    W przypadku naszego języka: nasz oponent daje nam jakieś \(n\). Pora się odegrać, odegrać słowem postaci \(a^{2n}b^{2n}\). Słowo to niewątpliwie należy do \(L\), więc mogliśmy to zrobić. Przeciwnik musi je jakoś podzielić, tak by \( w = xyz\), \(|xy| \leq n \) i \(y \geq 1\). Widzimy tutaj bardzo śmieszną rzecz: niezależnie od podziału, \(xy = a^k\) dla jakiegoś \(k\). Wobec tego również \(y = a^l\) dla niezerowego \(l\), które jest mniejsze niż \(n\). W takim razie ,,depompujemy'' \(y\), ustawiając \(i\) na 0 i otrzymując słowo postaci \(a^{2n-l}b^{2n}\), które z pewnością nie należy do języka. Hehe. 
+\end{proof}

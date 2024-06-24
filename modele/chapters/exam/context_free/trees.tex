@@ -1,0 +1,28 @@
+\section{Drzewa wywodów}
+
+\begin{definition}
+    \textbf{Derywacja} albo \textbf{wywód} to ciąg form zdaniowych \( \alpha_0, \dots, \alpha_n \)
+    takich, że \( \alpha_i \rightarrow_G \alpha_{i+1}, \alpha_0 = S, \alpha_n = w \in \Sigma^*\)
+\end{definition}
+\begin{definition}
+    \textbf{Wywód lewostronny} to taki wywód \( \alpha_0, \dots, \alpha_1 \)
+    w którym jeśli \( \alpha_i = xA\beta_i \)
+    to \( \alpha_{i+1} = x\gamma\beta_i \)
+    
+    Innymi słowy - rozwijamy zawsze skrajnie lewy nieterminal.
+\end{definition}
+
+\begin{definition}
+    \textbf{Drzewo wywodu} (parse tree) to ukorzenione drzewo z porządkiem na dzieciach w którym:
+    \begin{itemize}
+        \item każdy wierzchołek ma etykietę z \( \Sigma \cup N \cup \set{\eps} \)
+        \item etykieta korzenia to \( S \)
+        \item Jeśli wierzchołek ma etykietę \( A \in N \) a jego dzieci \( X_1, \dots, X_n \) to \( (A, X_1\dots X_2) \in P \)
+    \end{itemize}
+\end{definition}
+Wywód lewostronny otrzymujemy przechodząc DFSem odwiedzając dzieci od lewej do prawej.
+
+\begin{definition}
+    Gramatyka \( G \) jest \textbf{jednoznaczna} (unambiguous) jeśli dla każdego słowa \( w \in L(G) \) istnieje dokładnie jedno drzewo wywodu
+    (dokładnie jeden wywód lewostronny).
+\end{definition}

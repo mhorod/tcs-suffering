@@ -1,0 +1,189 @@
+\section{Wyrażenia regularne} 
+
+\begin{definition}
+    Język \( \reg{\Sigma} \) definiujemy jako najmniejszy język nad alfabetem \( \Sigma' = \Sigma \cup \set{+, \cdot, ^*, 0, 1, (, )} \), który spełnia następujące warunki:
+    
+       \begin{itemize}
+        \item \( 0, 1 \in \reg{\Sigma} \)
+        \item \( \forall_{a \in \Sigma}: a \in \reg{\Sigma} \)
+        \item \( \forall_{d_1, d_2 \in \reg{\Sigma}}: (d_1 + d_2) \in \reg{\Sigma} \)
+        \item \( \forall_{d_1, d_2 \in \reg{\Sigma}}: (d_1 \cdot d_2) \in \reg{\Sigma} \)
+        \item \( \forall_{d \in \reg{\Sigma}}: d^* \in \reg{\Sigma} \)
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    \textbf{Wyrażenie regularne} nad alfabetem \( \Sigma \) definiujemy jako element języka  \( \reg{\Sigma} \).
+    
+\end{definition}
+
+Warto zaznaczyć, że operujemy jedynie na napisach bez żadnej intepretacji -- symbole są jedynie symbolami, które będziemy zaraz interpretować odpowiednio.
+
+Możemy teraz sobie dobrać do tego interpretację \( L: \reg{\Sigma} \rightarrow \powerset\pars{\Sigma^*} \)
+\begin{itemize}
+    \item \( L(0) = \varnothing \)
+    \item \( L(1) = \set{\eps} \)
+    \item \( L(a) = \set{a} \)
+    \item \( L(\alpha + \beta) = L(\alpha) \cup L(\beta) \)
+    \item \( L(\alpha \cdot \beta) = L(\alpha)L(\beta) \)
+    \item \( L(\alpha^*) = L(\alpha)^* \)
+\end{itemize}
+
+Stosując tę dosyć naturalną interpretację będziemy opisywać sobie języki.
+
+\section{Automaty}
+
+\subsection{DFA}
+
+\begin{definition}
+    \textbf{Deterministyczny Automat Skończony} (DFA od deterministic finite automaton) to tupla:
+    \[
+        A = (Q, \Sigma, \delta, s, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) jest skończonym zbiorem stanów
+        \item \( \Sigma \) jest skończonym alfabetem
+        \item \( \delta: Q \times \Sigma \rightarrow Q \) jest funkcją przejścia
+        \item \( s \in Q \) jest stanem startowym
+        \item \( F \subseteq Q \) jest zbiorem stanów akceptujących (końcowych)
+    \end{itemize}
+\end{definition}
+
+To jest bardzo abstrakcyjna i formalna definicja, w praktyce automat będziemy reprezentować jako graf skierowany, albo jako tabelkę przejść.
+
+O automacie możemy myśleć jako o maszynie, która rozpoznaje czy zadane słowo należy do jakiegoś języka (związanego z tymże automatem). Zaczynamy w stanie startowym i przechodzimy do kolejnego stanu zjadając przy tym kolejne litery ze słowa.
+
+Aby nieco sformalizować powyższe zdanie wprowadzamy funkcję \( \hat \delta \), która definiuje w jakim stanie kończymy jeśli zaczynamy w stanie \( q \) z danym słowem \( w \):
+\begin{definition}
+\( \hat \delta : Q \times \Sigma^* \rightarrow Q \)
+\[
+    \hat \delta(q, w) = \begin{cases}
+    q & \text{ jeśli } w = \eps \\
+    \delta(\hat \delta(q, x), a) & \text{ jeśli } w = xa, a \in \Sigma \\
+    \end{cases}
+\]
+\end{definition}
+
+Fakt, że funkcja \( \hat \delta \) faktycznie zgadza się z oczekiwaną semantyką można prosto udowodnić stosując indukcję po długości słowa. 
+
+\begin{definition}
+    Językiem akceptowanym przez automat \( A = (Q, \Sigma, \delta, s, F) \) nazywamy
+    \[
+        L(A) = \set{w \in \Sigma^* \mid \hat \delta(s, w) \in F}
+    \]
+    
+    Podobnie, słowo \( w \) jest akceptowane przez automat \( A \) jeśli \( w \in L(A) \). 
+\end{definition}
+
+\subsection{NFA}
+
+Deterministyczne automaty są dość proste -- jak widzą jakąś literę to po prostu za nią idą.
+
+Ale co gdyby nasz automat miał kilka opcji do wyboru i mógł ,,zgadywać'' gdzie powinien przejść dalej? Wtedy dostajemy automat, który przestaje być deterministyczny, ale nadal można go sensownie zdefiniować.
+
+\begin{definition}
+    \textbf{Niedeterministyczny Automat Skończony} (NFA -- nondeterministic finite automaton) to tupla:
+    \[
+        A = (Q, \Sigma, \delta, S, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) jest skończonym zbiorem stanów
+        \item \( \Sigma \) jest skończonym alfabetem
+        \item \( \delta \subseteq Q \times \Sigma \times Q \) jest relacją przejścia
+        \item \( S \subseteq Q \) jest zbiorem stanów startowch
+        \item \( F \subseteq Q \) jest zbiorem stanów akceptujących (końcowych)
+    \end{itemize}
+\end{definition}
+
+To co się zmieniło względem DFA to:
+\begin{itemize}
+    \item \( \delta \) jest dowolną relacją (czyli niekoniecznie funkcją), co oddaje fakt, że możemy przechodzić do różnych stanów na podstawie tej samej litery
+    \item \( S \) jest zbiorem stanów startowych (czyli może być ich więcej niż jeden)
+\end{itemize}
+
+Zdefiniujmy pomocniczą funkcję \( \tilde \delta \), która mówi nam dokąd możemy się rozgałęzić jeśli jesteśmy w stanach \( \beta \) i widzimy literę \( a \). Jest to w pewnym sensie stworzenie takiej funkcji jaką jest \( \delta \) w DFA.
+
+\begin{definition}
+    \( \tilde \delta : \powerset\pars{Q} \times \Sigma \rightarrow \powerset\pars{Q} \)
+    
+    \[
+        \tilde \delta(\beta, a) 
+            = \set{q \in Q \mid \exists_{q_b \in \beta} (q_b, a, q) \in \delta}
+    \]
+\end{definition}
+
+Definiujemy teraz, \( \hat \delta \) które (trzymając się pewnej analogii z DFA) mówi, gdzie możemy skończyć jeśli zaczynamy w jakimś zbiorze stanów \( \beta \) oraz ,,przechodząc'' słowo \( w \).
+\begin{definition}
+    \( \hat \delta : \powerset\pars{Q} \times \Sigma^* \rightarrow \powerset\pars{Q} \)
+    \[
+        \hat \delta(\beta, w) = \begin{cases}
+        \beta & \text{ jeśli } w = \eps \\
+        \tilde \delta(\hat \delta(\beta, x), a) & \text{ jeśli } w = xa, a \in \Sigma \\
+        \end{cases}
+    \]
+\end{definition}
+
+Ponownie, zgodność definicji z semantyką można wykazać szybką indukcją. 
+
+Definiujemy również język akceptowany przez NFA, analogicznie do tego co widzieliśmy w DFA.
+
+\begin{definition}
+    \[ 
+        L(A) = \set{w \in \Sigma^* \mid \hat \delta(S, w) \cap F \neq \varnothing}
+    \]
+\end{definition}
+
+
+\subsection{\texorpdfstring{\(\eps\)}{epsilon}-NFA}
+
+\begin{definition}
+    Definiujemy \( \eps \)-NFA jako NFA, z tym że:
+    \[
+        \delta: Q \times (\Sigma \cup \set{\eps}) \times Q
+    \]
+\end{definition}
+Bardziej intuicyjnie -- pozwalamy na przechodzenie krawędzią bez konsumowania obecnej litery -- definicja funkcji \( \tilde \delta \) wygląda bardzo podobnie do tej ze ,,zwykłego'' NFA. 
+
+\begin{definition}
+    Funkcję \(\tilde \delta : \powerset(Q) \times (\Sigma \cup \eps)  \rightarrow \powerset(Q) \) definiujemy następująco: 
+    
+    \begin{equation*}
+        \tilde \delta (B, a) = \{ q \in Q : \exists_{q_b \in B}  (q_b, a, q) \in \delta \}
+    \end{equation*}
+\end{definition}
+
+Niestety sprawia to, że przy tej definicji \( \eps \)-NFA nie jest jako tako NFA, który zawsze musi użyć obecnej litery. To wymusza dodatkowe shenanigansy w definicji, z którymi radizmy sobie wprowadzając pojęcie \textbf{epsilon-domknięć}.
+
+\begin{definition}
+    Definiujemy \(\mathbf{\eps}\)\textbf{-domknięcie} zbioru stanów \( B \) w automacie \(A\) jako zbiór \( B^{A, \eps} \) taki, że
+    \[
+        B^{A, \eps} = \bigcup_{i=0}^\infty B_i^{A, \eps}
+    \]
+    gdzie
+    \[
+        B_i^{A, \eps} = \begin{cases}
+            B & \text{ gdy } i = 0 \\
+            \tilde \delta\pars{B_{i-1}^{A, \eps}, \eps} & \text{ gdy } i > 0
+        \end{cases}
+    \]
+\end{definition}
+
+Intuicyjnie, \( B^{A, \eps} \) jest to zbiór wszystkich stanów do których jesteśmy w stanie się ,,dostać'' za pomocą samych epsilon przejść z jakiegoś innego zbioru stanów. 
+
+\begin{definition}
+     Niech \(\powerset^{A, \eps}(Q) \) to zbiór wszystkich \(\eps\)-domkniętych zbiorów stanów, to znaczy: 
+     
+     \[ 
+        \powerset^{A, \eps}(Q) = \set{B^{A, \eps} : B \in \powerset(Q)}
+     \]
+\end{definition}
+
+\begin{definition}
+    Definiujemy funkcję \( \Delta : \powerset^{A, \eps}(Q) \times \Sigma \rightarrow  \powerset^{A, \eps}(Q) \) następująco: 
+    
+    \begin{equation*}
+        \Delta(B,a) = \tilde \delta (B,a)^{A, \eps}
+    \end{equation*}
+\end{definition}

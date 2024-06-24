@@ -1,0 +1,48 @@
+\section{Podstawowe problemy decyzyjne dotyczące języków regularnych}
+
+W poniższych sekcjach będziemy zakładać, że mamy do czynienia z \( \eps\)-NFA lub wyrażeniami regularnymi i będziemy poszukiwać algorytmów działających w czasie wielomianowym (tak jak na ćwiczeniach). 
+
+\subsection{Należenie określonego słowa do języka}
+
+Mając dane \(\eps\)-NFA oraz słowo \(w = a_1a_2a_3\dots a_n\) będziemy (trochę podobnie jak przy konwersji z \(\eps\)-NFA na DFA) trzymać wszystkie stany, w których możemy się znaleźć po ,,przejściu'' prefiksu danego słowa.
+
+Z domknięcia przechodniego stanu startowego idziemy sobie literką \(a_0\) do wszystkich stanów, które są ,,osiągalne'' i ten zbiór również epsilon-domykamy (zauważmy, że każdy krok tego typu można robić liniowo od liczby stanów). 
+
+Formalniej, możemy chcieć sobie zdefiniować ciąg zbiorów stanów \(B_{0}, B_{1}, \dots, B_{n} \):
+
+\[ 
+B_{0} = \set{s}^{A, \eps}
+\]
+\[
+B_1 = \Delta(B_0, a_0) 
+\]
+\[
+B_2 = \Delta(B_1, a_1)
+\]
+\[ 
+\dots 
+\]
+
+Pamiętacie te delty, co nie? Były w definicji. Hehe. 
+
+W każdym razie, po wyliczeniu tego (widać że wielomianowo) chcecie sprawdzić, czy \( \exists_{q \in B_n} q \in F \).
+
+\subsection{Niepustość języka}
+
+Mając dane \(\eps\)-NFA możemy sprawdzić, czy akceptuje jakieś słowo puszając DFS od stanu startowego, szukając stanów akceptujących. Istnienie jakiejkolwiek ścieżki tego typu jest równoważne istnieniu słowa, które zostanie zaakceptowane; problem osiągalności w grafie jest, jak wiemy, dosyć mocno wielomianowy. 
+
+\subsection{Skończoność języka regularnego}
+
+Dostajemy \(\eps\)-NFA i chcielibyśmy sprawdzić, czy język który jest przez nie akceptowany jest skończony. Pierwsze co robimy, to wywalamy stany które nie są osiągalne (wielomianowo). 
+
+Jeśli wyjdzie nam że język jest pusty (czyli wywaliliśmy wszystkie stany akceptujące) to znaczy, że język jest skończony (bo jest pusty).
+
+Ponadto wywalamy wszystkie stany, z których nie da się osiągnąć żadnego stanu akceptującego. 
+
+Co dalej? Zauważmy, że jeśli język jest nieskończony to teraz w \(\eps\)-NFA musi istnieć cykl \textbf{nieepsilonowy}. W takim razie zaczynamy ważyć wszystkie krawędzie; epsilonowym dajemy \(0\), wszystkim innym \(-1\). Pytanie nam się degeneruje do pytania, czy istnieje cykl ujemny -- na to pytanie z kolei jesteśmy w stanie wielomianowo odpowiedź algorytmem Bellmana-Forda. 
+
+Puszczamy algorytm Bellmana-Forda; jeśli znajdzie cykl ujemny to oznacza że istnieje cykl nieepsilonowy, a biorąc pod uwagę że stan końcowy jest osiągalny z tego cyklu, to wiemy że można po nim chodzić tyle razy ile chcemy (a więc język jest nieskończony czy coś). 
+
+\subsection{Minimalność liczby stanów DFA}
+
+Puszczamy algorytm D i sprawdzamy czy coś zmienił (takie zadanie serio było na liście). 
