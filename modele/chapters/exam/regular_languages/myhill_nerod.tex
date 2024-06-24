@@ -1,0 +1,106 @@
+\section{A-równoważność}
+
+\begin{definition}
+    Stany \( q_1, q_2 \) zadanego DFA są \textbf{A-równoważne} jeśli
+    \[
+        \forall_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \in F
+    \]
+    i \textbf{A-rozróżnialne} jeśli
+    \[
+        \exists_{w \in \Sigma^*} \hat \delta(q_1, w) \in F \iff \hat \delta(q_2, w) \notin F
+    \]
+\end{definition}
+
+\begin{lemma}
+    A-równoważnosć jest relacją równoważności.
+\end{lemma}
+\begin{proof}
+    Zwrotność jest oczywista, jako że \( \forall_{q\in Q} \forall_{w \in \Sigma^*} \tilde\delta(q, w) = \tilde\delta(q,w) \). Symetryczność również; przechodniość też. Pozostawimy je jako ćwiczenie dla czytelnika. 
+\end{proof}
+
+\section{Algorytm (z) D(upy)} 
+
+\begin{itemize}
+    \item Wejście: DFA \( A \)
+    \item Wyjście: (trójkątna) macierz Boolowska \( M \), w której \( M_{i, j} = 1 \iff a_i, a_j \) są rozróżnialne
+\end{itemize}
+
+Na początku wypełniamy \( M \) zerami.
+Jeśli \( a_i \in F, a_j \notin F \) to \( M_{i, j} = 1 \). 
+Dopóki macierz \( M \) się zmienia to dla każdych dwóch stanów \( q_1, q_2 \) oraz dla każdej litery litery \( a \), jeśli \( \hat \delta(q_1, a) = q_k\) i \( \hat \delta(q_2, a) = q_l \) oraz \( M_{k, l} = 1 \) to \( M_{i, j} := 1 \) .
+
+Jeśli po zakończeniu algorytmu jakieś 2 stany \(q_i, q_j\) są takie, że \(M_{i,j} = 0\) to wtedy wiemy, że \(q_i\) oraz \(q_j\) nie są rozróżnialne, a więc są A-równoważne. Zauważmy, że w ten sposób znajdujemy wszystkie stany które są sobie równoważne (działa to trochę jak taki Floyd-Warshall). Teraz co robimy, to kolapsujemy wszystkie równoważne stany w jeden wierzchołek. Okazuje się, że tak powstałe DFA jest minimalne pod względem liczby stanów (w porównaniu do innych DFA rozpoznających ten sam język). 
+
+\begin{theorem}
+    Automat otrzymany w wyniku pracy algorytmu \(D\) jest najmniejszy spośród DFA rozpoznających dany język.
+\end{theorem}
+\begin{proof}
+    Dowód nie wprost: załóżmy, że w wyniku minimalizacji jakiegoś automatu otrzymaliśmy jakiś automat \(A\), a istnieje DFA \(B\) takie, że \( L(A) = L(B) \) i B ma mniej stanów. Zdefiniujmy sobie DFA \(C\)\footnote{Tworzymy je tylko i wyłącznie z przyczyn formalnych, bo A-równoważnosć jest zdefiniowana dla określonego automatu.} takie, że jego stanem startowym jest \(s_B\), a \(Q_C = Q_A \cup Q_B\), funkcje przejść również ,,sumujemy''. Zauważmy, że dla automatu C:
+    
+    \[
+        \forall_{q_A \in Q_A} \exists_{q_B \in Q_B}  \hspace{5pt} \textit{\(q_a\) i \(q_b\) są \(C\)-równoważne}
+    \]
+    
+    Dowód tej obserwacji jest prosty: jako, że \(A\) i \(B\) akceptują te same języki, to na pewno \(s_A\) i \(s_B\) są \(C\)-równoważne. No ale w takim razie dla każdego \(a \in \Sigma\) jest tak, że \(\delta(s_A, a)\) i \(\delta(s_B, a)\) są również \(C\)-równoważne (i tak dalej). Stosując tę konstrukcję dalej, otrzymamy że dla każego stanu z \(A\) istnieje równoważny stan w \(B\). 
+    
+    Na podstawie tej informacji wykonujemy \textit{potężną} obserwację: skoro, z założenia nie wprost, \(A\) miał więcej stanów w \(B\); to w połączeniu z powyższą obserwacją oznacza, że istnieją stany \(q_1, q_2 \in A\) takie, że oba z nich są równoważne z jakimś stanem \(q_3 \in B\). Ponieważ jednak równoważnosć jest przechodnia, mamy że \(q_1\) i \(q_2\) są wzajemnie równoważne. To prowadzi do sprzeczności, bo wiemy, że algorytm \(D\) będzie na tyle miły, że skolapsuje wszystkie stany które są wzajemnie równoważne. To kończy dowód. 
+    
+\end{proof}
+
+\section{L-równoważność (L-kongruencja)}
+
+\begin{definition}
+    Mówimy, że relacja jest \(L\)-kongruentna dla pewnego języka \(L \in \powerset(\Sigma^*)\) wtedy i tylko wtedy, gdy:
+    \begin{enumerate}
+        \item \(\forall_{v \in \Sigma^*} x \equiv y \implies xv \equiv yv \)
+        \item \( x \equiv y \implies (x \in L \iff y \in L)\)
+    \end{enumerate}
+\end{definition}
+
+\section{Twierdzenie Myhille'a-Nerode'a}
+
+\begin{theorem}[Myhill--Nerode]
+    Język \( L \) jest regularny wtedy i tylko wtedy gdy
+    istnieje relacja równoważności \( \equiv \subseteq \Sigma^* \times \Sigma^*\) o skończenie wielu klasach równoważności, która jest \(L\)-kongruentna.
+\end{theorem}
+\begin{proof} \( \)
+    \begin{description}
+        \item \( \implies \)
+        
+        Skoro \( L \) jest regularny to istnieje DFA \( A \), na podstawie którego definiujemy
+        \[
+            x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y)
+        \]
+        
+        Należy teraz dowieść, że:
+        
+        \begin{enumerate}
+            \item Relacja ta jest \(L\)-kongruentna: \begin{enumerate}
+                \item \(x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y) = q \implies  \hat \delta(q, v) = \hat \delta(q, v) \iff xv \equiv yv\)
+                \item \(x \equiv y \iff \hat \delta(s, x) = \hat \delta(s, y) = q \), więc jeśli \(q \in F\) to warunek spełniony, a jeśli \(q \not \in F\) to również. 
+        
+            \end{enumerate} 
+            
+            \item Relacja ta ma skończenie wiele klas równoważności, bo funkcja \( \hat \delta \) może ,,przemapować'' dane słowo na maksymalnie \( |Q| \) stanów, a wszystkie słowa które ,,przechodzą'' na ten sam stan są ze sobą równoważne. 
+            
+        \end{enumerate}
+        
+        \item \( \impliedby \)
+        
+        Tworzymy automat, którego stanami są klasy równoważności słów wyznaczone przez relację \( \equiv \). Możemy tak zrobić, bo wiemy że klas równoważności jest skończenie wiele. Jako stany finalne ustalamy te klasy równoważności, w których wszystkie elementy należą do języka (z racji że jest to L-kongruencja wszystkie elementy klasy mogą albo należeć, albo nie należeć do języka). Stanem startowym jest klasa, do której należy \( \eps \). 
+        
+        Teraz żeby to się spięło i w ogóle, należy jeszcze ustalić jak wyglądają funkcje przejścia. Robimy to w ten sposób, że dla każdej klasy próbujemy ,,dokleić'' jedną literkę z alfabetu i dodajemy przejście do klasy, w której wylądują powstałe słowa. Warto tutaj zauważyć, że z racji że jest to L-kongruencja, jeśli dodam literkę \(a \in \Sigma \) do dowolnych słów z mojej klasy, to wszystkie słowa powstałe jako rezultat muszą znaleźć się w jednej klasie (z racji warunku pierwszego w definicji L-kongruencji). 
+        
+        Procedura ,,generowania przejścia'' jest wykonywana dla każdej klasy i każdej litery; zauważmy, że wówczas funkcja przejścia jest już poprawnie zdefiniowaną funkcją. 
+        
+        Teraz należy udowodnić, że powstały DFA akceptuje język, na którym zdefiniowana jest L-kongruencja. 
+        
+        Zauważamy, że \(\hat\delta(s, w) \) jest klasą równoważności, do której należy słowo \(w\). Dowód przebiega z pomocą indukcji po długości \(w\): gdy \(|w| = 0\), to \( w = \eps \) i z definicji \(q_s\) jako klasy zawierającej epsilon wszystko działa poprawnie.
+        
+        W kroku indukcyjnym, jeśli mamy słowo \(w' = wa\), to z założenia indukcyjnego wiemy, że \(\hat\delta(w)\) jest klasą równoważności, do której należy \(w\). Wówczas przejście po literze \(a\) z tamtej klasy prowadzi nas do klasy zawierającej słowo \(wa\), z tego jak zdefiniowaliśmy funkcję \(\delta\). 
+        
+        Cóż możemy zrobić z tą fascynującą obserwacją? Zauważyć, że teraz pokazanie że \(L(A) = L\) mamy teraz za darmo, bo jeśli \(w \in L\) to klasa równoważności która zawiera \(w\) jest stanem akceptującym; w przeciwnym razie nie jest. To dowodzi poprawności konstrukcji. 
+        
+        
+    \end{description}
+\end{proof}

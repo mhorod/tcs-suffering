@@ -1,0 +1,41 @@
+\section{Bezkontekstowość}
+
+\begin{theorem}
+    Niech \( L \) będzie językiem. Następujące stwierdzenia są równoważne:
+    \begin{enumerate}
+        \item \( L \) jest bezkontekstowy
+        \item Istnieje PDA \( P \) taki że \( L = L(P) \)
+        \item Istnieje PDA \( P \) taki że \( L = N(P) \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+\( (2) \iff (3) \) pokazaliśmy przed chwilą. Pokażmy teraz \( (3) \implies (1) \)
+
+Nieterminale definiujemy jako
+\[
+    N = \set{S} \cup \set{(q, X, p) \mid q, p \in Q, X \in \Gamma }
+\]
+
+Intuicyjnie nieterminal \( (q, X, p) \) reprezentuje fragment słowa wyprodukowany między stanami \( q, p \) zjadając przy okazji szczyt stosu \( X \)
+
+Dodajemy też produkcje
+\[
+    \forall_{p \in Q} : S \rightarrow (q_0, Z_0, p)
+\]
+\[
+    \forall_{\dots} (q, X, r_k) \rightarrow a (r, Y_1, r_1) \dots ( r_{k-1}, Y_k, {r_k}) 
+\]
+
+Teraz musimy jeszcze pokazać, że ta gramatyka istotnie generuje to samo co akceptuje automat pustym stosem. tj.
+\[
+    (q, X, p) \rightarrow_G^* w \iff (q, w, X) \vdash_P^* (p, \eps, \eps) 
+\]
+\begin{description}
+    \item \( \impliedby \)
+        Indukcja po liczbie kroków wykonanych przez PDA.
+    
+    
+    \item \( \implies \)
+\end{description}
+
+\end{proof}

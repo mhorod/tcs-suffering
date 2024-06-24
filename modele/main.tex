@@ -1,0 +1,49 @@
+ % Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+
+\documentclass[12pt, a4paper, polish, openany]{book}
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\fancyhead[L]{\textbf{\textit{MO}}}
+
+\raggedbottom
+
+\begin{document}
+
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+
+\tableofcontents
+\input{license}
+
+% Actual content
+\mainmatter
+
+\chapter*{Podstawy}
+\input{chapters/lectures/definitions}
+
+\chapter{Języki regularne}
+\input{chapters/exam/regular_languages/main}
+
+\chapter{Języki bezkontekstowe}
+\input{chapters/exam/context_free/main}
+
+\chapter{Języki rekurencyjne i rekurencyjnie przeliczalne}
+\input{chapters/exam/recursive/main}
+
+\chapter{Języki kontekstowe}
+\input{chapters/exam/context_sensitive/main}
+
+\chapter{Nierozstrzygalność}
+\input{chapters/exam/undecidability/main}
+
+\chapter{Złożoność obliczeniowa}
+\input{chapters/exam/computational_complexity/main}
+
+\end{document}

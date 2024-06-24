@@ -1,0 +1,21 @@
+\section{Definicja}
+\begin{definition}
+    \textbf{Wyrażenie regularne} nad alfabetem \( \Sigma \) to najmniejszy język \( \re{\Sigma} \) nad alfabetem \( \Sigma' = \Sigma \cup \set{+, \cdot, ^*, 0, 1, (, )} \) taki, że:
+    \begin{itemize}
+        \item \( 0, 1 \in \re{\Sigma} \)
+        \item \( \forall_{a \in \Sigma}: a \in \re{\Sigma} \)
+        \item \( \forall_{d, d_1, d_2 \in \Sigma}: (d_1 + d_2), (d_1 \cdot d_2), d^* \in \re{\Sigma} \)
+    \end{itemize}
+\end{definition}
+
+Warto zaznaczyć, że operujemy jedynie na napisach bez żadnej intepretacji -- symbole są jedynie symbolami, które będziemy zaraz interpretować odpowiednio.
+
+Możemy teraz sobie dobrać do tego interpretację \( L: \re{\Sigma} \rightarrow \powerset\pars{\Sigma^*} \)
+\begin{itemize}
+    \item \( L(0) = \varnothing \)
+    \item \( L(1) = \set{\eps} \)
+    \item \( L(a) = \set{a} \)
+    \item \( L(\alpha + \beta) = L(\alpha) \cup L(\beta) \)
+    \item \( L(\alpha \cdot \beta) = L(\alpha)L(\beta) \)
+    \item \( L(\alpha^*) = L(\alpha)^* \)
+\end{itemize}

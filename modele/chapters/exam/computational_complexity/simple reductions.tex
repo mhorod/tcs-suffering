@@ -1,0 +1,126 @@
+\section{Proste redukcje dla znanych problemów}
+
+
+
+\subsection{Definicje} 
+
+\subsubsection{NAE-Sat (Not-All-Equal SAT)}
+
+\begin{enumerate}
+    \item \textsc{IN:} Formuła logiczna w 3-CNF
+    \item \textsc{PYTANIE:}  Czy istnieje wartościowanie takie, że dla wszystkich klauzul prawdą jest, że w obrębie klauzuli znajduje się literał wartościowany na \textsc{TAK} jak i literał wartościowany na \textsc{NIE}? 
+\end{enumerate}
+
+\subsubsection{EX2SAT}
+
+\begin{enumerate}
+    \item IN: Formuła logiczna \(\varphi\) w postaci
+    \[  (x_1 \oplus y_1 ) \land (x_2 \oplus y_2) \land ... \land (x_n \oplus y_n)
+    \]
+    oraz \( K \) liczba naturalna zapisana binarnie.
+    \item PYTANIE: : Czy istnieje wartościowanie zmiennych dla \(\varphi\), które spełnia dokładnie
+    \(K\) klauzul w \(\varphi\)?
+\end{enumerate}
+
+\subsubsection{HDE (Homogenous Diophantine Equation)}
+
+\begin{definition}
+Jednorodne równanie Diofantyczne to równanie diofantyczne zdefiniowane przez wielomian, którego wszystkie niezerowe wyrazy mają ten sam stopień. Stopień wyrazu w równaniu Diofantycznym to suma wykładników zmiennych, które w nim występują -- na przykład \( x^5y^6z^1 \) ma stopień 12.  
+\end{definition}
+
+\begin{definition}
+    Definiujemy problem zero-one HDE następująco: 
+    
+    \begin{itemize}
+        \item \textsc{IN:} Jednorodne równanie diofantyczne stopnia 2, postaci \(P(x_1, x_2, x_3, \dots, x_n) = B\), gdzie \(B \in \natural\). 
+    \end{itemize}
+    \item \textsc{PYTANIE:} Czy istnieje takie rozwiązanie tego równania, że wartości \( x_1, x_2, \dots, x_n \in \set{0,1}\)?  
+\end{definition}
+
+\subsubsection{Bounded-Tiling}
+
+\begin{definition}
+    
+\end{definition}
+
+\subsubsection{H-Coloring}
+Niech \(H = \pars{V_H, E_H}\) będzie grafem bez pętli. Problem \(H\textsc{-COLORING}\) jest następujący:
+\begin{itemize}
+    \item WEJŚCIE: Graf symetryczny \(G = \pars{V_H, E_H}\) bez pętli
+    \item PYTANIE: czy istnieje homomorfizm \(h\) z~\(G\) w~\(H\), czyli
+        \begin{gather*}
+            h\colon V_G \mapsto V_H\\
+            \forall_u\forall_v\pars{\pasr{u, v} \in E_G \implies \pars{h\pars{u}, h\pars{v}} \in E_H}
+        \end{gather*}
+\end{itemize}
+\(H\textsc{-COLORING}\) jest \(\np\)-zupełny np. dla \(H\) będącego trójkątem --- jest to wtedy \(3\)-kolorowanie. Natomiast np. dla \(H\) będącego dowolną ścieżką ten problem jest w \(\p\).
+\begin{proof}
+    Trywialny.
+\end{proof}
+
+\subsubsection{Factoring}
+    \begin{itemize}
+        \item IN: Liczby naturalne N i M (Zapisane binarnie)
+        \item OUT: Istnienie takiego K, że K dzieli N oraz 2 \(\le\) K \(\le\) M
+        \item COMPLEXITY: NP\(\cap\)coNP
+\end{itemize}
+
+
+\subsubsection{Inference}
+    \begin{itemize}
+        \item IN: Dwie formuły Boolowskie \(\varphi_1, \varphi_2\) nad tym samym zbiorem zmiennych
+        \item PYTANIE: czy każde wartościowanie spełniające \(\varphi_1\) jest również
+wartościowaniem spełniającym dla \(\varphi_2\)
+    \end{itemize}
+
+
+
+\subsubsection{Min-Inference}
+
+\subsubsection{First-Sat}
+\begin{itemize}
+    \item IN: formuła \(\varphi\) nad Zmiennymi \(X = \{x_1, ..., x_n\} \)
+    \item PYTANIE: czy \(\varphi\) ma minimalne względem porządku leksykograficznego spełniające wartościowanie \(\alpha : X \rightarrow \{0, 1\}\) takie że \( \alpha(x_i) = 1?\) 
+\end{itemize}
+
+\subsubsection{Abduction}
+\begin{definition}
+    Niech \(Y\) to będzie zbiór zmiennych boolowskich. Mówimy, że zbiór literałów \(U\) wyczerpuje zmienne \(Y\), jeśli dla każdej zmiennej z~\(Y\) zawiera tę zmienną \emph{albo} jej zaprzeczenie.
+\end{definition}
+Problem \(\textsc{ABDUCTION}\) jest następujący:
+\begin{itemize}
+    \item WEJŚCIE: Spełnialna formuła boolowska \(\varphi\) nad zmiennymi \(V, V' \subsetneq V\) oraz \(x \in V \setminus V'\).
+    \item PYTANIE: Czy istnieje zbiór literałów \(U\) wyczerpujący zmienne \(V'\) taki, że
+        \[
+            \pars{\varphi \land \bigwedge_{u \in U}u} \models x
+        \]
+\end{itemize}
+Pokaż, że problem \(\textsc{ABDUCTION}\) jest w~\(\np^\np\).
+
+\subsubsection{Geography}
+Gra \(\textsc{GEOGRAPHY}\) rozgrywana jest przez dwóch graczy na grafie skierowanym \(G = (V ; E)\). W pierwszym ruchu gracz I koloruje pewien wierzchołek \(v\) w \(G\),
+gracz II koloruje pewien wierzchołek \(v'\)
+taki, że \((v, v') \in E\). W kolejnych ruchach gracze
+kolorują kolejne niepokolorowane wierzchołki wyznaczając w \(G\) ścieżkę. Przegrywa gracz,
+który nie może wybrać żadnego niepokolorowanego jeszcze wierzchołka.
+\\
+\\
+Problem \(\textsc{GEOGRAPHY}\), to pytanie czy gracz I ma strategię wygrywającą tzn. wygrywa zawsze, niezależnie od wyborów II gracza
+
+
+\subsubsection{Regexp-Equiv}
+    \begin{itemize}
+        \item IN: Dwa wyrażenia regularne, \(\alpha\) i \(\beta\)
+        \item OUT: Czy L(\(\alpha\)) = L(\(\beta\))?
+        \item COMPLEXITY: PSPACE-complete
+\end{itemize}
+
+\subsubsection{Quantified k-SAT}
+
+
+
+
+
+\subsubsection{}
+
+\subsubsection{}

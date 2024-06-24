@@ -1,0 +1,160 @@
+\section{Twierdzenie Cooka-Levina}
+
+\begin{theorem}[Cook-Levin]
+    Problem \( \textsc{SAT} \) jest \np-zupełny
+\end{theorem}
+\begin{proof}
+    Oczywiście \( \textsc{SAT} \in \np \) bo możemy ''zgadnąć'' wartościowanie i sprawdzić że wartościuje formułę na 1.
+    
+    Pokażemy, że \textsc{SAT} jest \np-trudny.
+    
+    W tym celu musimy pokazać, że jeśli \( L \in \np \) to istnieje redukcja z \( L \) do \( \textsc{SAT} \).
+    Skoro \( L \in \np \) to istnieje niedeterministyczna Maszyna Turinga \( M \), która go akceptuje. 
+    
+    Intuicyjnie -- będziemy śledzić obliczenie prowadzone przez \( M \) na zadanym słowie wejściowym \( w \) i zapisywać je jako formułę logiczną.
+    
+    \( M \) działa w czasie \( p(\abs{x}) \) zatem możemy wyobrazić sobie tablicę o wymiarach \( p(\abs{x}) \times p(\abs{x}) \), w której wiersze reprezentują kolejne konfiguracje maszyny.
+
+    Możemy skonstruować formułę logiczną która będzie opisywała jakie są poprawne przejścia w konfiguracjach maszyny.
+    
+    W tym celu będziemy potrzebowali jakoś kodować za pomocą formuł boolowskich, gdzie znajduje się jaka wartość na taśmie. Definiujemy sobie zatem zmienną \( x_{ija} \). Będziemy usiłowali osiągnąć jej taką semantykę, żeby mówiła ona, że w \(i\)-tym wierszu (czyli \(i\)-tej w kolejności konfiguracji), \(j\)-tej kolumnie (czyli \(j\)-tym symbolu w konfiguracji) znajduje się symbol \(a\). 
+    
+    Przy takiej interpretacji chcemy jeszcze dodać warunki na konfigurację startową i końcową w taki sposób, aby istnienie wartościowania formuły na 1 było równoważne istnieniu obliczenia akceptującego.
+    
+    W tym celu będą potrzebne nam cztery rzeczy; każdą z nich wymusimy oddzielną formułą logiczną, a ich koniunkcja posłuży nam do przeprowadzenia udanej symulacji w całości.
+    
+    Zanim jednak do tego przejdziemy, umawiamy się, że jak nasza NTM wejdzie w stan akceptujący, to ma zdefiniowane przejście które nic nie robi i idzie po prostu w prawo (i dalej jest akceptujące). Dlaczego tak robimy? Bo będzie mniej dziwnych przypadków później. 
+    
+    Nietrudno dla dowolnej NTM stworzyć równoważną która spełnia ten warunek, więc to założenie nie powinno nikogo boleć. 
+    
+    \subsection{Wartości zmiennych są spójne}
+        Zauważamy, że semantyka zmiennych \(x\) bardzo szybko spadłaby z rowerka, jeśli istniałyby 2 takie zmienne, że \(x_{ija} = 1 \land x_{ijb} = 1\) (bo to by znaczyło że w jednym miejscu na taśmie są 2 symbole) lub gdyby \( \forall_a x_{ija} = 0\) (bo to by znaczyło, że w jakimś miejscu na taśmie nie ma \textbf{nic} (blank również jest symbolem).
+    
+        Aby zapobiec takim shenanigansom, definiujemy sobie formułę \(\varphi_1\): 
+        
+        \[ 
+            \varphi_1 = \bigwedge_{\substack{1 \leq i \leq p(n) \\ 1 \leq j \leq p(n)}} A_{ij} \land B_{ij}  
+        \]
+        
+        Gdzie \(A_{ij}\) oraz \(B_{ij}\) odpowiadają, odpowiednio, formule wymuszającej by chociaż jeden symbol znalazł się na taśmie oraz formule wymuszającej, by nie było sytuacji gdzie w jednym miejscu jest ponad jeden symbol. Zdefiniujmy je zatem:
+        
+        \[ 
+            A_{ij} = \bigvee_{a \in \Gamma} x_{ija}
+        \]
+        
+        \(A_{ij}\) wymaga zatem, by \textit{któryś} symbol był zwartościowany jako ,,prawda'' (jeśli formuła ma mieć szanse się zwartościować na ,,prawdę''). 
+        
+        \[
+            B_{ij} = \bigwedge_{\substack{a\in\Gamma \\ b\in\Gamma \\ a \not = b}} \neg(x_{ija} \land x_{ijb})
+        \]
+    
+        \(B_{ij}\) z kolei zabrania, by jakiekolwiek 2 \(x_{ij*}\) zwartościowały się na ,,tak''. 
+        
+        Zauważamy, że obie te formuły są wielomianowe, a jako że rozmiar naszej tablicy jest również wielomianowy względem wejścia wszystko jest absolutnie spoko. 
+    
+    \subsection{Symulacja rozpoczyna się poprawnie}
+        Aby w ogóle rozpocząć symulację NTM, musimy ,,zainicjalizować'' jej konfigurację startową. Jest to akurat dosyć proste -- wiemy, że na pierwszym miejscu znajduje się stan startowy \(q_s\) (umawiamy się, że wierzymy że NTM której taśma rozszerza się tylko w jedną stronę jest tak samo mocna jak taka, której taśma rozszerza się w obie strony; dowód dla czytelnika czy coś), dalej znajduje się słowo \(w\), a potem blanki (tak by długość wiersza wynosiła \(p(|w|)\). 
+        
+        Innymi słowy, robimy formułę wymuszającą początkowe wartościowanie:
+        
+        \[
+            \varphi_2 = a_{1,1, q_{s}} \land a_{1,2, w_1} \land a_{1,2, w_2} \land \dots \land a_{1, k, \blank} \land a_{1, k+1, \blank} \land \dots \land a_{1, p(|w|), \blank}
+        \]
+    
+        Długość formuły \(\varphi_2\) jest oczywiście wielomianowa względem \(w\). 
+    
+    \subsection{Spełniamy jeśli NTM przeszła do stanu akceptującego}
+        Biorąc pod uwagę naszą wcześniejszą umowę (że jeśli NTM zaakceptuje, to jedyne przejście które ma, to takie które zostawia je w stanie akceptującym i przesuwa w prawo), aby sprawdzić czy NTM akceptuje możemy po prostu sprawdzić czy którykolwiek ze znaków w ostatnim wierszu jest stanem akceptującym. Definiujemy zatem formułę:
+        
+        \[ 
+            \varphi_3 = \bigvee_{q_f \in F } \bigvee_{1 \leq j \leq p(|w|)} x_{p(|w|), j, q_f}
+        \]
+        
+        Jeśli gdziekolwiek znajdziemy jakiś stan akceptujący, jesteśmy w domu; jak nie, to znaczy że dane obliczenie nie akceptuje słowa (więc to wartościowanie jest do bani).
+    
+    \subsection{Przejścia są wykonywane poprawnie}
+        To jest najciekawsza część dowodu -- nareszcie nadszedł ten moment, że musimy zaimplementować jakoś przejścia. 
+        
+        Zauważamy, że przejście głowicy powoduje jedynie lokalną zmianę konfiguracji -- z konfiguracji na konfigurację zmienią się maksymalnie 3 symbole (stan może ulec zmianie, znak na prawo od wcześniej lokacji głowicy może się zmienic, oraz głowica może przesunąć się w lewo, zmieniając swoją kolejnosć z literką po lewej).
+
+        Musimy zatem oddać każde możliwe przejście z \( \sigma \) -- to jest to miejsce, gdzie wiele dowodów się poddaje i zaczyna machać, ale nie my. 
+        
+        Będzie nam za niedługo potrzebna formuła o semantyce ,,wymuś, by symbole na koordynatach \( (i_1, j_1) \) oraz \((i_2, j_2)\) były sobie równe'':
+        
+        \[ 
+            E(i_1, j_1, i_2, j_2) = \bigwedge_{a \in \Gamma} ((x_{i_1, j_1, a} \land x_{i_2, j_2, a}) \lor (\neg x_{i_1, j_1, a} \land \neg x_{i_2, j_2, a}) )
+        \]
+        
+        Zdefiniujmy sobie formułę ,,wymuszającą przejście w prawo dla stanu \(q\) i znaku \(a\), na koordynatach \(i, j\)'', którą nazwiemy \(T_r(q, a, i, j)\)\footnote{Osoby zaniepokojone użyciem implikacji uspokajam, że \(p \implies q \equiv \neg p \lor q\).}:
+        
+        \[
+            \begin{split}
+            T_r(&q,a, i, j)\\
+                &= \bigvee_{(q', a', 1) \in \delta(q,a)} \pars{\pars{x_{i,j,q} \land x_{i, j + 1, a}} \implies \pars{E(i, j-1, i+1, j-1) \land x_{i+1, j, a'} \land x_{i+1, j+1, q'}}}
+            \end{split}
+        \]
+        
+        Zauważmy, że ta semantyka nawet ma sens: jeśli pod współrzędnymi \(i,j\) jest stan \(q\), to jeśli mamy przesunąć się prawo, to chcemy aby zmienna na lewo była niezmieniona, na jego miejsce wskoczyła zmodyfikowana zmienna (która wcześniej była po jego prawej) a on sam zmienił swój stan na nowy. 
+        
+        Bardzo analogicznie zrobimy dla przesunięcia w lewo:
+        
+        \[
+            \begin{split}
+                T_l(&q, a , i, j)\\
+                    &= \bigvee_{(q', a', -1) \in \delta(q,a)} \pars{\pars{x_{i,j,q} \land x_{i, j + 1, a}} \implies \pars{x_{i+1, j-1, q'} \land E(i, j-1, i+1, j) \land x_{i + 1,j + 1,a'}}}
+            \end{split}
+        \]
+    
+        
+        Definiujemy teraz formułę odpowiedzialną za zebranie tego wszystkiego do kupy, by zapewnić by przejścia były poprawne:
+        
+        \[ 
+            C = \bigwedge_{\substack{q \in Q \\ a \in \Gamma \\ 1 \leq i \leq p(|w|) \\ 1 \leq j \leq p(|w|)}} T_r(q,a,i,j) \lor T_l(q,a,i,j) 
+        \]
+        
+        \(C\) jest wielomianowa względem rozmiaru wejścia, bo rozmiar \(Q\) i \(\Gamma\) to stałe, więc dla każdego pola w tablicy (których jest wielomianowo wiele) dodajemy stale wiele formuł mających stałe długości. 
+        
+        Zauważmy jednak, że to nie koniec naszych przygód, a dopiero początek; musimy bowiem jeszcze wymyślić sprytny sposób, by w sytuacji gdzie wartości są poza tym lokalnym \textit{miejscem niebezpiecznym} się bardzo elegancko przepisały. 
+        
+        Okazuje się, że możemy to nawet zakodować; będziemy potrzebować dodatkowego klocka, którym jest formuła logiczna sprawdzająca, czy coś \textbf{nie} jest stanem:
+        
+        \[
+            NQ(i,j) = \bigwedge_{q \in Q} \neg x_{ijq}
+        \]
+        
+        Jest to bardzo użyteczne, bo zauważam, że mogę ,,przepisać'' dany znak z konfiguracji na konfigurację poniżej wtedy i tylko wtedy, gdy nie jest on stanem i nie ma stanu obok siebie (po lewej lub prawej). Jeśli jest stanem (lub ma go w pobliżu) to tym co ma znajdować się na konfiguracji poniżej zajęła się już formuła \(C\).
+        
+        Definiujemy więc formułę wymuszającą przepisanie symbolu z konfiguracji na konfigurację poniżej: 
+        
+        \[ 
+            K(i,j) = (NQ(i, j-1) \land NQ(i,j) \land NQ(i, j+1)) \implies E(i, j, i+1, j)
+        \]
+        
+        Rozciągamy to na wszystkie możliwe współrzędne:
+        
+        \[ 
+            D = \bigwedge_{\substack{1 \leq i \leq p(|w|) \\ 1 \leq j \leq p(|w|)}} K(i,j)
+        \]
+        
+        \(D\) jest wielomianowa względem wejścia, bo \(K(i,j)\) ma stałą długość, a z kolei tych formuł jest wielomianowo wiele (bo na każdą komórkę naszej gigatablicy przypada jedna).
+        
+        I, koniec końców, otrzymujemy wyrażenie wymuszające poprawne przejścia: 
+        
+        \[ 
+            \varphi_4 = C \land D
+        \]
+        
+        \(\varphi_4\) również ma rozmiar wielomianowy, jako że jest koniunkcją dwóch formuł długości wielomianowej. 
+        
+        Proste, nie?
+        
+        \subsection{Pozbieranie do kupy}
+        
+        Teraz zbieramy to wszystko do kupy i otrzymujemy ostateczne gigawyrażenie:
+        
+        \[ 
+            \varphi = \varphi_1 \land \varphi_2 \land \varphi_3 \land \varphi_4
+        \]
+        
+        Jest ono spełnialne wtedy i tylko wtedy, gdy NTM akceptuje słowo \(w\), a jego konstrukcja jest wielomianowa. Tym samym dowiedliśmy tw. Cooka-Levina.
+\end{proof}

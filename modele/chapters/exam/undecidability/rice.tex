@@ -1,0 +1,86 @@
+\section{Twierdzenie Rice'a}
+\epigraph{Welcome to the rice fields}{}
+
+
+Okazuje się, że Maszyny Turinga nie potrafią aż tak dużo powiedzieć o~językach rozpoznawanych przez maszyny Turinga.
+
+\begin{definition}
+    \textbf{Własność} języków \(\re\) to dowolne \(P \subseteq \re\). Mówimy, że \(P\) jest \textbf{nietrywialna} gdy \(P \neq \emptyset\) i~\(P \neq \re\).
+\end{definition}
+
+Twierdzenie Rice'a w~wersji ,,chwytliwej'' brzmi następująco:
+\begin{center}
+    \emph{Każda nietrywialna własność \(\re\) jest nierozstrzygalna.}
+\end{center}
+Jak jednak należy to rozumieć? Przecież nierozstrzygalny może być \emph{język}, a~własność jest \emph{zbiorem języków} \(P \subseteq \re\). Przykładowo, własnością może być zbiór wszystkich języków regularnych, zbiór wszystkich języków których elementem jest liczba \(42\) czy zbiór wszystkich języków których elementem jest zbiór pusty. Definiujemy teraz język złożony z \textbf{kodowań Maszyn Turinga takich, że rozpoznają jakiś język z własności}:
+\[
+    L_P = \set{M : L\pars{M} \in P}
+\]
+I~to właśnie o~takim języku twierdzenie Rice'a mówi, że jest nierozstrzygalny. Możemy teraz zapisać bardziej formalnie:
+\begin{theorem}[Rice]
+    \[
+        \forall_{P \subseteq \re}\pars{\pars{P \neq \emptyset \land P \neq \re} \implies \set{M : L\pars{M} \in P} \not\in \r}
+    \]
+\end{theorem}
+\begin{proof}
+    Niech \( P \) będzie dowolną nietrywialną własnością oraz niech \( L_P = \set{M : L(M) \in P } \).
+    
+    Ponieważ mówimy o przynależności do \( \r \) to z lematu \ref{recursive-languages-closed-under-complement} wiemy że \( L_P \in \r \iff \overline{L_P} \in \r \). Możemy zatem udowodnić, że \( L_P \notin \r \) lub \( \overline{L_P} = L_{\overline{P}} \notin \r \). Przyjmujemy zatem, że \( \varnothing \notin P \)  co będzie przydatne w konstrukcji dowodu.
+    
+    Przeprowadzimy redukcję z problemu stopu.
+    Niech \( (M, w) \in L_{HALT} \) będzie dowolną jego instancją. Ponadto, ponieważ \( L_P \neq \varnothing \) to możemy wybrać dowolną maszynę \( N \in L_P \).
+    
+    Konstruujemy teraz instancję problemu \( L_P \), czyli Maszynę Turinga \( M' \).
+    
+    \( M' \) działa następująco:
+    \begin{enumerate}
+        \item wczytuje wejście \( x \)
+        \item symuluje \( M \) na \( w \)
+        \item symuluje \( N \) na \( x \)
+    \end{enumerate}
+    
+    Zostało nam do pokazania, że \( (M, w) \in L_{HALT} \iff M' \in L_P \)
+    \begin{description}
+        \item \( \implies \)
+        
+        Skoro \( (M, w) \in L_{HALT} \) to krok (2) zawsze kończy swoje wykonanie a co za tym idzie \( M' \) wykona krok (3), czyli innymi słowy zachowuje się jak \( N \in L_P \). W takim razie w tym przypadku \( L(M') = L(N) \), czyli \( M' \in L_P \).
+        
+        \item \( \impliedby \)
+        
+        Zamiast pokazywać, że \( M' \in L_P \implies (M, w) \in L_{HALT} \) pokażemy kontrapozycję, czyli \( (M, w) \notin L_{HALT} \implies M' \notin L_P \)
+        
+        Skoro \( (M, w) \notin L_{HALT} \) to krok \( (2) \) nigdy się nie kończy a zatem \( M' \) nigdy nic nie zaakceptuje -- innymi słowy \( L(M') = \varnothing \).
+        
+        Tutaj wkracza nasze założenie, że \( \varnothing \notin P \) -- korzystamy z niego aby dostać \( M' \notin L_P \).
+    \end{description}
+    
+    Mamy zatem (dla dowolnego nietrywialnego P) \( L_{HALT} \leq L_P \), ale wiemy już że \( L_{HALT} \notin \r \) z czego mamy \( L_P \notin \r \), co kończy dowód.
+    
+\end{proof}
+
+
+
+\begin{example}
+    Pokażemy sobie, że język
+    \[
+        L = \set{M : 111 \in L\pars{M}}
+    \]
+    jest nierozstrzygalny.
+    \begin{proof}
+        Definiujemy
+        \[
+            P = \set{K \in \re : 111 \in K}
+        \]
+        Jest to własność języków \(\re\).
+        Wtedy dla interesującego nas języka mamy
+        \[
+            L = \set{M : 111 \in L\pars{M}} = \set{M : L\pars{M} \in P}
+        \]
+        Oczywiście
+        \begin{itemize}
+            \item \(P \neq \emptyset\), bo na przykład \(\set{111} \in P\)
+            \item \(P \neq \re\), bo \(\emptyset \not\in P\), podczas gdy \(\emptyset \in \re\)
+        \end{itemize}
+        Zatem \(P\) jest własnością nietrywialną, czyli z~twierdzenia Rice'a wnioskujemy, że \(L \not\in \r\).
+    \end{proof}
+\end{example}

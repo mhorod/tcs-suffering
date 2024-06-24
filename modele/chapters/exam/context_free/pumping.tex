@@ -1,0 +1,23 @@
+\section{Lemat o pompowaniu dla języków bezkontekstowych}
+
+\begin{theorem}[O pompowaniu dla języków bezkontekstowych]
+    Jeżeli język \(L\) nad \(\Sigma^*\) jest bezkontekstowy, to: 
+    
+    \( \exists_{n_0 \in \natural} \) \\
+    \( \forall_{w \in L} \) \\
+    \( \exists_{a, b, c, d, e \in \Sigma^*} \hspace{5pt} w = abcde \land \card{w} \geq n_0 \land |bcd| \leq n_0 \land |bd| \geq 1 \) \\
+    \( \forall_{i \in \natural} \hspace{5pt} a \cdot b^{i} \cdot c \cdot d^{i} \cdot e \in L\)
+\end{theorem}
+\begin{proof}
+    Generalnie chcemy, żeby w derywacji naszego słowa \( w \), które pompujemy dwa razy na jednej ścieżce pojawił się ten sam nieterminal \( A \) Mamy wtedy \( A \rightarrow_G^* c\) oraz \( A \rightarrow_G^* bcd \) Wtedy możemy wstawić ,,górną'' produkcję (tę co doprowadza do bcd) w miejsce ,,dolnej'' (tej co doprowadza do c) i w ten sposób pompujemy \( bcd \) do  \( bbcdd \).
+    
+    
+    Niech \( n = \card{N} \) -- liczba dostępnych nieterminali oraz niech \( m \) -- długość najdłuższej produkcji.
+    Wtedy jeśli nasze słowo jest długości co najmniej \( n_0 = m^{n + 1} + 1 \) to drzewo wywodu musi mieć wysokość co najmniej \( n + 1 \) a zatem jakiś nieterminal musi się powtórzyć na jakiejś ścieżce.
+    
+    Aby zapewnić warunek \( \card{bcd} \leq n_0 \) z tezy bierzemy ten nieterminal, którego ,,niższe'' wystąpienie jest najwyżej ze wszystkich -- tj. znajduje się na głębokości co najwyżej \( n + 1 \).
+    
+    Jeśli mamy pecha i dla takiego wyboru \( \card{bd} = 0 \) to znaczy że przeszliśmy ścieżką, która nic nie produkuje. 
+    Szukamy wtedy innego spełniającego warunek nieterminala -- musi taki istnieć bo w końcu słowo które produkujemy jest długie.
+    
+\end{proof}

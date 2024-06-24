@@ -1,0 +1,93 @@
+\section{Maszyna Turinga}
+
+\begin{definition}
+
+ \textbf{Maszyna Turinga} to tupla
+    \[
+        MT = (Q, \Sigma, \Gamma, \delta, q_0, \blank, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) -- skończony zbiór stanów
+        \item \( \Sigma \subseteq \Gamma \) -- skończony alfabet wejściowy
+        \item \( \Gamma \) -- skończony alfabet taśmowy
+        \item \( \delta : Q \times \Gamma \rightarrow 
+        Q \times \Gamma \times \set{-1, +1}
+        \) -- stan, litera \( \rightarrow \) nowy stan, zmiana litery, ruch głowicą (lewo, prawo)
+        \item \( q_0 \) -- stan startowy
+        \item \( \blank \in \Gamma \setminus \Sigma \) -- pusty symbol / zero (domyślny symbol taśmy)
+        \item \( F \) -- zbiór stanów akceptujących
+    \end{itemize}
+    
+    Ponadto zakładamy, że \(Q \cap \Gamma = \varnothing\). 
+\end{definition}
+
+\begin{definition}
+    \textbf{Opis chwilowy} (konfiguracja) Maszyny Turinga to słowo nad językiem \(\Gamma^* q\Gamma \Gamma^* \). 
+\end{definition}
+
+\begin{definition}
+    Konfiguracja startowa Maszyny Turinga to słowo postaci \(q_0w\blank\).
+\end{definition}
+
+\begin{definition}
+    Definiujemy relację \( \vdash_M \) na konfiguracjach MT.
+    
+    Przejście w lewo ,,wewnątrz taśmy'':
+    \[
+        \alpha A q B \beta 
+        \vdash_M
+        \alpha q' A B' \beta
+    \]
+    
+    gdzie \(\alpha, \beta \in \Gamma^*\), \(A, B \in \Gamma\), \(q, q'\in Q\), oraz \(\delta(q, B) = (q', B', -1)\).
+    
+    Analogicznie definiujemy przejście w prawo ,,wewnątrz taśmy'':
+
+       \[
+        \alpha q B \beta 
+        \vdash_M
+        \alpha B' q' \beta
+    \]
+    
+    gdzie \(\alpha, \beta \in \Gamma^*\), \(B \in \Gamma\), \(q, q'\in Q\), oraz \(   \delta(q, B) = (q', B', 1) \).
+    
+    Definiujemy również ,,skrajne'' przejścia -- przejście w prawo ,,na skraju taśmy'':
+    
+    \[ 
+        q B 
+        \vdash_M
+        B' q' \blank 
+    \]
+    
+    gdzie \(B, B' \in \Gamma\), \(q, q' \in Q\), oraz \( \delta(q, B) = (q', B', 1) \)
+
+    Przejście w lewo ,,na skraju taśmy'':
+    \[
+         q B 
+        \vdash_M
+        q' \blank B' 
+    \]
+    
+    gdzie \(B, B' \in \Gamma\), \(q, q' \in Q\), oraz \( \delta(q, B) = (q', B', -1)\)
+
+    
+\end{definition}
+
+
+\begin{definition}
+    \textbf{Język akceptowany przez Maszynę Turinga} definiujemy jako
+    \[
+        L(M) = \set{w \in \Sigma^* \mid \exists_{q_f \in F} \exists_{\alpha, \beta \in \Gamma^*} q_0w\blank \vdash_M^* \alpha q_f \beta}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Maszyny Turinga nie wolno nazywać ,,automatem''.
+\end{theorem}
+\begin{proof}
+    Maszyna Turinga jest narzędziem dużo potężniejszym niż godne pogardy poznane dotychczas automaty. Dlatego należy się jej odpowiedni szacunek.
+\end{proof}
+\begin{corollary}
+    Nazwanie Maszyny Turinga ,,automatem'' skutkuje skreśleniem z~listy studentów.
+\end{corollary}

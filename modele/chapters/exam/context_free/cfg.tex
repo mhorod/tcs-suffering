@@ -1,0 +1,75 @@
+\section{Gramatyki bezkontekstowe}
+
+\begin{definition}
+\textbf{Gramatyka bezkontekstowa} (Context-Free Grammar) to czwórka \( G = (N, \Sigma, P, S) \) gdzie
+\begin{itemize}
+    \item \( N \) to skończony zbiór zmiennych (nieterminale)
+    \item \( \Sigma \) - alfabet (terminale)
+    \item \( P \) - produkcje \( P \subseteq N \times (N \cup \Sigma)^* \)
+    \item \( S \in N \) - symbol startowy
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+    \textbf{Forma zdaniowa} to dowolne słowo nad \( (N \cup \Sigma)^* \)
+\end{definition}
+
+Intuicyjnie -- gramatyka bezkontekstowa definiuje zasady na podstawie których możemy tworzyć nowe słowa nad alfabetem \( \Sigma \).
+Nieterminale \( N \) są takimi stanami pośrednimi, które możemy podmieniać używając produkcji z \( P \).
+Każda produkcja jest postaci
+\[
+    \text{nieterminal} \rightarrow \text{forma zdaniowa}
+\]
+Bardziej konkretne przykłady zobaczymy w sekcji \nameref{example-cfg-pda}.
+
+
+\begin{definition}
+    Dla gramatyki \( G \) definiujemy relację \( \rightarrow_G \) na formach zdaniowych.
+    Mówimy, że 
+    \[ 
+        \alpha \rightarrow_G \beta 
+    \]
+    wtedy i tylko wtedy gdy:
+    \[
+        \exists_{\alpha_1, \alpha_2, \gamma \in (N \cup \Sigma)^*} : \exists_{A \in N} : (A, \gamma) \in P \land
+        \alpha = \alpha_1  A \alpha_2 \land \beta = \alpha_1 \gamma \alpha_2
+    \]
+\end{definition}
+
+Bardziej po ludzku -- formę zdaniową \( \beta \) możemy uzyskać (w jednym kroku) z formy zdaniowej \( \alpha \) o ile w  \( \alpha \) jest jakieś wystąpienie nieterminala \( A \), które możemy zgodnie z produkcjami podmienić na formę zdaniową \( \gamma \) aby uzyskać \( \beta \).
+
+\begin{definition}
+    \( \rightarrow_G^* \) to zwrotne i przechodnie domknięcie \( \rightarrow_G \)
+\end{definition}
+
+Z \( \alpha \) możemy uzyskać \( \beta \) w dowolnej liczbie kroków, jeśli istnieje ciąg przekształceń \( \alpha \rightarrow_G \alpha_1 \rightarrow_G \dots \rightarrow_G \gamma \)
+
+
+\begin{definition}
+    \textbf{Język  generowany} przez gramatykę G to 
+    \[
+        L(G) = \set{w \in \Sigma^* \mid S \rightarrow_G^* w}
+    \]
+    podobnie dla \( A \in N \)
+    \[
+        L(G, A) = \set{w \in \Sigma^* \mid A \rightarrow_G^* w}
+    \]
+\end{definition}
+
+\begin{definition}
+    Język jest bezkontekstowy (Context-Free Language) jeśli jest generowany przez jakąś gramatykę bezkontekstową.
+\end{definition}
+
+\subsection{Postać normalna Greibach}
+
+\begin{definition}
+    Mówimy że gramatyka G jest w \textbf{postaci normalnej Greibach} jeśli każda produkcja jest w postaci:
+    \[
+        A \rightarrow aB_1\dots B_n
+    \]
+    gdzie \( a \in \Sigma \), \( B_i \in N \), \( n \in \natural \)
+    
+    Dopuszczamy produkcję \( S \rightarrow \varepsilon \) jeśli \( \varepsilon \in L(G) \) ale wtedy \( S \) nie występuje po prawej stronie żadnej produkcji.
+\end{definition}
+
+Zaznaczmy tylko, że Sheila Greibach jest kobietą, nie jest to więc postać Greibacha.

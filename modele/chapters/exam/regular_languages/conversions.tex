@@ -1,0 +1,133 @@
+\section{Równoważność automatów i wyrażeń regularnych}
+
+\subsection{Równoważność DFA i NFA}
+
+Można się zastanawiać, czy NFA jest silniejszy niż DFA (tzn. czy może akceptować więcej języków).
+Okazuje się, że nie. Co więcej, jesteśmy w stanie przekształcić dowolny NFA w DFA.
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \).
+    Następujące warunki są równoważne:
+    \begin{enumerate}
+            \item Istnieje DFA \( A_D \), dla którego \( L(A_D) = L \)
+        \item Istnieje NFA \( A_N \), dla którego \( L(A_N) = L \) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof} 
+    \begin{description}
+        \item ,,\( \implies \)''
+        
+        Każdy DFA jest NFA, bo każda funkcja jest relacją.
+            
+        \item ,,\( \impliedby \)''
+        
+        Niech \(A_N\) będzie NFA takim, że: 
+        \[ A_N = (Q, \Sigma, \delta, S, F) \]
+        
+        Korzystamy z faktu, że \( \tilde \delta \) jest elegancką funkcją i konstruujemy DFA \(A_D\) takie, że:
+        \[ A_D = (\powerset(Q), \Sigma, \tilde \delta, S, \mathcal{F}) \]
+        gdzie \( \mathcal{F} = \set{\beta \in \powerset(Q) \mid \beta \cap F \neq \varnothing} \)
+        
+        Intuicyjnie, tworzymy DFA, które w swoich stanach trzyma informację, w jakich stanach NFA mogłoby się znaleźć po przejściu tego samego prefiksu słowa. W związku z powyższym definicja \( \mathcal{F} \) jest całkiem intuicyjna, bo chcemy zaakceptować wtedy i tylko wtedy, gdy któreś obliczenie NFA znalazło się w stanie akceptującym.  
+        
+        Dla pełności potrzebujemy pokazać, że \( \hat \delta_{A_N}(S, u) \cap F \neq \varnothing \iff \hat \delta_{A_D}(S, u) \in \mathcal{F} \),
+        ale to mamy tak naprawdę z definicji, bo \( \hat \delta_{A_D} = \hat \delta_{A_N} \)
+    \end{description}
+\end{proof}
+
+\subsection{Równoważność DFA i~\texorpdfstring{\(\eps\)}{epsilon}-NFA}
+
+Okazuje się, że możemy bardzo podobny dowód przeprowadzić dla DFA i \( \eps\)-NFA. 
+
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \).
+    Następujące warunki są równoważne:
+    \begin{enumerate}
+            \item Istnieje DFA \( A_D \), dla którego \( L(A_D) = L \)
+        \item Istnieje \(\eps\)-NFA \( A_N \), którego \( L(A_N) = L \) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+     \begin{description}
+        \item ,,\( \implies \)''
+        
+        Każdy DFA jest \(\eps\)-NFA, bo każda funkcja jest relacją.
+            
+        \item ,,\( \impliedby \)''
+        
+        Niech \(A_N\) będzie \(\eps\)-NFA takim, że: 
+        \[ A_N = (Q, \Sigma, \delta, S, F) \]
+        
+        Ponownie jak w poprzednim przypadku, chcemy w stanach DFA ,,trzymać'' informacje o tym, w jakich stanach może znaleźć się \(\eps-NFA\). Jedyne co się zmienia to to, że mamy do czynienia z epsilonami. Jak o tym pomyślimy, to w sumie jednak nie jest to wielki problem, bo wystarczy chodzić po epsilon-domknięciach z użyciem funkcji \( \Delta \). 
+        
+        Konstruujemy więc \(A_D\), które jest DFA takim, że:
+        \[ A_D = (\powerset^{A_N, \eps}(Q), \Sigma, \Delta, S, \mathcal{F})\]
+        
+        gdzie \( \mathcal{F} = \set{\beta \in \powerset^{A_N, \eps}(Q) \mid \beta \cap F \neq \varnothing} \)
+    \end{description}
+\end{proof}
+
+
+\subsection{DFA \texorpdfstring{\( \rightarrow \)}{na} Wyrażenie regularne}
+
+    Pokażemy teraz, że dla dowolnego DFA \(A\) możemy skonstruować wyrażenie regularne \(\alpha\) takie, że \( L(A) = L(\alpha)\). 
+    
+     Czynimy obserwację, że jeśli \( w \in L(A) \) to istnieje ścieżka \( s \rightarrow q_f \in F \) idąca stanami
+    \[
+        q_1, q_2, \dots, q_{k+1}
+    \]
+    taka że \( s = q_1 \) i \( q_{k+1} \in F\).
+    
+    Definiujemy \( \alpha_{i, j}^k \) jako takie wyrażenie regularne, które reprezentuje wszystkie ścieżki prowadzące od \( q_i \) do \( q_j \), w której stany pośrednie należą do \( \set{q_1, \dots, q_k} \) (stany numerujemy \textit{arbitralnie} od 1, bo tak będzie wygodniej). Widzimy, że dla każdych \(i, j\):
+    
+    \[
+        \alpha_{i, j}^0 = \set{a \in \Sigma : \delta(q_i, a) = q_j } \cup \beta_{i, j}
+    \]
+    gdzie
+    \[
+        \beta_{i, j} = \begin{cases}
+            \varnothing & \text{ gdy } i \neq j \\
+            \set{\eps}
+        \end{cases}
+    \]
+    
+    Zauważmy teraz, że dla dowolnych \(k, i, j \leq |Q|, k \geq 1 \) jest tak, że:
+    
+    \[ 
+        \alpha^{k}_{ij} = \alpha^{k-1}_{ij} + \alpha^{k-1}_{ik} (\alpha^{k-1}_{kk})^* \alpha^{k-1}_{kj} 
+    \]
+    
+    To może wydawać się być overwhelming, więc to rozbijmy: 
+    
+    \begin{enumerate}
+        \item Pierwszy składnik sumy (\( \alpha^{k-1}_{ij} \) mówi nam o sytuacji, kiedy przechodzimy ze stanu \(q_i\) do stanu \(q_j\) nie przechodząc przez \(q_k\)  ani stan o ,,wyższym'' numerze w porządku.
+        \item Drugi składnik sumy mówi o sytuacji, kiedy przechodzimy przez \(q_k\) (bo teraz możemy). W takiej sytuacji nasza wybitna podróż dzieli się na 3 segmenty, których wyrażenia regularne są relatywnie proste i które wypada skonkatenować, by mieć opis całej podróży:
+        
+        \begin{enumerate}
+            \item Przejście z \(q_i\) do \(q_k\) (po raz pierwszy w czasie podróży) -- opisywane wyrażeniem \(\alpha^{k-1}_{ik}\)
+            \item Chodzenie dowolną liczbę razy (być może 0) z \(q_k\) do \(q_k\) , po stanach po których nam wolno chodzić -- można to łatwo opisać wyrażeniem \( (\alpha^{k-1}_{kk})^* \) (gwiazdka oddaje to, że możemy chodzić wiele razy).
+            \item Przejście z \(q_k\) do \(q_j\) (po raz ostatni czas w podróży, tzn. po tym wyjściu z \(q_k\) już tam nie wrócimy) -- opisywane wyrażeniem \( \alpha^{k-1}_{kj}  \). 
+        \end{enumerate}
+    \end{enumerate}
+    
+    Okazuje się w takim razie, że dostaliśmy coś bardzo fajnego: mianowicie, pokazaliśmy że jak mamy DFA możemy sobie konstruować takie wyrażenia regularne dla kolejnych \(k\). Jest to absolutnie wspaniałe na mocy naszej wcześniejszej obserwacji, tzn. tego, że jeśli \(w \in L(A) \) to istnieje taka ścieżka w naszym DFA. W takim razie regex który opisuje tę ścieżkę ma postać:
+    
+    \[
+        \sum_{q_j \in F} \alpha^{k}_{ij}
+    \]
+    
+    gdzie \(k\) to liczba stanów, a \(q_i\) to stan początkowy. Jest to poprawnie zdefiniowane wyrażenie regularne, bo jego składowe są poprawnie zdefiniowane. Formalnie dowód tego, że wszystkie wyrażenia regularne tej postaci są poprawnie zdefiniowane można przeprowadzić pewnie jakąś indukcją; pozostawiamy to jako ćwiczenie dla czytelnika.
+    
+    \subsection{Wyrażenie regularne \texorpdfstring{\( \rightarrow \)}{na} \texorpdfstring{\(\eps\)}{epsilon}-NFA}
+    
+    Ostatnia rzecz, którą chcemy uzyskać to sposób konwersji wyrażenia regularnego do \(\eps\)-NFA. To dałoby nam już wspaniały rezultat, bo mielibyśmy, że wyrażenia regularne i wymienione wyżej automaty są wzajemnie równoważne jeśli chodzi o ich ,,moc''. W tym celu możemy wykonać indukcję po długości wyrażenia regularnego, intuicyjnie konstruując nowy automat na podstawie ,,wcześniejszych''.
+    
+    Na początek wypada powiedzieć co robimy dla ,,trywialnych'' wyrażeń regularnych, by indukcja się spięła. Jeśli wyrażene jest postaci \(a\), dla \( a \in \Sigma\), tworzymy trywialnie automat który akceptuje jedynie słowo takiej postaci. Dla pustego wyrażenia tworzymy automat który nie akceptuje niczego, dla \(1\) tworzymy (równie trywialnie) automat który zaakceptuje jedynie \(\eps\). 
+    
+    Mając z głowy nudne przypadki bazowe, możemy przejść do ciekawszej rzeczy dowodu, czyli konwersji poszczególnych wyrażeń regularnych na automaty. Będziemy się kejsować po tym, na co jesteśmy w stanie ,,rozbić'' regex (załączone ilustracje powinny bardziej rozjaśnić)\footnote{kiedyś się pojawią, mówię Wam}:
+    
+    \begin{itemize}
+        \item Jeśli wyrażenie regularne jest postaci \( \alpha_1 + \alpha_2 \), to z założenia indukcyjnego mamy, że istnieją DFA \(A_1, A_2\) takie, że \(L(A_1) = L(\alpha_1)\) i \(L(A_2) = L(\alpha_2)\). Możemy stworzyć automat \(A_3\), który składa się z tych samych stanów i przejść co \(A_1\) i \(A_2\), ale ma jeszcze dodatkowy stan \(q\); \(q\) jest stanem startowym nowego automatu i ma epsilon przejścia do stanów startowych \(A_1\) i \(A_2\).  Zauważam, że jeśli słowo należy do języka akceptowanego przez któryś z tych automatów (nazwijmy go \(A\)), to w automacie \(A_3\) istnieje obliczenie, które ze stanu startowego przechodzi epsilon-przejściem do stanu startowego \(A\), po czym to słowo zostanie zaakceptowane. Jeśli żaden z automatów nie akceptował tego słowa, to trywialnie widać że nowy automat również go nie zaakceptuje.
+        \item Jeśli wyrażenie regularne jest postaci \( \alpha_1 \cdot \alpha_2 \), to, podobnie jak powyżej, muszę wymyślić jakiś sposób na zrobienie nowego automatu mając automaty \(A_1\) i \(A_2\) tak, by ten akceptował konkatenację tych języków. Ponownie więc tworzymy \(A_3\), który ma wszystkie stany i przejścia ze wspomnianych automatów wraz z nowym stanem startowym \(q\). Dodaję \(\eps\)-przejście z \(q\) do stanu startowego z \(A_1\) oraz \(\eps\)-przejścia ze stanów akceptujących \(A_1\) do stanu startowego \(A_2\). Stanami akceptującymi nowego automatu są \textbf{tylko} stany akceptujące z \(A_2\). Widać że to działa ładnie -- jeśli jakieś słowo \(w\) jest postaci \(xy\), gdzie \(x\in L(A_1)\) i \(y \in L(A_2)\), to istnieje obliczenie które ,,przejdzie'' \(x\) do stanu akceptującego, następnie ,,przeskoczy'' po epsilonie do \(A_2\), który z kolei zaakceptuje \(y\). Jeśli zaś słowo nie należy do konkatenacji takich języków, to znaczy że taki podział nie istnieje, a więc albo w ogóle nie ,,przejdziemy'' do \(A_2\), albo po przejściu do \(A_2\) nie zostaniemy zaakceptowani. 
+        \item Jeśli wyrażenie regularne jest postaci \((\alpha)*\), to mamy jakiś automat \(A\), dla którego \(L(A) = L(\alpha)\). Chcemy teraz zrobić jakąś ,,owijkę'' na niego tak, by można było zaakceptować dowolne słowo będące ,,zlepkiem'' słów z tego języka (bo to gwiazdka kleenego). Konstrukcja jest całkiem oczywista: robimy automat \(B\), który, standardowo, ma wszystkie stany i przejścia z automatu \(A\). Dodajemy oddzielny stan startowy \(q\); dodajemy z niego \(\eps\)-przejście do stanu startowego \(A\). Dodajemy jeszcze \(\eps\)-przejścia ze stanów akceptujących \(A\) z powrotem do stanu \(q\). Stanem akceptującym również jest \(q\). Zauważmy, że jeśli jakieś słowo należy do języka generowanego przez \((\alpha)^*\), to istnieje jego podział na słowa które należą do \(L(\alpha)\), a więc istnieje obliczenie które będzie sobie akceptować po kolei te ,,podsłowa'', a na samym kończu się zakończy. Jednocześnie, cokolwiek co jest zaakceptowane przez \(B\) musi być takim ,,zlepkiem'', bo by ,,wrócić'' do \(q\) trzeba było przejść sekwencją przejść po literach stanowiących słowo matchujące wyrażenie regularne.
+    \end{itemize}
+    
