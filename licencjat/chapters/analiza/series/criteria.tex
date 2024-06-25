@@ -1,35 +1,88 @@
-\begin{theorem}[Warunek konieczny zbieżności szeregu]
-    
-\end{theorem}
+\begin{fact}[Warunek konieczny zbieżności szeregu]
+    Jeśli szereg \( \sum_{i=1}^{n} \) jest zbieżny, to \( lim_{n \rightarrow \infty} a_n = 0 \). 
+\end{fact}
+\begin{fact}[Warunek konieczny i wystarczający zbieżności szeregu]
+    Następujące stwierdzenia są równoważne:
+    \begin{enumerate}
+        \item \( \sum_{i=1}^{\infty} a_i \) jest zbieżny;  
+        \item \[
+            \forall_{\varepsilon > 0} \exists_{N_0 \in \natural } \forall_{n > N_0} \forall_{l \geq n} \sum_{i=n}^{l} \abs{a_i} = 0
+        \] 
+    \end{enumerate}
+\end{fact}
+\begin{fact}[Zbieżność bezwzględna]
+    Każdy szereg bezwzględnie zbieżny jest zbieżny. 
+\end{fact}
+\begin{fact}[Zbieżność szeregu geometrycznego]
+    Szereg postaci 
+    \[
+        \sum_{i=1}^{\infty} a_1 \cdot q^{i-1}
+    \],
+    gdzie \(a_1\) jest pierwszym wyrazem szeregu a \(q \in \real \) jest zbieżny wtedy i tylko wtedy, gdy \(q \in (-1, 1)\).
 
-\begin{theorem}[Mnożenie przez stałą]
+    Suma szeregu wynosi wówczas: 
+    \[
+        \frac{a_1}{1-q}
+    \]
+\end{fact}
+\begin{fact}[Zbieżność szeregu harmonicznego]
+    Szereg postaci: 
+    \[
+        \sum_{i=1}^{\infty} \frac{1}{i^{\lambda}}
+    \]
+    gdzie \(\lambda \in \real\) jest zbieżny wtedy i tylko wtedy, gdy \(\lambda > 1\).
+\end{fact}
+\begin{fact}[Kryterium porównawcze dla zbieżności]
+    Niech \( \sum_{i=1}^{\infty} a_i \) będzie szeregiem takim, że \(a_i \geq 0\). 
     
-\end{theorem}
+    Wówczas, jeżeli istnieje \textbf{zbieżny} szereg \( \sum_{i=1}^{n} b_i \) i takie \(N_0 \in \natural\), że: 
+    \[
+        \forall_{n \geq N_0} a_i \leq b_i
+    \]
+    To szereg \(\set{a_i}\) jest zbieżny. 
+\end{fact}
+\begin{fact}[Kryterium porównawcze dla rozbieżności]
+    Niech \( \sum_{i=1}^{\infty} a_i \) będzie szeregiem. 
+    
+    Wówczas, jeżeli istnieje \textbf{rozbieżny} szereg \( \sum_{i=1}^{n} b_i \) taki, że \(b_i > 0\) i takie \(N_0 \in \natural\), że: 
+    \[
+        \forall_{n \geq N_0} b_i \leq a_i
+    \]
+    To szereg \(\set{a_i}\) jest rozbieżny. 
+\end{fact}
+\begin{fact}[Kryterium Cauchy'ego]
+    Niech \(\set{a_n}\) będzie szeregiem. Wówczas: 
+    \begin{itemize}[noitemsep]
+        \item jeżeli istnieje takie \(l < 1\) i \(N_0 \in \natural \), że: \[
+            \forall_{n > N_0} \sqrt[n]{a_n} < l 
+        \]
+        to \(\set{a_n}\) jest \textbf{zbieżny}.
 
-\begin{theorem}[Kryterium Cauchy'ego]
-    
-\end{theorem}
-
-\begin{theorem}[O zbieżności bezwzględnej]
-    
-\end{theorem}
-
-\begin{theorem}[O zbieżności szeregu geometrycznego]
-    
-\end{theorem}
-
-\begin{theorem}[O zbieżności szeregu harmonicznego]
-    
-\end{theorem}
-
-\begin{theorem}[Kryterium porównawcze]
-    
-\end{theorem}
-
-\begin{theorem}[Kryterium d'Alamberta]
-    
-\end{theorem}
-
-\begin{theorem}[Szereg Dirichleta]
-    
-\end{theorem}
+        \item jeżeli dla nieskończenie wielu wyrazów tego szeregu jest tak, że: \[
+            \sqrt[i]{a_i} \geq 1 
+        \]
+        to szereg ten jest \textbf{rozbieżny}.
+    \end{itemize}
+\end{fact}
+\begin{fact}[Kryterium d'Alemberta]
+    Niech \(\set{a_n}\) będzie szeregiem. Wówczas: 
+    \begin{itemize}[noitemsep]
+        \item jeżeli istnieje takie \(N_0 \in \natural\) i \(p < 1\), że: 
+        \[
+           \forall_{i \geq N_0} \frac{a_{i+1}}{a_i} \leq p 
+        \]
+        to szereg ten jest \textbf{zbieżny}.
+        \item jeżeli istnieje takie \(N_0 \in \natural\), że: 
+        \[
+           \forall_{i \geq N_0} \frac{a_{i+1}}{a_i} \geq 1 
+        \]
+        to szereg ten jest \textbf{rozbieżny}.
+    \end{itemize}
+\end{fact}
+\begin{fact}[Kryterium Leibniza]
+    Niech \( \set{a_n} \) będzie szeregiem. Wówczas jeżeli \(\lim_{n \rightarrow \infty} a_n = 0\) oraz \( \set{a_n} \) jest malejące, to szereg 
+    \(
+        \sum_{i=1}^{\infty} (-1)^{n} a_n
+    \)
+    jest zbieżny.
+\end{fact}
