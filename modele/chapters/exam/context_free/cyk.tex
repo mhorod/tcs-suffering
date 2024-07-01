@@ -1,1 +1,5 @@
 \section{Algorytm CYK}
+
+Jest to 3-wymiarowy dynamik. Zaczynamy z gramatyką w postaci Chomsky'ego (bardzo ważne - da to nam maks. dwa nieterminale po prawej stronie produkcji) i każdemu terminalowi przypisujemy nieterminal, który go generuje. Dalej operujemy już na samych nieterminalach. Iterujemy się po: długości podsłowa, które tworzymy; początku tego podsłowa; możliwych "składnikach", czyli parach które stworzą nam nasze podłowo - krótszych podsłowach, czyli odpowidziach dla mniejszych podproblemów znalezionych wcześniej. Jeżeli w gramatyce istnieje nieterminal który wyprodukuje dwa które dalej nam generują podsłowa które chcemy, do dodajemy go do obecnej listy.
+
+Na końcu sprawdzamy czy w podproblemie odpowiadającemu całemu słowu (i początku w jego początku) jest symbol startowy, i zwracamy odpowiednio. Poprawność skomentujemy tylko mówiąc że "widać".
