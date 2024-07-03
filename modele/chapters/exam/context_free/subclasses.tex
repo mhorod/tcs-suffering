@@ -8,7 +8,11 @@
 \end{definition}
 
 \begin{definition}
-    Definiujemy \textbf{deterministyczny automat ze stosem (DPDA)} tak jak zwykłe PDA, przy czym:
+    Mówimy, że język \(L \subset \Sigma^*\) należy do klasy języków \textbf{\textsc{LinCFL}} (linear context-free language; LCFL) jeśli istnieje takie \textsc{LinCFG} \(A\), że \(L(A) = L\).
+\end{definition}
+
+\begin{definition}
+    Definiujemy \textbf{deterministyczny automat ze stosem} (DPDA - deterministic pushdown automaton) tak jak zwykłe PDA, przy czym:
     
     \begin{itemize}
         \item Dla każdych \( a \in \Sigma, q \in Q, b \in \Gamma \), jeśli \( \delta(q, \eps, b) \not = \varnothing \) to \( \delta(q, a, b) = \varnothing \) (to znaczy, jeśli z jakiegoś stanu możemy wykonać \(\eps\)-przejście przy danym symbolu na szczycie stosu, to nie możemy w takiej sytuacji zrobić niczego innego).
@@ -17,7 +21,7 @@
 \end{definition}
 
 \begin{definition}
-    Mówimy, że język \(L \subset \Sigma^*\) należy do klasy języków \textbf{DCFL} jeśli istnieje takie DPDA \(A\), że \(L(A) = L\).
+    Mówimy, że język \(L \subset \Sigma^*\) należy do klasy języków \textbf{DCFL} (deterministic contex-free langauage) jeśli istnieje takie DPDA \(A\), że \(L(A) = L\).
 \end{definition}
 
 \subsection{Zawierania}
@@ -59,7 +63,7 @@ Aby być w stanie sensownie dowodzić, że nie ma pewnych zawierań między ró�
     
     Wiemy, że \( |\gamma\delta| \geq 1 \), bo inaczej to by oznaczało jakieś bzdurne przejście typu \( A \rightarrow A\), które można wywalić i otrzymać równoważną gramatykę. 
     
-    Jednocześnie \( |\alpha\gamma\delta\beta \leq n\), bo zanim doszło do powtórzenia to nie mogliśmy ,,wypisać'' więcej liter niż długość maksymalnej strony wywodu przemnożona przez liczbę nieterminali. Czy jakoś tak.
+    Jednocześnie \( |\alpha\gamma\delta\beta| \leq n\), bo zanim doszło do powtórzenia to nie mogliśmy ,,wypisać'' więcej liter niż długość maksymalnej strony wywodu przemnożona przez liczbę nieterminali. Czy jakoś tak.
     
     W każdym razie chyba ten dowód działa (samo twierdzenie na pewno jest prawdziwe, dude trust me). 
 \end{proof}
