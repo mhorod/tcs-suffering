@@ -27,16 +27,105 @@ Przekształcamy pierwszy warunek równoważnie:
 
 Ostatnie przejście wynika bezpośrednio z definicji iloczynu skalarnego.
 \end{proof}
+
 \begin{fact}
+Niech \(v_1, v_2 \in \vfield\). Wówczas:
+
+\begin{enumerate}
+    \item \(\norm{v_1 + v_2} \leq \norm{v_1} + \norm{v_2}\) (szczególny przypadek nierówności Minkowskiego)
+    \item \( | \dotpro{v_1}{v_2} | \leq \norm{v_1} \norm{v_2} \)
+\end{enumerate}
 
 \end{fact}
 
 \begin{fact}
-Niech \(v_1, v_2 \in \vfield\). Wówczas \(\norm{v_1 + v_2} \leq \norm{v_1} + \norm{v_2}\)
-
+     \( \frac{\dotpro{v_1}{v_2}}{\norm{v_1} \norm{v_2}} \in [-1, 1] \)
 \end{fact}
 \begin{proof}
-\begin{align*}
-    \norm{v_1} + \norm{v_2} &= \sqrt{\dotpro{v_1 + v_2}{v_1 + v_2}}  \\
-\end{align*}
+Dostajemy za darmo z faktu, że \( | \dotpro{v_1}{v_2} | \leq \norm{v_1} \norm{v_2} \).
 \end{proof}
+
+\begin{definition}[Odległość w przestrzeni euklidesowej]
+\textbf{Funkcję odległości} \(d: V \times V \rightarrow \real \) w przestrzeni euklidesowej definiujemy następująco: 
+
+\[ 
+    d(v_1, v_2) = \norm{v_1 - v_2} 
+\]
+
+Fakt, że jest to poprawnie zdefiniowana metryka bezpośrednio wynika z definicji normy i powyżej przytoczonego szczególnego przypadku nierówności Minkowskiego.
+\end{definition}
+
+\begin{definition}[Kąt nieskierowany między dwoma wektorami w przestrzeni euklidesowej]
+    Dla pary niezerowych wektorów \(v_1, v_2\) definiujemy funkcję \textbf{kąta nieskierowanego} jako funkcję \(\varphi: V \times V \rightarrow [0, \pi]\) taką, że:
+    \[
+        \varphi(v_1, v_2) = \arccos(\frac{\dotpro{v_1}{v_2}}{\norm{v_1}\norm{v_2}})
+    \]
+
+    Poprawna definicja funkcji \(\varphi\) jako kąta wynika między innymi z faktu, że funkcja \(\arccos\) jest iniektywna na przedziale \([0, \pi]\)
+\end{definition}
+
+\begin{definition}[Ortogonalność]
+Mówimy, że wektory \(v_1, v_2\) są \textbf{ortogonalne}, jeżeli \(\varphi(v_1, v_2) = \frac{\pi}{2}\).
+\end{definition}
+\begin{fact}
+Jeżeli wektory \(v_1, v_2\) są ortogonalne, to \( \dotpro{v_1}{v_2} = 0\).
+\end{fact}
+\begin{proof}
+\[
+    \varphi(v_1, v_2) = \frac{\pi}{2} \iff \frac{\dotpro{v_1}{v_2}}{\norm{v_1}\norm{v_2}} = 0 \implies \dotpro{v_1}{v_2} = 0
+\]
+\end{proof}
+
+\begin{theorem}
+Niech \(\vfield = (V, \oplus, \odot, \field)\) będzie przestrzenią wektorową. Wówczas jeśli zbiór \( A \subseteq V\) jest taki, że dla każdej pary wektorów \(v_1, v_2 \in A\) jest tak, że wektory te są ortogonalne, to zbiór \(A\) jest liniowo niezależny.
+\end{theorem}
+\begin{proof} 
+Jako że kąt między wektorami jest zdefiniowany jedynie dla wektorów niezerowych, to oczywiście zakładamy że wektory zerowe nie należą do \(A\).
+Dowód nie wprost; załóżmy że istnieje takie \(v \in A\), że: 
+
+\[ 
+    v = \sum_{i=1}^{n} \lambda_i v_i
+\]
+gdzie \(v_i \in A \setminus \set{v}\).
+
+co przeczyłoby liniowej niezależności.
+
+Wiemy jednocześnie, że dla każdego \(k\) jest tak, że \(\dotpro{v}{v_k} = 0\). 
+
+Rozpiszmy sobie ten iloczyn wektorowy dla określonego \(k\):
+\begin{align*}
+    0 = \dotpro{v}{v_k} &= \dotpro{\sum_{i=1}^{n} \lambda_i v_i}{v_k} \\ 
+    &= \sum_{i=1}^{n} \lambda_i \dotpro{v_i}{v_k} \\ 
+    &= \lambda_k \dotpro{v_k}{v_k} + \sum_{i \not = k}^{n} \lambda_i \dotpro{v_i}{v_k} \\ 
+    &= \lambda_k \dotpro{v_k}{v_k} + \sum_{i \not = k}^{n} \lambda_i \cdot 0 \\ 
+    &= \lambda_k \dotpro{v_k}{v_k} + 0 \\ 
+\end{align*}
+
+Jako, że do \(A\) nie należą wektory zerowe, to mamy że dla dowolnego \(k\) jest tak, że \(\lambda_k = 0\), skąd:
+
+\[ 
+    v = \sum_{i=1}^{n} 0 \cdot v_i = 0
+\]
+
+ale \(v\) miało nie być zerowe (bo \(v \in A\)). Sprzeczność.
+
+\end{proof}
+
+\begin{definition}[Baza ortogonalna]
+Bazę przestrzeni wektorowej \(\vfield\) nazwiemy \textbf{ortogonalną}, jeśli składa się z wektorów które są parami ortogonalne.
+\end{definition}
+
+\begin{definition}[Wektor unormowany]
+Mówimy, że wektor \(v \in V\) jest \textbf{unormowany}, jeżeli \(\norm{v} = 1\).
+\end{definition}
+\begin{fact}
+Każdy wektor można przemnożyć przez skalar \(\lambda\) taki, że w rezultacie otrzymamy wektor unormowany. 
+\end{fact}
+\begin{proof}
+Niech \(v \in V\) będzie wektorem. Wówczas zauważmy, że \(\lambda = \frac{1}{\norm{v}}\) spełnia postulowaną własność, bo:
+\[
+    \norm{\lambda \cdot v} = \lambda \norm{v} = \frac{1}{\norm{v}} \cdot \norm{v} = 1
+\]
+\end{proof}
+
+
