@@ -13,7 +13,8 @@ Currently, this repository contains notes for the following:
 
 # Usage
 
-- install docker
 - clone the repository
-- run `./build-one-docker.sh {subject}` to build the PDF for the subject
+- install LaTeX (if you are on Ubuntu: `sudo apt-get install texlive-full` will do the trick)
+- `mkdir build` directory so that TeX can do its thing
+- run `./build-one.sh {subject}` to build the PDF for the subject
 - get your pdf from `./build/{subject}/main.pdf`
