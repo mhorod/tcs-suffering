@@ -12,7 +12,7 @@ Podobnie jak przy przeształcaniu do postaci normalnej Chomsky'ego, pozbywamy si
 
 \subsection{Skończoność i nieskończoność gramatyki}
 
-Idea jest prosta: chcemy znaleźć cykl w grafie. Musimy jednak w tym celu pozbyć się produkcji typu \( A \rightarrow \epsilon \) oraz \( A \rightarrow B \), a także ponownie pozbyć się symboli nieosiągalnych oraz niegenerujących. Robimy te rzeczy ponownie jak w przekształcaniu do postaci Chomsky'ego. Następnie sprawdzamy, czy w grafie produkcji jest cykl. Jeżeli jest, to możemy po nim przechodzić, za każdym razem generując dłuższe słowo. Złożoność - wielomianowa.
+Idea jest prosta: chcemy znaleźć cykl w grafie. Musimy jednak w tym celu pozbyć się produkcji typu \( A \rightarrow \epsilon \) oraz \( A \rightarrow B \), a także ponownie pozbyć się symboli nieosiągalnych oraz niegenerujących. Robimy te rzeczy jak w przekształcaniu do postaci Chomsky'ego. Następnie sprawdzamy, czy w grafie produkcji jest cykl. Jeżeli jest, to możemy po nim przechodzić, za każdym razem generując dłuższe słowo. Złożoność - wielomianowa.
 
 \subsection{Niepustość przecięcia gramatyk}
 
@@ -37,6 +37,6 @@ Pozostało pozakać, że problem uniwersalności nie jest w RE. Zredukujemy do n
     \item Występuje nielegalne przejście: np. głowica się źle przesuwa, literka zmienia się niezgodnie z przejściami maszyny itp.
 \end{itemize}
 
-Uważny czytelnik zauważył już na pewno, że nie jest do dowód w pełni formalny. Jednak, nie było go na wykładzie, a pełny formalizm jest tutaj dość trudny - zatem generalnie wystarczy wiedzieć mniej więcej tyle, co tutaj napisano.
+Nie jest to oczywiście dowód w pełni formalny. Jednak, nie było go na wykładzie, a pełny formalizm jest tutaj dość trudny - zatem generalnie wystarczy wiedzieć mniej więcej tyle, co tutaj napisano.
 
-Ponownie ciekawym czytelnikom wspomnimy, że można analogicznie zredukować z problemu stopu - jedyna różnica to że zamiast stanu akceptującego występuje stan zakońćzenia pracy \( q_{HALT} \).
+Ponownie ciekawym czytelnikom wspomnimy, że można analogicznie zredukować z problemu stopu - jedyna różnica to że zamiast stanu akceptującego występuje stan zakończenia pracy \( q_{HALT} \).

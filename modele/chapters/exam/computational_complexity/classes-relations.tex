@@ -1,0 +1,105 @@
+\section{Zawierania klas złożoności}
+
+\subsection{Podstawowe relacje}
+
+Podsumujemy tu (prawie) wszystkie znane nam klasy złożoności.
+
+\begin{corollary}
+    \( \textsc{REG} \subset \textsc{CFL}\footnote{Nie zapominajmy o podklasach CFL} \subset \textsc{CSL} \subset \textsc{RE} \)
+\end{corollary}
+
+Co więcej, tutaj wiemy, że wszystkie zawierania są ostre.
+
+\begin{corollary}
+    \( \textsc{P} \subset \textsc{NP} \subset \textsc{PSPACE} \subset \textsc{EXPTIME} (\subset \textsc{R}) \)
+\end{corollary}
+
+Hierarchią tą można również wydłużać w obie strony - np. po lewej mamy \textsc{LOGSPACE}, a po prawej \textsc{EXPSPACE}.
+
+Dla tej hierarchi (jak pewnie wszyscy wiedzą) nie wiemy czy \(\textsc{P} = \textsc{NP}\). Okazuje się również, że nie wiemy czy pozostałe zawierania są
+ostre (poza zawieraniem w R) - poza jednym, \( \textsc{P} \neq \textsc{EXPTIME} \).
+
+\begin{lemma}
+    \( \textsc{P} \neq \textsc{EXPTIME} \)
+\end{lemma}
+
+\begin{proof}
+    Skonstruujmy język, który należy do \(\textsc{TIME}(f(n^3))\), ale nie należy do \(\textsc{TIME}(f(n))\). Niech ten język będzie składał się z par (maszyna Turniga, słowo)\
+    takich, że maszyna akceptuje to słowo po co najwyżej liniowej liczbie kroków. Ten język jest w \(\textsc{TIME}(f(n^3))\) (damy radę zasymulować), ale nie jest w\
+    \(\textsc{TIME}(f(n))\). Pokażmy to ostatnie nie wprost: niech istnieje maszyna \(K\), która odpowie w czasie liniowym, czy dana maszyna zaakceptuje dane\
+    wejście w czasie wykładniczym. Skonstruujmy teraz maszynę \(N\), która bierzę na wejściu inną maszynę \(M_w\), odpala \(K\) z pytaniem (\(M_w,M_w\)),\
+    i odwraca jej odpowiedź. Wejście do wewnętrznej \(K\) jest ok. 2 razy większe niż do naszej \(N\), więc tu problemu nie ma. Co się jednak stanie, jeśli\
+    zapytamy \(N\) o samą siebie? Ona zapyta \(K\) czy \(N\) powinno zaakceptować \(N\) - czyli dokładnie interesujące nas pytanie - po czym odwróci\
+    odpowiedź! Oczywiście prowadzi to do sprzeczności, czyli maszyna \(K\) nie może istnieć.
+
+    Wiemy zatem że \(\textsc{TIME}(f(n)) \subsetneq \textsc{TIME}(f(n^3))\). Z tego wynika już to co chcemy:
+    \[
+        \p \subset \textsc{TIME}(2^n) \subsetneq \textsc{TIME}(2^{3n}) \subset \textsc{EXPTIME}
+    \]
+\end{proof}
+
+Jest to szczególny przypadek Twierdzenia o hierarchi czasu i de facto udowodniliśmy po drodzę jedną z jego wersji. Pewnie są prostsze sposoby, ale ten działa.
+
+\subsection{Tw. Savitch'a}
+
+Pozostaje jeszcze zająć się relacją między \( \pspace\) a \(\npspace \).
+
+\input{chapters/exam/computational_complexity/savitch}
+
+Możemy to podsumować w dość ciekawą hierarchię:
+
+\begin{corollary}
+    \( \textsc{REG} \subset \textsc{CFL} \subset \textsc{P} \subset \textsc{NP} \subset (\textsc{PSPACE} = \textsc{NPSPACE}) \subset \textsc{EXPTIME} \subset \textsc{R} 
+    \subset \textsc{RE} \)
+\end{corollary}
+
+\subsection{CSL, a P}
+
+Czy nie brakuje nam w poprzedniej hierarchi CSL? Okazuje się, że nie.
+
+Przypomnijmy, LBA ma rozwiązywalny problem stopu. Aby zapisać licznik ilości kroków w tym problemie, dzięki systemom liczbowym, wystarczy nam liniowo miejsca.
+
+Inplikuje to CSL \(\subset\) NPSPACE, zatem z tw. Savitch'a
+
+\begin{corollary}
+    CSL \(\subset\) PSPACE
+\end{corollary}
+
+Podamy również bez dowodu następujące fakty:
+
+\begin{lemma}
+    CSL \( \not \subset \) NP
+\end{lemma}
+
+Jest to intuicyjne - nie ma powodu, by nie miał istnieć problem o liniowej pamięci ale wykładniczym czasie.
+
+\begin{lemma}
+    NP \( \not \subset \) CSL
+\end{lemma}
+
+Również jest to intuicyjne - NP dopuszcza wielomianową pamięć, LBA jedynie liniową.
+
+Pozwala nam to umiejscowić CSL na naszej hierarchi - jest on równolegle do P, NP:
+
+\begin{corollary}
+    \( \textsc{CFL} \subset \textsc{CSL} \subset \textsc{PSPACE} \subset \textsc{R} \)
+\end{corollary}
+
+Tutaj można jednak zauważyć, że przecież LBA może rozwiązać 3-SATa, który jest NP-zupełny. Dlaczego więc NP \( \not \subset \) CSL? Jest to prawda,
+jednak 3-SAT jest NP-zupełny względem redukcji wielomianowej, nie liniowej. Prowadzi nas to jednak do ciekawej obserwacji: możemy na maszynie Turinga
+zredukować dowolny problem z NP do 3-SAT, który możemy już rozwiązać LBA. Ostatecznie uzyskujemy ciekawą obserwację
+
+\begin{corollary}
+    Jeżeli istniała by wyrocznia LBA w P, to P = NP.
+\end{corollary}
+
+Nie ma to wielkiego praktycznego znaczenia, jednak warto to rozumieć. Podobne zadania pojawiały się również na egzaminie.
+
+Zakończymy tę sekcję oczywistym faktem
+
+\begin{lemma}
+    CFL \(\subset\) CSL
+\end{lemma}
+
+Jest poniekąd ciekawe - przecież automat ze stosem może mieć na tym stosie nieskończenie wiele symboli; LBA - tylko liniowo. Okazuje się jednak że
+nic to nie daje, jeśli (PDA) ma dostęp tylko do jednego na raz.
