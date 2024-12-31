@@ -1,0 +1,16 @@
+\section{Problemy dla języków kontekstowych}
+
+\subsection{Problem stopu}
+
+\begin{lemma}
+    Problem stopu (w wersji tupli automat i słowo) dla automatów ograniczonych liniowo jest rozwiązywalny.
+\end{lemma}
+
+\begin{proof}
+    Pamięć zużywana przez LBA jest zależna silnie liniowo od wejścia - nawet jeżeli automat użyje wiele taśm, to jest to liczba dla konkretnego automatu ograniczona przez stałą.
+    Alfabet znaków automatu również jest stały. Liczba możliwych konfiguracji jest więc ograniczona wykładniczo. Możemy więc zliczać liczbę kroków takiego automatu - po
+    przekroczeniu pewnej liczby zależnej wyłącznie od automatu i długości wejścia, automat stan musi wystąpić dwa razy, czyli automat musi się zapętlić, czyli wiadomo, że nie zaakceptuje.
+    Pozostaje jeszcze zauważyć, że niedeterminizm LBA nic tu nie psuje, bo możemy symulować różne ścieżki obliczeń z odpowiednimi licznikami.
+\end{proof}
+
+Dzięki rozwiązywalności problemu stopu, problemy dla LBA generalnie zachowują się jak problemy z R.

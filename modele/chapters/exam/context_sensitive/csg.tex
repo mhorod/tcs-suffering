@@ -1,7 +1,7 @@
 \section{Gramatyki kontesktowe}
 
 \begin{definition}
-\textbf{Gramatyka kontekstowa} (Context-Free Grammar) to czwórka \( G = (N, \Sigma, P, S) \) gdzie
+\textbf{Gramatyka kontekstowa} (Context-Sensitive Grammar) to czwórka \( G = (N, \Sigma, P, S) \) gdzie
 \begin{itemize}
     \item \( N \) to skończony zbiór zmiennych (nieterminale)
     \item \( \Sigma \) - alfabet (terminale)
@@ -17,7 +17,12 @@ gdzie każda produkcja jest postaci:
     \alpha_1 A \alpha_2 \rightarrow_G \alpha_1 \gamma \alpha_2
 \]
 gdzie \( \alpha_1, \alpha_2, \gamma \in (N \cup \Sigma)^* \) oraz \( A \in N \)
-oraz \( |\gamma| \geq 1\) \\
+oraz \( |\gamma| \geq 1\). Dopuszczamy także produkcję 
+\[
+\( S \rightarrow \epsilon \)
+\]
+ale wówczas \( S \) nie może znajdować się po prawej stronie żadnej produkcji.
+
 Praktycznie wszystko co poznaliśmy z bezkontekstowych znajduje się też tutaj.
 
 \begin{definition}
@@ -28,7 +33,7 @@ Praktycznie wszystko co poznaliśmy z bezkontekstowych znajduje się też tutaj.
 \end{definition}
 
 \begin{definition}
-    Język jest kontekstowy (Context-Sensitive Language) jeśli jest generowany przez jakąś gramatykę kontekstową.
+    Język \(L \subset \Sigma^*\) należy do klasy języków \textbf{CSL} (context-sensitive language) jeśli istnieje taka CSG \(A\), że \(L(A) = L\).
 \end{definition}
 
 \begin{definition}
@@ -38,9 +43,9 @@ Praktycznie wszystko co poznaliśmy z bezkontekstowych znajduje się też tutaj.
         \alpha \rightarrow \beta \\
     \]
 \end{definition}
-    gdzie \( \alpha, \beta \in (N \cup \Sigma)^* \) oraz \( |\alpha| \leq |\beta|\)
+    gdzie \( \alpha, \beta \in (N \cup \Sigma)^* \) oraz \( |\alpha| \leq |\beta|\).
 
-Klasycznie dopuszczamy produkcję
+Klasycznie dopuszczamy także produkcję
 \[
         S \rightarrow \eps
 \]
@@ -53,5 +58,35 @@ Ciekawszy jest:\\
 
 \end{lemma}
 \begin{proof}
+Zaczynamy od stworzenia dla każdego terminalu \(a\) odpowiadającego nieterminalu \(X_a\), produkcji \(X_a \rightarrow a\) oraz podmianie \(a\) na \(X_a\) we wszystkich produkcjach.
+Następnie, dla każdej produkcji postaci
+\[
+\(A_1A_2...A_n \rightarrow B_1B_2...B_m\)
+\]
+tworzymy nieterminal  i dodajemy produkcje:
+\[
+\(DA_2A_3...A_n \rightarrow DB_2A_3...B_m\)
+\]
+\[
+\(DB_2A_3...A_n \rightarrow DB_2B_3A_4...B_m\)
+\]
+\[
+...
+\]
+\[
+\(DB_2...B_{n-1}A_n \rightarrow DB_2...B_{n-1}B_n\)
+\]
+\[
+\(DB_2...B_n \rightarrow B_1B_2...B_n\)
+\]
 
+a jeżeli \( m > n \) to dodatkowo
+
+\[
+\(A_1...A_n \rightarrow B_1...B_{n-1}C\)
+\]
+\[
+\(C \rightarrow B_nB_{n+1}...B_m\)
+\]
+gdzie pierwszą część podmieniamy jak poprzednio. Wszystkie te produkcje są kontekstowe. Udowodnienie że nic się nie psuje pozostawiamy czytelnikowi.
 \end{proof}
