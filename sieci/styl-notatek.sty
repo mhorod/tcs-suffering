@@ -1,0 +1,41 @@
+% trochę zmienialiśmy, a nie chce przez przypadek zepsuć innych dodając do maina
+\ProvidesPackage{styl-notatek}
+\usepackage{setspace}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+% Header styles
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textbf{\textit{\nouppercase{\leftmark}}}}
+\fancyhead[LO]{\textbf{\textit{\nouppercase{\rightmark}}}}
+\fancypagestyle{plain}{ %
+\fancyhf{} % remove everything
+\setcounter{secnumdepth}{4}
+
+\pagestyle{fancy}
+\fancyhead[L,C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{2pt}
+
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+%\titlespacing*{\paragraph}
