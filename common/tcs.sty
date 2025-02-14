@@ -30,6 +30,10 @@
 \DeclareRobustCommand{\stirling}{\genfrac\{\}{0pt}{}}
 \DeclareRobustCommand{\stirlingOne}{\genfrac[]{0pt}{}}
 
+% Better spacing
+\usepackage{setspace}
+\onehalfspacing
+
 % Better theorem styling
 \usepackage{thmtools}
 
@@ -158,3 +162,68 @@
 \let\eps\varepsilon
 \let\len\abs
 \newcommand{\continuum}{\mathfrak{c}}
+
+
+% Styles for code snippets
+\usepackage{listings}
+
+\definecolor{bggrey}{rgb}{0.953, 0.949, 0.949}
+\definecolor{commentColor}{rgb}{0.800, 0.800, 0.800}
+\definecolor{keywordColor}{rgb}{0.396, 0.678, 0.718} % {101, 173, 183}
+\definecolor{stringColor}{rgb}{0.329, 0.671, 0.855}
+\definecolor{variableColor}{rgb}{0.757, 0.800, 0.259} % {193, 204, 66}
+\definecolor{functionColor}{rgb}{0.549, 0.463, 0.753} % {140, 118, 192}
+
+\lstdefinestyle{codeStyle}{
+  commentstyle=\color{gray},
+  keywordstyle=\color{functionColor},
+  keywordstyle=[2]\color{variableColor},
+  keywordstyle=[3]\color{keywordColor},
+  stringstyle=\color{stringColor},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numberstyle=\sffamily\tiny\color{gray},
+  numbersep=4pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=1
+}
+\lstset{
+  style=codeStyle,
+  basicstyle=\ttfamily\footnotesize,
+  lineskip=-1.5pt
+}
+
+% Define style for a custom language
+\lstdefinelanguage{Cpp}{
+    keywords={},
+    morekeywords=[3]{for, do, if, else, break},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    string=[b]"
+}
+
+% Warning text box
+\usepackage{manfnt}
+\usepackage{pifont, mdframed}
+
+\newenvironment{warning}
+    {
+        \par\begin{mdframed}[
+            linewidth=0pt,
+            backgroundcolor=bggrey,
+            roundcorner=25pt,
+            innertopmargin=10pt, innerbottommargin=10pt,
+            innerrightmargin=15pt, innerleftmargin=10pt,
+            skipbelow=10pt, skipabove=10pt
+        ] 
+        \begin{list}{}{\leftmargin=1cm
+        \labelwidth=\leftmargin}\item[\dbend\;]}
+    {
+    \end{list}\end{mdframed}\par}

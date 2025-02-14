@@ -1,0 +1,14 @@
+\section{Metoda Eulera}
+\textit{Intuicja}: Narysować strzałki wskazujące kierunek funkcji w punkcie, po czym pójść po strzałkach. Dla równania \( y' = F(y) \) wyliczamy kolejne wartości \( y \), zaczynając od \( y_0 = y(0) \).
+\[
+    y_{k+1} = y_k + h \cdot F(y_k)
+\]
+I tak rozwiązujemy równanie różniczkowe numerycznie. Dla bardzo małych \( h \) będzie stabilne, dla większych nie. Problemy, dla których potrzeba bardzo małych \( h \) do dobrych wyników są \textit{sztywne}.
+
+\noindent
+\textbf{Niejawna metoda Eulera} \\
+Zaczynając od \( y_0 = y(0) \)
+\[
+    y_{k+1} = y_k + h \cdot F(y_{k+1})
+\]
+Daje lepszą stabilność niż podstawowy wariant.

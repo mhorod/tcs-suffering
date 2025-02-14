@@ -1,0 +1,20 @@
+\section{Interpolacja Newtona}
+Definiujemy \( R_i(x) \), takie żeby \( W(x) \) można było łatwo wyrazić w bazie \( R_i \):
+\[
+    R_i(x) = (x - x_0) \cdot \;\cdots\; \cdot (x - x_{i-1})
+\]
+\[
+    W_i(x) = W_{i-1}(x) + \alpha_i \cdot R_i(x) = y_0 + \alpha_1 \cdot R_1 + \cdots + \alpha_i \cdot R_i(x)
+\]
+Współczynniki \( \alpha_i \) dobieramy tak, żeby \( W_i(x_i) = y_i \).
+
+\noindent
+\textbf{Algorytm Neville'a} \\
+Można ulepszyć interpolację Newtona, stosując algorytm dynamiczny - ilorazy różnicowe.
+\[
+    c[i, i] = f(x_i)
+\]
+\[
+    c[i, j] = \frac{c[i + 1, j] - c[i, j - 1]}{x_j - x_i} \text{, dla i < j}
+\]
+Wtedy \( \alpha_i = c[0, i] \).

@@ -1,0 +1,14 @@
+\section{Kodowanie liczb w komputerze}
+\begin{itemize}
+    \item \textbf{Przez ułamki} - tylko liczby wymierne, dodawanie szybko zwiększa liczbę cyfr w liczniku i mianowniku
+    \item \textbf{Stałoprzecinkowe} - ograniczony zakres i marne wykorzystanie pamięci
+    \item \textbf{Zmiennoprzecinkowe}
+    \[
+        x = \plusminus (1+M) \cdot 2^w,
+    \]
+    gdzie \( w \) to wykładnik (cecha), a \( M \in (0, 1) \) to mantysa. Wykładnik zapisuje się z przesunięciem (\( 2^{b_w-1} - 1 \)). \\
+    Kodowanie zera: \;\quad\quad\quad\quad\quad\quad\( w = 0\dots0, \;M=0\dots0 \) \\
+    Kodowanie nieskończoności: \;\quad\( w = 1\dots1, \;M=0\dots0 \) \\
+    Kodowanie NaN: \;\quad\quad\quad\quad\quad\;\;\;\( w = 1\dots1, \;M \in (0, 1) \) \\
+    Kodowanie nieznormalizowane: \( w = 0\dots0, \;M \in (0, 1) \) - liczby mniejsze od \( 2^{-b_M} \)
+\end{itemize}

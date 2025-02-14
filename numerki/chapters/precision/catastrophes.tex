@@ -1,0 +1,16 @@
+\section{Utrata precyzji}
+Przy odejmowaniu podobnych na wielkość liczb może wystąpić utrata cyfr znaczących \linebreak (\textit{catastrophic cancellation}), czyli wybuch błędu względnego. Przy dodawaniu wielu liczb, jeśli błąd pojedyńczego dodawania jest równy \( \eps \), to końcowy wynik może różnić się od poprawnego \linebreak o coś rzędu \( O(n \eps) \).
+
+\subsection{Algorytm Kahana}
+\begin{multicols}{2}
+\begin{lstlisting}[language=Cpp]
+sum = 0, rest = 0
+for i = 1, ..., n do
+    x = xi + rest
+    sum1 = sum + x
+    rest = x - (sum1 - sum)
+    sum = sum1
+\end{lstlisting}
+\columnbreak
+Algorytm daje błąd bezwzględny \( O(\eps + n\eps^2) \).
+\end{multicols}

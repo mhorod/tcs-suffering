@@ -1,0 +1,33 @@
+\section{Programowanie liniowe}
+Zadanie programowania liniowego (ZPL) polega na maksymalizacji \( f(x) = c^Tx \), przy założeniach:
+\begin{itemize}
+\onehalfspacing
+    \item \( Ax \leq b \)
+    \item \( x \geq 0 \)
+\end{itemize}
+Obszar dopuszczalny (spełniający ograniczenia) jest hiperwielościanem wypukłym. Jeśli ZPL ma rozwiązanie, to musi być któryś z jego wierzchołków. \\
+Zadanie podstawowe przekształcamy na dualne tak:
+\begin{center}
+    \( \max c^Tx \quad\quad\quad\quad\quad \min b^Ty \) \\
+    \( Ax \leq b \quad\quad\rightarrow\quad\quad A^Ty \geq c \) \\
+    \( x \geq 0 \quad\quad\quad\quad\quad\quad\quad y \geq 0 \)
+\end{center}
+
+W zadaniu dualnym:
+\begin{itemize}
+\onehalfspacing
+    \item max przechodzi w min i odwrotnie
+    \item równania zamieniają się na zmienne
+    \item ograniczenia \( \leq \) w warunkach przechodzą na warunki \( y_i \geq 0 \) \\
+    (nierówności \( \leq \) tylko z dodatnim współczynnikiem)
+    \item ograniczenia \( \geq \) w warunkach przechodzą na warunki \( y_i \leq 0 \) \\
+    (nierówności \( \geq \) z ujemnym współczynnikiem)
+    \item ograniczenia równościowe przechodzą na zmienne nieograniczone \( y_i \in \mathbb{R} \) \\
+    (równości z dowolnym współczynnikiem)
+\end{itemize}
+Jeśli jedno zadanie jest nieograniczone, to drugie musi być niespełnialne.
+Jeśli zadanie podstawowe (prymalne) jest niespełnialne, to dualne jest nieograniczone lub niespełnialne, i odwrotnie.
+
+\noindent
+\textbf{Silne twierdzenie o dualności} \\
+Rozwiązanie zadania dualnego jest równe rozwiązaniu zadania prymalnego.
