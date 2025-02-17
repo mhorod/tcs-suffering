@@ -3,6 +3,7 @@
 for i = 1, ..., n
     m = max_j(|A[j][i]|)
     swap(A[i], A[m]) // partial pivoting
+    swap(L[i][:i], L[m][:i])
     a = A[i][i]
     for j = i+1, ..., n
         r = A[j][i] / a
