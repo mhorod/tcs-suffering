@@ -1,0 +1,23 @@
+\section{Algorytm Grama-Schmitta}
+span\( \{q_1, \dots, q_i\} \) = span\( \{a_1, \dots, a_i\} \)
+\begin{multicols}{2}
+\noindent
+Wersja podstawowa
+\begin{lstlisting}[language=Cpp]
+for i = 1, ..., n
+    qi = ai
+    for j = 1, ..., i-1
+        qi = qi - <ai, qj>qj
+    qi = qi / ||qi||
+\end{lstlisting}
+\columnbrake
+Wersja ulepszona
+\begin{lstlisting}[language=Cpp]
+for i = 1, ..., n
+    qi = ai / ||ai||
+    for j = i+1, ..., n
+        aj = aj - <aj, qi>qi
+\end{lstlisting}
+\end{multicols}
+\noindent
+Modyfikacja daje większą stabilność numeryczną. Ostatecznie \( R = Q^TA \) i \( Rx = Q^Tb \).

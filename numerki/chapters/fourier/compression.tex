@@ -1,0 +1,15 @@
+\section{Kompresja fal}
+\subsection{Kompresja dźwięku}
+Pomysł: Rozbić funkcję (sygnał) na małe przedziały i zamienić za pomocą DFT na częstotliwości. Zapamiętuje się tylko najmocniejsze, po czym kompresuje wybranym standardowym, bezstratnym algorytmem (np. Huffman).
+\begin{warning}
+    Pojawiają się problemy na granicach przedziałów.
+\end{warning}
+Aby ich uniknąć, zamiast transformaty Fouriera można użyć podobnej transformaty cosinusowej, na częściowo nakładających się przedziałach. Jest obliczalna w takim samym czasie. Najbardziej znany wariant to Zmodyfikowana Transformata Cosinusowa (MDCT), używana m. in. w kompresji MP3.
+\[
+    (x_0, \dots, x_{2n-1}) \rightarrow (X_0, \dots, X_{n-1})
+\]
+\[
+    X_k = \sum x_j \cos\left(\frac{\pi}{n}\left(j + \frac{n + 1}{2}\right)\cdot\left(\frac{k+1}{2}\right)\right)
+\]
+\subsection{Kompresja obrazu}
+Kompresja JPEG działa na podobnej zasadzie. Dzielimy obrazek na bloki i zamieniamy transformatą na częstotliwości. Potem zmniejszamy dokładność zapisu częstotliwości i na koniec kompresujemy bezstratnie (np. Huffman).

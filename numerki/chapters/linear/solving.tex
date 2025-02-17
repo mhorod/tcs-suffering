@@ -1,0 +1,12 @@
+\section{Rozwiązywanie eliminacją Gaussa}
+Mając \( Ax = b \) (czyli \( LUx = b \) ), najpierw rozwiązujemy \( Ly = b \), a
+potem \( Ux = y \) - wszystko w \( O(n^2) \). \\
+
+\noindent
+Układ Ux = b rozwiązuje się tak:
+\begin{lstlisting}[language=Cpp]
+for i = n, ..., 1
+    x[i] = b[i]
+    for j = i + 1, ..., n
+        x[i] -= U[i][j] * x[j]
+\end{lstlisting}

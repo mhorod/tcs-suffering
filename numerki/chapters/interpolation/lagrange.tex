@@ -1,0 +1,13 @@
+\section{Interpolacja Lagrange’a}
+Znajdujemy wielomiany \( P_0, \dots, P_n \) t.że: \\
+\[
+    P_i(x_j) = \mathbbm{1}[i=j]
+\]
+\[
+    P_i(x) = \frac{\prod_{s \neq i}\; (x - x_s)}{\prod_{s \neq i}\; (x_i - x_s)}
+\]
+Wtedy \( W(x) = \sum_{i=1}^{n} P_i(x) \cdot y_i \).
+
+\begin{warning}
+    Dzielimy przez \( \prod_{s \neq i}\; (x_i - x_s) \), a to może być prawie zerem.
+\end{warning}

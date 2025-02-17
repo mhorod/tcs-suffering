@@ -1,0 +1,15 @@
+\section{Metoda bisekcji}
+\begin{multicols}{3}
+\noindent
+\( p_0 = a, q_0 = b \) \\
+\( x_n = \frac{p_n + q_n}{2} \) \\
+\columnbrake
+\( (p_n, q_n) \) =
+\begin{cases}
+    \( (p_{n-1}, x_{n-1}) \) & \text{\( f(p_{n-1}) \cdot f(x_{n-1}) < 0 \)} \\
+    \( (x_{n-1}, q_{n-1}) \) & \text{wpp}
+\end{cases}
+\columnbrake
+\end{multicols}
+\noindent
+Zbieżność liniowa - \( k \) cyfr znaczących wymaga \( O(k) \) kroków

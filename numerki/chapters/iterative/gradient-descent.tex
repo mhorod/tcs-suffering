@@ -1,0 +1,21 @@
+\section{Metoda najszybszego spadku}
+Załóżmy, że macierz \( A \) jest symetryczna i dodatnio określona (zawsze można przejść na \( A^TAx = A^Tb \)). Żeby dostać rozwiązanie wystarczy znaleźć minimum funkcji
+\[ 
+    f(x) = \frac{1}{2}x^TAx - b^Tx
+\]
+Gradient funkcji \( \nabla f = Ax - b \) rzeczywiście zeruje się w rozwiązaniu, a hesjan to \( A \).
+\[
+    x_{k+1} = x_k + \alpha(b - Ax_k)
+\]
+Niech \( d = b - Ax \). Szukamy minimum funkcji jednej zmiennej
+\[
+    g(\alpha) = f(x + \alpha d)
+\]
+metodą najszybszego spadku:
+\begin{lstlisting}[language=Cpp]
+    x = 0
+    for k = 1, 2, 3, ...
+        d = b - Ax
+        alpha = <d,d> / <d,Ad>
+        x = x + alpha * d
+\end{lstlisting}

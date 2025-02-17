@@ -1,0 +1,15 @@
+Dla zadanych węzłów \( x_0, \dots, x_n \) oraz \( y_0, \dots, y_n \) chcemy znaleźć wielomian \( W(x) \) stopnia \( n \), dla którego \( W(x_i) = y_i \). \\
+Może istnieć tylko jeden taki wielomian i na pewno istnieje. Współczynniki są rozwiązaniem układu równań zadanego przez macierz Vandermonda.
+\begin{warning}
+    Macierz Vandermonda, chociaż zawsze nieosobliwa, jest źle uwarunkowana.
+\end{warning}
+
+\textbf{Twierdzenie} \\
+Jeśli \( f \in C^{n+1}[a, b] \) jest funkcją, którą interpolujemy wielomianem \( p \) w \( x_0, \dots, x_n \in [a, b] \), to:
+\[
+    \abs{f(x) - p(x)} \leq \frac{1}{(n + 1)!} \max\:\abs{f(n+1)}\; \prod_{i=0}^{n}\; (x - x_i)
+\]
+\begin{warning}
+    Dla niektórych funkcji przy interpolacji wielomianem w równomiernych węzłach, błąd przybliżenia rośnie, ile chce \( \rightarrow \) zjawisko Rungego. Wybór węzłów ma znaczenie.
+\end{warning}
+Zera wielomianów Czebyszewa \( T_k(x) = \cos(k \arccos(x)) \) to dobry wybór.

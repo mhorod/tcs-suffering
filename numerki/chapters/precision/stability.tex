@@ -1,0 +1,29 @@
+\section{Uwarunkowanie zadania i stabilność algorytmu}
+Dana jest liczba t, należy wyznaczyć wartość pewnej funkcji \( f(t) \). \\
+\textbf{Współczynnik uwarunkowania} to taka liczba \( A = A(f,t) \), dla której
+\[
+    \norm{f(t) - f(t^*)} \leq  A\cdot\norm{t - t^*},
+\]
+\( A \approx f'(t) \) dla rozsądnych funkcji \( f \). \\
+
+\noindent
+Dane jest równanie \( g(x) = 0 \), należy wyznaczyć \( x \). \\
+\textbf{Współczynnik uwarunkowania} to taka liczba \( A = A(g,x) \), dla której
+\[
+    \norm{x - x^*} \leq  A\cdot\norm{g(x) - g(x^*)},
+\]
+\( A \approx \frac{1}{g'(x)} \) dla rozsądnych funkcji \( f \). \\
+Problem jest dobrze uwarunkowany, jeśli małe zaburzenia
+danych wejściowych spowodują małą zmianę wyniku. \\
+
+\noindent
+\textbf{Współczynnik uwarunkowania macierzy A} to \( \kappa = \norm{A} \cdot \norm{A^{-1}} \). Dla równania \( Ax^* = b^* \) z zaburzoną wartością \( b \)
+\[
+    \frac{\norm{x-x^*}}{\norm{x}} \leq \kappa(A) \cdot \frac{\norm{b-b^*}}{\norm{b}}
+\]
+Układy równań z wysokim \( \kappa \) są trudne do rozwiązania numerycznie. \\
+
+\noindent
+Dane jest \( x \) oraz algorytm obliczający \( A(x) \), które przybliża \( f(x) \). Algorytm jest \textbf{numerycznie poprawny}, jeśli dla każdego \( x \) istnieje \( x^* \) które dobrze przybliża \( x \) oraz \( A(x^*) \) dobrze przybliża \( f(x) \).
+Algorytm jest \textbf{numerycznie stabilny}, jeśli małe błędy na wejściu
+lub podczas działania algorytmu powodują małe zmiany wyniku.
