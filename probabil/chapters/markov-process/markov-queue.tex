@@ -1,0 +1,150 @@
+\subsection{Definicja}
+
+W różnych sytuacjach, zwłaszcza w informatyce, mamy do czynienia z kolejkami do których przychodzą zdarzenia w pewnym sensie losowo, i które są potem obsługiwane również względnie losowo. 
+Kolejka Markowa służy właśnie do modelowania takich procesów.
+
+Na opisanie modelu kolejki będziemy stosować notację \( Y / Z / n \), gdzie:
+\begin{enumerate}
+    \item \( Y \) opisuje rozkład z jakim przychodzą zdarzenia (klienci)
+    \item \( Z \) opisuje rozkład czasu jaki zajmuje obsłużenie pojedynczego klienta
+    \item \( n \) mówi ile mamy wątków, które jednocześnie będą obsługiwać zapytania z kolejki
+\end{enumerate}
+
+\subsection{Kolejka \( M / M / 1 \) }
+\( M \) w naszej definicji oznacza \textit{Memoryless}.
+Innymi słowy, nowi klienci przychodzą zgodnie z procesem Poissona z parametrem \( \lambda \)
+a czas obsługi (przez jedyny wątek) ma rozkład wykładniczy z parametrem \( \mu \).
+
+Liczbę klientów oczekujących w kolejce możemy modelować procesem Markowa 
+\( \set{ M_t \mid t \geq 0 } \)
+
+Niech \( P_k(t) = P(M_t = k) \) oznacza prawdopodobieństwo na to, że obecnie w kolejce mamy \( k \) klientów.
+
+\begin{theorem}[strona 231 P\&C]
+    Niech \( \bar \pi \) będzie rozkładem stacjonarnym naszego procesu. Wtedy
+   \[ \pi_k = \pars{1 - \frac{\lambda}{\mu}}\pars{\frac{\lambda}{\mu}}^k \]
+\end{theorem}
+
+Oczekiwana liczba klientów w kolejce wynosi
+\begin{align*}
+    C 
+    &= \sum_{k=0}^{\infty} k \pi_k \\
+    &= \frac{\lambda}{\mu} \sum_{k=1}^\infty k \cdot \pars{1 - \frac{\lambda}{\mu}}\pars{\frac{\lambda}{\mu}}^{k-1} \\
+    &= \frac{\lambda}{\mu} \cdot \frac{1}{1 - \lambda / \mu} \\
+    &= \frac{\lambda}{\mu - \lambda}
+\end{align*}
+W drugim przejściu zauważamy, że wygląda to jak rozkład geometryczny z parametrem \( p = 1 - \frac{\lambda}{\mu} \),
+którego wartość oczekiwana wynosi \( \frac{1}{p} \)
+
+\subsection{Kolejka M/M/1/K}
+Ograniczamy rozmiar naszej kolejki przez \( K \) -- każdy klient ponad nadmiar jest odsyłany z kwitkiem.
+Jaki teraz mamy rozkład stacjonarny?
+
+\begin{theorem}[strona 233 P\&C]
+    Rozkład stacjonarny kolejki ograniczonej przez \( K \) ma postać:
+    \[
+        \pi_0 = \frac{1}{\sum_{k=0}^K \pars{\lambda/\mu}^k}
+    \]
+    \[
+        \pi_k = \begin{cases}
+            \pi_0 \cdot \pars{\frac{\lambda}{\mu}}^k & \text{ gdy } k \leq K \\
+            0 & \text{ gdy } k > K
+        \end{cases}
+    \]
+    
+\end{theorem}
+  
+\subsection{Ćwiczenia}
+\begin{exercise}
+    Do małego kantoru przychodzą klienci zgodnie z procesem Poissona w tempie 0.2 klienta na minutę.
+    Średni czas obsługi klienta zajmuje 2 minuty.
+    Ponieważ pomieszczenie jest niewielkie to kolejka mieści maksymalnie dwóch klientów (nie licząc obecnie obsługiwanego), jeśli kolejka jest pełna to 
+    nowy klient udaje się gdzie indziej.
+    
+    \begin{enumerate}
+        \item Zamodeluj ten proces jako proces Markowa -- wyznacz graf stanów i macierz przejścia.
+        \item Wyznacz rozkład stacjonarny procesu oraz jego łańcucha
+        \item Asymptotycznie jaką część czasu kolejka jest pełna?
+        \item Asymptotycznie jaka część klientów uda się gdzie indziej z uwagi na pełną kolejkę?
+        \item W tym momencie w kolejce czeka dokładnie jeden klient. Jakie jest prawdopodobieństwo, że zostanie obsłużony zanim przyjdzie kolejna osoba?
+    \end{enumerate}
+\end{exercise}
+\begin{proof} \( \)
+    \begin{enumerate}
+        \item 
+        Na początek warto przetłumaczyć opis słowny na model matematyczny.
+        Mamy dany proces Poissona z parametrem \( \lambda = 0.2 \)
+        
+        Zakładamy, że czas przetwarzania ma rozkład wykładniczy (bo w sumie nie przerabialiśmy żadnej innej opcji)
+        i skoro oczekiwany czas wynosi 2 to musi mieć on parametr \( \mu = \frac{1}{2} \)
+        
+        
+        Będziemy mieli trzy możliwe stany \( 0, 1, 2, 3 \) na możliwe liczby osób w kantorze (wliczając w to osobę obsługiwaną) między którymi przejścia
+        opisuje macierz
+        \[
+            \mathbf{P} = \begin{bmatrix}
+                0 & 1 & 0 & 0\\
+                p & 0 & 1 - p & 0 \\
+                0 & p & 0 & 1 - p \\
+                0 & 0 & 1 & 0
+            \end{bmatrix}
+        \]
+        
+        Wyjaśnijmy co tu się dzieje:
+        \begin{itemize}
+            \item Jeśli w kantorze jest 0 klientów to jedyne co się 
+            może zdarzyć to przyjść nowy, i w ten sposób mamy jednego klienta z prawdopodobieństwem 1
+            
+            \item Kiedy mamy jednego lub dwóch klientów to są dwie opcje -- albo przychodzi nowy klient i kolejka rośnie o 1 albo obsłużony zostaje obecny klient i kolejka maleje o 1.
+            \( p \) jest tutaj prawdopodobieństwem, że kolejka maleje, czyli że zanim przyjdzie kolejna osoba to kończymy obsługiwać obecną.
+            
+            \item Jeśli kantor jest pełny (czyli są w nim trzy osoby) to jedyne co może się stać, to może zostać obsłużony klient i zwolnić jedno miejsce.
+        \end{itemize}
+        
+        Pasowałoby policzyć \( p \) - czyli prawdopodobieństwo, że obsłużymy klienta zanim przyjdzie kolejny.
+        Mamy dwie zmienne wykładnicze \( X \) z parametrem \(\lambda\) oraz \( Y \) z parametrem \( \mu \). \( X \) liczy czas do przyjścia kolejnego klienta a \( Y \) czas do końca obsługi obecnego.
+        
+        \( p = P(\min(X, Y) = Y) = \frac{\mu}{\mu + \lambda} = \frac{0.5}{0.7} = \frac{5}{7} \)
+        
+        Potrzebujemy jeszcze wyznaczyć parametry \( \lambda_0, \lambda_1, \lambda_2, \lambda_3 \) dla czasów spędzonych w każdym ze stanów.
+        
+        Łatwo pokazać, że \[
+            \begin{cases}
+                \lambda_0 = \lambda = 0.2 \\
+                \lambda_1 = \lambda + \mu = 0.7 \\
+                \lambda_2 = \lambda + \mu = 0.7 \\
+                \lambda_3 = \mu = 0.5 \\
+            \end{cases}
+        \]
+        
+        \item
+            Dla procesu rozwiązujemy układ równań
+            \[
+                \begin{cases}
+                    \pi_0 \lambda_0 = \pi_1 \lambda_1 \cdot p \\
+                    \pi_1 \lambda_1 = \pi_0 \lambda_0 \cdot 1 + \pi_2 \lambda_2 \cdot p \\
+                    \pi_2 \lambda_2 = \pi_1 \lambda_1 \cdot (1 - p) + \pi_3 \lambda_3 \cdot 1 \\
+                    \pi_3 \lambda_3 = \pi_2 \lambda_2 \cdot (1 - p) \\
+                    \pi_0 + \pi_1 + \pi_2 + \pi_3 = 1
+                \end{cases}
+            \]
+            
+            Dla łańcucha jest podobnie, tylko bez lambd
+            \[
+                \begin{cases}
+                    \pi'_0 = \pi'_1 \cdot p \\
+                    \pi'_1 = \pi'_0 \cdot 1 + \pi'_2 \cdot p \\
+                    \pi'_2 = \pi'_1 \cdot (1 - p) + \pi'_3 \cdot 1 \\
+                    \pi'_3 = \pi'_2 \cdot (1 - p) \\
+                    \pi'_0 + \pi'_1 + \pi'_2 + \pi'_3 = 1
+                \end{cases}
+            \]
+            
+        \item Sprawdzamy \( \pi_3 \) wyliczone w poprzednim punkcie
+        
+        \item Klienci widzą stan kolejki zgodny z rozkładem stacjonarnym, zatem asymptotycznie \( \pi_3 \) klientów zobaczy pełną kolejkę. 
+        
+        \item jest to dokładnie \( p \)
+            
+    \end{enumerate}
+\end{proof}

@@ -1,0 +1,94 @@
+\begin{theorem}[Lemat 10.2 P\&C]
+    \label{entropy-binomial-coefficients-base}
+    Niech \( n \in \natural, q \in \brackets{0, 1} \) oraz \( nq \in \natural \). Wtedy
+    \[
+        \frac{2^{nH(q)}}{n + 1} \leq \binom{n}{nq} \leq 2^{nH(q)}
+    \]
+\end{theorem}
+\begin{proof}
+    Dla \( q = 0 \) i \( q = 1 \) dowód jest oczywisty. Niech zatem \( q \in (0, 1) \)
+    \begin{enumerate}
+        \item Pokażmy najpierw ograniczenie górne.
+        
+        Ponieważ \( nq \in \natural \) wyrażenie \( \binom{n}{nq} \) występuje we wzorze
+        \[
+            1 = (q + (1-q))^n = \sum_{k=0}^n \binom{n}{k} q^k(1-q)^{n-k} = \binom{n}{nq}
+            q^{qn}(1-q)^{(1-q)n} + \text{coś}
+        \]
+        Zatem 
+        \[
+            \binom{n}{nq} \leq q^{-qn}(1-q)^{-(1-q)n} = 2^{-nq\lg q - n(q-1)\lg(1-q)} = 2^{nH(q)}
+        \]
+        
+        \item Teraz pokażemy ograniczenie dolne. 
+        
+        Będziemy chcieli pokazać, że \( \binom{n}{q}q^{qn}(1-q)^{(1-q)n} \) 
+        jest największym składnikiem sumy -- w ten sposób dostaniemy
+        \[
+            \binom{n}{nq}q^{qn}(1-q)^{(1-q)n} \geq \frac{1}{n+1}
+        \]
+        co przekształcamy do postulowanej nierówności tak jak zrobiliśmy to przed chwilą.
+        
+        Różnica dwóch kolejnych składników sumy wynosi
+        \[
+            \binom{n}{k}q^k(1-q)^{n-k} - \binom{n}{k+1}q^{q+1}(1-q)^{n-k-1}
+        \]
+        \[
+            = \binom{n}{k}q^k(1-q)^{n-k} \cdot \pars{1 - \frac{n - k}{k + 1} \cdot \frac{q}{1-q}}
+        \]
+        
+        Jak wyliczymy nawias do sensownej postaci to nam wyjdzie, że jest on dodatni tylko gdy 
+        \[
+            k \geq qn - 1 + q
+        \]
+        
+        W takim razie pierwszym takim \( k \) jest \( k = qn \), czyli \( qn\)-ty składnik jest tym największym.
+    \end{enumerate}
+\end{proof}
+\begin{theorem}[Wniosek 10.3 P\&C] \( \) \\
+   Dla \( 0 \leq q \leq \frac{1}{2} \)
+    \[
+        \frac{2^{nH(q)}}{n + 1} \leq \binom{n}{\floor{nq}} \leq 2^{nH(q)} 
+    \]
+    Dla \( \frac{1}{2} \leq q \leq 1 \)
+    \[
+        \frac{2^{nH(q)}}{n + 1} \leq \binom{n}{\ceil{nq}} \leq 2^{nH(q)} \\
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Pokażmy najpierw ograniczenia górne.
+
+    
+        Skorzystamy tutaj z prostej obserwacji:
+        \[
+            \floor{nq} \leq nq \leq \ceil{nq}
+        \]
+        
+        Zobaczmy jak to wygląda dla pierwszego przypadku.
+        Skoro \( \floor{nq} \leq nq \) oraz \( q \leq \frac{1}{2} \) to 
+        \( q^{qn} \leq q^{\floor{qn}} \) 
+        oraz 
+        \( (1-q)^{n - qn} \leq (1-q)^{n - \floor{qn}} \)
+        , a zatem
+        
+        \[
+            \binom{n}{\floor{nq}} q^{qn}(1-q)^{(1-q)n} 
+            \leq \binom{n}{\floor{nq}} q^{\floor{qn}}(1-q)^{n - \floor{qn}} \leq 1
+        \]
+        
+        Stąd stosujemy rozumowanie pokazane w dowodzie twierdzenia \ref{entropy-binomial-coefficients-base} aby dostać ograniczenie górne.
+        
+        Analogicznie pokazujemy przypadek drugi.
+        
+        
+    \item Przejdźmy teraz do ograniczeń dolnych i ponownie ograniczmy się do pierwszego przypadku.
+    
+        Najlepiej byłoby pokazać
+        \[
+            \binom{n}{\floor{nq}}q^{qn}(1-q)^{(1-q)n} \geq \frac{1}{n+1}
+        \]
+ 
+        ale niestety w książce tego nie ma (jest za to blef) a na wykładzie tego nie omawialiśmy.
+    \end{enumerate}
+\end{proof}

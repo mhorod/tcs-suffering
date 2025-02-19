@@ -1,0 +1,69 @@
+\begin{definition}
+    \textbf{Procesem stochastycznym} nazywamy dowolny zbiór zmiennych losowych \(\set{X(t) : t \in T}\).
+    Zwykle \(t\) oznacza moment w czasie, a \(X(t)\) jest \textbf{stanem} tego procesu w czasie \(t\) i zapisujemy \(X_t\) \\
+    Mówimy, że proces jest \textbf{skończony} jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
+\end{definition}
+
+\begin{definition}
+    \textbf{Procesem Markowa} (czasu homogenicznego) nazywamy taki proces stochastyczny \(X_0, X_1, X_2, \dots\) w którym dla dowolnego \(t\) zachodzi
+    \[ 
+        P(X_t = a_t \mid X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, \dots X_0 = a_0) =
+        P(X_t = a_t \mid X_{t-1} = a_{t-1}) 
+    \]
+\end{definition}
+
+Innymi słowy aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci.
+
+Warto zauważyć, że \textbf{nie oznacza to}, że \(X_t\) jest niezależne od \(X_{t-2}, X_{t-3}, \dots\) --
+jest, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\).
+
+\begin{definition}
+    Łańcuch Markowa jest \textbf{czasu homogenicznego} jeśli \(
+    P(X_t = a_t \mid X_{t-1} = a_{t-1} \land t = t_0) = P(X_t = a_t \mid X_{t-1} = a_{t-1})
+    \)
+\end{definition}
+Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie czas w którym ten stan ma miejsce.
+
+\begin{definition}
+    \textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) taką, że 
+    \[
+        P_{i, j} = P(X_t = j \mid X_{t-1} = i)
+    \]
+    oraz
+    \[
+        \forall_i : \sum_j P_{i, j} = 1
+    \]
+\end{definition}
+
+\begin{definition}
+    \textbf{Rozkładem stacjonarnym} nazywamy wektor \( \bar \pi \) taki, że \( \bar \pi = \bar \pi \mathbf{P} \) oraz \( \sum_i \bar \pi_i = 1 \)
+\end{definition}
+Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p(n, n + 1) = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
+
+\begin{exercise}
+    Niech dana będzie macierz \( Q \) wymiaru \( n \times n \), taka, że suma wartości w każdym wierszu wynosi 1.
+    Rozważmy łańcuch Markowa na \( n \) stanach zadany tą macierzą.
+    
+    \begin{enumerate}
+        \item Czy ma on rozkład stacjonarny?
+        \item Co jeśli wszystkie wartości macierzy są dodatnie?
+        \item Co jeśli dodatkowo suma wartości w każdej kolumnie wynosi 1?
+    \end{enumerate}
+\end{exercise}
+\begin{proof}
+    \begin{enumerate}
+        \item Nie.
+        Łańcuch zadany macierzą
+        \[
+            \begin{bmatrix}
+                1 & 0 \\
+                0 & 1 
+            \end{bmatrix}
+        \]
+        nie ma jednoznacznego rozkładu stacjonarnego.
+        
+        \item Tak
+        
+        \item Tak, a ponadto \( \bar \pi = \brackets{\frac{1}{n}, \dots, \frac{1}{n}} \)
+    \end{enumerate}
+\end{proof}

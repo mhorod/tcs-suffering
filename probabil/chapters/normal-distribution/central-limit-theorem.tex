@@ -1,0 +1,98 @@
+Centralne Twierdzenie Graniczne jest jednym z najważniejszych twierdzeń w tym syfie.
+Twierdzenie to mówi, że jak mamy pewne zmienne losowe (niekoniecznie o takim samym rozkładzie) to rozkład średnich tych wylosowanych wartości będzie zbiegać do rozkładu normalnego po wykonaniu pewnej, dużej liczby prób.
+Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
+\begin{definition}
+    Ciąg dystrybuant \( F_1, F_2, ... \) zbiega w dystrybuancie do dystrybuanty \( F\), oznaczanej \(F_n \to F \) jeśli dla każdego \(a \in \mathbb{R} \) w których \( F \) jest ciągła zachodzi:
+    \[
+        \lim_{n \to \infty} F_n(a) = F(a)
+    \]
+\end{definition}
+
+\begin{theorem}[CTG]
+    Niech \( X_1, X_2, ... X_n\) będą niezależnymi zmiennymi losowymi o takim samym rozkładzie i średniej \( \mu\) i wariancji \( \sigma^2\). Niech \( \bar{X_n} = \frac{1}{n}\sum_{i=1}^n X_i \). Wówczas dla dowolnych \(a, b\)
+    \[
+        \lim_{n \to \infty} P \left( a \leq \frac{ \bar{X_n} - \mu}{\sigma/\sqrt{n}} \leq b \right) \to \Phi(b) - \Phi(a)
+    \]
+\end{theorem}
+    Oznacza to, że średnia \( \bar{X_n}\) zbiega w dystrybuancie do rozkładu normalnego z odpowiednią wariancją i wartością oczekiwaną.
+    Na wykładzie nie pokazywaliśmy dowodu następującego twierdzenia
+    
+\begin{theorem}
+    Twierdzenie Lévy’ego-Craméra: Niech \( Y_1, Y_2, ...\)
+    będzie sekwencją zmiennych losowych gdzie \(Y_I\) ma dystrybuantę \(F_i\) i funkcję tworzącą momenty \( M_i\). Niech \(Y\) będzie zmienną losową o dystrybuancie \(F\) i funkcji tworzącej momenty \(M\) 
+    Jeśli \(\lim_{n \to \infty}M_n(t) = M(t)\) dla wszystkich \(t\) to \(F_n \to F\) dla wszystkich \(t\) dla których \( F(t)\) jest ciągła.
+\end{theorem}
+MGF - Moment Generating Function
+\begin{proof}
+    (CTG)\\
+    Definiujemy \( Z_i = (X_i - \mu)/\sigma \).
+    Wówczas \( Z_i\) są to niezależne zmienne losowe o \[\expected{Z_i} = 0, \variance{Z_i} = 1 \]
+    oraz:
+    \[
+    \frac{\bar{X_n} - \mu}{\sigma/\sqrt{n}} = \frac{\sqrt{n}}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma} = \frac{\sum_{i=1}^nZ_i}{\sqrt{n}}
+    \]
+    Chcielibyśmy teraz zastosować przywołane przez nas twierdzenie Levy'ego i tego drugiego.
+    W tym celu chcemu pokazać że MGF zmiennych losowych 
+    \[
+    Y_n = \frac{\sum_{i=1}^nZ_i}{\sqrt{n}}
+    \]
+    zbiegają do MGF zmiennej losowe o standardowym rozkładzie normalnym.
+    Jest to oczywiste, że chcemy pokazać w tym celu coś takiego pięknego:
+    \[
+    \lim_{n \to \infty}\expected{e^{t\sum_{i=1}^nZ_i/\sqrt{n}}} = e^{t^2/2}
+    \]
+    Niech \( M(t) = \expected{e^{tZ_i}} \) będzie MGF zmiennej \( Z_i\). Czyli MGF zmiennej losowej \( Z_i/\sqrt{n}\) jest:
+    \[
+    \expected{e^{Z_i/\sqrt{n}}} = M\left( \frac{t}{\sqrt{n}}\right)
+    \]
+    Ponieważ \( Z_i\) są niezależne i mają ten sam rozkład:
+    \[
+    \expected{e^{\sum_{i=1}^nZ_i/\sqrt{n}}} = \left(M\left( \frac{t}{\sqrt{n}}\right) \right)^n
+    \]
+    Przyjmijmy z dupy że \(L(t) = \ln{M(t)}\). Policzmy kilka śmiesznych rzeczy takich jak: pierwsza i druga pochodna \(L(0)\) które się nam kiedyś przydadzą.
+    Zacznijmy od trywialnych obserwacji:
+    \[
+    M(0) = 1 \to L(0) = 0
+    \]
+    \[
+    L'(0) = \frac{M'(0)}{M(0)} = \expected{Z_i} = 0
+    \]
+    \[
+    L''(0) = \frac{M(0)M''(0) - (M'(0))^2}{(M(0))^2} = \expected{Z_i^2} = 1
+    \]
+    Musimy pokazać że \(M(t/\sqrt{n})^n \to e^{t^2/2}\) lub równoważnie \(nL(t/\sqrt{n}) \to t^2/2\). WOW. Jak się jednak okazało to \(L\) nie było z dupy.
+    Aplikujemy teraz deLopitala (czasami błednie nazywany L’Hôpital) dwukrotnie:
+    \[
+    \lim_{n \to \infty}\frac{L(t/\sqrt{n})}{n^{-1}}
+    \]
+    \[
+    =\lim_{n \to \infty}\frac{-L'(t/\sqrt{n})n^{-3/2}t}{-2n^{-2}}
+    \]
+    \[
+    =\lim_{n \to \infty}\frac{L'(t/\sqrt{n})t}{2n^{-1/2}}
+    \]
+    \[
+    =\lim_{n \to \infty}\frac{-L''(t/\sqrt{n})n^{-3/2}t^2}{-2n^{-3/2}}
+    \]
+    \[
+    =\lim_{n \to \infty}L''(t/\sqrt{n})\frac{t^2}{2}
+    \]
+    \[
+    =\frac{t^2}{2}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Niech $X_1,\ldots,X_n$ będzie ciągiem niezależnych zmiennych losowych z $\mathbb{E}\left[ X_i \right] = \mu_i$ i $\variance{X_i} = \sigma_i^2$. Niech zachodzi
+    \begin{enumerate}
+        \item $\exists_{M>0} \ \forall_{i \in [n]} \ P\left( \left|X_i\right|<M \right) = 1 $
+        \item $ \lim_{n \to \infty} \sum_{i=1}^{n} \sigma_i^2 = +\infty$.
+    \end{enumerate}
+    Wówczas $$ P\left( a \le \frac{ \sum_{i=1}^{n} \left( X_i - \mu_i \right) }{\sqrt{ \sum_{i=1}^{n} \sigma_i^2} } \le  b  \right) \xrightarrow{D} \Phi\left( b  \right) - \Phi\left( a  \right) . $$ 
+\end{theorem}
+
+\begin{theorem}[Berry-Ess\'een]
+    Istnieje taka stała $C$, że zachodzi następujące: niech $X_1,\ldots,X_n$ będą niezależnymi zmiennymi losowymi o tym samym rozkładzie ze skończoną wartością oczekiwaną $\mu$ i wariancją $\sigma^2$. Dalej niech $\rho = \mathbb{E}\left[ \left|X_i-\mu\right|^3 \right] < \infty $ i $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_i$. Mamy
+    $$ \left|P\left( \frac{\overline{X}_{n}-\mu}{\frac{\sigma}{\sqrt{n} }} \le a \right) - \Phi\left( a  \right) \right| \le C\cdot \frac{\rho}{\sigma^3 \sqrt{n} } .$$ 
+\end{theorem}
+

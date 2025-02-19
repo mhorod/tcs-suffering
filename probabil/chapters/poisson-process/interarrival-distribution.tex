@@ -1,0 +1,71 @@
+\begin{theorem}[Twierdzenie 8.11 P\&C]
+    Niech \(\set{N(t) \mid t \geq 0}\) będzie procesem stochastycznym takim, że
+    \begin{enumerate}
+        \item N(0) = 0
+        \item Czasy między kolejnymi zdarzeniami są niezależne i zadane rozkładem wykładniczym 
+        z parametrem \( \lambda \)
+    \end{enumerate}
+    Wtedy proces ten jest procesem Poissona z parametrem \( \lambda \)
+\end{theorem}
+\begin{proof}
+    Pokażemy kolejne własności z definicji \ref{poisson-process-definition}
+    
+    \begin{enumerate}
+        \item \( N(0) = 0 \) z definicji
+        
+        \item Weźmy dowolne dwa przedziały \( [b, a] \cap [d, c] = \varnothing \), przy czym \( d > a \)
+        
+        W chwili \( d \) ,,toczy się'' pewna zmienna \( X \) licząca czas między dwoma zdarzeniami.
+        Możemy ją ,,zresetować'' albo bardziej formalnie warunkować się po tym, że \( X > t \) gdzie \( t \) jest czasem od poprzedniego zdarzenia do chwili \( d \).
+        
+        Rozkład \( X \) pod warunkiem, że \( X > t \) jest wykładniczy z parametrem \( \lambda \) i jest niezależny od tego co się działo przed \( d \), zatem wszystko co zarejestrujemy na przedziale \( [d, c] \) jest niezależne od zdarzeń na przedziale \( [b, a] \).
+        
+        \item Aby pokazać, że rozkład \( N(s + t) - N(s) \) jest taki sam jak rozkład \( N(t) \) zrobimy tę samą sztuczkę co przed chwilą - w chwili \( s \) resetujemy ostatnią zmienną. Wszystko teraz dzieje się na przedziale długości \( t \) bez żadnych zależności od tego co było wcześniej, zatem rozkład liczby zdarzeń musi być taki sam jak rozkład \( N(t) \)
+        
+        \item Niech \( X_1 \) będzie zmienną opisującą czas do pierwszego zdarzenia, a \( X_2 \) od pierwszego zdarzenia do drugiego. Widzimy, że \( P(N(t) = 1) = P(X_1 < t \land X_1 + X_2 > t) \)
+
+        Ponieważ \( X_1, X_2 \) mają rozkład wykładniczy a \( X_1 + X_2 \) nie jest specjalnie ładnym tworem, to będziemy chcieli poradzić sobie nieco inaczej.
+        
+        Skorzystamy zatem z twierdzenia o trzech ciągach aby udowodnić zadaną granicę.
+        
+        Nasze oszacowania będą wyglądały następująco:
+        \[
+            P(X_1 < t \land X_2 > t) \leq P(N(t) = 1) \leq P(X_1 < t)
+        \]
+        
+        Ograniczenie od dołu jest na pewno mniej prawdopodobnym zdarzeniem -- jeśli \( X_1 < t \land X_2 > t \)
+        to na pewno \( N(t) = 1) \), ale nie uwzględnia ono sytuacji kiedy \( X_1, X_2 < t \land X_1 + X_2 > t \).
+        
+        Podobnie oszacowanie górne -- warunek jest konieczny, ale nie wystarczający, zatem zajdzie z większym prawdopodobieństwem.
+        
+        Możemy zatem policzyć granice ograniczeń.
+        
+        Ograniczenie dolne:
+        \begin{align*}
+            \lim_{t \rightarrow 0} \frac{P(X_1 < t \land X_2 > t)}{t}
+                &= \lim_{t \rightarrow 0} \frac{P(X_1 < t) \cdot P(X_2 > t)}{t} \\
+                &= \lim_{t \rightarrow 0} \frac{\pars{1 - \exp(-\lambda t)}\exp(-\lambda t)}{t} \\
+                &= \lim_{t \rightarrow 0} \frac{\exp(-\lambda t) - \exp(-2\lambda t)}{t} = \brackets{\frac{0}{0}} \\ 
+                &= \lim_{t \rightarrow 0} -\lambda \exp(-\lambda x) + 2\lambda \exp(-2\lambda x) \\
+                &= -\lambda + 2\lambda = \lambda
+        \end{align*}
+        
+        Ograniczenie górne:
+        \begin{align*}
+            \lim_{t \rightarrow 0} \frac{P(X_1 < t)}{t}
+                &= \lim_{t \rightarrow 0} \frac{1 - \exp(-\lambda t)}{t} = \brackets{\frac{0}{0}} \\
+                &= \lim_{t \rightarrow 0} \lambda \exp(-\lambda t) = \lambda
+        \end{align*}
+        
+        Obie granice wyszły nam \( \lambda \), zatem \(  \lim_{t \rightarrow 0} \frac{P(N(t) = 1)}{t} = \lambda \). Fajnie.
+        
+    \item Ostatni warunek szacujemy niemal identycznie jak poprzedni. \\
+        Podobnie zauważamy, że \( 0 \leq P(N(t) > 1) \leq P(X_1 < t \land X_2 < t) \)
+        -- to, że oba czasy są mniejsze niż \( t \) nie oznacza jeszcze, że ich suma również taka jest, zatem jest to warunek konieczny, ale nie wystarczający.
+        
+        Pokazanie \[ \lim_{t \rightarrow 0} \frac{P(X_1 < t \land X_2 < t)}{t} = 0 \] pozostawiamy jako ćwiczenie.
+        
+        
+        
+    \end{enumerate}
+\end{proof}

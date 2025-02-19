@@ -8,6 +8,7 @@ Currently, this repository contains notes for the following:
 - Operating Systems (Systemy Operacyjne)
 - Probabilistic Methods in Machine Learning (Metody Probabilistyczne w Uczeniu Maszynowym)
 - Algorithms in Algebra and Number Theory (Algorytmy Algebry i Teorii Liczb)
+- Probabilistic Methods in Computer Science (Metody Probabilistyczne Informatyki)
 - Models of Computation (Modele Obliczeń); incomplete
 - Final exam for the licencjat degree; incomplete
 

@@ -1,0 +1,42 @@
+\begin{definition}
+    Krótka igła jest to piękne zdarzenie które zachodzi gdy \(l < d\) - długość igły jest mniejsza niż szerokość deski.
+\end{definition}
+
+\begin{theorem}
+    Prawdopodobieństwo że igła przetnie którąś z krawędzi wynosi \(\frac{2l}{4\pi}\)
+\end{theorem}
+
+\begin{proof}
+    Niech \(X\) oznacz odległość do środka igły do najbliższej krawędzi deski. Oznaczmy \(\theta\) kąt ostry pomiędzy naszą igłą a jedną z wielu równoległych prostych.
+    
+    Oczywiście obie z tych zmiennych mają rozkład jednostajny.
+    \[
+        f_X(x) = 
+        \begin{cases}
+            \frac{2}{d}: & 0 \leq x \leq \frac{d}{2} \\
+            0: & \text{wpw}\\
+        \end{cases}
+    \]
+    \[
+        f_\theta(\theta) = 
+        \begin{cases}
+            \frac{2}{\pi}: & 0 \leq \theta \leq \frac{\pi}{2} \\
+            0: & \text{wpw}
+        \end{cases}
+    \]
+    Zmienne te są w oczywisty sposób niezależne więc ich wspólny rozkład prawdopodobieństwa będzie ich iloczynem.
+    \[
+        f_{X\theta}(x, \theta) = 
+        \begin{cases}
+            \frac{4}{d\pi}: & 0 \leq x \leq \frac{d}{2}, 0 \leq \theta \leq \frac{\pi}{2}  \\
+            0: & \text{wpw}
+        \end{cases}
+    \]
+    Igła przecina krawędź gdy \(x \leq \frac{l}{2}\sin{\theta}\).
+    
+    Liczymy zatem nasze piękne prawdopodobieństwo:
+    \[
+        \int_{\theta=0}^{\frac{\pi}{2}} \int_{x=0}^{\frac{l}{2}\sin{\theta}} \frac{4}{d\pi} \, dx\, d\theta = \frac{2l}{d\pi}
+    \]
+    Przeliczenia zostawiamy dla Czytelnika aby sobie powtórzył całkowanie. \#AM
+\end{proof}

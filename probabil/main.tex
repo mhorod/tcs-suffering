@@ -1,0 +1,69 @@
+ % Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+
+\documentclass[12pt, a4paper, polish, openany]{book}
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\DeclareMathOperator{\Exp}{Exp}
+
+\fancyhead[L]{\textbf{\textit{MPI}}}
+\author{
+}
+
+\begin{document}
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+
+\tableofcontents
+\input{license}
+
+% Actual content
+\mainmatter
+
+\chapter{Prawdopodobieństwo dyskretne}
+\input{chapters/discrete-probability/main}
+
+\chapter{Nierówności na zmiennych losowych}
+\input{chapters/inequalities/main}
+
+\chapter{Rozkład Poissona}
+\input{chapters/poisson-distribution/main}
+
+\chapter{Łańcuchy Markowa}
+\input{chapters/markov-chains/main}
+
+\chapter{Prawdopodobieństwo ciągłe}
+\input{chapters/continuous-probability/main}
+
+\chapter{Igła Buffona}
+\input{chapters/buffons-needle/main}
+
+\chapter{Proces Poissona}
+\input{chapters/poisson-process/main}
+
+\chapter{Proces Markowa}
+\input{chapters/markov-process/main}
+
+\chapter{Rozkład normalny}
+\input{chapters/normal-distribution/main}
+
+\chapter{Entropia}
+\input{chapters/entropy/main}
+
+\chapter{Sprzęgania}
+\input{chapters/coupling/main}
+
+\chapter{Metoda Monte Carlo}
+\input{chapters/monte-carlo/main}
+
+\end{document}

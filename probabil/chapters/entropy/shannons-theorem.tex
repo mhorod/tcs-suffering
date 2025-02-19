@@ -1,0 +1,309 @@
+Podobnie jak kompresja wprowadza kodowanie, które zmniejsza liczbę bitów potrzebnych na zapisanie informacji, tak możemy wprowadzić kodowanie, które zwiększa liczbę bitów aby uodpornić dane na błędy wynikające z niedokładności przekazu.
+
+\subsection{Definicje}
+
+\begin{definition}
+    \textbf{Kanałem} z parametrem \( p \) nazywamy ,,funkcję'' (bo matematycznie to nie jest funkcja), która dla zadanego ciągu \( x_1, \dots, x_k \) zwraca losowo ciąg \( y_1, \dots y_k \) taki, że 
+    \[
+        \forall_{1 \leq i \leq k} : P(x_i \neq y_i) = p
+    \]
+    Kanał dla ustalonego będziemy oznaczać przez \( \Channel \) dla \( p \) wynikającego z kontekstu.
+\end{definition}
+
+Zauważmy, że jeśli \( p = \frac{1}{2} \) to efektywnie dostajemy losowy ciąg bitów,
+dlatego dalej będziemy się zajmować optymistyczną sytuacją, w której \( p < \frac{1}{2} \).
+
+\begin{definition}
+    Dla ustalonych \( k, n ; k \leq n \) \(\mathbf{(k, n)}\)\textbf{-enkoderem} będziemy nazywać dowolną funkcję \( \set{0, 1}^k \rightarrow \set{0, 1}^n \), natomiast
+    \(\mathbf{(k, n)}\)\textbf{-dekoderem} będziemy nazywać dowolną funkcję \( \set{0, 1}^n \rightarrow \set{0, 1}^k \).
+    
+    Będziemy oznaczać \( \Enc \) oraz \( \Dec \) dla \( k, n \) wynikających z kontekstu.
+\end{definition}
+
+\begin{definition}
+    \textbf{Odległość edycyjną}, zapisywaną jako \( \mathbf{\Delta} \), ciągów \(a, b \in \set{0, 1}^k\) definiujemy jako liczbę pozycji na których ciągi \( a, b \) się różnią, tj. \( \Delta(a, b) = \card{\set{i \mid a_i \neq b_i}} \)
+\end{definition}
+
+Wyposażeni w definicje szukamy jakiegoś oszacowania, jak wiele informacji jesteśmy w stanie upakować w \( n \) bitach, tak aby przesyłając dowolną wiadomość \( m \in \set{0, 1}^n \) przez kanał o parametrze \( p \) prawdopodobieństwo, że odczytaliśmy niepoprawną wiadomość było mniejsze niż \( \gamma \). \\
+Bardziej formalnie dla ustalonych \( p, n, \gamma \) szukamy \( \max k \) takiego, że
+\[
+    \exists_{\Enc, \Dec} : \forall_{m \in \set{0, 1}^n}: P\pars{\Dec(\Channel(\Enc(m))) = m} \geq 1 - \gamma
+\]
+
+Widzimy, że jeśli \( p = 0 \), tj. kanał jest idealny, to \( \max k = n \) a \( \Enc = \Dec = x \mapsto x \)
+
+Dla \( p > 0 \) to intuicyjnie \( k \approx n \cdot \pars{1 - H(p)} \), gdzie \( H(p) \) to entropia skrzywionego rzutu monetą. \\
+
+\subsection{Twierdzenie Shannona}
+Mitzenmacher podaje zblefiony dowód. (Blef jest przy liczeniu \(\expected{W_0}\) -- zbiory \(T_1, T_2\) są zmiennymi losowymi, więc nie można ich wyciągnąć przed operator oczekiwanej).
+
+My przedstawimy bardzo podobny, lecz poprawny dowód poniższego twierdzenia.
+\begin{theorem}[Shannon, tylko że lepiej niż Mitzenmacher] 
+    \[
+        \forall_{p \in \pars{0, \frac{1}{2}}}
+            \forall_{\delta, \gamma > 0}
+                \exists_{n_0}
+                    \forall_{n > n_0} :
+    \]
+    \begin{center}
+        \begin{enumerate} \centering
+            \item \( \forall_k : k \leq n \cdot \pars{1 - H(p) - \delta} \) :
+            \[
+                \exists_{\Enc, \Dec} \forall_{m \in \set{0, 1}^k} : 
+                P\pars{\Dec(\Channel(\Enc(m))) \neq m} \leq \gamma
+            \]
+
+            \item 
+            Niech \( M \) będzie zmienną losową, która przyjmuje losową wiadomość jednostajnie. Wtedy: \\
+            \( \forall k \geq n \cdot \pars{1 - H(p) + \delta} \) :
+            \[
+                \forall_{\Enc, \Dec} P\pars{\Dec(\Channel(\Enc(M))) = M} \leq \gamma
+            \]
+        \end{enumerate}
+    \end{center}
+\end{theorem}
+\begin{proof}
+    Pokażemy tylko pierwszą nierówność, drugą zostawiamy dla dociekliwego Czytelnika. \\
+    Dowód zaczynamy tak jak robi to książka.
+    
+    Na początku pokażemy coś słabszego -- mianowicie, że jeśli wysyłamy losowe wiadomości z jednostajnym prawdopodobieństem to oczekiwany błąd jest mniejszy niż \( \gamma \).
+    Potem pokażemy jak wykazać nierówność postawioną w tezie.
+    
+    Niech \( M \) będzie zmienną losową, która każdą wiadomość przyjmuje jednostajnie.
+    Skonstruujemy takie funkcje \( \Enc \) i \( \Dec \) aby
+    \[
+        P\pars{\Dec(\Channel(\Enc(M))) \neq M} \leq \gamma
+    \]
+    
+    Zaczynamy od wylosowania \( 2^k \) kodów \(n\)-bitowych - będą to kody wiadomości.
+    Mamy więc zmienne losowe na każdą wiadomość -- \( \set{X_m}_{m \in \set{0, 1}^k} \).
+    Ponadto definiujemy \( \Enc(m) = X_m \).
+    
+    \( \Dec \) dostaje teraz wiadomość, która w oczekiwaniu ma \( pn \) przekłamanych bitów. 
+    
+    Niech \( s \) będzie wejściem dla dekodera, a \( \varepsilon \) dobrane wystarczająco małe.
+    
+    Jeśli 
+    \[
+        \exists!_{m \in \set{0, 1}^k} : \Delta(s, X_m) \in \brackets{(p-\varepsilon)n, (p+\varepsilon)n}
+    \]
+    to dekoder jednoznacznie zwraca \( m \).
+    Warunek ten można ilustrować jako pierścień o szerokości \( 2\varepsilon \) wokół odpowiedniego punktu oraz pytanie czy w tym pierścieniu jest dokładnie jeden kod jakiejś wiadomości.
+    
+    W przeciwnym razie albo nie mamy żadnej albo mamy wręcz za dużo opcji i zwracamy cokolwiek, ale będziemy zakładać że mamy pecha i zawsze zwracamy źle.
+    Zastanówmy się kiedy tak się dzieje.
+    
+    Okazuje się że istnieją dwie opcje na sprawienie aby warunek na poprawną odpowiedź był fałszywy.
+    \begin{enumerate}
+        \item Kanał wykonał za dużo przekłamań
+        \item Odebrana wiadomość jest pomiędzy dwoma możliwymi źródłami.
+    \end{enumerate}
+    
+    Możemy policzyć prawdopodobieństwo że jeśli do kanału wejdzie \( s_1 \) to kanał zwróci \( s_2 \).
+    Wynosi ono dokładnie
+    \[
+        w(s_1, s_2) = p^{\Delta(s_1, s_2)} (1-p)^{n - \Delta(s_1, s_2)}
+    \]
+    
+    Dla każdej pary \(m \in \set{0, 1}^k, s \in \set{0, 1}^n \) definiujemy indykator
+    \[
+        I_{m, s} = \begin{cases}
+            1 & \text{ gdy } \Dec(s) \neq m \\
+            0 & \text{ gdy } \Dec(s) = m
+        \end{cases}
+    \]
+    który nam mówi, czy został popełniony błąd.
+    
+    Dla dowolnej wiadomości \( m \in \set{0, 1}^k \) definiujemy prawdopodobieństwo \( W_m \), że wysyłając \( m \) nie udało nam się odzyskać wiadomości:
+    \[
+        W_m = \sum_{s \in \set{0,1}^n} w(X_m, s) \cdot I_{m, s}
+    \]
+    Podkreślmy, że \( W_m \) jest zmienną losową, która jest zależna od \( X_m \).
+    
+    Będziemy chcieli policzyć \( \expected{W_m} \) po każdym możliwym wyborze kodów \( X_1, \dots, X_{2^k} \)
+    
+    Zdefiniujmy sobie najpierw dwa rodzaje zbiorów, które nam kategoryzują odbierane kody:
+    \[
+        T_1(x) = \set{s \in \set{0,1}^n \mid \abs{\Delta(x, s) - pn} > \varepsilon n} 
+    \]
+    \[
+        T_2(x) = \set{s \in \set{0,1}^n \mid \abs{\Delta(x, s) - pn} \leq \varepsilon n} 
+    \]
+    
+    Teraz rozpisujemy sobie \( \expected{W_m} \) na osobne przypadki:
+    \begin{align*}
+        \expected{W_m}
+        &= \expected{\sum_{s \in \set{0, 1}^n} w(X_m, s) \cdot I_{m, s}} \\
+        &= \expected{\sum_{s \in T_1(X_m)} w(X_m, s) \cdot I_{m, s}}
+        + \expected{\sum_{s \in T_2(X_m)} w(X_m, s) \cdot I_{m, s}}
+    \end{align*}
+    
+    Będziemy chcieli oszacować każdy składnik osobno.
+    
+    Zrobimy tutaj jednak coś innego niż książka, która wchodzi operatorem wartości oczekiwanej pod sumę, ignorując zupełnie fakt, że sumujemy się po czymś co jest zależne od zmiennych \( X_1, \dots, X_{2^k} \).
+    
+    \begin{enumerate}
+        \item Pierwszy składnik.
+        
+        Zaczniemy od oszacowania sumy pod wartością oczekiwaną przy ustalonych \( X_1, \dots, X_{2^k} \)
+        
+        Skoro \( s \in T_1(X_m) \) to \( I_{m, s} = 1 \) bo z definicji \( T_1 \) mamy za dużo przekłamań aby odzyskać \( m \), upraszczamy zatem to wyrażenie do
+        \begin{align*}
+            \sum_{s \in T_1(X_m)} w(X_m, s) \cdot I_{m, s} = \sum_{s \in T_1(X_m)} w(X_m, s)
+        \end{align*}
+        
+        Zauważamy, że możemy zapisać, trochę bardziej intuicyjnie
+        \[
+            w(X_m, s) = P(\Channel(X_m) = s)
+        \]
+        przy czym \( X_m \) jest ustalone; prawdopodobieństwo liczymy jedynie względem zachowania kanału.
+        Przepisujemy zatem wyrażenie i korzystamy z definicji \( T_1(X_m) \)
+        \begin{align*}
+            \sum_{s \in T_1(X_m)} w(X_m, s) 
+                &= \sum_{s \in T_1(X_m)} P(\Channel(X_m) = s) \\
+                &= P(\abs{\Delta(X_m, \Channel(X_m)) - pn} > \varepsilon n)
+        \end{align*}
+        
+        Zauważamy teraz fajną rzecz, mianowicie kanał wykonuje przekłamania niezależnie od tego co przez niego przechodzi.
+        Niech \( D \) oznacza liczbę przekłamań wykonywanych przez kanał (na dowolnym wejściu).
+        
+        Ograniczamy nierównością Chernoffa, gdzie \( \mu = pn, \delta = \frac{\varepsilon}{p} \):
+        \begin{align*}
+            P(\abs{\Delta(X_m, \Channel(X_m)) - pn} > \varepsilon n)
+                &= P(\abs{D - pn} > \varepsilon n) \\
+                &\leq 2\exp\pars{\frac{-n\varepsilon^2}{3p}}
+        \end{align*}
+        
+        Dostaliśmy oszacowanie każdej konfiguracji przez stałą, możemy zatem oszacować wartość oczekiwaną od góry, a następnie wziąć \( n \) wystarczająco duże aby uzyskane oszacowanie było mniejsze niż \( \frac{\gamma}{2} \).
+        \[
+            \expected{\sum_{s \in T_1(X_m)} w(X_m, s) \cdot I_{m, s}} \leq 2\exp\pars{\frac{-n\varepsilon^2}{3p}}\leq \frac{\gamma}{2}
+        \]
+        
+    
+        \item Drugi składnik.
+        
+        W tym miejscu książka ponownie robi dziwne rzeczy z operatorem wartości oczekiwanej. Przeprowadzimy dość podobne rozumowanie, ale wykorzystamy do tego warunkową wartość oczekiwaną.
+        
+        Rozpisujemy zatem
+        \begin{align*}
+            \expected{\sum_{s \in T_2(X_m)} w(X_m, s) \cdot I_{m, s}}
+            &= \sum_{y_m \in \set{0, 1}^n} \expected{\sum_{s \in T_2(X_m)} w(X_m, s) \cdot I_{m, s} \mid X_m = y_m} \cdot P(X_m = y_m) \\
+            &= \sum_{y_m \in \set{0, 1}^n} \expected{\sum_{s \in T_2(y_m)} w(y_m, s) \cdot I_{m, s} \mid X_m = y_m} \cdot 2^{-n} \\
+            &= 2^{-n} \cdot \sum_{y_m \in \set{0, 1}^n} \sum_{s \in T_2(y_m)} w(y_m, s) \cdot \expected{I_{m, s} \mid X_m = y_m} \\
+            &= 2^{-n} \cdot \sum_{y_m \in \set{0, 1}^n} \sum_{s \in T_2(y_m)} w(y_m, s) \cdot P(I_{m, s} = 1 \mid X_m = y_m)
+        \end{align*}
+        
+        Oszacujemy teraz 
+        \[
+            P(I_{m, s} = 1 \mid X_m = y_m)
+        \]
+        Prawdopodobieństwo, że ustalony \( X_i \), \( i \neq m \) zapala nam indykator wynosi dokładnie
+        \[
+            P(X_i \in T_2(y_m)) = \sum_{j = \ceil{n(p-\varepsilon)}}^{\floor{n(p-\varepsilon)}} 2^{-n} \cdot \binom{n}{j}
+        \]
+        Szacujemy od góry za pomocą entropii
+        \[
+            \sum_{j=\ceil{n(p-\varepsilon)}}^{\floor{n(p-\varepsilon)}} \binom{n}{j}
+            \leq n\cdot 2^{nH(p+\varepsilon)}
+        \]
+        Przez union bound szacujemy, że prawdopodobieństwo, że dowolny z innych kodów spowoduje nam kolizję, wynosi co najwyżej
+        \[
+            (2^k-1) \cdot 2^{-n} \cdot n \cdot 2^{nH(p+\varepsilon)}
+            \leq n\cdot\exp_2(k + n(H(p + \varepsilon) - 1))
+        \]
+        Dostaliśmy ładne oszacowanie, możemy je włożyć do wyjściowego wyrażenia aby otrzymać
+        \begin{align*}
+            2^{-n} \cdot &\sum_{y_m \in \set{0, 1}^n} \sum_{s \in T_2(y_m)} w(y_m, s) \cdot P(I_{m, s} = 1 \mid X_m = y_m) \\
+            &\leq 2^{-n}\cdot \sum_{y_m \in \set{0, 1}^n} \sum_{s \in T_2(y_m)} w(y_m, s) \cdot n\cdot \exp_2(k + n(H(p + \varepsilon) - 1)) \\
+            &=2^{-n} \cdot  n\cdot \exp_2(k + n(H(p + \varepsilon) - 1)) \cdot \sum_{y_m \in \set{0, 1}^n} \sum_{s \in T_2(y_m)} w(y_m, s) \\
+            &\leq 2^{-n} \cdot  n\cdot \exp_2(k + n(H(p + \varepsilon) - 1)) \cdot 2^n \\
+            &=n\cdot \exp_2(k + n(H(p + \varepsilon) - 1))
+        \end{align*}
+        
+        Teraz możemy skorzystać z faktu, że \( k \leq (1 - H(p) - \delta) n \)
+        i dostać oszacowanie od góry przez
+        \[
+            n\cdot \exp_2n(H(p + \varepsilon) - H(p) - \delta))
+        \]
+        
+        Dopieramy \( \varepsilon \) na tyle małe, aby \( H(p + \varepsilon) - H(p) < \delta \). Wtedy wykładnik jest ujemny, zatem dla odpowiednio dużego \( n \) otrzymane wyrażenie jest mniejsze niż \( \frac{\gamma}{2} \)
+        
+    \end{enumerate}
+    Pokazaliśmy zatem, że jeśli dobierzemy odpowiednio małe \( \varepsilon \) 
+    oraz wystarczająco duże \( n \)
+    to oba składniki są mniejsze od \( \frac{\gamma}{2} \)
+    a zatem 
+    \[
+        \expected{W_m} \leq \gamma
+    \]
+    
+    Sumując te oczekiwania dla wszystkich możliwych wiadomości dostajemy
+    \[
+       \expected{\sum_{m=0}^{2^k} W_m} = \sum_{m=0}^{2^k} \expected{W_m} \leq \gamma \cdot 2^k
+    \]
+    
+    Skoro oczekiwana sumy jest ograniczona przez \( \gamma \cdot 2^k \)
+    to musi istnieć konkretny zbiór kodów \( x_1, \dots, x_{2^k} \in \set{0, 1}^n \) dla których
+    \[
+        \sum_{m=0}^{2^k} W_m \leq \gamma \cdot 2^k
+    \]
+    
+    Jeśli wiadomość wysyłamy losowo z prawdopodobieństwem \( \frac{1}{2^k} \) to oczekiwane prawdopodobieństwo błędu wynosi co najwyżej
+    \[
+        \frac{1}{2^k} \sum_{m=0}^{2^k} W_m \leq \frac{1}{2^k} \gamma \cdot 2^k = \gamma
+    \]
+    co zamyka dowód słabszej tezy. \\
+
+    Pokażemy teraz silniejszą wersję tezy (1) to znaczy, że istnieje takie kodowanie, 
+    że \textbf{dla każdej} wiadomości prawdopodobieństwo porażki wynosi co najwyżej \( \gamma \).
+    
+    Ustalmy \( \gamma' = \frac{\gamma}{2}, \delta' = \delta + \varepsilon \), gdzie \( \varepsilon \)
+    jest wybrane dowolnie małe.
+    
+    Pokazaliśmy, że dla \( \gamma', \delta' \) jeśli \( k \leq n \cdot \pars{1 - H(p) - \delta'} \)
+    to istnieje taki wybór kodów \( x_1, \dots x_{2^k} \), że
+    \[
+        \sum_{m=0}^{2^k} W_m \leq \gamma' \cdot 2^k
+    \]
+    
+    Bez straty ogólności możemy posortować \( x_i \) rosnąco po \( W_i \).
+    
+    Zauważmy teraz, że dla \( i \leq 2^{k-1} \) musi zachodzić
+    \[
+        W_i \leq 2\gamma'
+    \]
+    
+    Istotnie -- w przeciwnym razie \( W_{2^{k-1}} > 2\gamma' \) a co za tym idzie
+    \[
+        \sum_{m=2^{k-1}+1}^{2^k} W_m > 2^{k-1} \cdot 2\gamma' = 2^k \gamma'
+    \]
+    co jest sprzeczne z własnością wybranego kodowania.
+    
+    W takim razie możemy wykorzystać \( x_1, \dots, x_{2^{k-1}} \) jako kodowanie dla wiadomości \( k - 1 \) bitowych, i tym samym dostajemy
+    \begin{multline*}
+        \forall_k :  k - 1 \leq n \pars{1 - H(p) - \delta'}:
+        \exists_{\Enc, \Dec} \forall_{m \in \set{0, 1}^k} : 
+            P\pars{\Dec(\Channel(\Enc(m))) \neq m} \leq 2\gamma'
+    \end{multline*}
+
+    Odwińmy teraz oznaczenia:
+    \begin{multline*}
+        \forall_k :  k \leq n \pars{1 - H(p) - \delta - \varepsilon + \frac{1}{n}}:
+        \exists_{\Enc, \Dec} \forall_{m \in \set{0, 1}^k} : 
+            P\pars{\Dec(\Channel(\Enc(m))) \neq m} \leq \gamma
+    \end{multline*}
+    
+    Dla dostatecznie dużych \( n \) mamy \( \frac{1}{n} < \varepsilon \) a zatem
+    \[
+        k \leq n \pars{1 - H(p) - \delta - \varepsilon + \frac{1}{n}} \leq n \pars{1 - H(p) - \delta}
+    \]
+    
+    Co pozwala nam ostatecznie stwierdzić, że dla \( \gamma, \delta \)
+    \begin{multline*}
+         \exists_{n_0} \forall_{n > n_0}
+        \forall_k : k \leq n \pars{1 - H(p) - \delta} :
+                \exists_{\Enc, \Dec} \forall_{m \in \set{0, 1}^k} : 
+                P\pars{\Dec(\Channel(\Enc(m))) \neq m} \leq \gamma
+    \end{multline*}
+    co należało pokazać.
+\end{proof}
