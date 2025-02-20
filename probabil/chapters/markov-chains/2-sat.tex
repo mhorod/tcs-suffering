@@ -1,5 +1,11 @@
-
 2-SATa nikomu nie trzeba przedstawiać -- mamy \( n \) zmiennych i \( k \) klauzul postaci \( a \lor b \), gdzie \( a = x_i \) albo \( a = \bar x_i \).
+
+Przykładem instancji problemu 2-SAT jest na przykład taka formuła:
+
+\[ 
+    (x_1 \lor x_3) \land (\neg x_1 \lor x_2) \land (x_3 \lor \neg x_1)
+\]
+
 Znamy algorytm rozwiązujący ten problem w czasie \( O(n + k) \) za pomocą silnie spójnych składowych, ale tutaj pokażemy \textbf{wolniejszy} algorytm.
 
 \subsection{Algorytm}

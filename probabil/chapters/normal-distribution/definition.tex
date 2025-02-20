@@ -1,40 +1,40 @@
-Kolejnym rozkładem, który koniecznie musimy poznać jest rozkład normalny - rozkład Gaussa. \\
-
 \begin{definition}
-    Rozkład normalny oznaczamy \(N(\mu , \sigma^2 )\).\\
-    \(\mu\) - wartość oczekiwana,
-    \(\sigma^2\) - wariancja
+    Definiujemy rozkład normalny (uogólniony) jako rozkład o następującej funkcji gęstości prawdopodobieństwa: 
+
+    \[ f_Z(z) =  \frac{1}{\sigma\sqrt{2\pi}}e^{-((z - \mu)/\sigma)^2/2} \]
 \end{definition}
 
 \begin{definition}
-    Standardowy rozkład Normalny oznaczamy \(N(0, 1)\).
+    Rozkład normalny o parametrach \(\mu\) i \(\sigma^2\) oznaczamy jako \(N(\mu , \sigma^2 )\).
 \end{definition}
-
-Rozkład normalny można zobaczyć w wynikach kolosów niektórych przedmiotów (na pewno nie z MD)
 
 \begin{definition}
-    Funkcja gęstości rozkładu normalnego wynosi: \[ f_Z(z) =  \frac{1}{\sigma\sqrt{2\pi}}e^{-((z - \mu)/\sigma)^2/2} \]
-    Dla standardowego rozkładu normalnego:
-    \[ \phi(z) =  \frac{1}{\sqrt{2\pi}}e^{-z^2/2} \]
+    Standardowy rozkład Normalny to rozkład normalny o parametrach \( \mu = 0\) i \( \sigma^2 = 1\); oznaczamy go (bez większego szoku) jako \(N(0, 1)\).
 \end{definition}
-
-Standardowy rozkład normalny wygląda jak \sout{dzban} dzwon.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.75]{img/normal-distribution/normal-distribution-0-0.5.png}
-    \caption{Rozkład normalny z parametrami \( \mu = 0, \sigma = 0.5 \)}
-\end{figure}
 
 \begin{definition}
-    Dystrybuanta to oczywiście całka gęstości:
-    \[
-    F_Z(z) = \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{z}e^{-((t -\mu)/\sigma)^2/2} dt
-    \]
-    Oraz dla standardowego:
-    \[
-    \Phi(z) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}e^{-t^2/2} dt
-    \]
+    Dystrybuantę standardowego rozkładu normalnego oznaczamy jako \( \Phi \).
 \end{definition}
 
-Policzenie tej całki jest niemożliwe metodą analityczną więc w celu wyliczenia danej wartości stosuje się tablice dla standardowego rozkładu normalnego. 
+Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wygląda jak \sout{dzban} dzwon.
+
+\begin{center}
+    \begin{tikzpicture}[scale=2]
+    \begin{axis}[
+        axis lines = left,
+        xlabel = \(x\),
+        ylabel = {\(f(x)\)},
+        ymajorgrids = true, 
+        xmajorgrids = true,
+    ]
+    \addplot [
+        domain=-5:5, 
+        samples=100, 
+        color=blue,
+    ]
+    {(1/sqrt(2*pi)) * e^(-x^2/2)};
+    \addlegendentry{\tiny \(\frac{1}{\sqrt{2 \cdot \pi}} \cdot e^{-\frac{x^2}{2}}\)}
+ 
+    \end{axis}
+    \end{tikzpicture}    
+\end{center}
