@@ -1,0 +1,79 @@
+\begin{definition}
+    Zmienna losowa \(X\) jest ciągła, jeśli istnieje funkcja \(f: \R\to \R_{\ge 0}\) taka, że 
+    \[\forall_{B\in \mathcal{B\left( \R \right) }} \ P\left( X\in B  \right) = \int_{B} f\left( x  \right) \diff x .\]
+    Taką funkcję nazywamy funkcją gęstości lub gęstością zmiennej \(X\).
+\end{definition}
+
+    Własności funkcji gęstości:
+    \begin{itemize}
+        \item \(\forall_{x\in \R} \ f\left( x  \right) \ge 0 \)
+        \item \(\int_{\R} f\left( x  \right) \diff x = 1\)
+        \item \(P\left( y<X<y+\delta \right) = \int_{y}^{y+\delta} f\left( x  \right) \diff x \approx \delta\cdot f\left( y \right)  \). Czyli \(f\left( x  \right) \) mówi, jak szybko rośnie prawdopodobieństwo przyjmowania wartości z przedziału, gdy przedział zaczyna się od \(x\).
+    \end{itemize}
+
+    Mamy \(\forall_{x\in \R} \ P\left( X=x \right) =0 \). W szczególności daje to \(P\left( X\le x  \right) = P\left( X<x \right) \).
+
+\begin{definition}
+    Dystrybuanta zmiennej losowej \(X\) to funkcja \(F\left( x  \right) = P\left( X\le x  \right) \). Dla zmiennej ciągłej jest \(F\left( x  \right) = \int_{-\infty}^{x} f\left( y  \right) \diff y \), a więc \(f\left( x  \right) = F'\left( x  \right) \).
+\end{definition}
+
+\begin{definition}
+    Wartość oczekiwana ciągłej zmiennej \(X\) to 
+    \[ \mathbb{E}\left[  X \right] = \int_{-\infty}^{\infty} x f\left( x  \right) \diff x  .\] 
+\end{definition}
+
+
+\begin{lemma}[Lemat 8.1 P\&C]
+    \label{continuous-positive-random-variable-lemma}
+    Jeśli zmienna losowa \(X\) przyjmuje wartości nieujemne to
+    \[
+        \expected{X} = \int_0^\infty P(X \geq x) \diff x
+    \]
+\end{lemma}
+\begin{proof}
+    Niech \(f\) będzie gęstością \(X\). Mamy
+    \begin{align*}
+       & \int_{0}^{\infty} P\left( X\ge x  \right) \diff x = \int_{x=0}^{\infty}  \int_{y=x}^{\infty} f\left( y  \right) \diff y \diff x = \int_{y=0}^{\infty} \int_{x=0}^{y} f\left( y  \right) \diff x \diff y \\ 
+        &= \int_{y=0}^{\infty} f\left( y  \right) \int_{x=0}^{y} \diff x \diff y = \int_{y=0}^{\infty} y f\left( y  \right) \diff y = \int_{-\infty}^{\infty} y f\left( y  \right) \diff y,
+    \end{align*}
+    gdzie ostatnie przejście wynika z nieujemności \(X\).
+\end{proof}
+
+\begin{definition}
+    Wspólna dystrybuanta zmiennych losowych losowych \(X,Y\) to 
+    \[ F\left( x,y \right) = P\left( X\le x, Y\le y  \right)  .\] 
+\end{definition}
+
+\begin{definition}
+    Wspólna gęstość ciągłych zmiennych losowych \(X,Y\) to funkcja \(f\) taka, że
+    \[ F\left( x,y \right) = \int_{-\infty}^{x} \int_{-\infty}^{y} f\left( u,v \right) \diff v \diff u  ,\] 
+    a więc
+    \[ f\left( x,y \right) = \frac{\partial ^2}{\partial x\partial y } F\left( x,y \right)  .\] 
+\end{definition}
+
+\begin{definition}
+    Dla dwóch zmiennych \(X,Y\) o zadanej wspólnej dystrybuancie \(F\left( x,y \right) \) brzegowa dystrybuanta zmiennej \(X\) to funkcja
+    \[ F_X\left( x  \right) = \lim_{y \to \infty} F\left( x,y \right) = P\left( X\le x \right)  ,\] 
+    której odpowiada brzegowa gęstość \(f_X\left( x  \right) \). Analogiczne pojęcia definiujemy dla zmiennej \(Y\).
+\end{definition}
+
+\begin{definition}
+    Zmienne \(X,Y\) są niezależne, jeśli 
+    \[ \forall_{x,y\in \R} \ P\left( X\le x , Y\le y  \right) = P\left( X\le x  \right) P\left( Y\le y  \right) .  \] 
+    Niezależność jest równoważna odpowiednim równościom dystrybuant i gęstości:
+    \[ F\left( x,y \right) = F_X\left( x  \right) F_Y\left( y \right)  ,\] 
+    \[ f\left( x,y \right) = f_X\left( x  \right) f_Y\left( y \right)  .\] 
+\end{definition}
+
+
+\begin{definition}
+    Prawdopodobieństwo warunkowe definiujemy jako całkę
+    \[ P\left( X\le x \mid Y=y \right) = \int_{u=-\infty}^{x} \frac{f\left( u,y \right)}{f_Y\left( y  \right) }\diff u, \] 
+    gdzie funkcję \(f_{X\mid Y} = \frac{f\left( x,y \right) }{f_Y\left( y \right) }\) nazywamy warunkową gęstością.
+\end{definition}
+
+\begin{definition}
+    Warunkowa wartość oczekiwana to całka
+\[ \mathbb{E}\left[ X \mid Y=y \right] = \int_{-\infty}^{\infty} x f_{X\mid Y}\left( x,y \right) \diff x  .\] 
+\end{definition}
+

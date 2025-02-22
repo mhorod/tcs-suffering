@@ -1,0 +1,84 @@
+Zanim zaczniemy, zaprezentujemy dwa proste lematy potrzebne w oszacowaniu
+\begin{lemma}
+    Dla dowolnych \( n \geq M \)
+    \[
+        \binom{n}{M} \pars{\frac{1}{n}}^M \leq \frac{1}{M!}
+    \]
+\end{lemma}
+\begin{proof}
+    \[ 
+        \binom{n}{M} \pars{\frac{1}{n}}^M = \frac{n!}{M!\cdot(n-M)!n^M} = 
+        \frac{1}{M!}\cdot\frac{(n-M+1)\cdot \dots \cdot n}{n^M} \leq \frac{1}{M!}
+    \]
+\end{proof}
+
+\begin{lemma}
+    Dla dowolnego \( n \)
+    \[
+        \frac{1}{n!} \leq \pars{\frac{e}{n}}^n
+    \]
+\end{lemma}
+\begin{proof}
+    Korzystamy z rozwinięcia \( e^k \) w szereg Taylora:
+    \[
+        e^k = \sum_{i=0}^\infty \frac{k^i}{i!} > \frac{k^k}{k!}
+    \]
+    Przekształcając otrzymujemy
+    \[
+        \frac{e^k}{k^k} > \frac{1}{k!}
+    \]
+    co daje nierówność z tezy.
+\end{proof}
+
+Rozważmy bardzo prosty model - wrzucamy sobie \( n \) kul do \( n \) urn niezależnie i jednostajnie.
+Oczywiście średnio w jednej urnie spodziewamy się zobaczyć jedną kulę, ale ile spodziewamy się zobaczyć kul w najbardziej zapełnionej urnie?
+Na to pytanie odpowiemy twierdzeniem.
+\begin{theorem}[Lemat 5.1 P\&C]
+    \label{balls-and-bins-max-load-upper-bound}
+    Jeśli wrzucamy \( n \) kul do \( n \) urn to prawdopodobieństwo, że najcięższa urna zawiera
+    \textbf{co najmniej} \( M = \frac{3 \ln n}{\ln \ln n} \) kul wynosi co najwyżej \( \frac{1}{n} \) dla odpowiednio dużych \( n \).
+\end{theorem}
+\begin{proof}
+    Nie ma co się zrażać mnogością logarytmów; sam w sobie dowód jest względnie prosty -- stosujemy dwa razy \textit{union-bound} a ograniczenie z tezy po prostu pałujemy naszymi lematami a egzaminie raczej nie będziecie potrzebowali obliczeń.
+    
+    
+    Prawdopodobieństwo, że ustalony podzbiór \( M \) kul wyląduje w ustalonej urnie wynosi
+    \( \pars{\frac{1}{n}}^M \)
+    Różnym podzbiorów jest \( \binom{n}{M} \), zatem z union bounda dostajemy ograniczenie na prawdopodobieństwo, że w ustalonej urnie jest co najmniej \( M \) kul wynosi
+    \[
+        \binom{n}{M} \cdot \pars{\frac{1}{n}}^M
+    \]
+    Korzystamy teraz z obu lematów i ograniczamy prawdopodobieństwo na co najmniej \( M \) kul w urnie przez co najwyżej
+    \[
+        n\pars{\frac{e}{M}}^M
+    \]
+    
+    Teraz wstawiamy magiczne \( M \) z tezy i dostajemy:
+    \[
+        n\pars{\frac{e}{M}}^M \leq n\pars{\frac{e \ln \ln n}{3 \ln n}}^{(3 \ln n)/(\ln \ln n)}
+    \]
+    Zauważamy, że \( e \leq 3 \)
+    \[
+        \leq n\pars{\frac{\ln \ln n}{\ln n}}^{(3 \ln n)/(\ln \ln n)}
+    \]
+    Aby pokazać postulowaną w tezie nierówność bierzemy obustronnie logarytm
+    \begin{align*}
+        n\pars{\frac{\ln \ln n}{\ln n}}^{(3 \ln n)/(\ln \ln n)} &\leq \frac{1}{n} \\
+        \ln n + \pars{(\ln \ln \ln n) - (\ln \ln n)}\pars{\frac{3 \ln n}{\ln \ln n}} &\leq -\ln n
+    \end{align*}
+    Wymnażamy i przenosimy na jedną stronę
+    \[
+        -\ln n + \frac{3 (\ln n)(\ln \ln \ln n)}{\ln \ln n} \leq 0
+    \]
+    Sprowadzamy do wspólnego mianownika
+    \[
+        \frac{(\ln n) \cdot \pars{3(\ln \ln \ln n) - (\ln \ln n)}}{\ln \ln n} \leq 0
+    \]
+    Ponieważ \( \ln n \) i \(\ln \ln n\) są od pewnego momentu dodatnie
+    to nierówność sprowadza się do pokazania, że 
+    \[
+    \ln \ln n \geq 3 \ln \ln \ln n
+    \]
+    co już jest trywialne.
+    
+\end{proof}

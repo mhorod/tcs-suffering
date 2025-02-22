@@ -1,0 +1,178 @@
+\begin{definition}
+    \label{poisson-process-definition}
+    \textbf{Procesem Poissona} z parametrem \( \lambda \) nazywamy proces stochastyczny
+    \[ \set{N(t) \mid t \in \real, t \geq 0} \]
+    (intuicyjnie: \(N(t)\) mówi ile \textit{jakichś} zdarzeń zaszło od momentu rozpoczęcia procesu do jakiejś chwili \(t\).
+    
+    taki, że:
+    
+    \begin{enumerate}
+        \item \( N(0) = 0 \)
+        
+        \item Rozłączne przedziały są niezależne tj. zmienne \\
+            \( N(a) - N(b) \) i \( N(c) - N(d) \) są niezależne dla \( [b, a] \cap [d, c] = \varnothing \)
+        
+        \item Liczba zdarzeń na przedziałach jest stacjonarna tj. \\
+            \( N(t + s) - N(s) \) ma taki sam rozkład jak \( N(t) \)
+            
+        \item Prawdopodobieństwo jednego zdarzenia w małym przedziale długości \( t \) zbiega do \( \lambda  \) \\
+            \[ \lim_{t \rightarrow 0} \frac{P(N(t) = 1)}{t} = \lambda \]
+            
+        \item Prawdopodobieństwo więcej niż jednego zdarzenia w małym przedziale zbiega do zera \\
+             \[ \lim_{t \rightarrow 0} \frac{P(N(t) > 1)}{t} = 0 \]
+    \end{enumerate}
+\end{definition}
+
+
+Powyższa definicja nie jest jedyną możliwą definicją procesu Poissona. Okazuje się, że możemy skorzystać też z nieco wygodniejszej definicji bez tych dwóch limesów, ale za to korzystającej z rozkładu Poissona.
+
+Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma definicjami.
+
+
+\begin{theorem}[Twierdzenie 8.7 P\&C]
+    Niech \( \set{N(t) \mid t \geq 0} \) będzie procesem Poissona z parametrem \( \lambda \). Wtedy dla dowolnego \( t \geq 0 \) oraz \( n \in \natural \)
+    \[ 
+        P_n(t) = P(N(t) = n) = e^{-\lambda t} \frac{\pars{\lambda t}^n}{n!}
+    \]
+\end{theorem}
+
+\begin{proof}
+    Zaczynamy od policzenia \( P_0(t) \); dowód będzie indukcyjny.
+    
+    Zauważamy, że z niezależności rozłącznych przedziałów mamy
+    \[
+        P_0(t + h) = P_0(t) \cdot P_0(h)
+    \]
+    Robimy więc pierwszą rzecz, która nam przychodzi do głowy tj. liczymy pochodną \( P_0(t) \), a co.
+    \begin{align*}
+        P_0'(t)
+            &= \lim_{h \rightarrow 0} \frac{P_0(t + h) - P_0(t)}{h} \\
+            &= \lim_{h \rightarrow 0} P_0(t) \cdot \frac{P_0(h) - 1}{h} \\
+            &= \lim_{h \rightarrow 0} P_0(t) \cdot \frac{1 - P(N(h) = 1) - P(N(h)  > 1) - 1}{h} \\
+            &= \lim_{h \rightarrow 0} \pars{ P_0(t) \cdot \pars{ \frac{- P(N(h) = 1)}{h} - \frac{P(N(h) > 1)}{h}}} \\
+            &= P_0(t) \cdot \pars{-\lim_{h \rightarrow 0} \frac{P(N(h) = 1)}{h} - \lim_{h \rightarrow 0} \frac{P(N(h) > 1)}{h}} \\
+            &= P_0(t) \cdot \pars{-\lambda - 0} \\ 
+            &= -\lambda P_0(t)
+    \end{align*}
+    Wyniki poszczególnych limesów biorą się z własności 4 i 5 procesu Poissona.
+    
+    Mamy zatem równanie różniczkowe
+    \[
+        P_0'(t) = -\lambda P_0(t)
+    \]
+    \[
+        \frac{P_0'(t)}{P_0(t)} = -\lambda
+    \]
+    
+    Całkujemy po \( t \) i dostajemy
+    \[
+        \ln P_0(t) = -\lambda t + C
+    \]
+    \[
+        P_0(t) = e^{-\lambda t + C}
+    \]
+    Ponieważ \( P_0(0) = 1 \) to \( C = 0\), czyli \( P_0(t) = e^{-\lambda t} \). Tym samym bazę indukcji mamy udowodnioną.
+    
+    Podobnie zabawny motyw dzieje się gdy obliczamy kolejne \( P_n(t) \). Na początek zaobserwujmy jednak jedną rzecz. 
+    
+    \begin{fact} 
+        \[ P_{n}(t+h) = \sum_{k=0}^{n} P_{n-k}(t) \cdot P_k(h) \]
+    \end{fact}
+    \begin{proof}
+        Jeśli wiemy, że w czasie \(t + h\) zaistniało \(n\) zdarzeń, to wiemy, że jakieś \(k\) (być może \(0\)) zdarzeń musiało zaistnieć w czasie \(h\), a więc \(n - k\) zdarzeń zaistniało w czasie \(t\). Aby policzyć prawdopodobieństwo takiej sytuacji wystarczy wymnożyć 2 takie prawdopodobieństwa (bo niezależność) a z racji tego że kolejne składniki sumy opisują zdarzenia które są rozłączne to zsumowanie jest legalne. 
+    \end{proof}
+    
+    Korzystając z wyżej wymienionego faktu, mamy: 
+    \begin{align*}
+        P_n(t + h)
+            &= \sum_{k=0}^n P_{n-k}(t) \cdot P_k(h) \\
+            &= P_n(t) \cdot P_0(h) + P_{n-1}(t) \cdot P_1(h) + \sum_{k=2}^n P_{n-k}(t) \cdot P(N(h) = k) 
+    \end{align*}
+    Zrobiliśmy tu bardzo sprytną rzecz -- mianowicie rozbiliśmy sumę na trzy części tak, aby przy liczeniu pochodnych wszystko nam się ładnie zwinęło.
+    \begin{align*}
+        P_n'(t) 
+            &= \lim_{h \rightarrow 0} \frac{P_n(t + h) - P_n(t)}{h} \\
+            &=  \lim_{h \rightarrow 0} \pars{ \frac{
+                P_n(t) \cdot P_0(h) + P_{n-1}(t) \cdot P_1(h) + \sum_{k=2}^n \pars{P_{n-k}(t) \cdot P(N(h) = k)} - P_n(t)}{h}
+                } \\
+            &=  \lim_{h \rightarrow 0} \pars{ \frac{
+                P_n(t) \cdot (P_0(h) - 1) + P_{n-1}(t) \cdot P(N(h)=1) + \sum_{k=2}^n P_{n-k}(t) \cdot P(N(h) = k)}{h}
+                } \\
+            &=  \lim_{h \rightarrow 0} \pars{
+                \frac{P_n(t) \cdot (P_0(h) - 1)}{h} 
+                + \frac{P_{n-1}(t)\cdot P(N(h) = 1)}{h}
+                + \sum_{k=2}^n P_{n-k}(t) \cdot \frac{P(N(h) = k)}{h}} \\
+            &= P_n(t) \lim_{h \rightarrow 0} \pars{\frac{P_0(h) - 1}{h}} + P_{n-1}(t) \lim_{h \rightarrow 0} \pars{\frac{P(N(h)=1)}{h}} + \sum_{k=2}^n P_{n-k}(t) \cdot \lim_{h \rightarrow 0} \pars{\frac{P(N(h) = k)}{h}} \\
+            &= P_n(t) \lim_{h \rightarrow 0} \pars{\frac{1 - \mathrm{P}(N(h) = 1) - \mathrm{P}(N(h) = 2) - 1}{h}} + P_{n-1}(t) \cdot \lambda + \sum_{k=2}^n P_{n-k}(t) \cdot 0 \\
+            &= P_n(t) \pars{-\lim_{h \rightarrow 0}\frac{\mathrm{P}(N(h)=1)}{h} - \lim_{h \rightarrow 0} \frac{\mathrm{P}(N(h)=2)}{h}} + \lambda P_{n-1}(t) \\
+            &= -\lambda P_n(t) + \lambda P_{n-1}(t) 
+    \end{align*}
+    Znowu dostajemy równanie różniczkowe
+    \begin{align*}
+        P_n'(t) &= -\lambda P_n(t) + \lambda P_{n-1}(t) \\
+        P_n'(t) + \lambda P_n(t) &= \lambda P_{n-1}(t) \\
+        e^{\lambda t}\pars{P_n'(t) + \lambda P_n(t)} &= \lambda e^{\lambda t} P_{n-1}(t) \\
+        e^{\lambda t} P'_{n}(t) + e^{\lambda t} \lambda P_n(t) &= \lambda e^{\lambda t} P_{n-1}(t) \\  
+        \frac{d}{dt}\pars{e^{\lambda t}\cdot P_n(t)} &= \lambda e^{\lambda t} P_{n-1}(t)
+    \end{align*}
+    
+    I z założenia indukcyjnego:
+    \[
+        \frac{d}{dt}\pars{e^{\lambda t}\cdot P_n(t)} = \lambda e^{\lambda t} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^{n-1}}{(n-1)!} = \frac{\lambda^n \cdot t^{n-1}}{(n-1)!}
+    \]
+    
+    Całkujemy obustronnie: 
+    
+    \[
+        \int \frac{d}{dt}\pars{e^{\lambda t} P_n(t)} \; dt = e^{\lambda t} P_n(t) + C_1
+    \]
+    
+    \[
+        \int \frac{\lambda^n \cdot t^{n-1}}{(n-1)!} \; dt = \frac{\lambda^n}{(n-1)!} \cdot \int t^{n-1} \; dt  = 
+        \frac{\lambda^n}{(n-1)!} \cdot \frac{t^n}{n} + C_2 = \frac{\lambda^n t^n}{n!} + C_2
+    \]
+    
+    Definiujemy \(C = C_2 - C_1\) by musieć mniej myśleć o stałych:
+    
+    \begin{align*}
+        e^{\lambda t} P_n(t) + C_1 &= \frac{\lambda^n t^n}{n!} + C_2 \\ 
+        e^{\lambda t} P_n(t) &= \frac{\lambda^n t^n}{n!} + C_2 - C_1 \\
+        e^{\lambda t} P_n(t) &= \frac{\lambda^n t^n}{n!} + C \\ 
+        P_n(t) &= e^{-\lambda t} \frac{\lambda^n t^n}{n!} + C e^{-\lambda t}
+    \end{align*}
+    
+    Wiemy, że \( P_n(0) = 0 \), zatem \(C = 0\). W takim razie:
+    
+    \[
+        P_n(t) = e^{-\lambda t} \frac{\lambda^n t^n}{n!} = e^{-\lambda t} \frac{(\lambda t)^n}{n!}
+    \]
+    
+\end{proof}
+
+\begin{theorem}[Twierdzenie 8.8 P\&C]
+    Niech \( \set{N(t) \mid t \geq 0} \) będzie procesem stochastycznym, w którym
+    \begin{enumerate}
+        \item \( N(0) = 0 \)
+        \item liczby zdarzeń w rozłącznych przedziałach jest niezależna
+        \item liczba zdarzeń w przedziale długości \( t \) ma rozkład Poissona z parametrem \( \lambda t \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Widać, że mamy spełnione warunki 1, 2, 3 z definicji \ref{poisson-process-definition}.
+    
+    Aby pokazać warunek 4 liczymy
+    \[
+        \lim_{t \rightarrow 0} \frac{P(N(t) = 1)}{t} = \lim_{t \rightarrow 0} \frac{e^{-\lambda t}\lambda t}{t} = \lambda
+    \]
+    Podobnie warunek 5
+    \begin{align*}
+        \lim_{t \rightarrow 0} \frac{P(N(t) \geq 2)}{t} 
+        &= \lim_{t \rightarrow 0} \sum_{k \geq 2} \frac{e^{-\lambda t}\cdot(\lambda t)^k}{k!t} \\
+        &= \lim_{t \rightarrow 0} \frac{e^{-\lambda t}}{t} \cdot \sum_{k \geq 2} \frac{(\lambda t)^k}{k!} \\
+        &= \lim_{t \rightarrow 0} \frac{e^{-\lambda t}}{t} \cdot \pars{e^{\lambda t} - \lambda t - 1} \\
+        &= \lim_{t \rightarrow 0} \frac{1 - \lambda t e^{-\lambda t} - e^{-\lambda t}}{t} \\
+        &= \lim_{t \rightarrow 0} \pars{\frac{1 - e^{-\lambda t}}{t} - \lambda e^{-\lambda t}} \\
+        &= 0
+    \end{align*}
+\end{proof}
+

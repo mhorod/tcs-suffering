@@ -1,0 +1,80 @@
+\begin{definition}
+    Mówimy, że zmienna losowa \( X \) ma rozkład
+    \textbf{Poissona} z parametrem \( \lambda \) jeśli
+    \[
+        P(X = n) = e^{-\lambda} \cdot \frac{\lambda^n}{n!}
+    \]
+\end{definition}
+
+Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty P(X = n) \)
+
+\begin{align*}
+    \sum_{n = 0}^\infty P(X = n) 
+        &= \sum_{n = 0}^\infty e^{-\lambda} \cdot \frac{\lambda^n}{n!} \\
+        &= e^{-\lambda} \sum_{n=0}^\infty \frac{\lambda^n}{n!} \\
+        &= e^{-\lambda} \cdot  e^\lambda = 1
+\end{align*}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład Poissona z parametrem \( \lambda \). Wtedy
+    \[
+        \expected{X} = \lambda
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+         \expected{X} &= \sum_{n = 0}^\infty n \cdot P(X = n)  \\
+            &= \sum_{n = 0}^\infty n \cdot e^{-\lambda} \cdot \frac{\lambda^n}{n!} \\
+            &= e^{-\lambda} \sum_{n=1}^\infty \frac{\lambda^n}{(n-1)!} \\
+            &= \lambda e^{-\lambda} \sum_{n=1}^\infty \frac{\lambda^{n-1}}{n!} \\
+            &= \lambda e^{-\lambda} \sum_{n=0}^\infty \frac{\lambda^n}{n!} \\
+            &= \lambda
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Lemat 5.3 P\&C]
+    Jeśli zmienna \( X \) ma rozkład Poissona z parametrem \( \lambda \) to
+    \[
+        M_X(t) = \exp\pars{\lambda\pars{e^t -  1}}
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        M_X(t) 
+            &= \expected{e^{tX}} \\
+            &= \sum_{n=0}^\infty e^{tn} \cdot e^{-\lambda} \cdot \frac{\lambda^n}{n!} \\
+            &= e^{-\lambda} \sum_{n=0}^\infty \frac{\pars{\lambda e^t}^n}{n!} \\
+            &= \exp(-\lambda) \cdot \exp\pars{\lambda e^t} \\
+            & = \exp\pars{\lambda(e^t - 1)}
+    \end{align*}
+    W przedostatnim przejściu korzystamy z faktu, że \( \sum_{0}^\infty \frac{x^n}{n!} = \exp(x) \)
+\end{proof}
+
+\begin{theorem}[Lemat 5.2 P\&C]
+    Jeśli \( X \) ma rozkład Poissona z parametrem \( \lambda_X \) a \( Y \) rozkład Poissona z parametrem \( \lambda_Y \), a ponadto obie zmienne są niezależne to \( X + Y \) ma rozkład Poissona z parametrem \( \lambda_X + \lambda_Y\)
+\end{theorem}
+\begin{proof}
+    Są dwie ścieżki aby to pokazać -- jedna polega na przeliczeniu explicite \( P(X + Y = n) \) -- zostawiamy to jako ćwiczenie dla Czytelnika.
+    
+    Pokażemy bardziej elegancki dowód korzystający z funkcji tworzących momentów.
+    
+    Ponieważ \( X \) i \( Y \) są niezależne to
+    \begin{align*}
+        M_{X + Y}(t) 
+            &= M_X(t) \cdot M_Y(t) \\
+            &= \exp\pars{\lambda_X(e^t - 1)} \cdot \exp\pars{\lambda_Y(e^t - 1)} \\
+            &= \exp\pars{(\lambda_X + \lambda_Y)(e^t - 1)}
+    \end{align*}
+    
+    Skoro rozkład zmiennej \( X + Y \) tworzony jest przez funkcję, która wygląda jak rozkład Poissona, to musi być ona rozkładem Poissona z parametrem \( \lambda_X + \lambda_Y \)
+\end{proof}
+\begin{theorem}
+    \label{poisson-variable-variance}
+     Niech \( X \) ma rozkład Poissona z parametrem \( \lambda \). Wtedy
+    \[
+        \variance{X} = \lambda
+    \]
+\end{theorem}
+\begin{proof}
+    Liczymy drugą pochodną \( M_X(t) = \exp\pars{\lambda \pars{e^t - 1}} \) i wychodzi.
+\end{proof}

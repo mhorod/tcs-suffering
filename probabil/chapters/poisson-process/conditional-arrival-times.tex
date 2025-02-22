@@ -1,0 +1,34 @@
+\begin{lemma}
+    Niech \(X_1\) będzie pierwszym międzyczasem procesu Poissona \(N\) z parametrem \(\lambda\). Zmienna \(X_1 \mid N\left( t  \right) = 1\) ma rozkład jednostajny na \([0,t]\).
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        P\left( X_1 < s \mid N\left( t  \right) = 1 \right) &= \frac{P\left( X_1 < s \cap N\left( t  \right) = 1 \right) }{P\left( N\left( t  \right) = 1 \right) } = \frac{P\left( N\left( s  \right) = 1 \right) \cdot  P\left( N\left( t  \right) - N\left( s  \right) = 0 \right) }{P\left( N\left( t \right) = 1 \right) } \\ 
+    &= \frac{e^{-\lambda s }\lambda s \cdot  e^{-\lambda \left( t-s \right) }}{e^{-\lambda t }\lambda t } = \frac{s}{t}.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    Niech \(\left\{ N\left( t  \right) : t\ge 0 \right\} \) będzie procesem Poissona z parametrem \(\lambda\). Niech \(T_i\) będzie czasem przyjścia \(i\)-tego zdarzenia. Przy warunku \(N\left( t  \right) = n \) rozkład \(\left( T_1,\ldots,T_n \right) \) jest taki sam jak \(\mathrm{sort}\left( X_1,\ldots,X_n \right) \), gdzie zmienne \(X_1,\ldots,X_n\) mają rozkład jednostajny na \([0,t]\) i są niezależne.
+\end{theorem}
+\begin{proof}
+    Oznaczmy \(\left( Y_1,\ldots,Y_n \right) = \mathrm{sort}\left( X_1,\ldots,X_n \right) \). Niech \(\left( i_1,\ldots,i_n \right) \) będzie permutacją \([n]\). Zauważmy, że zdarzenia postaci
+        \[ X_{i_1} \le X_{i_2} \le \ldots \le X_{i_n} \cap X_{i_1} \le s_1 \cap \ldots \cap X_{i_n}\le s_n \]
+        są rozłączne dla różnych permutacji (z dokładnością do zbioru miary \(0\) -- może być tak, że dwie permutacje pasują do naszej sytuacji, gdy dwie zmienne przyjęły tą samą wartość). Do tego wszystkie są równie prawdopodobne. Zatem mamy
+    \begin{align*}
+        &P\left( \left( Y_1,\ldots,Y_n \right) \le \left( s_1,\ldots,s_n \right)  \right)  = \sum_{\left( i_1,\ldots,i_n \right) \in S_n}^{} P\left( X_{i_1}\le \ldots\le X_{i_n} \cap X_{i_1} \le s_1 \cap \ldots \cap X_{i_n}\le s_n \right) \\
+        &= n! P\left( X_1\le \ldots\le X_n \cap \left( X_1,\ldots,X_n \right) \le \left( s_1,\ldots,s_n \right)  \right) = n!\int_{u_1=0}^{s_1} \ldots \int_{u_n=u_{n-1}}^{s_n} \left( \frac{1}{t} \right) ^{n} \diff{u_n} \ldots \diff{u_{1}} \\ 
+        &= \frac{n!}{t ^{n}} \int_{u_1=0}^{s_1} \ldots \int_{u_n=u_{n-1}}^{s_n} \diff{u_n} \ldots\diff{u_1} .
+    \end{align*}
+    Teraz musimy policzyć odpowiednią wartość dla czasów przyjścia. Niech \(Z_i\) oznacza \(i\)-ty międzyczas. Mamy
+    \begin{align*}
+        &P\left( \left( T_1,\ldots,T_n \right) \le \left( s_1,\ldots,s_n \right) \cap  N\left( t  \right) = n \right) \\ 
+        &= P\left( Z_1\le s_1 \cap Z_2\le s_2-Z_1 \cap \ldots\cap Z_n \le s_n - \sum_{j=1}^{n-1} Z_j \cap Z_{n+1} > t- \sum_{j=1}^{n} Z_j \right) \\ 
+        &= \int_{z_1=0}^{s_1} \ldots \int_{z_n=0}^{s_n - \sum_{j=1}^{n-1} z_j} \int_{z_{n+1}= t - \sum_{j=1}^{n} z_j}^{\infty} \lambda^{n+1}e^{-\lambda \sum_{j=1}^{n+1} z_j} \diff{z_{n+1}} \ldots\diff{z_1}   \\ 
+        &= \lambda^{n} e^{-\lambda t } \int_{z_1=0}^{s_1} \ldots \int_{z_n=0}^{s_n - \sum_{j=1}^{n-1} z_j} \diff{z_n} \ldots \diff{z_1} = \lambda^{n}e^{-\lambda t } \int_{u_1=0}^{s_1} \ldots \int_{u_n = u_{n-1}}^{s_n} \diff{u_n} \ldots\diff{u_1} ,
+    \end{align*}
+    gdzie trzecie przejście jest policzeniem najbardziej wewnętrznej całki, a później podstawiamy \(u_i = \sum_{j=1}^{i} z_j\) (całkujemy funkcję stałą, więc znaczenie ma tak naprawdę tylko długość przedziału).
+
+    Wiemy, że \(P\left( N\left( t  \right) = n  \right) = \frac{e^{-\lambda t }\left( \lambda t  \right) ^{n}}{n!}\), więc prawdopodobieństwo warunkowe będzie takie, jakie ma być.
+\end{proof}
+

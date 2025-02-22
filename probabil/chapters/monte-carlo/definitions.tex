@@ -1,0 +1,28 @@
+\begin{definition}
+    Zmienna losowa \(X\) (randomizowany algorytm) daje \(\left( \varepsilon, \delta \right) \)-aproksymację wartości \(V\), jeśli
+    \[ P\left( \left|X-V\right|\le \varepsilon V \right) \ge 1-\delta . \] 
+\end{definition}
+
+Liczba \(\pi\) jest niewymierna, ale możemy ją przybliżać. Losujemy punkt \(\left( X,Y \right) \) w kwadracie o boku \(2\). Niech \(Z\) będzie indykatorem zdarzenia, że wylosowany punkt leży w kole wpisanym w ten kwadrat. Mamy \(P\left( Z = 1 \right) = \frac{\pi}{4}\). Powtarzamy taki eksperyment \(m\) razy i definiujemy \(W = \sum_{i=1}^{m} Z_i\). Teraz \(\mathbb{E}\left[ W  \right] = \frac{m\pi}{4}\), a więc \(W' = \frac{4}{m}W\) jest naturalnym oszacowaniem \(\pi\). Z nierówności Czernowa dostajemy
+\[ P\left( \left|W'-\pi\right|\ge \varepsilon\pi \right) = P\left( \left|W - \frac{m}{4}\pi\right|\ge \varepsilon \frac{m}{4}\pi \right)  \le 2e^{-m\pi \frac{\varepsilon^2}{12}}, \] 
+a więc dla \(m \ge \frac{12 \ln\left( \frac{2}{\delta} \right) }{\pi \varepsilon^2}\) \(W'\) jest \(\left( \varepsilon,\delta \right) \)-aproksymacją \(\pi\).
+
+\begin{definition}
+    Mając dany problem obliczeniowy \(x \to R\left( x  \right)\) mówimy, że mamy w pełni wielomianowy randomizowany schemat aproksymacji (FPRAS -- fully polynomial randomized approximation scheme), jeśli dla wejścia \(x\) i parametrów \(\varepsilon, \delta\) umiemy generować \(\left( \varepsilon, \delta \right) \)-aproksymację \(R\left( x  \right) \) w czasie wielomianowym od \(x, \frac{1}{\varepsilon}, \ln\left( \frac{1}{\delta} \right) \).
+\end{definition}
+
+Mamy problem \(x \to  R\left( x  \right) \) i chcemy znaleźć jego FPRAS. W tym celu projektujemy zmienną losową \(X\) o \(\mathbb{E}\left[ X \right] = R\left( x  \right) \), powtarzamy ją tak dużo razy, aż ograniczenie Czernowa da nam odpowiednią aproksymację.
+
+Zakładając, że \(X\) jest indykatorem, chcemy iterować zmienną \(m \ge \frac{3 \ln\left( \frac{2}{\delta} \right) }{R\left( x  \right) \varepsilon^2}\) razy. Ta liczba jest wielomianowa od \(\frac{1}{\varepsilon }\) i \(\ln\left( \frac{1}{\delta} \right) \), ale \(\frac{1}{R\left( x  \right) }\) niekoniecznie jest wielomianowe od \(x\). Jeśli jednak jest, to znaleźliśmy dobrą aproksymację.
+
+\begin{definition}
+    Zmienna losowa \(X\) (randomizowany algorytm) na skończonej przestrzeni \(\Omega\) daje \(\varepsilon \)-jednostajną próbkę \(\Omega\), jeśli dla każdego \(S \subseteq\Omega\) jest
+    \[ \left|P\left( X \in S \right) - \frac{\left|S\right|}{\left|\Omega\right|}\right|\le \varepsilon. \] 
+    Innymi słowy: dla rozkładu jednostajnego \(U\) i \(P_X\) będącego rozkładem \(X\) jest \(\left\|P_X - U \right\|_{TV} \le \varepsilon \).
+\end{definition}
+
+\begin{definition}
+    Mając dany problem obliczeniowy \(x \to \Omega\left( x  \right) \) (gdzie \(\Omega\left( x  \right) \) to zbiór rozwiązań) mówimy, że mamy w pełni wielomianowy prawie jednostajny schemat próbkowania (FPAUS -- fully polynomial almost uniform sampler), jeśli dla wejścia \(x\) i parametru \(\varepsilon \) umiemy generować \(\varepsilon \)-jednostajną próbkę \(\Omega\left( x  \right) \) w czasie wielomianowym od \(x, \ln\left( \frac{1}{\varepsilon } \right) \).
+\end{definition}
+
+

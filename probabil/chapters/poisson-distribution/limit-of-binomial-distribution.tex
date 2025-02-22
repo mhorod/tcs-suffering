@@ -1,0 +1,105 @@
+\begin{theorem}
+    Ustalmy \( \lambda \).
+    Niech \( X_n \) będzie rozkładem dwumianowym z parametrami \( n,  p = \frac{\lambda}{n} \)
+    
+    Wtedy
+    \[
+        \lim_{n \rightarrow \infty} P(X_n = k) = e^{-\lambda} \cdot \frac{\lambda^k}{k!}
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        P(X_n = k) 
+            &= \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k} \\
+            &= \frac{(n-k+1)\cdot \dots \cdot n}{n^k} \cdot \frac{n^k}{k!} \cdot p^k \cdot (1-p)^n \cdot (1-p)^{-k} \\
+            &= \frac{(np)^k}{k!} \cdot \pars{1 - p}^{n} \cdot
+            \frac{(n-k+1)\cdot \dots \cdot n}{n^k} \cdot (1-p)^{-k} \\
+            &= \frac{\lambda^k}{k!} \cdot \pars{1 - \frac{\lambda}{n}}^{n} \cdot \frac{(n-k+1)\cdot \dots \cdot n}{n^k} \cdot \pars{1-\frac{\lambda}{n}}^{-k} \\
+    \end{align*}
+    Biorąc granicę dostajemy:
+    \begin{align*}
+        \lim_{n \rightarrow \infty} P(X_n = k) 
+            &= 
+              \lim_{n \rightarrow \infty} \pars{ \frac{\lambda^k}{k!} \cdot \pars{1 - \frac{\lambda}{n}}^{n} \cdot \frac{(n-k+1)\cdot \dots \cdot n}{n^k} \cdot \pars{\frac{n - \lambda}{n}}^{-k}} \\
+            &= \pars{\lim_{n \rightarrow \infty} \frac{\lambda^k}{k!} \cdot \pars{1 - \frac{\lambda}{n}}^{n}}
+                \cdot
+                \pars{
+                \lim_{n \rightarrow \infty}\frac{(n-k+1)\cdot \dots \cdot n}{n^k} \cdot \pars{\frac{n}{n - \lambda}}^{k}
+                } \\
+            &= e^{-\lambda} \cdot \frac{\lambda^k}{k!}
+    \end{align*}
+\end{proof}
+
+Pokażemy teraz trudniejszy dowód, który jest w książce
+
+Szanujemy swoich Czytelników i udowodnimy prosty lemat, z którego skorzystamy.
+\begin{lemma}
+    Dla dowolnego \( \abs{x} \leq 1 \)
+    \[
+        e^x(1 - x^2) \leq 1 + x \leq e^x
+    \]
+\end{lemma}
+\begin{proof}
+    Korzystamy z rozwinięcia Taylora dla \( e^x \)
+    \[
+        e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
+    \]
+    \begin{enumerate}
+        \item Zacznijmy od górnej nierówności. W oczywisty sposób
+        \[
+            1 + x \leq 1 + x + \frac{x^2}{2!} + \dots
+        \]
+        \item Drugą udowadniamy korzystając z faktu, że 
+        \[
+            e^x = \sum_{n=0}^\infty \frac{x^n}{n!} \leq \sum_{n=0}^\infty x^n = \frac{1}{1-x} = \frac{1 + x}{1 - x^2}
+        \]
+    \end{enumerate}
+\end{proof}
+\begin{lemma}
+    Dla \( n \geq 1 \) oraz \(x \geq -1\) zachodzi
+    \[
+        (1 + x)^n \geq 1 + nx
+    \]
+\end{lemma}
+
+\begin{theorem}[Twierdzenie 5.5 P\&C]
+    Ustalmy \( \lambda \).
+    Niech \( X_n \) będzie rozkładem dwumianowym z parametrami \( n,  p = \frac{\lambda}{n} \)
+    
+    Wtedy
+    \[
+        \lim_{n \rightarrow \infty} P(X_n = k) = e^{-\lambda} \cdot \frac{\lambda^k}{k!}
+    \]
+\end{theorem}
+\begin{proof}
+    Korzystamy z obu poprzednich lematów aby dostać kolejne oszacowania górne:
+    \begin{align*}
+        P(X_n = k) 
+            &= \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k} \\
+            &\leq \frac{n^k}{k!} \cdot p^k \cdot \frac{(1-p)^n}{(1-p)^k} \\
+            &\leq \frac{n^k}{k!} \cdot p^k \cdot \frac{\pars{e^{-p}}^n}{1 - pk} \\
+            &=e^{-pn}\cdot\frac{(np)^k}{k!}\cdot\frac{1}{1 - pk} \\
+            &=e^{-\lambda} \cdot \frac{\lambda^k}{k!} \cdot \frac{1}{1 - pk}
+    \end{align*}
+    Wygląda dość znajomo. Widzimy, że w granicy to wyrażenie zbiega do
+    \[
+        e^{-\lambda} \cdot \frac{\lambda^k}{k!}
+    \]
+    
+    To teraz oszacowanie dolne
+    \begin{align*}
+        P(X_n = k)
+            &= \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k} \\
+            &\geq \frac{(n - k + 1)^k}{k!} \cdot p^k \cdot (1-p)^{n - k} \\
+            &\geq \frac{(n - k + 1)^k}{k!} \cdot p^k \cdot (1-p)^n \\
+            &\geq \frac{((n-k+1)p)^k}{k!} \cdot \pars{e^{-p}\cdot(1 - p^2)}^n \\
+            &\geq e^{-pn} \cdot \frac{(np - p(k+1))^k}{k!} \cdot (1 - np^2) \\
+            &= e^{-\lambda} \cdot \frac{(\lambda - p(k + 1))^k}{k!} \cdot (1 - p\lambda)^2
+    \end{align*}
+    Tutaj ponownie widzimy, że skoro \( p \rightarrow 0 \) to to wyrażenie zbiega do
+    \[
+        e^{-\lambda} \cdot \frac{\lambda^k}{k!}
+    \]
+    
+    Z twierdzenia o trzech ciągach wychodzi że granica rozkładu dwumianowego to Poisson, niesamowite.
+\end{proof}

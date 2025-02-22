@@ -1,0 +1,38 @@
+\begin{definition}
+    \textbf{Funkcję tworzącą momenty} zmiennej losowej \( X \) definiujemy jako
+    \[
+        M_X(t) = \expected{e^{tX}}
+    \]
+\end{definition}
+
+\begin{theorem}[Twierdzenie 4.1  P\&C]
+    Jeśli \( M_X(t) \) tworzy momenty zmiennej \( X \) to
+    \[
+        \expected{X^n} = M_X^{(n)}(0)
+    \]
+\end{theorem}
+\begin{proof}
+    Zakładamy tutaj, że możemy zamieniać kolejnością operatory różniczkowania i wartości oczekiwanej.
+    To założenie działa jeśli tworząca istnieje blisko zera i okazuje się, że zachodzi dla rozkładów, którymi się będziemy zajmować.
+    
+    \[
+        M_X^{(n)}(t) = \expected{e^{tX}}^{(n)}
+        = \expected{X^n e^{tX}}
+    \]
+    \[
+        M_X^{(n)}(0) = \expected{X^n}
+    \]
+\end{proof}
+
+\begin{theorem}[Twierdzenie 4.3 P\&C]
+    Dla niezależnych zmiennych losowych \( X \) oraz \( Y \) zachodzi
+    
+    \[
+        M_{X + Y}(t) = M_X(t) \cdot M_Y(t)
+    \]
+\end{theorem}
+\begin{proof}
+    \[
+        M_{X + Y}(t) = \expected{e^{t(X + Y)}} = \expected{e^{tX}\cdot e^{tY}} = \expected{e^{tX}}\expected{e^{tX}} = M_X(t) \cdot M_Y(t)
+    \]
+\end{proof}

@@ -1,0 +1,21 @@
+Przykład z książki i wykładu rozkładu normalnego: Detekcja Sygnału (p. 245)
+
+\begin{exercise}
+\end{exercise}
+    Przyjmijmy że mamy transmiter, który wysyła bit zakodowany za pomocą   
+    \( S \in {-1, +1}\). Ale nie żyjemy w idealnym świecie i dodawany jest szum \( Y\), który jest zmienną losową o normalnym rozkładzie ze średnią 0 i odchyleniem standardowym \( \sigma \). \\
+    Sygnał ten jest odbierany i dekodowany w zależności jaki znak danego bita odbierzemy. \[ R = \sgn(S + Y)\]
+    Chcemy znaleźć prawdopodobieństwo, że otrzymany bit będzie inny niż ten, który nadamy (szum zmieni znak) \(P(R \neq S)\).\\
+    
+Prawdopodobieństwo, że błąd wyskoczy dla \( S = 1\) jest równe prawdopodobieństwu, że \( Y \leq -1 \)
+\[
+    P(Y \leq -1) = P \left( \frac{Y - \mu}{\sigma} \leq \frac{-1 - \mu}{\sigma} \right) = \Phi\left(-\frac{1}{\sigma}\right)
+\]
+Dla \( S = -1 \) mamy podobnie (to jest symetryczne btw)
+\[
+    P(Y \geq 1) = 1 - P \left( \frac{Y - \mu}{\sigma} \leq \frac{1 - \mu}{\sigma} \right) = 1 - \Phi\left(\frac{1}{\sigma}\right)
+\]
+Ponieważ symetria btw \( \Phi(-\frac{1}{\sigma}) = 1 - \Phi(\frac{1}{\sigma})\) \\ \\
+Wynik wynosi zatem \( 2(1 - \Phi(\frac{1}{\sigma})\)
+
+Dalej musimy odczytać z tabeli (BOOOOOOOOOORING)

@@ -1,0 +1,83 @@
+Entropia pozwala nam mierzyć losowość, ale jest to też w pewnym sensie miara informacji.
+A informacja jest dość mocno powiązana z kompresowaniem tej informacji do najbardziej upakowanej postaci.
+O tym jest ten rozdział.
+
+\begin{definition}
+    \textbf{Funkcją kompresji} nazywamy taką iniekcję \( \Com \), która dla dowolnego ciągu \( n \) rzutów monetą zwraca ciąg unikatowy ciągi binarny.
+\end{definition}
+
+Pokażemy teraz twierdzenie, które wygląda bardzo podobnie do twierdzenie z poprzedniego rozdziału, które mówiło o ekstrakcji bitów ze zmiennej. 
+
+Analogia wynika z tego, że kompresowanie jest bardzo podobnym procesem do wytwarzania losowych bitów, 
+z tym, że tutaj wymagamy dodatkowo, aby zwracane przez nas ciągi były zawsze różne, co może wymagać dodatkowych bitów.
+
+\begin{theorem}
+    Niech \( p > \frac{1}{2} \) będzie prawdopodobieństwem sukcesu pojedynczej próby.
+    Wtedy dla dowolnego \( \delta > 0 \) oraz wystarczająco dużego \( n \):
+    \begin{enumerate}
+        \item Istnieje funkcja kompresji \( \Com \), która średnio zwraca co najwyżej \( (1 + \delta)H(p) \) bitów
+        \item Średnia liczba bitów zwracana przez dowolną funkcję kompresji wynosi co najmniej \( (1-\delta)H(p) \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \( \)
+    \begin{enumerate}
+        \item Zaczynamy od pierwszej części -- Skonstruujemy naszą funkcję kompresji explicite.
+        
+        Ustalmy sobie takie \( \varepsilon > 0 \), żeby \( p - \varepsilon > \frac{1}{2} \)
+        
+        Pierwszy bit będzie flagą, która jest równa 0 gdy w wejściowym ciągu występuje co najmniej \( n(p - \varepsilon) \) jedynek, i 1 w przeciwnym wypadku.
+        
+        Dla tych co mają 1 przepisujemy na pałę bity z wejścia. Robimy tak, ponieważ szansa na to, że wypadło mniej niż \( n(p - \varepsilon) \) jedynek jest mała ,a dokładniej zbiega do zera dla dowolnego (stałego) \( \varepsilon \).
+        Dowodzimy ten fakt nierównością Chernoffa.
+        
+        Szacujemy od góry liczbę pozostałych ciągów. Korzystamy tutaj z faktu, że \( p - \varepsilon > \frac{1}{2} \) więc współcznynniki dwumianowe od \( \ceil{n(p - \varepsilon)} \) maleją.
+        
+        \[
+            \sum_{j=\ceil{n(p - \varepsilon)}}^n \binom{n}{j} \leq 
+            \sum_{j=\ceil{n(p - \varepsilon)}}^n \binom{n}{\ceil{n(p - \varepsilon)}}
+            \leq \frac{n}{2} \cdot 2^{nH(p - \varepsilon)}
+        \]
+        
+        Tyle jest tych ciągów -- każdemu przydzielamy jakikolwiek ciąg bitów, wystarczy użyć logarytmicznie wiele bitów, czyli co najwyżej.
+        
+        \[
+            nH(p - \varepsilon) + \lg n + 1
+        \]
+        
+        Aby policzyć oczekiwaną bierzemy oszacowanie z punktu pierwszego.
+        Mitzenmacher bierze tu dopełnienie, ale przecież
+        \[
+            P(\text{liczba jedynek} > \floor{n(p - \varepsilon)}) \geq 1 - \exp\pars{\frac{-n\varepsilon^2}{2p}}
+        \]
+        więc trochę nie działa.
+        
+        Dlatego my wstawiamy 1 jako górne oszacowanie tego prawdopodobieństwa.
+        
+        Wychodzi nam
+        \[
+            \exp\pars{\frac{-n\varepsilon^2}{2p}} \cdot (n+1)
+            + 1\cdot\pars{nH(p - \varepsilon) + \lg n + 1}
+        \]
+        
+        Dla dowolnie ustalonego \( \varepsilon \) pierwszy składnik zbiega do zera, zatem zostaje nam zatem pokazać, że dla dowolnie ustalonej \( \delta \) możemy dobrać takie \( \varepsilon \) aby dla dużych \( n\) zachodziło:
+        \[
+            nH(p - \varepsilon) + \lg n + 1 \leq (1 + \delta) n H(p)
+        \]
+        Przekształcając otrzymujemy
+        \[
+            \frac{\lg n + 1}{n} \leq (1 + \delta) H(p) - H(p - \varepsilon)
+        \]
+        
+        Teraz zauważamy, że im mniejsze \( \varepsilon \) tym bliżej siebie są
+        obie entropie po prawej stronie, zatem dla odpowiednio małego \( \varepsilon \)
+        zachodzi
+        \[
+            (1 + \delta) H(p) - H(p - \varepsilon) > 0
+        \]
+        Z drugiej strony \( \frac{\lg n + 1}{n} \) zbiega do zera, więc jak dobierzemy małe epsilon, to potem dobieramy duże \( n \) tak, aby te dwa oszacowania były rozdzielone jakąś małą stałą.
+        
+        No i fajnie.
+        
+        \item Teraz część druga tezy
+    \end{enumerate}
+\end{proof}

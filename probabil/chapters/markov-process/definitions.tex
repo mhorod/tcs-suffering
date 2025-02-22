@@ -1,0 +1,114 @@
+Poznaliśmy już łańcuchy Markowa, które opisywały zachowanie jakiegoś procesu mierzonego w dyskretnych odstępach czasowych.
+W tym rozdziale opiszemy procesy Markowa, które są ich ciągłym odpowiednikiem.
+
+\begin{definition}
+    \textbf{Procesem Markowa} nazywamy proces stochastyczny\[\set{X_t \mid t \in \real, t \geq 0} \] w którym
+    \[
+        \forall s, t: P(X_{s + t} = x \mid X_u = a(u), 0 \leq u \leq t) = P(X_{s + t} = x \mid X_t = a(t))
+    \]
+    gdzie \( a \) jest dowolną funkcją mapującą czas na zdarzenia.
+\end{definition}
+
+Idea jest ta sama co w łańcuchach Markowa -- prawdopodobieństwo na zdarzenie w danym momencie
+pod warunkiem że znamy jakąś jego historię, ma być takie samo co prawdopodobieństwo tego zdarzenia gdy znamy tylko ostatnie zdarzenie z tej historii. 
+Tak jak w łańcuchach Markowa, będziemy zakładać że czas jest homogeniczny, tj. jest jedynie indeksem i nie wpływa w żaden sposób na prawdopodobieństwa zdarzeń.
+
+Będziemy zajmować się jedynie dyskretnymi procesami tj. takimi, które przyjmują przeliczalnie wiele stanów.
+
+Dzięki temu możemy myśleć o procesie Markowa jako połączenie dwóch procesów:
+\begin{enumerate}
+    \item łańcucha Markowa zadanego macierzą przejścia \( \mathbf{P} \)
+    \item parametrów \( \lambda_1, \lambda_2, \dots \) opisujących rozkład trwania stanu \( i \).
+    
+    Ściślej mówiąc -- czas spędzony w stanie \( i \) ma rozkład wykładniczy z parametrem \( \lambda_i \)
+\end{enumerate}
+
+\subsection{Rozkład stacjonarny}
+Tutaj ponownie mamy analogię do łańcuchów Markowa (ciekawa sprawa, nie?) -- rozkład stacjonarny 
+procesu to będzie taki wektor \( \bar \pi = \brackets{\pi_1, \pi_2, \dots} \), który opisuje jakie mamy prawdopodobieństwo,
+że w losowym momencie \( t \) daleko w przyszłości będziemy akurat w stanie \( i \).
+
+Oczywiście, jako że proces ten jest ciągły to wartość \( \pi_i \) musi jakoś uwzględniać zarówno prawdopodobieństwa przejścia z macierzy \( \mathbf{P} \) jak i czas przez który siedzimy w tym stanie jak już do niego trafimy zadany parametrem \( \lambda_i \)
+
+\begin{theorem}[strona 228 P\&C]
+    Rozkład stacjonarny procesu Markowa zadany jest przez równania:
+    \[
+        \forall i: \pi_i \lambda_i = \sum_k \pi_k \lambda_k P_{k, i}
+    \]
+    \[
+        \sum_i \pi_i = 1
+    \]
+\end{theorem}
+
+W szczególności jeśli \( \forall_i \lambda_i = \lambda \) to \( \pi_i = \sum_k \pi_k P_{k, i} \)
+czyli rozkład procesu Markowa jest taki sam jak jego łańcucha. Ma to sens -- skoro w każdym czasie spędzamy tyle samo czasu,
+to asymptotycznie wszystko powinno zależeć jedynie od tego jak często wchodzimy do tych stanów.
+
+Warto zwrócić uwagę na indeksy -- sumujemy się po stanach \( k \) z których \textbf{wchodzimy} do stanu \( i \). Patrząc na macierz odpowiada to wzięciu \( i \)-tej kolumny.
+
+\begin{exercise}
+    Maszyna pracuje nieprzerwanie przez liczbę godzin będącą zmienną losową \( X \), która ma rozkład wykładniczy z parametrem \( \frac{1}{10} \).
+    Po tym czasie ulega awarii, i jest naprawiana przez kolejne \( Y \) godzin, gdzie \( Y \) jest niezależne od \( X \) i ma rozkład wykładniczy z parametrem \( \frac{9}{10} \).
+    Po naprawie maszyna zaczyna od razu pracować i cały cykl się powtarza.
+    
+    \begin{enumerate}
+        \item Pokaż, że możemy modelować tę maszynę procesem Markowa
+        \item Wyznacz macierz przejścia stowarzyszonego łańcucha Markowa
+        \item Wyznacz rozkład stacjonarny procesu oraz rozkład stacjonarny łańcucha
+    \end{enumerate}
+\end{exercise}
+\begin{proof} \( \) % new line
+    \begin{enumerate}
+        \item W naturalny sposób będziemy mieli dwa stany -- nazwijmy je \( P = 1 \) (praca) oraz \( A = 2 \) (awaria).
+            Aby pokazać, że jest to proces Markowa, to musimy udowodnić, że jest bez pamięci.
+            
+            Jeśli jesteśmy w momencie \( t \) to po pierwsze -- to w jakim stanie była maszyna przed \( t \)
+            nie ma już wpływu na kolejne wydarzenia, bo wszystkie zmienne są niezależne.
+            
+            Ponadto w czasie \( t \) możemy zresetować obecną zmienną odliczającą czas do zmiany stanu
+            (tzn. pracować pod warunkiem, że jest ona większa niż czas do poprzedniego zdarzenia) 
+            i tym samym zniwelować jakąkolwiek zależność, która wynikałaby z tego, że wiemy jak długo czekamy na zmianę stanu.
+            
+        \item Zauważmy, że przejścia zawsze są \( P \rightarrow A \) oraz \( A \rightarrow P \)
+        
+        W takim razie macierz ma postać:
+        \[
+        \mathbf{P} = \begin{bmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{bmatrix}
+        \]
+        
+        \item Niech \( \bar \pi \) będzie rozkładem stacjonarnym procesu.
+        
+        Mamy dane równania:
+        
+       \[
+            \pi_P \cdot \frac{1}{10} = \pi_P \cdot \frac{1}{10} \cdot 0 + \pi_A \cdot \frac{9}{10} \cdot 1
+        \]
+        \[
+            \pi_A \cdot \frac{9}{10} = \pi_P \cdot \frac{1}{10} \cdot 1 + \pi_A \cdot \frac{9}{10} \cdot 0
+        \]
+        \[  
+            \pi_P + \pi_A = 1
+        \]
+        
+        Rozwiązując ten układ równań otrzymamy \( \pi_P = \frac{9}{10}, \pi_A = \frac{1}{10} \)
+        Wyniki nawet pokrywają się z oczekiwaniami -- parametr czasu pracy jest dość mały w porównaniu do parametru awarii,
+        co oznacza, że przez większość czasu maszyna powinna pracować.
+        
+        Aby dostać rozkład stacjonarny łańcucha \( \bar \pi' \) rozwiązujemy podobny układ równań
+        \[
+            \pi'_P = \pi'_P \cdot 0 + \pi'_A \cdot 1
+        \]
+        \[
+            \pi'_A = \pi'_P \cdot 1 + \pi'_A \cdot 0
+        \]
+        \[
+            \pi'_P + \pi'_A = 1
+        \]
+        
+        Wychodzi nam \( \pi'_P = \pi'_A = \frac{1}{2} \) -- maszyna jest raz w jednym stanie a raz w drugim, więc asymptotycznie będzie w każdym tyle samo razy.
+        
+    \end{enumerate}
+\end{proof}

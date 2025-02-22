@@ -1,0 +1,58 @@
+\begin{definition}
+    Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Normą całkowitego wahania (total variation distance) tych rozkładów nazywamy wartość
+    \[ \left\|\mu-\nu\right\|_{TV} = \max_{A \subseteq S} \left|\mu\left( A  \right) - \nu\left( A \right) \right| .\] 
+\end{definition}
+
+\begin{lemma}
+    Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Niech \(B = \left\{ x \in S : \mu\left( x  \right) \ge \nu\left( x \right)  \right\} \). Zachodzi
+    \[ \left\|\mu-\nu\right\|_{TV} = \mu\left( B  \right) - \nu\left( B  \right) = \nu\left( B^{c} \right) - \mu\left( B^{c} \right)  .\] 
+\end{lemma}
+\begin{proof}
+    Niech \(A \subseteq S\). Zachodzi \(\mu\left( A  \right) - \nu\left( A  \right) \le \mu\left( A \cap B  \right) - \nu\left( A \cap B  \right) \le \mu\left( B  \right) - \nu\left( B  \right) \), gdzie pierwsza nierówność to wzięcie tylko tych elementów \(A\) dla których różnica rozkładów jest dodatnia a potem rozszerzamy się na wszystkie takie elementy. Analogicznie mamy \(\nu\left( A  \right) - \mu\left( A \right) \le \nu\left( B^{c} \right) - \mu\left( B^{c} \right) = 1-\nu\left( B  \right) - 1 + \mu\left( B  \right) \). Zatem te wartości są równe i świadczą o maksimum.
+\end{proof}
+
+\begin{lemma}
+    Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Zachodzi
+    \[ \left\|\mu-\nu\right\|_{TV} = \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x \right) \right| .\] 
+\end{lemma}
+\begin{proof}
+    Z poprzedniego lematu dostajemy, że dla \(B = \left\{ x \in  S : \mu\left( x  \right) \ge \nu\left( x \right)  \right\} \) jest
+    \[ \left\|\mu-\nu\right\|_{TV} = \frac{1}{2} \left( \mu\left( B  \right) - \nu\left( B  \right) + \nu\left( B^{c} \right) - \mu\left( B^{c} \right)  \right) = \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x  \right) \right|. \] 
+\end{proof}
+
+\begin{lemma}
+    Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Zachodzi
+    \[ \left\|\mu-\nu\right\|_{TV} = \frac{1}{2} \sup \left\{ \sum_{x \in  S}^{} f\left( x  \right) \mu\left( x  \right) - \sum_{x \in  S}^{} f\left( x  \right) \nu\left( x  \right) : \max_{x \in S}\left|f\left( x  \right) \right|\le 1 \right\}  .\] 
+\end{lemma}
+\begin{proof}
+    \(\left( \ge  \right) \) Jeśli \(\max_{x \in S }\left|f\left( x  \right) \right|\le 1\), to mamy 
+    \begin{align*}
+        \frac{1}{2} \left|\sum_{x \in  S}^{} f\left( x  \right) \mu\left( x  \right) - \sum_{x \in  S}^{} f\left( x  \right) \nu\left( x  \right) \right| &\le  \frac{1}{2} \sum_{x \in S}^{} \left|f\left( x  \right) \left( \mu\left( x  \right) - \nu\left( x  \right)  \right) \right| \\ 
+      &\le  \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x  \right) \right| = \left\|\mu-\nu\right\|_{TV}.  
+    \end{align*}
+
+    \(\left( \le  \right) \) Bierzemy \(B = \left\{ x \in S : \mu\left( x  \right) \ge \nu\left( x \right)  \right\} \) i definiujemy funkcję
+    \[ f^{\star}\left( x  \right)  = \left\{ \begin{array}{lr} 1, & x \in B \\ -1, & x \in B^{c} \end{array} \right. , \] 
+    która daje
+    \[ \frac{1}{2} \left( \sum_{x \in S}^{} f^{\star}\left( x  \right) \mu\left( x  \right) - \sum_{x \in S}^{} f^{\star}\left( x  \right) \nu\left( x  \right)  \right) = \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x  \right) \right|= \left\|\mu-\nu\right\|_{TV}. \] 
+\end{proof}
+
+\begin{definition}
+    Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Sprzęganiem \(\mu\) i \(\nu\) nazywamy dowolną parę zmiennych losowych \(\left( X,Y \right) \) taką, że \(X\) ma rozkład \(\mu\), a \(Y\) ma rozkład \(\nu\). W szczególności te zmienne nie muszą być niezależne.
+\end{definition}
+
+\begin{lemma}
+    Niech \(\left( X,Y \right) \) będzie sprzęganiem \(\mu\) i \(\nu\). Zachodzi
+    \[ \left\|\mu-\nu\right\|_{TV} \le P\left( X \neq Y \right) . \] 
+    Ponadto istnieje sprzęganie dla którego zachodzi równość.
+\end{lemma}
+\begin{proof}
+    Dla dowolnego \(A \subseteq S\) mamy
+    \[ \mu\left( A  \right) - \nu\left( A  \right) = P\left( X \in A  \right) - P\left( Y \in  A  \right) \le P\left( X \in A \cap Y \notin A  \right) \le P \left( X \neq Y \right) . \] 
+    Analogicznie \(\nu\left( A  \right) - \mu\left( A  \right) \le  P\left( X \neq Y \right) \). To daje żądaną nierówność.
+
+    Teraz skonstruujemy sprzęganie spełniające równość. Niech \(B = \left\{ x \in S : \mu\left( x  \right) \ge \nu\left( x  \right)  \right\} \). Niech \(p_1 = \mu\left( B  \right) - \nu\left( B  \right) \), \(p_2 = \nu\left( B^{c} \right) - \mu\left( B^{c} \right) \). Mamy \(p_1 = p_2 = \left\|\mu-\nu\right\|_{TV}\). Niech \(p_3 = 1-p_1 = 1-p_2\).
+
+    Rzucamy monetą z prawdopodobieństwem orła \(p_3\). Jeśli wypadnie orzeł to ustalamy \(X = Y = s \), gdzie \(s\) wybieramy z \(S\) z rozkładem \(\left( \frac{1}{p_3} \min\left( \mu\left( s  \right) ,\nu\left( s  \right)  \right) : s \in S \right) \). Jeśli wypadnie reszka ustalamy \(X = x \) i \(Y=y\), gdzie \(x\) jest wybierany losowo z \(S \) z rozkładem \(\left( \frac{1}{p_1} \max\left( \mu\left( x  \right) -\nu\left( x  \right) , 0 \right) : x \in S \right) \), a \(y\) z rozkładem \(\left( \frac{1}{p_2} \max\left( \nu\left( x  \right) -\mu\left( x  \right) , 0 \right) : x \in S \right) \). W przypadku reszki jedna zmienna przyjmuje tylko te wartości, na których \(\mu\) jest większe, a druga tylko te, na których \(\nu\) jest większe. Mamy więc \(P\left( X\neq Y \right) = 1-p_3 = \left\|\mu-\nu\right\|_{TV}\), a \(\left( X,Y \right) \) faktycznie jest sprzęganiem \(\mu\) i \(\nu\) -- zmienne mają odpowiednie rozkłady.
+\end{proof}
+

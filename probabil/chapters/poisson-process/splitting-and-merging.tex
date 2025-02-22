@@ -1,0 +1,56 @@
+\subsection{Scalanie}
+Ta prostsza część.
+\begin{theorem}[Twierdzenie 8.12 P\&C]
+    Niech \( N_1, N_2 \) będą niezależnymi procesami Poissona z parametrami \( \lambda_1, \lambda_2 \).
+    Wtedy \( N(t) = N_1(t) + N_2(t) \) jest procesem Poissona z parametrem \( \lambda_1 + \lambda_2 \)
+    a ponadto każde zdarzenie procesu \( N \) przyszło z procesu \( N_1 \) z prawdopodobieństwem \( \frac{\lambda_1}{\lambda_1 + \lambda_2} \)
+\end{theorem}
+\begin{proof}
+    Pierwsze trzy warunki mamy za darmo.
+    
+    Zauważamy, że skoro \( N_1(t), N_2(t) \) miały rozkład Poissona, to \( N_1(t) + N_2(t) \) również ma rozkład Poissona, tyle, że z parametrem \( \lambda_1 + \lambda_2 \), zatem otrzymujemy proces Poissona z parametrem \( \lambda_1 + \lambda_2 \).
+    
+    Druga część tezy wynika wprost z tego, że czasy między zdarzeniami maja rozkłady wykładnicze.
+\end{proof}
+
+\subsection{Rozdzielanie}
+Ta smutniejsza część.
+\begin{theorem}[Twierdzenie 8.13 P\&C]
+    Niech \( N \) będzie procesem Poissona z parametrem \( \lambda \).
+    Każde zdarzenie jest niezależnie typu 1 z prawdopodobieństwem \( p \) oraz typu 2 z prawdopodobieństwem \( 1 - p \).
+    
+    Wtedy zdarzenia typu 1 tworzą proces Poissona \( N_1 \) z parametrem \( \lambda p \) a typu 2 proces Poissona \( N_2 \) z parametrem \( \lambda (1-p) \). Ponadto, te dwa procesy są niezależne.
+\end{theorem}
+\begin{proof}
+    Niezależność i stacjonarność dziedziczymy z \( N \), tak samo \( N_1(0) = 0 \).
+    Policzymy zatem
+    \begin{align*}
+        P(N_1(t) = k)
+            &= \sum_{j=k}^\infty P(N_1(t) = k \mid N(t) = j) \cdot P(N(t) = j) \\
+            &= \sum_{j=k}^\infty p^k \cdot (1-p)^{j-k} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^j}{j!} \\
+            &= e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!} \cdot e^{-\lambda (1 - p) t} \cdot
+                \sum_{j=k}^\infty \frac{(\lambda t)^{j-k}}{(j-k)!} \\
+            &= e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!} \cdot e^{-\lambda (1 - p) t}  \cdot e^{\lambda (1 - p) t} \\
+            &= e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!}
+    \end{align*}
+    
+    Dostaliśmy rozkład Poissona z parametrem \( \lambda p t \), czyli \( N_1 \) jest procesem Poissona z parametrem \( \lambda p t \). Tak samo pokazujemy \( N_2 \).
+    
+    Pozostaje pokazać niezależność tych procesów.
+    Najpierw pokazujemy, że \( N_1(t) \) oraz \( N_2(t) \) są niezależne.
+    \begin{align*}
+        P(N_1(t) = n \land N_2(t) = m)
+            &= P(N(t) = n + m \land N_2(t) = m) \\
+            &= \frac{e^{-\lambda t}\cdot(\lambda t)^{n + m}}{(n + m)!} \cdot \binom{n + m}{m} p^n \cdot (1-p)^m \\
+            &= \frac{e^{-\lambda t}\cdot(\lambda t)^n \cdot (\lambda t)^m}{n! \cdot m!} \cdot p^n \cdot (1-p)^m \\
+            &= \frac{e^{-\lambda p t} \cdot (\lambda p t)^n}{n!} \cdot \frac{e^{-\lambda (1-p) t} \cdot (\lambda (1-p) t)^m}{m!} \\
+            &= P(N_1(t) = n) \cdot P(N_2(t) = m)
+    \end{align*}
+    Wypadałoby jeszcze pokazać, że dla dowolnych \(t, u\) \( N_1(t) \) oraz \( N_2(u) \) są niezależne.
+    Ponieważ rozumowanie jest analogiczne, to załóżmy, że \( t < u \).
+    
+    Zauważamy bardzo odkrywczą rzecz, mianowicie \( N_2(u) = N_2(t) + \pars{N_2(u) - N_2(t)} \)
+    Pokazaliśmy już, że \( N_1(t) \) oraz \( N_2(t) \) są niezależne, więc wystarczy pokazać, że 
+    \( N_1(t) \) oraz \(N_2(u) - N_2(t)\) też są niezależne.
+    A tak jest, dlatego, że oryginalny \( N \) był procesem Poissona i rozdzielanie robiliśmy niezależnie, więc to ile zdarzeń z przedziału \( \pars{t, u} \) wpadło do \( N_2 \) jest niezależne od \( N_1(t) \).
+\end{proof}

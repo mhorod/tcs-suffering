@@ -1,0 +1,38 @@
+Najpierw wyliczmy wartość oczekiwaną standardowego rozkładu normalnego.
+\begin{theorem}
+    Wartość oczekiwana standardowego rozkładu normalnego wynosi 0, wariancja wynosi 1.
+\end{theorem}
+
+\begin{proof}
+Wartość oczekiwana wynosi 0, ponieważ standardowy rozkład normalny jest symetryczny wobec prostej \( OY\)
+Wariancja:
+\[
+    \variance{Z} = \expected{Z^2} - \expected{Z}^2 = \expected{Z^2} = \\
+\]
+ponieważ \( \expected{Z} = 0 \)
+\[  
+    = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}t^2e^{-t^2/2} dt = 
+\]
+\[
+    = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}(t)(te^{-t^2/2}) dt =
+\]
+całkowanie przez części
+\[
+    -\frac{1}{\sqrt{2\pi}}te^{-t^2/2}|_{-\infty}^{\infty} + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{-t^2/2} dt = 1
+\]
+Ponieważ pierwszy wyraz jest równy 0 a drugi jest to dystrybuanta na od \(-\infty \) do \( \infty \) więc wynosi ona 1.
+\end{proof}
+
+\begin{lemma}
+    Zmienna losowa ma rozkład normalny wtedy i tylko wtedy gdy jest transformacją liniową zmiennej losowej o standardowym rozkładzie normalnym
+\end{lemma}
+
+\begin{proof}
+    Ponieważ zmienna losowa \( X\) z \(N(\mu, \sigma^2) \) ma ten sam rozkład co \( \sigma Z + \mu \) mamy że
+    \[\expected{X} = \expected{\sigma Z + \mu} = \mu
+    \]
+    \[
+        \variance{X} = \variance{\sigma Z + \mu} = \sigma^2
+    \]
+\end{proof}
+czyli ten \sout{dzban} dzwon ma efektywnie przesunięcie o \( \mu \).

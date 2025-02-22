@@ -1,0 +1,131 @@
+\begin{definition}
+    Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład geometryczny} z parametrem \( p \) jeśli
+    dla \( n > 0 \) 
+    \[
+        P(X = n) = (1 - p)^{n-1} \cdot p
+    \]
+\end{definition}
+
+\begin{theorem}[Lemat 2.8 P\&C]
+    Rozkład geometryczny jest \textbf{bez pamięci} tzn. jeśli \( X \) ma rozkład geometryczny z parametrem \( p \) to
+    \[
+        \forall_{n, k} : P(X = n + k \mid X > k) = P(X = n) 
+    \]
+\end{theorem}
+\begin{proof}
+    Zauważmy najpierw, że dla dowolnego \( 0 < p < 1 \) mamy
+    \[
+        \sum_{i=k}^\infty (1-p)^i = (1-p)^k \cdot \frac{1}{1 - (1-p)} = \frac{(1-p)^k}{p}
+    \]
+    
+    W takim razie
+    \begin{align*}
+        P(X = n + k \mid X > k)
+            &= \frac{P(X = n + k \land X > k)}{P(X > k)} \\
+            &= \frac{P(X = n + k)}{P(X > k)} \\
+            &= \frac{(1 - p)^{n + k - 1} \cdot p}{\sum_{i=k}^\infty (1-p)^i \cdot p} \\
+            &= \frac{(1-p)^{n + k - 1}}{\sum_{i=k}^\infty (1-p)^i} \\
+            &= (1-p)^{n + k - 1} \cdot \frac{p}{(1-p)^k} \\
+            &= (1-p)^{n-1} \cdot p \\
+            &= P(X = n)
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy
+    \[
+        \expected{X} = \frac{1}{p}
+    \]
+\end{theorem}
+\begin{proof}
+    Skorzystamy z twierdzenia \ref{expected-value-of-natural-random-variable}
+    \begin{align*}
+        \expected{X}
+            &= \sum_{n=1}^\infty P(X \geq n) \\
+            &= \sum_{n=1}^\infty \sum_{i=n}^\infty (1-p)^{i-1} \cdot p \\
+            &= \sum_{n=1}^\infty (1-p)^n \\
+            &= \frac{1}{1 - (1-p)} \\
+            &= \frac{1}{p}
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy
+    \[
+        \variance{X} = \frac{1 - p}{p^2}  
+    \]
+\end{theorem}
+\begin{proof}
+    Pokazaliśmy przed chwilą, że \( \expected{X} = \frac{1}{p} \). Pozostaje nam zatem policzyć \( \expected{X^2} \)
+    
+    Zaczniemy od pokazania pomocniczych równości. 
+    
+    Wiemy, że dla \( 0 < x < 1 \) 
+    \[
+        \frac{1}{1-x} = \sum_{i=0}^\infty x^i
+    \]
+    Różniczkujemy obustronnie
+    \[
+        \frac{1}{(1-x)^2} = \sum_{i=0}^\infty i x^{i-1} = \sum_{i=0}^\infty (i+1)x^i
+    \]
+    I jeszcze raz
+    \[
+        \frac{2}{(1-x)^3} = \sum_{i=0}^\infty i (i+1) x^{i-1} 
+        = \sum_{i=0}^\infty (i+1)(i+2)x^i
+    \]
+    
+    W takim razie
+    \begin{align*}
+            \sum_{i=1}^\infty i^2 x^i &= \sum_{i=0}^\infty i^2 x^i \\
+            &= \sum x^i \cdot \pars{i^2 + 3i + 2 - 3(i + 1) + 1} \\
+            &= \sum (i+1)(i+2)x^i - 3\sum_{i=1}^\infty (i+1)x^i + \sum_{i=1}^\infty x_i \\
+            &= \frac{2}{(1-x)^3} - 3\cdot\frac{1}{(1-x)^2} + \frac{1}{1-x} \\
+            &= \frac{x^2 + x}{(1-x)^3}
+    \end{align*}
+    
+    Teraz możemy przejść do głównych obliczeń:
+    \begin{align*}
+        \expected{X^2}
+            &= \sum_{i=1}^\infty i^2 \cdot (1-p)^{i-1} p \\
+            &= \frac{p}{1 - p} \cdot \sum_{i=1}^\infty i^2 \cdot (1-p)^i \\
+            &= \frac{p}{1-p}\cdot\frac{(1-p)^2 + (1-p)}{p^3} \\
+            &= \frac{(1-p) + 1}{p^2} = \frac{2 - p}{p^2}
+    \end{align*}
+    
+    Dowód kończymy obliczając wariancję 
+    \[
+        \variance{X} = \expected{X^2} - \expected{X}^2 = \frac{2-p}{p^2} - \frac{1}{p^2} = \frac{1-p}{p^2}
+    \]
+\end{proof}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy tworząca tej zmiennej wynosi
+    \[
+        M_X(t) = \frac{pe^t}{1 - (1-p)e^t}
+    \]
+    dla \( t < -\ln (1-p) \).
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        M_X(t) 
+            &= \expected{e^{tX}} \\
+            &= \sum_{i=1}^\infty (1-p)^{i-1}pe^{ik} \\
+            &= \frac{p}{1 - p} \cdot \sum_{i=1}^\infty \pars{(1-p)e^t}^i \\
+            &= \frac{p}{1-p} \cdot \pars{\pars{\sum_{i=0}^\infty \pars{(1-p)e^t}^i} - 1} \\
+            &= \frac{p}{1-p} \cdot \pars{\frac{1}{1 - (1-p)e^t} - 1} \\
+            &= \frac{p}{1-p} \cdot \frac{(1-p)e^t}{1 - (1-p)e^t} \\
+            &= \frac{pe^t}{1 - (1-p)e^t}
+    \end{align*}
+    Skorzystaliśmy tutaj z faktu, że szereg \[ \sum_{i=1}^\infty \pars{(1-p)e^t}^i \]
+    jest zbieżny. Dzieje się tak gdy 
+    \[
+        (1-p)e^t < 1
+    \]
+    \[
+        e^t < \frac{1}{1-p}
+    \]
+    \[
+        t < -\ln (1-p)
+    \]
+\end{proof}

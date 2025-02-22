@@ -1,0 +1,143 @@
+Intuicyjnie: Centralne Twierdzenie Graniczne mówi, że jak mamy jakieś niezależne zmienne losowe (niekoniecznie o takim samym rozkładzie) to rozkład średnich tych wylosowanych wartości będzie zbiegać do rozkładu normalnego po wykonaniu pewnej, dużej liczby prób.
+Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
+\begin{definition}
+    Ciąg dystrybuant \( F_1, F_2, ... \) zbiega w dystrybuancie do dystrybuanty \( F\), co oznaczamy jako \(F_n \to F \), jeśli dla każdego \(a \in \mathbb{R} \) w którym \( F \) jest ciągła zachodzi:
+    \[
+        \lim_{n \to \infty} F_n(a) = F(a)
+    \]
+\end{definition}
+
+\begin{theorem}[Centralne Twierdzenie Graniczne]
+    Niech \( X_1, X_2, ... X_n\) będą niezależnymi zmiennymi losowymi o takim samym rozkładzie, średniej \( \mu\) i wariancji \( \sigma^2\). Niech \( \mean{X_n} = \frac{1}{n}\sum_{i=1}^n X_i \). Wówczas dla dowolnych \(a, b\)
+    \[
+        \lim_{n \to \infty} \mathrm{P} \left( a \leq \frac{ \mean{X_n} - \mu}{\sigma} \cdot \sqrt{n} \leq b \right) \to \Phi(b) - \Phi(a)
+    \]
+\end{theorem}
+\begin{proof}
+    Aby dowieść CTG, będziemy musieli przytoczyć \textit{pomocne twierdzonko}, którego (mamy nadzieję) nikt nie będzie musiał dowodzić:
+    
+\begin{theorem}[Lévy-Cramér] Niech \( Y_1, Y_2, \dots\)
+    będzie sekwencją zmiennych losowych, gdzie \(Y_i\) ma dystrybuantę \(F_i\) i funkcję tworzącą momentów \( M_i\). Niech \(Y\) będzie zmienną losową o dystrybuancie \(F\) i funkcji tworzącej momenty \(M\). Jeżeli dla każdego \(t\) zachodzi:
+    \[
+    \lim_{n \to \infty}M_n(t) = M(t)
+    \]
+    
+    to \(F_n \to F\) dla wszystkich \(t\) w których \( F(t)\) jest ciągła.
+\end{theorem}
+\begin{proof}
+    Mitzenmacher przytacza to twierdzenie bez dowodu; na wykładzie go również nie było, a więc i my udowodnimy je poprzez założenie go jako aksjomat (haha).
+\end{proof}
+
+    Przystępujemy teraz do dowodzenia CTG.
+
+    Definiujemy \( Z_i = (X_i - \mu)/\sigma \).
+    Wówczas \( Z_i\) są to niezależne zmienne losowe oraz:
+    
+    \[
+        \expected{Z_i} = \expected{\frac{X_i - \mu}{ \sigma}} = \frac{1}{\sigma} \cdot \pars{\expected{X_i} - \expected{\mu}} = \frac{1}{\sigma} \cdot \pars{\mu - \mu} = 0
+    \]
+    
+    \[
+    \variance{Z_i} = \variance{\frac{X_i - \mu}{\sigma}} = \frac{1}{\sigma} \cdot \pars{\variance{X_i - \mu}} = \frac{1}{\sigma} \cdot \pars{\variance{X_i} - \variance{mu}} = \frac{1}{\sigma^2} \cdot \pars{\sigma^2 - 0} = 1
+    \]
+    (gdzie korzystamy z faktu, że dla stałej \(c\) \( \variance{cX} = c^2 \variance{X} \)).
+
+    Ponadto mamy, że:
+    \[
+    \frac{\bar{X_n} - \mu}{\sigma} \cdot \sqrt{n} = \frac{\sqrt{n}}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma} = \frac{\sqrt{n}}{n} \sum_{i=1}^{n} Z_i = \frac{\sum_{i=1}^nZ_i}{\sqrt{n}}
+    \]
+    Żeby zastosować teraz przywołane przez nas twierdzenie Levy'ego i tego drugiego musimy pokazać, że MGF\footnote{Moment Generating Function} zmiennych losowych postaci
+    \[
+    Y_n = \frac{\sum_{i=1}^nZ_i}{\sqrt{n}}
+    \]
+    zbiega do MGF zmiennej losowej o standardowym rozkładzie normalnym. Po zastosowaniu tego twierdzenia dostalibyśmy już tezę Centralnego Twierdzenia Granicznego. 
+    
+    W takim razie, chcemy w tym celu pokazać coś takiego:
+    \[
+    \lim_{n \to \infty} M_{Y_n}(t) = \lim_{n \to \infty}\expected{e^{t\sum_{i=1}^nZ_i/\sqrt{n}}} = e^{t^2/2}
+    \]
+    Niech \( M_{Z_i}(t) = \expected{e^{tZ_i}} \) będzie funkcją tworzącą momenty zmiennej \(Z_i\).  Zauważamy, że wówczas MGF zmiennej losowej \( Z_i/\sqrt{n}\) wynosi:
+    \[
+    M_{Z_i / \sqrt{n}}(t) = \expected{e^{t \cdot Z_i/\sqrt{n}}} = M_{Z_i} \pars{\frac{t}{\sqrt{n}}}
+    \]
+    Ponieważ \( Z_i\) są niezależne i mają ten sam rozkład:
+    \[
+    M_{Y_n}(t) = M_{\sum_{i=1}^{n} Z_i / \sqrt{n}} (t) = \pars{M_{Z_i / \sqrt{n}}(t)}^n = \pars{M_{Z_i}\pars{\frac{t}{\sqrt{n}}}}^n
+    \]
+    
+    Teraz wykonujemy \textit{magiczne założenie}. Zdefiniujmy sobie, \textbf{for no reason at all}, funkcję \(L\), taką że:
+    
+    \[
+        L(t) = \ln M_{Z_i}(t)
+    \]
+    
+    Dodatkowo, \textit{również bez jakiejkolwiek przyczyny}, policzmy sobie pierwszą i drugą pochodną \(L(0)\). 
+    
+    Zacznijmy od trywialnych obserwacji:
+    \[
+    M_{Z_i}(0) = 1 \implies L(0) = 0
+    \]
+    \[
+    L'(0) = \pars{\ln M_{Z_i}(0)}' = \frac{1}{M_{Z_i}(0)} \cdot M'_{Z_i}(0) = \frac{M_{Z_i}'(0)}{M_{Z_i}(0)} = \frac{\expected{Z_i}}{1} = \expected{Z_i} = 0
+    \]
+    \[
+    L''(0) = \frac{M_{Z_i}(0)M_{Z_i}''(0) - (M_{Z_i}'(0))^2}{(M_{Z_i}(0))^2} = \frac{M_{Z_i}''(0) - 0}{1} = \expected{Z_i^2} = 1
+    \]
+    W ostatnim przejściu korzystamy z faktu, że \( \expected{Z_{i}^2} = 1\). Wynika to z faktu, że \( \expected{Z_{i}^2} - \expected{Z_{i}}^2 = \sigma^2 = 1\).
+    
+    Przypomnijmy, że chcieliśmy pokazać, że:
+    
+    
+    \[
+    \lim_{n\to\infty}M_{Y_n}\pars{t} \to e^{t^2/2}
+    \]
+    
+    lub równoważnie:
+    
+    \[ 
+        \lim_{n \to \infty } \pars{M_{Z_i}\pars{\frac{t}{\sqrt{n}}}}^n \to e^{t^2 / 2}
+    \]
+    
+    po zlogarytmowaniu stronami:
+    
+    \[ 
+        \lim_{n \to \infty} nL\pars{\frac{t}{\sqrt{n}}} \to \frac{t^2}{2}
+    \]
+    
+    Pytanie teraz co musimy zrobić by wykazać, że ta granica tyle wynosi. 
+    
+    Jak wszyscy wiemy, kiedy nie wiadomo jak policzyć granicę, to liczymy ją L’Hôpitalem. Zapiszmy więc sobie ten limit tak, byśmy mogli użyć tego twierdzenia (czyli żeby pojawił się symbol nieoznaczony \( \frac{0}{0} \)).
+    \[
+    \lim_{n \to \infty}\frac{L\pars{\frac{t}{\sqrt{n}}}}{n^{-1}}
+    \]
+    
+    No i lecimy z pochodnymi!
+    
+    \begin{align*}
+        \lim_{n \to \infty}\frac{L \pars{\frac{t}{\sqrt{n}}}}{n^{-1}} &= \lim_{n \to \infty}\frac{-L'\pars{\frac{t}{\sqrt{n}}}tn^{-\frac{3}{2}}}{-2n^{-2}} \\
+        &= \lim_{n \to \infty}\frac{L'\pars{\frac{t}{\sqrt{n}}}t}{2n^{-\frac{1}{2}}} \\ 
+        &= \lim_{n \to \infty}\frac{-L''\pars{\frac{t}{\sqrt{n}}}t^2 n^{-\frac{3}{2}}}{-2n^{-\frac{3}{2}}} \\ 
+        &= \lim_{n \to \infty} \frac{t^2 \cdot L''\pars{\frac{t}{\sqrt{n}}}}{2} \\ 
+        &= \lim_{n \to \infty} \frac{t^2 \cdot 1 }{2} \\
+        &= \frac{t^2}{2}
+    \end{align*}
+        
+    I w sumie to mieliśmy dowieść. Ale fajnie. 
+\end{proof}
+
+Istnieją różne warianty CTG, które mają swoje zastosowanie w różnych sytuacjach. Poniżej podajemy wypowiedzi dwóch takich wariantów.
+
+\begin{theorem}
+    Niech \(X_1,\ldots,X_n\) będzie ciągiem niezależnych zmiennych losowych z \(\mathbb{E}\left[ X_i \right] = \mu_i\) i \(\variance{X_i} = \sigma_i^2\). Niech zachodzi
+    \begin{enumerate}
+        \item \(\exists_{M>0} \ \forall_{i \in [n]} \ P\left( \left|X_i\right|<M \right) = 1 \)
+        \item \( \lim_{n \to \infty} \sum_{i=1}^{n} \sigma_i^2 = +\infty\).
+    \end{enumerate}
+    Wówczas \[ P\left( a \le \frac{ \sum_{i=1}^{n} \left( X_i - \mu_i \right) }{\sqrt{ \sum_{i=1}^{n} \sigma_i^2} } \le  b  \right) \xrightarrow{D} \Phi\left( b  \right) - \Phi\left( a  \right) . \] 
+\end{theorem}
+
+\begin{theorem}[Berry-Ess\'een]
+    Istnieje taka stała \(C\), że zachodzi następujące: niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi losowymi o tym samym rozkładzie ze skończoną wartością oczekiwaną \(\mu\) i wariancją \(\sigma^2\). Dalej niech \(\rho = \mathbb{E}\left[ \left|X_i-\mu\right|^3 \right] < \infty \) i \(\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_i\). Mamy
+    \[ \left|P\left( \frac{\overline{X}_{n}-\mu}{\frac{\sigma}{\sqrt{n} }} \le a \right) - \Phi\left( a  \right) \right| \le C\cdot \frac{\rho}{\sigma^3 \sqrt{n} } .\] 
+\end{theorem}
+

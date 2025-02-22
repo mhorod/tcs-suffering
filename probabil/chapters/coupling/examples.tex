@@ -1,0 +1,65 @@
+\begin{theorem}
+    Rozważmy graf \(G\) o \(n\) wierzchołkach i stopniu maksymalnym \(\Delta\). Definiujemy następujący łańcuch Markowa: niech \(M_0\) będzie ustalonym \(k\)-elementowym zbiorem niezależnym w \(G\). W kroku łańcucha losujemy wierzchołek \(v\) jednostajnie z \(M_t\) i \(w\) jednostajnie z \(V\left( G  \right) \). Ustalamy \(M_{t+1} = M_t \setminus \left\{ v  \right\} \cup \left\{ w \right\} \), jeśli taki zbiór jest niezależny i ma \(k\) wierzchołków. Inaczej \(M_{t+1} = M_t\).
+
+    Jeśli \(k \le \frac{n}{3\left( \Delta + 1 \right) }\), to taki łańcuch jest skończony, nieprzywiedlny i nieokresowy a jego rozkład stacjonarny jest jednostajny po wszystkich \(k\)-elementowych zbiorach niezależnych. Do tego jego czas mieszania jest ograniczony: \(\tau_{\mathrm{mix}} \le \ln\left( 4k \right) \cdot \frac{kn}{n - 3\left( k-1 \right) \left( \Delta+1 \right) }\).
+\end{theorem}
+\begin{proof}
+    Nieokresowość wynika z tego, że łańcuch może stać w miejscu. Niech \(A \neq B\) będą \(k\)-elementowym zbiorami niezależnymi i \(u \in B \setminus A \). Pokażemy, że z \(A\) da się dojść do zbioru zawierającego \(u\) bez usuwania żadnych wspólnych elementów \(A\) i \(B\), co indukcyjnie pozwoli nam na dojście do \(B\) -- w ten sposób pokażemy nieprzywiedlność.
+
+    Jeśli \(\left|N\left( u  \right) \cap  A \right| = 0\), to przejście \(A \to  A \setminus \left\{ v  \right\} \cup \left\{ u  \right\} \) dla dowolnego \(v \in A \setminus B \) jest tym, co chcemy.
+
+    Jeśli \(N\left( u  \right) \cap A  = \left\{ v  \right\} \), to \(v \notin B \) i można przejść \(A \to  A \setminus \left\{ v  \right\} \cup \left\{ u  \right\} \).
+
+    Jeśli \(N\left( u  \right) \cap A = \left\{ v_1,\ldots,v_{\ell} \right\} \), to \(v_1 \notin B \). Możemy wyrzucić \(v_1\) i zamiast niego wziąć dowolny element \(W = V\left( G  \right) \setminus \left(\bigcup_{w \in A \setminus \left\{ v_1 \right\} }^{} N\left[ w \right]  \cup N\left[ u  \right]\right) \). Powtarzając ten proces aż do \(v_{\ell}\) znajdziemy się w końcu w poprzednim przypadku i będziemy mogli dodać \(u\) do naszego zbioru. Pozostaje wykazać, że \(W \neq \O\). Mamy \(\left|W\right| \ge n - \left( k-1 \right) \left( \Delta+1 \right) - \left( \Delta+1 \right) +1 \ge \frac{2}{3}n+1 > 0\), gdzie jedynka wynika z tego, że \(u\) zostało policzone w sąsiedztwie swoim oraz \(v_2\).
+
+    Niech \(P\) będzie macierzą przejścia tego łańcucha. Mamy \(P\left( x,y \right) = P\left( y,x \right)\), bo albo między stanami da się przejść wybierając odpowiedni wierzchołek ze zbioru i całego grafu (czyli z prawdopodobieństwem \(\frac{1}{nk}\)), albo się nie da i obie strony to \(0\). Z tego wynika, że dla rozkładu jednostajnego \(\pi\) jest \(\pi\left( x  \right) P\left( x,y \right) = \pi\left( y  \right) P\left( y,x \right) \), a z tego wynika jego stacjonarność.
+
+    Zdefiniujemy sprzęganie \( (\left( X_t,Y_t \right) )_{t\in\N}\) w następujący sposób: \(X_t\) jest już opisanym łańcuchem, czyli w kroku losujemy wierzchołki \(v,w\). Jeśli \(v \in Y_t\), to \(Y_t\) wykonuje krok dla wierzchołków \(v,w\). W przeciwnym wypadku losujemy \(v'\) jednostajnie z \(Y_t \setminus X_t\) i wykonujemy krok dla \(v',w\). Wierzchołki należące do \(Y_t \cap X_t\) mają szansę \(\frac{1}{k}\) na bycie wybranym, a pozostałe \(\frac{k - \left|Y_t \cap X_t\right|}{k}\cdot \frac{1}{k-\left|Y_t \cap X_t\right|} = \frac{1}{k}\), a więc drugi łańcuch też ma macierz przejścia \(P\).
+
+    Zdefiniujmy \(d_t = \left|X_t \setminus Y_t\right|\). Oczywiście \(d_{t+1} \in \left\{ d_t-1,d_t,d_t+1 \right\} \). Pokażemy, że jeśli \(d_t > 0\), to przejście \(-1\) jest bardziej prawdopodobne od \(+1\). Mamy
+    \[ P\left( d_{t+1} = d_t +1 \mid d_t > 0 \right) \le \frac{k-d_t}{k}\cdot \frac{2d_t\left( \Delta+1 \right) }{n} \] 
+    \[ P\left( d_{t+1} = d_t -1 \mid d_t > 0 \right) \ge \frac{d_t}{k}\cdot \frac{n - \left( k+d_t-2 \right) \left( \Delta+1 \right) }{n} ,\] 
+    bo w pierwszym przypadku musimy wybrać wspólne \(v\) i takie \(w\), że dokładnie jeden z łańcuchów zmieni stan -- szacujemy z góry przez sumę sąsiedztw niewspólnych wierzchołków z obu łańcuchów (może być tak, że te sąsiedztwa się pokrywają i oba nie zmienią stanu, ale to szacowanie z góry więc jest dobrze). W drugim przypadku musimy wybrać różne \(v, v'\) i takie \(w\), że oba łańcuchy zmienią stan -- odejmujemy największe możliwe sąsiedztwa wszystkich wierzchołków w obu łańcuchach poza \(v\) i \(v'\). Teraz zakładając \(d_t > 0\) możemy przeliczyć
+    \begin{align*}
+        &\mathbb{\mathbb{E}}\left[ d_{t+1} \mid d_t \right] = d_t - P\left( d_{t+1} = d_t-1 \right)  + P\left( d_{t+1} = d_t+1 \right) \\ 
+        &\le d_t - \frac{d_t}{k}\cdot \frac{n-\left( k+d_t-2 \right) \left( \Delta+1 \right) }{n} + \frac{k-d_t}{k}\cdot \frac{2d_t\left( \Delta+1 \right) }{n} = d_t\left( 1-\frac{n - \left( 3k-d_t-2 \right) \left( \Delta+1 \right) }{kn} \right) \\ 
+        &\le d_t\left( 1- \frac{n-3\left( k-1 \right) \left( \Delta+1 \right) }{kn} \right) ,
+    \end{align*}
+    gdzie druga nierówność to zastosowanie \(d_t \ge 1\). Oznaczmy \(C = \frac{n-3\left( k-1 \right) \left( \Delta+1 \right) }{kn}\).
+
+    Mamy \(\mathbb{\mathbb{E}}\left[ d_{t+1} \mid d_t = 0 \right] = 0\), zatem
+    \[ \mathbb{\mathbb{E}}\left[ d_{t+1} \right] = \mathbb{E}\left[ \mathbb{E}\left[ d_{t+1} \mid d_t \right]  \right] \le \mathbb{E}\left[ d_t \right] \left( 1-C \right) \le d_0\left( 1-C \right) ^{t+1} \le d_0e^{-\left( t+1 \right) C} \le ke^{-\left( t+1 \right) C}. \] 
+    Z nierówności Markowa
+    \[ P\left( d_t \ge  1 \right) \le \mathbb{\mathbb{E}}\left[ d_t \right] \le ke^{-tC} \implies P\left( X_t \neq Y_t \right) \le ke^{-tC}. \] 
+    Dla \(t \ge \ln\left( 4k \right) \cdot \frac{1}{C}\) mamy \(\tau_{\mathrm{mix}}\left( \frac{1}{4} \right) \le t \) (w tym momencie ważne jest \(C>0\), które wynika z założenia o wartości \(k\)).
+\end{proof}
+
+\begin{theorem}
+    Rozważmy graf \(G\) o \(n\) wierzchołkach i stopniu maksymalnym \(\Delta\). Definiujemy następujący łańcuch Markowa: niech \(M_0\) będzie ustalonym poprawnym \(c\)-kolorowaniem wierzchołkowym \(G\). W kroku łańcucha losujemy wierzchołek \(v\) jednostajnie z \(V\left( G  \right) \) i kolor \(\ell\) jednostajnie z \([c]\). Jeśli \(N\left( v  \right) \) nie zawiera wierzchołków koloru \(\ell\), to zmieniamy kolor \(v\) na \(\ell\). Inaczej łańcuch stoi w miejscu.
+
+    Jeśli \(c \ge 2\Delta + 1\), to taki łańcuch jest skończony, nieprzywiedlny i nieokresowy a jego rozkład stacjonarny jest jednostajny po wszystkich poprawnych \(c\)-kolorowaniach wierzchołkowych. Do tego jego czas mieszania jest ograniczony: \(\tau_{\mathrm{mix}} \le \ln\left( 4n \right) \cdot \frac{cn}{c-2\Delta}\).
+\end{theorem}
+\begin{proof}
+    Nieokresowość wynika z tego, że łańcuch może stać w miejscu. Rozważmy kolorowania \(X,Y\) i pewien dowolny porządek na wierzchołkach. Możemy po kolei poprawiać kolory wierzchołków z \(X\) tak, żeby uzyskać \(Y\). Jeśli pewien wierzchołek \(v\) nie może zmienić koloru, to z powodu jakiegoś \(v'\), który jest dalej w tym porządku. Możemy zmienić kolor \(v'\) na jakiś niekonfliktujący, bo \(c \ge \Delta+2\). Robimy tak ze wszystkimi konfliktami i w końcu poprawiamy samo \(v\). Przedstawiony proces dowodzi, że łańcuch jest nieprzywiedlny.
+
+    Niech \(P\) będzie macierzą przejścia tego łańcucha. Mamy \(P\left( x,y \right) = P\left( y,x \right)\), bo albo między stanami da się przejść wybierając odpowiedni wierzchołek i kolor (czyli z prawdopodobieństwem \(\frac{1}{nc}\)), albo się nie da i obie strony to \(0\). Z tego wynika, że dla rozkładu jednostajnego \(\pi\) jest \(\pi\left( x  \right) P\left( x,y \right) = \pi\left( y  \right) P\left( y,x \right) \), a z tego wynika jego stacjonarność.
+
+    Zdefiniujemy sprzęganie \(\left( \left( X_t, Y_t \right)  \right) _{t \in \N}\) w następujący sposób: wybierzmy jednostajnie wierzchołek \(v\) i kolor \(\ell\). Niech \(D_t = \left\{ v \in V\left( G  \right) : X_t\left( v  \right) \neq Y_t\left( v \right)  \right\} , A_t = \left\{ v \in V\left( G  \right) : X_t\left( v  \right) = Y_t\left( v  \right)  \right\} \). Jeśli \(v \in D_t\) lub \(D_t = \O \), to oba \(X_t\) i \(Y_t\) wykonują krok z \(v,\ell\). W przeciwnym wypadku \(X_t\) dalej wykonuje taki sam krok, natomiast krok \(Y_t\) jest bardziej przemyślany. Definiujemy \(S_X\left( v  \right) = X_t\left( N\left( v  \right)  \right) \setminus Y_t\left( N\left( v  \right)  \right) \) oraz \(S_Y\left( v  \right) = Y_t\left( N\left( v  \right)  \right) \setminus X_t\left( N\left( v  \right)  \right) \). Są to zbiory kolorów, które występują na sąsiedztwie \(v\) w tylko jednym z kolorowań.
+
+    Weźmy dowolną bijekcję \(f : [c] \to [c]\) taką, że
+    \[ \begin{array}{lr} f\left( S_X\left( v  \right)  \right) \subseteq S_Y\left( v  \right)  & \text{jeśli } \left|S_X\left( v  \right) \right|\le \left|S_Y\left( v  \right) \right| \\ 
+    S_X\left( v  \right) \supseteq f^{-1}\left( S_Y\left( v  \right)  \right)  & \text{jeśli } \left|S_X\left( v  \right) \right|> \left|S_Y\left( v  \right) \right|. \end{array} \]
+    Intuicyjnie znaczy to, że przypisujemy kolorom z \(S_X\left( v  \right) \) kolory z \(S_Y\left( v  \right) \) aż któryś zbiór się skończy. Resztę parujemy dowolnie. \(Y_t\) wykona krok z \(v,f\left( \ell \right) \).
+
+    Oznaczmy \(d_t = \left|D_t\right|\) i \(d'\left( v  \right) = \left\{ \begin{array}{lr} \left|N\left( v  \right) \cap A_t\right|, & v \in D_t \\ \left|N\left( v  \right) \cap D_t\right|, & v \in A_t \end{array} \right. \). Zauważmy, że mamy \( \sum_{v \in A_t}^{} d'\left( v  \right) = m' = \sum_{v \in D_t}^{} d'\left( v  \right) \), gdzie \(m'\) jest liczbą krawędzi między wierzchołkami \(D_t\) a \(A_t\). Zachodzi
+    \[ P\left( d_{t+1} = d_t -1 \mid d_t > 0 \right) \ge \frac{1}{n} \sum_{v \in D_t}^{} \frac{c-2\Delta + d'\left( v  \right) }{c} = \frac{1}{cn}\left( \left( c-2\Delta \right) d_t + m' \right) \]
+    \[ P\left( d_{t+1}=d_t +1 \mid d_t > 0 \right) \le \frac{1}{n} \sum_{v \in A_t}^{} \frac{\max\left( \left|S_X\left( v  \right) \right|, \left|S_Y\left( v  \right) \right| \right) }{c} \le \frac{1}{cn} \sum_{v \in A_t}^{} d'\left( v  \right) = \frac{m'}{cn}, \] 
+    bo w pierwszym przypadku musimy wybrać wierzchołek, na którym kolorowania się nie zgadzają a potem wybrać kolor, który pasuje do obu kolorowań -- od wszystkich kolorów odejmujemy maksymalną liczbę sąsiadów \(v\) (razy dwa, bo mogą mieć różne kolory w różnych kolorowaniach) i bierzemy poprawkę na kolory, które występują w obu kolorowaniach (zliczyliśmy je podwójnie). W drugim przypadku bierzemy wierzchołek, na którym kolorowania się zgadzają i kolor, który nie pasuje do dokładnie jednego kolorowania. W naszym sprzęganiu powiązaliśmy ze sobą te kolory, więc można je ograniczyć przez większą z wartości \(\left|S_X\left( v  \right) \right|, \left|S_Y\left( v \right) \right|\). Oczywiście jest \(\mathbb{\mathbb{E}}\left[ d_{t+1} \mid d_t = 0 \right] = 0\), a więc pozostaje nam przeliczyć
+    \[ \mathbb{\mathbb{E}}\left[ d_{t+1} \mid d_t \right] \le d_t - \frac{1}{cn}\left( \left( c-2\Delta \right) d_t + m' \right) + \frac{m'}{cn} = d_t\left( 1- \frac{c-2\Delta}{cn} \right).  \] 
+    Zatem mamy
+    \[ \mathbb{\mathbb{E}}\left[ d_{t+1} \right] = \mathbb{E}\left[ \mathbb{E}\left[ d_{t+1} \mid d_t \right]  \right] \le \mathbb{E}\left[ d_t \right] \left( 1-\frac{c-2\Delta}{cn} \right) \le d_0\left( 1-\frac{c-2\Delta}{cn} \right) ^{t+1}\le n\left( 1-\frac{c-2\Delta}{cn} \right) ^{t+1}, \] 
+    czyli
+    \[ P\left( d_t \ge 1 \right) \le \mathbb{\mathbb{E}}\left[ d_t \right] \le n\left( 1-\frac{c-2\Delta}{cn} \right) ^{t} \le ne^{-t \frac{c-2\Delta}{cn}}, \] 
+    co dla \(t \ge \ln\left( 4n \right) \cdot \frac{cn}{c-2\Delta}\) daje \(\tau_{\mathrm{mix}} \le t\) (korzystamy w tym momencie z \(c > 2\Delta\)).
+\end{proof}
+
