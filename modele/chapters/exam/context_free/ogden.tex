@@ -1,1 +1,15 @@
 \section{Lemat Ogdena}
+
+W istocie bardzo podobny do lematu o pompowaniu, pozwala nam zaznaczać litery słowa i liczyć tylko te zaznaczone.
+
+\begin{theorem}[Lemat Ogdena]
+    Jeżeli język \(L\) nad \(\Sigma^*\) jest bezkontekstowy, to: 
+    
+    \( \exists_{n_0 \in \natural} \) \\
+    \( \forall_{w \in L} \) \\
+    \( \exists_{a, b, c, d, e \in \Sigma^*} \hspace{5pt} w = abcde \land \card{w}_T \geq n_0 \land \card{bcd}_T \leq n_0 \land \card{bd}_T \geq 1 \) \\
+    \( \forall_{i \in \natural} \hspace{5pt} ab^{i}cd^{i}e \in L\)
+\end{theorem}
+\begin{proof}
+    Dowód jest analogiczny jak dowód Lematu o pompowaniu. Główna zmiana to zaznaczenie w drzewie wywodu wszystkich ścieżek z zaznaczonych liter do symbolu startowego. Dalej w dowodzie rozważamy tylko te węzły, których oba dzieci są zaznaczone, i postępujemy analogicznie.
+\end{proof}
