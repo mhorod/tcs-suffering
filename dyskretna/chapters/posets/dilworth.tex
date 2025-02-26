@@ -1,7 +1,7 @@
 \begin{theorem}[Twierdzenie Dilwortha]
 	Długość maksymalnego antyłańcucha w posecie jest równa ilości łańcuchów w najmniejszym pokryciu łańcuchowym
 	(tj. rozkładzie posetu na podzbiory będące łańcuchami). Długość tą dla danego posetu nazywamy szerokością i oznaczamy
-	przez $\posetwidth(P)$.
+	przez \(\posetwidth(P)\).
 \end{theorem}
 
 \begin{proof}
@@ -73,7 +73,7 @@
 
 		      Ponadto, każdy element \(\alpha\) (zarówno w pokryciu łańcuchowym zbioru \(B\), jak i \(C\)) należy do łańcucha innego niż jakikolwiek inny element \(\alpha\), jako że 2 elementy z jednego antyłańcucha nie mogą znaleźć się w jednym łańcuchu. W dodatku, z definicji zbiorów \(U_{\alpha}\) i \(D_{\alpha}\) bezpośrednio wynika, że każdy element \(\alpha\) jest elementem najmniejszym w odpowiednim łańcuchu z pokrycia łańcuchowego zbioru \(B\), i elementem największym w odpowiednim łańcuchu ze zbioru \(C\). W takim razie po prostu ,,sklejam'' łańcuchy z \(B\) i \(C\) w danym elemencie z \(\alpha\) i mam poprawne pokrycie łańcuchowe całego posetu \(P\).
 
-		\item Przypadek przeciwny do dwóch wcześniejszych; \(\forall_{\alpha \in A } \; U_{\alpha} = \emptyset \hspace{5pt} \mathbf{ALBO} \hspace{5pt} D_{\alpha} = \emptyset\) \\
+		\item Przypadek przeciwny do dwóch wcześniejszych, tj. \(\forall_{\alpha \in A } \; U_{\alpha} = \emptyset \ \mathbf{ALBO}\ D_{\alpha} = \emptyset\)
 
 		      Korzystając z lematów \ref{dilworth-lemma-1} i \ref{dilworth-lemma-2}, wiemy, że dla każdego \(\alpha \in A\) jest tak, że składa się (jedynie) ze wszystkich elementów maksymalnych lub ze wszystkich elementów minimalnych w \(P\). Nawiasem mówiąc, to bezpośrednio implikuje, że w tym przypadku \( |A| \leq 2 \), ale nie jest to specjalnie ważne.
 
@@ -88,20 +88,20 @@
 \end{proof} % TODO: Dodać ilustrację bijekcji
 \begin{proof}[Alternatywny dowód]
 	Ten dowód opiera się na twierdzeniu K\H{o}niga. Niech \((P, \preceq)\) będzie posetem. Łatwo zauważyć, że rozmiar największego antyłańcucha jest
-	większy lub równy od najmniejszego rozkładu $P$ na łańcuchy -- elementy tego największego antyłańcucha muszą znaleźć się w parami różnych łańcuchach.
+	większy lub równy od najmniejszego rozkładu \(P\) na łańcuchy -- elementy tego największego antyłańcucha muszą znaleźć się w parami różnych łańcuchach.
 	Wystarczy więc udowodnić nierówność w drugą stronę -- że jeżeli mamy \textit{najmniejsze} pokrycie łańcuchowe, to rozmiar największego antyłańcucha jest
 	większy lub równy od mocy tego pokrycia.
-	Skonstruujmy graf dwudzielny $G = (P, P', E)$, gdzie $P'$ to kopia elementów $P$ (innymi słowy chcemy aby $V = P \sqcup P$, gdzie $V$ to zbiór wszystkich wierzchołków grafu),
-	a para $(u, v') \in E$ wtedy, i tylko wtedy, gdy $u \prec v$. Przez $M$ oznaczymy pewne skojarzenie tego grafu. Zauważmy następujący fakt --
-	istnieje ,,naturalna'' bijekcja pomiędzy podziałami $P$ na łańcuchy, a skojarzeniami w $G$. Mając podział $R$ na łańcuchy możemy zdefiniować skojarzenie
-	przez równoważność $(a, b') \in M$ wtw. $a$ jest bezpośrednio przed $b$ w jednym łańcuchu. Odwracając ten proces, mając pewne skojarzenie
-	możemy uzyskać rozkład na łańcuchy ustalając, zaczynając podziału na jednoelementowe łańcuchy, a następnie dla każdego $(a, b') \in M$
-	łącząc łańcuchy $(\ldots, a)$ i $(b, \ldots)$ w $(\ldots, a, b, \ldots)$ -- łatwo wykazać, że zawsze $a, b$ będą na końcach, tj. ta operacja jest poprawnie zdefiniowana.
-	Co ciekawsze, z konstrukcji bijekcji łatwo zauważyć, że zachodzi równość $\card{R} = \card{P} - \card{M}$, bo dla każdej krawędzi skojarzenia ,,łączymy'' dokładnie dwa łańcuchy (zmniejszając moc początkową $\card{P}$ o $1$).
-	Niech $R$ będzie najmniejszym pokryciem łańcuchowym $P$, a $M$ odpowiadającym mu skojarzeniem. Weźmy teraz najmniejsze pokrycie wierzchołkowe $C$ grafu $G$, które z tw. K\H{o}niga ma moc $\card{M}$.
-	Definiujemy zbiór pomocniczy $D = \set{x \in P : x \in C \text{ lub } x' \in C}$ -- z tej definicji wynika nierówność $\card{D} \leq \card{C}$.
-	Ale zbiór $P \setminus D$ jest antyłańcuchem naszego posetu -- ponieważ $C$ było pokryciem wierzchołkowym, każde dwa elementy spoza $D$ muszą
+	Skonstruujmy graf dwudzielny \(G = (P, P', E)\), gdzie \(P'\) to kopia elementów \(P\) (innymi słowy chcemy aby \(V = P \sqcup P\), gdzie \(V\) to zbiór wszystkich wierzchołków grafu),
+	a para \((u, v') \in E\) wtedy, i tylko wtedy, gdy \(u \prec v\). Przez \(M\) oznaczymy pewne skojarzenie tego grafu. Zauważmy następujący fakt --
+	istnieje ,,naturalna'' bijekcja pomiędzy podziałami \(P\) na łańcuchy, a skojarzeniami w \(G\). Mając podział \(R\) na łańcuchy możemy zdefiniować skojarzenie
+	przez równoważność \((a, b') \in M\) wtw. \(a\) jest bezpośrednio przed \(b\) w jednym łańcuchu. Odwracając ten proces, mając pewne skojarzenie
+	możemy uzyskać rozkład na łańcuchy ustalając, zaczynając podziału na jednoelementowe łańcuchy, a następnie dla każdego \((a, b') \in M\)
+	łącząc łańcuchy \((\ldots, a)\) i \((b, \ldots)\) w \((\ldots, a, b, \ldots)\) -- łatwo wykazać, że zawsze \(a, b\) będą na końcach, tj. ta operacja jest poprawnie zdefiniowana.
+	Co ciekawsze, z konstrukcji bijekcji łatwo zauważyć, że zachodzi równość \(\card{R} = \card{P} - \card{M}\), bo dla każdej krawędzi skojarzenia ,,łączymy'' dokładnie dwa łańcuchy (zmniejszając moc początkową \(\card{P}\) o \(1\)).
+	Niech \(R\) będzie najmniejszym pokryciem łańcuchowym \(P\), a \(M\) odpowiadającym mu skojarzeniem. Weźmy teraz najmniejsze pokrycie wierzchołkowe \(C\) grafu \(G\), które z tw. K\H{o}niga ma moc \(\card{M}\).
+	Definiujemy zbiór pomocniczy \(D = \set{x \in P : x \in C \text{ lub } x' \in C}\) -- z tej definicji wynika nierówność \(\card{D} \leq \card{C}\).
+	Ale zbiór \(P \setminus D\) jest antyłańcuchem naszego posetu -- ponieważ \(C\) było pokryciem wierzchołkowym, każde dwa elementy spoza \(D\) muszą
 	nie mieć krawędzi między sobą w zdefiniowanym wcześniej grafie dwudzielnym, czyli przechodząc na posety są one parami nieporównywalne.
-	Znaleźliśmy więc antyłańcuch o mocy $\card{P} - \card{D} \geq \card{P} - \card{C} = \card{P} - \card{M} = \card{R}$, co kończy dowód.
+	Znaleźliśmy więc antyłańcuch o mocy \(\card{P} - \card{D} \geq \card{P} - \card{C} = \card{P} - \card{M} = \card{R}\), co kończy dowód.
 \end{proof}
 
