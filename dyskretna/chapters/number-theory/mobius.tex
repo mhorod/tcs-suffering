@@ -1,0 +1,85 @@
+\subsection{Definicja i własności funkcji Möbiusa}
+\begin{definition}[Funkcja Möbiusa]
+	Funkcją Möbiusa (oznaczaną \(\mu\)) nazywamy funkcję
+	zdefiniowaną w następujący sposób:
+	\begin{equation*}
+		\mu(n) = \begin{cases}
+			1               & \text{ gdy } n = 1                                      \\
+			0               & \text{ gdy istnieje } p \in \mathbb P: p^2 \mid n       \\
+      (-1)^{\card{S}} & \text{ wpp, gdzie $S$ to zbiór czynników pierwszych } n
+		\end{cases}
+	\end{equation*}
+\end{definition}
+
+\begin{fact}
+	Funkcja \(\mu\) jest multiplikatywna.
+\end{fact}
+\begin{proof}
+	Zauważmy, że z definicji wynika, że dla \(p \in \mathbb P\) zachodzi
+	\(\mu(p^{\alpha}) = -[\alpha \stackrel{?}{=} 1]\).
+	Z twierdzenia \ref{nt:closedmulti}
+	wiemy, że aby \(f\) było multiplikatywne wystarczy wykazać, że
+	\(\mu(\prod_{i=1}^{k} p_i^{\alpha_i}) = \prod \mu(p_i^{\alpha_i})\)
+	dla parami różnych liczb pierwszych \(p_i\).
+
+	Niech \(n = p_1^{\alpha_1}p_2^{\alpha_2}p_k^{\alpha_k}\).
+	Jeżeli istnieje \(x\) takie, że \(\alpha_x \geq 2\), to
+	zachodzi \[\mu(n) = 0 = \mu(p_x^{\alpha_x}) \cdot \prod_{\substack{i = 1 \\ i \neq x}}^k p_i^{\alpha_i} = \prod_{i=1}^{k} \mu(p_i^{\alpha_i}).\]
+	Inaczej zachodzi \[\mu(n) = (-1)^{k} = \prod_{i=1}^{k} (-1) = \prod_{i=1}^{k} \mu(p_i^{\alpha_i}).\]
+	Czyli zachodzi oczekiwana własność, co kończy dowód.
+\end{proof}
+
+\begin{theorem}
+	Niech funkcja \(K_1\) będzie zdefiniowana jako \(K_1(n) = 1\)
+	(funkcja stałe równa \(1\)). Zachodzi \(K_1 * \mu = \mathcal I\)
+	(tj. \(\mu\) jest odwrotnością Dirichleta funkcji \(K_1\)).
+\end{theorem}
+\begin{proof}
+	Z twierdzenia \ref{nt:dirichletmulti}
+	wiemy, że \(K_1 * \mu\) jest multiplikatywne (\(K_1\) jest trywialnie multiplikatywne).
+	Wystarczy więc pokazać, że \((K_1 * \mu)(p^\alpha) = 0\) dla \(\alpha > 1\), wtedy z \ref{nt:closedmulti}
+	otrzymamy równość z \(\mathcal I\). Co defakto kończy dowód, bo z definicji splotu otrzymujemy:
+	\[(K_1 * \mu)(p^\alpha) = \sum_{ab = p^\alpha} 1 \cdot \mu(b) = \mu(1) + \mu(p) = 1 - 1 = 0.\]
+\end{proof}
+
+\subsection{Inwersja Möbiusa}
+\begin{theorem}[Inwersja Möbiusa]
+	Niech \(f, g\) będą funkcjami arytmetycznymi.
+	\(g = \sum_{d \mid n} f(d) = (f * K_1)\) wtedy i tylko wtedy,
+	gdy \(f = (g * \mu)\).
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		f * K_1        & = g       & \iff \\
+		f * K_1 * \mu  & = g * \mu & \iff \\
+		f * \mathcal I & = g * \mu & \iff \\
+		f              & = g * \mu
+	\end{align*}
+\end{proof}
+
+\subsection{Przykład zastosowania przy funkcji \texorpdfstring{\(\varphi\)}{phi}}
+\begin{theorem}
+	Zachodzi \(\varphi = \text{id} * \mu\), gdzie \(\text{id}(x) = x\).
+\end{theorem}
+\begin{proof}
+	W tym dowodzie założymy, że nie wiemy nic o multiplikatywności ani
+	wzorze jawnym \(\varphi\), jedynie o jego definicji jako moc zbioru liczb
+	mniejszych i względnie pierwszych z \(n\).
+
+	Niech \(n \in \natural_1\).
+	Zauważmy, że definicja funkcji \(\varphi\) jest równoważna następującej funkcji:
+	\begin{align*}
+		\varphi(n) & = \sum_{a=1}^{n} \mathcal I(\gcd(a, n))                        & \text{(Interpretacja definicji)}  \\
+		           & = \sum_{a=1}^{n} \sum_{d \mid \gcd(a, n)} \mu(d)               & \text{$\mathcal I = (K_1 * \mu)$} \\
+		           & = \sum_{a=1}^{n} \sum_{\substack{d \mid a                                                          \\ d \mid n}} \mu(d) & \text{(Własność \(\gcd\))} \\
+		           & = \sum_{d \mid n} \left(\mu(d) \cdot \sum_{\substack{a \in [n]                                     \\ d \mid a}} 1 \right) & \text{(Zamiana kolejności)} \\
+		           & = \sum_{d \mid n} \mu(d) \cdot \frac{n}{d}                     & \text{(Interpretacja sumy)}       \\
+		           & = (\mu * \text{id})(n)                                         & \text{(Definicja $*$)}
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	Zachodzi \(n = K_1 * \varphi = \sum_{d \mid n} \phi(d)\) (z inwersji Möbiusa).
+	Ponadto \(\varphi\) jest multiplikatywne (bo jest splotem dwóch funkcji multiplikatywnych).
+\end{corollary}
+

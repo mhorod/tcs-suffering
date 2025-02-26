@@ -1,34 +1,47 @@
-    \begin{theorem}[Nierówność LYM (Lubella, Yamamoto, Meshalkina)]
-       Przez $f_k$ oznaczmy liczbę elementów $k$-elementowych w danym antyłańcuchu w kracie $B_n$. Mamy wówczas:
-       \begin{equation}
-           \sum_{k=0}^{n} \frac{f_k}{\binom{n}{k}} \leq 1 
-       \end{equation}
-    \end{theorem}
+\begin{theorem}[Nierówność LYM (Lubella, Yamamoto, Meshalkina)]
+	Niech \(\mathcal{D}\) będzie antyłańcuchem kraty \(\mathbb B_n\).
+	Wtedy zachodzi:
+	\begin{equation}
+		\sum_{X \in \mathcal{D}} \frac{1}{\binom{n}{\card{X}}} \leq 1.
+	\end{equation}
+	Alternatywnie, jeżeli \(f_n\) to liczba zbiorów o mocy \(n\) w \(\mathcal{D}\),
+	to twierdzenie można zapisać jako:
+	\begin{equation}
+		\sum_{i=0}^{n} \frac{f_n}{\binom{n}{k}} \leq 1.
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-       Zdefiniujemy teraz dziwną strukturę, ale obiecuję że ona ma sens. Mamy jakiś antyłańcuch $F$ i definiujemy zbiór $C$, który dla każdego elementu z antyłańcucha $C$ trzyma wszystkie możliwe pary tego elementu i łańcucha maksymalnego w kracie zbiorów, do którego należy dany element antyłańcucha $F$. Jeden element z antyłańcucha w zbiorze $C$ może występować w różnych parach (np. jeśli przechodzi przez niego $k$ łańcuchów maksymalnych w kracie zbiorów to wystąpi on $k$ razy). 
-       
-       Ciekawszą obserwacją natomiast jest, że jeden łańcuch maksymalny w zbiorze $C$ może wystąpić maksymalnie raz. Wynika to z faktu, że gdyby wystąpił dwukrotnie, to znaczyłoby że dwa różne elementy z $F$ należą do jednego łańcucha, a więc są ze sobą porównywalne; prowadziłoby to do sprzeczności, bo z założenia te dwa elementy mają ze sobą nie być porównywalne, jako że należą do jednego antyłańcucha. 
-
-       Warto zauważyć, że liczba łańcuchów maksymalnych w kracie zbiorów \(B_n\) wynosi $n!$. Jest to dosyć prosta do udowodnienia obserwacja -- bierzemy sobie najwyższy element; elementów o mocy od niego mniejszej o 1 (tzn. takich że są ,,poziom niżej'') zawierających się w nim jest dokładnie $n$ (bo na $n$ sposobów mogę ,,wyrzucić'' z niego jakiś element tak, by powstał jego podzbiór mający moc mniejszą od niego o 1). Gdy mam zbiór mający $n-1$ elementów, mogę uzyskać podzbiór na $n-2$ elementowy na \(n-1\) sposobów, i tak dalej. ,,Wyrzucanie'' elementów w ten sposób aż nie otrzymamy zbioru pustego tworzy zawsze jakiś łańcuch maksymalny; oczywistym jest, że łańcuchy te są różne jak i to, że w ten sposób otrzymujemy wszystkie możliwe łańcuchy maksymalne. 
-
-       Oznacza to, że elementów w zbiorze $C$ jest maksymalnie $n!$, bo każdy łańcuch maksymalny występuje maksymalnie raz. Jednocześnie okazuje się, że możemy zliczyć ile dokładnie razy w zbiorze $C$ występuje dany element z antyłańcucha $F$. Weźmy sobie element $x \in F$; zauważmy, że przechodzi przez niego dokładnie $|x|! \cdot (n - |x|)!$ łańcuchów maksymalnych. Żeby to pokazać, stosujemy tę samą obserwację co powyżej, ale jakby ,,zawężamy'' kratę zbiorów do tego elementu, tzn. bierzemy taki jej podzbiór że mamy inną kratę zbiorów, gdzie $x$ jest ,,na górze'', a więc łańcuchów które idą ,,od dołu'' do $x$ jest $x!$. Podobne rozumowanie stosujemy by pokazać, że łańcuchów idących od $x$ ,,na górę'' jest $(n - |x|)!$, a więc wszystkich łańcuchów maksymalnych idących przez $x$ jest dokładnie $|x|! \cdot (n - |x|)!$. 
-       Mamy więc, że
-       \begin{equation*}
-            \sum_{x \in F} |x|! \cdot (n - |x|)! = |C| \leq |n!|
-       \end{equation*}
-       A zatem 
-       \begin{equation*}
-            \sum_{x \in F} |x|! \cdot (n - |x|)! \leq |n!|
-       \end{equation*}
-        \begin{equation*}
-            \sum_{x \in F} \frac{|x|! \cdot (n - |x|)!}{n!} \leq 1
-       \end{equation*}
-       \begin{equation*}
-            \sum_{x \in F} \frac{1}{\binom{n}{|x|}} \leq 1
-       \end{equation*}
-       Teraz żeby było ładniej mówimy, że $f_k$ to jest liczba elementów $F$ takich, że mają moc równą dokładnie $k$, skąd otrzymujemy już 
-        \begin{equation*}
-           \sum_{k=0}^{n} \frac{f_k}{\binom{n}{k}} \leq 1 
-       \end{equation*}
-     \end{proof}
+\begin{proof}
+	Dowód opierać się będzie na pewnej ,,dziwnej'' funkcji \(\nu: \mathbb B_n \to \mathcal{P}(S_n)\),
+	gdzie \(S_n\) to zbiór wszystkich permutacji \(n\)-elementowych.\footnote{Dla fanów algebry jest to zbiór podkładowy grupy symetrycznej na zbiorze \([n]\).}
+	Naszą funkcję definiujemy w następujący sposób:
+	\[\nu(X) = \set{\pi \in S_n: \set{\pi(1), \pi(2), \pi(\card{X})} = X},\]
+	czyli innymi słowy jest to zbiór wszystkich permutacji, których pierwsze \(\card{X}\)
+	elementów należy do \(X\). Zauważmy teraz dwa ciekawe fakty:
+	\begin{enumerate}
+		\item \(\card{\nu(X)} = \card{X} \cdot (n - \card{X})\) \\
+		      Fakt ten wynika z prostego zliczania -- łatwo zauważyć, że wszystkie permutacje
+		      w \(\nu(X)\) są postaci \[\pi = \left(\sigma(1), \sigma(2), \ldots, \sigma_{\card{X}},
+			      \rho(1), \rho(2), \ldots, \rho(n - \card{X})\right),\]
+		      gdzie \(\sigma\) jest ,,permutacją'' \(X\) (tj. bijekcją z \([\card{X}]\) na \(X\)),
+		      a \(\rho\) jest analogicznym ustawieniem elementów z \([n] \setminus X\). Z reguły mnożenia
+		      otrzymujemy więc moc zbioru \(\nu(X)\).
+		\item \(X \neq Y,\, \nu(X) \cap \nu(Y) \neq \emptyset \implies X, Y - \text{porównywalne}\) \\
+		      Załóżmy BSO, że \(\card{X} \leq \card{Y}\), i niech \(\pi\) będzie elementem świadczącym
+		      niepustości przecięcia, tj. \(\pi \in \nu(X)\) oraz \(\pi \in \nu(Y)\). Z definicji \(\nu\)
+		      wiemy, że \(X = \set{\pi(1), \pi(2), \ldots, \pi(\card{X})}\) oraz
+		      \(Y = \set{\pi(1), \pi(2), \ldots, \pi(\card{Y})}\) -- ale z tego oczywiście
+		      wynika, że \(X \subset Y\). Z tej obserwacji możemy wywnioskować, że dla dowolnego
+		      antyłańcucha \(\mathcal{D} \subset \mathbb B_n\) i \(X, Y \in \mathcal{D},\, X \neq Y\)
+		      zachodzi \(\nu(X) \cap \nu(Y) = \emptyset\).
+	\end{enumerate}
+	Czyli z drugiej obserwacji wynika, że \(\bigsqcup_{X \in \mathcal{D}} \nu(X) \subset S_n\), bo każdej permutacji
+	odpowiada co najwyżej jeden zbiór z antyłańcucha \(\mathcal{D}\) -- wykonamy więc kilka transformacji:
+	\begin{align*}
+		\bigsqcup_{X \in \mathcal{D}} \nu(X)                              & \subset S_n     & \implies \\
+		\sum_{X \in \mathcal{D}} \card{\nu(X)}                            & \leq \card{S_n} & \iff     \\
+		\sum_{X \in \mathcal{D}} \card{X} \cdot (n - \card{X})            & \leq n!         & \iff     \\
+		\sum_{X \in \mathcal{D}} \frac{\card{X} \cdot (n - \card{X})}{n!} & \leq 1          & \iff     \\
+		\sum_{X \in \mathcal{D}} \frac{1}{\binom{n}{\card{X}}}            & \leq 1
+	\end{align*}
+\end{proof}

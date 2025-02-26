@@ -1,25 +1,25 @@
-  \begin{theorem}[Zasada włączeń i wyłączeń]
-        \begin{equation}
-           |\bigcup_{i \in [n]} A_i| = \sum_{\emptyset \not= X \subset [n]} (-1)^{|X| - 1} \cdot | \bigcap_{i \in X} A_i | 
-        \end{equation}
-  \end{theorem}
+\begin{theorem}[Zasada włączeń i wyłączeń]
+	\begin{equation}
+		|\bigcup_{i \in [n]} A_i| = \sum_{\emptyset \not= X \subset [n]} (-1)^{|X| - 1} \cdot | \bigcap_{i \in X} A_i |
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-        Weźmy sobie jakieś $x \in \bigcup A_i$ należące dokładnie do $k$ zbiorów (gdzie $k \leq n$). Bez straty ogólności można założyć, że $x \in A_1, A_2, A_3, \dots, A_k$ oraz $x \not\in A_{k+1}, A_{k+2}, A_{k+3}, \dots, A_n$.
-        Zauważamy, że $x$ w sumie występującej po lewej stronie postulowanej równości zostanie zliczone raz (oczywiste), a po prawej:
-        \begin{enumerate}
-            \item Sumując $A_1, A_2, A_3, \dots, A_k$ zliczone zostanie k razy,
-            \item Sumując $A_1 \cap A_2, \dots$ zliczone zostanie $\binom{k}{2}$ razy i odjęte od wcześniejszej wartości
-            \item Sumując $l$-elementowe przecięcia zbiorów $A_1, A_2, \dots, A_k$ zostanie odjęte/dodane $\binom{k}{l}$ razy.
-        \end{enumerate}
-        Mamy więc, że $x$ jest zliczone $\binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \binom{k}{4} \dots$ razy. Powołujemy się wtedy na magiczny wzór, który wygląda następująco:
-        \begin{equation*}
-            \sum_{i=0}^{k}(-1)^{i+1}\binom{k}{i} = -(1 - 1)^k = 0 
-        \end{equation*}
-        Skąd mamy 
-        \begin{equation*}
-            \sum_{i=1}^{k}(-1)^{i+1}\binom{k}{i} = 1
-        \end{equation*}
-        bo $\binom{k}{0} = 1$. To prowadzi nas do konkluzji, że $x$ po prawej stronie również został zliczony 1 raz, czyli wszystko działa tak jak powinno.
+\begin{proof}
+	Weźmy sobie jakieś \(x \in \bigcup A_i\) należące dokładnie do \(k\) zbiorów (gdzie \(k \leq n\)). Bez straty ogólności można założyć, że \(x \in A_1, A_2, A_3, \dots, A_k\) oraz \(x \not\in A_{k+1}, A_{k+2}, A_{k+3}, \dots, A_n\).
+	Zauważamy, że \(x\) w sumie występującej po lewej stronie postulowanej równości zostanie zliczone raz (oczywiste), a po prawej:
+	\begin{enumerate}
+		\item Sumując \(A_1, A_2, A_3, \dots, A_k\) zliczone zostanie k razy,
+		\item Sumując \(A_1 \cap A_2, \dots\) zliczone zostanie \(\binom{k}{2}\) razy i odjęte od wcześniejszej wartości
+		\item Sumując \(l\)-elementowe przecięcia zbiorów \(A_1, A_2, \dots, A_k\) zostanie odjęte/dodane \(\binom{k}{l}\) razy.
+	\end{enumerate}
+	Mamy więc, że \(x\) jest zliczone \(\binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \binom{k}{4} \dots\) razy. Powołujemy się wtedy na magiczny wzór, który wygląda następująco:
+	\begin{equation*}
+		\sum_{i=0}^{k}(-1)^{i+1}\binom{k}{i} = -(1 - 1)^k = 0
+	\end{equation*}
+	Skąd mamy
+	\begin{equation*}
+		\sum_{i=1}^{k}(-1)^{i+1}\binom{k}{i} = 1
+	\end{equation*}
+	bo \(\binom{k}{0} = 1\). To prowadzi nas do konkluzji, że \(x\) po prawej stronie również został zliczony 1 raz, czyli wszystko działa tak jak powinno.
 
-     \end{proof}
+\end{proof}

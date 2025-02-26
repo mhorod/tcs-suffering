@@ -1,0 +1,87 @@
+
+\begin{definition}[Notacja]
+	Niech \(a, b \in \integer\). Mówimy, że:
+	\begin{enumerate}
+		\item \(a\) \textit{jest podzielne przez} \(b\) jeżeli istnieje \(k \in \integer\)
+		      spełniające \(a \cdot k = b\). Równoważnie mówimy, że \(b\) jest dzielnikiem \(a\),
+		      i oznaczamy tą relację jako \(a \mid b\), a jej negację przez \(a \nmid b\).
+		\item liczba \(c\) jest \textit{wspólnym dzielnikiem} \(a, b\) jeżeli \(c \mid a\) oraz \(c \mid b\).
+		      Przez \(\gcd(a, b)\) oznaczamy \textit{największy wspólny dzielnik} liczb \(a, b\), tj. największe
+		      \(k \in \natural\) spełniające \(k \mid a\) oraz \(k \mid b\).
+		\item \(a\) jest \textit{względnie pierwsze} z \(b\) jeżeli \(\gcd(a, b) = 1\).
+		      Oznaczamy to równoważnie przez \(a \perp b\).
+	\end{enumerate}
+\end{definition}
+
+\begin{fact}
+	Niech \(a, b, c, d \in \natural\) i \(d \mid a, d \mid b\). Zachodzi:
+	\begin{enumerate}
+		\item \(d \mid -a\)
+		\item \(d \mid a+b\)
+		\item \(d \mid a\cdot c\)
+		\item \(d \mid \gcd(a, b)\)
+		\item \(a \mid c \implies d \mid c\)
+		\item \(c \mid \gcd(a, b) \iff c \mid a \land c \mid b\)
+	\end{enumerate}
+\end{fact}
+
+\begin{theorem}[Algorytm Euklidesa]
+	\label{nt:euklides}
+	Niech \(f: \integer \times \integer \to \natural\) będzie funkcją zdefiniowaną rekurencyjnie jako:
+	\begin{equation*}
+		f(a, b) = \begin{cases}
+			a                & \text{gdy } b = 0 \\
+			f(b, a \bmod{b}) & \text{wpp.}
+		\end{cases}
+	\end{equation*}
+	Zachodzi \(f = \gcd\).\footnote{Na liczby całkowite \(\gcd\) rozszerzamy biorąc \(\gcd(a, b) = \gcd(\abs{a}, \abs{b})\).}
+\end{theorem}
+\begin{proof}
+	Zauważmy, że \(\gcd(a, 0) = a\) ponieważ dla każdego \(a\) istnieje \(k = 0\) spełniające \(a \cdot k = 0\), czyli \(0\) jest podzielne przez wszystkie liczby naturalne.
+	Dowodzi to przypadkowi bazowemu rekurencji.
+	Wiemy, że \(a \bmod b = a - k \cdot b\) dla pewnego \(k \in \natural\) -- ale
+	z poprzednich faktów możemy wywnioskować, że \(d\) jest wspólnym dzielnikiem \(a, b\)
+	wtedy i tylko wtedy, gdy jest wspólnym dzielnikiem \(b, a \bmod b\), co kończy dowód.
+\end{proof}
+
+\begin{theorem}[Tożsamość Bezouta]
+	\label{nt:bezout}
+	Niech \(a, b \in \integer\) i \(d = \gcd(a, b)\). Istnieje nieskończenie
+	wiele par liczb \(x, y \in \integer\) takich, że \(a \cdot x + b \cdot y = d\).
+	Liczby \(x, y\) nazywa się \textit{współczynnikami Bezouta}.
+\end{theorem}
+\begin{proof}
+	Zauważmy, że mając jedno rozwiązanie \(x, y\) możemy otrzymać ich nieskończenie wiele --
+	wystarczy wziąć zbiór \(\set{(x+bk, y-ak) : k \in \integer}\). Pokażemy więc istnienie jednego
+	rozwiązania -- co więcej, pokażemy efektywny algorytm jego otrzymywania.
+
+	Zmodyfikujemy nieco w tym celu algorytm Euklidesa -- zamiast zwracać jednej liczby będzie zwracał ich trójkę.
+	Wynikiem \(f(a, b)\) będzie trójka \((d, s, t)\) spełniająca warunki \(d = \gcd(a, b)\) oraz \(a \cdot s + b \cdot t = d\).
+	Dla przypadku bazowego \(b = 0\) łatwo zauważyć, że działa trójka \((a, 1, 0)\), bo \(d = a = a \cdot 1 + b \cdot 0\).
+	Odrobinę trudniej jest dla przypadku rekurencyjnego. Niech \((d', s', t')\) to wartości wywołania funkcji
+	\(f(b, a \bmod b)\). Oczywiście \(d = d'\), ale ciężej podejść do wartości \(s, t\). Aby to zrobić potrzebujemy
+	skorzystać z pomocy brata operacji modulo -- dzielenia bez reszty\footnote{Zwykle idą w parze jako dzielenie z resztą, lecz dla uproszczenia nie wprowadziliśmy go przy podstawowym algorytmie Euklidesa}.
+	Niech \(q = \floor{\frac{a}{b}}\). Z definicji wiemy, że \(q \cdot b + a \bmod b = a\). Ale to oznacza, że:
+	\begin{align*}
+		d & = b \cdot s' + (a \bmod b) \cdot t'       \\
+		  & = b \cdot s' + (a - q \cdot b) \cdot t'   \\
+		  & = a \cdot t' + b \cdot (s' - q \cdot t'),
+	\end{align*}
+	co daje nam wzór na \(s = t'\) i \(t = s - q \cdot t'\).
+
+	Nasza końcowa funkcja wygląda więc następująco:
+	\begin{equation*}
+		f(a, b) = \begin{cases}
+			(a, 1, 0)         & \text{gdy } b = 0 \\
+			(d, t, s - t * q) & \text {wpp, gdzie } q = \floor{\frac{a}{b}}, (d, s, t) = f(b, a \bmod b)
+		\end{cases}
+	\end{equation*}
+	Powyższy algorytm obliczania współczynników Bezouta nazywa się \textit{rozszerzonym algorytmem Euklidesa}.
+\end{proof}
+
+\begin{corollary}
+	Dla dowolnego \(a, b \in \natural\), \(d = \gcd(a, b)\) zachodzi:
+	\begin{equation*}
+		\set{a \cdot x + b \cdot y : x, y \in \integer} = \set{d \cdot k : k \in \integer}.
+	\end{equation*}
+\end{corollary}

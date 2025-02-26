@@ -1,15 +1,15 @@
-    Shift grafy są kolejnym przykładem rodziny grafów bez trójkątów ale o~dowolnie dużej liczbie chromatycznej. Czemu są jako osobne wymaganie egzaminacyjne? Cytując Tadeusza Sznuka, odpowiedź brzmi: nie wiem, choć się domyślam. Otóż konstrukcja shift grafów (znana też jako konstrukcja Erdősa–Hajnala) jest jawna, natomiast te poprzednie są rekurencyjne. Konkretniej: będziemy konstruować ciąg takich grafów $G_n = \pars{V_n, E_n}$, że $\omega\pars{G_n} = 2$ oraz $\chi\pars{G_n} \geq \left\lceil\log_2n\right\rceil$. Zrobimy to następująco:
-    \begin{gather*}
-        V_n = \left\{[i, j] : 1 \leq i < j \leq n\right\}\\
-        \{[i, j], [k, l]\} \in E_n \iff j = k
-    \end{gather*}
-    Innymi słowy, wierzchołkami naszego grafu będą przedziały o~końcach ze~zbioru $[n]$, bez przedziałów będących pojedynczym punktem, natomiast dwa przedziały są połączone krawędzią wtedy, gdy koniec jednego dotyka początku drugiego. Nie ma tutaj trójkątów. Dlaczego? Trójkąt musiałby być w postaci $[i, j], [j, k], [k, i]$, a~taka trójka przedziałów oczywiście nie może istnieć na prostej, bo wynikałoby z~tego coś w~stylu $i < j < k < i$.
-    
-    Przyszedł czas udowodnić fakt o~liczbie chromatycznej. Weźmy dowolne $k$-kolorowanie $G_n$ i~nazwijmy je $c$. Pokażemy, że $2^k \geq n$, czyli $k \geq \log_2n$, a~ponieważ pracujemy na liczbach całkowitych, to dostaniemy z~tego $k \geq \left\lceil\log_2n\right\rceil$. Zdefiniujmy zbiory $C_1, C_2, \ldots, C_n$ następująco:
-    \begin{equation*}
-        C_i = \left\{b \in [k] : b = c\pars{[j, i]} \text{ dla } j < i\right\}
-    \end{equation*}
-    Mówiąc najprościej, w~zbiorze $C_i$ są kolory przedziałów kończących się na punkcie $i$. Teraz pokażemy, że $C_i \neq C_j$ dla $i \neq j$. W~tym celu pokażemy, że dla każdej pary $j > i$ istnieje kolor należący do $C_j$ i~nienależący do $C_i$, czyli świadczący o~różności tych zbiorów. Jak tego dokonamy? Okazuje się, że bardzo prosto. Weźmy przedział $[i, j]$. Ma on jakiś kolor $b \in [k]$. Żaden przedział kończący się na $i$~nie może mieć koloru $b$, bo ma krawędź do $[i, j]$. Zatem $b \not\in C_i$. Ale oczywiście przedział $[i, j]$ kończy się na\dots $j$, a~skoro ma kolor $b$, to $b \in C_j$.
-    
-    Czyli, podsumowując, mamy zbiory $C_1, C_2, \ldots, C_n$ i~wszystkie różne. Oczywiście wszystkie są też podzbiorami $[k]$. Z~zasady szufladkowej wynika, że w~takim razie $n \leq 2^k$, co kończy dowód.
-    \qed
+Shift grafy są kolejnym przykładem rodziny grafów bez trójkątów ale o~dowolnie dużej liczbie chromatycznej. Czemu są jako osobne wymaganie egzaminacyjne? Cytując Tadeusza Sznuka, odpowiedź brzmi: nie wiem, choć się domyślam. Otóż konstrukcja shift grafów (znana też jako konstrukcja Erdősa–Hajnala) jest jawna, natomiast te poprzednie są rekurencyjne. Konkretniej: będziemy konstruować ciąg takich grafów \(G_n = \pars{V_n, E_n}\), że \(\omega\pars{G_n} = 2\) oraz \(\chi\pars{G_n} \geq \left\lceil\log_2n\right\rceil\). Zrobimy to następująco:
+\begin{gather*}
+	V_n = \left\{[i, j] : 1 \leq i < j \leq n\right\}\\
+	\{[i, j], [k, l]\} \in E_n \iff j = k
+\end{gather*}
+Innymi słowy, wierzchołkami naszego grafu będą przedziały o~końcach ze~zbioru \([n]\), bez przedziałów będących pojedynczym punktem, natomiast dwa przedziały są połączone krawędzią wtedy, gdy koniec jednego dotyka początku drugiego. Nie ma tutaj trójkątów. Dlaczego? Trójkąt musiałby być w postaci \([i, j], [j, k], [k, i]\), a~taka trójka przedziałów oczywiście nie może istnieć na prostej, bo wynikałoby z~tego coś w~stylu \(i < j < k < i\).
+
+Przyszedł czas udowodnić fakt o~liczbie chromatycznej. Weźmy dowolne \(k\)-kolorowanie \(G_n\) i~nazwijmy je \(c\). Pokażemy, że \(2^k \geq n\), czyli \(k \geq \log_2n\), a~ponieważ pracujemy na liczbach całkowitych, to dostaniemy z~tego \(k \geq \left\lceil\log_2n\right\rceil\). Zdefiniujmy zbiory \(C_1, C_2, \ldots, C_n\) następująco:
+\begin{equation*}
+	C_i = \left\{b \in [k] : b = c\pars{[j, i]} \text{ dla } j < i\right\}
+\end{equation*}
+Mówiąc najprościej, w~zbiorze \(C_i\) są kolory przedziałów kończących się na punkcie \(i\). Teraz pokażemy, że \(C_i \neq C_j\) dla \(i \neq j\). W~tym celu pokażemy, że dla każdej pary \(j > i\) istnieje kolor należący do \(C_j\) i~nienależący do \(C_i\), czyli świadczący o~różności tych zbiorów. Jak tego dokonamy? Okazuje się, że bardzo prosto. Weźmy przedział \([i, j]\). Ma on jakiś kolor \(b \in [k]\). Żaden przedział kończący się na \(i\)~nie może mieć koloru \(b\), bo ma krawędź do \([i, j]\). Zatem \(b \not\in C_i\). Ale oczywiście przedział \([i, j]\) kończy się na\dots \(j\), a~skoro ma kolor \(b\), to \(b \in C_j\).
+
+Czyli, podsumowując, mamy zbiory \(C_1, C_2, \ldots, C_n\) i~wszystkie różne. Oczywiście wszystkie są też podzbiorami \([k]\). Z~zasady szufladkowej wynika, że w~takim razie \(n \leq 2^k\), co kończy dowód.
+\qed

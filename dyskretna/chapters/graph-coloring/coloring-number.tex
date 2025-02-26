@@ -1,48 +1,48 @@
-    \subsection{Co to w ogóle jest}
-    Liczba kolorująca jest źródłem konfuzji dla niezliczonych studentów. Co ona w ogóle robi, po co jest i dlaczego nie ma jej w żadnej literaturze? Na to ostatnie pytanie nie odpowiem, ale liczba kolorująca, oznaczana również jako $col(G)$ jest użyteczna, bo, jak za niedługo pokażemy, ogranicza od góry $\chi(G)$ oraz da się ją obliczyć w czasie wielomianowym (na wypadek gdyby ktoś się jeszcze nie zorientował, kolorowanie grafów jest problemem klasy NP-przykrej). Poza tym jestem zdania, że nazwanie tego \textit{liczba kolorująca} to fatalna decyzja, bo dosyć ładnie kamufluje co to w ogóle jest; w tym momencie chciałbym napisać coś śmiesznego o matematykach i dziwnych decyzjach, ale nic śmiesznego nie przychodzi mi do głowy. 
-    \subsubsection{Definicja}
-    Rozpatrzmy wszystkie permutacje wierzchołków grafu $G$. Zdefiniujmy funkcję $f$, która dla każdego wierzchołka w obrębie danej permutacji przypisuje liczbę jego sąsiadów, którzy wystąpili ,,przed nim'' w permutacji. Zdefiniujmy funkcję $g$, która dla danej permutacji wynosi maksymalnej wartości funkcji $f$ policzonej dla wszystkich wierzchołków z tej permutacji i dodaje do tego jeden. Skąd wytrzasnęła się ta jedynka zaraz się dowiemy, obiecuję że to nie jest kolejny arbitralny wymysł matematyków którzy wypili za dużo kawy (tak jak nazwa tego bytu).  
+\subsection{Co to w ogóle jest}
+Liczba kolorująca jest źródłem konfuzji dla niezliczonych studentów. Co ona w ogóle robi, po co jest i dlaczego nie ma jej w żadnej literaturze? Na to ostatnie pytanie nie odpowiem, ale liczba kolorująca, oznaczana również jako \(col(G)\) jest użyteczna, bo, jak za niedługo pokażemy, ogranicza od góry \(\chi(G)\) oraz da się ją obliczyć w czasie wielomianowym (na wypadek gdyby ktoś się jeszcze nie zorientował, kolorowanie grafów jest problemem klasy NP-przykrej). Poza tym jestem zdania, że nazwanie tego \textit{liczba kolorująca} to fatalna decyzja, bo dosyć ładnie kamufluje co to w ogóle jest; w tym momencie chciałbym napisać coś śmiesznego o matematykach i dziwnych decyzjach, ale nic śmiesznego nie przychodzi mi do głowy.
+\subsubsection{Definicja}
+Rozpatrzmy wszystkie permutacje wierzchołków grafu \(G\). Zdefiniujmy funkcję \(f\), która dla każdego wierzchołka w obrębie danej permutacji przypisuje liczbę jego sąsiadów, którzy wystąpili ,,przed nim'' w permutacji. Zdefiniujmy funkcję \(g\), która dla danej permutacji wynosi maksymalnej wartości funkcji \(f\) policzonej dla wszystkich wierzchołków z tej permutacji i dodaje do tego jeden. Skąd wytrzasnęła się ta jedynka zaraz się dowiemy, obiecuję że to nie jest kolejny arbitralny wymysł matematyków którzy wypili za dużo kawy (tak jak nazwa tego bytu).
 
-    Fajnie teraz zauważyć, że $g$ dla danej permutacji oszacowuje z góry jak bardzo może ,,skopać'' kolorowanie algorytm First-Fit, jeśli pokoloruje wierzchołki zgodnie z tą permutacją; w najgorszym przypadku, gdy istnieje jakiś wierzchołek mający $d$ sąsiadów ,,na lewo'' i wszyscy mają różne kolory, to FF da mu kolor $d+1$. Stąd maksymalna liczba sąsiadów na lewo wśród wierzchołków ($+1$) daje nam górne oszacowanie na to, jak First-Fit może popsuć kolorowanie \textit{jeśli będzie kolorować według tej permutacji}.  
+Fajnie teraz zauważyć, że \(g\) dla danej permutacji oszacowuje z góry jak bardzo może ,,skopać'' kolorowanie algorytm First-Fit, jeśli pokoloruje wierzchołki zgodnie z tą permutacją; w najgorszym przypadku, gdy istnieje jakiś wierzchołek mający \(d\) sąsiadów ,,na lewo'' i wszyscy mają różne kolory, to FF da mu kolor \(d+1\). Stąd maksymalna liczba sąsiadów na lewo wśród wierzchołków (\(+1\)) daje nam górne oszacowanie na to, jak First-Fit może popsuć kolorowanie \textit{jeśli będzie kolorować według tej permutacji}.
 
-    Nikogo teraz chyba nie zdziwi fakt, że $col(G)$ to jest po prostu minimum po funkcjach $g$ dla wszystkich permutacji wierzchołków grafu $G$. 
-    \subsection{Relacja z liczbą chromatyczną}
-    \subsubsection{Ograniczenie liczby chromatycznej przez liczbę kolorującą}
-    \begin{theorem}[Relacja liczby kolorującej z liczbą chromatyczną]
-        \begin{equation}
-            \chi(G) \leq col(G)
-        \end{equation}
-    \end{theorem}
-    \begin{proof}
-        Gdy tak nie było, to istniałaby taka permutacja wierzchołków grafu że First-Fit pokolorowałby graf lepiej niż $\chi(G)$ mówi, że da się pokolorować. Koniec dowodu. Serio.
-    \end{proof}
-    \subsubsection{Ograniczenie liczby kolorującej przez jakąś funkcję liczby chromatycznej}
-    Nie da się. Znaczy da się, ale tylko w pewnych klasach grafów. W ogólnej klasie grafów istnieją takie grafy, że liczba kolorująca leci do nieskończoności, a $\chi(G) = 2$. Grafem takim jest na przykład klika dwudzielna $K_{n,n}$. Swoją drogą to jest protip: jeśli potrzebujesz udowodnić że $col(G)$ nie da się ograniczyć w jakiejś klasie grafów przez funkcję $\chi(G)$, spróbuj pokazać że da się tam skonstruować klikę dwudzielną. Nie ma za co. 
-    \subsection{Algorytm obliczania liczby kolorującej}
-        \begin{theorem}[Magiczny wzór na liczbę kolorującą]
-            \begin{equation}
-                col(G) = \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
-            \end{equation}
-        \end{theorem}
+Nikogo teraz chyba nie zdziwi fakt, że \(col(G)\) to jest po prostu minimum po funkcjach \(g\) dla wszystkich permutacji wierzchołków grafu \(G\).
+\subsection{Relacja z liczbą chromatyczną}
+\subsubsection{Ograniczenie liczby chromatycznej przez liczbę kolorującą}
+\begin{theorem}[Relacja liczby kolorującej z liczbą chromatyczną]
+	\begin{equation}
+		\chi(G) \leq col(G)
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	Gdy tak nie było, to istniałaby taka permutacja wierzchołków grafu że First-Fit pokolorowałby graf lepiej niż \(\chi(G)\) mówi, że da się pokolorować. Koniec dowodu. Serio.
+\end{proof}
+\subsubsection{Ograniczenie liczby kolorującej przez jakąś funkcję liczby chromatycznej}
+Nie da się. Znaczy da się, ale tylko w pewnych klasach grafów. W ogólnej klasie grafów istnieją takie grafy, że liczba kolorująca leci do nieskończoności, a \(\chi(G) = 2\). Grafem takim jest na przykład klika dwudzielna \(K_{n,n}\). Swoją drogą to jest protip: jeśli potrzebujesz udowodnić że \(col(G)\) nie da się ograniczyć w jakiejś klasie grafów przez funkcję \(\chi(G)\), spróbuj pokazać że da się tam skonstruować klikę dwudzielną. Nie ma za co.
+\subsection{Algorytm obliczania liczby kolorującej}
+\begin{theorem}[Magiczny wzór na liczbę kolorującą]
+	\begin{equation}
+		col(G) = \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
+	\end{equation}
+\end{theorem}
 
-        \begin{proof}
-            Ten wzór wygląda na początku dziwnie, ale w sumie ma sens. Dowodzić to będziemy trochę dziwnie, bo zamiast pokazywać od razu równość, pokażemy ograniczenie z góry i z dołu (skąd będziemy mieć, że istotnie zachodzi równość). 
+\begin{proof}
+	Ten wzór wygląda na początku dziwnie, ale w sumie ma sens. Dowodzić to będziemy trochę dziwnie, bo zamiast pokazywać od razu równość, pokażemy ograniczenie z góry i z dołu (skąd będziemy mieć, że istotnie zachodzi równość).
 
-            Pokażmy zatem nierówność w pierwszą stronę:
-               \begin{equation*}
-                    col(G) \geq \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
-               \end{equation*}
+	Pokażmy zatem nierówność w pierwszą stronę:
+	\begin{equation*}
+		col(G) \geq \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
+	\end{equation*}
 
-            Dowód jest dosyć prosty; jeśli $col(G) = k$ dla jakiegoś $k$, to znaczy to że istnieje jakaś permutacja wierzchołków $G$ taka, że każdy wierzchołek ,,na lewo'' ma  co najwyżej $k-1$ sąsiadów. Teraz dla każdego podgrafu indukowanego $H$ jest tak, że gdzieś w tej permutacji jest ,,ostatni'' wierzchołek należący do tego podgrafu indukowanego. Nie ma on w ogóle krawędzi ,,na prawo'' i ma same krawędzie ,,na lewo''. Minimalnie może ich mieć $\delta(H)$, czyli w takim razie $\delta(H) \leq k - 1$, skąd mamy że $k \geq \delta(H) + 1$ dla dowolnego podgrafu indukowanego (skąd mamy już tezę). 
+	Dowód jest dosyć prosty; jeśli \(col(G) = k\) dla jakiegoś \(k\), to znaczy to że istnieje jakaś permutacja wierzchołków \(G\) taka, że każdy wierzchołek ,,na lewo'' ma  co najwyżej \(k-1\) sąsiadów. Teraz dla każdego podgrafu indukowanego \(H\) jest tak, że gdzieś w tej permutacji jest ,,ostatni'' wierzchołek należący do tego podgrafu indukowanego. Nie ma on w ogóle krawędzi ,,na prawo'' i ma same krawędzie ,,na lewo''. Minimalnie może ich mieć \(\delta(H)\), czyli w takim razie \(\delta(H) \leq k - 1\), skąd mamy że \(k \geq \delta(H) + 1\) dla dowolnego podgrafu indukowanego (skąd mamy już tezę).
 
-            W drugą stronę dowód przy okazji pokazuje nam wielomianowy algorytm obliczania $col(G)$. Nie ukrywam że jest on bardzo fajny. 
+	W drugą stronę dowód przy okazji pokazuje nam wielomianowy algorytm obliczania \(col(G)\). Nie ukrywam że jest on bardzo fajny.
 
-                 \begin{equation*}
-                    col(G) \leq \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
-               \end{equation*}
+	\begin{equation*}
+		col(G) \leq \mathrm{max}\{ \delta(H) : H \subset_{ind.} G \} + 1
+	\end{equation*}
 
-            Konstruujemy sobie permutację wierzchołków grafu $G$. W jaki sposób? Bierzemy wierzchołek o najmniejszym stopniu i wrzucamy go \textit{na koniec} permutacji. Następnie rozpatrujemy podgraf indukowany $H$, bez tamtego wierzchołka o najmniejszym stopniu. $H$ znowu ma jakiś wierzchołek o minimalnym stopniu, więc dorzucam go na koniec permutacji (przed wcześniejszym wierzchołkiem o minimalnym stopniu) i kontynuuję ,,obgryzanie''. Nietrudno zauważyć, że każdy wierzchołek ma ,,na lewo'' od siebie jakieś $\delta(H)$ sąsiadów (gdzie $H$ jest jakimś podgrafem indukowanym). Tym samym col jest z pewnością mniejszy lub równy niż maksymalny minimalny stopień wierzchołka w jakimś podgrafie indukowanym ($+1$). 
+	Konstruujemy sobie permutację wierzchołków grafu \(G\). W jaki sposób? Bierzemy wierzchołek o najmniejszym stopniu i wrzucamy go \textit{na koniec} permutacji. Następnie rozpatrujemy podgraf indukowany \(H\), bez tamtego wierzchołka o najmniejszym stopniu. \(H\) znowu ma jakiś wierzchołek o minimalnym stopniu, więc dorzucam go na koniec permutacji (przed wcześniejszym wierzchołkiem o minimalnym stopniu) i kontynuuję ,,obgryzanie''. Nietrudno zauważyć, że każdy wierzchołek ma ,,na lewo'' od siebie jakieś \(\delta(H)\) sąsiadów (gdzie \(H\) jest jakimś podgrafem indukowanym). Tym samym col jest z pewnością mniejszy lub równy niż maksymalny minimalny stopień wierzchołka w jakimś podgrafie indukowanym (\(+1\)).
 
-            Pokazaliśmy więc, że nasz ,,algorytm'' generuje optymalną permutację, bo pokazaliśmy wcześniej że lepiej się nie da (pokazując ograniczenie dolne na $col(G)$). Jednocześnie dowodzi to równości.
-        \end{proof}
-        
+	Pokazaliśmy więc, że nasz ,,algorytm'' generuje optymalną permutację, bo pokazaliśmy wcześniej że lepiej się nie da (pokazując ograniczenie dolne na \(col(G)\)). Jednocześnie dowodzi to równości.
+\end{proof}
+
