@@ -1,0 +1,223 @@
+\begin{theorem}[\(k\)-kaskadowa reprezentacja liczb naturalnych]
+	Niech \(m,k\in\natural_1\). Istnieją takie liczby \(a_k > a_{k-1} > \ldots > a_s \ge s
+	\ge 1\), że
+	\[m = \binom{a_k}{k} + \binom{a_{k-1}}{k-1} + \ldots + \binom{a_s}{s},\]
+	a ponadto taka reprezentacja jest jedyna.
+\end{theorem}
+\begin{proof}
+	Istnienie dowodzimy indukując się po \((k,m)\), dla \(k=1\) mamy \(m =
+	\binom{m}{1}\), dla \(m=1\) mamy \(m = \binom{k}{k}\). W kroku indukcyjnym niech
+	\(a_k = \max\set{a : \binom{a}{k}\le m}\), mamy \(m = \binom{a_k}{k} + m'\), a
+	\(m'\) z indukcji ma \((k-1)\)-kaskadową reprezentację (lub jest równe \(0\), co
+	kończy konstrukcję), w której jest \(a_{k-1} < a_k\), bo inaczej \(m \ge
+	\binom{a_k}{k} + \binom{a_k}{k-1} = \binom{a_k+1}{k}\) wbrew definicji \(a_k\).
+
+	Załózmy nie wprost, że taka reprezentacja nie jest jedyna, a \(m\) jest
+	minimalnym przykładem tego. Wtedy \(m = \binom{a_k}{k} + \ldots +
+	\binom{a_s}{s} = \binom{a'_k}{k} + \ldots + \binom{a'_{s'}}{s'}\) i \(a_k\ne
+	a'_k\) (inaczej można odjąć te same czynniki i otrzymać mniejszy
+	kontrprzykład). Bez straty ogólności \(a_k > a'_k\). Wtedy jednak
+	\(\binom{a'_k}{k} + \ldots + \binom{a'_{s'}}{s'} \le \binom{a_k-1}{k} +
+	\binom{a_k-2}{k-1} + \ldots + \binom{a_k-k}{1} < \binom{a_k}{k} \le m\), co
+	daje sprzeczność (druga nierówność wynika z tożsamości dwumianów
+	\(\sum_{i=0}^{k}\binom{n-1+i}{i} = \binom{n+k}{k}\)).
+\end{proof}
+
+\begin{definition}[Porządek ,,colex'']
+	Na zbiorze \(\binom{\natural}{k}\) definiujemy porządek koleksykograficzny: dla
+	\(A,B \in \binom{\natural}{k}\) jest \(A <_{\text{col}} B\) wtedy i tylko wtedy, gdy
+	\(\max(A\div B)\in B\). Oznacza to, że o porządku ,,colex'' decyduje ostatni (największy)
+	różniący się element (a nie jak w porządku leksykograficznym najmniejszy, stąd nazwa).
+\end{definition}
+
+\begin{theorem}[Twierdzenie Kruskala-Katony]
+	Niech \(\mathcal F\subset\binom{\natural}{k}\) i \(\card{\mathcal F} = m =
+	\binom{a_k}{k} + \binom{a_{k-1}}{k-1} + \ldots + \binom{a_s}{s}\). Wtedy
+	\[\card{\Delta\mathcal F} \ge \binom{a_k}{k-1} + \binom{a_{k-1}}{k-2} +
+		\ldots + \binom{a_s}{s-1}.\]
+	Co więcej, takie ograniczenie jest najlepsze możliwe.
+\end{theorem}
+\begin{proof}
+	Najpierw pokażemy, że istnieje rodzina spełniająca to ograniczenie. Weźmy
+	rodzinę \(\mathcal C(m,k)\) pierwszych \(m\) elementów z \(\binom{\natural}{k}\) w
+	porządku koleksykograficznym. Mając zadaną \(k\)-kaskadową reprezentację \(m\)
+	widzimy, że \(\mathcal C(m,k)\) składa się z \(\binom{[a_k]}{k}\), zbiorów
+	powstałych przez dodanie \(\set{a_k+1}\) do \(\binom{[a_{k-1}]}{k-1}\), dodanie
+	\(\set{a_k+1, a_{k-1}+1}\) do \(\binom{a_{k-2}}{k-2}\) i tak dalej, aż do zbiorów
+	powstałych przez dodanie \(\set{a_k+1,\ldots,a_{s+1}+1}\) do \(\binom{[a_s]}{s}\)
+	-- bierzemy tyle ile się da na najmniejszym możliwym zbiorze, potem zostają
+	nam zbiory, w których jest liczba o jeden większa i rekurencyjnie bierzemy
+	mniejsze zbiory. Cień takiej rodziny składa się z \(\binom{[a_k]}{k-1}\),
+	zbiorów powstałych przez dodanie \(\set{a_k+1}\) do \(\binom{[a_{k-1}]}{k-2}\),
+	dodanie \(\set{a_k+1, a_{k-1}+1}\) do \(\binom{a_{k-2}}{k-3}\) i tak dalej, aż do
+	zbiorów powstałych przez dodanie \(\set{a_k+1,\ldots,a_{s+1}+1}\) do
+	\(\binom{[a_s]}{s-1}\) -- biorąc cień kolejnych z tych zbiorów usunięcie
+	któregoś z wyróżnionych elementów da nam jeden z otrzymanych wcześniej
+	zbiorów, wszystkie inne dadzą coś nowego. To daje nam poszukiwaną wielkość
+	cienia.
+
+	Pokazanie, że osiągnięta wartość jest faktycznie najmniejsza, przebiega
+	identycznie jak dowód twierdzenia Lov\'asza (który zaraz pokażemy),
+	z tym, że trzeba wielokrotnie stosować rekurencyjny wzór na współczynniki dwumianowe.
+\end{proof}
+
+\begin{definition} Niech \(\mathcal F \subset \binom{\natural}{k}\) dla pewnego \(k \geq 1\) oraz ustalmy \(i \geq 2\). Operator przesunięcia \(S_i\) tworzy nową rodzinę \(S_i(\mathcal F) = \{S_i(F) : F \in \mathcal F\}\), gdzie
+	\[ S_i(F) =
+		\begin{cases}
+			F \setminus \{i\} \cup \{1\} & \text{jeśli } i \in F, 1 \notin F \text{ oraz } F \setminus \{i\} \cup \{1\} \notin\mathcal F, \\
+			F                            & \text{w przeciwnym przypadku}.
+		\end{cases}
+		.\]
+	Jeśli \(S_i(F)=F\) z powodu istnienia już przesuniętego zbioru w rodzinie, to mówimy, że \(F\) został zablokowany.
+\end{definition}
+
+\begin{lemma}
+	\label{kk_rozmiar}
+	Dla każdego skończonego \(\mathcal F\subset \binom{\natural}{k}\) i \(i\ge 2\) jest
+	\(|S_i(\mathcal F)| = |\mathcal F|\).
+\end{lemma}
+\begin{proof}
+	Różne zbiory są przesuwane w różne zbiory, a zbiór nie zostanie przesunięty,
+	jeśli jego przesunięcie już jest w rodzinie.
+\end{proof}
+
+\begin{lemma}
+	\label{kk_zamiana}
+	Dla dowolnego skończonego \(\mathcal F \subset \binom{\natural}{k}\) i dowolnego \(i
+	\geq 2\) jest \(\Delta S_i(\mathcal F) \subseteq S_i(\Delta\mathcal F)\).
+\end{lemma}
+\begin{proof}
+	Dowód wymaga rozważenia czterech przypadków. Przypuśćmy, że \(E \in \Delta
+	S_i(\mathcal F)\), więc \(E = S_i(F) \setminus \{x\}\) dla pewnego \(F \in
+	\mathcal F\) i \(x \in S_i(F)\).
+
+	Najpierw załóżmy, że \(1, i \notin S_i(F)\). Ponieważ \(1 \notin S_i(F)\), musimy
+	mieć \(S_i(F) = F\), a zatem \(E \subset F\). Zatem \(E \in \Delta\mathcal  F\), a
+	ponieważ \(i \notin E\), to \(S_i(E) = E\). W związku z tym \(E \in
+	S_i(\Delta\mathcal F)\).
+
+	Teraz przypuśćmy, że \(1, i \in S_i(F)\). Ponieważ \(i \in S_i(F)\), mamy \(S_i(F)
+	= F\), a zatem \(E \in \Delta\mathcal F\), jak wcześniej. Jeśli \(x \neq 1\), to
+	\(1 \in E\), i zatem \(E = S_i(E) \in S_i(\Delta\mathcal F)\). Jeśli \(x = 1\), to
+	\(E' = E \setminus \{i\} \cup \{1\} \subset F\), a zatem \(E' \in \Delta\mathcal
+	F\). To oznacza, że \(E\) jest zablokowane i \(S_i(E) = E\), co implikuje \(E \in
+	S_i(\Delta\mathcal F)\).
+
+	W trzecim przypadku przypuśćmy, że \(S_i(F) \cap \{1, i\} = \{i\}\). Ponieważ \(i
+	\in S_i(F)\), musimy mieć \(S_i(F) = F\). Jednakże, jako że \(i \in F\) i \(1
+	\notin F\), \(F\) musiało być zablokowane przez \(F' = F \setminus \{i\} \cup
+	\{1\} \in\mathcal F\). Ponieważ \(E \subset S_i(F) = F\), \(E \in \Delta\mathcal
+	F\). Jeśli \(x = i\), to \(i \notin E\), i zatem \(E = S_i(E) \in
+	S_i(\Delta\mathcal F)\). Jeśli \(x \neq i\), to \(E\) byłoby zablokowane przez \(E'
+	= F' \setminus \{x\} \in \Delta\mathcal F\), i zatem \(E = S_i(E) \in
+	S_i(\Delta\mathcal F)\) również w tym przypadku.
+
+	Ostatni przypadek to gdy \(S_i(F) \cap \{1, i\} = \{1\}\). Zauważmy, że \(i
+	\notin E\) i zatem \(S_i(E) = E\). W związku z tym, jeśli \(E \in \Delta\mathcal
+	F\), to \(E = S_i(E) \in S_i(\Delta\mathcal F)\). Jeśli \(F\) nie przesunął się,
+	to \(F = S_i(F)\) i \(E \in \Delta\mathcal F\). Jeśli \(F\) przesunął się, to
+	\(S_i(F) = F \setminus \{i\} \cup \{1\}\). Jeśli \(x = 1\), to \(E \subset F\) i
+	zatem jak wcześniej \(E \in \Delta\mathcal F\). Jeśli \(x \neq 1\), niech \(E' = E
+	\setminus \{1\} \cup \{i\}\) i zauważmy, że \(E' \subset F\), i zatem \(E' \in
+	\Delta\mathcal F\). Wtedy albo \(E \in \Delta\mathcal F\), albo \(E'\) nie jest
+	zablokowane przed przesunięciem, i \(E = S_i(E') \in S_i(\Delta\mathcal F)\).
+	To kończy analizę przypadków.
+\end{proof}
+
+\begin{definition}
+	Rodzinę \(\mathcal F \subset \binom{\natural}{k}\) nazywamy stabilną, jeśli
+	\(S_i(\mathcal F) = \mathcal F\) dla każdego \(i\ge 2\).
+\end{definition}
+
+\begin{lemma}
+	\label{kk_stabilna}
+	Dla każdej skończonej rodziny \(\mathcal F\subset \binom{\natural}{k}\) istnieje
+	rodzina stabilna \(\mathcal G\subset\binom{\natural}{k}\) taka, że \(\card{\mathcal G}
+	= \card{\mathcal F}\) i \(\card{\Delta \mathcal G} \le \card{\Delta \mathcal F}\).
+\end{lemma}
+\begin{proof}
+	Dla stabilnej \(\mathcal F\) można wziąć \(\mathcal G = \mathcal F\), a inaczej
+	można wziąć \(\mathcal F' = S_i(\mathcal F) \ne \mathcal F\) dla pewnego \(i\ge
+	2\) -- Lematy \ref{kk_rozmiar} i \ref{kk_zamiana} dają pożądane wielkości
+	odpowiednich zbiorów. Możemy w ten sposób przesuwać rodzinę, póki się da. Ten
+	proces się zakończy, bo każde przesunięcie zwiększa liczbę zbiorów
+	zawierających \(1\).
+\end{proof}
+
+\begin{lemma}
+	\label{kk_zawieranie}
+	Dla każdej stabilnej rodziny \(\mathcal F\subset \binom{\natural}{k}\) zachodzi
+	\(\Delta\mathcal F_0 \subseteq \mathcal F'_1\), gdzie \(\mathcal F = \mathcal
+	F_0 \sqcup \mathcal F_1\) i \(\mathcal F_0 = \{F \in \mathcal F : 1 \notin F\}\)
+	oraz \(\mathcal F_1 = \{F \in \mathcal F : 1 \in F\}\) i \(\mathcal F_1' = \{F
+	\setminus \{1\} : F \in \mathcal F_1\}\).
+\end{lemma}
+\begin{proof}
+	Przypuśćmy, że \(E \in \Delta\mathcal F_0\). Wówczas musimy mieć \(E = F
+	\setminus \{x\}\) dla pewnego \(F \in\mathcal F_0\) oraz \(x \in F\). Ponieważ \(F
+	\in\mathcal F_0\), \(x \geq 2\). Ponieważ \(\mathcal F\) jest stabilna, to
+	\(S_x(\mathcal F) =\mathcal F\), a zatem \(S_x(F) = F\). To oznacza, że \(F\) był
+	zablokowany, więc \(F' = F \setminus \{x\} \cup \{1\} \in \mathcal F\) i w
+	szczególności jest w \(\mathcal F_1\). Zatem \(E = (F \setminus \{x\} \cup
+	\{1\}) \setminus \{1\} \in \mathcal F_1'\).
+\end{proof}
+
+\begin{lemma}
+	\label{kk_suma}
+	Dla każdej stabilnej rodziny \(\mathcal F\subset \binom{\natural}{k}\) zachodzi
+	\(\card{\Delta\mathcal F} = \card{\mathcal F'_1} + \card{\Delta\mathcal
+		F'_1}\), gdzie \(\mathcal F = \mathcal F_0 \sqcup \mathcal F_1\) i \(\mathcal F_0
+	= \{F \in \mathcal F : 1 \notin F\}\) oraz \(\mathcal F_1 = \{F \in \mathcal F
+	: 1 \in F\}\) i \(\mathcal F_1' = \{F \setminus \{1\} : F \in \mathcal F_1\}\).
+\end{lemma}
+\begin{proof}
+	Oczywiście mamy \(\Delta\mathcal F = \Delta\mathcal F_0 \cup \Delta\mathcal
+	F_1\). W Lemacie \ref{kk_zawieranie} pokazaliśmy, że \(\Delta\mathcal F_0
+	\subseteq \mathcal F_1'\). Niech \(\mathcal F'' = \set{F\cup\set{1} :
+		F\in\Delta \mathcal F'_1}\) Pokażemy, że \(\Delta\mathcal F_1 = \mathcal
+	F'_1\cup \mathcal F''\). Te dwa zbiory są rozłączne (elementy tylko jednego
+	zawierają \(1\)), a w pierwszym z nich zawiera się \(\mathcal F_0\), więc da nam
+	to żądaną równość.
+
+	To, że \(\mathcal F_1' \subseteq \Delta\mathcal F_1\), wynika z jego definicji,
+	ponieważ dla każdego \(F' \in \mathcal F_1'\) mamy \(F' = F \setminus \{1\}\) dla
+	pewnego \(F \in \mathcal F_1\). Usunięcięcie elementu i dodanie \(1\) do elementu
+	\(\mathcal F'_1\) (przy definiowaniu \(\mathcal F''\)) można zrobić w odwrotnej
+	kolejności, więc \(\mathcal F''\subseteq \Delta\mathcal F_1\). Jednocześnie w
+	tych dwóch zbiorach znajdują się wszystkie elementy cienia \(\mathcal F_1\) --
+	jedne z nich powstają przez usunięcie \(1\), a drugie przez usunięcie
+	czegokolwiek innego. To dowodzi zawierania w drugą stronę i kończy dowód.
+\end{proof}
+
+\begin{theorem}[Lov\'{a}sz]
+	Niech \(\mathcal F\subset\binom{\natural}{k}\) i \(\card{\mathcal F} = m =
+	\binom{x}{k}\), gdzie \(x\in\real\).
+	(dla przypomnienia, definiujemy \(\binom{x}{k} = \frac{x^{\underline{k}}}{k!}\)).
+	Wtedy \[\card{\Delta\mathcal F} \ge \binom{x}{k-1}.\]
+\end{theorem}
+\begin{proof}
+	Przeprowadzimy indukcję po \((k,m)\). Dla \(k=1\) cień zawiera zbiór pusty i
+	wymagamy od niego rozmiaru \(1\). Dla \(m=1 = \binom{k}{k}\) cień składa się z \(k
+	= \binom{k}{k-1}\) elementów. Dalej zakładamy, że \(k,m\ge 2\). Z Lematu
+	\ref{kk_stabilna} możemy założyć, że \(\mathcal F\) jest stabilna. Niech
+	\(\mathcal F = \mathcal F_0 \sqcup \mathcal F_1\) i \(\mathcal F_0 = \{F \in
+	\mathcal F : 1 \notin F\}\) oraz \(\mathcal F_1 = \{F \in \mathcal F : 1 \in
+	F\}\) i \(\mathcal F_1' = \{F \setminus \{1\} : F \in \mathcal F_1\}\).
+	Pokażemy, że \(\card{\mathcal F'_1} \ge \binom{x-1}{k-1}\).
+
+	Załóżmy, że tak nie jest. Mamy \(m=\card{\mathcal F} = \card{\mathcal F_0} +
+	\card{\mathcal F_1}\) oraz \(\card{\mathcal F'_1} = \card{\mathcal F_1}\), zatem
+	\(\card{\mathcal F_0} > \binom{x}{k} - \binom{x-1}{k-1} = \binom{x-1}{k}\). Dla
+	stabilnej rodziny \(\mathcal F\) rodzina \(\mathcal F_1\) jest niepusta i
+	\(\card{\mathcal F_0} < m\), więc z indukcji i Lematu \ref{kk_zawieranie} jest
+	\(\card{\mathcal F'_1} \ge \card{\Delta\mathcal F_0} \ge \binom{x-1}{k-1}\), co
+	daje sprzeczność z założeniem nie wprost.
+
+	Z indukcji mamy teraz \(\card{\Delta\mathcal F'_1} \ge \binom{x-1}{k-2}\). Z
+	Lematu \ref{kk_suma} mamy więc \(\card{\Delta\mathcal F} = \card{\mathcal
+		F'_1} + \card{\Delta\mathcal F'_1} \ge \binom{x-1}{k-1} + \binom{x-1}{k-2} =
+	\binom{x}{k-1}\), co kończy dowód.
+\end{proof}
+
+
+

@@ -1,0 +1,51 @@
+\begin{definition}
+	\(d\)-wymiarową kostką o boku \(m\) nazywamy zbiór \([m]^d = \set{(x_1,\ldots,x_d) : \forall_i \ x_i \in [m]}\).
+\end{definition}
+
+\begin{definition}
+	\(L\subset [m]^d\) nazywamy linią kombinatoryczną, jeśli istnieje niepusty zbiór \(I\subset[d]\) oraz \(\set{y_i}_{i\in[d]\setminus I}\) takie, że \(L\) jest postaci \(\set{(x_1^\alpha,\ldots,x_d^\alpha) : \alpha\in[m]}\), gdzie \[x_i^\alpha = \left\{ \begin{array}{lr}
+			\alpha & i\in I             \\
+			y_i    & i\in[d]\setminus I
+		\end{array} \right.,\]
+	czyli istnieje zbiór wymiarów, na których współrzędne rosną od \(1\) do \(m\), a na pozostałych są ustalone. Zbiór \(I\) nazywamy aktywnym zbiorem.
+\end{definition}
+
+\begin{definition}[Alternatywna definicja]
+	Dla niektórych bardziej intuicyjna może być równoważna definicja linii kombinatorycznej poprzez funkcje.
+	Linią kombinatoryczną w \([m]^d\) nazywamy zbiór postaci \(\set{(f_1(i), f_2(i), \ldots, f_n(i)) : i \in [m]}\),
+	gdzie każda z funkcji \(f_i : [m] \to [m]\) jest równa \(I : [m] \ni x \mapsto x \in [m]\) lub \(K_v :
+	[m] \ni x \mapsto v \in [m]\) dla pewnego \(v\), oraz istnieje indeks \(j\) spełniający \(f_j = I\).
+	Zbiorem aktywnym jest wtedy zbiór \(\mathcal{I} = \set{i \in [m]: f_i = I}\),
+	a przez \(x_i^{\alpha}\) oznaczamy \(f_{\alpha}(i)\) (aby zachować notację z poprzedniej definicji).
+\end{definition}
+
+\begin{theorem}[Hales-Jewett]
+	Dla dowolnych \(m, k \in \natural_1\) istnieje \(N \in \natural\) o tej własności, że
+	dla każdego kolorowania \(c: {[m]}^N \to [k]\) istnieje monochromatyczna linia kombinatoryczna.
+	Najmniejszą liczbę \(N\) spełniającą powyższe nazywamy \(\text{HJ}(m, k)\).
+\end{theorem}
+\begin{proof}
+	Dla linii kombinatorycznej \(L\) niech \(L^-\) i \(L^+\) oznaczają jej pierwszy i ostatni punkt. Mówimy, że linie \(L_1,\ldots, L_s\) zą zogniskowane w \(f\), jeśli \(L^+_i = f\) dla każdego \(i\in[s]\).
+	Dodatkowo mówimy, że są kolorowo zogniskowane, gdy wszystkie linie \(L_i\setminus\set{f}\) są monochromatyczne i w innym kolorze.
+	Przeprowadzimy dowód indukcyjny po \(m\). Baza \(m=1\) jest oczywista (istnieje tylko jeden punkt kostki).
+
+	Zdefiniujmy \(T = \text{FHJ}(k,s,m)\) jako najmniejszą taką liczbę, że każde \(k\)-kolorowanie \([m]^T\) albo zawiera monochromatyczną linię kombinatoryczną, albo zawiera \(s\) kolorowo zogniskowanych linii.
+	Zauważmy, że podstawienie \(s=k\) daje nam naszą tezę, bo co najmniej jedna ze zogniskowanych linii ma wtedy taki sam kolor, jak punkt zogniskowania.
+	Dowodzimy istnienie tej rodziny liczb indukując się po \(s\). Dla \(s=1\) wystarczy postawić \(\text{FHJ}(k,1,m) = \text{HJ}(k,m-1)\) (istnieje krótsza monochromatyczna linia).
+	Niech \(n = \text{FHJ}(k,s-1,m)\) i \(n' = \text{HJ}(k^{m^n},m-1)\). Pokażemy, że \(\text{FHJ}(k,s,m) \le n+n'\).
+
+	Weźmy dowolne \(k\)-kolorowanie \(\phi\) kostki \([m]^{n+n'}\). Można dla niego zdefiniować \((k^{m^n})\)-kolorowanie \(\phi'\)
+	kostki \([m]^{n'}\) jako kolorowanie produktowe wszystkich punktów o ustalonych pierwszych \(n'\) współrzędnych w \([m]^{n+n'}\)
+	(zatem każda kostka \([m]^n\) jest osobnym kolorem). Z definicji \(n'\) w \(\phi'\) istnieje linia \(L\) w \([m]^{n'}\) o aktywnym
+	zbiorze \(I\) taka, że skrócona linia \(L\setminus\set{L^+}\) jest monochromatyczna. To znaczy, że dla \(a\in[m]^n\)
+	i \(b,b'\in L\setminus\set{L^+}\) zachodzi \(\phi((b,a)) = \phi((b',a))\). Można więc zdefiniować kolorowanie
+	\(\phi''\) kostki \([m]^n\) jako \(\phi''(a) = \phi((b,a))\) dla dowolnego \(b\in L\setminus\set{L^+}\).
+	Monochromatyczna linia w \(\phi''\) jest też monochromatyczną linią w \(\phi\) (ten sam zbiór aktywny, w \(n'\) pierwszych wymiarach same nieaktywne leżące na \(L\)).
+	Załóżmy więc, że w \(\phi''\) nie ma monochromatycznej linii. Z definicji \(n\) mamy w \(\phi''\) zbiór \(s-1\) kolorowo zogniskowanych linii
+	\(L_1,\ldots,L_{s-1}\) o aktywnych zbiorach \(I_1,\ldots,I_{s-1}\) i ognisku \(f\). Dla każdego \(i\) zdefiniujmy \(L'_i\) jako linię w
+	\([m]^{n+n'}\) o pierwszym punkcie \((L^-,L_i^-)\) i aktywnym zbiorze \(I\cup I_i\), a \(L'_s\) jako linię o pierwszym punkcie \((L^-,f)\)
+	i aktywnym zbiorze \(I\). O ile w \(\phi\) nie ma monochromatycznej linii, to właśnie zdefiniowaliśmy \(s\) kolorowo zogniskowanych linii
+	o ognisku \((L^+,f)\), bo jeśli \(f\) był innego koloru niż wszystkie zogniskowane w nim linie, to \(L'_s\) będzie miała całkiem nowy kolor.
+	To kończy dowód.
+\end{proof}
+

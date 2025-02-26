@@ -1,0 +1,12 @@
+\begin{theorem}[Schur]
+	Dla dowolnego \(k \in \natural\) istnieje \(N\) takie, że dla każdego kolorowania \(c: [N] \to [k]\) istnieją \(x,y,z\in[N]\)
+	spełniające \(x+y=z\) oraz \(c(x)=c(y)=c(z)\).
+\end{theorem}
+\begin{proof}
+	Dla \(k \leq 1\) twierdzenie jest trywialne.
+	Ustalmy \(k\ge 2\) i weźmy \(N = R^{(2)}(k; 3,3,\ldots,3)\). Dla dowolnego kolorowania \(c: [N]\to [k]\) definiujemy
+	kolorowanie \(c':\binom{[N]}{2}\to [k]\) zadane przez \(c'(\set{x,y}) = c(|x-y|)\). Z definicji \(N\) istnieje
+	monochromatyczna trójka \(i,j,k\). Niech bez straty ogólności niech \(i \leq j \leq k\). Mamy \(c(j-i) = c(k-i) = c(k-j)\),
+	więc kładąc \(x=j-i\), \(y=k-j\), \(x=k-i\) otrzymujemy tezę.
+\end{proof}
+

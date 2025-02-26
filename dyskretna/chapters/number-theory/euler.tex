@@ -1,0 +1,106 @@
+\subsection{Definicja funkcji \texorpdfstring{\(\varphi\)}{phi}}
+\begin{definition}
+	Niech \(n \in \natural_1\). Przez \(\integer_n^*\) oznaczamy zbiór \(\set{x \in \integer: 1 \leq x \leq n, x \perp n}\). \\
+	Funkcję \(\varphi\) (czasami nazywaną funkcją ,,tocjent'' Eulera) definiujemy jako
+	\(\varphi(n) = \card{\integer_n^*}\), czyli ilość liczb naturalnych mniejszych i względnie pierwszych z \(n\).
+\end{definition}
+
+\begin{theorem}
+	\label{nt:phigrupa}
+	Zbiór \(\integer_n^*\) z mnożeniem modulo \(n\) jest grupą.
+\end{theorem}
+\begin{proof}
+	Dla przejrzystości, mnożenie modulo \(n\) oznaczymy przez \(\circ\), a mnożenie w pierścieniu liczb całkowitych przez \(\cdot\).
+
+	Aksjomat łączności przechodzi bezpośrednio z pierścienia liczb całkowitych (branie reszty z dzielenia przez \(n\) nie zmienia tej własności).
+
+	Oczywiście \(1\) jest elementem neutralnym mnożenia oraz należy do \(\integer_n^*\) dla każdego \(n\).
+
+	Grupa jest również zamknięta na mnożenie -- załóżmy nie wprost, że \(a,b \in \integer_n^*\), ale \(a \circ b \notin \integer_n^*\).
+	Oznacza to, że istnieje jakiś dzielnik pierwszy \(p\), że \(p \mid n\) oraz \(p \mid a \circ b\).
+	Z definicji mnożenia modulo wiemy, że \(a \circ b = a \cdot b - n \cdot k\) dla pewnego \(k \in \natural\), czyli
+	\(a \circ b + n \cdot k = a \cdot b\). Ale ponieważ \(p\) dzieli lewą stronę równania, musi również
+	dzielić prawą. Z lematu Euklidesa (patrz. fundamentalne twierdzenie arytmetyki) wynika, że
+	\(p \mid a\) lub \(p \mid b\), a ponieważ \(p \mid n\) jest to sprzeczne z założeniem \(a, b \in \integer_n^*\).
+
+	Pozostało wykazać jedynie istnienie odwrotności. Niech \(a \in \integer_n^*\). Ponieważ
+	\(\gcd(a, n) = 1\), z tożsamości Bezouta istnieją \(x, y\) spełniające:
+	\[a \cdot x + n \cdot y = 1.\] Jak przyjrzymy się wystarczająco długo,
+	to widzimy, że z definicji mnożenia modulo wynika \(x \equiv a^{-1} \pmod n\).
+	Oczywiście \(x \perp n\) bo dla dowolnej liczby \(d\) dzielącej \(x\) oraz \(n\)
+	zachodzi \(d \mid 1 \implies d = 1\) (możemy wyjąć \(d\) przed nawias w tożsamości).
+\end{proof}
+
+\subsection{Twierdzenie Eulera}
+\begin{theorem}
+	\label{nt:phieuler}
+	Dla dowolnego \(a \perp n\) zachodzi \(a^{\varphi(n)} \equiv 1 \pmod{n}\).
+\end{theorem}
+\begin{proof}
+	Niech \(a = n \cdot k + b\), i \(b \in \set{0, 1, \ldots, n-1}\). Oczywiście
+	zachodzi \(a^{\varphi(n)} \equiv b^{\varphi(n)} \pmod(n)\) oraz \(a \perp n \implies b \perp n\).
+	W takim razie zachodzi \(b \in \integer_n^*\). Niech \(r\) będzie rzędem \(b\) w tej grupie.
+	Z twierdzenia Lagrange'a wynika, że \(r \mid \varphi(n)\), ponieważ \(\varphi(n)\) to z definicji
+	\(\card{\integer_n^*}\), czyli \(b^{\varphi(n)} \equiv (b^r)^{d} \equiv 1^d \equiv 1 \pmod{n}\), co kończy dowód.
+\end{proof}
+
+\subsection{Multiplikatywność funkcji \texorpdfstring{\(\varphi\)}{phi}}
+\begin{definition}[Funkcje multiplikatywe]
+	Funkcję \(f: \natural_1 \to \real\) nazywamy \textit{multiplikatywną}, jeżeli \(f(1) = 1\) i dla dowolnych \(n, m \in \natural_1\) zachodzi:
+	\[n \perp m \implies f(n \cdot m) = f(n) \cdot f(m).\]
+\end{definition}
+
+\begin{theorem}
+	\label{nt:phimulti}
+	\(\varphi\) jest funkcją multiplikatywną.
+\end{theorem}
+\begin{proof}
+	Oczywiście \(\varphi(1) = \card{\set{1}} = 1\). Niech \(n, m \in \natural_1\) i \(n \perp m\).
+	Z definicji \(\varphi\) wiemy, że aby pokazać oczekiwaną równość wystarczy wykazać bijekcję z \(\integer_{nm}^*\) w \(\integer_n^* \times \integer_m^*\).
+	Postawimy hipotezę, że funkcja \(f: \integer_{nm}^* \ni x \mapsto (x \bmod n, x \bmod m) \in \integer_n^* \times \integer_m^*\) jest dobrze zdefiniowaną
+	bijekcją.
+	Dobra definicja wynika prosto z własności dzielenia -- jeżeli \(k \mid n\) to \(k \mid nm\), czyli \(\gcd(a,n) \neq 1 \implies \gcd(a, nm) \neq 1\).
+	Z kontrapozycji dostajemy, że \(\gcd(a, nm) = 1 \implies \gcd(a, n) = 1\), co wystarcza aby dowieść dobrze zdefiniowaną operację.
+	Natomiast injektywność i surjektywność wynika bezpośrednio z chińskiego twierdzenia o resztach.
+	Jeżeli istniałoby \(x \neq y\) spełniające \((x \bmod n, x \bmod m) = (y \bmod n, y \bmod m)\), to otrzymujemy sprzeczność z
+	(istniałyby dwa rozwiązania chińskiego twierdzenia o resztach w przedziale \([nm]_0\)). Analogicznie, jeżeli mamy parę \((a, b)\) to rozwiązując układ kongruencji znajdziemy
+	odpowiedni element \(x \in [nm]_0)\) spełniający \((a, b) = (x \bmod n, x \bmod m)\) oraz \(x \perp nm\).\footnote{Jeżeli istniałby nietrywialny wspólny dzielnik \(x, nm\) to z lematu Euklidesa musiałby dzielić \(n\) lub \(m\), co byłoby sprzeczne z wyborem \(a, b\)}
+\end{proof}
+Więcej o funkcjach multiplikatywnych opowiemy w sekcji \textit{Splot Dirichleta}.
+
+\subsection{Wzór ,,jawny'' na funkcję \texorpdfstring{\(\varphi\)}{phi}}
+\begin{theorem}
+	\label{nt:closedmulti}
+	Niech \(f\) będzie funkcją arytmetyczną, a \(n \in \natural_1\).
+	Niech \(n = p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_k^{\alpha_k}\), gdzie
+	\(p_i \in \mathbb P\) oraz \(i \neq j \implies p_i \neq p_j\) (wiemy, że taki rozkład zawsze istnieje z fundamentalnego twierdzenia arytmetyki).
+	\(f\) jest multiplikatywna wtedy i tylko wtedy, gdy zachodzi:
+	\begin{equation*}
+		f(n) = \prod_{i=1}^{k} f(p_i^{\alpha_i}).
+	\end{equation*}
+\end{theorem}
+\begin{proof}
+	Obie implikacje są w miarę łatwe do zauważenia, poniżej udowodnimy mniej trywialną z nich.\footnote{Drugą implikację w sposób klasyczny dla podręczników matematycznych pozostawiamy czytelnikowi.}
+	Załóżmy, że \(f\) jest multiplikatywne. Wykonamy indukcję po \(k\). Dla \(k = 0\) zachodzi \(n = 1 \implies f(1) = \prod_{k=1}^{0} = 1\).
+	Inaczej niech \(P = \prod_{i=1}^{k-1} p_i^{\alpha_i}\) -- oczywiście \(P \perp p_k^{\alpha_k}\).
+	Z indukcji wiemy, że \(f(P) = \prod{i=1}^{k-1} f(p_i^{\alpha_i})\), a z multiplikatywności
+	otrzymujemy \(f(n) = f(P) \cdot f(p_k^{\alpha_k})\), co dowodzi oczekiwanej równości.
+\end{proof}
+
+\begin{corollary}
+	Niech \(n = p_1^{\alpha_1}p_2^{\alpha_2}\ldots p_k^{\alpha_k}\), gdzie \(p_i \in \mathbb P\) oraz \(i \neq j \implies p_i \neq p_j\).
+	Zachodzi:
+	\begin{equation*}
+		\varphi(n) = \prod_{i=1}^{k} p_i^{\alpha_i-1} \cdot (p_i-1) = n \prod_{i=1}^{k} (1-\frac{1}{p})
+	\end{equation*}
+\end{corollary}
+\begin{proof}
+	Oczywiście \(\varphi(1) = 1 = \prod_{i=1}^{0} \dots\).
+	Z poprzedniego twierdzenia wiemy, że wystarczy udowodnić równość \(\varphi(p^{\alpha}) = (p-1) \dot p^{\alpha-1}\) dla każdego \(p \in \mathbb P\) -- wtedy twierdzenie otrzymamy bezpośrednio z multiplikatywności \(\varphi\).
+
+	Indukujemy się po \(\alpha\) -- dla \(\alpha = 1\) zachodzi \(\varphi(p) = p-1\), ponieważ wszystkie mniejsze liczby naturalne są względnie pierwsze z \(p\).
+	Niech \(\alpha \geq 2\): wtedy \(\varphi(p^{\alpha}) = p \cdot \varphi(p^{\alpha-1})\), ponieważ wiemy, że tylko liczby postaci \(x + kp^{\alpha-1}\), gdzie \(k \in \set{0,1,...,p-1}\) a \(x \in \integer_{p^{\alpha-1}}^*\) będą względnie pierwsze z \(p\).
+	Jest tak ze względu na następujące równoważności:
+	\[x \perp p^{\alpha-1} \iff p \mid x \iff p \mid \left(x+p^{\alpha-1}\right).\]
+	Ale to oznacza, że \(\varphi(p^{\alpha}) = p\cdot\varphi(p^{\alpha-1}) \stackrel{ind.}{=} p\cdot p^{\alpha-2}(p-1) = (p-1)p^{\alpha-1}\).
+\end{proof}

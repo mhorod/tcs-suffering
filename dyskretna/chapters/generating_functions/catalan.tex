@@ -1,131 +1,131 @@
-   Tak naprawdę jest to bezużyteczne, bo wzór który nam wyjdzie możemy również pokazać kombinatorycznie, no ale dobra. Korzystamy z faktu, że:
-        \begin{equation*}
-            c_n = \sum_{i = 0}^{n-1} c_i \cdot c_{n-1 - i}
-        \end{equation*}
-        Rozpisujemy funkcję tworzącą $c_n$:
-        \begin{equation*}
-            C(x) = c_0 + c_1 \cdot x + c_2 \cdot x^2 + \dots =
-        \end{equation*}
-        \begin{equation*}
-           = c_0 + (c_0 \cdot c_0) \cdot x + (c_0 \cdot c_1 + c_1 \cdot c_0) \cdot x^2 + \dots =
-        \end{equation*}
-         \begin{equation*}
-           = c_0 + c_0 c_0\cdot x + c_0c_1 \cdot x^2 + c_1c_0 \cdot x^2 + \dots =
-        \end{equation*}
-        \begin{equation*}
-           = c_0 + x \cdot (c_0 \cdot c_0 + c_0c_1 \cdot x + c_1c_0 \cdot x + \dots ) =
-        \end{equation*}
-        \begin{equation*}
-           = c_0 + x \cdot C(x) \cdot C(x)
-        \end{equation*}
+Tak naprawdę jest to bezużyteczne, bo wzór który nam wyjdzie możemy również pokazać kombinatorycznie, no ale dobra. Korzystamy z faktu, że:
+\begin{equation*}
+	c_n = \sum_{i = 0}^{n-1} c_i \cdot c_{n-1 - i}
+\end{equation*}
+Rozpisujemy funkcję tworzącą \(c_n\):
+\begin{equation*}
+	C(x) = c_0 + c_1 \cdot x + c_2 \cdot x^2 + \dots =
+\end{equation*}
+\begin{equation*}
+	= c_0 + (c_0 \cdot c_0) \cdot x + (c_0 \cdot c_1 + c_1 \cdot c_0) \cdot x^2 + \dots =
+\end{equation*}
+\begin{equation*}
+	= c_0 + c_0 c_0\cdot x + c_0c_1 \cdot x^2 + c_1c_0 \cdot x^2 + \dots =
+\end{equation*}
+\begin{equation*}
+	= c_0 + x \cdot (c_0 \cdot c_0 + c_0c_1 \cdot x + c_1c_0 \cdot x + \dots ) =
+\end{equation*}
+\begin{equation*}
+	= c_0 + x \cdot C(x) \cdot C(x)
+\end{equation*}
 
-        Jeśli ktoś nie wie skąd wytrzasnąłem ostatnie przekształcenie to może sobie wymnożyć $C(x) \cdot C(x)$ żeby zobaczyć że to faktycznie tak wychodzi. Teraz, podobnie jak przy Fibonaccim, wyznaczam wzór na $C(x)$ (tylko że tym razem będą zabawy z równaniami kwadratowymi):
+Jeśli ktoś nie wie skąd wytrzasnąłem ostatnie przekształcenie to może sobie wymnożyć \(C(x) \cdot C(x)\) żeby zobaczyć że to faktycznie tak wychodzi. Teraz, podobnie jak przy Fibonaccim, wyznaczam wzór na \(C(x)\) (tylko że tym razem będą zabawy z równaniami kwadratowymi):
 
-        \begin{equation*}
-            1 - C(x) + x(C(x))^2 = 0
-        \end{equation*}
+\begin{equation*}
+	1 - C(x) + x(C(x))^2 = 0
+\end{equation*}
 
-        Żeby żyło się łatwiej, podstawiam $a = C(x)$:
+Żeby żyło się łatwiej, podstawiam \(a = C(x)\):
 
-        \begin{equation*}
-            a^2 \cdot x - a + 1 = 0
-        \end{equation*}
+\begin{equation*}
+	a^2 \cdot x - a + 1 = 0
+\end{equation*}
 
-        Wyjdą nam 2 rozwiązania. Co teraz? Patrzymy na to, które na pewno ucieknie do nieskończoności dla $x = 0$ (bo funkcja tworząca ma być określona dla zera czy coś tam). Tej, która ucieka do nieskończoności nie bierzemy (bierzemy tę, w której dla $x=0$ wyjdzie zero nad zero). 
-        \begin{equation*}
-            C(x) = \frac{1 - \sqrt{1 - 4x}} {2x}
-        \end{equation*}
+Wyjdą nam 2 rozwiązania. Co teraz? Patrzymy na to, które na pewno ucieknie do nieskończoności dla \(x = 0\) (bo funkcja tworząca ma być określona dla zera czy coś tam). Tej, która ucieka do nieskończoności nie bierzemy (bierzemy tę, w której dla \(x=0\) wyjdzie zero nad zero).
+\begin{equation*}
+	C(x) = \frac{1 - \sqrt{1 - 4x}} {2x}
+\end{equation*}
 
-        Ten pierwiastek w funkcji tworzącej trochę boli w mózg, ale możemy zrobić fikołka poprzez zmajstrowanie funkcji tworzącej $G(x)$:
-        
-        \begin{equation*}
-            G(x) = \sqrt{1 - 4x}
-        \end{equation*}
+Ten pierwiastek w funkcji tworzącej trochę boli w mózg, ale możemy zrobić fikołka poprzez zmajstrowanie funkcji tworzącej \(G(x)\):
 
-        Wtedy mamy, że:
+\begin{equation*}
+	G(x) = \sqrt{1 - 4x}
+\end{equation*}
 
-        \begin{equation*}
-            C(x) = \frac{1 - G(x)}{2x} = \frac{1 - G(x)}{x} \cdot \frac{1}{2} = (-1) \cdot \frac{G(x) - 1}{x} \cdot \frac{1}{2}
-        \end{equation*}
+Wtedy mamy, że:
 
-        Teraz zaczyna się robić śmiesznie, bo zauważmy że jeśli $G(x)$ było funkcją tworzącą jakiegoś ciągu $g_n$, to $\frac{G(x) - 1}{x}$ jest tworzącą ciągu $g_{n+1}$ (bo odjęliśmy jedynkę od $G(x)$ a potem przedzieliliśmy przez $x$ -- warto zauważyć, że $g_0 = 1$, bo $G(0) = 1$; tak działa ,,przesunięcie'' ciągu o ileś elementów, że wywalamy $k$ pierwszych elementów a potem dzielimy przez $x^k$).
+\begin{equation*}
+	C(x) = \frac{1 - G(x)}{2x} = \frac{1 - G(x)}{x} \cdot \frac{1}{2} = (-1) \cdot \frac{G(x) - 1}{x} \cdot \frac{1}{2}
+\end{equation*}
 
-        Stąd mamy już, że: 
-        \begin{equation*}
-            c_n = (-1) \cdot g_{n+1} \cdot \frac{1}{2} = \frac{-g_{n+1}}{2}
-        \end{equation*}
+Teraz zaczyna się robić śmiesznie, bo zauważmy że jeśli \(G(x)\) było funkcją tworzącą jakiegoś ciągu \(g_n\), to \(\frac{G(x) - 1}{x}\) jest tworzącą ciągu \(g_{n+1}\) (bo odjęliśmy jedynkę od \(G(x)\) a potem przedzieliliśmy przez \(x\) -- warto zauważyć, że \(g_0 = 1\), bo \(G(0) = 1\); tak działa ,,przesunięcie'' ciągu o ileś elementów, że wywalamy \(k\) pierwszych elementów a potem dzielimy przez \(x^k\)).
 
-        No fajnie, ale skąd mamy wiedzieć ile to jest $g_{n+1}$? Tutaj nadciąga z pomocą \textit{śmieszny wzór}, który mówi że: 
-        \begin{equation*}
-            g_{n+1} = \frac{G^{(n+1)}(0)}{(n+1)!}
-        \end{equation*}
+Stąd mamy już, że:
+\begin{equation*}
+	c_n = (-1) \cdot g_{n+1} \cdot \frac{1}{2} = \frac{-g_{n+1}}{2}
+\end{equation*}
 
-        W sumie ten wzór ma sens, bo jak weźmiemy $n+1$-szą pochodną to ,,skasujemy'' wszystkie elementy które były wcześniej (robienie pochodnych po wielomianach jest fajne). Następnie dzielimy przez $(n+1)!$ by pozbyć się rzeczy, które ,,dołożyły'' się do współczynnika w trakcie liczenia pochodnych, a potem ewaluujemy na zerze by zostało tylko to co nas interesuje (w sensie bo chcemy uzyskać tylko współczynnik przy $x^{n+1}$). Mnie takie wytłumaczenie przekonuje, formaliści zaś pewnie jeszcze nie ogarnęli co się dzieje przy zliczaniu ścieżek Hamiltona w grafie. 
+No fajnie, ale skąd mamy wiedzieć ile to jest \(g_{n+1}\)? Tutaj nadciąga z pomocą \textit{śmieszny wzór}, który mówi że:
+\begin{equation*}
+	g_{n+1} = \frac{G^{(n+1)}(0)}{(n+1)!}
+\end{equation*}
 
-        Teraz nasz problem redukuje się do problemu znajdywania pochodnej nieprzyjemnej funkcji. Trochę to będzie boleć, ale dosyć szybko znajdziemy pattern:
-        \begin{equation*}
-            G(x)' = \sqrt{1 - 4x}' = ((1-4x)^{\frac{1}{2}})' = \frac{1}{2} \cdot (1-4x)^{- \frac{1}{2}} \cdot (-4)
-        \end{equation*}
-        \begin{equation*}
-            G(x)'' = \frac{1}{2} \cdot \frac{-1}{2} \cdot (1-4x)^{- \frac{3}{2}} \cdot (-4)^2
-        \end{equation*}
-         \begin{equation*}
-            G(x)''' = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot (1-4x)^{- \frac{5}{2}} \cdot (-4)^3
-        \end{equation*}
-        \begin{equation*}
-            G(x)^{(n)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 3)}{2} \cdot (1-4x)^{- \frac{(2n-1)}{2}} \cdot (-4)^n
-        \end{equation*}
+W sumie ten wzór ma sens, bo jak weźmiemy \(n+1\)-szą pochodną to ,,skasujemy'' wszystkie elementy które były wcześniej (robienie pochodnych po wielomianach jest fajne). Następnie dzielimy przez \((n+1)!\) by pozbyć się rzeczy, które ,,dołożyły'' się do współczynnika w trakcie liczenia pochodnych, a potem ewaluujemy na zerze by zostało tylko to co nas interesuje (w sensie bo chcemy uzyskać tylko współczynnik przy \(x^{n+1}\)). Mnie takie wytłumaczenie przekonuje, formaliści zaś pewnie jeszcze nie ogarnęli co się dzieje przy zliczaniu ścieżek Hamiltona w grafie.
 
-        Skąd mamy, że:
-        \begin{equation*}
-            G(0)^{(n+1)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 1)}{2} \cdot (1-0)^{- \frac{(2n+1)}{2}} \cdot (-4)^{n+1}
-        \end{equation*}
+Teraz nasz problem redukuje się do problemu znajdywania pochodnej nieprzyjemnej funkcji. Trochę to będzie boleć, ale dosyć szybko znajdziemy pattern:
+\begin{equation*}
+	G(x)' = \sqrt{1 - 4x}' = ((1-4x)^{\frac{1}{2}})' = \frac{1}{2} \cdot (1-4x)^{- \frac{1}{2}} \cdot (-4)
+\end{equation*}
+\begin{equation*}
+	G(x)'' = \frac{1}{2} \cdot \frac{-1}{2} \cdot (1-4x)^{- \frac{3}{2}} \cdot (-4)^2
+\end{equation*}
+\begin{equation*}
+	G(x)''' = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot (1-4x)^{- \frac{5}{2}} \cdot (-4)^3
+\end{equation*}
+\begin{equation*}
+	G(x)^{(n)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 3)}{2} \cdot (1-4x)^{- \frac{(2n-1)}{2}} \cdot (-4)^n
+\end{equation*}
 
-         \begin{equation*}
-            G(0)^{(n+1)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 1)}{2} \cdot (-4)^{n+1}
-        \end{equation*}
+Skąd mamy, że:
+\begin{equation*}
+	G(0)^{(n+1)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 1)}{2} \cdot (1-0)^{- \frac{(2n+1)}{2}} \cdot (-4)^{n+1}
+\end{equation*}
 
-      \begin{equation*}
-            G(0)^{(n+1)} = \frac{1}{2^{n+1}} \cdot ( (-1) \cdot (-3) \cdot (-5) \dots (-(2n - 1))) \cdot (-4)^{n+1}
-        \end{equation*}
+\begin{equation*}
+	G(0)^{(n+1)} = \frac{1}{2} \cdot \frac{-1}{2} \cdot \frac{-3}{2} \cdot \dots \cdot \frac{-(2n - 1)}{2} \cdot (-4)^{n+1}
+\end{equation*}
 
-        Minusów jest nieparzyście wiele jak się nad tym poduma, więc:
-         \begin{equation*}
-            G(0)^{(n+1)} = -\frac{1}{2^{n+1}} \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) \cdot 4^{n+1}
-        \end{equation*}
-          \begin{equation*}
-            G(0)^{(n+1)} = - 2^{n+1}  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) 
-        \end{equation*}
+\begin{equation*}
+	G(0)^{(n+1)} = \frac{1}{2^{n+1}} \cdot ( (-1) \cdot (-3) \cdot (-5) \dots (-(2n - 1))) \cdot (-4)^{n+1}
+\end{equation*}
 
-        Teraz dzielimy przez $(n+1)!$:
-        \begin{equation*}
-            g_{n+1} = - \frac{  2^{n+1}  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)!}
-        \end{equation*}
+Minusów jest nieparzyście wiele jak się nad tym poduma, więc:
+\begin{equation*}
+	G(0)^{(n+1)} = -\frac{1}{2^{n+1}} \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) \cdot 4^{n+1}
+\end{equation*}
+\begin{equation*}
+	G(0)^{(n+1)} = - 2^{n+1}  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1))
+\end{equation*}
 
-        Wstawiamy do wzoru na $c_n$:
+Teraz dzielimy przez \((n+1)!\):
+\begin{equation*}
+	g_{n+1} = - \frac{  2^{n+1}  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)!}
+\end{equation*}
 
-        \begin{equation*}
-            c_{n} = \frac{  2^n  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)!}
-        \end{equation*}
+Wstawiamy do wzoru na \(c_n\):
 
-        Mnożymy licznik i mianownik przez $n!$:
+\begin{equation*}
+	c_{n} = \frac{  2^n  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)!}
+\end{equation*}
 
-          \begin{equation*}
-            c_{n} = \frac{  n! \cdot 2^n  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)! \cdot n!}
-        \end{equation*}
+Mnożymy licznik i mianownik przez \(n!\):
 
-        Każdy z elementów iloczynu $n!$ mnożymy razy 2 (z elementem $2^n$):
-          \begin{equation*}
-            c_{n} = \frac{  (2 \cdot 4 \cdot 6 \dots 2n)  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)! \cdot n!}
-        \end{equation*}
-        Teraz zauważamy że jak wymnożymy licznik to już mamy po prostu $(2n)!$
-         \begin{equation*}
-            c_{n} = \frac{(2n)!}{(n+1) \cdot n! \cdot n!}
-        \end{equation*}
+\begin{equation*}
+	c_{n} = \frac{  n! \cdot 2^n  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)! \cdot n!}
+\end{equation*}
 
-        I ostatecznie
-         \begin{equation*}
-            c_{n} = \frac{1}{n+1} \cdot \frac{(2n)!}{n! \cdot n!} = \frac{1}{n+1} \cdot \binom{2n}{n}
-        \end{equation*}
+Każdy z elementów iloczynu \(n!\) mnożymy razy 2 (z elementem \(2^n\)):
+\begin{equation*}
+	c_{n} = \frac{  (2 \cdot 4 \cdot 6 \dots 2n)  \cdot ( 1 \cdot 3 \cdot 5 \dots (2n - 1)) }{(n+1)! \cdot n!}
+\end{equation*}
+Teraz zauważamy że jak wymnożymy licznik to już mamy po prostu \((2n)!\)
+\begin{equation*}
+	c_{n} = \frac{(2n)!}{(n+1) \cdot n! \cdot n!}
+\end{equation*}
 
-        Kurczę szlaczek, skądś kojarzę ten wzór. 
+I ostatecznie
+\begin{equation*}
+	c_{n} = \frac{1}{n+1} \cdot \frac{(2n)!}{n! \cdot n!} = \frac{1}{n+1} \cdot \binom{2n}{n}
+\end{equation*}
+
+Kurczę szlaczek, skądś kojarzę ten wzór.

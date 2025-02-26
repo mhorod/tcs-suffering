@@ -1,9 +1,0 @@
- \begin{theorem}[Ograniczenie górne na symetryczną liczbę Ramseya R(k,k)]
-          \begin{equation}
-               R(k,k) \leq 2^{2k}
-          \end{equation}
-        \end{theorem}
-
-        \begin{proof}
-            Mamy sobie klikę na $N = 2^{2k}$ punktach. Weźmy sobie jakiś przypadkowy, $v_1$. Wychodzą z niego jakieś czerwone lub niebieskie krawędzie do wszystkich innych punktów. Dosyć oczywistym jest, że przynajmniej połowa wychodzących z niego krawędzi musi być czerwona lub niebieska (bo są tylko 2 dostępne kolory, zasada szufladkowa czy coś). To oznacza, że mamy jakoś co najmniej $2^{2k-1}$ punktów łączących się z $v_1$ tym samym kolorem. Zbiór tych wszystkich punktów oznaczmy jako $C_1$. Bierzemy jakiś wierzchołek $v_2$ ze zbioru $C_1$ i tworzymy analogicznie zbiór $C_2$. Bardzo ważne jest by zauważyć, że $v_2$ z punktami z $C_2$ nie musi się łączyć na ten sam kolor, na który $v_1$ łączy się z punktami z $C_1$. W każdym razie, ponawiając tę procedurę otrzymamy ciąg $2k$ punktów $v_1, v_2, \dots, v_{2k}$. Dla każdego punktu $v_i$ z tego ciągu prawdą jest, że punkty $v_{i+1}, \dots, v_{2k}$ łączą się z nim w tym samym kolorze (bo wszystkie są elementami zbioru $C_i$). To w sumie już prowadzi nas do rozwiązania, bo skoro punktów w tym ciągu jest $2k$, to musi być co najmniej $k$ takich że łaczą się ze wszystkimi ,,późniejszymi'' na czerwono lub na niebiesko, a więc otrzymujemy klikę monochromatyczną rozmiaru co najmniej $k$. Fajnie. 
-        \end{proof}

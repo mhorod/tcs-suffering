@@ -1,0 +1,92 @@
+\begin{definition}
+	Dla zbioru \(\mathcal B \subset \displaystyle\binom{[n]}{k}\) jego cieniem
+	dolnym nazywamy zbiór \[\Delta\mathcal B = \set{A : \exists_{B\in\mathcal B,
+				x\in B} \ A=B\setminus\set{x}},\] a cieniem górnym nazywamy zbiór
+	\[\nabla\mathcal B = \set{A : \exists_{B\in\mathcal B, x\in [n]\setminus B} \
+			A=B\cup\set{x}}.\] Elementy cienia odpowiednio tracą lub zyskują jeden element
+	-- cień jest obcięciem stożka do najbliższego poziomu.
+\end{definition}
+
+\begin{theorem}[O rozmiarze cienia]
+	Dla \(\mathcal B \subset \displaystyle\binom{[n]}{k}\) zachodzą następujące nierówności:
+	\begin{align*}
+		\card{\Delta\mathcal B} & \ge \frac k{n-k+1}\card{\mathcal B},   \\
+		\card{\nabla\mathcal B} & \ge \frac {n-k}{k+1}\card{\mathcal B}. \\
+	\end{align*}
+	Z powyższego twierdzenia wynika, że \(\card{\Delta\mathcal B} \ge \card{\mathcal B}\) dla \(k \ge
+	\frac {n+1}2\) oraz \(\card{\nabla\mathcal B} \ge \card{\mathcal B}\) dla \(k \le \frac {n-1}2\).
+\end{theorem}
+\begin{proof}
+	Zliczamy moc zbioru
+	\(W = \set{(A,B) : B\in\mathcal B, A\in\Delta\mathcal B, A\subset B}\).
+	Jest ona równa \(k\card{\mathcal B}\), bo każdy element \(\mathcal B\) ma dokładnie \(k\)
+	swoich elementów cienia. Jednocześnie każdy element cienia może mieć co najwyżej
+	\(n-(k-1)\) swoich nadzbiorów w \(\mathcal B\), więc \(\card W \le \card{\Delta\mathcal B}(n-k+1)\),
+	co dowodzi pierwszej nierówności.
+	Analogiczne zliczenie dla górnego cienia (każdy element \(\mathcal B\) ma \(n-k\)
+	swoich elementów cienia, element cienia ma co najwyżej \(k+1\) elementów
+	\(\mathcal B\)) daje drugą nierówność.
+\end{proof}
+
+\begin{theorem}[Twierdzenie Spernera, bis]
+	Największy antyłańcuch w \(\mathbb B_n\) ma rozmiar \(\binom{n}{\lfloor \frac n2
+		\rfloor}\).
+\end{theorem}
+\begin{proof}[Dowód przez cienie]
+	Niech \(\mathcal A\) będzie antyłańcuchem w \(\mathbb B_n\) i niech \(\mathcal A_j
+	= \mathcal A \cap \binom{[n]}{j}\). Jeśli \(i = \min\set{j : \mathcal
+		A_j\ne\emptyset}\), to dla \(i\le \frac{n-1}2\) zbiór \(\mathcal A' = (\mathcal
+	A\setminus \mathcal A_i)\cup \ \nabla\mathcal A_i\) ma większą moc od
+	\(\mathcal{A}\) oraz dalej jest antyłańcuchem -- jeśli coś jest nad cieniem
+	górnym \(\mathcal A_i\), to jest też nad \(\mathcal A_i\), więc \(\mathcal A\) nie
+	byłby antyłańcuchem. Podobnie, jeśli weźmiemy \(k = \max\set{j : \mathcal
+		A_j\ne\emptyset}\) i będzie \(k\ge \frac{n+1}2\). Możemy więc po kolei przesuwać
+	kolejne poziomy bliżej środka kraty. Jeśli \(2\nmid n\), to możemy wybrać
+	dowolny ze środkowych poziomów, bo nierówności z cieniami na to pozwalają.
+\end{proof}
+
+\begin{definition}
+	Rodzina zbiorów \(\mathcal F\) jest przecinająca się, jeśli \(\forall_{X, Y\in \mathcal F} \ X \cap Y \neq \emptyset\).
+\end{definition}
+
+\begin{theorem}
+	Największa rodzina przecinająca się w \(\mathbb B_n\) ma rozmiar \(2^{n-1}\).
+\end{theorem}
+\begin{proof}
+	Zauważmy, że dla rodziny przecinającej \(\mathcal F\) nie może jednocześnie
+	zachodzić \(X\in\mathcal F\) i \(\overline X\in\mathcal F\). Zatem jest
+	\(\card{\mathcal F}\le 2^{n-1}\). Przykładem takiej rodziny mogą być wszystkie
+	podzbiory \(\mathbb B_n\) zawierające \(1\).
+\end{proof}
+
+\begin{theorem}[Erd\H{o}s-Ko-Rado]
+	Niech \(\mathcal F\subseteq \binom{[n]}{k}\) będzie przecinająca się i niech
+	\(2k\le n\). Maksymalny rozmiar \(\mathcal F\) to \(\binom{n-1}{k-1}\).
+\end{theorem}
+\begin{proof}
+	Najpierw zauważmy, że dla \(2k>n\) można wziąć \(\mathcal F = \binom{[n]}{k}\), bo
+	wszystkie takie zbiory muszą się przecinać.
+
+	Faktyczny dowód zaczniemy, rozważając cykl \(\sigma\) elementów
+	\([n]\) (tj. permutację o jednym cyklu). Przedziałem \(k\)-elementowym w \(\sigma\)
+	nazwiemy ciąg \(k\) elementów występujących kolejno w \(\sigma\), być może zapętlając
+	się modulo \(n\). Pokażemy, że do \(\mathcal F\) może należeć co najwyżej \(k\)
+	przedziałów dla każdego takiego cyklu \(\sigma\).
+	Załóżmy, że \(X=\set{x_1,\ldots,x_k}\in\mathcal
+	F\) jest przedziałem w \(\sigma.\) Zauważmy, że pary przedziałów, z których
+	jeden ma prawy koniec w \(x_i\), a drugi ma lewy koniec w \(x_{i+1}\) dla \(i\in
+	[k]\) są jedynymi przedziałami, które mogą należeć do \(\mathcal F\) i co
+	najwyżej jeden z każdej pary należy do \(\mathcal F\) (bo muszą się wzajemnie
+	przecinać i przecinać \(X\), a warunek \(2k\le n\) zapewnia, że
+	nie przetną się ,,z drugiej strony''). Zatem zbiór
+  \(W = \set{(X,\sigma) : X\in\mathcal F, \sigma \text{ cyklem w $[n]$ }, X \text{ przedziałem w
+      $\sigma$}}\) ma co najwyżej \(k(n-1)!\) elementów (po \(k\) na każdy cykl, a cyklów jest \((n-1)!\)).
+	Jednocześnie każdy zbiór z \(\mathcal F\) można dopełnić do cyklu, stawiając go
+	na początku cyklu i permutując jego elementy i pozostałe elementy, co daje nam
+	\(\card W = \card{\mathcal F}k!(n-k)!\), zatem \(\card{\mathcal F} \le
+	\frac{k(n-1)!}{k!(n-k)!} = \binom{n-1}{k-1}\).
+
+	Aby znaleźć rodzinę spełniającą to ograniczenie, można wziąć wszystkie elementy z
+	\(\displaystyle\binom{[n-1]}{k-1}\) z dorzuconym elementem \(n\).
+\end{proof}
+

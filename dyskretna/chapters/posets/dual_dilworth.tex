@@ -1,7 +1,24 @@
-  \begin{theorem}[Twierdzenie dualne do twierdzenia Dilwortha]
-      Jeśli długość maksymalnego łańcucha w posecie wynosi k, poset ten da się pokryć w całości z użyciem k antyłańcuchów.
-    \end{theorem}
+\begin{theorem}[Twierdzenie dualne do twierdzenia Dilwortha]
+	Długość maksymalnego łańcucha w posecie wynosi
+	Długość maksymalnego łańcucha w posecie jest równa ilości antyłańcuchów w najmniejszym pokryciu antyłańcuchowym
+	(tj. rozkładzie posetu na podzbiory będące antyłańcuchami).
+	Długość tę dla danego posetu nazywamy szerokością i oznaczamy \(\posetheight(P)\).
+\end{theorem}
 
-    \begin{proof}
-        Zdefiniujmy sobie poset $P$ i funkcję $\varphi$ idącą z elementów $P$ w liczby naturalne, taką że $\varphi(x)$ jest to moc najdłuższego łańcucha w $P$, którego maksimum wynosi $x$. Zauważmy, że $\varphi$ może przyjmować jedynie wartości w zakresie $1 \dots k$, bo $k$ to długość najdłuższego łanćucha w ogóle. Zauważamy, że wszystkie elementy $P$ które przechodzą na jakąś liczbę $m$ muszą być ze sobą nieporównywalne, a więc formować antyłańcuch. Gdyby tak nie było i istniałyby jakieś elementy $x, y$, takie że, bez straty ogólności, $x \leq y$ i $\varphi(x) = \varphi(y) = z$, to łańcuch w którym $x$ jest elementem maksymalnym i który ma długość $z$ mógłbym ,,rozszerzyć'' dodając do niego $y$, które stałoby się nowym elementem maksymalnym; tym samym maksymalna długość łańcucha w którym $y$ byłoby elementem maksymalnym wynosiłaby nie $z$, a $z+1$, co prowadziłoby do sprzeczności. W takim razie dla każdej liczby naturalnej w zakresie $1 \dots k$ mam jakiś antyłańcuch i wiem, że te antyłańcuchy w sumie muszą pokrywać cały poset $P$, co kończy dowód.
-     \end{proof}
+\begin{proof}
+	W jedną stronę nierówność jest trywialna -- mając łańcuch o długości \(k\), każdy z jego
+	elementów musi trafić do innego antyłańcucha. Dowodzimy więc nierówność w drugą stronę.
+	Niech \((P, \leq)\) będzie posetem -- zdefiniujmy sobie funkcję \(\varphi\) idącą z elementów
+	\(P\) w liczby naturalne, taką że \(\varphi(x)\) jest to moc najdłuższego łańcucha w \(P\),
+	którego maksimum wynosi \(x\). Zauważmy, że \(\varphi\) może przyjmować jedynie wartości
+	w zakresie \(1 \dots k\), bo \(k\) to długość najdłuższego łanćucha w ogóle. Zauważamy,
+	że wszystkie elementy \(P\) które przechodzą na jakąś liczbę \(m\) muszą być ze sobą
+	nieporównywalne, a więc formować antyłańcuch. Gdyby tak nie było i istniałyby jakieś
+	elementy \(x, y\), takie że, bez straty ogólności, \(x \leq y\) i
+	\(\varphi(x) = \varphi(y) = z\), to łańcuch w którym \(x\) jest elementem maksymalnym
+	i który ma długość \(z\) możemy ,,rozszerzyć'' dodając do niego \(y\), które stałoby się
+	nowym elementem maksymalnym; tym samym maksymalna długość łańcucha w którym \(y\)
+	byłoby elementem maksymalnym wynosiłaby nie \(z\), a \(z+1\), co prowadziłoby do sprzeczności.
+	W takim razie dla każdej liczby naturalnej w zakresie \(1 \dots k\) mamy jakiś antyłańcuch
+	i wiemy, że te antyłańcuchy w sumie muszą pokrywać cały poset \(P\), co kończy dowód.
+\end{proof}

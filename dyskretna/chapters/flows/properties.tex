@@ -1,44 +1,44 @@
-    \begin{theorem}[Oczywiste twierdzenie o przekrojach]
-        Dla dowolnego przepływu w sieci przepływowej $f$ i dla dowolnego jej przekroju $(S,T)$ jest tak, że przepływ przez przekrój jest słabo mniejszy niż jego przepustowość (tzn. $f(S,T) \leq c(S,T)$).
-    \end{theorem}
+\begin{theorem}[Oczywiste twierdzenie o przekrojach]
+	Dla dowolnego przepływu w sieci przepływowej \(f\) i dla dowolnego jej przekroju \((S,T)\) jest tak, że przepływ przez przekrój jest słabo mniejszy niż jego przepustowość (tzn. \(f(S,T) \leq c(S,T)\)).
+\end{theorem}
 
-    \begin{proof}
-        To widać. W sensie serio, gdyby suma po przepływach krawędzi wychodzących z $S$ była większa niż suma po ich przepustowościach, to znaczyłoby że coś gdzieś poszło bardzo mocno nie tak.
-    \end{proof}
+\begin{proof}
+	To widać. W sensie serio, gdyby suma po przepływach krawędzi wychodzących z \(S\) była większa niż suma po ich przepustowościach, to znaczyłoby że coś gdzieś poszło bardzo mocno nie tak.
+\end{proof}
 
-    \begin{theorem}[Mniej oczywiste twierdzenie o przekrojach]
-        Przepływ przez każdy przekrój sieci jest taki sam i wynosi $val(f)$.
-    \end{theorem}
+\begin{theorem}[Mniej oczywiste twierdzenie o przekrojach]
+	Przepływ przez każdy przekrój sieci jest taki sam i wynosi \(val(f)\).
+\end{theorem}
 
-    \begin{proof}
-        Indukcja po liczbie wierzchołków w części $S$ przekroju (tej do której należy źródło). Przypadek bazowy gdy $|S| = 1$ trywialny. W przypadku ogólnym mamy sobie jakiś przekrój $(S,T)$. Weźmy teraz jakiś $x \in S$ (różny od źródła, na pewno taki jest bo dla przypadku gdzie jest tylko jeden wierzchołek w $S$ mamy to już udowodnione) i wrzućmy go do $T$, otrzymując alternatywny przekrój $(S', T')$. Teraz jest śmiesznie, bo wiemy z założenia indukcyjnego że przepływ przez $(S', T') = val(f)$, bo $S'$ ma mniejszą moc od $S$. Rozpiszmy sobie teraz $f(S', T')$ oraz $f(S,T)$ (przez $v_{s}$ etc. oznaczam wierzchołek należący do $S$ lub innych zbiorów):
-        \begin{equation*}
-            f(S,T) = \sum_{(v_s, v_t) \in E, v_s \not = x} f(v_s, v_t) + \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,v_s) \in E, v_s \not = x} f(v_t,v_s) - \sum_{(v_t,x) \in E} f(v_t,x)
-        \end{equation*}
-        Jako że jeśli punkt $v \in S$ oraz $v \not = x$, to $v \in S'$, możemy to uprościć i zapisać jako:
-        \begin{equation*}
-            f(S,T) = \sum_{(v_{s'}, v_t) \in E} f(v_{s'}, v_t) + \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,v_{s'}) \in E} f(v_t,v_{s'}) - \sum_{(v_t,x) \in E} f(v_t,x)
-        \end{equation*}
-        \begin{equation*}
-            f(S',T') = \sum_{(v_{s'}, v_{t'}) \in E, v_{t'} \not = x} f(v_{s'}, v_{t'}) + \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_{t'},v_{s'}) \in E, v_{t'} \not = x} f(v_{t'},v_{s'}) - \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
-        \end{equation*}
-        Jako, że jeśli punkt $v \in T'$ oraz $v \not = x$, to wiemy że $v \in T$: 
-        \begin{equation*}
-            f(S',T') = \sum_{(v_{s'}, v_{t}) \in E} f(v_{s'}, v_{t}) + \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_{t},v_{s'}) \in E} f(v_{t},v_{s'}) - \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
-        \end{equation*}
-        To wygląda przerażająco, ale w sumie wynika wprost z definicji przepływu, po prostu dodajemy te wszystkie krawędzie do siebie. Zasadniczo nic ciekawego. Co teraz jest fajne to to, że możemy policzyć $f(S,T) = f(S',T')$ (zwróćmy uwagę, że pierwszy i trzeci składnik się uproszczą (co w sumie ma sens, bo jedyne co zmienialiśmy to pozycja $x$, więc to co przepływa w reszcie grafu się nie zmieniło -- ależ plot twist) , zostawiając tylko składniki z $x$).
+\begin{proof}
+	Indukcja po liczbie wierzchołków w części \(S\) przekroju (tej do której należy źródło). Przypadek bazowy gdy \(|S| = 1\) trywialny. W przypadku ogólnym mamy sobie jakiś przekrój \((S,T)\). Weźmy teraz jakiś \(x \in S\) (różny od źródła, na pewno taki jest bo dla przypadku gdzie jest tylko jeden wierzchołek w \(S\) mamy to już udowodnione) i wrzućmy go do \(T\), otrzymując alternatywny przekrój \((S', T')\). Teraz jest śmiesznie, bo wiemy z założenia indukcyjnego że przepływ przez \((S', T') = val(f)\), bo \(S'\) ma mniejszą moc od \(S\). Rozpiszmy sobie teraz \(f(S', T')\) oraz \(f(S,T)\) (przez \(v_{s}\) etc. oznaczam wierzchołek należący do \(S\) lub innych zbiorów):
+	\begin{equation*}
+		f(S,T) = \sum_{(v_s, v_t) \in E, v_s \not = x} f(v_s, v_t) + \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,v_s) \in E, v_s \not = x} f(v_t,v_s) - \sum_{(v_t,x) \in E} f(v_t,x)
+	\end{equation*}
+	Jako że jeśli punkt \(v \in S\) oraz \(v \not = x\), to \(v \in S'\), możemy to uprościć i zapisać jako:
+	\begin{equation*}
+		f(S,T) = \sum_{(v_{s'}, v_t) \in E} f(v_{s'}, v_t) + \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,v_{s'}) \in E} f(v_t,v_{s'}) - \sum_{(v_t,x) \in E} f(v_t,x)
+	\end{equation*}
+	\begin{equation*}
+		f(S',T') = \sum_{(v_{s'}, v_{t'}) \in E, v_{t'} \not = x} f(v_{s'}, v_{t'}) + \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_{t'},v_{s'}) \in E, v_{t'} \not = x} f(v_{t'},v_{s'}) - \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
+	\end{equation*}
+	Jako, że jeśli punkt \(v \in T'\) oraz \(v \not = x\), to wiemy że \(v \in T\):
+	\begin{equation*}
+		f(S',T') = \sum_{(v_{s'}, v_{t}) \in E} f(v_{s'}, v_{t}) + \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_{t},v_{s'}) \in E} f(v_{t},v_{s'}) - \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
+	\end{equation*}
+	To wygląda przerażająco, ale w sumie wynika wprost z definicji przepływu, po prostu dodajemy te wszystkie krawędzie do siebie. Zasadniczo nic ciekawego. Co teraz jest fajne to to, że możemy policzyć \(f(S,T) = f(S',T')\) (zwróćmy uwagę, że pierwszy i trzeci składnik się uproszczą (co w sumie ma sens, bo jedyne co zmienialiśmy to pozycja \(x\), więc to co przepływa w reszcie grafu się nie zmieniło -- ależ plot twist) , zostawiając tylko składniki z \(x\)).
 
-        \begin{equation*}
-            f(S,T) - f(S',T') = \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_t,x) \in E} f(v_t,x) + \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
-        \end{equation*}
-        Jako, że do $x$ wpływa tyle samo co wypływa:
-        \begin{equation*}
-            \begin{split}
-                f(S,T) - f(S',T')
-                    &= \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,x) \in E} f(v_t,x) + \sum_{(x,v_{s'}) \in E} f(x,v_{s'}) - \sum_{(v_{s'}, x) \in E} f(v_{s'}, x)\\
-                    &= 0 + 0 = 0
-            \end{split}
-        \end{equation*}
+	\begin{equation*}
+		f(S,T) - f(S',T') = \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_{s'}, x) \in E} f(v_{s'}, x) - \sum_{(v_t,x) \in E} f(v_t,x) + \sum_{(x,v_{s'}) \in E} f(x,v_{s'})
+	\end{equation*}
+	Jako, że do \(x\) wpływa tyle samo co wypływa:
+	\begin{equation*}
+		\begin{split}
+			f(S,T) - f(S',T')
+			&= \sum_{(x, v_t) \in E} f(x, v_t) - \sum_{(v_t,x) \in E} f(v_t,x) + \sum_{(x,v_{s'}) \in E} f(x,v_{s'}) - \sum_{(v_{s'}, x) \in E} f(v_{s'}, x)\\
+			&= 0 + 0 = 0
+		\end{split}
+	\end{equation*}
 
-        Skąd mamy szokujące odkrycie, że $f(S,T) = f(S',T')$. Ale przecież $f(S',T')$ było równe $val(f)$, czyli wszystko się zgadza.
-    \end{proof}
+	Skąd mamy szokujące odkrycie, że \(f(S,T) = f(S',T')\). Ale przecież \(f(S',T')\) było równe \(val(f)\), czyli wszystko się zgadza.
+\end{proof}

@@ -1,0 +1,121 @@
+\begin{definition}[Funkcje arytmetyczne]
+	Mówimy, że funkcja \(f\) jest \textit{arytmetyczna} jeżeli
+	należy ona do zbioru \(\real^{\natural_1}\) (innymi słowy jest ona typu \(: \natural_1 \to \real\)).
+	\footnote{W literaturze definicja ta często zawiera zbiór liczb zespolonych jako przeciwdziedzinę (zamiast rzeczywistych),
+		jednakże dla naszych celów jest to trochę przesada i pozwolimy sobie zawęzić tą definicję dla przejrzystości.}
+\end{definition}
+\begin{definition}[Splot Dirichleta]
+	Niech \(f, g\) będą funkcjami arytmetycznymi.
+	\textit{Splotem Dirichleta} (oznaczanym \(f * g\)) nazywamy funkcję \(h: \natural_1 \to \real\)
+	zdefiniowaną w następujący sposób:
+	\[h(n) = \sum_{d \mid n} f(d)g(\frac{n}{d}) = \sum_{\substack{ab=n \\ a > 0}} f(a)g(b).\footnote{Dla ułatwienia zapisu będę pomijał warunek \(a > 0\) w dolnym indeksie (w tym kontekście operujemy na sumach liczb naturalnych, a nie całkowitych)}\]
+
+	Symbol \(*: \real^{\natural_1} \times \real^{\natural_1} \to \real^{\natural_1}\)
+	nazywamy operatorem splotu Dirichleta.
+\end{definition}
+
+\begin{theorem}
+	\label{nt:dirichletmonoid}
+	Zbiór funkcji arytmetycznych \(\real^{\natural_1}\) wraz z operatorem \(*\) splotu Dirichleta tworzy
+	monoid przemienny (tj. półgrupę przemienną z el. neutralnym / grupę przemienną bez odwrotności).
+	Monoid ten oznaczymy przez \(\mathbb D\).\footnote{Nie znaleźliśmy standardowego oznaczenia tej struktury, więc pozwolimy sobie na trochę
+		dowolności w jego wprowadzeniu. Dla ciekawych warto zaznaczyć, że ten monoid można rozszerzyć do pierścienia jeżeli dodamy do niego
+		operator dodawania funkcji po współrzędnych.}
+\end{theorem}
+\begin{proof}
+	Zamknięcie na działania oraz przemienność są oczywiste z definicji \(*\), więc wystarczy
+	udowodnić łączność i istnienie elementu neutralnego.
+
+	Najpierw udowodnimy łączność: niestety nie ma tutaj ładnego dowodu,
+	jedynie dużo obliczeń:
+	\begin{align*}
+		(f * (g * h))(n) & = \sum_{ab = n} f(a) (g*h)(b)                             \\
+		                 & = \sum_{ab = n} f(a) \left(\sum_{cd = b} g(c) h(d)\right) \\
+		                 & = \sum_{acd = n} f(a) g(c) h(d)                           \\
+		                 & = \sum_{ed = n} \left(\sum_{e = ac} f(a) g(c)\right) h(d) \\
+		                 & = \sum_{ed = n} (f * g)(e) h(d)                           \\
+		                 & = ((f * g) * h)(n)
+	\end{align*}
+	Jak przeanalizujemy dokładnie własności sum i rozdzielność mnożenia względem
+	dodawania, to otrzymamy że wszystkie powyższe przekształcenia były dozwolone.
+
+	Pozostało pokazać element neutralny, jednak po chwili zastanowienia możemy dojść
+	do jego definicji -- będzie to funkcja postaci \(\mathcal I(n) = [n \stackrel{?}{=} 1]\) (tj. funkcja charakterystyczna jedynki).
+	Aby to udowodnić wystarczy rozpisać definicję splotu dla dowolnej funkcji \(f\):
+	\begin{align*}
+		(f * \mathcal I)(n) & = \sum_{ab = n} f(a) \mathcal I(b)            \\
+		                    & = f(n) \mathcal I(1) + \sum_{\substack{ab = n \\ b \neq 1}} f(a) \mathcal I(b) \\
+		                    & = f(n) \cdot 1 + \sum_{\substack{ab = n       \\ b \neq 1}} f(a) \cdot 0             \\
+		                    & = f(n)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}[Odwrotność Dirichleta]
+	\label{nt:dirichletinverse}
+	Niech \(f \in \real^{\natural_1}\).
+	Zachodzi \(f(1) \neq 0\) wtedy, i tylko wtedy, gdy
+	istnieje \(g \in \real^{\natural_1}\) spełniające: \(f * g = \mathcal I\).
+	Funkcję \(g\) nazywamy \textit{odwrotnością} \(f\) względem splotu Dirichleta.
+\end{theorem}
+\begin{proof}
+	Zauważmy, że jeżeli istnieje takie \(g\) to \((f * g)(1) \stackrel{\text{def. }*}{=} f(1)g(1) = \mathcal I(1) = 1\),
+	czyli musi zachodzić \(g(1) = f(1)^{-1}\) oraz oczekiwana przez nas własność \(f(1) \neq 0\).
+
+	Implikację w drugą stronę dowodzimy konstruując funkcję \(g\) indukcyjnie -- jak ustaliliśmy zachodzi \(g(1) = \frac{1}{f(1)}\).
+	Rozważmy wartość \(g\) w punkcie \(n \neq 1\) -- wiemy, że:
+	\[(f*g)(n) = 0 = \sum_{ab = n} f(a)g(b) = g(n)f(1) + \sum_{\substack{ab = n \\ b \neq n}} f(a)g(b),\]
+	czyli:
+	\[g(n) = -\frac{\sum_{\substack{ab = n \\ b \neq n}} f(a)g(b)}{f(1)}.\]
+	Wartość ta jest dobrze zdefiniowana z indukcji, co dowodzi istnieniu \(g\).
+
+\end{proof}
+
+\begin{corollary}
+	\(\mathbb D_1 = \set{f \in \mathbb D : f(1) \neq 0}\) jest grupą przemienną.
+\end{corollary}
+
+\begin{definition}[Funkcje multiplikatywne; bis]
+	Funkcję \(f: \natural_1 \to \real\) nazywamy \textit{multiplikatywną}, jeżeli \(f(1) = 1\) i dla dowolnych \(n, m \in \natural_1\) zachodzi:
+	\[n \perp m \implies f(n \cdot m) = f(n) \cdot f(m).\]
+	Zbiór wszystkich grup multiplikatywnych oznaczymy przez \(\mathbb D_*\).
+\end{definition}
+
+\begin{theorem}
+	\label{nt:dirichletmulti}
+	\(\mathbb D_*\) jest podgrupą\footnote{nawet normalną!} grupy \(\mathbb D_1\).
+	Równoważnie, jeżeli \(a, b\) są funkcjami multiplikatywnymi to
+	\(f * g\) oraz \(f^{-1}\) również są multiplikatywne.
+\end{theorem}
+\begin{proof}[Dowód]
+	Najpierw udowodnimy multiplikatywność splotu -- niech \(f, g\) będą funkcjami multiplikatywnymi.
+	Oczywiście \((f * g)(1) = f(1)g(1) = 1\).
+	% @tfkls: sadly substack breaks my autoformatter here, but i'll leave it as is
+	Niech \(n,m \in \natural_1, n \perp m\). Wtedy:
+	\begin{align*}
+		(f*g)(nm) &                                                                                                                      & \text{(definicja $*$)}                      \\
+		          & = \sum_{xy = nm} f(x)g(y)                                                                                            & \text{(rozkład $x, y$ na dzielniki $n, m$)} \\
+		          & = \sum_{                                                                                            \substack{ab = n                                               \\ cd = m}} f(ac)g(bd)                    & \text{(multiplikatywność $f, g$)}           \\
+		          & = \sum_{                                                                                            \substack{ab = n                                               \\ cd = m}} f(a)f(c)g(b)g(d)              & \text{(zamiana kolejności)}                 \\
+		          & = \sum_{                                                                                            \substack{ab = n                                               \\ cd = m}} f(a)g(b)f(c)g(d)              & \text{(własności sum)}                      \\
+		          & = \sum_{ab = n} f(a)g(b) \cdot \sum_{cd = m} f(c)g(d)                                                                & \text{(definicja $*$)}                      \\
+		          & = (f*g)(n) \cdot (f*g)(m)
+	\end{align*}
+
+	Multiplikatywność odwrotności dowodzimy analogicznie, lecz korzystając
+	dodatkowo z indukcji i definicji odwrotności Dirichleta.
+	Niech \(f\) będzie funkcją multiplikatywną, a \(g\) = \(f^{-1}\). Z definicji odwrotności zachodzi \(g(1) = 1\),
+	oraz \(g(k) = \sum_{\substack{ab = k \\ b \neq k}} f(a)g(b)\) dla \(k \in \natural_2\).
+	Niech \(n, m \in \natural_1, n \perp m\) i \(n, m \neq 1\). Wtedy:
+	\begin{align*}
+		-g(nm) & = \sum_{                                                                                                                         \substack{xy = nm                                   \\ y \neq nm}} f(x)g(y)                             & \text{(definicja $f^{-1}$)}                                   \\
+		       & = \sum_{                                                                                                                         \substack{ab = n                                    \\ cd = m \\ bd \neq nm}} f(ac)g(bd)                   & \text{(rozkład $x, y$ na dzielniki $n, m$)}                   \\
+		       & = \sum_{                                                                                                                         \substack{ab = n                                    \\ cd = m \\ bd \neq nm}} f(a)f(c)g(b)g(d)             & \text{(multiplikatywność $f$ i $g$ z indukcji)}               \\
+		       & = \sum_{                                                                                                                         \substack{ab = n                                    \\ cd = m \\ bd \neq nm}} f(a)g(b)f(c)g(d)             & \text{(zamiana kolejności)}                                   \\
+		       & = \sum_{ab = n} f(a)g(b) \cdot \sum_{cd = m} f(c)g(d) - g(n)g(m)                                                                                   & \text{(zabawa sumami)}          \\
+		       & = (f*g)(n) \cdot (f*g)(m) - g(n)g(m)                                                                                                               & \text{(definicja $*$)}          \\
+		       & = \mathcal I(n) \cdot \mathcal I(m) - g(n)g(m)                                                                                                     & \text{(definicja $g = f^{-1}$)} \\
+		       & = -g(n)g(m)                                                                                                                                        & \text{(definicja $\mathcal I$)}
+	\end{align*}
+\end{proof}
+
+

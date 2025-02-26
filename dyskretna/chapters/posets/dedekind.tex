@@ -1,0 +1,86 @@
+Powrócimy na chwilę do wprowadzonych w poprzednim dziale łańcuchów symetrycznych:
+\begin{theorem}[Podział na łańcuchy symetryczne, przez nawiasowania]
+	Dla każdej kraty boolowskiej \(\mathbb B_n\) istnieje jej podział na łańcuchy symetryczne.
+\end{theorem}
+\begin{proof}[Dowód]
+	Niech \(A \subseteq [n]\) -- będziemy utożsamiać \(A\) z ciągiem \(n\) nawiasów, gdzie
+	\(i\)-ty nawias jest zamykający wtedy i tylko wtedy, gdy gdy \(i \in A\). Innymi słowy
+	bierzemy funkcję charakterystyczną \(\chi_A: [n] \to \set{0, 1}\) i traktujemy
+	ją jako ciąg gdzie \(0\) to \texttt{(}, a \(1\) to \texttt{)}\footnote{Jeżeli nie jesteście pewni,
+		skąd wynika taka interpretacja, to warto sobie przypomnieć, że w XX wieku, gdy
+		powstawała kombinatoryka o wiele łatwiej było o środki psychoaktywne}. Weźmy teraz owy ciąg i ,,sparujmy''
+	wszystkie możliwe nawiasy -- tj. wybieramy sobie wszystkie spójne podciągi,
+	gdzie każdy nawias otwierający ma odpowiadający mu nawias zamykający i wice-wersa.
+	Niech \(M_A\) będzie zbiorem wszystkich sparowanych nawiasów, \(I_A = M_A \cap A\)
+	(tj. zbiór sparowanych nawiasów zamykających), a \(F_A = [n] \setminus M_A\) (tj. zbiór niesparowanych elementów).
+	Niech \(F_A = \set{x_1, x_2, \ldots, x_k}\), gdzie \(x_1 < x_2 < \ldots < x_k\).
+	Definiujemy teraz łańcuch \(\mathcal C\): jego kolejne elementy to \(C_0 =
+	I_A, C_1 = I_A\cup\set{x_1}, \ldots, C_k = I_A\cup\set{x_1,\ldots,x_k} = C_{k-1} \cup \set{x_k}\).
+	Mamy \(\card{C_0} = \frac{\card{M_A}}2\) oraz \(\card{C_k} = \frac{\card{M_A}}2 +
+	\card{F_A}\), więc \(\card{C_0}+\card{C_k} = \card{M_A}+\card{F_A} = n\) i \(\mathcal C\) jest symetryczny.
+
+	Zauważmy również, że dla dowolnego zbioru z \(\mathcal C\), patrząc na elementy \((x_1,\ldots,x_k)\)
+	w nawiasowaniu, dostaniemy ciąg najpierw zamkniętych nawiasów, a potem otwartych -- wynika to z prostej analizy definicji.
+	Zauważmy, że zbiór \(A\) jednoznacznie wyznacza \(M_A\), a co za tym idzie funkcja \(M = \lambda A \to M_A\) definiuje
+	rozkład \(\mathbb B_n\) na klasy abstrakcji\footnote{Własności relacji równoważności przenoszą się z równości zbiorów}.
+	Ciekawszym jest fakt, że klasa, do której należy \(A\) to właśnie skonstruowany przez nas łańcuch \(\mathcal C\)
+	-- mając ustalone \(M_A\) mamy dowolność tylko na elementach \(F_A\),
+	w \(C_0\) one wszystkie są otwarte, po kolei domykamy kolejne, dodając kolejne elementy \(F_A\)
+	do zbiorów tworzących łańcuch -- łańcuch nie zepsuje się z racji wcześniejszej obserwacji
+	o postaci \(F_A\) jako ciąg postaci \texttt{))...))((...((}.
+	Udowodniliśmy więc, że podział na klasy wyznaczony przez operator \(M\) dzieli \(\mathbb B_n\) na symetryczne łańcuchy.
+\end{proof}
+Powyższy dowód jest alternatywną konstrukcją podziału na łańcuchy symetryczne, który możemy wykorzystać
+w dowodzie twierdzenia Spernera.
+
+\begin{definition}
+	Liczba Dedekinda \(D_n\) to liczba antyłańcuchów w \(\mathbb B_n\).
+\end{definition}
+
+\begin{theorem}[Ograniczenie na liczby Dedekinda]
+	Liczba Dedekinda \(D_n\) ograniczona jest nierównościami
+	\[2^{\binom{n}{\floor{\frac n2}}} \le D_n \le 3^{\binom{n}{\floor{\frac n2}}}.\]
+\end{theorem}
+\begin{proof}
+	Dolne ograniczenie wynika z tego, że największy antyłańcuch ma
+	\(\binom{n}{\floor{\frac n2}}\) elementów, a dowolny jego podzbiór jest antyłańcuchem.
+
+	Pozostało wykazać ograniczenie górne.
+	Wykorzystamy obserwację, że antyłańcuchy można utożsamiać z ich stożkami dolnymi
+	(zbiorami elementów, które są mniejsze lub równe elementom antyłańcucha) --
+	antyłańcuch zadaje swój stożek dolny i można go odzyskać biorąc
+	elementy maksymalne. Natomiast stożki dolne można utożsamiać z monotonicznymi
+	funkcjami \(\mathbb B_n \to \set{0,1}\), które są dopełnieniami funkcji
+	charakterystycznych tych zbiorów. Będziemy zliczać funkcje monotoniczne.
+
+	Rozważmy podział na łańcuchy symetryczne \(\mathcal C\) zadany przez konstrukcję
+	z nawiasowaniem. Każdy łańcuch \(C\in\mathcal C\) ma ustalone elementy
+	sparowane, a zmieniają się elementy niesparowane. Dla \(\set{A_0,\ldots,
+		A_k}\in\mathcal C\), gdzie \(A_0\subset\ldots\subset A_k\) i \(k\ge 2\), w zbiorze
+	\(A_i\) \(i\)-ty niesparowany nawias jest ostatnim domkniętym. Dla \(0<i<k\)
+	istnieje za nim nawias otwarty. Możemy obrócić te nawiasy i sparować je,
+	tworząc zbiór \(B_i\), który należy do pewnego krótszego łańcucha w \(\mathcal
+	C\) (są w nim dwa nowe sparowane nawiasy). Zauważmy, że \(A_{i-1}\subset B_i
+	\subset A_{i+1}\) (do \(A_{i-1}\) nie należą oba elementy, które obróciliśmy,
+	tworząc \(B_i\), a do \(A_{i+1}\) należą).
+
+	Będziemy definiować funkcję monotoniczną \(f\), zaczynając od najkrótszych
+	łańcuchów w \(\mathcal C\). Na tych długości co najwyżej \(2\) (istnieją, bo
+	środkowe poziomy są większe od nieśrodkowych, więc łańcuchy zawierające coś z
+	nieśrodkowych poziomów nie pokryją środkowych) mamy maksymalnie \(3\) opcje
+	(oba elementy dostają tą samą lub różne wartości). Rozważmy łańcuch
+	\(\set{A_0,\ldots, A_k}\) i zbiór \(\set{B_1,\ldots,B_{k-1}}\) zbiorów
+	otrzymanych z elementów łańcucha przez opisane wyżej przekształcenie. Funkcja
+	\(f\) jest już na nich zdefiniowana. Jeśli \(f(B_1)=1\), to \(f(A_2)=1\) z
+	monotoniczności i pozostaje nam wybór wartości na dwóch zbiorach z
+	rozważanego łańcucha. Jeśli \(f(B_{k-1})=0\), to \(f(A_{k-2})=0\) z
+	monotoniczności i ponownie pozostaje nam wybór wartości na dwóch zbiorach.
+	Jeśli \(f(B_1)=0\) i \(f(B_{k-1})=1\), to istnieje takie \(i\in [k-2]\), że
+	\(f(B_i)=0\) i \(f(B_{i+1})=1\). Wtedy z monotoniczności \(f(A_{i-1})=0\) i
+	\(f(A_{i+1})=1\), więc również zostały nam do wybrania dwie wartości. Zatem dla
+	każdego z \(\binom{n}{\floor{\frac n2}}\) łańcuchów mamy możliwość dokonania co
+	najwyżej\footnote{Podczas konstrukcji może okazać się, że próbując ustalić dany łańcuch
+		sprzeczne ze sobą ograniczenia -- może się tak zdażyć jeżeli istnieje kilka miejsc gdzie \(B_i = 0, B_{i+1} = 1\).
+		W takiej sytuacji wiemy, że taka funkcja nie istnieje, ale nie psuje to ograniczenia górnego.} \(3\) wyborów, czyli razem mamy \(3^{\binom{n}{\floor{\frac n2}}}\) możliwości.
+\end{proof}
+
