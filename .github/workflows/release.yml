@@ -1,0 +1,125 @@
+# Adapted by @tfkls from his work at https://github.com/tfkls/sio2-contest-template
+# This is free and unencumbered software released in the public domain. See <unlicense.org> for more details.
+
+name: release
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  release:
+    # This is one job to save on checkout/startup time
+    name: Build and release PDFs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Git repository (shallow)
+        uses: actions/checkout@v4
+
+      - name: Fetch release data and deepen repository
+        id: load-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          mkdir -p ~/cache/
+          . ./.github/workflows/release-lib.sh
+          set -x
+          load_release
+
+      - name: Cache LaTeX docker image
+        id: cache
+        if: steps.load-release.outputs.update == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/
+          key: ${{ github.workflow }}-cache
+
+      - name: Download LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.load-release.outputs.update == 'true' }}
+        run: |
+          docker pull ghcr.io/xu-cheng/texlive-full:latest
+          docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
+
+      - name: Load cached LaTeX image
+        if: ${{ steps.cache.outputs.cache-hit == 'true' && steps.load-release.outputs.update == 'true' }}
+        run: |
+          docker load -i ~/cache/docker-latex.tar
+
+      - name: Compile the statements and packages
+        uses: xu-cheng/texlive-action@v2
+        if: steps.load-release.outputs.update == 'true'
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
+          run: |
+            #tlmgr update --self
+            # Deps like this over the full scheme are considerably faster, and
+            #   I am too lazy to build and publish my own image just for this.
+            #tlmgr install algorithms algorithmicx minted titlesec epigraph nextpage \
+            #  csquotes enumitem thmtools pgf pgfplots tkz-euclide babel babel-polish \
+            #  graphics xcolor fancyvrb fancyhdr iftex mismath esvect mleftright
+
+            set -ex
+            compile_dir() (
+              set -ex
+              FAIL=
+
+              # Timeout ain't posix but exists on alpine/busybox
+              if timeout 60 ./build-one.sh "${1}" >./"${1}make.log" 2>&1; then
+                true
+              else
+                case "$?" in
+                  124|143)
+                    echo "Timed out"
+                    FAIL="Timeout"
+                    ;;
+                  *)
+                    echo "Failed w/exitcode: $?"
+                    FAIL="Failure"
+                    ;;
+                esac
+              fi
+              [ -f "./build/${1}/main.pdf" ] && mv "./build/${1}/main.pdf" "./_build/results/${1}.pdf"
+
+              # Easy to add extra TeX artifacts if we want to later.
+
+              mv "./${1}make.log" "./_build/results/${1}.log" || exit "$?"
+
+              if [ -n "$FAIL" ]; then
+                echo "Failed to compile ${1}/main.tex. Reason: $FAIL"
+                # Small appends are atomic, so no need to `flock`
+                echo "${dir}:$FAIL" >>./_build/status
+              else
+                echo "Successfully compiled ${1}/main.tex"
+                echo "${dir}:Success" >>./_build/status
+              fi
+            )
+
+            COUNT=0
+            while IFS= read -r dir; do
+              # Had issues with parallelism; disabled for now
+              compile_dir "${dir}" # 2>/dev/null &
+              COUNT=$((COUNT+1))
+              if [ "$COUNT" -ge 4 ]; then
+                for job in $(jobs -p); do
+                  wait "$job" || true
+                done
+                COUNT=0
+              fi
+            done<./_build/update
+            for job in $(jobs -p); do
+              wait "$job" || true
+            done
+
+      - name: Update release assets and notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          . ./.github/workflows/release-lib.sh
+          set -x
+          save_release
