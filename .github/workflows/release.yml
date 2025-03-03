@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/cache/
-          key: ${{ github.workflow }}-cache
+          key: release-cache
 
       - name: Download LaTeX docker image
         if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.load-release.outputs.update == 'true' }}
@@ -45,12 +45,12 @@ jobs:
           docker pull ghcr.io/xu-cheng/texlive-full:latest
           docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
 
-      - name: Load cached LaTeX image
+      - name: Load cached LaTeX docker image
         if: ${{ steps.cache.outputs.cache-hit == 'true' && steps.load-release.outputs.update == 'true' }}
         run: |
           docker load -i ~/cache/docker-latex.tar
 
-      - name: Compile the statements and packages
+      - name: Compile the PDFs
         uses: xu-cheng/texlive-action@v2
         if: steps.load-release.outputs.update == 'true'
         with:
@@ -83,10 +83,15 @@ jobs:
                     ;;
                 esac
               fi
-              [ -f "./build/${1}/main.pdf" ] && mv "./build/${1}/main.pdf" "./_build/results/${1}.pdf"
+
+              if [ -f "./build/${1}/main.pdf" ]; then
+                mv "./build/${1}/main.pdf" "./_build/results/${1}.pdf"
+                if [ "$FAIL" = "Failure" ]; then
+                  FAIL="Success w/errors"
+                fi
+              fi
 
               # Easy to add extra TeX artifacts if we want to later.
-
               mv "./${1}make.log" "./_build/results/${1}.log" || exit "$?"
 
               if [ -n "$FAIL" ]; then
