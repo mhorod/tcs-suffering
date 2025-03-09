@@ -15,6 +15,7 @@ Podobnie jak przy przeształcaniu do postaci normalnej Chomsky'ego, pozbywamy si
 Idea jest prosta: chcemy znaleźć cykl w grafie. Musimy jednak w tym celu pozbyć się produkcji typu \( A \rightarrow \epsilon \) oraz \( A \rightarrow B \), a także ponownie pozbyć się symboli nieosiągalnych oraz niegenerujących. Robimy te rzeczy jak w przekształcaniu do postaci Chomsky'ego. Następnie sprawdzamy, czy w grafie produkcji jest cykl. Jeżeli jest, to możemy po nim przechodzić, za każdym razem generując dłuższe słowo. Złożoność - wielomianowa.
 
 \subsection{Niepustość przecięcia gramatyk}
+\label{cfl-decision-problems}
 
 Doszliśmy do problemu nieroztrzygalnego, konkretniej z \( RE \backslash R \). Problem oczywiście jest w RE, gdyż możemy algorytmem CYK sprawdzić, czy słowo należy do obu gramatyk. Aby pokazać że nie jest w R, pokażemy redukcję z problemu POSTa. Zaczynamy więc z problemem POSTa, czyli klockami domino \(a_i | b_i \) - \( a_i, b_i \) to słowa; klocków mamy nieskończoność każdego rodzaju, i chcemy je tak ułożyć, żeby na górze i na dole było to samo słowo.  Domino \(a_i | b_i \) rozbijamy na produkcje \( S_1 \rightarrow a_{i}S_{1}d_{i} oraz S_2 \rightarrow b_{i}S_{2}d_{i}\). \( d_i \) to liczba tak zapisana, żeby nie mieszała się z sąsiednimi. Dodajemy także produkcje z \( S_1, S_2 \) w \( \epsilon \). Formalnie, dodajemy też odpowiednie \( S' \), tak żeby puste słowo nie było akceptowane, tylko żeby konieczna była co najmniej jedna produkcja "z POSTa".
 
@@ -39,4 +40,4 @@ Pozostało pozakać, że problem uniwersalności nie jest w RE. Zredukujemy do n
 
 Nie jest to oczywiście dowód w pełni formalny. Jednak, nie było go na wykładzie, a pełny formalizm jest tutaj dość trudny - zatem generalnie wystarczy wiedzieć mniej więcej tyle, co tutaj napisano.
 
-Ponownie ciekawym czytelnikom wspomnimy, że można analogicznie zredukować z problemu stopu - jedyna różnica to że zamiast stanu akceptującego występuje stan zakończenia pracy \( q_{HALT} \).
+Ponownie ciekawym czytelnikom wspomnimy, że można analogicznie zredukować z problemu stopu - jedyna różnica to że zamiast stanu akceptującego występuje stan zakończenia pracy \( q_{HALT} \).cfl-decision-problems
