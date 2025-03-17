@@ -3,6 +3,9 @@
 \begin{theorem}[Cook-Levin]
     Problem \( \textsc{SAT} \) jest \np-zupełny
 \end{theorem}
+
+\subsection{Dowód}
+
 \begin{proof}
     Oczywiście \( \textsc{SAT} \in \np \) bo możemy ''zgadnąć'' wartościowanie i sprawdzić że wartościuje formułę na 1.
     
@@ -27,7 +30,7 @@
     
     Nietrudno dla dowolnej NTM stworzyć równoważną która spełnia ten warunek, więc to założenie nie powinno nikogo boleć. 
     
-    \subsection{Wartości zmiennych są spójne}
+    \subsubsection{Wartości zmiennych są spójne}
         Zauważamy, że semantyka zmiennych \(x\) bardzo szybko spadłaby z rowerka, jeśli istniałyby 2 takie zmienne, że \(x_{ija} = 1 \land x_{ijb} = 1\) (bo to by znaczyło że w jednym miejscu na taśmie są 2 symbole) lub gdyby \( \forall_a x_{ija} = 0\) (bo to by znaczyło, że w jakimś miejscu na taśmie nie ma \textbf{nic} (blank również jest symbolem).
     
         Aby zapobiec takim shenanigansom, definiujemy sobie formułę \(\varphi_1\): 
@@ -52,7 +55,7 @@
         
         Zauważamy, że obie te formuły są wielomianowe, a jako że rozmiar naszej tablicy jest również wielomianowy względem wejścia wszystko jest absolutnie spoko. 
     
-    \subsection{Symulacja rozpoczyna się poprawnie}
+    \subsubsection{Symulacja rozpoczyna się poprawnie}
         Aby w ogóle rozpocząć symulację NTM, musimy ,,zainicjalizować'' jej konfigurację startową. Jest to akurat dosyć proste -- wiemy, że na pierwszym miejscu znajduje się stan startowy \(q_s\) (umawiamy się, że wierzymy że NTM której taśma rozszerza się tylko w jedną stronę jest tak samo mocna jak taka, której taśma rozszerza się w obie strony; dowód dla czytelnika czy coś), dalej znajduje się słowo \(w\), a potem blanki (tak by długość wiersza wynosiła \(p(|w|)\). 
         
         Innymi słowy, robimy formułę wymuszającą początkowe wartościowanie:
@@ -63,7 +66,7 @@
     
         Długość formuły \(\varphi_2\) jest oczywiście wielomianowa względem \(w\). 
     
-    \subsection{Spełniamy jeśli NTM przeszła do stanu akceptującego}
+    \subsubsection{Spełniamy jeśli NTM przeszła do stanu akceptującego}
         Biorąc pod uwagę naszą wcześniejszą umowę (że jeśli NTM zaakceptuje, to jedyne przejście które ma, to takie które zostawia je w stanie akceptującym i przesuwa w prawo), aby sprawdzić czy NTM akceptuje możemy po prostu sprawdzić czy którykolwiek ze znaków w ostatnim wierszu jest stanem akceptującym. Definiujemy zatem formułę:
         
         \[ 
@@ -72,7 +75,7 @@
         
         Jeśli gdziekolwiek znajdziemy jakiś stan akceptujący, jesteśmy w domu; jak nie, to znaczy że dane obliczenie nie akceptuje słowa (więc to wartościowanie jest do bani).
     
-    \subsection{Przejścia są wykonywane poprawnie}
+    \subsubsection{Przejścia są wykonywane poprawnie}
         To jest najciekawsza część dowodu -- nareszcie nadszedł ten moment, że musimy zaimplementować jakoś przejścia. 
         
         Zauważamy, że przejście głowicy powoduje jedynie lokalną zmianę konfiguracji -- z konfiguracji na konfigurację zmienią się maksymalnie 3 symbole (stan może ulec zmianie, znak na prawo od wcześniej lokacji głowicy może się zmienic, oraz głowica może przesunąć się w lewo, zmieniając swoją kolejnosć z literką po lewej).
@@ -148,7 +151,7 @@
         
         Proste, nie?
         
-        \subsection{Pozbieranie do kupy}
+        \subsubsection{Pozbieranie do kupy}
         
         Teraz zbieramy to wszystko do kupy i otrzymujemy ostateczne gigawyrażenie:
         
