@@ -149,30 +149,3 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
     
 \end{proof}
 
-\begin{theorem}[Twierdzenie 8.8 P\&C]
-    Niech \( \set{N(t) \mid t \geq 0} \) będzie procesem stochastycznym, w którym
-    \begin{enumerate}
-        \item \( N(0) = 0 \)
-        \item liczby zdarzeń w rozłącznych przedziałach jest niezależna
-        \item liczba zdarzeń w przedziale długości \( t \) ma rozkład Poissona z parametrem \( \lambda t \)
-    \end{enumerate}
-\end{theorem}
-\begin{proof}
-    Widać, że mamy spełnione warunki 1, 2, 3 z definicji \ref{poisson-process-definition}.
-    
-    Aby pokazać warunek 4 liczymy
-    \[
-        \lim_{t \rightarrow 0} \frac{P(N(t) = 1)}{t} = \lim_{t \rightarrow 0} \frac{e^{-\lambda t}\lambda t}{t} = \lambda
-    \]
-    Podobnie warunek 5
-    \begin{align*}
-        \lim_{t \rightarrow 0} \frac{P(N(t) \geq 2)}{t} 
-        &= \lim_{t \rightarrow 0} \sum_{k \geq 2} \frac{e^{-\lambda t}\cdot(\lambda t)^k}{k!t} \\
-        &= \lim_{t \rightarrow 0} \frac{e^{-\lambda t}}{t} \cdot \sum_{k \geq 2} \frac{(\lambda t)^k}{k!} \\
-        &= \lim_{t \rightarrow 0} \frac{e^{-\lambda t}}{t} \cdot \pars{e^{\lambda t} - \lambda t - 1} \\
-        &= \lim_{t \rightarrow 0} \frac{1 - \lambda t e^{-\lambda t} - e^{-\lambda t}}{t} \\
-        &= \lim_{t \rightarrow 0} \pars{\frac{1 - e^{-\lambda t}}{t} - \lambda e^{-\lambda t}} \\
-        &= 0
-    \end{align*}
-\end{proof}
-
