@@ -1,6 +1,24 @@
+{
 \subsection{Definicje}
 \input{chapters/mpi/2sat/markov}
+    
 
-\subsection{Randomizowany 2-SAT}
+\makeatletter
+\def\input@path{{../probabil}}
+\makeatother
+\graphicspath{{../probabil}}
+
+% This has to be done, because we input another suffering with different sectioning scheme.
+\let\realsection\section
+\let\realsubsection\subsection
+\let\section\subsection
+\let\subsection\subsubsection
+\let\subsubsection\paragraph
+
+
+\realsubsection{Randomizowany 2-SAT}
 \label{2-sat-alg}
-\input{chapters/mpi/2sat/2sat}
+\input{chapters/markov-chains/2-sat}
+}
+
+
