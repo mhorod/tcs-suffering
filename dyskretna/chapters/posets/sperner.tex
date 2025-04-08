@@ -1,24 +1,48 @@
-    \begin{theorem}[Twierdzenie Spernera]
-       Najdłuższy antyłańcuch \(F\) w kracie zbiorów $B_n$ ma moc $\binom{n}{\lfloor\frac{n}{2}\rfloor} = \binom{n}{\lceil\frac{n}{2}\rceil}$
-    \end{theorem}
+\begin{theorem}[Twierdzenie Spernera]
+	Najdłuższy antyłańcuch \(\mathcal D\) w kracie zbiorów \(\mathbb B_n\) ma moc \(\binom{n}{\lfloor\frac{n}{2}\rfloor} = \binom{n}{\lceil\frac{n}{2}\rceil}\).
+\end{theorem}
 
-    \begin{proof}
-        Jesteśmy w stanie wskazać antyłańcuch takiej długości; jest to po prostu antyłańcuch w ,,warstwie'' $\lfloor n/2 \rfloor$ kraty $B_n$, tzn. wszystkie podzbiory $[n]$ mocy $\lfloor n/2 \rfloor$. Pokazujemy teraz, że nie istnieje dłuższy antyłańcuch, korzystając z faktu, że:
-       \begin{equation*}
-            \binom{n}{k} \leq \binom{n}{\lfloor\frac{n}{2}\rfloor} = \binom{n}{\lceil\frac{n}{2}\rceil}
-       \end{equation*}
-       a więc z nierówności LYM mamy, że:
-       \begin{equation*}
-           \sum_{k=0}^{n}\frac{f_k}{\binom{n}{\lfloor n/2 \rfloor}} \leq \sum_{k=0}^{n}\frac{f_k}{\binom{n}{k}} \leq 1
-       \end{equation*}
-       co dowodzi tezę bo w takim razie:
-       \begin{equation*}
-           \sum_{k=0}^{n}\frac{f_k}{\binom{n}{\lfloor n/2 \rfloor}} = 
-           |F| \cdot \frac{1}{\binom{n}{\lfloor n/2 \rfloor}} \leq 1
-        \end{equation*}
-        więc 
-        \begin{equation*}
-           |F| \leq \binom{n}{\lfloor n/2 \rfloor} =
-           \binom{n}{\lfloor n/2 \rfloor}
-       \end{equation*}
-       \end{proof}
+\begin{proof}[Dowód przez nierówność LYM]
+	Przedstawimy dowody dla \(\binom{n}{\lfloor\frac n2\rfloor}\) -- dla sufitu są one analogiczne.
+	Jesteśmy w stanie wskazać antyłańcuch takiej długości -- \(\binom{[n]}{\lfloor\frac{n}{2}\rfloor}\).
+	Wystaczy pokazać więc, że nie istnieje dłuższy antyłańcuch.
+	Niech \(\mathcal{D}\) będzie antyłańcuchem, wtedy:
+	\begin{align*}
+		\forall_{0 \leq k \leq n}: \binom{n}{k}                       & \leq \binom{n}{\lfloor\frac{n}{2}\rfloor}                            & \implies \text{(tr. obserwacja)} \\
+		1 \geq \sum_{X \in \mathcal{D}} \frac{1}{\binom{n}{\card{X}}} & \geq \frac{\card{\mathcal{D}}}{\binom{n}{\lfloor\frac{n}{2}\rfloor}} & \implies \text{(nier. LYM)}      \\
+		\binom{n}{\lfloor\frac{n}{2}\rfloor}                          & \geq \card{\mathcal{D}}                                              & \text{(mnożenie stronami)}
+	\end{align*}
+\end{proof}
+
+\begin{definition}[Łańcuchy symetryczne]
+	Łańcuch \(C\) w \(\mathbb{B}_n\) nazywamy symetrycznym, jeśli \(C=\{X_k, X_{k+1},
+	\ldots, X_{n-k}\}\), gdzie \(X_k \subset X_{k+1} \subset \ldots \subset
+	X_{n-k}\) oraz \(|X_i|=i\) dla pewnego \(k\). Taki łańcuch narysowany na kracie
+	jest symetryczny względem środkowego poziomu.
+\end{definition}
+
+\begin{proof}[Dowód tw. Spernera przez łańcuchy symetryczne]
+	Rozważmy podział \(\mathbb B_n\) na łańcuchy symetryczne. Każdy taki łańcuch
+	zawiera dokładnie jeden element ze środkowego poziomu (rozmiaru  \(\lfloor \frac
+	n2 \rfloor\)), a więc podział ma \(\binom{n}{\lfloor \frac n2 \rfloor}\)
+	elementów. Z twierdzenia Dilwortha antyłańcuch nie może mieć więcej niż tyle
+	elementów.
+\end{proof}
+Niestety powyższy dowód nie jest jeszcze kompletny, bo nie wiemy jeszcze czy taki
+podział na łańcuchy symetryczne wogóle istnieje. Na szczęście właśnie to pokażemy
+
+\begin{theorem}[Podział na łańcuchy symetryczne, rekurencyjnie]
+	Dla każdej kraty boolowskiej \(\mathbb B_n\) istnieje jej podział na łańcuchy symetryczne.
+\end{theorem}
+\begin{proof}
+	\(\mathbb B_0\) ma jeden element, on sam jest symetrycznym łańcuchem. Mając
+	podział \(\mathbb B_n\) na symetryczne łańcuchy \(\mathcal C\), konstruujemy
+	podział \(\mathbb B_{n+1}\): dla \(C = \{X_k,\ldots, X_{n-k}\}\in\mathcal C\)
+	łańcuchami w \(\mathbb B_{n+1}\) są \(C' = \{X_k,X_{k+1},\ldots,
+	X_{n-k}\cup\{n+1\}\}\) oraz \(C'' = \{X_k\cup\{n+1\},
+	x_{k+1}\cup\{n+1\},\ldots, X_{n-k-1}\cup\{n+1\}\}\). Te łańcuchy są symetryczne
+	w \(\mathbb B_{n+1}\) (pierwszy to zbiory ze środkowych poziomów mające od \(k\)
+	do \(n+1-k\) elementów, a drugi od \(k+1\) do \(n+1-k-1\)), a stworzenie takich
+	łańcuchów dla wszystkich \(C\in\mathcal C\) daje nam podział.
+\end{proof}
+

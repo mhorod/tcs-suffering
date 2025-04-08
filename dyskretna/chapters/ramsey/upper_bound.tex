@@ -1,0 +1,27 @@
+\begin{theorem}[Erd\H{o}s]
+	\begin{equation}
+		R(k,k) \leq 2^{2k}
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Mamy sobie klikę na \(N = 2^{2k}\) punktach. Weźmy sobie jakiś przypadkowy, \(v_1\). Wychodzą z niego jakieś czerwone lub niebieskie krawędzie do wszystkich innych punktów. Dosyć oczywistym jest, że przynajmniej połowa wychodzących z niego krawędzi musi być czerwona lub niebieska (bo są tylko 2 dostępne kolory, zasada szufladkowa czy coś). To oznacza, że mamy jakoś co najmniej \(2^{2k-1}\) punktów łączących się z \(v_1\) tym samym kolorem. Zbiór tych wszystkich punktów oznaczmy jako \(C_1\). Bierzemy jakiś wierzchołek \(v_2\) ze zbioru \(C_1\) i tworzymy analogicznie zbiór \(C_2\). Bardzo ważne jest by zauważyć, że \(v_2\) z punktami z \(C_2\) nie musi się łączyć na ten sam kolor, na który \(v_1\) łączy się z punktami z \(C_1\). W każdym razie, ponawiając tę procedurę otrzymamy ciąg \(2k\) punktów \(v_1, v_2, \dots, v_{2k}\). Dla każdego punktu \(v_i\) z tego ciągu prawdą jest, że punkty \(v_{i+1}, \dots, v_{2k}\) łączą się z nim w tym samym kolorze (bo wszystkie są elementami zbioru \(C_i\)). To w sumie już prowadzi nas do rozwiązania, bo skoro punktów w tym ciągu jest \(2k\), to musi być co najmniej \(k\) takich że łaczą się ze wszystkimi ,,późniejszymi'' na czerwono lub na niebiesko, a więc otrzymujemy klikę monochromatyczną rozmiaru co najmniej \(k\). Fajnie.
+\end{proof}
+
+\begin{theorem}[Erd\H{o}s-Szekeres]
+	\begin{equation}
+		R(k, k) \leq \binom{s+t-2}{s-1}
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	Zastosujemy indukcję po \(s+t\). Dla \(s=t=2\) jest \(R^{(2)}(2,2)=2\).
+	Niech \(N = R^{(2)}(s-1,t)+ R^{(2)}(s,t-1)\). Pokażemy, że \(R(s,t) \le N\), co indukcyjnie udowodni tezę (patrz: własności dwumianów).
+	Niech \(c:\binom{[N]}{2} \to [2]\) i \(v\in[N]\). Przez \(A\) oznaczymy zbiór tych elementów \([N]\), które w parze z \(v\) są pokolorowane kolorem \(1\).
+	Analogicznie definiujemy \(B\) dla koloru \(2\). Mamy \(\card A + \card B + 1 = N\).
+	Jeśli \(\card A \ge R^{(2)}(s-1,t)\) lub \(\card B \ge R^{(2)}(s,t-1)\),
+	to istnieją odpowiednie zbiory -- albo wewnątrz \(A\) lub \(B\), albo po dodaniu do znalezionych zbiorów \(v\).
+	Któraś z tych nierówności musi zachodzić, bo inaczej suma ich mocy jest za mała (Dirichlet się kłania).
+\end{proof}
+Warto zaznaczyć, że powyższy dowód można łatwo przerobić na dowód pierwszego ograniczenia -- możemy ograniczyć
+\(R(s, t)\) przez \(2^{s+t}\) zamiast dwumianu, przez co powtarzając dowód otrzymujemy ograniczenie z tw. Erd\H{o}sa.
+

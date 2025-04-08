@@ -1,8 +1,21 @@
-  \begin{theorem}[Lemat Erdősa-Szekeresa o podciągach monotonicznych]
-        W ciągu składającym się z $n \cdot m + 1$ liczb naturalnych ($n,m \leq 1$) znajduje się podciąg niemalejący długości co najmniej $n + 1$ lub nierosnący długości co najmniej $m + 1$. 
-    \end{theorem}
+\begin{theorem}[Lemat Erdősa-Szekeresa o podciągach monotonicznych]
+	W ciągu składającym się z \(n \cdot m + 1\) liczb naturalnych (\(n,m \leq 1\)) znajduje
+	się podciąg niemalejący długości co najmniej \(n + 1\) lub nierosnący długości co najmniej
+	\(m + 1\).
+\end{theorem}
 
-    \begin{proof}
-       Zdefiniujmy sobie porządek częściowy na elementach ciągu. Mówimy, że $a \preceq b$, gdy $b$ występuje później niż $a$ w ciągu oraz $a \geq b$. Łańcuch w takim posecie jest podciągiem nierosnącym naszego ciągu, zaś antyłańcuch musi być podciągiem niemalejącym. Z twierdzenia dualnego do twierdzenia Dilwortha wnioskujemy, że w dowolnym posecie $x \cdot y \geq z$, gdzie $x$ jest długością najdłuższego łańcucha, $y$ najdłuższego antyłańcucha, a $z$ mocą posetu. Prowadzi to nas już zasadniczo do tezy, którą możemy teraz dowieść nie wprost: załóżmy, że istnieje taki ciąg długości $n \cdot m + 1$, w którym każdy podciąg niemalejący ma długość maksymalnie $n$, a nierosnący ma długość maksymalnie $m$. Oznaczałoby to, że najdłuższy łańcuch w naszym wcześniej zdefiniowanym posecie ma długość $m$, a antyłańcuch długość $n$, skąd mielibyśmy że $n \cdot m \geq n \cdot m + 1$, co prowadziłoby do sprzeczności.
-     \end{proof}
-  
+\begin{proof}
+	Zdefiniujmy sobie porządek częściowy na elementach ciągu. Mówimy, że \(a \preceq b\),
+	gdy \(b\) występuje później niż \(a\) w ciągu oraz \(a \geq b\). Zauważmy, że łańcuch w
+	tak zdefiniowanym posecie jest podciągiem nierosnącym naszego ciągu, zaś antyłańcuch
+	musi być podciągiem niemalejącym.
+	Z twierdzenia dualnego do twierdzenia Dilwortha wnioskujemy, że w dowolnym posecie
+	zachodzi \(\posetwidth(P) \cdot \posetheight(P) \geq \card{P}\).
+	Prowadzi to nas już zasadniczo do tezy, którą możemy teraz dowieść nie wprost:
+	załóżmy, że istnieje taki ciąg długości \(n \cdot m + 1\), w którym każdy podciąg
+	niemalejący ma długość maksymalnie \(n\), a nierosnący ma długość maksymalnie \(m\).
+	Oznacza to, że najdłuższy łańcuch w naszym wcześniej zdefiniowanym
+	posecie ma długość \(m\), a antyłańcuch długość \(n\), skąd otrzymujemy że
+	\(n \cdot m \geq n \cdot m + 1\), co prowadzi nas do sprzeczności.
+\end{proof}
+

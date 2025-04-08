@@ -5,7 +5,7 @@
 \begin{lemma}[O pompowaniu]
     Jeśli \( L \) jest językiem regularnym to:
     \[
-        \exists_{n > 0} : \forall_{w : \abs{w} \geq n} \exists_{xyz = w} : \abs{xy} \leq n \land \abs{y} \geq 1 \land \forall_{i \in \natural} : xy^iz \in L
+        \exists_{n > 0} : \forall_{w \in L : \abs{w} \geq n} \exists_{xyz = w} : \abs{xy} \leq n \land \abs{y} \geq 1 \land \forall_{i \in \natural} : xy^iz \in L
     \]
 \end{lemma}
 \begin{proof}

@@ -1,5 +1,43 @@
 \section{Związane problemy decyzyjne}
 
+Nie wszystkie z tutaj wymienionych problemów są rozwiązywalne. Dowody nieroztrzygalności wymagają jednak znajomości sekcji dotyczącej złożoności obliczeniowej.
+
 \subsection{Należenie do języka bezkontekstowego} 
 
-Stosujemy algorytm CYK: 
+Stosujemy algorytm CYK. Złożoność wielomianowa.
+
+\subsection{Niepustość gramatyki bezkontekstowej}
+
+Podobnie jak przy przeształcaniu do postaci normalnej Chomsky'ego, pozbywamy się symboli które nic nie generują. Jeśli nie pozbyliśmy się symbolu startowego, to znaczy że coś generuje. Złożoność wielomianowa.
+
+\subsection{Skończoność i nieskończoność gramatyki}
+
+Idea jest prosta: chcemy znaleźć cykl w grafie. Musimy jednak w tym celu pozbyć się produkcji typu \( A \rightarrow \epsilon \) oraz \( A \rightarrow B \), a także ponownie pozbyć się symboli nieosiągalnych oraz niegenerujących. Robimy te rzeczy jak w przekształcaniu do postaci Chomsky'ego. Następnie sprawdzamy, czy w grafie produkcji jest cykl. Jeżeli jest, to możemy po nim przechodzić, za każdym razem generując dłuższe słowo. Złożoność - wielomianowa.
+
+\subsection{Niepustość przecięcia gramatyk}
+\label{cfl-decision-problems}
+
+Doszliśmy do problemu nieroztrzygalnego, konkretniej z \( RE \backslash R \). Problem oczywiście jest w RE, gdyż możemy algorytmem CYK sprawdzić, czy słowo należy do obu gramatyk. Aby pokazać że nie jest w R, pokażemy redukcję z problemu POSTa. Zaczynamy więc z problemem POSTa, czyli klockami domino \(a_i | b_i \) - \( a_i, b_i \) to słowa; klocków mamy nieskończoność każdego rodzaju, i chcemy je tak ułożyć, żeby na górze i na dole było to samo słowo.  Domino \(a_i | b_i \) rozbijamy na produkcje \( S_1 \rightarrow a_{i}S_{1}d_{i} oraz S_2 \rightarrow b_{i}S_{2}d_{i}\). \( d_i \) to liczba tak zapisana, żeby nie mieszała się z sąsiednimi. Dodajemy także produkcje z \( S_1, S_2 \) w \( \epsilon \). Formalnie, dodajemy też odpowiednie \( S' \), tak żeby puste słowo nie było akceptowane, tylko żeby konieczna była co najmniej jedna produkcja "z POSTa".
+
+Zauważamy, że aby istniało słowo należące do obu gramatyk - muszą się zgadzać prawe strony, czyli numery klocków domina; oraz lewe strony - słowa na klockach domina. Takie słowo rozwiącuje więć również problem POSTa. Problem ten nie jest więc w R.
+
+Ciekawszym czytelnikom wspomnimy, że można redukować z \( L_u \) . Wystarczy rozważyć legalne ścieżki obliczeń maszyny Turinga i stworzyć jedną gramatykę by generowała pary kolejnych stanów parzysty-nieparzysty (czyli 0-1, 2-3 itd.), a drugiej na odwrót (0, 1-2, 3-4 itd.). Aby to działało, co drugi stan musi być odwrócony. Jeśli również wymusimy żeby ostatni stan był akceptujący, to przecięcie będzie niepuste tylko jeśli będzie istniała ścieżka obliczeń maszyny, która zaakceptuje dane słowo.
+
+\subsection{Równoważność gramatyk}
+
+Problem ten nie jest nawet w RE.
+
+W tym celu, najpierw zredukujemy problem uniwersalności gramatyki bezkontekstowej do tego problemu. Problem uniwersalności gramatyki to pytanie, czy gramatyka generuje \( \Sigma^* \). Redukcja jest trywialna - jeżeli chcemy wiedzieć czy gramatyka jest uniwersalna, to pytamy czy jest równa stworzonej przez nas, trywialnej gramatyce generującej wszystko.
+
+Pozostało pozakać, że problem uniwersalności nie jest w RE. Zredukujemy do niego dopełnienie języka uniwersalnego - czyli zbiór par (kodowanie maszyny, słowo) takich, że maszyna nie akceptuje słowa; inaczej: nie istneje przebieg akceptujący. Chcemy więc wygenerować wszystko, co nie jest przebiegiem akceptującym (aby się dało, odbijamy symetrycznie co drugi stan w przebiegu) - taka gramatyka jest generuje dowolne słowo wtedy i tylko wtedy, jeśli przebieg akceptujący nie istnieje. W tym celu będziemy zaprzeczać warunkom poprawnego przebiegu, tj. generować słowa, które spełniają jedno z poniższych, a poza tym są dowolne:
+
+\begin{itemize}
+    \item Jakiś stan nie jest legalny: np. ma dwie głowice, zero głowic, głowicę w złym miejscu, pusty symbol w złym miejscu itp.
+    \item Pierwszy stan nie jest legalnym stanem początkowym.
+    \item Ostatni stan nie jest legalnym stanem akceptującym.
+    \item Występuje nielegalne przejście: np. głowica się źle przesuwa, literka zmienia się niezgodnie z przejściami maszyny itp.
+\end{itemize}
+
+Nie jest to oczywiście dowód w pełni formalny. Jednak, nie było go na wykładzie, a pełny formalizm jest tutaj dość trudny - zatem generalnie wystarczy wiedzieć mniej więcej tyle, co tutaj napisano.
+
+Ponownie ciekawym czytelnikom wspomnimy, że można analogicznie zredukować z problemu stopu - jedyna różnica to że zamiast stanu akceptującego występuje stan zakończenia pracy \( q_{HALT} \).cfl-decision-problems

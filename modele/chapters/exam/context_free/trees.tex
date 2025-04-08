@@ -23,6 +23,13 @@
 Wywód lewostronny otrzymujemy przechodząc DFSem odwiedzając dzieci od lewej do prawej.
 
 \begin{definition}
-    Gramatyka \( G \) jest \textbf{jednoznaczna} (unambiguous) jeśli dla każdego słowa \( w \in L(G) \) istnieje dokładnie jedno drzewo wywodu
-    (dokładnie jeden wywód lewostronny).
+    \textbf{Gramatyka} \( G \) jest \textbf{niejednoznaczna} (ambiguous) jeśli istnieje słowo \( w \in L(G) \) dla którego istnieje więcej\
+    niż jedno drzewo wywodu (więcej niż jeden wywód lewostronny).
+\end{definition}
+
+Analogicznie definiujemy gramatykę jednoznaczną.
+
+\begin{definition}
+    \textbf{Język bezkontekstowy} \(L\) jest \textbf{wewnętrznie niejednoznaczny} (inherently ambiguous) jeśli każda gramatyka która go definiuje\
+    jest niejednoznaczna (czyli nie istnieje gramatyka jednoznaczna, która go definiuje).
 \end{definition}

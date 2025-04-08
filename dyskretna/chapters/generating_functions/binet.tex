@@ -1,67 +1,67 @@
- \begin{theorem}[Wzór Bineta]
-        \begin{equation}
-            f_n = \frac{1}{\sqrt{5}} \cdot \left( \left(\frac{1 + \sqrt{5}}{2}\right)^{n} - \left(\frac{1 - \sqrt{5}}{2}\right)^{n} \right)
-        \end{equation}
-    \end{theorem}
+\begin{theorem}[Wzór Bineta]
+	\begin{equation}
+		f_n = \frac{1}{\sqrt{5}} \cdot \left( \left(\frac{1 + \sqrt{5}}{2}\right)^{n} - \left(\frac{1 - \sqrt{5}}{2}\right)^{n} \right)
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-        Rozpisujemy sobie funkcję tworzącą ciągu $f_n$:
+\begin{proof}
+	Rozpisujemy sobie funkcję tworzącą ciągu \(f_n\):
 
-        \begin{equation*}
-            F(x) = f_0 + f_1 \cdot x + f_2 \cdot x^2 + f_3 \cdot x^3 \dots = 
-        \end{equation*}
-        \begin{equation*}
-           = f_0 + f_1 \cdot x + (f_0 + f_1) \cdot x^2 + (f_1 + f_2) \cdot x^3 + \dots =
-        \end{equation*}
-        \begin{equation*}
-           = f_0 + f_1 \cdot x + f_0 \cdot x^2 + f_1 \cdot x^2 + f_1 \cdot x^3 + f_2 \cdot x^3 + \dots =
-        \end{equation*}
-          \begin{equation*}
-           = f_0 + f_1 \cdot x + f_0 \cdot x^2 + f_1 \cdot x^3 + \dots + f_1 \cdot x^2 +  f_2 \cdot x^3 + \dots =
-        \end{equation*}
-         \begin{equation*}
-           = f_0 + f_1 \cdot x + x^2 \cdot (f_0 + f_1 \cdot x + \dots) + x \cdot (f_1 \cdot x +  f_2 \cdot x^2 + \dots) =
-        \end{equation*}
-        \begin{equation*}
-           = f_0 + f_1 \cdot x + x^2 \cdot F(x) + x \cdot (F(x) - f_0) =
-        \end{equation*}
-        \begin{equation*}
-           = 0 + 1 \cdot x + x^2 \cdot F(x) + x \cdot (F(x) - 0) =
-        \end{equation*}
-         \begin{equation*}
-           = x + x^2 \cdot F(x) + x \cdot F(x)
-        \end{equation*}
+	\begin{equation*}
+		F(x) = f_0 + f_1 \cdot x + f_2 \cdot x^2 + f_3 \cdot x^3 \dots =
+	\end{equation*}
+	\begin{equation*}
+		= f_0 + f_1 \cdot x + (f_0 + f_1) \cdot x^2 + (f_1 + f_2) \cdot x^3 + \dots =
+	\end{equation*}
+	\begin{equation*}
+		= f_0 + f_1 \cdot x + f_0 \cdot x^2 + f_1 \cdot x^2 + f_1 \cdot x^3 + f_2 \cdot x^3 + \dots =
+	\end{equation*}
+	\begin{equation*}
+		= f_0 + f_1 \cdot x + f_0 \cdot x^2 + f_1 \cdot x^3 + \dots + f_1 \cdot x^2 +  f_2 \cdot x^3 + \dots =
+	\end{equation*}
+	\begin{equation*}
+		= f_0 + f_1 \cdot x + x^2 \cdot (f_0 + f_1 \cdot x + \dots) + x \cdot (f_1 \cdot x +  f_2 \cdot x^2 + \dots) =
+	\end{equation*}
+	\begin{equation*}
+		= f_0 + f_1 \cdot x + x^2 \cdot F(x) + x \cdot (F(x) - f_0) =
+	\end{equation*}
+	\begin{equation*}
+		= 0 + 1 \cdot x + x^2 \cdot F(x) + x \cdot (F(x) - 0) =
+	\end{equation*}
+	\begin{equation*}
+		= x + x^2 \cdot F(x) + x \cdot F(x)
+	\end{equation*}
 
-        W takim razie mamy, że:
-        \begin{equation*}
-            F(x) = x + x^2 \cdot F(x) + x \cdot F(x)
-        \end{equation*}
-        \begin{equation*}
-            F(x) -  x^2 \cdot F(x) - x \cdot F(x)  = x
-        \end{equation*}
-         \begin{equation*}
-            F(x) \cdot (1 - x^2 - x) = x
-        \end{equation*}
-           \begin{equation*}
-            F(x) = \frac{x}{-x^2 -x + 1}
-        \end{equation*}
+	W takim razie mamy, że:
+	\begin{equation*}
+		F(x) = x + x^2 \cdot F(x) + x \cdot F(x)
+	\end{equation*}
+	\begin{equation*}
+		F(x) -  x^2 \cdot F(x) - x \cdot F(x)  = x
+	\end{equation*}
+	\begin{equation*}
+		F(x) \cdot (1 - x^2 - x) = x
+	\end{equation*}
+	\begin{equation*}
+		F(x) = \frac{x}{-x^2 -x + 1}
+	\end{equation*}
 
-        Mianownik możemy rozbić (za pomocą liczenia jakichś delt czy coś): 
-        \begin{equation*}
-            F(x) = \frac{x}{(-1) \cdot \left(x - \left(- \frac{1 + \sqrt{5}}{2}\right)\right) \cdot \left(x - \left(- \frac{1 - \sqrt{5}}{2}\right)\right)}
-        \end{equation*}
+	Mianownik możemy rozbić (za pomocą liczenia jakichś delt czy coś):
+	\begin{equation*}
+		F(x) = \frac{x}{(-1) \cdot \left(x - \left(- \frac{1 + \sqrt{5}}{2}\right)\right) \cdot \left(x - \left(- \frac{1 - \sqrt{5}}{2}\right)\right)}
+	\end{equation*}
 
-        Nie no, serio, jeśli ktoś myśli że będę TeXować te przekształcenia to się myli. Powinno wyjść po przekształceniach że:
-        \begin{equation*}
-            F(x) = \frac{x}{(1-ax) \cdot (1-bx)}
-        \end{equation*}
-        gdzie $a = \frac{1 + \sqrt{5}}{2}, b=\frac{1 - \sqrt{5}}{2}$
+	Nie no, serio, jeśli ktoś myśli że będę TeXować te przekształcenia to się myli. Powinno wyjść po przekształceniach że:
+	\begin{equation*}
+		F(x) = \frac{x}{(1-ax) \cdot (1-bx)}
+	\end{equation*}
+	gdzie \(a = \frac{1 + \sqrt{5}}{2}, b=\frac{1 - \sqrt{5}}{2}\)
 
-        Dalej rozbijamy na ułamki proste:
-        \begin{equation*}
-            F(x) = \frac{A}{1-ax} + \frac{B}{1-bx}
-        \end{equation*}
-        $A$ powinno wyjść $\frac{1}{\sqrt{5}}$, $B$ powinno wyjść $- \frac{1}{\sqrt{5}}$.
+	Dalej rozbijamy na ułamki proste:
+	\begin{equation*}
+		F(x) = \frac{A}{1-ax} + \frac{B}{1-bx}
+	\end{equation*}
+	\(A\) powinno wyjść \(\frac{1}{\sqrt{5}}\), \(B\) powinno wyjść \(- \frac{1}{\sqrt{5}}\).
 
-        Odwijamy każdą z tych funkcji tworzących z osobna, korzystając ze wzoru podanego we wcześniejszym rozdziale i otrzymujemy wzór. 
-    \end{proof}
+	Odwijamy każdą z tych funkcji tworzących z osobna, korzystając ze wzoru podanego we wcześniejszym rozdziale i otrzymujemy wzór.
+\end{proof}

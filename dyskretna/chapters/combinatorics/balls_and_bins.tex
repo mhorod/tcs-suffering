@@ -1,13 +1,13 @@
-    \begin{table}[h]
-    \centering
-    \begin{tabular}{@{}cc|ccc@{}}
-    \toprule
-    Rozróżnialność obiektów & Rozróżnialność szuflad & Iniektywnie & Surjektywnie & Dowolnie \\ \midrule
-    Tak                     & Tak                    & $k^{\underline{n}}$           & $\stirling{n}{k} \cdot k!$            & $k^n$        \\
-    Tak                     & Nie                    & $\tiny \begin{cases} 0, n>k \\ 1 \leq k\end{cases}$           & $\stirling{n}{k}$            & $\sum_{i=1}^k \stirling{n}{i}$       \\
-    Nie                     & Tak                    & $\binom{k}{n} $          & $\binom{n-1}{k-1}$            & $\binom{n+k-1}{k-1}$        \\
-    Nie                     & Nie                    & $\tiny\begin{cases}0, n>k \\ 1, n \leq k \end{cases}$           & $p(n,k)$            & $\sum_{i=1}^k p(n,i)$        \\ \bottomrule
-    \end{tabular}
-    \end{table}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{@{}cc|ccc@{}}
+		\toprule
+		Rozróżnialność obiektów & Rozróżnialność szuflad & Iniektywnie                                             & Surjektywnie                 & Dowolnie                         \\ \midrule
+		Tak                     & Tak                    & \(k^{\underline{n}}\)                                   & \(\stirling{n}{k} \cdot k!\) & \(k^n\)                          \\
+		Tak                     & Nie                    & \(\tiny \begin{cases} 0, n>k \\ 1 \leq k\end{cases}\)   & \(\stirling{n}{k}\)          & \(\sum_{i=1}^k \stirling{n}{i}\) \\
+		Nie                     & Tak                    & \(\binom{k}{n} \)                                       & \(\binom{n-1}{k-1}\)         & \(\binom{n+k-1}{k-1}\)           \\
+		Nie                     & Nie                    & \(\tiny\begin{cases}0, n>k \\ 1, n \leq k \end{cases}\) & \(p(n,k)\)                   & \(\sum_{i=1}^k p(n,i)\)          \\ \bottomrule
+	\end{tabular}
+\end{table}
 
-    Jako $p(n,k)$ definiujemy liczbę podziałów liczby $n$ na $k$ niezerowych składników.
+Jako \(p(n,k)\) definiujemy liczbę podziałów liczby \(n\) na \(k\) niezerowych składników.

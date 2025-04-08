@@ -1,0 +1,62 @@
+\begin{theorem}[Chińskie twierdzenie o resztach]
+	Niech \(n, m \in \natural_1, n \perp m\), \(a \in [n]_0, b \in [m]_0\).
+	Wtedy istnieje dokładnie jedno \(x \in [nm]_0\) spełniające układ kongruencji:
+	\begin{equation*}
+		\begin{cases}
+			x \equiv a \pmod n \\
+			x \equiv b \pmod m
+		\end{cases}
+	\end{equation*}
+\end{theorem}
+
+\begin{proof}[Dowód unikalności]
+	Załóżmy, że istnieją \(x, y \in [nm]_0\) obydwa spełniające układ równań.
+	Niech \(z = x-y\). Zachodzi:
+	\begin{equation*}
+		\begin{cases}
+			x - y \equiv a - a \equiv 0 \pmod n, \\
+			x - y \equiv b - b \equiv 0 \pmod m,
+		\end{cases}
+	\end{equation*}
+	czyli \(n \mid z, m \mid z \implies nm \mid z\). Ale to oznacza, że \(z = 0\), bo analizując możliwe wartości
+	otrzymujemy, że  \(z \in \set{-nm+1, \ldots, nm-1}\), a \(0\) jest jedyną liczbą podzielną przez \(nm\) w tym przedziale.
+	Czyli \(x-y = 0 \implies x = y\).
+\end{proof}
+\begin{proof}[Dowód istnienia ,,ala MFI'']
+	Niech \(f: [nm]_0 \ni x \mapsto (x \bmod n, x \bmod m) \in [n]_0 \times [m]_0\).
+	Z dowodu unikalności wiemy, że ta funkcja jest injekcją -- ale
+	ponieważ \(\card{[nm]_0} = nm = \card{[n]_0 \times [m]_0}\), funkcja \(f\) musi być
+	również surjektywna (inaczej moc by się nie zgadzała).
+\end{proof}
+\begin{proof}[Dowód istnienia przez konstrukcję]
+	Wiemy, że \(n \perp m\), czyli z tożsamości Bezouta istnieją \(k, l\)
+	spełniające \(n \cdot k + m \cdot l = 1\).
+	Niech \(x = m \cdot l \cdot a + n \cdot k \cdot b\pmod{nm}\). Wtedy zachodzi:
+	\begin{align*}
+		x & = m \cdot l \cdot a + n \cdot k \cdot b & \pmod n  \\
+		  & \equiv (1 - n \cdot k) \cdot a + 0      & \pmod n  \\
+		  & \equiv 1 \cdot a \equiv a               & \pmod n; \\
+		x & = m \cdot l \cdot a + n \cdot k \cdot b & \pmod m  \\
+		  & \equiv 0 + (1 - m \cdot l) \cdot b      & \pmod m  \\
+		  & \equiv 1 \cdot b \equiv b               & \pmod m,
+	\end{align*}
+	czyli \(x\) jest poprawnym rozwiązaniem układu równań, co kończy dowód.
+\end{proof}
+
+\begin{corollary}
+	Niech \(n_1, n_2, \ldots, n_k \in \natural_k\) będą parami względnie pierwsze,
+	a \(a_i \in [n_i]\) dla każdego \(i\). Wtedy istnieje dokładnie jedno \(x \in [\prod_{i=1}^{k} n_i]\)
+	spełniające układ kongruencji:
+	\begin{equation*}
+		\begin{cases}
+			x \equiv a_1 & \pmod {n_1} \\
+			x \equiv a_2 & \pmod {n_2} \\
+			\vdots                     \\
+			x \equiv a_k & \pmod {n_k}
+		\end{cases}
+	\end{equation*}
+\end{corollary}
+\begin{proof}
+	Aplikujemy chińskie twierdzenie o resztach \(k-1\) razy, najpierw dla \(n_1\) i \(n_2\),
+	potem dla \(n_1n_2\) i \(n_3\), itd.
+\end{proof}
