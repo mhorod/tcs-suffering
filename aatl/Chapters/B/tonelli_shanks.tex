@@ -1,0 +1,82 @@
+Algorytm Tonellego-Shanksa służy do obliczania pierwiastka dyskretnego w czasie wielomianowym randomizowanym.
+
+\begin{lemma}\label{ts:lemma1}
+    Grupa cykliczna \( G \) o liczbie elementów \(n = 2m \), zawiera dokładnie \( m \) kwadratów, a każdy kwadrat ma dokładnie dwa pierwiastki.
+\end{lemma}
+\begin{proof}
+    Zauważmy, że każdy element grupy \( G \) należy do zbioru \( \{g^0, g^1, \dots, g^{2m-1}\} \), czyli traktujemy potęgi generatora modulo \( 2m \). Do rozważenia są dwa przypadki:
+    \begin{enumerate}
+        \item \( a = g^{2k} \) dla pewnego całkowitego \( k \): \\
+        Wtedy piewiastkami \( a \) są \( g^k \) i \( g^{k+m} \), ponieważ
+        \[
+            (g^k)^2 = g^{2k} = a
+        \]
+        \[
+            (g^{k+m})^2 = g^{2k+2m} = g^{2k} = a
+        \]
+        Element \( a \) nie ma też żadnego innego pierwiastka.
+        \item \( a = g^{2k+1} \) dla pewnego całkowitego \( k \): \\
+        Dla dowodu nie wprost, załóżmy że istnieje \( b = g^j \), które jest pierwiastkiem \( a \). Wtedy
+        \[
+            b^2 = g^{2j} = g^{2k + 1},
+        \]
+        czyli \( 2j = 2k + 1 \pmod{2m} \) -- sprzeczność.
+    \end{enumerate}
+    Wniosek: tylko i dokładnie parzyste potęgi generatora są kwadratami.
+\end{proof}
+
+\begin{lemma}\label{A11:lemma2}
+    Niech \( G \) będzie grupą cykliczną o \( n = 2m \) elementach. Element \( a \) jest kwadratem w \( G \) wtedy i tylko wtedy, gdy \( a^m = 1 \).
+\end{lemma}
+\begin{proof}
+    \textit{Jeśli \( a \) jest kwadratem, to \( a^m = 1\).} \\
+    Z lematu~\ref{ts:lemma1} wynika, że jeśli \( a \) jest kwadratem, to musi być postaci \( a = g^{2k} \). Zatem
+    \[
+        a^m = \pars{g^{2k}}^m = g^{2m \cdot k} = g^0 = 1
+    \]
+    \textit{Jeśli \( a \) nie jest kwadratem, to \( a^m \neq 1\).} \\
+    Z lematu~\ref{ts:lemma1} wynika, że \( a \) jest postaci \( a = g^{2k+1} \) dla pewnego nieparzystego \( k \). Zatem
+    \[
+        g^{(2k+1)m} = g^{2m \cdot k} \cdot g^m = g^m = \xi = -1,
+    \]
+    ponieważ rząd \( g \) jest równy \( 2m \).
+\end{proof}
+
+\newpage
+Tak przygotowani możemy przejść do algorytmu: \\
+Mając grupę \( G \) o liczności \( \abs{G} = n = 2m \) oraz dane na wejściu \( a \in G \), celem jest znaleźć \( x \) takie, że \( x^2 = a \) w grupie \( G \).
+\begin{greyframe}
+    Algorytm Tonellego-Shanksa:
+    \begin{enumerate}
+        \item Wylosuj \( z \) takie, że \( z^m \neq 1 \).
+        \item Przypisz \( q = m, \ t = 2m \).
+        \item Dopóki \( 2 \mid q \):
+        \begin{enumerate}
+            \item Zaktualizuj \( q = q / 2, \ t = t / 2 \).
+            \item Jeśli \( a^q \cdot z^t \neq 1 \), to zaktualizuj \( t = t + m \).
+        \end{enumerate}
+        \item Zwróć \( a^{\frac{q+1}{2}} \cdot z^{\frac{t}{2}} \).
+    \end{enumerate}
+\end{greyframe}
+Algorytm zachowuje niezmienniki:
+\begin{itemize}
+    \item \( a^q \cdot z^t = 1 \)
+    \item Jeśli \( 2^k \mid q \), to \( 2^{k+1} \mid t \).
+\end{itemize}
+Początkowo \(a^q = z^t = 1 \) oraz \( t = 2q \).
+Z pierwszego niezmiennika wiadomo, że \( a^{\frac{q}{2}} \cdot z^{\frac{t}{2}} = \pm 1 \), ponieważ kwadrat tej liczby jest jedynką.
+Jeśli \( a^{\frac{q}{2}} \cdot z^{\frac{t}{2}} = 1 \), to możemy podzielić \( q, \ t \) przez 2 i~niezmiennik pozostaje zachowany.
+Jeśli \( a^{\frac{q}{2}} \cdot z^{\frac{t}{2}} = \xi \), to
+\[
+    a^{\frac{q}{2}} \cdot z^{\frac{t}{2} + m} = (a^{\frac{q}{2}} \cdot z^{\frac{t}{2}}) \cdot z^m = \xi \cdot \xi = 1
+\]
+Korzystamy z tego, że \( m \) niezmiennie jest wielokrotnością \( 2q' \).
+
+Ostateczny wynik to:
+\[
+    x^2 = a^{q+1} \cdot z^t = a \cdot (a^q \cdot z^t) = a
+\]
+
+Algorytm wykonuje \( \bigO(\log n) \) iteracji, bo po tylu dzieleniach \( q \) staje się nieparzyste, więc jest to algorytm wielomianowy.
+Z lematu~\ref{ts:lemma1} wynika, że przy losowaniu \( z \) znajdziemy niekwadrat z prawdopodobieństwem \( \frac{1}{2} \), czyli w oczekiwaniu po stałej liczbie kroków będzie można przejść do kroku 2.
+Nie potrafimy zdeterminizować tego kroku, ponieważ gdyby dało się znaleźć niekwadrat bez losowania, czyli policzyć pierwiastek dyskretny deterministycznie, to również można by deterministycznie rozłożyć liczbę na czynniki pierwsze (patrz: pytanie~\ref{A:question09}).

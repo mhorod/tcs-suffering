@@ -1,0 +1,103 @@
+\begin{definition}[Bramka Hadamarda]
+    Bramka zdefiniowana jako
+    \[
+        H\pars{\begin{bmatrix} \alpha \\ \beta \end{bmatrix}} = \begin{bmatrix} \frac{1}{\sqrt{2}}(\alpha + \beta) \\ \frac{1}{\sqrt{2}}(\alpha - \beta) \end{bmatrix}
+    \]
+    o własności \( H(H(x)) = x \).
+\end{definition}
+
+\begin{definition}[Bramka Toffolego]
+    Trójargumentowa bramka
+    \[ \text{CCNOT}(x, y, z) = (x, y, (x \land y) \oplus z) \]
+\end{definition}
+Każda bramka musi być określona macierzą odwracalną i unitarną.
+
+Algorytm Grovera to kwantowy algorytm wyszukiwania. Dla zadanej funkcji:
+\[
+    f : \set{0, 1, \ldots, N - 1} \rightarrow \set{0, 1}
+\]
+znajduje z prawdopodobieństwem \( \frac{2}{3} \), ciąg \( x^{*} \) wartościowany przez \( f \) inaczej niż pozostałe.
+Na potrzeby algorytmu zakładamy, że \( N = 2^n \) oraz \( f \) jest określona na ciągach z \( \set{0, 1}^n \), z których tylko na \( x^{*} \) przyjmuje wartość -1, a na pozostałych 1.
+
+Tworzymy \( n \)-wejściową bramkę \( O_f \), określoną regułą \( O_f (|x\rangle) = f(x) \cdot |x \rangle \).
+
+Wykorzystując bramkę \( O_f \), konstruujemy obwód kwantowy, który:
+\begin{itemize}
+    \item składa się z bramek \( H \), \( T \) i \( O_f \),
+    \item ma \( n \) wejść i \( n \) wyjść,
+    \item otrzymuje na wejściu \( |00\ldots0 \rangle \),
+    \item zwraca na wyjściu ciąg \( x^{*} \), dla którego \( f(x^{*}) = -1 \) z prawdopodobieństwem \( \frac{1}{10} \),
+    \item zawiera \( \bigO(\sqrt{N} \log N) \) bramek, w tym \( \bigO(\sqrt{N}) = \bigO(\sqrt{2^n}) \) bramek \( O_f \).
+\end{itemize}
+
+Dysponując opisanym wyżej obwodem, możemy przejść do właściwego algorytmu.
+\begin{greyframe}
+    Algorytm Grovera:
+    \begin{enumerate}
+        \item Przepuść każdy z \( n \) kubitów przez bramkę H:
+        \[
+            |0\rangle \rightarrow \frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle
+        \]
+        Układ \( n \) kubitów ma stan \( \frac{1}{\sqrt{2^n}} \sum_{x \in \set{0,1}^n} |x\rangle \), czyli każdy \( n \)-bitowy ciąg jest równie prawdopodobny.
+        \item Kilkukrotnie przepuść kubity przez warstwę bramek, przekształcającą:
+        \[
+            \sum_{x \in \set{0,1}^n} \delta_x |x\rangle \rightarrow \sum_{x \in \set{0,1}^n} \delta'_x |x\rangle
+        \]
+        Każda warstwa zwiększa współczynnik przy \( x^{*} \), a zmniejsza przy \( x \neq x^{*} \), zachowując: 
+        \begin{itemize}
+            \item \( \delta_x \in \real^{+} \),
+            \item \( \delta'_{x^{*}} > \delta_{x^{*}} + \frac{1}{\alpha\sqrt{N}} \) dla stałej \( \alpha \).
+        \end{itemize}
+        Po \( \bigO(\sqrt{N}) \) kroków \( \abs{\delta_{x^{*}}}^2 > \frac{1}{10} \), czyli z prawdopodobieństwem co najmniej \( \frac{1}{10} \) ciągiem wyjściowym jest \( x^{*} \).
+        Do osiągnięcia tego służą operacje liniowe:
+        \begin{itemize}
+            \item bramka \( O_f \):
+            \[
+                \delta_{x^{*}} \rightarrow -\delta_{x^{*}}, \ \delta_{x} \text{ bez zmian dla } x \neq x^{*}
+            \]
+            \item bramka dyfuzyjna Grovera (\( D \)):
+            \[
+                (\delta_0, \delta_1, \ldots, \delta_{N-1}) \rightarrow (2s - \delta_0, 2s - \delta_1, \ldots, 2s - \delta_{N-1}),
+            \]
+            gdzie \( s = \frac{1}{N}(\delta_0 + \delta_1 + \ldots + \delta_{N-1}) \), czyli jest średnią współczynników.
+            Operacja \( D \) odbija symetrycznie każde \( \delta_x \) względem \( s \).
+        \end{itemize}
+    \end{enumerate}
+\end{greyframe}
+
+\begin{lemma}
+    Operacje \( D \) i \( O_f \) wystarczają, żeby zwiększyć współczynnik przy \( x^{*} \), a zmniejszyć przy pozostałych \( x \neq x^{*} \).
+\end{lemma}
+\begin{proof}
+    Stan układu kubitów to \( \sum_{x} \delta'_x |x\rangle \). Początkowo \( \delta_x = \frac{1}{\sqrt{N}} \) dla każdego \( x \),
+    a w każdym kroku jeden ze współczynników \( (\delta_{x^{*}}) \) jest zamieniany na przeciwny. Następnie odejmujemy wszystkie współczynniki od \( 2s \).
+    Wynika z tego, że po \( k \) krokach wszystkie \( (\delta_x) \) dla \( x \neq x^{*} \) są sobie równe z wyjątkiem \( (\delta_{x^{*}}) = b_k \).
+    Bramka \( O_f \) zamienia \( b_k \) na \( -b_k \) , po czym bramka \( D \) oblicza \( b_{k+1} = 2s_k + b_k \), gdzie \( s_k \) jest średnią współczynników w \( k \)-tym kroku.
+    Można udowodnić indukcyjnie, że \( b_{k+1} - b_k > \frac{1}{\sqrt{N}} \) tak długo, jak \( b_k < \frac{1}{2} \).
+    Stąd po co najwyżej \( \frac{1}{10} \sqrt{N} \) krokach dostaniemy \( b_k > \frac{1}{10} \), co było do pokazania.
+\end{proof}
+\begin{lemma}
+    Operację \( D \) można wyrazić jako kombinację \( \bigO(\log N) \) bramek \( H \) i \( T \).
+\end{lemma}
+\begin{proof}
+    Bramka \( D \) jest opisana macierzą:
+    \[
+        D = \frac{2}{N}
+        \begin{bmatrix}
+        1 & 1 & \ldots & 1 \\
+        1 & 1 & \ldots & 1 \\
+        \ldots \\
+        1 & 1 & \ldots & 1
+        \end{bmatrix}
+        - I,
+    \]
+    czyli \( D = 2 \cdot v \cdot v^T - I \), gdzie \( v = \frac{1}{\sqrt{N}}
+    \pars{\begin{smallmatrix}
+    1 \\
+    \vdots \\
+    1
+    \end{smallmatrix}} \).
+    Macierz \( D \) jest postaci Householdera, więc jest unitarna. Faktem jest, że \( D = H_n \cdot Z_0 \cdot H_n \), gdzie \( Z_0 \) jest macierzą jednostkową z -1 zamiast 1 w komórce \( (0,0) \),
+    a \( H_n \) jest macierzą opisującą bramkę \( H \) na każdym z kubitów. Składa się ona z \( n \) bramek \( H \). Do konstrukcji bramki \( Z_0 \) również wystarcza \( \bigO(n) \) dwuwejściowych bramek logicznych.
+    Zatem całościowo potrzebujemy \( \bigO(n) = \bigO(\log N) \) bramek, co było do pokazania.
+\end{proof}

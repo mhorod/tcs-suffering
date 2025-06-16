@@ -1,0 +1,35 @@
+Dla danych \( a,b > 0 \) algorytm zwraca \( \gcd(a,b) \), wykonując tylko odejmowanie i operacje binarne.
+
+\begin{greyframe}
+    Algorytm:
+    \begin{enumerate}
+    \item Jeśli \( a < b \), zamień \( a \) i \( b \).
+    \item Jeśli \( b = 0 \), zwróć \( d = a \).
+    \item Jeśli \( 2 \mid a \) i \( 2 \nmid b \), zwróć \( \gcd\pars{\frac{a}{2}, b} \),
+    \item Jeśli \( 2 \nmid a \) i \( 2 \mid b \), zwróć \( \gcd\pars{a, \frac{b}{2}} \),
+    \item Jeśli \( 2 \mid a \) i \( 2 \mid b \), zwróć \( 2 \cdot \gcd\pars{\frac{a}{2}, \frac{b}{2}} \),
+    \item Jeśli \( 2 \nmid a \) i \( 2 \nmid b \), zwróć \( \gcd\pars{b, a - b} \).
+    \end{enumerate}
+\end{greyframe}
+
+\vspace{1em}\noindent
+\textit{Algorytm zwraca poprawne \( d = \gcd(a, b) \).}
+\begin{proof}
+    Jeśli któryś z argumentów jest nieparzysty (przypadki 3 i 4), to \( 2 \nmid \gcd(a, b) \), dlatego możemy podzielić parzysty argument przez 2. \\
+    Jeśli oba argumenty są parzyste (przypadek 5), to \( d = \gcd(a, b) \) też jest parzyste, ponieważ inaczej \( 2 \cdot d \) dzieliłoby obie liczby, co byłoby sprzeczne z tym, że \( d \) jest największym dzielnikiem.
+    Dlatego możemy wydzielić 2 i obliczyć \( 2 \cdot \gcd\pars{\frac{a}{2}, \frac{b}{2}} \). \\
+    Jeśli obie liczby są nieparzyste, to obliczamy \( d = \gcd(b, a - b) = \gcd(a, b) \), ponieważ:
+    \[
+        a \equiv 0 \ \mod \ d
+    \]
+    \[
+        b \equiv 0 \ \mod \ d
+    \]
+    \[
+        a - b \equiv 0 \ \mod \ d
+    \]
+\end{proof}
+
+W każdym z przypadków od 3 do 5, co najmniej jeden z argumentów zmniejsza się o połowę. Takich wywołań jest więc co najwyżej logarytmicznie wiele.
+Pozostaje do przeanalizowania przypadek 6. Ponieważ \( a \) i \( b \) są nieparzyste, to \( a - b \) jest parzyste, więc w kolejnym wywołaniu wykona się przypadek 3 lub 4. Czyli któryś z argumentów zmniejszy się o połowę w co najwyżej dwóch krokach.
+To dowodzi złożoności \( \bigO(\log(a) \cdot M(a)) \), gdzie \( M(a) \) to koszt odejmowania i~operacji bitowych, który jest liniowy od długości zapisu liczb.

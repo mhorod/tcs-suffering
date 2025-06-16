@@ -1,0 +1,38 @@
+Celem jest rozłożyć na czynniki liczbę złożoną \( n \). Załóżmy, że \( p \leq \sqrt{n} \) jest jakimś jej dzielnikiem pierwszym.
+Wybieramy łatwo obliczalną funkcję, niech to będzie \( f(x) = x^2 + 1 \). Chcemy zbadać ciąg \( x_0 = 2 \), \( x_k = f(x_{k-1}) \).
+Zakładamy, że wartości będą się rozkładały równomiernie modulo \( n \). Ciąg powinien się zapętlić po około \( \sqrt{n} \) krokach. Przypuszczamy jednak, że uda się to zaobserwować już wcześniej, po \( \sqrt{p} \) krokach.
+
+Jeśli znajdzie się \( x_i = x_j \pmod{p} \), to \( \gcd(x_i - x_j, n) \) powinno być nietrywialnym dzielnikiem \( n \), ponieważ wykonaliśmy zbyt mało kroków, żeby \( n \mid (x_i - x_j) \).
+Jeśli powstanie cykl modulo \( p \) o długości \( s \), to taka sytuacja będzie się powtarzać dla dowolnych \( x_i, \ x_{i+s} \). Zamiast co krok sprawdzać dla wszystkich \( x_{i<j} \) przystawania do \( x_j \),
+wykorzystujemy metodę Floyda lub Brenta, żeby wykryć długość cyklu.
+\begin{greyframe}
+    Algorytm Pollarda (wariant Floyda):
+    \begin{enumerate}
+        \item Jeśli \( 2 \mid n \), zwróć 2.
+        \item Zdefiniuj \( x = x_0, y = x_0, d = 1 \).
+        \item Dopóki \( d \) jest trywialny:
+        \begin{enumerate}
+            \item Oblicz \( x = f(x) \pmod{n} \), \( y = f(f(y)) \pmod{n} \).
+            \item Oblicz \( d = \gcd(x-y, n) \).
+        \end{enumerate}
+        \item Jeśli \( d \neq n \), zwróć \( d \).
+        \item Powtórz procedurę od kroku 2, losując nowe \( x_0 \) oraz funkcję \( f \).
+    \end{enumerate}
+\end{greyframe}
+Zapętlenie oraz wyłapanie tego wymaga w oczekiwaniu około \( \sqrt{p} + s \leq 2\sqrt{p} = \bigO(\sqrt[4]{n}) \) kroków. Jeśli algorytm kończy się powodzeniem, po tylu krokach \( \gcd(x_i - y_i, n )\) jest dzielnikiem \( n \).
+Są jednak dwa scenariusze niepowodzenia:
+\begin{itemize}
+    \item Wyrazy ciągu mogą nie powtórzyć się wystarczająco szybko \\
+    -- przerywamy procedurę po \( 5\sqrt[4]{n} \) krokach.
+    \item Ciąg pętli się modulo \( p \) i modulo \( n \), czyli \( \gcd(x_i - y_i, n) = n \) \\
+    -- przerywamy od razu.
+\end{itemize}
+
+\subsection{Metoda Floyda}
+Pomysł polega na tym, żeby w każdym kroku sprawdzać tylko wartość \( \gcd(x_{2k} - x_k, n) \), ponieważ te dwa wyrazy przystają do siebie modulo \( p \), kiedy \( k \) jest wielokrotnością \( s \).
+Ciąg \( x_{2k} \) definiujemy jako \( x_{2k} = y_k = f(f(y_{k-1})) \), \( y_0 = x_0 \), unikając w ten sposób przechowywania wielu poprzednich wartości.
+
+\subsection{Metoda Brenta}
+Sprawdzamy, czy ciąg się zapętlił, wykonując kolejno \( K = 1, 2, 4, 8, \dots \) kroków. Jeśli w \( K \) krokach wyraz ciągu powtórzy się modulo \( p \), to udało się znaleźć wspólny dzielnik. Jeśli nie, to powtarzamy próbę dla kolejnego \( K \), zaczynając od miejsca, w którym skończyliśmy.
+
+Ten wariant ma nieco lepszą stałą niż metoda Floyda.
