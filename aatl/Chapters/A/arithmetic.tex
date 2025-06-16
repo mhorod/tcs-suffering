@@ -1,0 +1,10 @@
+Jeśli \( w \) jest wielomianem nierozkładalnym stopnia \( n \), to elementy 
+elementy \( \integer_p/(w) \) to wielomiany stopnia co najwyżej \( n \) nad \( \integer_p \).
+\begin{itemize}
+    \item Dodawanie -- \( \bigO(n) \) \\
+    Dodajemy po współrzędnych modulo \( p \).
+    \item Mnożenie -- \( \bigO(n^2) \) \\
+    Mnożymy ,,w słupku'' z wynikiem modulo \( w \). Można szybciej algorytmem Karatsuby, Tooma-Cooka lub Sch\"onhage-Strassena w \( \bigO(n\log n) \).
+    \item Dzielenie -- \( \bigO(n^2) \) \\
+    Mnożymy przez odwrotność obliczoną rozszerzonym algorytmem Euklidesa. Korzystamy z tego, że wszystkie wielomiany w \( \integer_p/(w) \) są względnie pierwsze z \( w \).
+\end{itemize}

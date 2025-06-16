@@ -1,0 +1,37 @@
+\subsection{Primes}
+\textbf{Wejście:} Liczba \( p \) \\
+\textbf{Problem:} Czy \( p \) jest liczbą pierwszą? \\
+\textbf{Klasa złożoności:} P
+
+Primes \( \in \) coNP: \\
+Jeśli otrzymamy od wyroczni \( d \) potencjalny dzielnik \( p \), możemy w wielomianowym czasie sprawdzić, czy \( d \) rzeczywiście jest dzielnikiem i odpowiedzieć NIE na pytanie o pierwszość.
+
+Primes \( \in \) NP: \\
+Korzystamy z tego, że \( \integer_p^* \) ma rząd równy \( p-1 \) wtedy i tylko wtedy, gdy \( p \) jest pierwsze. \\
+Jeśli otrzymamy od wyroczni \( g \), generator \( \integer_p^* \) i rozkład \( p-1 = p_1^{\alpha_1} \cdots p_s^{\alpha_s} \), możemy:
+\begin{itemize}
+    \item rekurencyjnie sprawdzić pierwszość \( p_i \) i poprawność rozkładu,
+    \item sprawdzić, czy \( g^{p-1} = 1 \pmod{p} \),
+    \item sprawdzić, czy \( g^{\frac{p-1}{p_i}} \neq 1 \pmod{p} \).
+\end{itemize}
+Jeżeli wszystkie z powyższych warunków są spełnione, to odpowiedzią jest TAK.
+
+\newpage
+Primes \( \in \) BPP: \\
+Dowodem jest algorytm Millera-Rabina, który myli się przy odpowiedzi TAK z prawdopodobieństwem nie większym niż \( \frac{1}{2} \).
+
+Primes \( \in \) P: \\
+Dowodem jest algorytm Agrawala-Kayala-Saxena (AKS).
+
+\subsection{Factoring}
+\textbf{Wejście:} Liczby \( n,\; k \) \\
+\textbf{Problem:} Czy istnieje nietrywialny dzielnik \( n \) mniejszy lub równy \( k \)? \\
+\textbf{Klasa złożoności:} NP \( \cap \) coNP?
+
+Factoring \( \in \) NP: \\
+Jeśli otrzymamy od wyroczni \( 2 \leq d \leq k \) potencjalny dzielnik \( n \), możemy w wielomianowym czasie sprawdzić, czy \( d \) rzeczywiście jest dzielnikiem i odpowiedzieć TAK.
+
+Factoring \( \in \) coNP: \\
+Otrzymujemy od wyroczni rozkład liczby \( n \) na czynniki pierwsze \( n = p_1^{\alpha_1} \cdots p_s^{\alpha_s} \). Po sprawdzeniu poprawności rozkładu odpowiadamy \( (p_1 \leq k) \) ? TAK : NIE, gdzie \( p_1 \) to najmniejszy z~dzielników.
+
+Na ten moment nie wiadomo nic więcej.

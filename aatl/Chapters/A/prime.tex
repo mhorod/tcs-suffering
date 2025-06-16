@@ -1,0 +1,11 @@
+Dla zadanej liczby \( k \) chcemy znaleźć liczbę pierwszą \( p \in \brackets{2^k, 2^{k+1}-1} \).
+
+Liczby pierwsze są dość gęsto upakowane -- w przedziale od 1 do \( n \) jest około \( \frac{n}{\log n} \) liczb pierwszych.
+Zatem w przedziale \( \brackets{2^k, 2^{k+1}-1} \) jest ich około
+\[
+    \frac{2^{k+1} - 1}{k+1} - \frac{2^{k} - 1}{k} = \frac{2^k\pars{1-\frac{1}{k}} - 1}{k+1} = \Theta\pars{\frac{2^k}{k}}
+\]
+
+Możemy więc po prostu losować liczbę całkowitą \( p \) z przedziału \( \brackets{2^k, 2^{k+1}-1} \), dopóki nie trafi się liczba pierwsza.
+Skoro w przedziale jest \( \Theta\pars{2^k} \) liczb całkowitych, z których \( \Theta\pars{\frac{2^k}{k}} \) jest liczbami pierwszymi, to w oczekiwaniu po \( \bigO(k) \) losowaniach trafimy na liczbę pierwszą.
+Sprawdzanie, czy liczba jest pierwsza, wykonuje się w czasie \( \bigO\pars{k^3} \), więc oczekiwana złożoność algorytmu losowania liczby pierwszej to \( \bigO\pars{k^4} \).

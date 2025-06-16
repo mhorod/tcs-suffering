@@ -1,0 +1,11 @@
+Osoby A i B mają bezpieczny kanał komunikacji do przesyłania kluczy i niechroniony kanał do zwykłej komunikacji. Osoba A chce przesłać osobie B ciąg bitów \( M \).
+Szyfruje go kluczem \( k \) o~takiej samej długości za pomocą bitowej operacji XOR: \( E(M) = M \oplus k \).
+Osoba A przesyła bezpiecznym kanałem wartość \( k \) i normalnym kanałem wartość \( E(M) \). Żeby osoba B mogła odczytać \( M \) wystarczy, że obliczy \( E(E(M)) \), ponieważ XOR jest łączny:
+\[
+    (M \oplus k) \oplus k = M \oplus (k \oplus k)  = M \oplus 0 = M
+\]
+
+Przy ,,naprawdę losowym'' \( k \) każdy wynik szyfrowania jest równie prawdopodobny, więc zaszyfrowana wiadomość ma takie same właściwości, co gdyby wylosować osobno każdy bit.
+
+Pozostaje jedno uzasadnione zastrzeżenie -- jeśli musimy mieć sposób na bezpieczne przesłanie klucza o długości \( \abs{M} \), równie dobrze można po prostu przesłać \( M \).
+Jednak metoda może być przydatna, jeśli potrzebne jest awaryjne, jednorazowe przesłanie zaszyfrowanej wiadomości i~korespondenci wcześniej mieli okazję wymienić się odpowiednio długim kluczem.

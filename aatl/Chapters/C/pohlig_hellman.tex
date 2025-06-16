@@ -1,0 +1,42 @@
+Algorytm jest heurystyką, korzystającą z faktu, że rząd grupy często jest liczbą złożoną. Mając daną grupę \( G = \langle g \rangle \) o \( n \) elementach oraz \( b \in G \), chcemy znaleźć \( x \), rozwiązanie równania \( g^x = b \).
+\begin{greyframe}
+    Algorytm Pohliga-Hellmana:
+    \begin{enumerate}
+        \item Jeśli \( n \) jest liczbą pierwszą, to wyznacz \( x \) algorytmem Baby-Step-Giant-Step \\ \( \rightarrow \bigO(\sqrt{n}) \).
+        \item Jeśli \( n = p^k \), gdzie \( p \) jest pierwsze oraz \( k > 1 \), to:
+            \begin{enumerate}
+                \item Zapisz (nieznany jeszcze) \( x \) w systemie o podstawie \( p \) jako 
+                \[
+                    x = x_0 + x_1 \cdot p + \ldots + x_{k-1} \cdot p^{k-1}
+                \]
+                \item Na podstawie równania:
+                \[
+                    \pars{g^x}^{p^{k-1}} = \pars{g^{x_0}}^{p^{k-1}} = b^{p^{k-1}},
+                \]
+                zdefiniuj \( h = g^{p^{k-1}} \) o rzędzie \( p \).
+                \item Rozwiąż równanie postaci \( h^{x_0} = b^{p^{k-1}} \) dla \( x_0 \), czyli oblicz logarytm dyskretny w~grupie \( \set{1, h, h^2, \ldots, h^{p-1}} \) \( \rightarrow \bigO(\sqrt{p}) \) (przypadek 1).
+                \item Sprowadź równanie do postaci: 
+                \[
+                    g^{x_1 \cdot p + \ldots + x_{k-1} \cdot p^{k-1}} = b \cdot g^{-x_0}
+                \]
+                Po podniesieniu równania do potęgi \( p^{k-2} \), oblicz \( x_1 \), rozwiązując \( h^{x_1} = \pars{b \cdot g^{-x_0}}^{p^{k-2}} \).
+            \end{enumerate}
+            Powtórz procedurę dla \( x_0, x_1, \ldots, x_{k-1} \) \( \rightarrow \bigO(k \sqrt{p}) \).
+        \item Jeśli \( n  = q_1 \cdot q_2 \), gdzie \( \gcd(q_1, q_2) = 1 \), to:
+        \begin{enumerate}
+            \item Zapisz \( x \) jako \( x = u_1 \cdot q_1 + r_1 \).
+            \item Podnieś równanie do potęgi \( q_2\):
+            \[
+                g^{u_1n + r_1q_2} = b^{q_2}
+            \]
+            Przy \( g^n = 1 \) daje to \( g^{r_1 q_2} = b^{q_2} \), czyli \( h = g^{q_2} \) ma rząd \( q_1 \).
+            \item Oblicz \( r_1 \) takie, że \( x = r_1 \pmod{q_1} \), rekurencyjnie na grupie \( H = \langle h \rangle \).
+            \item Analogicznie, oblicz \( r_2 \) takie, że \( x = r_2 \pmod{q_2} \).
+            \item Z CRT wyznacz \( x \), rozwiązanie układu kongruencji \( x = u_i \cdot q_i + r_i \).
+        \end{enumerate}
+        Jeżeli \( n = p_1^{\alpha_1} \cdot \ldots \cdot p_s^{\alpha^s} \), to rekurencyjnie wywołaj przypadek 2 dla każdego \( p_i^{\alpha_i} \) \( \rightarrow \bigO(\sum_i \alpha_i \sqrt{p_i}) \leq \bigO(\log n \cdot \sqrt{\max{p_i}}) \), bo \( \alpha_i \leq \log n \).
+    \end{enumerate}
+\end{greyframe}
+
+Algorytm działa szybko, jeśli rząd grupy ma tylko małe dzielniki. Zazwyczaj radzi sobie też z grupą \( GF(p^k) \) ciała skończonego, ponieważ rząd grupy \( p^k - 1 \) najczęściej jest liczbą złożoną.
+Rozsądnym wyborem jest \( \integer^{*}_p \) dla \( p = 2q + 1 \), gdzie \( p, \ q \) są pierwsze (liczby pierwsze Sophie Germain).

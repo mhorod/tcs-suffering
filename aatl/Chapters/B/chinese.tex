@@ -1,0 +1,35 @@
+\begin{theorem}[Chińskie Twierdzenie o Resztach]
+    Dla parami względnie pierwszych liczb całkowitych \( m_1, \dots m_k \geq 1 \), \( M = m_1 \cdot \ldots \cdot m_k \) oraz liczb \( a_1, \ldots, a_k \), gdzie \( 0 \leq a_i \leq m_i \), układ kongruencji:
+    \begin{center}
+        \( x = a_1 \pmod{m_1} \) \\
+        \( \dots \) \\
+        \( x = a_k \pmod{m_k} \)
+    \end{center}
+    ma dokładnie jedno rozwiązanie \( x < M \).
+\end{theorem}
+\begin{proof}
+    Trzeba udowodnić, że rozwiązanie istnieje i że wszystkie rozwiązania przystają do siebie modulo \( M \). \\
+    \textit{Istnienie}\footnote{Dowód został zaczerpnięty z \href{https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Proof}{,,Chinese remainder theorem'', Wikipedia}.} \\
+    Korzystamy z twierdzenia B\'ezout, z którego wynika, że dla względnie pierwszych liczb \( x \), \( y \) istnieją takie liczby całkowite \( a \) i \( b \), że \( ax + by = 1 \). \\
+    Definiujemy \( M_i = \frac{M}{m_i} \), wtedy \( M_i \) oraz \( m_i \) są względnie pierwsze, więc istnieją takie liczby \( B_i, \ b_i \), że \( B_iM_i + b_im_i = 1 \).
+    Możemy zatem skonstruować rozwiązanie:
+    \[
+        x = \sum_{i=1}^{k} a_iB_iM_i
+    \]
+    Rzeczywiście spełnia ono układ kongruencji, ponieważ:
+    \[
+        a_iB_iM_i = 0 \pmod{m_j} \quad \text{dla } i \neq j
+    \]
+    \[
+        a_iB_iM_i = a_i(1 - b_im_i) = a_i \pmod{m_i}
+    \]
+
+    \textit{Jedyność} \\
+    Załóżmy, że istnieją dwa rozwiązania \( x \) oraz \( y \), które są różne modulo \( M \). Wiemy, że zachodzi:
+    \begin{center}
+        \( x = a_i \pmod{m_i} \), \\
+        \( y = a_i \pmod{m_i} \),
+    \end{center}
+    czyli \( x - y = 0 \pmod{m_i} \). Skoro \( m_i \) są parami względnie pierwsze, to \(  x - y = 0 \pmod{M} \).
+    Ponieważ \( x, y < M \), to \( x \) i \( y \) muszą być równe.
+\end{proof}
