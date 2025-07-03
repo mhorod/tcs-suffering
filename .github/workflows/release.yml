@@ -10,7 +10,7 @@ permissions:
   contents: write
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   release:
     # This is one job to save on checkout/startup time
@@ -56,20 +56,13 @@ jobs:
         with:
           docker_image: ghcr.io/xu-cheng/texlive-full:latest
           run: |
-            #tlmgr update --self
-            # Deps like this over the full scheme are considerably faster, and
-            #   I am too lazy to build and publish my own image just for this.
-            #tlmgr install algorithms algorithmicx minted titlesec epigraph nextpage \
-            #  csquotes enumitem thmtools pgf pgfplots tkz-euclide babel babel-polish \
-            #  graphics xcolor fancyvrb fancyhdr iftex mismath esvect mleftright
-
             set -ex
             compile_dir() (
               set -ex
               FAIL=
 
               # Timeout ain't posix but exists on alpine/busybox
-              if timeout 60 ./build-one.sh "${1}" >./"${1}make.log" 2>&1; then
+              if timeout 90 ./build-one.sh "${1}" >./"${1}make.log" 2>&1; then
                 true
               else
                 case "$?" in
