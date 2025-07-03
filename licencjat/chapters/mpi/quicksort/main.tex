@@ -1,5 +1,21 @@
+{
 \subsection{Liniowość wartości oczekiwanej}
 \input{chapters/mpi/quicksort/linearity}
 
-\subsection{Oczekiwana liczba porównań}
-\input{chapters/mpi/quicksort/quicksort}
+\makeatletter
+\def\input@path{{../probabil}}
+\makeatother
+\graphicspath{{../probabil}}
+
+% This has to be done, because we input another suffering with different sectioning scheme.
+\let\realsection\section
+\let\realsubsection\subsection
+\let\section\subsection
+\let\subsection\subsubsection
+\let\subsubsection\paragraph
+
+\realsubsection{Oczekiwana liczba porównań}
+\input{chapters/discrete-probability/quicksort}
+
+}
+

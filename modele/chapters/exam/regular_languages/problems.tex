@@ -1,6 +1,6 @@
 \section{Podstawowe problemy decyzyjne dotyczące języków regularnych}
 
-W poniższych sekcjach będziemy zakładać, że mamy do czynienia z \( \eps\)-NFA lub wyrażeniami regularnymi i będziemy poszukiwać algorytmów działających w czasie wielomianowym (tak jak na ćwiczeniach). 
+W poniższych sekcjach będziemy przeważnie zakładać, że mamy do czynienia z \( \eps\)-NFA i będziemy poszukiwać algorytmów działających w czasie wielomianowym (tak jak na ćwiczeniach). DFA, zwykły NFA to szczególne przypadki, a wyrażenia regularne można łatwo przekształcić. Będą również problemy którymi zajmujemy się tylko dla DFA.
 
 \subsection{Należenie określonego słowa do języka}
 
@@ -31,7 +31,7 @@ W każdym razie, po wyliczeniu tego (widać że wielomianowo) chcecie sprawdzić
 
 Mając dane \(\eps\)-NFA możemy sprawdzić, czy akceptuje jakieś słowo puszając DFS od stanu startowego, szukając stanów akceptujących. Istnienie jakiejkolwiek ścieżki tego typu jest równoważne istnieniu słowa, które zostanie zaakceptowane; problem osiągalności w grafie jest, jak wiemy, dosyć mocno wielomianowy. 
 
-\subsection{Skończoność języka regularnego}
+\subsection{Skończoność i nieskończoność języka regularnego}
 
 Dostajemy \(\eps\)-NFA i chcielibyśmy sprawdzić, czy język który jest przez nie akceptowany jest skończony. Pierwsze co robimy, to wywalamy stany które nie są osiągalne (wielomianowo). 
 
@@ -43,6 +43,15 @@ Co dalej? Zauważmy, że jeśli język jest nieskończony to teraz w \(\eps\)-NF
 
 Puszczamy algorytm Bellmana-Forda; jeśli znajdzie cykl ujemny to oznacza że istnieje cykl nieepsilonowy, a biorąc pod uwagę że stan końcowy jest osiągalny z tego cyklu, to wiemy że można po nim chodzić tyle razy ile chcemy (a więc język jest nieskończony czy coś). 
 
+Nieskończoność języka robimy analogicznie.
+
 \subsection{Minimalność liczby stanów DFA}
 
 Puszczamy algorytm D i sprawdzamy czy coś zmienił (takie zadanie serio było na liście). 
+
+\subsection{Równoważność DFA}
+
+Sprowadzamy to do ww. problemów oraz operacji na DFA. Wystarczy zawuażyć, że 
+\[
+\( L(A_1) = L(A_2) \iff (L(A_1) \cap \complement{L(A_2)}) \cup (\complement{L(A_1)} \cap L(A_2)) = \varnothing \).
+\]

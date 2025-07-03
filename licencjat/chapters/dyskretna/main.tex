@@ -1,30 +1,49 @@
+{
+\makeatletter
+\def\input@path{{../dyskretna}}
+\makeatother
+\graphicspath{{../dyskretna}}
+
+% This has to be done, because we input another suffering with different sectioning scheme.
+\let\realsection\section
+\let\realsubsection\subsection
+\let\section\subsection
+\let\subsection\subsubsection
+\let\subsubsection\paragraph
+
 \chapter{Matematyka dyskretna} 
 \input{chapters/dyskretna/addendum/definitions}
 
-\section{Zasada włączeń i wyłączeń. Przykłady zastosowań}
-\input{chapters/dyskretna/inclusion-exclusion/main}
+\realsection{Zasada włączeń i wyłączeń. Przykłady zastosowań}
+\input{chapters/exclusion-inclusion/main}
 
-\section{Porządki częściowe, Twierdzenia Dilwortha i Spernera}
-\input{chapters/dyskretna/posets/main}
+\realsection{Porządki częściowe, Twierdzenia Dilwortha i Spernera}
+\input{chapters/posets/main}
 
-\section{Twierdzenie Ramseya. Przykłady zastosowań}
-\input{chapters/dyskretna/ramsey/main}
+\realsection{Twierdzenie Ramseya. Przykłady zastosowań}
+\input{chapters/ramsey/main}
 
-\section{Funkcje tworzące. Wyznaczanie liczb Fibonacciego za pomocą funkcji tworzących}
-\input{chapters/dyskretna/generating-functions/main}
+\realsection{Funkcje tworzące. Wyznaczanie liczb Fibonacciego za pomocą funkcji tworzących}
 
-\section{Skojarzenia w grafach dwudzielnych. Twierdzenie Halla}
-\input{chapters/dyskretna/matchings/main}
+\epigraph{I can elaborate: zrobiłam zadanka, zobaczyłam tworzące, stwierdziłam, że chce mi się spać, poszłam sobie}{\textit{Studentka TCSu o zadaniach z funkcji tworzących na kolokwium}}
+\input{chapters/generating_functions/rationals}
 
-\section{Kolorowanie grafów, twierdzenia Brooksa}
-\input{chapters/dyskretna/colours/brooks/brooks}
+\realsubsection{Wzór Bineta}
+\input{chapters/generating_functions/binet}
 
-\section{Liczba chromatyczna a liczba kolorująca grafów}
-\input{chapters/dyskretna/colours/colouring-number/main}
+\realsection{Skojarzenia w grafach dwudzielnych. Twierdzenie Halla}
+\input{chapters/matchings/hall}
 
-\section{Kolorowania krawędziowe grafów. Twierdzenie Vizinga}
-\input{chapters/dyskretna/colours/vizing/main}
+\realsection{Kolorowanie grafów, twierdzenia Brooksa}
+\input{chapters/graph-coloring/brooks}
 
-\section{Przepływy w sieciach. Twierdzenie o maksymalnym przepływie i minimalnym
+\realsection{Liczba chromatyczna a liczba kolorująca grafów}
+\input{chapters/graph-coloring/coloring-number}
+
+\realsection{Kolorowania krawędziowe grafów. Twierdzenie Vizinga}
+\input{chapters/graph-coloring/vizing}
+
+\realsection{Przepływy w sieciach. Twierdzenie o maksymalnym przepływie i minimalnym
 przekroju}
-\input{chapters/dyskretna/flows/main}
+\input{chapters/flows/main}
+}
