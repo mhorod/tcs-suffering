@@ -1,0 +1,22 @@
+Niech \( G = \langle g \rangle \) będzie pewną grupą cykliczną.
+
+\subsection{Discrete-Log}
+\textbf{Wejście:} \( a \in G \) \\
+\textbf{Wyjście:} \( x \) takie, że \( g^x = a \)
+
+Discrete-Log \( \in \) NP: \\
+Jeśli otrzymamy od wyroczni \( x \), możemy sprawdzić, czy \( g^x = a \).
+
+W kryptografi zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
+
+\subsection{Diffie-Helman}
+\textbf{Wejście:} \( g^x,\; g^y \) \\
+\textbf{Wyjście:} \( g^{xy} \)
+
+Diffie-Helman \( \in \) NP: \\
+Jeśli otrzymamy od wyroczni \( x \), po sprawdzeniu z \( g^x \), możemy obliczyć \( (g^{y})^x = g^{xy} \).
+
+Tak jak w poprzednim przypadku, nie ma dowodu, że Diffie-Helman \( \notin \) P. Za pomocą Discrete-Log możemy rozwiązać problem Diffiego-Helmana.
+
+\textbf{Protokół Diffiego-Helmana:} \\
+Korespondenci uzgadniają klucz symetryczny -- jeden z nich ustala swój klucz prywatny \( x \), drugi \( y \), po czym publicznym kanałem razem z wiadomością przesyłają \( g^x \) i \( g^y \). Kluczem deszyfrującym wiadomość jest \( g^{xy} \).

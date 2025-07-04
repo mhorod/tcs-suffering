@@ -1,8 +1,0 @@
-\begin{itemize}
-    \item Mamy dodawanie w $\bigO(n)$ - trywialne.
-    \item Mnożenie standardowe w $\bigO(n^2)$, można użyć Karatsubę, Tooma-Cooka lub Schonhagego-Strassena by zejść niżej do jakiegoś $\bigO(n\log n)$
-    \item dzielenie mamy standardowo Hornerem $\bigO(n^2)$. Można też dzielić szybciej. Jeśli dzielimy $A(X)$ przez $B(X)$, to wtedy dajemy sobie funkcję pomocniczą $rev_k(P(x))=x^kP(\frac{1}{x})$, a następnie szukamy $rev_m(B(x))^{-1}$ w pierścieniu Taylora (a istnieje ona, bo wyraz wolny u nas to $1$, szukamy to Newtonem). I mamy coś takiego 
-    $$rev_n(A)\equiv rev_m(B)\cdot rev_{n-m}(Q) \mod y^{n-m+1}$$
-    $$rev_n(A)\cdot rev_m(B)^{-1}\equiv rev_{n-m}(Q) \mod y^{n-m+1}$$
-    Z tego liczymy $Q=rev_{n-m}(rev_{n-m}(Q))$, a następnie $R=A-BQ$. Lub poprostu robimy rozszerzony algorytm euklidesa bo sensownie i szybko działa i zwraca nam piękinie odwrotność w tym ciele.
-\end{itemize}

@@ -1,0 +1,20 @@
+Algorytm mnożenia Karatsuby opiera się o lubianą technikę ,,dziel i zwyciężaj''.
+Chcemy pomnożyć \(n\)-cyfrowe liczby A i B zapisane w systemie binarnym. Zakładamy, że $n$ jest potęgą dwójki (zawsze można dodać zera wiodące). \\
+Zapisujemy liczby w postaci:
+\[
+    A = A_1 \cdot K + A_0,
+\]
+\[
+    B = B_1 \cdot K + B_0,
+\]
+gdzie \( K = 2^{\frac{n}{2}} \). Wtedy wynikiem jest:
+\[
+    A \cdot B = A_1 B_1 \cdot K^2 + (A_0 B_1 + A_1 B_0) \cdot K + A_0 B_0
+\]
+Mnożenie przez \( K \) to po prostu przesunięcie bitowe, więc możemy wykonać je w czasie \( \bigO(n) \), dodawanie też. Korzystając z obserwacji, że:
+\[
+    A_0 B_1 + A_1 B_0 = (A_0 + A_1) \cdot (B_0 + B_1) - A_0 B_0 - A_1 B_1
+\]
+pozostają nam do wykonania 3 rekurencyjne mnożenia: \( A_0 B_0 \), \( A_1 B_1 \) i \( (A_0 + A_1) \cdot (B_0 + B_1) \). \linebreak Czyli mamy złożoność:
+\[ T(n) = 3T\pars{\frac{n}{2}} + \bigO(n), \]
+więc z Uniwersalnego Twierdzenia o~Rekurencji algorytm działa w \( \bigO(n^{\log_2 3}) \approx \bigO(n^{1.59}) \).

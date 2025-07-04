@@ -1,0 +1,21 @@
+Trudno na ten moment poprawić pierwiastkową złożoność czasową algorytmu Baby-Step-Giant-Step, można jednak zmniejszyć użycie pamięci -- w algorytmie ,,ro'' Pollarda wystarcza \( \bigO(1) \).
+
+Główny pomysł polega na tym, żeby generować pary postaci \( a^{\alpha_i} \cdot b^{\beta_i} \), dla różnych \( \alpha_i \) oraz \( \beta_i \), aż wystąpi kolizja.
+
+Jeśli \( a^{\alpha_i} \cdot b^{\beta_i} = a^{\alpha_j} \cdot b^{\beta_j} \), to \( a^{\alpha_i - \alpha_j} = b^{\beta_j - \beta_i} \). Wystarczy więc znaleźć \( \beta^{*} = (\beta_j - \beta_i)^{-1} \) modulo \( \abs{G} \) i otrzymamy \( a^{\beta^{*} (\alpha_i - \alpha_j)} = b \).
+
+Ciąg \( (\alpha_i, \beta_i) \) definiujemy, losując wartości początkowe \( (\alpha_0, \beta_0) \), a kolejne obliczając za pomocą jakiejś deterministycznej funkcji \( f \), która zapewni pseudolosowość wyników.
+Jeśli w pewnym momencie \( (\alpha_i, \beta_i) = (\alpha_j, \beta_j) \), to tak już zostaje, czyli ciąg wpada w pętlę literki ,,ro''. Drugi ciąg można zdefiniować za pomocą metody Floyda (patrz: pytanie~\ref{C:rho_factorization}):
+\[ (\alpha'_{i+1}, \beta'_{i+1}) = f(f(\alpha'_i, \beta'_i)) \]
+W każdym kroku sprawdzamy, czy \( (\alpha_i, \beta_i) = (\alpha'_i, \beta'_i) \). Jeśli ciągi są losowe, to kolizja wystąpi w oczekiwaniu po \( \sqrt{\abs{G}} \) krokach.
+
+Pozostaje uszczegółowić wybór funkcji \( f \). Powinna ona rozrzucać wartości ciągu możliwie przypadkowo wśród elementów \( G \). Technika stosowana w praktyce jest następująca:
+\begin{itemize}
+    \onehalfspacing
+    \item Wybieramy małą liczbę naturalną \( n \).
+    \item Wybieramy funkcję haszującą \( h \), która parze liczb całkowitych \( (\alpha, \beta) \) przyporządkowuje liczbę ze zbioru \( \set{1, 2, \dots, n} \).
+    \item Losujemy liczby naturalne \( x_1, \dots, x_n \) oraz \( y_1, \dots, y_n \).
+    \item Definiujemy \( f(\alpha, \beta) = (\alpha + x_s, \beta + y_s) \), gdzie \( s = h(\alpha, \beta) \).
+\end{itemize}
+
+Algorytm ,,ro'' działa w oczekiwanym czasie \( \bigO\pars{\sqrt{\abs{G}}} \) i stałej pamięci.

@@ -1,0 +1,62 @@
+\subsection{Faktoryzacja przez liczby \( B \)-gładkie}
+\begin{definition}
+    Dla ustalonego \( B \) liczba \( B \)-gładka to taka, której wszystkie pierwsze dzielniki są mniejsze od \( B \).
+\end{definition}
+    
+Celem jest rozłożyć \( N \) na czynniki pierwsze. Ustalamy pewne \( a_1, \dots, a_k \), po czym obliczamy \( b_i = a_i^2 \pmod{N} \). Chcemy wybrać taki podzbiór \(b_i \), żeby iloczyn jego elementów był pełnym kwadratem.
+
+\begin{lemma}
+    Niech \( \set{p_1, \dots, p_{s}} \) będzie zbiorem liczb pierwszych mniejszych od \( B \). W każdym zbiorze liczb \( B \)-gładkich o liczności większej od \( s \) istnieje podzbiór, którego iloczyn jest kwadratem.
+\end{lemma}
+\begin{proof}
+    Niech \( \set{x_1, \dots, x_k} \) dla \( k > s \) będą liczbami \( B \)-gładkimi. Rozkładamy każdą z nich na czynniki pierwsze:
+    \[
+        x_i = p_1^{\alpha_{1, i}} \cdots p_s^{\alpha_{s, i}}
+    \]
+    a następnie przypisujemy jej wektor:
+    \[
+        v_i = (\alpha_{1, i}, \dots, \alpha_{s, i}) \mod 2
+    \]
+    Jeśli dla \( \set{x_1, \dots, x_k} \) każdy czynnik \( p_i \) występuję parzyście wiele razy, czyli \( v_1 \oplus \ldots \oplus v_k = 0 \), jest to poszukiwany podzbiór.
+    Skoro \( k > s \), to wektory \( v_1, \dots, v_k \) są liniowo zależne w \( \integer_2^{s} \), więc taki podzbiór musi istnieć i można go znaleźć za pomocą eliminacji Gaussa w \( \bigO(s^3) \).
+\end{proof}
+Powyższą teorię można przekształcić na praktyczną metodę faktoryzacji liczby \( N \).
+\begin{greyframe}
+    Algorytm faktoryzacji:
+    \begin{enumerate}
+        \item Znajdź takie \( a_1, \dots, a_k \), że \( b_i = a_i^2 \pmod{N} \) jest \( B \)-gładkie.
+        \item Dla każdego \( b_i \) wyznacz wektor \( v_i \).
+        \item Znajdź taki podzbiór \( I \subseteq \set{1, \dots, k} \), że wektory \( v_{i \in I} \) są liniowo zależne.
+        \item Przypisz \( u = \prod_{i \in I} a_i \pmod{N} \) oraz \( v = \sqrt{\prod_{i \in I}\; b_i} \pmod{N} \).
+        \item Jeśli \( u \neq \pm v \), to \( \gcd(u + v, N) \) jest nietrywialnym dzielnikiem \( N \), \\ ponieważ \( u^2 = v^2 \pmod{N} \).
+        \item Jeśli \( u = \pm v \), to powtórz procedurę.
+    \end{enumerate}
+\end{greyframe}
+Krok 1. jest na razie czarną skrzynką, ale można za nią podstawić algorytm sita kwadratowego.
+
+\subsection{Sito kwadratowe}
+Poszukiwane liczby \( a_i \) muszą być większe od \( \sqrt{N} \), inaczej \( u = v \). Sprawdzamy więc po kolei dla potencjalnych kandydatów, czy reszty są \( B \)-gładkie.
+Dla ustalonego \( K \) oraz \( i \in \set{0, \dots, K-1} \) definiujemy:
+\[ X[i] = \ceil{\sqrt{N}} + i \]
+\[ Y[i] = X[i]^2 \pmod{N} = \pars{\ceil{\sqrt{N}} + i}^2 - N \]
+Trzeba rozłożyć liczby \( Y[i] \) na czynniki -- najlepiej wszystkie na raz, poniższym algorytmem.
+\begin{greyframe}
+    Algorytm sita kwadratowego:
+    \begin{enumerate}
+        \item Dla każdego \( p < B \):
+        \begin{enumerate}
+            \item Usuń ze zbioru \( \set{p_1, \dots, p_s} \) te liczby, dla których \( X[j]^2 \neq N \pmod{p} \), \\ czyli \( N \) nie jest resztą kwadratową modulo \( p \).
+            \item Algorytmem Tonellego-Shanksa znajdź rozwiązanie \( x = \pm k \) równania \\ \( x = N \pmod{p} \).
+            \item Podziel przez \( p \) wszystkie \( Y[i] \), dla których \( X[j] = \pm k \pmod{p} \).
+        \end{enumerate}
+        \item Jeśli \( Y[i] \) zmaleje do 1, to początkowo musiało być liczbą \( B \)-gładką.
+    \end{enumerate}
+\end{greyframe}
+W ramach dodatkowego usprawnienie algorytmu, możemy uniknąć dzielenia dużych liczb. Zamiast wartości \( Y[i] \) przechowujemy \( Z[i] = \log Y[i] \).
+Wtedy operację \( \frac{Y[i]}{p} \) zastępujemy działaniem \( Z[i] - \log p \). Warunkiem \( B \)-gładkości jest (prawie) wyzerowanie się \( Z[i] \).
+Problemem może być występowanie czynników \( Y[i] \) z potęgą \( \alpha > 1 \). Należy wykryć od razu liczby \( Y[i] \) podzielne przez \( p^{\alpha} \) dla każdego możliwego \( \alpha \), stosując tę samą metodę.
+
+Przy optymalnym wyborze parametrów, czyli \( B, \ K \) rzędu \( e^{\sqrt{\ln N \ln\ln N}} \), złożoność algorytmu wynosi \( \bigO(e^{(1 + {\scriptscriptstyle\mathcal{O}}(1))\sqrt{\ln N \ln\ln N}}) \), czyli jest podwykładnicza.
+
+\subsection{Metoda Multi Polynomial Quadratic Sieve (MPQS)}
+Algorytm sita kwadratowego można zrównoleglić, używając wielu różnych wielomianów postaci \( (A \cdot X + B)^2 - N \) zamiast \( X^2 - N \).

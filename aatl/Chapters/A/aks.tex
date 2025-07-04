@@ -1,0 +1,40 @@
+Algorytm opiera się na poniższym twierdzeniu:
+
+\begin{theorem} \\
+Niech \( n, a \in \integer \) będą liczbami względnie pierwszymi. Równość
+\[
+    (X + a)^n = X^n + a \pmod{n}
+\]
+zachodzi wtedy i tylko wtedy, gdy \( n \) jest liczbą pierwszą.
+\end{theorem}
+\begin{proof}[Szkic dowodu]\\
+Jeśli \( n \) jest liczbą pierwszą, to wszystkie współczynniki \( n \choose k \) dla \( 0 < k < n \) są podzielne przez \( n \), więc \( (X + a)^n = X^n + a^n \pmod{n} \) oraz z Małego Twierdzenia Fermata wiemy, że \( a^n = a \pmod{n} \).
+
+Jeśli \( n \) nie jest liczbą pierwszą, to któryś współczynnik \( n \choose k \) nie jest podzielny przez \( n \), więc wielomian \( (X + a)^n \) zawiera wyraz \( {n \choose k} X^ka^{n-k} \), gdzie \( k \) jest najmniejszym dzielnikiem \( n \).
+\end{proof}
+
+Ponieważ obliczenie \( (X + a)^n \) jest zbyt czasochłonne, przenosimy się do pierścienia ilorazowego \( \integer_n[X]/(X^r - 1) \) dla pewnego \( r \) takiego, że rząd \( n \)
+modulo \( r \) jest wysoki, co najmniej \( \log^2n \). Przeprowadzenie testu dla jednego \( a \) nie wystarczy, ale potrzeba pierwiastkowo-logarytmicznie mało powtórzeń.
+
+\newpage
+\begin{greyframe}
+    Algorytm AKS:
+    \begin{enumerate}
+        \item Jeśli \( n = m^k \) dla \( k \geq 2 \), zwróć ZŁOŻONA.
+        \item \textcolor{Blue}{Znajdź najmniejsze \( r \) takie, że rząd \( n \) modulo \( r \) jest większy od \( \log^2n \).}
+        \item Jeśli \( 1 < \gcd(a, n) < n \) dla jakiegoś \( a \leq r \), zwróć ZŁOŻONA.
+        \item Jeśli \( n \leq r \), zwróć PIERWSZA.
+        \item \textcolor{Blue}{Dla \( 1 \leq a \leq \sqrt{r}\log n \) sprawdź równość:}
+        \[
+            \textcolor{Blue}{(X + a)^n = X^n + a \mod (n, X^r-1)}
+        \]
+        \textcolor{Blue}{Jeśli równość nie zachodzi, zwróć ZŁOŻONA.}
+        \item Zwróć PIERWSZA.
+    \end{enumerate}
+\end{greyframe}
+{\small (W kolorze wyróżniony jest właściwy algorytm. Pozostałe kroki obsługują przypadki brzegowe.)}
+
+\textbf{Złożoność} \\
+Sprawdzamy \( \bigO(\sqrt{r} \log n) \) równań na wielomianach stopnia \( r \) każde w \( \widetilde{\bigO}(r \log^2n) \) krokach, \\ co daje złożoność \( \widetilde{\bigO}(r^{3/2} \log^3n) = \widetilde{\bigO}(\log^{10.5}n)\).
+
+Panowie Lenstry i Pomerance przyspieszyli algorytm AKS do \( \widetilde{\bigO}(\log^6n) \).
