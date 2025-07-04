@@ -102,7 +102,7 @@ save_release() {
 	mv ./_build/release-notes.md ./_build/old-release-notes.md
 	cat >./_build/release-notes.md <<EOF
 PDF notes generated from sources on push by a github action.
-Last update: $(git log HEAD^..HEAD --pretty=format:%ai) (commit $(git rev-parse --short HEAD)) <!-- DO NOT EDIT THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!! -->
+Last update: $(git log HEAD^..HEAD --pretty=format:%ai | head -n 1) (commit $(git rev-parse --short HEAD)) <!-- DO NOT EDIT THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!! -->
 
 Currently available PDFs:
 
