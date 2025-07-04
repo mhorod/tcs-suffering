@@ -30,11 +30,14 @@ EOF
 	grep '^Last update:' ./_build/release-notes.md | sed -Ee 's/.*?\(commit ([0-9a-f]+)\)/\1/' | tr -cd '0-9a-f\n' >./_build/release-commit
 	RELEASE_TIME=$(cat ./_build/release-time)
 	RELEASE_COMMIT=$(cat ./_build/release-commit)
+	if echo "$RELEASE_TIME" | grep -qv '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9] [+\-][0-9][0-9][0-9][0-9]$'; then
+		RELEASE_TIME="0000-00-00 00:00:00 +0000"
+	fi
 
 	if [ "$RELEASE_TIME" = "0000-00-00 00:00:00 +0000" ]; then
 		git fetch --unshallow
 	else
-		git fetch --shallow-since "$RELEASE_TIME"
+		git fetch --shallow-since "$RELEASE_TIME" || git fetch --unshallow
 	fi
 
 	if [ "$RELEASE_TIME" = "0000-00-00 00:00:00 +0000" ]; then
