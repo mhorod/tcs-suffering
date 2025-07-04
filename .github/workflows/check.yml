@@ -1,0 +1,159 @@
+# Adapted by @tfkls from his work at https://github.com/tfkls/sio2-contest-template
+# This is free and unencumbered software released in the public domain. See <unlicense.org> for more details.
+
+name: check
+on: pull_request
+concurrency:
+  # No race-conditions within a single PR identified by it's branch reference (github.ref)
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  check:
+    name: Check and compile PR changes
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Setup Git repository (deep)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch release data
+        id: load-release
+        run: |
+          set -ex
+          mkdir -p ~/cache/
+
+          rm -rf ./_build/
+          mkdir ./_build/
+          mkdir ./_build/results
+          touch ./_build/status
+
+          rm -f ./_build/potential_update
+          touch ./_build/potential_update
+          for dir in *; do
+            [ -d "$dir" ] && [ -f "$dir"/main.tex ] && echo "$dir" >>./_build/potential_update
+          done
+
+          rm -f ./_build/update
+          BASE_SHA=$(git merge-base origin/"${GITHUB_BASE_REF}" HEAD)
+
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            grep -q "^${dir}$" ./_build/update 2>/dev/null && continue
+            git diff --quiet "$BASE_SHA" HEAD ./"$dir" || echo "$dir" >>./_build/update
+          done <./_build/potential_update
+
+          [ -f "./_build/update" ] && echo "update=true" >>"$GITHUB_OUTPUT" || echo "update=false" >>"$GITHUB_OUTPUT"
+          touch ./_build/update
+
+      - name: Cache LaTeX docker image
+        id: cache
+        if: steps.load-release.outputs.update == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/
+          # We reuse cache cause why not!
+          key: release-cache
+
+      - name: Download LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.load-release.outputs.update == 'true' }}
+        run: |
+          docker pull ghcr.io/xu-cheng/texlive-full:latest
+          docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
+
+      - name: Load cached LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit == 'true' && steps.load-release.outputs.update == 'true' }}
+        run: |
+          docker load -i ~/cache/docker-latex.tar
+
+      - name: Compile the changed PDFs
+        uses: xu-cheng/texlive-action@v2
+        if: steps.load-release.outputs.update == 'true'
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
+          run: |
+            set -ex
+            compile_dir() (
+              set -ex
+              FAIL=
+
+              # Timeout ain't posix but exists on alpine/busybox
+              if timeout 90 ./build-one.sh "${1}" >./"${1}make.log" 2>&1; then
+                true
+              else
+                case "$?" in
+                  124|143)
+                    echo "Timed out"
+                    FAIL="Timeout"
+                    ;;
+                  *)
+                    echo "Failed w/exitcode: $?"
+                    FAIL="Failure"
+                    ;;
+                esac
+              fi
+
+              if [ -f "./build/${1}/main.pdf" ]; then
+                mv "./build/${1}/main.pdf" "./_build/results/${1}.pdf"
+                if [ "$FAIL" = "Failure" ]; then
+                  # Small appends are atomic, so no need to `flock`
+                  echo "${dir}:Success w/errors" >>./_build/status
+                  FAIL=""
+                fi
+              fi
+
+              # Easy to add extra TeX artifacts if we want to later.
+              mv "./${1}make.log" "./_build/results/${1}.log" || exit "$?"
+
+              if [ -n "$FAIL" ]; then
+                echo "Failed to compile ${1}/main.tex. Reason: $FAIL"
+                exit 1
+              else
+                echo "Successfully compiled ${1}/main.tex"
+                echo "${dir}:Success" >>./_build/status
+              fi
+            )
+
+            COUNT=0
+            while IFS= read -r dir; do
+              # Had issues with parallelism; disabled for now
+              compile_dir "${dir}" # 2>/dev/null &
+              COUNT=$((COUNT+1))
+              if [ "$COUNT" -ge 4 ]; then
+                for job in $(jobs -p); do
+                  wait "$job" || true
+                done
+                COUNT=0
+              fi
+            done<./_build/update
+            for job in $(jobs -p); do
+              wait "$job" || true
+            done
+
+      - name: Upload genererated artifacts
+        uses: actions/upload-artifact@v4
+        id: build-artifact
+        with:
+          name: pr-check-${{ github.event.pull_request.number }}
+          path: ./_build/results
+          overwrite: true
+
+      - name: Comment on the PR on first release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_PR: ${{ github.event.pull_request.number }}
+          ARTIFACT_URL: ${{ steps.build-artifact.outputs.artifact-url }}
+          PR_COMMIT: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -ex
+          [ -n "$ARTIFACT_URL" ] && gh pr comment $GH_PR --edit-last --create-if-none -F - <<EOF
+          # PR Artifacts
+          ### You can download the built PDFs and build logs for directories changed by this PR [here]($ARTIFACT_URL).
+          ### Last successful build: $(echo "$PR_COMMIT" | head -c 8) — $(cat ./_build/update | sed 's/$/, /g' | tr -d '\n' | head -c -2)
+
+          *Note: this comment will update automatically on each successfully built change on this PR's branch.*
+          EOF

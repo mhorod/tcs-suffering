@@ -11,7 +11,7 @@
 \usepackage[utf8]{inputenc}
 
 % Math
-\usepackage{amsmath} 
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -19,6 +19,7 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{minted}
 \usepackage{multicol}
+\usepackage{mismath}
 
 % Better links
 \usepackage{hyperref}
@@ -54,9 +55,9 @@
 \fancyhead[RE]{\textbf{\textit{\nouppercase{\leftmark}}}}
 \fancyhead[LO]{\textbf{\textit{\nouppercase{\rightmark}}}}
 \fancypagestyle{plain}{ %
-\fancyhf{} % remove everything
-\renewcommand{\headrulewidth}{0pt} % remove lines as well
-\renewcommand{\footrulewidth}{0pt}}
+	\fancyhf{} % remove everything
+	\renewcommand{\headrulewidth}{0pt} % remove lines as well
+	\renewcommand{\footrulewidth}{0pt}}
 \setcounter{secnumdepth}{4}
 
 \pagestyle{fancy}
