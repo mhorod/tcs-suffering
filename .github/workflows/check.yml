@@ -149,11 +149,13 @@ jobs:
           ARTIFACT_URL: ${{ steps.build-artifact.outputs.artifact-url }}
           PR_COMMIT: ${{ github.event.pull_request.head.sha }}
         run: |
-          set -ex
-          [ -n "$ARTIFACT_URL" ] && gh pr comment $GH_PR --edit-last --create-if-none -F - <<EOF
+          set -x
+          if [ -n "$ARTIFACT_URL" ]; then
+          gh pr comment $GH_PR --edit-last --create-if-none -F - <<EOF
           # PR Artifacts
           ### You can download the built PDFs and build logs for directories changed by this PR [here]($ARTIFACT_URL).
           ### Last successful build: $(echo "$PR_COMMIT" | head -c 8) — $(cat ./_build/update | sed 's/$/, /g' | tr -d '\n' | head -c -2)
 
           *Note: this comment will update automatically on each successfully built change on this PR's branch.*
           EOF
+          fi
