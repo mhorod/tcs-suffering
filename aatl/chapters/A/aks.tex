@@ -1,13 +1,13 @@
 Algorytm opiera się na poniższym twierdzeniu:
 
-\begin{theorem} \\
+\begin{theorem}
 Niech \( n, a \in \integer \) będą liczbami względnie pierwszymi. Równość
 \[
     (X + a)^n = X^n + a \pmod{n}
 \]
 zachodzi wtedy i tylko wtedy, gdy \( n \) jest liczbą pierwszą.
 \end{theorem}
-\begin{proof}[Szkic dowodu]\\
+\begin{proof}[Szkic dowodu]
 Jeśli \( n \) jest liczbą pierwszą, to wszystkie współczynniki \( n \choose k \) dla \( 0 < k < n \) są podzielne przez \( n \), więc \( (X + a)^n = X^n + a^n \pmod{n} \) oraz z Małego Twierdzenia Fermata wiemy, że \( a^n = a \pmod{n} \).
 
 Jeśli \( n \) nie jest liczbą pierwszą, to któryś współczynnik \( n \choose k \) nie jest podzielny przez \( n \), więc wielomian \( (X + a)^n \) zawiera wyraz \( {n \choose k} X^ka^{n-k} \), gdzie \( k \) jest najmniejszym dzielnikiem \( n \).
@@ -35,6 +35,6 @@ modulo \( r \) jest wysoki, co najmniej \( \log^2n \). Przeprowadzenie testu dla
 {\small (W kolorze wyróżniony jest właściwy algorytm. Pozostałe kroki obsługują przypadki brzegowe.)}
 
 \textbf{Złożoność} \\
-Sprawdzamy \( \bigO(\sqrt{r} \log n) \) równań na wielomianach stopnia \( r \) każde w \( \widetilde{\bigO}(r \log^2n) \) krokach, \\ co daje złożoność \( \widetilde{\bigO}(r^{3/2} \log^3n) = \widetilde{\bigO}(\log^{10.5}n)\).
+Sprawdzamy \( \bigO(\sqrt{r} \log n) \) równań na wielomianach stopnia \( r \) każde w \( \widetilde{\bigO}(r \log^2n) \) krokach, co dla daje złożoność \( \widetilde{\bigO}(r^{3/2} \log^3n) \). Można udowodnić, że wystarczy \( r = \bigO(\log^5(n)) \), więc algorytm działa w \( \widetilde{\bigO}(\log^{10.5}n)\).
 
 Panowie Lenstry i Pomerance przyspieszyli algorytm AKS do \( \widetilde{\bigO}(\log^6n) \).

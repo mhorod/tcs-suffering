@@ -38,4 +38,5 @@ Przy losowaniu sprawdzamy nierozkładalność wielomianu, korzystając z tego, �
 \begin{theorem}
     Dla \( k \in \natural \), wielomian \( X^{p^k} - X \) nad \( \integer_p \) jest iloczynem wszystkich unormowanych wielomianów nierozkładalnych, których stopnie dzielą \( k \).
 \end{theorem}
-Wystarczy więc sprawdzić, czy potencjalny kandydat \( w \) jest względnie pierwszy z \( X^{p^d} - X \) dla każdego \( d < k \) -- jeśli tak, jest nierozkładalny.
+Wystarczy więc sprawdzić, czy potencjalny kandydat \( w \) jest względnie pierwszy z \( X^{p^d} - X \) dla każdego \( d < k \) -- jeśli tak, jest nierozkładalny. \\
+\textit{Uwaga techniczna}: Ponieważ \( p^d \) jest potencjalnie bardzo duże, obliczamy najpierw \( X^p \pmod{w} \), a~potem podnosimy wynik do odpowiedniej potęgi \( d \).

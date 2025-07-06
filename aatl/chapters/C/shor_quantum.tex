@@ -38,6 +38,10 @@ Algorytm wygląda następująco:
     \item Zmierz ostatnie \( n \) kubitów.
     \item Nałóż na pierwsze \( n \) kubitów bramkę \( Q \).
     \item Zmierz pierwsze \( n \) kubitów -- wynik to \( j \cdot d \), czyli przypadkowa wielokrotność \( d \).
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/shor_circuit.png}
+        \end{figure}
     \end{enumerate}
 \end{greyframe}
 Po kroku 4. na pierwszych \( n \) kubitach zostają tylko takie układy \( x \), dla których \( f(x) = y \) i~każdy z nich jest równie prawdopodobny.
@@ -57,9 +61,8 @@ Na koniec, mając kubit w stanie
 \[
     \frac{1}{\sqrt{d}} \sum_{x=0}^{N-1} b_x |x\rangle,
 \]
-gdzie \( b_x = \mathbbm{1}[x = s \!\!\pmod{r}] \), chcemy wyznaczyć \( r \). Do tego potrzebna jest kwantowa transformata Fouriera.
-\vfill
-\newpage
+gdzie \( b_x = \mathbbm{1}[x = s \!\!\pmod{r}] \), chcemy wyznaczyć \( r \) kwantową transformatą Fouriera.
+
 \subsection*{Kwantowa transformata Fouriera}
 Transformata Fouriera przekształca wektor \( v \) w wektor \( Q \cdot v \), gdzie \( Q \) jest macierzą Vandermonde'a:
 \[

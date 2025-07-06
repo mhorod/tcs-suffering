@@ -26,11 +26,7 @@ Dla danych \( a, b > 0 \) algorytm zwraca \( d = \gcd(a,b) \) oraz liczby całko
     \]
 \end{proof}
 \textit{Algorytm zwraca poprawne \( (s, t) \).}
-\begin{proof}
-    Z tożsamości B\'ezout wiemy, że
-    \[
-        \forall_{a, b \not= 0 } \ \exists_{s, t} \ a \cdot s + b \cdot t = \gcd(a, b)
-    \]
+\begin{proof}[Dowód -- indukcja po mniejszym argumencie]
     Jako krok bazowy indukcji po \( a, b \) sprawdzamy przypadek \( b = 0 \), rzeczywiście \( a \cdot 1 + 0 = \gcd(a, 0) \). \\
     Niech \( a = q \cdot b + r \). Korzystając z tego, że \( \gcd(a, b) = \gcd(b, r) = d \), otrzymujemy:
     \[
@@ -41,6 +37,7 @@ Dla danych \( a, b > 0 \) algorytm zwraca \( d = \gcd(a,b) \) oraz liczby całko
     \]
     czyli \( s = t', \ t = s' - q \cdot t' \), co było do pokazania.
 \end{proof}
+Zatem algorytm w konstruktywny sposób dowodzi tożsamości B\'ezout.
 
 Własności algorytmu:
 \begin{enumerate}

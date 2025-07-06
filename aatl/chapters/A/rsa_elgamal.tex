@@ -8,7 +8,9 @@ Najważniejszym założeniem jest, że nie potrafimy efektywnie odtworzyć klucz
         \item Oblicz \( N = p \cdot q \) dla wybranych liczb pierwszych \( p \), \( q \). \\
         Wtedy \( \varphi(N) = (p-1) \cdot (q-1) \).
         \item Wybierz \( e \) względnie pierwsze z \( \varphi(N) \). Oblicz \( d \) takie, że  \( e\cdot d = 1 \pmod{\varphi(N)} \).
-        \item Zdefiniuj \( E(x) = x^e \pmod{N} \) oraz \( D(x) = x^d \pmod{N} \). Kluczem publicznym \\ jest \( (e, n) \).
+        \item Ustal klucz publiczny \( (e, N) \).
+        \item Zaszyfruj wiadomość \( x \): \( E(x) = x^e \pmod{N} \)
+        \item Odszyfruj wiadomość: \( D(x) = x^d \pmod{N} \)
     \end{enumerate}
 \end{greyframe}
 
@@ -45,9 +47,9 @@ W tym dniu (18.05.2025), nie ma ani dowodu na to, że algorytm rozkładu na czyn
     \begin{enumerate}
         \item Wybierz jakąś grupę \( G \) (np. grupę multiplikatywną ciała \( \mathbb{F}_q \)) i element \( g \in G \) \\ (najlepiej generator).
         \item Wylosuj liczbę \( x \in \set{1, \ldots, \abs{G}-1} \).
-        \item Klucz publiczny to \( (g,g^x) \), a klucz prywatny to \( (g,x) \).
-        \item Szyfrowanie wiadomości \( M \): wylosuj liczbę \( y \), wyślij \( (g^y, M \cdot g^{xy}) \). 
+        \item Ustal klucz publiczny \( (g,g^x) \) i klucz prywatny \( (g,x) \).
+        \item Zaszyfruj wiadomość \( M \): wylosuj liczbę \( y \), wyślij \( (g^y, M \cdot g^{xy}) \). 
     \end{enumerate}
 \end{greyframe}
 Otrzymawszy \( (g^y, \ M \cdot g^{xy}) \) i znając klucz prywatny \( x \), można łatwo obliczyć \( g^{xy} \), czyli też odtworzyć \( M = \pars{M \cdot g^{xy}} \cdot g^{-xy} \).
-Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a nie jest.
+Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a obecnie ludzkość nie potrafi go rozwiązać.

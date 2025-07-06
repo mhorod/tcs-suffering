@@ -1,4 +1,4 @@
-Algorytm Tonellego-Shanksa służy do obliczania pierwiastka dyskretnego w czasie wielomianowym randomizowanym.
+Algorytm Tonellego-Shanksa służy do obliczania pierwiastka dyskretnego \textbf{w grupie cyklicznej} w czasie wielomianowym randomizowanym.
 
 \begin{lemma}\label{ts:lemma1}
     Grupa cykliczna \( G \) o liczbie elementów \(n = 2m \), zawiera dokładnie \( m \) kwadratów, a każdy kwadrat ma dokładnie dwa pierwiastki.
@@ -79,4 +79,3 @@ Ostateczny wynik to:
 
 Algorytm wykonuje \( \bigO(\log n) \) iteracji, bo po tylu dzieleniach \( q \) staje się nieparzyste, więc jest to algorytm wielomianowy.
 Z lematu~\ref{ts:lemma1} wynika, że przy losowaniu \( z \) znajdziemy niekwadrat z prawdopodobieństwem \( \frac{1}{2} \), czyli w oczekiwaniu po stałej liczbie kroków będzie można przejść do kroku 2.
-Nie potrafimy zdeterminizować tego kroku, ponieważ gdyby dało się znaleźć niekwadrat bez losowania, czyli policzyć pierwiastek dyskretny deterministycznie, to również można by deterministycznie rozłożyć liczbę na czynniki pierwsze (patrz: pytanie~\ref{A:question09}).
