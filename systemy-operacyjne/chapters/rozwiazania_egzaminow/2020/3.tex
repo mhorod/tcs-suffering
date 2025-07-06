@@ -2,16 +2,16 @@ Generalnie jak przeczytamy ten kod, to zauważymy, że pytanie jest o to, czy i 
 
 Cytując dokumentację:
 \begin{displayquote}
-    alarm() arranges for a SIGALRM signal to be delivered to the
-       calling process in seconds seconds.
+	alarm() arranges for a SIGALRM signal to be delivered to the
+	calling process in seconds seconds.
 
-       If seconds is zero, any pending alarm is canceled.
+	If seconds is zero, any pending alarm is canceled.
 
-       In any event any previously set alarm() is canceled.
+	In any event any previously set alarm() is canceled.
 \end{displayquote}
 oraz
 \begin{displayquote}
-    Alarms created by alarm() are preserved across execve(2) and are not inherited by children created via fork(2).
+	Alarms created by alarm() are preserved across execve(2) and are not inherited by children created via fork(2).
 \end{displayquote}
 
 W takim razie nieważne ile każemy spać dziecku, wypisze ono dwie kropki -- jedną wewnątrz ifa, a drugą zaraz przed returnem.

@@ -3,49 +3,49 @@
 
 \begin{definition}
 
- \textbf{Linear-Bounded Automaton} (LBA, automat ograniczony liniowo) to ograniczona MT będąca największą tuplą na tym przedmiocie 
-    \[
-        LBA = (Q, \Sigma, \Gamma, \delta, q_0, \blank \footnote{Symbol ten nie jest w zasadzie potrzebny, ale pojawił się na wykładzie - dla kompatybilności z maszyną Turinga.}, F, \vdash, \dashv)
-    \]
-    gdzie
-    \begin{itemize}
-        \item \( Q \) -- skończony zbiór stanów
-        \item \( \Sigma \subseteq \Gamma \) -- skończony alfabet wejściowy
-        \item \( \Gamma \) -- skończony alfabet taśmowy
-        \item \( \delta : Q \times \Gamma \rightarrow 
-        Q \times \Gamma \times \set{-1, +1}
-        \) -- stan, litera \( \rightarrow \) nowy stan, zmiana litery, ruch głowicą (lewo, prawo)
-    \end{itemize}
-    Przy czym jeśli \( ((q, \vdash), (q', X, d)) \in \delta \) to \( X = \vdash, d = 1 \) analogicznie po drugiej stronie taśmy
-    
-    \begin{itemize}
-        \item \( q_0 \) -- stan startowy
-        \item \( \blank \in \Gamma \setminus \Sigma \) -- pusty symbol / zero (domyślny symbol taśmy)
-        \item \( F \) -- zbiór stanów akceptujących
-    \end{itemize}
-    
-    Ponadto zakładamy, że \(Q \cap \Gamma = \varnothing\). 
+	\textbf{Linear-Bounded Automaton} (LBA, automat ograniczony liniowo) to ograniczona MT będąca największą tuplą na tym przedmiocie
+	\[
+		LBA = (Q, \Sigma, \Gamma, \delta, q_0, \blank \footnote{Symbol ten nie jest w zasadzie potrzebny, ale pojawił się na wykładzie - dla kompatybilności z maszyną Turinga.}, F, \vdash, \dashv)
+	\]
+	gdzie
+	\begin{itemize}
+		\item \( Q \) -- skończony zbiór stanów
+		\item \( \Sigma \subseteq \Gamma \) -- skończony alfabet wejściowy
+		\item \( \Gamma \) -- skończony alfabet taśmowy
+		\item \( \delta : Q \times \Gamma \rightarrow
+		      Q \times \Gamma \times \set{-1, +1}
+		      \) -- stan, litera \( \rightarrow \) nowy stan, zmiana litery, ruch głowicą (lewo, prawo)
+	\end{itemize}
+	Przy czym jeśli \( ((q, \vdash), (q', X, d)) \in \delta \) to \( X = \vdash, d = 1 \) analogicznie po drugiej stronie taśmy
+
+	\begin{itemize}
+		\item \( q_0 \) -- stan startowy
+		\item \( \blank \in \Gamma \setminus \Sigma \) -- pusty symbol / zero (domyślny symbol taśmy)
+		\item \( F \) -- zbiór stanów akceptujących
+	\end{itemize}
+
+	Ponadto zakładamy, że \(Q \cap \Gamma = \varnothing\).
 \end{definition}
 
 \subsection{Równoważność CSG i LBA}
 
 \begin{theorem}
-    Dla każdej CSG G istnieje LBA A takie że \( L(G) = L(A) \)
-\end{theorem}
-
-\begin{proof} 
-Automat zaczyna ze słowem i zgaduje jaką produkcję wykonać (do tyłu). Następnie ją podstawia, skraca słowo jeśli trzeba, i sprawdza czy mamy przypadkiem sam symbol startowy. Jeśli tak, to akceptuje słowo.
-Jeśli gramatyka ma produkcję \(S \rightarrow \epsilon\), to sprawdzamy rownież puste słowo.
-\end{proof}
-
-\begin{theorem}
-    Dla każdego LBA A istnieje CSG G takie że \( L(A) = L(G) \)
+	Dla każdej CSG G istnieje LBA A takie że \( L(G) = L(A) \)
 \end{theorem}
 
 \begin{proof}
-Gramatyka będzie operować na klockach domino. Na górze będą literki, na dole symulacja pracy automatu: odpowiedni symbol oraz być może również głowica i / lub symbol końca taśmy. Zaczynamy od wylosowania takich klocków domino, które na górze mają słowo, a na dole mają stan początkowy automatu.
-Następnie korzystając z kontekstowości gramatyki, symulujemy przechodzenie głowicy oraz podmienianie przez nią symboli. Jeśli głowica automatu przejdzie do stanu akceptującego, "zwijamy interes", czyli zamieniamy domino z tym stanem w literkę z góry, a następnie każde domino które sąsiaduje
-z literką również zwijamy w literkę z góry tego domina. Należy jeszcze zauważyć, że ponieważ automat jest ograniczony liniowo, to nie zabraknie nam miejsca do jego symulacji.
+	Automat zaczyna ze słowem i zgaduje jaką produkcję wykonać (do tyłu). Następnie ją podstawia, skraca słowo jeśli trzeba, i sprawdza czy mamy przypadkiem sam symbol startowy. Jeśli tak, to akceptuje słowo.
+	Jeśli gramatyka ma produkcję \(S \rightarrow \epsilon\), to sprawdzamy rownież puste słowo.
+\end{proof}
 
-Formalnie niestety należy opisać wszystkie możwlie produkcje, których jest dużo. Nie jest to jednak trudne.
+\begin{theorem}
+	Dla każdego LBA A istnieje CSG G takie że \( L(A) = L(G) \)
+\end{theorem}
+
+\begin{proof}
+	Gramatyka będzie operować na klockach domino. Na górze będą literki, na dole symulacja pracy automatu: odpowiedni symbol oraz być może również głowica i / lub symbol końca taśmy. Zaczynamy od wylosowania takich klocków domino, które na górze mają słowo, a na dole mają stan początkowy automatu.
+	Następnie korzystając z kontekstowości gramatyki, symulujemy przechodzenie głowicy oraz podmienianie przez nią symboli. Jeśli głowica automatu przejdzie do stanu akceptującego, "zwijamy interes", czyli zamieniamy domino z tym stanem w literkę z góry, a następnie każde domino które sąsiaduje
+	z literką również zwijamy w literkę z góry tego domina. Należy jeszcze zauważyć, że ponieważ automat jest ograniczony liniowo, to nie zabraknie nam miejsca do jego symulacji.
+
+	Formalnie niestety należy opisać wszystkie możwlie produkcje, których jest dużo. Nie jest to jednak trudne.
 \end{proof}

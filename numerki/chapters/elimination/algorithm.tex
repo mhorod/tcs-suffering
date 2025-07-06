@@ -14,7 +14,7 @@ for i = 1, ..., n
 Złożoność: \( O(n^3) \), dokładnie \( \frac{2}{3}n^3 \) operacji na liczbach rzeczywistych
 
 \begin{warning}
-Przy wyborze małego elementu głównego stabilność numeryczna pogarsza się przez błędy zaokrągleń - mogą pojawić się bardzo małe i bardzo duże wartości.
+	Przy wyborze małego elementu głównego stabilność numeryczna pogarsza się przez błędy zaokrągleń - mogą pojawić się bardzo małe i bardzo duże wartości.
 \end{warning}
 
 Pivoting (częściowy) pomaga. Wybieramy wiersz z największym na wartość bezwzględną elementem na przekątnej i to daje większą stabilność numeryczną. Przy rozkładzie LU trzeba wtedy pamiętać, że wynikiem jest rozkład \( LU = PA \), gdzie \( P \) jest macierzą permutacji.

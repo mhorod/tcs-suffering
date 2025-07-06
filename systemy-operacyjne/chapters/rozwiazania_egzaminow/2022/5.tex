@@ -1,4 +1,4 @@
-Najlepiej chyba wyjaśnić jak to działa pod spodem: w kernelu każdy deskryptor reprezentowany jest przez strukturę \texttt{struct\_fd}. Każda z tych struktur trzyma wskaźnik do \textit{open file description} właśnie; \textit{ofd} trzyma informacje takie jak to, z jakimi flagami otwarty jest plik lub to gdzie mamy w nim swój ,,kursor''. Wiele \textit{fd} może wskazywać na to samo \textit{ofd} (np. możemy je klonować za pomocą funkcji \textit{dup}). 
+Najlepiej chyba wyjaśnić jak to działa pod spodem: w kernelu każdy deskryptor reprezentowany jest przez strukturę \texttt{struct\_fd}. Każda z tych struktur trzyma wskaźnik do \textit{open file description} właśnie; \textit{ofd} trzyma informacje takie jak to, z jakimi flagami otwarty jest plik lub to gdzie mamy w nim swój ,,kursor''. Wiele \textit{fd} może wskazywać na to samo \textit{ofd} (np. możemy je klonować za pomocą funkcji \textit{dup}).
 
 Co do flag: według jakiejś stronki \textit{GNU} obecnie istnieje tylko jedna flaga dla \textit{fd} i jest to \texttt{FD\_CLOEXEC}, która powoduje że deskryptor się zamyka po jakimś execute.
 

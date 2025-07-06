@@ -5,89 +5,89 @@ Liniowe odwzorowania mogą być czasem niewystarczające, będziemy się zatem s
 \subsection{Zależność między macierzą Grama a macierzą kowariancji}
 
 \begin{lemma}
-Niech \( x^{(1)}, \dots x^{(m)} \in \real^d \) będą wyśrodkowanymi danymi.
-Niech \( K = XX^T \) będzie macierzą Grama dla tych danych
-oraz \( \lambda \in  \real \) oraz \( a \in \real^m \) będą takie, że \( Ka = \lambda a \)
+	Niech \( x^{(1)}, \dots x^{(m)} \in \real^d \) będą wyśrodkowanymi danymi.
+	Niech \( K = XX^T \) będzie macierzą Grama dla tych danych
+	oraz \( \lambda \in  \real \) oraz \( a \in \real^m \) będą takie, że \( Ka = \lambda a \)
 
-Niech 
-\[
-    v = X^Ta
-\]
+	Niech
+	\[
+		v = X^Ta
+	\]
 
-Wtedy:
-\begin{enumerate}
-    \item Jeśli \( v \neq 0 \) to \( v \) jest wektorem własnym macierzy \( C = X^TX \) dla wartości własnej \( \lambda \)
-    \item Jeśli \( \norm{a} = 1 \) to \( \norm{v} = \sqrt{\lambda} \)
-\end{enumerate}
+	Wtedy:
+	\begin{enumerate}
+		\item Jeśli \( v \neq 0 \) to \( v \) jest wektorem własnym macierzy \( C = X^TX \) dla wartości własnej \( \lambda \)
+		\item Jeśli \( \norm{a} = 1 \) to \( \norm{v} = \sqrt{\lambda} \)
+	\end{enumerate}
 \end{lemma}
 \begin{proof} \( \)
 
-\begin{enumerate}
-    \item 
-        \begin{align*}
-            Ka &= \lambda a \\
-            XX^Ta &= \lambda a \\
-            X^T\pars{XX^Ta} &= X^T \pars{\lambda a} \\
-            \pars{X^TX}\pars{X^Ta} &= \lambda X^T a \\
-            Cv &= \lambda v
-        \end{align*}
-        
-    \item 
-        \begin{align*}
-            \norm{v}^2
-                &= \norm{\sum_{i=1}^m a_i x^{(i)}}^2 \\
-                &= \dotproduct{\sum_{i=1}^m a_i x^{(i)}, \sum_{i=1}^m a_i x^{(i)}} \\
-                &= \sum_{i=1}^m \sum_{j=1}^m a_i a_j\dotproduct{x^{(i)}, x^{(j)}} \\
-                &= a^TKa \\
-                &= a^T\lambda a \\
-                &= \lambda
-        \end{align*}
-    
-\end{enumerate}
+	\begin{enumerate}
+		\item
+		      \begin{align*}
+			      Ka                     & = \lambda a            \\
+			      XX^Ta                  & = \lambda a            \\
+			      X^T\pars{XX^Ta}        & = X^T \pars{\lambda a} \\
+			      \pars{X^TX}\pars{X^Ta} & = \lambda X^T a        \\
+			      Cv                     & = \lambda v
+		      \end{align*}
+
+		\item
+		      \begin{align*}
+			      \norm{v}^2
+			       & = \norm{\sum_{i=1}^m a_i x^{(i)}}^2                               \\
+			       & = \dotproduct{\sum_{i=1}^m a_i x^{(i)}, \sum_{i=1}^m a_i x^{(i)}} \\
+			       & = \sum_{i=1}^m \sum_{j=1}^m a_i a_j\dotproduct{x^{(i)}, x^{(j)}}  \\
+			       & = a^TKa                                                           \\
+			       & = a^T\lambda a                                                    \\
+			       & = \lambda
+		      \end{align*}
+
+	\end{enumerate}
 \end{proof}
 
 Mamy podobny lemat w drugą stronę
 
 \begin{lemma}
-    Niech \( Cv = \lambda v \), definiujemy \( a \)
-    \[
-        a = \frac{1}{\lambda}Xv
-    \]
-    wtedy \( a \) jest wektorem własnym macierzy Grama dla wartości \( \lambda \)
+	Niech \( Cv = \lambda v \), definiujemy \( a \)
+	\[
+		a = \frac{1}{\lambda}Xv
+	\]
+	wtedy \( a \) jest wektorem własnym macierzy Grama dla wartości \( \lambda \)
 \end{lemma}
 \begin{proof} \( \)
 
-Zaczniemy od pokazania, że niezerowe wektory własne macierzy \( C \) są liniowymi kombinacjami \( x^{(i)} \).
+	Zaczniemy od pokazania, że niezerowe wektory własne macierzy \( C \) są liniowymi kombinacjami \( x^{(i)} \).
 
-Mamy
-\begin{align*}
-    v 
-        &= \frac{1}{\lambda} Cv \\
-        &= \frac{1}{\lambda} \sum_{i=1}^m x^{(i)} x^{(i)^T}v \\
-        &= \frac{1}{\lambda} \sum_{i=1}^m x^{(i)}\dotproduct{x^{(i)}, v} \\
-        &= \sum_{i=1}^m x^{(i)}\frac{1}{\lambda}\dotproduct{x^{(i)}, v} \\
-        &= \sum_{i=1}^m x^{(i)} a_i
-\end{align*}
+	Mamy
+	\begin{align*}
+		v
+		 & = \frac{1}{\lambda} Cv                                          \\
+		 & = \frac{1}{\lambda} \sum_{i=1}^m x^{(i)} x^{(i)^T}v             \\
+		 & = \frac{1}{\lambda} \sum_{i=1}^m x^{(i)}\dotproduct{x^{(i)}, v} \\
+		 & = \sum_{i=1}^m x^{(i)}\frac{1}{\lambda}\dotproduct{x^{(i)}, v}  \\
+		 & = \sum_{i=1}^m x^{(i)} a_i
+	\end{align*}
 
-Teraz pokażemy, jak wyrazić wektory własne macierzy \( C \) mając wektory własne macierzy \( K \)
+	Teraz pokażemy, jak wyrazić wektory własne macierzy \( C \) mając wektory własne macierzy \( K \)
 
-\begin{align*}
-    Cv &= \lambda v \\
-    \pars{\sum_{i=1}^m x^{(i)}x^{(i)^T}}\pars{\sum_{i=1}^m x^{(i)} a_i} &= \lambda \sum_{i=1}^m a_i x^{(i)} \\
-    \sum_{i=1}^m \sum_{j=1}^m x^{(j)}x^{(j)^T} x^{(i)} a_i &= \lambda \sum_{i=1}^m a_i x^{(i)} \\
-    x^{(n)^T} \pars{\sum_{i=1}^m \sum_{j=1}^m a_i x^{(j)} \dotproduct{x^{(j)}, x^{(i)}} } &= \lambda \sum_{i=1}^m a_i x^{(n)^T} x^{(i)} \\
-    \sum_{i=1}^m \sum_{j=1}^m a_i \dotproduct{x^{(n)}, x^{(j)}} \dotproduct{x^{(j)}, x^{(i)}} &= \lambda \sum_{i=1}^m a_i x^{(n)^T} x^{(i)} \\
-    (K^2a)_n &= \lambda (Ka)_n \\
-    Ka = \lambda a
-\end{align*}
+	\begin{align*}
+		Cv                                                                                        & = \lambda v                                  \\
+		\pars{\sum_{i=1}^m x^{(i)}x^{(i)^T}}\pars{\sum_{i=1}^m x^{(i)} a_i}                       & = \lambda \sum_{i=1}^m a_i x^{(i)}           \\
+		\sum_{i=1}^m \sum_{j=1}^m x^{(j)}x^{(j)^T} x^{(i)} a_i                                    & = \lambda \sum_{i=1}^m a_i x^{(i)}           \\
+		x^{(n)^T} \pars{\sum_{i=1}^m \sum_{j=1}^m a_i x^{(j)} \dotproduct{x^{(j)}, x^{(i)}} }     & = \lambda \sum_{i=1}^m a_i x^{(n)^T} x^{(i)} \\
+		\sum_{i=1}^m \sum_{j=1}^m a_i \dotproduct{x^{(n)}, x^{(j)}} \dotproduct{x^{(j)}, x^{(i)}} & = \lambda \sum_{i=1}^m a_i x^{(n)^T} x^{(i)} \\
+		(K^2a)_n                                                                                  & = \lambda (Ka)_n                             \\
+		Ka = \lambda a
+	\end{align*}
 \end{proof}
 
 \subsection{Funkcje jądrowe}
 Możemy teraz skorzystać z powyższych dwóch lematów i zaproponować poniższy algorytm:
 \begin{enumerate}
-    \item Wyznacz macierz Grama \( K \) i jej wektor własny \( a \)
-    \item Znormalizuj \( a \) aby \( \norm{a} = 1 \)
-    \item Oblicz \( v = \frac{1}{\sqrt{\lambda}} \sum_{i=1}^m a_i x^{(i)} \)
+	\item Wyznacz macierz Grama \( K \) i jej wektor własny \( a \)
+	\item Znormalizuj \( a \) aby \( \norm{a} = 1 \)
+	\item Oblicz \( v = \frac{1}{\sqrt{\lambda}} \sum_{i=1}^m a_i x^{(i)} \)
 \end{enumerate}
 
 Problem jest taki, że my korzystamy z \( x^{(i)} \) przy obliczaniu \( v \) -- chcemy się tego pozbyć.
@@ -95,12 +95,12 @@ Okazuje się, że nie musimy obliczać wektorów własnych per se, wystarczy nam
 
 W przypadku jednowymiarowym mamy
 \[
-    v = \sum_{i=1}^m a_i x^{(i)}
+	v = \sum_{i=1}^m a_i x^{(i)}
 \]
 zatem
 \[
-    \pi_v(x^{(i)}) = v^Tx^{(i} = \sum_{j=1}^m a_j\dotproduct{x^{(j)}, x^{i}} =
-    \sum_{j=1}^m a_i \kappa(x^{(j)}, x^{(i)})
+	\pi_v(x^{(i)}) = v^Tx^{(i} = \sum_{j=1}^m a_j\dotproduct{x^{(j)}, x^{i}} =
+	\sum_{j=1}^m a_i \kappa(x^{(j)}, x^{(i)})
 \]
 
 No i super -- możemy korzystać z dowolnych funkcji jądrowych.
@@ -110,23 +110,23 @@ Niech \( M \) będzie macierzą wypełnioną wartością \( \frac{1}{m} \) a \( 
 
 Obliczamy
 \[
-    K \leftarrow K - MK - KM + MKM
+	K \leftarrow K - MK - KM + MKM
 \]
 po rozpisaniu tego mnożenia okaże się że istotnie dostaniemy \( K \) takie, jak gdyby wektory \( \phi(x^{(i)}) \) były uśrednione.
 
 Algorytm jest bardzo podobny jak bez funkcji jądrowych tj.:
 \begin{enumerate}
-    \item Obliczamy macierz Grama \( K \)
-    \item Środkujemy dane w przestrzeni cech
-    \item Wyznaczamy rozkład SVD \( K = U\Sigma V^T \)
-    \item Definiujemy \( V_r \)
-    \[
-        V_r = \begin{bmatrix}
-        \frac{1}{\sqrt{\lambda_1}} v_1 \hdots \frac{1}{\sqrt{\lambda_l}} v_l
-        \end{bmatrix}
-    \]
-    \item Rzutujemy dane z macierzy Grama na przestrzeń rozpiętą na wektorach z \( V_r \)
-    \[
-        z^{(i)} = V_r^T K_i
-    \]
+	\item Obliczamy macierz Grama \( K \)
+	\item Środkujemy dane w przestrzeni cech
+	\item Wyznaczamy rozkład SVD \( K = U\Sigma V^T \)
+	\item Definiujemy \( V_r \)
+	      \[
+		      V_r = \begin{bmatrix}
+			      \frac{1}{\sqrt{\lambda_1}} v_1 \hdots \frac{1}{\sqrt{\lambda_l}} v_l
+		      \end{bmatrix}
+	      \]
+	\item Rzutujemy dane z macierzy Grama na przestrzeń rozpiętą na wektorach z \( V_r \)
+	      \[
+		      z^{(i)} = V_r^T K_i
+	      \]
 \end{enumerate}

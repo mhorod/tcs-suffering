@@ -18,11 +18,11 @@ Każdy proces ma swoją własną strukturę tabel stron, więc przy zmianie kont
 
 W Linuxie strony są mapowane na żądanie w następujący sposób:
 \begin{itemize}
-    \item Stronicowanie jest używane do zaimplementowania pamięci wirtualnej. Każda strona pamięci może być też zapisana na dysku w pliku swap, albo partycji swap
-    \item Współdzielenie pamięci pomiędzy procesami jest zaimplementowane używając stronicowania. Kod bibliotek współdzielonych jest ładowany do pamięci raz, a potem współdzielony pomiędzy wszystkimi procesami używając stronicowania
-    \item Stronicowanie w Linuxie jest używane do wielu optymalizacji. Na przykład, gdy proces jest forkowany, to tylko jego tablica stron jest kopiowana, a nie cała pamięć
-    \item Gdy proces próbuje uzyskać dostęp do adresu, który nie jest zmapowany w tabeli stron, to procesor generuje błąd stronicowania (page fault), który powoduje przekazanie sterowania kernelowi
-    \item Kernel sprawdza, czy adres, do którego chciał uzyskać dostęp proces, jest poprawny.
-    \item Jeśli adres nie jest poprawny, to kernel wysyła do procesu sygnał o błędzie, który domyślnie zatrzymuje proces
-    \item Jeśli adres jest poprawny, to kernel uzupełnia odpowiednie informacje w tabeli stron i oddaje sterowanie procesowi w taki sposób, żeby ponownie wykonał tę instrukcję, która wcześniej spowodowała błąd stronicowania
+	\item Stronicowanie jest używane do zaimplementowania pamięci wirtualnej. Każda strona pamięci może być też zapisana na dysku w pliku swap, albo partycji swap
+	\item Współdzielenie pamięci pomiędzy procesami jest zaimplementowane używając stronicowania. Kod bibliotek współdzielonych jest ładowany do pamięci raz, a potem współdzielony pomiędzy wszystkimi procesami używając stronicowania
+	\item Stronicowanie w Linuxie jest używane do wielu optymalizacji. Na przykład, gdy proces jest forkowany, to tylko jego tablica stron jest kopiowana, a nie cała pamięć
+	\item Gdy proces próbuje uzyskać dostęp do adresu, który nie jest zmapowany w tabeli stron, to procesor generuje błąd stronicowania (page fault), który powoduje przekazanie sterowania kernelowi
+	\item Kernel sprawdza, czy adres, do którego chciał uzyskać dostęp proces, jest poprawny.
+	\item Jeśli adres nie jest poprawny, to kernel wysyła do procesu sygnał o błędzie, który domyślnie zatrzymuje proces
+	\item Jeśli adres jest poprawny, to kernel uzupełnia odpowiednie informacje w tabeli stron i oddaje sterowanie procesowi w taki sposób, żeby ponownie wykonał tę instrukcję, która wcześniej spowodowała błąd stronicowania
 \end{itemize}

@@ -6,33 +6,33 @@ Będziemy próbowali jakoś odsiać takie hipotezy, które są zbyt złożone.
 
 Zaczynamy w tym celu od wprowadzenia miary złożoności.
 \begin{definition}
-\textbf{Miara złożoności} dla przestrzeni hipotez \( H \)
-to dowolna funkcja
-\[
-    \Omega : H \rightarrow [0, +\infty)
-\]
+	\textbf{Miara złożoności} dla przestrzeni hipotez \( H \)
+	to dowolna funkcja
+	\[
+		\Omega : H \rightarrow [0, +\infty)
+	\]
 \end{definition}
 Miarą złożoności może być:
 \begin{itemize}
-    \item liczba rozważanych cech
-    \item stopień dopasowanego wielomianu
-    \item głębokość drzewa
-    \item \( \ell_0(\theta) = \card{\set{i : \theta_i \neq 0}} \)
-    \item \( \ell_1(\theta) = \sum_{i=1}^k \abs{\theta_i} \)
-    \item \( \ell_2(\theta) = \sum_{i=1}^k \theta_i^2 \)
+	\item liczba rozważanych cech
+	\item stopień dopasowanego wielomianu
+	\item głębokość drzewa
+	\item \( \ell_0(\theta) = \card{\set{i : \theta_i \neq 0}} \)
+	\item \( \ell_1(\theta) = \sum_{i=1}^k \abs{\theta_i} \)
+	\item \( \ell_2(\theta) = \sum_{i=1}^k \theta_i^2 \)
 \end{itemize}
 
 Mamy dwa rodzaje regularyzacji:
 \begin{itemize}
-    \item Regularyzacja Tichonowa -- dodajemy do funkcji straty koszt za złożoność hipotezy:
-    \[
-        l(h) = \ell(h) + \lambda \Omega(h)
-    \]
-    
-    \item Regularyzacja Iwanowa -- zawężamy się do tych hipotez, które są mało złożone
-    \[
-        H' = \set{h \in H : \Omega(h) \leq \omega}
-    \]
+	\item Regularyzacja Tichonowa -- dodajemy do funkcji straty koszt za złożoność hipotezy:
+	      \[
+		      l(h) = \ell(h) + \lambda \Omega(h)
+	      \]
+
+	\item Regularyzacja Iwanowa -- zawężamy się do tych hipotez, które są mało złożone
+	      \[
+		      H' = \set{h \in H : \Omega(h) \leq \omega}
+	      \]
 \end{itemize}
 
 Okazuje się, że te dwie definicje są sobie równoważne tj. jeśli mamy optimum \( h^*_\lambda \) dla regularyzacji Tichonowa to jest ono również rozwiązaniem optymalnym dla regularyzacji Iwanowa dla jakiegoś \( \omega \).
