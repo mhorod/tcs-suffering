@@ -1,4 +1,4 @@
-\textbf{Prawe wektory szczególne} \( A \) to \( v_1, \dots, v_n \), dla których \( A^TA \codt v_i = \lambda_iv_i \), dla \( \lambda_i \in \mathbb{R} \). \\
+\textbf{Prawe wektory szczególne} \( A \) to \( v_1, \dots, v_n \), dla których \( A^TA \cdot v_i = \lambda_iv_i \), dla \( \lambda_i \in \mathbb{R} \). \\
 \textbf{Wartości szczególne} \( A \) to \( \sqrt{\lambda_1}, \dots, \sqrt{\lambda_n} \). \\
 \textbf{Lewe wektory szczególne} \( A \) to \( u_1, \dots, u_n \), gdzie \( u_i = \frac{1}{\sqrt{\lambda_i}}A v_i \). \\
 Wektor szczególny to taki, który odpowiada najbardziej wydłużanemu kierunkowi.
@@ -6,15 +6,15 @@ Wektor szczególny to taki, który odpowiada najbardziej wydłużanemu kierunkow
 \section{Rozkład SVD}
 Przekształcamy macierz A liniowo:
 \[
-    A = U\Sigma V^T
+	A = U\Sigma V^T
 \]
 złożeniem odwzorowań, gdzie \( V \) ma wektory \( v_i \)  jako wiersze, \( U \) ma \( u_i \) jako kolumny, \( \Sigma \) jest diagonalna z \( \sqrt{\lambda_i} \).
 \begin{enumerate}
-\singlespacing
-    \item zmiana bazy (obrót przestrzeni) \( (v_i \rightarrow e_i) \)
-    \item skalowanie \( (e_i \rightarrow \sqrt{\lambda_i} e_i) \)
-    \item powrót (obrót przestrzeni) \( (e_i \rightarrow u_i) \)
-\end{enumerate} \\
+	\singlespacing
+	\item zmiana bazy (obrót przestrzeni) \( (v_i \rightarrow e_i) \)
+	\item skalowanie \( (e_i \rightarrow \sqrt{\lambda_i} e_i) \)
+	\item powrót (obrót przestrzeni) \( (e_i \rightarrow u_i) \)
+\end{enumerate}
 \textbf{Przypadek I: A jest osobliwa} \\
 Wtedy niektóre \( \lambda_i \) są zerami. Niezerowych \( u_i \) jest mniej niż \( n \), więc uzupełniamy je dowolnymi wektorami do bazy ortonormalnej. \\
 \textbf{Przypadek II: A nie jest kwadratowa} \\
