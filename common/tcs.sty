@@ -4,8 +4,13 @@
 \usepackage{amsmath}
 
 % Common stuff
+\let\argmax\nothing
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+\let\argmin\nothing
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+\let\sgn\nothing
 \DeclareMathOperator{\sgn}{sgn}
 \let\eps\varepsilon
 
@@ -55,7 +60,10 @@
 
 % Set theory
 \let\set\braces
+
+\let\im\nothing
 \DeclareMathOperator{\im}{im}
+\let\powerset\nothing
 \DeclareMathOperator{\powerset}{\mathcal{P}}
 \renewcommand{\complement}[1]{\overline{#1}}
 \let\function\rightarrow
@@ -65,10 +73,13 @@
 
 
 % Probability
+\let\prob\nothing
 \DeclareMathOperator{\prob}{P}
 \newcommand{\expected}[1]{\mathbb{E}\brackets{#1}}
+\let\Var\nothing
 \DeclareMathOperator{\Var}{Var}
 \newcommand{\variance}[1]{\Var\brackets{#1}}
+\let\Cov\nothing
 \DeclareMathOperator{\Cov}{Cov}
 \newcommand{\covariance}[2]{\Cov\pars{#1, #2}}
 \newcommand\given[1][]{\:#1\vert\:}
@@ -82,6 +93,7 @@
 \DeclareMathOperator{\Normal}{\mathcal{N}}
 
 % Estimators
+\let\bias\nothing
 \DeclareMathOperator{\bias}{bias}
 \newcommand{\mle}[1]{\widehat #1_{MLE}}
 \newcommand{\map}[1]{\widehat #1_{MAP}}
@@ -100,7 +112,8 @@
 
 % Graphs
 \newcommand{\Deg}{\text{deg}}
-% 
+
+%
 \newcommand{\indicator}[1]{\mathbf{1}\brackets{#1}}
 
 \newcommand{\KL}[2]{\mathrm{KL}\pars{#1 \parallel #2}}
@@ -121,9 +134,9 @@
 
 % notiff -- from https://tex.stackexchange.com/questions/75361/is-there-no-good-way-to-write-not-iff, CC-BY-SA 3.0
 \newcommand{\notiff}{%
-  \mathrel{{\ooalign{\hidewidth$\not\phantom{"}$\hidewidth\cr$\iff$}}}}
+	\mathrel{{\ooalign{\hidewidth$\not\phantom{"}$\hidewidth\cr$\iff$}}}}
 
-% Statistics 
+% Statistics
 \newcommand{\mean}[1]{\overline{#1}}
 
 % Algebra
@@ -133,6 +146,7 @@
 \def\reverse{{}^{-1}}
 \def\lin{{\mathrm{Lin}}}
 \newcommand{\dotpro}[2]{\langle #1, #2 \rangle}
+\let\norm\nothing
 \newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
 
 % TikZ
@@ -157,9 +171,16 @@
 % Turing Machine
 \def\blank{\sqcup}
 
-% Misc 
+% Posets
+\providecommand\posetwidth[0]{\text{width}}
+\providecommand\posetheight[0]{\text{height}}
+\providecommand\psucc[0]{\text{succ}}
+\providecommand\ppred[0]{\text{pred}}
+
+% Misc
 \let\eps\varepsilon
 \let\len\abs
+
 \newcommand{\continuum}{\mathfrak{c}}
 
 
@@ -174,38 +195,38 @@
 \definecolor{functionColor}{rgb}{0.549, 0.463, 0.753} % {140, 118, 192}
 
 \lstdefinestyle{codeStyle}{
-  commentstyle=\color{gray},
-  keywordstyle=\color{functionColor},
-  keywordstyle=[2]\color{variableColor},
-  keywordstyle=[3]\color{keywordColor},
-  stringstyle=\color{stringColor},
-  basicstyle=\ttfamily\footnotesize,
-  breakatwhitespace=false,
-  breaklines=true,
-  captionpos=b,
-  keepspaces=true,
-  numbers=left,
-  numberstyle=\sffamily\tiny\color{gray},
-  numbersep=4pt,
-  showspaces=false,
-  showstringspaces=false,
-  showtabs=false,
-  tabsize=1
+	commentstyle=\color{gray},
+	keywordstyle=\color{functionColor},
+	keywordstyle=[2]\color{variableColor},
+	keywordstyle=[3]\color{keywordColor},
+	stringstyle=\color{stringColor},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numberstyle=\sffamily\tiny\color{gray},
+	numbersep=4pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=1
 }
 \lstset{
-  style=codeStyle,
-  basicstyle=\ttfamily\footnotesize,
-  lineskip=-1.5pt
+	style=codeStyle,
+	basicstyle=\ttfamily\footnotesize,
+	lineskip=-1.5pt
 }
 
 % Define style for a custom language
 \lstdefinelanguage{Cpp}{
-    keywords={},
-    morekeywords=[3]{for, do, if, else, break},
-    sensitive=true,
-    comment=[l]{//},
-    morecomment=[s]{/*}{*/},
-    string=[b]"
+	keywords={},
+	morekeywords=[3]{for, do, if, else, break},
+	sensitive=true,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	string=[b]"
 }
 
 % Warning text box
@@ -213,16 +234,16 @@
 \usepackage{pifont, mdframed}
 
 \newenvironment{warning}
-    {
-        \par\begin{mdframed}[
-            linewidth=0pt,
-            backgroundcolor=bggrey,
-            roundcorner=25pt,
-            innertopmargin=10pt, innerbottommargin=10pt,
-            innerrightmargin=15pt, innerleftmargin=10pt,
-            skipbelow=10pt, skipabove=10pt
-        ] 
-        \begin{list}{}{\leftmargin=1cm
-        \labelwidth=\leftmargin}\item[\dbend\;]}
-    {
-    \end{list}\end{mdframed}\par}
+{
+	\par\begin{mdframed}[
+			linewidth=0pt,
+			backgroundcolor=bggrey,
+			roundcorner=25pt,
+			innertopmargin=10pt, innerbottommargin=10pt,
+			innerrightmargin=15pt, innerleftmargin=10pt,
+			skipbelow=10pt, skipabove=10pt
+		]
+		\begin{list}{}{\leftmargin=1cm
+				\labelwidth=\leftmargin}\item[\dbend\;]}
+			{
+		\end{list}\end{mdframed}\par}

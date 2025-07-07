@@ -1,0 +1,51 @@
+\begin{definition}[Liczby pierwsze]
+	Mówimy, że liczba \(p \in \natural\) jest \textit{pierwsza},
+	jeżeli \(\card{\set{k \in \natural : k \mid p}} = 2\).
+	Równoważnie, liczba \(p\) jest pierwsza jeżeli \(p \neq 1\) oraz
+	\(\set{k \in \natural : k \mid p} = \set{1, p}\).
+	Zbiór wszystkich liczb pierwszych oznaczamy \(\mathbb P\).
+\end{definition}
+
+\begin{theorem}[Fundamentalne twierdzenie arytmetyki]
+	\label{nt:fundamentalne}
+	Niech \(n \in \natural_1\). Istnieje dokładnie jeden multizbiór
+	liczb pierwszych \(\mathcal S \subset \mathbb P\) spełniający
+	\(\prod \mathcal S = n\). Ten multizbiór nazywamy \textit{rozkładem} \(n\) na czynniki pierwsze.
+\end{theorem}
+
+\begin{proof}[Dowód istnienia]
+	Najpierw udowodnimy istnienie, przez indukcję po \(n\).
+	Dla \(n = 1\) możemy wziąć \(\mathcal S = \emptyset\), więc bazę indukcji mamy załatwioną.
+	Jeżeli \(n \in \mathbb P\) możemy wziąć \(\mathcal S = \set{n}\) i analogicznie dostać odpowiedź.
+	Niech \(n \notin \mathbb P\). Z definicji liczb pierwszych istnieją \(a, k\) spełniające
+	\(a \cdot k = n\) i \(a \notin \set{1, p}\). Ale to oznacza, że \(a, k < p\),
+	czyli z indukcji istnieją multizbiory \(A, K\) spełniające \(a = \prod A, k = \prod K
+	\implies n = \prod (A \cup K)\), co kończy dowód.
+\end{proof}
+Aby wykazać unikalność takiego rozkładu udowodnimy najpierw pomocniczy lemat:
+\begin{lemma}[Lemat Euklidesa]
+	\label{nt:lemateuklidesa}
+	Niech \(p \in \mathbb P\) i \(a, b \in \natural_1\), oraz \(p \mid ab\).
+	Wtedy \(p \mid a\) lub \(p \mid b\).
+\end{lemma}
+\begin{proof}[Dowód lematu]
+	Jeżeli \(p \mid a\) to oczywiście mamy spełnioną tezę.
+	Załóżmy więc, że \(p \nmid a\).
+	Ale to oznacza, że \(\gcd(p, a) = 1\) (jest to jedyny inny dzielnik \(p\)).
+	Z tożsamości Bezouta istnieją \(x, y\) spełniające \(ax + py = 1\).
+	Mnożąc stronami przez \(b\) otrzymujemy \(axb + pyb = b\).
+	Ale \(p \mid ab \implies p \mid axb \implies p \mid axb+pyb\), co dowodzi
+	\(p \mid b\) i kończy dowód.
+\end{proof}
+\begin{proof}[Dowód unikalności]
+	Mając ten lemat możemy przystąpić do dowodu nie wprost.
+	Załóżmy, że istnieje liczba o dwóch różnych rozkładach na czynniki pierwsze.
+	Niech \(n\) będzie najmniejszą taką liczbą, a \(\mathcal S, \mathcal T\) będą jej rozkładami.
+	Oczywiście \(n \neq 1 \implies \mathcal S, \mathcal T \neq \emptyset\).
+	Niech \(p \in \mathcal S\) będzie dowolną liczbą pierwszą z \(\mathcal S\). Z lematu Euklidesa i
+	równości \(\prod \mathcal S = \prod \mathcal T\) wiemy, że istnieje \(q \in \mathcal T\) takie, że \(p \mid q\).
+	Ale ponieważ \(p, q\in \mathbb P\) musi zachodzić \(p = q\).
+	Oznacza to, że zachodzi \(\prod (\mathcal S \setminus{p}) = \prod (\mathcal T \setminus{p})\), co wraz z faktem, że \(p \geq 2\)
+	pokazuje istnienie mniejszego \(n\) o nieunikalnym rozkładzie, co jest sprzeczne z założeniem
+	o minimalności i kończy dowód.
+\end{proof}

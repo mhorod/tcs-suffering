@@ -1,1 +1,33 @@
 \section{Problem TQBF}
+
+Problem TQBF to niejako rozszerzenie SATa: mamy formułę boolowską, ale każda zmienna jest dodatkowo skwantyfikowana \(\forall\) lub \(\exists\).\
+Na przykład: \(\forall x \exists y \exists z ((x \vee z) \wedge y)\). Mamy oczywiście odpowiedzieć, czy ta formuła jest prawdziwa. Analogicznie do SATa\
+problem ten jest zupełny dla pewnej klasy problemów - w tym przypadku PSPACE.
+
+\begin{theorem}
+	Problem TQBF jest PSPACE-zupełny.
+\end{theorem}
+
+\begin{proof}[Zarys dowodu.]
+	Problem ten jest oczywiście w PSPACE, bo możemy sprawdzić wszystkie konfiguracje. Wystarczy nam do tego wielomianowo wiele miejsca.
+
+	Istotnie trudniej jest z pokazaniem zupełności. Będziemy chcieli zredukować dowolny inny problem z PSPACE, do TQBF. Dla tekiego innego problemu\
+	musi istnieć maszyna Turinga, która go rozwiązuje, i zużywa wielomianowo pamięci. Chcemy więc aby nasz TQBF odpowiadał na pytanie, czy istnieje\
+	ścieżka obliczająca na tej maszynie która zaczyna w \(q_begin\), kończy w \(q_acc\), i wykonuje nie więcej niż jakąś liczbę kroków \(T\) - skoro miejsce\
+	jest ograniczone, to wszystkie obliczenia dłuższe muszą się zapętlić.
+
+	Chcemy więc zdefiniować \(\phi_{q_{begin},q_{acc},T}\). Zrobimy to rekurencyjnie. Niech
+	\[
+		\phi_{c_1,c_2,t} = \exists m_1 (\phi_{c_1, m_1, \ceil{t/2}} \wedge \phi_{m_1, c_1, \ceil{t/2}})
+	\]
+	Oczywiście jeśli w formule \(t=1\), to sprawdzamy czy dane przejście istnieje (przypadek bazowy rekurencji).
+
+	Taka formuła jednak byłaby zbyt długa (wykładniczo długa). Musimy więc ją uprościć i istotnie to teraz robimy. Zauważmy, że powyższa formuła jest\
+	równoważna następującej (gdzie \((c_3, c_4)\) to jakaś para stanów):
+	\[
+		\exists m_1 (\phi_{c_1, m_1, \ceil{t/2}} \wedge \phi_{m_1, c_1, \ceil{t/2}}) = \exists m_1 \forall(c_3, c_4) \in \{(c_1,m_1),(m_1,c_2)\}\
+		(\phi_{c_3,c_4,\ceil{t/2}})
+	\]
+	Ta formuła już jest odpowiedniej długości, oraz obliczalna wielomianowo. Dowolny problem z PSPACE możemy zatem zredukować do TQBF, oraz on sam jest\
+	w PSPACE, więc jest on PSPACE-zupełny.
+\end{proof}

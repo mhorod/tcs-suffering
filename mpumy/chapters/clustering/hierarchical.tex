@@ -9,41 +9,41 @@ Zaczynamy od wyznaczenia odległości między każdymi dwoma punktami \( d(a, b)
 Następnie wybieramy klastry które są najpodobniejsze do siebie.
 Możliwe kryteria:
 \begin{itemize}
-    \item łączenie pojedyncze 
-    \[
-        D(A, B) = \min\braces{d(a, b) : a \in A, b \in B}
-    \]
-    
-    Radzi sobie z niekulistymi kształtami ale jest wrażliwe na obserwacje odstające
-    
-    \item łączenie pełne
-    \[
-        D(A, B) = \max\braces{d(a, b) : a \in A, b \in B}
-    \]
-    
-    Jest mniej czułe na obserwacje odstające ale rozbija duże klasy.
-    
-    \item łączenie średnie
-    \[
-        D(A, B) = \frac{1}{\card{A}\card{B}}\sum_{a\in A}\sum_{b \in B}d(a, b)
-    \]
-    
-    Ma tendencje kuliste i jest mniej podatne na obserwacje odstające.
-    
-    \item łączenie centroidalne
-    \[
-        D(A, B) = d(c_A, c_B)
-    \]
-    
-    Dobrze się sprawdza ale jest kosztowne ze względu na liczenie centroidów
-    
-    \item łączenie Warda
-    \[
-        D(A, B) = \sum_{a \in A \cup B} d(a, c_{a \cup B})^2
-    \]
-    
-    Działa trochę jak średnie.
-    
+	\item łączenie pojedyncze
+	      \[
+		      D(A, B) = \min\braces{d(a, b) : a \in A, b \in B}
+	      \]
+
+	      Radzi sobie z niekulistymi kształtami ale jest wrażliwe na obserwacje odstające
+
+	\item łączenie pełne
+	      \[
+		      D(A, B) = \max\braces{d(a, b) : a \in A, b \in B}
+	      \]
+
+	      Jest mniej czułe na obserwacje odstające ale rozbija duże klasy.
+
+	\item łączenie średnie
+	      \[
+		      D(A, B) = \frac{1}{\card{A}\card{B}}\sum_{a\in A}\sum_{b \in B}d(a, b)
+	      \]
+
+	      Ma tendencje kuliste i jest mniej podatne na obserwacje odstające.
+
+	\item łączenie centroidalne
+	      \[
+		      D(A, B) = d(c_A, c_B)
+	      \]
+
+	      Dobrze się sprawdza ale jest kosztowne ze względu na liczenie centroidów
+
+	\item łączenie Warda
+	      \[
+		      D(A, B) = \sum_{a \in A \cup B} d(a, c_{a \cup B})^2
+	      \]
+
+	      Działa trochę jak średnie.
+
 \end{itemize}
 gdzie centroid to punkt minimalizujący sumę kwadratów odległości.
 
@@ -53,13 +53,13 @@ Aby nieco usprawnić liczenie odległości istnieje algorytm Lance'a-Williamsa -
 \subsection{Wady i zalety}
 Zalety:
 \begin{itemize}
-    \item Nie wymaga znajomości liczby klastrów
-    \item Algorytm nie jest randomizowany -- na tych samych danych działa tak samo
-    \item Intuicyjny
+	\item Nie wymaga znajomości liczby klastrów
+	\item Algorytm nie jest randomizowany -- na tych samych danych działa tak samo
+	\item Intuicyjny
 \end{itemize}
 Wady:
 \begin{itemize}
-    \item Wolny
-    \item Nie działa gdy brakują wartości
-    \item Nie działa dobrze jeśli cechy są różnych typów
+	\item Wolny
+	\item Nie działa gdy brakują wartości
+	\item Nie działa dobrze jeśli cechy są różnych typów
 \end{itemize}

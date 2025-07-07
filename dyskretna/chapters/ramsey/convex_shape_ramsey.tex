@@ -1,10 +1,40 @@
- \begin{theorem}[Erdősa-Szekeresa]
-      Dla dowolnego $k$ istnieje takie $N$, że jeśli $N$ punktów na płaszczyźnie znajduje się w pozycji ogólnej to jakieś $k$ z nich znajduje się w pozycji wypukłej. 
-  \end{theorem}
-  \begin{proof}
-    Po pierwsze musimy zauważyć, że zbiór $k$ punktów jest w pozycji wypukłej wtedy i tylko wtedy gdy dowolny jego podzbiór 4-elementowy również jest w pozycji wypukłej. Wynika to z faktu, że jeśli $k$ punktów nie jest w pozycji wypukłej to mogę striangulować i wskazać 4 takie, że również nie są w pozycji wypukłej, a jeśli $k$ punktów jest w pozycji wypukłej to oczywiste jest, że dowolny ich podzbiór również jest w takiej pozycji.
+\begin{definition}
+	Mówimy, że zbiór punktów na płaszczyźnie jest w pozycji ogólnej, jeśli żadne trzy nie są współliniowe.
+\end{definition}
 
-    Po drugie, dla dowolnych 5 punktów jest tak że wśród nich znajdziemy co najmniej 4 takie, że są w pozycji wypukłej. Dowodzimy to w ten sposób, że sobie je rysujemy i bierzemy otoczkę wypukłą; zakładamy że ma ona 3 punkty, bo inaczej teza już się udowodni, po czym puszczamy linię prostą przez 2 punkty które są wewnątrz trójkąta stanowiącego otoczkę wypukłą. Po jednej stronie tej prostej są jakieś 2 punkty z otoczki, które razem z tymi dwoma punktami przez które przeszła prosta są pozycji ogólnej. Fajnie byłoby chyba to rozrysować żeby dowieść. 
+\begin{theorem}[Happy Ending Problem; Esther Klein]
+	W dowolnym zbiorze \(5\) punktów na płaszczyźnie w pozycji ogólnej pewne \(4\) tworzą czworokąt wypukły.
+\end{theorem}
+\begin{proof}
+	Jeśli otoczka wypukła tych pięciu punktów ma \(5\) albo \(4\) punkty, to teza jest oczywista. Rozważmy sytuację, gdy otoczka wypukła jest trójkątem.
+	\begin{center}
+		\begin{tikzpicture}
+			\filldraw (0,0) circle (0.1);
+			\filldraw (3,0) circle (0.1);
+			\filldraw (1,5) circle (0.1);
+			\filldraw (1.5,2.5) circle (0.1);
+			\draw (0,0) -- (3,0);
+			\draw (0,0) -- (1,5);
+			\draw (3,0) -- (1,5);
+			\draw[dashed] (0,0) -- (3,5);
+			\draw[dashed] (3,0) -- (0,5);
+			\draw[dashed] (1,5) -- (2,0);
+		\end{tikzpicture}
+	\end{center}
+	Umieszczając piąty punkt w dowolnym z powstałych trójkątów otrzymujemy czworokąt wypukły powstały z punktu w środku trójkąta i odpowiednich wierzchołków trójkąta.
+\end{proof}
 
-    No i teraz już po prostu robimy sobie ogólnego Ramseya $R^{(4)}(k,5;2)$ -- kolorujemy czwórki punktów na pierwszy kolor jeśli są w pozycji wypukłej, na drugi jeśli nie. Ponieważ nie ma 5 takich punktów że każdy ich 4-elementowy podzbiór nie jest w pozycji wypukłej (druga obserwacja) to musi być $k$ takich punktów że ich każdy 4-elementowy podzbiór znajduje się w pozycji wypukłej, co daje nam tezę na mocy pierwszej obserwacji. 
-  \end{proof}
+\begin{theorem}[Erd\H{o}s-Szekeres; przez Happy Ending Problem]
+	Dla dowolnego \(n\) istnieje takie \(N\), że jeśli \(N\) punktów na płaszczyźnie znajduje się w pozycji ogólnej to jakieś \(n\) z nich znajduje się w pozycji wypukłej.
+\end{theorem}
+
+\begin{proof}
+	Na początek zauważmy, że jeśli dowolne \(4\) z \(n\) punktów w pozycji ogólnej tworzą czworokąt wypukły, to wszystkie \(n\) punktów tworzy wielokąt wypukły. Załóżmy nie wprost, że jakiś punkt leży we wnętrzu otoczki wypukłej takiego zbioru. Po striangulowaniu otoczki ten punkt leży w którymś z trójkątów. Czworokąt złożony z tego trójkąta i punktu w nim nie jest wypukły, a więc nie wszystkie czwórki są wypukłe -- sprzeczność.
+
+	Niech \(N = R^{(4)}(2;n,5)\) i niech \(X\) będzie dowolny zbiorem \(N\) punktów w pozycji ogólnej. Definiujemy kolorowanie \(c:\binom{X}{4}\to [2]\) zadanie przez \(c(Y) = \left\{\begin{array}{lr}
+		1 & Y \text{ wypukły} \\
+		2 & Y \text{ wklęsły}
+	\end{array}\right.\).
+	Teraz albo mamy zbiór \(n\) punktów, gdzie każda czwórka tworzy czworokąt wypukły (a więc całość tworzy wielokąt wypukły), albo \(5\) punktów, gdzie każda czwórka tworzy wielokąt wklęsły -- to jednak nie może zajść na mocy Happy Ending Problem.
+\end{proof}
+

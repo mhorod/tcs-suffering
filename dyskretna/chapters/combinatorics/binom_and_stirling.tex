@@ -1,47 +1,47 @@
- \subsection{Współczynnik dwumianowy}
-  \begin{theorem}[Wzór rekurencyjny na dwumian Newtona]
-        \begin{equation}
-                        \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}
-        \end{equation}
-  \end{theorem}
+\subsection{Współczynnik dwumianowy}
+\begin{theorem}[Wzór rekurencyjny na dwumian Newtona]
+	\begin{equation}
+		\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-        Moc zbioru zawierającego wszystkie podzbiory k-elementowe zbioru n-elementowego wynosi właśnie $\binom{n}{k}$. Bierzemy sobie ten zbiór i nazywamy go $F$. Wybieramy jakikolwiek element ze zbioru $n$-elementowego którego zbiór podzbiorów rozważamy i nazywamy go $x$. Tworzymy dwa zbiory, $A$ i $B$: $A$ zawiera wszystkie zbiory z $F$ których elementem jest $x$, $B$ zawiera wszystkie zbiory z $F$ do których $x$ nie należy. Z oczywistych względów zachodzi: 
-        \begin{equation*}
-            A \cup B = F
-        \end{equation*}
-        \begin{equation*}
-            A \cap B = \emptyset
-        \end{equation*}
-        Zatem jeśli zliczymy ile jest elementów w $A$, a ile w $B$, to suma tych liczb jest mocą zbioru $F$. Zbiorów w $A$ jest $\binom{n-1}{k-1}$, bo dla każdego zbioru wiemy już, że jest tam $x$, a pozostałe elementy możemy wziąć jak chcemy. Zbiorów w $B$ jest $\binom{n-1}{k}$, bo po prostu wybieramy $k$ elementów z elementów które są rózne od $x$ (a których jest właśnie $n-1$).
-    \end{proof}
+\begin{proof}
+	Moc zbioru zawierającego wszystkie podzbiory k-elementowe zbioru n-elementowego wynosi właśnie \(\binom{n}{k}\). Bierzemy sobie ten zbiór i nazywamy go \(F\). Wybieramy jakikolwiek element ze zbioru \(n\)-elementowego którego zbiór podzbiorów rozważamy i nazywamy go \(x\). Tworzymy dwa zbiory, \(A\) i \(B\): \(A\) zawiera wszystkie zbiory z \(F\) których elementem jest \(x\), \(B\) zawiera wszystkie zbiory z \(F\) do których \(x\) nie należy. Z oczywistych względów zachodzi:
+	\begin{equation*}
+		A \cup B = F
+	\end{equation*}
+	\begin{equation*}
+		A \cap B = \emptyset
+	\end{equation*}
+	Zatem jeśli zliczymy ile jest elementów w \(A\), a ile w \(B\), to suma tych liczb jest mocą zbioru \(F\). Zbiorów w \(A\) jest \(\binom{n-1}{k-1}\), bo dla każdego zbioru wiemy już, że jest tam \(x\), a pozostałe elementy możemy wziąć jak chcemy. Zbiorów w \(B\) jest \(\binom{n-1}{k}\), bo po prostu wybieramy \(k\) elementów z elementów które są rózne od \(x\) (a których jest właśnie \(n-1\)).
+\end{proof}
 
-    \subsection{Liczba Stirlinga II rodzaju}
-        \begin{theorem}[Wzór rekurencyjny na liczbę Stirlinga II rodzaju]
-        \begin{equation}
-            \stirling{n}{k} = \stirling{n-1}{k-1} +  k \cdot \stirling{n-1}{k}
-        \end{equation}
-  \end{theorem}
+\subsection{Liczba Stirlinga II rodzaju}
+\begin{theorem}[Wzór rekurencyjny na liczbę Stirlinga II rodzaju]
+	\begin{equation}
+		\stirling{n}{k} = \stirling{n-1}{k-1} +  k \cdot \stirling{n-1}{k}
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-       Rozpatrujemy zbiór wszystkich podziałów zbioru $n$-elementowego na $k$ niepustych podzbiorów (mający moc równą $\stirling{n}{k}$) i nazwijmy go $F$. Bierzemy sobie jakiś $x$ z naszego zbioru $n$-elementowego i wykonujemy podział zbioru $F$ na zbiory $A$ i $B$. Zbiór $A$ zawiera wszystkie elementy $F$ takie, że zawierają $\{x\}$, a więc, innymi słowy, jeden z ,,bloków'' danego podziału musi być taki, że tylko $x$ do niego należy. Zbiór $B$ to zbiór pozostałych podziałów, a więc wszystkie podziały z $F$ w których $x$ występuje w swoim ,,bloku'' razem z jakimiś innymi elementami. Z oczywistych względów zachodzi:
-       \begin{equation*}
-            A \cup B = F
-        \end{equation*}
-        \begin{equation*}
-            A \cap B = \emptyset
-        \end{equation*}
-        Łatwo zauważyć, że $A = \stirling{n-1}{k-1}$, bo mamy zawsze jeden ,,segment'' w którym znajduje się sam $x$, więc moc zbioru $A$ jest równa liczbie możliwych podziałów całej reszty elementów, czyli właśnie $n-1$ elementów na $k-1$ ,,bloków''. Moc zbioru $B$ wynosi zaś $k \cdot \stirling{n-1}{k}$, bo dzielimy sobie wszystkie elementy poza $x$ na $k$ ,,bloków'', a potem ,,dorzucamy'' $x$ do któregoś z powstałych już ,,bloków'' (oczywiście ,,bloki'' przy podziale generowanym przez liczbę Stirlinga II rodzaju są niepuste). Ponieważ bloków do których możemy ,,dorzucić'' $x$ jest k, otrzymujemy $k \cdot \stirling{n-1}{k}$. To prowadzi nas już do postulowanej równości.
-     \end{proof}
+\begin{proof}
+	Rozpatrujemy zbiór wszystkich podziałów zbioru \(n\)-elementowego na \(k\) niepustych podzbiorów (mający moc równą \(\stirling{n}{k}\)) i nazwijmy go \(F\). Bierzemy sobie jakiś \(x\) z naszego zbioru \(n\)-elementowego i wykonujemy podział zbioru \(F\) na zbiory \(A\) i \(B\). Zbiór \(A\) zawiera wszystkie elementy \(F\) takie, że zawierają \(\{x\}\), a więc, innymi słowy, jeden z ,,bloków'' danego podziału musi być taki, że tylko \(x\) do niego należy. Zbiór \(B\) to zbiór pozostałych podziałów, a więc wszystkie podziały z \(F\) w których \(x\) występuje w swoim ,,bloku'' razem z jakimiś innymi elementami. Z oczywistych względów zachodzi:
+	\begin{equation*}
+		A \cup B = F
+	\end{equation*}
+	\begin{equation*}
+		A \cap B = \emptyset
+	\end{equation*}
+	Łatwo zauważyć, że \(A = \stirling{n-1}{k-1}\), bo mamy zawsze jeden ,,segment'' w którym znajduje się sam \(x\), więc moc zbioru \(A\) jest równa liczbie możliwych podziałów całej reszty elementów, czyli właśnie \(n-1\) elementów na \(k-1\) ,,bloków''. Moc zbioru \(B\) wynosi zaś \(k \cdot \stirling{n-1}{k}\), bo dzielimy sobie wszystkie elementy poza \(x\) na \(k\) ,,bloków'', a potem ,,dorzucamy'' \(x\) do któregoś z powstałych już ,,bloków'' (oczywiście ,,bloki'' przy podziale generowanym przez liczbę Stirlinga II rodzaju są niepuste). Ponieważ bloków do których możemy ,,dorzucić'' \(x\) jest k, otrzymujemy \(k \cdot \stirling{n-1}{k}\). To prowadzi nas już do postulowanej równości.
+\end{proof}
 
-         \subsection{Liczba Stirlinga I rodzaju}
+\subsection{Liczba Stirlinga I rodzaju}
 
 \begin{theorem}[Wzór rekurencyjny na liczbę Stirlinga I rodzaju]
-        \begin{equation}
-            \stirlingOne{n}{k} =  \stirlingOne{n-1}{k-1} + (n-1) \cdot \stirlingOne{n-1}{k}
-        \end{equation}
-  \end{theorem}
+	\begin{equation}
+		\stirlingOne{n}{k} =  \stirlingOne{n-1}{k-1} + (n-1) \cdot \stirlingOne{n-1}{k}
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-        Stosujemy motyw podobny dla powyższych dowodów. $F$ to zbiór zawierający wszystkie permutacje na $n$ elementach które ,,rozbijają się'' na $k$ cykli. Bierzemy sobie jakiś element $x$ i rozpatrujemy dwa zbiory, $A$, $B$ takie że do $A$ należą wszystkie permutacje gdzie $x$ przechodzi na siebie samego, a do $B$ należą wszystkie permutacje gdzie $x$ nie przechodzi na siebie samego. Moc zbioru $A$ to $\stirlingOne{n-1}{k-1}$, bo $x$ przechodzący na siebie samego stanowi jeden cykl (więc ,,pozostałość'' permutacji trzeba rozbić na $k-1$ cykli). Obliczenie mocy zbioru $B$ jest nieco śmieszniejsze, ale okazuje się że jest równe $(n-1) \cdot \stirlingOne{n-1}{k}$. Wynika to z faktu, że bierzemy sobie wszystkie elementy poza $x$ i robimy na nich permutacje, które da się podzielić na $k$ cykli; następnie ten element $x$ ,,dopychamy'' w jakieś miejsce w jakimś cyklu. Przez ,,dopchnięcie'' mam na myśli sytuację, gdy jakiś element $y$ przechodził na element $z$, ale $x$ ,,dopychamy'' w miejsce $z$; wtedy $y$ przechodzi na $x$, a $x$ na $z$. Operacja ,,dopchnięcia'' nie psuje liczby cykli, a $x$ możemy ,,dopchnąć'' zawsze na $n-1$ miejsc, co daje nam postulowaną równość. 
-     \end{proof}
+\begin{proof}
+	Stosujemy motyw podobny dla powyższych dowodów. \(F\) to zbiór zawierający wszystkie permutacje na \(n\) elementach które ,,rozbijają się'' na \(k\) cykli. Bierzemy sobie jakiś element \(x\) i rozpatrujemy dwa zbiory, \(A\), \(B\) takie że do \(A\) należą wszystkie permutacje gdzie \(x\) przechodzi na siebie samego, a do \(B\) należą wszystkie permutacje gdzie \(x\) nie przechodzi na siebie samego. Moc zbioru \(A\) to \(\stirlingOne{n-1}{k-1}\), bo \(x\) przechodzący na siebie samego stanowi jeden cykl (więc ,,pozostałość'' permutacji trzeba rozbić na \(k-1\) cykli). Obliczenie mocy zbioru \(B\) jest nieco śmieszniejsze, ale okazuje się że jest równe \((n-1) \cdot \stirlingOne{n-1}{k}\). Wynika to z faktu, że bierzemy sobie wszystkie elementy poza \(x\) i robimy na nich permutacje, które da się podzielić na \(k\) cykli; następnie ten element \(x\) ,,dopychamy'' w jakieś miejsce w jakimś cyklu. Przez ,,dopchnięcie'' mam na myśli sytuację, gdy jakiś element \(y\) przechodził na element \(z\), ale \(x\) ,,dopychamy'' w miejsce \(z\); wtedy \(y\) przechodzi na \(x\), a \(x\) na \(z\). Operacja ,,dopchnięcia'' nie psuje liczby cykli, a \(x\) możemy ,,dopchnąć'' zawsze na \(n-1\) miejsc, co daje nam postulowaną równość.
+\end{proof}

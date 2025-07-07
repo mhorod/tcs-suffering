@@ -1,39 +1,39 @@
- Zanim przejdziemy do twierdzenia, musimy wprowadzić niestety parę definicji. Przez $U$ oznaczamy zbiór wszystkich \textbf{spacerów} długości $n+1$ w grafie w którym usiłujemy zliczyć liczbę cyklów Hamiltona (pod względem liczby wierzchołków; przez $n$ oznaczamy oczywiście liczbę wierzchołków w grafie), zaczynających się w jakimś wierzchołku $v_0$ i również w nim kończących.
-    Przez $A_i$ oznaczamy zbiór wszystkich spacerów z $U$, które przechodzą przez wierzchołek o numerze $i$. 
-    Ponadto zakładamy, że
-    \begin{equation*}
-        U = \bigcap_{i \in \emptyset} B
-    \end{equation*}
-    gdzie $B$ jest czymkolwiek (w sensie serio czymkolwiek). Dlaczego tak zakładamy? Nie mam pojęcia, ale inaczej dowód by nie zadziałał. Formaliści mogą spojrzeć na definicję czapeczkowania jeśli czapeczkujemy jedynie po elementach zbioru pustego, but, honestly, I don't care. 
-    Ważna obserwacja zanim jeszcze przejdziemy do dowodu:
-    \begin{equation*}
-        2 \cdot |H| = |\bigcap_{i \in [n]} A_i| 
-    \end{equation*}
-    Gdzie $H$ jest to zbiór zawierający wszystkie cykle Hamiltona. Ta obserwacja w sumie ma sens, bo jeśli jakiś spacer ma długość $n+1$ zaczyna się i kończy w $v_0$ i jednocześnie przechodzi przez każdy wierzchołek, to musi być cyklem Hamiltona (no bo dwa razy był w $v_0$, najpierw z niego wychodząc a potem do niego wchodząc, a w pozostałych $n-1$ wierzchołkach musiał być dokładnie raz bo cały spacer ma długość $n - 1 + 2 = n + 1$). Należy zauważyć że cykle Hamiltona w ten sposób zliczamy zawsze podwójnie, bo cykle w grafach nieskierowanych mają to do siebie że można je obejść na 2 różne sposoby wychodząc z tego samego punktu, idąc ,,na prawo'' lub ,,na lewo''. 
-     \begin{theorem}[O liczbie cyklów Hamiltona w grafie]
-        \begin{equation}
-           |\bigcap_{i \in [n]} A_i| = \sum_{X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) | 
-        \end{equation}
-  \end{theorem}
+Zanim przejdziemy do twierdzenia, musimy wprowadzić niestety parę definicji. Przez \(U\) oznaczamy zbiór wszystkich \textbf{spacerów} długości \(n+1\) w grafie w którym usiłujemy zliczyć liczbę cyklów Hamiltona (pod względem liczby wierzchołków; przez \(n\) oznaczamy oczywiście liczbę wierzchołków w grafie), zaczynających się w jakimś wierzchołku \(v_0\) i również w nim kończących.
+Przez \(A_i\) oznaczamy zbiór wszystkich spacerów z \(U\), które przechodzą przez wierzchołek o numerze \(i\).
+Ponadto zakładamy, że
+\begin{equation*}
+	U = \bigcap_{i \in \emptyset} B
+\end{equation*}
+gdzie \(B\) jest czymkolwiek (w sensie serio czymkolwiek). Dlaczego tak zakładamy? Nie mam pojęcia, ale inaczej dowód by nie zadziałał. Formaliści mogą spojrzeć na definicję czapeczkowania jeśli czapeczkujemy jedynie po elementach zbioru pustego, but, honestly, I don't care.
+Ważna obserwacja zanim jeszcze przejdziemy do dowodu:
+\begin{equation*}
+	2 \cdot |H| = |\bigcap_{i \in [n]} A_i|
+\end{equation*}
+Gdzie \(H\) jest to zbiór zawierający wszystkie cykle Hamiltona. Ta obserwacja w sumie ma sens, bo jeśli jakiś spacer ma długość \(n+1\) zaczyna się i kończy w \(v_0\) i jednocześnie przechodzi przez każdy wierzchołek, to musi być cyklem Hamiltona (no bo dwa razy był w \(v_0\), najpierw z niego wychodząc a potem do niego wchodząc, a w pozostałych \(n-1\) wierzchołkach musiał być dokładnie raz bo cały spacer ma długość \(n - 1 + 2 = n + 1\)). Należy zauważyć że cykle Hamiltona w ten sposób zliczamy zawsze podwójnie, bo cykle w grafach nieskierowanych mają to do siebie że można je obejść na 2 różne sposoby wychodząc z tego samego punktu, idąc ,,na prawo'' lub ,,na lewo''.
+\begin{theorem}[O liczbie cyklów Hamiltona w grafie]
+	\begin{equation}
+		|\bigcap_{i \in [n]} A_i| = \sum_{X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) |
+	\end{equation}
+\end{theorem}
 
-    \begin{proof}
-            Po pierwsze należy zauważyć, że 
-            \begin{equation*}
-                |\bigcap_{i \in [n]} A_i| = |U| - |\bigcup_{i \in [n]} (U \setminus A_i)|
-            \end{equation*}
-                 W sumie jak się to pokontempluje to zaczyna się to robić oczywiste. Jest to obserwacja czysto teoriomnogościowa; jeśli jakiś spacer znajduje się w przecięciu, to znaczy że jest w każdym zbiorze $A_i$ dla dowolnego $i$, a więc po prawej stronie nie zostanie ,,usunięty'' z uniwersum (tj. zbioru $U$) bo za każdym razem zostanie usunięty ze zbioru elementów ,,do wywalenia'', a jeśli nie należy do przecięcia to znaczy że spacer ten nie należy do jakiegoś $A_k$, a więc $U \setminus A_k$ będzie go zawierać, a więc przy sumowaniu elementów ,,do wywalenia'' zostanie on wliczony.  
+\begin{proof}
+	Po pierwsze należy zauważyć, że
+	\begin{equation*}
+		|\bigcap_{i \in [n]} A_i| = |U| - |\bigcup_{i \in [n]} (U \setminus A_i)|
+	\end{equation*}
+	W sumie jak się to pokontempluje to zaczyna się to robić oczywiste. Jest to obserwacja czysto teoriomnogościowa; jeśli jakiś spacer znajduje się w przecięciu, to znaczy że jest w każdym zbiorze \(A_i\) dla dowolnego \(i\), a więc po prawej stronie nie zostanie ,,usunięty'' z uniwersum (tj. zbioru \(U\)) bo za każdym razem zostanie usunięty ze zbioru elementów ,,do wywalenia'', a jeśli nie należy do przecięcia to znaczy że spacer ten nie należy do jakiegoś \(A_k\), a więc \(U \setminus A_k\) będzie go zawierać, a więc przy sumowaniu elementów ,,do wywalenia'' zostanie on wliczony.
 
-                 Pamiętacie nasze śmieszne założenie o tym, że $U$ jest równe przecięciu po elementach zbioru pustego? Teraz go użyjemy, bo
-                 \begin{equation*}
-                    |U| - |\bigcup_{i \in [n]} (U \setminus A_i)| = |\bigcap_{i \in \emptyset} (U \setminus A_i)| + \sum_{\emptyset \not = X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) | 
-                 \end{equation*}
-                 To przejście może wyglądać przerażająco, ale w sumie nic ciekawego się tu nie stało; pierwszy element po lewej stronie (tj. $U$) rozpisaliśmy korzystając właśnie z założenia, że $U = \bigcap_{i \in \emptyset} B$, gdzie $B$ jest czymkolwiek, a więc w szczególności $U \setminus A_i$. Drugi element z lewej strony rozpisaliśmy stosując po prostu zasadę włączeń i wyłączeń (aczkolwiek zmieniliśmy znak, by żyło się prościej, a więc i skorygowaliśmy potęgę przy $(-1)$ by wszystko się zgadzało).
+	Pamiętacie nasze śmieszne założenie o tym, że \(U\) jest równe przecięciu po elementach zbioru pustego? Teraz go użyjemy, bo
+	\begin{equation*}
+		|U| - |\bigcup_{i \in [n]} (U \setminus A_i)| = |\bigcap_{i \in \emptyset} (U \setminus A_i)| + \sum_{\emptyset \not = X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) |
+	\end{equation*}
+	To przejście może wyglądać przerażająco, ale w sumie nic ciekawego się tu nie stało; pierwszy element po lewej stronie (tj. \(U\)) rozpisaliśmy korzystając właśnie z założenia, że \(U = \bigcap_{i \in \emptyset} B\), gdzie \(B\) jest czymkolwiek, a więc w szczególności \(U \setminus A_i\). Drugi element z lewej strony rozpisaliśmy stosując po prostu zasadę włączeń i wyłączeń (aczkolwiek zmieniliśmy znak, by żyło się prościej, a więc i skorygowaliśmy potęgę przy \((-1)\) by wszystko się zgadzało).
 
-                Teraz możemy sobie popatrzyć na to co nam wyszło, i uświadomić sobie, że teraz to już możemy sobie po prostu radośnie dodać pierwszy i drugi składnik z prawej strony:
-                \begin{equation*}
-                    |\bigcap_{i \in \emptyset} (U \setminus A_i)| + \sum_{\emptyset \not = X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) | = \sum_{X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) | 
-                \end{equation*}
+	Teraz możemy sobie popatrzyć na to co nam wyszło, i uświadomić sobie, że teraz to już możemy sobie po prostu radośnie dodać pierwszy i drugi składnik z prawej strony:
+	\begin{equation*}
+		|\bigcap_{i \in \emptyset} (U \setminus A_i)| + \sum_{\emptyset \not = X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) | = \sum_{X \subset [n]}(-1)^{|X|} \cdot | \bigcap_{i \in X} (U \setminus A_i) |
+	\end{equation*}
 
-                Co prowadzi nas do otrzymania postulowanej równości.
-     \end{proof}
-     A jak chcemy zastosować tę równość do zliczania ścieżek Hamiltona? Otóż jak sobie podumamy i oznaczymy $S_i = U \setminus A_i$ (czyli $S_i$ to zbiór spacerów z uniwersum takich, że nie przechodzą przez wierzchołek $i$), to $|\bigcap_{i \in X} S_i|$  to są wszystkie spacery spełniające warunki bycia w uniwersum, ale na podgrafie indukowanym bez wierzchołków należących do $X$. A liczbę spacerów w grafie mających długość $n+1$ między dwoma wierzchołkami możemy policzyć, robiąc macierz incydencji wierzchołków i podnosząc ją do potęgi $n+1$. No i fajnie.
+	Co prowadzi nas do otrzymania postulowanej równości.
+\end{proof}
+A jak chcemy zastosować tę równość do zliczania ścieżek Hamiltona? Otóż jak sobie podumamy i oznaczymy \(S_i = U \setminus A_i\) (czyli \(S_i\) to zbiór spacerów z uniwersum takich, że nie przechodzą przez wierzchołek \(i\)), to \(|\bigcap_{i \in X} S_i|\)  to są wszystkie spacery spełniające warunki bycia w uniwersum, ale na podgrafie indukowanym bez wierzchołków należących do \(X\). A liczbę spacerów w grafie mających długość \(n+1\) między dwoma wierzchołkami możemy policzyć, robiąc macierz incydencji wierzchołków i podnosząc ją do potęgi \(n+1\). No i fajnie.

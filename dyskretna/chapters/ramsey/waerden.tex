@@ -1,0 +1,11 @@
+\begin{theorem}[van der Waerden]
+	Dla każdego \(m,k \ge 1\) istnieje \(N\) o tej własności, że dla każdego kolorowania \(c : [N] \to [k]\) istnieje monochromatyczny ciąg arytmetyczny długości \(m\) zawarty w \([N]\).
+\end{theorem}
+\begin{proof}
+	Niech \(n = \text{HJ}(m,k)\) (najmniejsza taka liczba, że \([m]^{\text{HJ}(m,k)}\) ma monochromatyczną linię kombinatoryczną w dowolnym \(k\)-kolorowaniu) oraz \(N = n\cdot m\).
+	Dla dowolnego kolorowania \(c:[N]\to [k]\) definiujemy \(c': [m]^n \to [k]\) jako \(c'(x_1,\ldots,x_n) = c(x_1+\ldots+x_n)\). Z definicji \(n\) dla kolorowania \(c'\) istnieje monochromatyczna
+	linia kombinatoryczna \(L \subset [m]^n\). Niech \(S = \set{\sum_{i=1}^{m} x_i : (x_1, x_2, x_3, \ldots, x_m) \in L}\) -- łatwo zauważyć, że po ustawieniu tego
+	zbioru w kolejności rosnącej otrzymamy ciąg arytmetyczny o różnicy \(\card{I}\), gdzie \(I\) to aktywny zbiór linii \(L\). Ale co więcej, z definicji \(c'\) wynika, że
+	otrzymany zbiór \(S\) jest również monochromatyczny -- otrzymujemy więc oczekiwaną tezę.
+\end{proof}
+

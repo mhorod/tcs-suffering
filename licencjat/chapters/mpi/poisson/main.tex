@@ -1,8 +1,23 @@
+{
 \subsection{Pełna treść pytania}
 \input{chapters/mpi/poisson/full}
 
-\subsection{Podstawowe własności procesu Poissona} 
-\input{chapters/mpi/poisson/poisson}
+\makeatletter
+\def\input@path{{../probabil}}
+\makeatother
+\graphicspath{{../probabil}}
 
-\subsection{Warunkowe czasy zdarzeń}
+% This has to be done, because we input another suffering with different sectioning scheme.
+\let\realsection\section
+\let\realsubsection\subsection
+\let\section\subsection
+\let\subsection\subsubsection
+\let\subsubsection\paragraph
+
+\realsubsection{Podstawowe własności procesu Poissona}
+\input{chapters/poisson-process/definition}
+
+\realsubsection{Warunkowe czasy zdarzeń}
 \input{chapters/mpi/poisson/conditional}
+
+}

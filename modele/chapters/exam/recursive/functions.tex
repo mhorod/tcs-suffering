@@ -1,1 +1,23 @@
 \section{Związek między funkcjami a językami akceptowanymi przez Maszyny Turinga}
+
+\subsection{Funkcje}
+
+Maszyna Turinga oblicza funkcję \(f\) jeśli mając na wejściu argument, zatrzymuje się mając na wejściu wartość funkcji dla tego argumentu.\
+Odpowiada to akceptowaniu języka \((x, f(x))\); istotnie, możemy łatwo skonstruować maszynę rozpoznającą taki język - dla argumentu symuluje\
+maszynę obliczającą wartość, i porównuje z podaną wartością. W drugą stronę analogicznie, dla języka z \(\r\) będącego powyższej postaci możemy\
+przypomnieć sobie trik z symulowaniem wielu wejść równolegle (patrz: maszyny Turinga dla prostych problemów); w tym przypadku tymi wejściami\
+będą nasze wejście oraz zgadywana wartość. Skoro funkcja ma wartość, to w końcu zgadniemy odpowiednią parę która należy do języka.
+
+\subsection{Funkcje częściowe}
+
+Maszyna Turinga oblicza funkcję częściową \(f\) jeśli zachowuje się zastępująco:
+
+\begin{enumerate}
+	\item Mając na wejściu argument z dziedziny, zatrzymuje się z wypisaną na taśmie wartością;
+	\item Mając na wejściu coś z poza dziedziny, nie zatrzymuje się.
+\end{enumerate}
+
+Zależności są podobne jak wyżej, z tym że z klasą \(\re\). Jeśli funkcja dla jakiegoś \(x\) nie jest zdefiniowana, to symulując maszynę obliczającą\
+funkcję zawiesimy się - ale to nie problem, bo słowo i tak nie powinno zostać zaakceptowane, a jesteśmy w \(\re\). W drugą stronę również podobnie,\
+lecz funkcja może nie mieć wartości - wówczas będziemy w nieskończoność próbowali zgadnąć wartość którą (gdyż nie może się to udać), ale to ponownie\
+nie problem, bo skoro funkcja nie ma wartości, to i tak powinniśmy się zawiesić.

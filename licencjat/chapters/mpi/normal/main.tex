@@ -1,8 +1,26 @@
-\subsection{Rozkład normalny} 
-\input{chapters/mpi/normal/definition}
+{
 
-\subsection{Centralne Twierdzenie Graniczne}
-\input{chapters/mpi/normal/ctg}
+\makeatletter
+\def\input@path{{../probabil}}
+\makeatother
+\graphicspath{{../probabil}}
 
-\subsection{Mocniejsze warianty CTG}
+% This has to be done, because we input another suffering with different sectioning scheme.
+\let\realsection\section
+\let\realsubsection\subsection
+\let\section\subsection
+\let\subsection\subsubsection
+\let\subsubsection\paragraph
+
+\realsubsection{Rozkład normalny}
+\input{chapters/normal-distribution/definition}
+
+\realsubsection{Centralne Twierdzenie Graniczne}
+\input{chapters/normal-distribution/central-limit-theorem}
+
+\realsubsection{Mocniejsze warianty CTG}
+(To ktoś kiedyś musi wyTeXować -- czy będziesz to Ty?)
+}
+
+
 

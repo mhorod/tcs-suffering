@@ -1,5 +1,19 @@
-\section{Przykłady konstrukcji Maszyn Turinga dla prostych problemów z RE i R}
+\section{Przykłady konstrukcji Maszyn Turinga dla prostych języków}
 
-\subsection{Maszyna Turinga rozpoznająca język \texorpdfstring{\(a^nb^nc^n\)}{aenbeenceen}}
+\subsection{Maszyna Turinga rozpoznająca język będący zbiorem liczb pierwszych zapisanych w systemie jedynkowym}
 
-\subsection{Maszyna Turinga rozpoznająca język \texorpdfstring{\(L_{HP}\)}{stopu}}
+Maszyny Turinga ,,lubią się'' z systemem jedynkowym, a najwygodniej się je konstruuje na wielu taśmach.
+
+\begin{enumerate}
+	\item Na pierwszej taśmie mamy więc wejście. Możemy zacząć od sprawdzenia, czy to wejście jest w interesującym nas formacie, oraz czy jest równa przynajmniej 2.
+	\item Na drugiej taśmie, mamy obecnie sprawdzaną liczbę. Jak jest ona równa wejściu, to akceptujemy. Zaczynamy od 2.
+	\item Na trzeciej taśmie, sprawdzamy czy liczba z pierwszej jest podzielna przez libczę z drugiej. Ale dzielenie jest trudne (kto był na numerkach ten wie),\
+	      więc po prostu dodajemy liczbę sprawdzaną do obecnej na trzeciej taśmie (zaczynamy od 0), i rozpatrujemy przypadki: mniejsza od liczby z wejścia - znowu dodajemy,\
+	      równa - odpowiadamy nie, większa - zerujemy taśmę i zwiększamy o 1 liczbę z drugiej taśmy.
+\end{enumerate}
+
+\subsection{Maszyna Turinga rozpoznająca język będący zbiorem maszyn, które wyznaczają niepusty język}
+
+Trzymamy kolejkę obecnych stanów maszyny dla różnych wejść, na których ją jednocześnie symulujemy. W jednym kroku, symulujemy jeden krok na każdym\
+wejściu, z kolejki, oraz dodajemy nowe (kolejne leksykograficznie) wejście wraz z początkowym stanem maszyny. Widać, że jeśli maszyna symulowana\
+kiedyś coś zaakceptuje, to dojdziemy do tego w skończonym czasie - nawet jeżeli maszyna symulowana nigdy się nie zatrzyma na niektórych wejściach!

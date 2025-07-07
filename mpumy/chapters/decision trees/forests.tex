@@ -2,9 +2,9 @@
 
 \subsection{Bootstrapping}
 \begin{definition}
-Niech \( S = \set{x^{(1)}, \dots, x^{(m)}} \subseteq X \)
+	Niech \( S = \set{x^{(1)}, \dots, x^{(m)}} \subseteq X \)
 
-\textbf{Próbą bootstrapową} z próbki \( S \) nazywamy dowolny \( m \)-elementowy multizbiór elementów wybranych \( S \) losowanych jednostajnie ze zwracaniem.
+	\textbf{Próbą bootstrapową} z próbki \( S \) nazywamy dowolny \( m \)-elementowy multizbiór elementów wybranych \( S \) losowanych jednostajnie ze zwracaniem.
 \end{definition}
 
 Można wyliczyć, że w takiej próbce znajdzie się ok. 63\% obserwacji z \( S \)
@@ -17,11 +17,11 @@ Ponadto mamy ciekawą własność -- niech \( Z_1, \dots, Z_n \) będą parami n
 
 Mamy wtedy
 \[
-    \expected{\frac{1}{n}\sum_{i=1}^n Z_i} = \mu
+	\expected{\frac{1}{n}\sum_{i=1}^n Z_i} = \mu
 \]
 oraz
 \[
-    \Var\pars{\frac{1}{n}\sum_{i=1}^n Z_i} = \frac{\sigma^2}{n}
+	\Var\pars{\frac{1}{n}\sum_{i=1}^n Z_i} = \frac{\sigma^2}{n}
 \]
 dostaliśmy mniejszą wariancję.
 
@@ -33,11 +33,11 @@ Dostajemy \( B \) hipotez \( \widehat h_1(x), \dots, \widehat h_B(x) \) na podst
 
 Dla regresji:
 \[
-    \widehat h(x) = \frac{1}{B} \sum_{i=1}^B \widehat h_i(x)
+	\widehat h(x) = \frac{1}{B} \sum_{i=1}^B \widehat h_i(x)
 \]
 podobnie dla klasyfikacji
 \[
-    \widehat h(x) = \argmax_{k \in \set{1, \dots, K}} \frac{1}{B} \sum_{i=1}^B \indicator{\widehat h_i(x) = k}
+	\widehat h(x) = \argmax_{k \in \set{1, \dots, K}} \frac{1}{B} \sum_{i=1}^B \indicator{\widehat h_i(x) = k}
 \]
 
 W praktyce mimo zależności uśrednianie hipotez daje sensowne wyniki.
@@ -48,12 +48,12 @@ Jak zauważyliśmy, każda próbka zawiera ok. 63\% obserwacji, pozostałe potra
 
 Dla \( x^{(i)} \in S \) definiujemy zbiór próbek do których nie trafił:
 \[
-    S^{(i)} = \set{b : x^{(i)} \notin S_b}
+	S^{(i)} = \set{b : x^{(i)} \notin S_b}
 \]
 
 Tworzymy hipotezę out-of-bag:
 \[
-    \widehat h_{OOB}\pars{x^{(i)}} = \frac{1}{\card{S^{(i)}}} \sum_{b \in S^{(i)}} \widehat h_b\pars{x^{(i)}}
+	\widehat h_{OOB}\pars{x^{(i)}} = \frac{1}{\card{S^{(i)}}} \sum_{b \in S^{(i)}} \widehat h_b\pars{x^{(i)}}
 \]
 
 Błąd dla tej hipotezy nazywamy błędem out-of-bag.
@@ -67,16 +67,16 @@ Podczas konstrukcji drzewa w każdym węźle losujemy podzbiór cech do którego
 
 Zalety:
 \begin{itemize}
-    \item mają mniejszą wariancję niż drzewa decyzyjne -- mniejsze przeuczenie
-    \item radzą sobie z brakującymi danymi
-    \item dobre dla dużych wielowymiarywych danych
-    \item mniej wrażliwe na zmiany w obserwacjach
+	\item mają mniejszą wariancję niż drzewa decyzyjne -- mniejsze przeuczenie
+	\item radzą sobie z brakującymi danymi
+	\item dobre dla dużych wielowymiarywych danych
+	\item mniej wrażliwe na zmiany w obserwacjach
 \end{itemize}
 
 Wady:
 \begin{itemize}
-    \item mniej intuicyjne
-    \item nie zawsze dobre dla regresji
-    \item jeszcze dłużej się liczy niż drzewa decyzyjne
-    \item ryzyko przeuczenia gdy cechy są silnie skorelowane
+	\item mniej intuicyjne
+	\item nie zawsze dobre dla regresji
+	\item jeszcze dłużej się liczy niż drzewa decyzyjne
+	\item ryzyko przeuczenia gdy cechy są silnie skorelowane
 \end{itemize}

@@ -1,0 +1,113 @@
+# Adapted by @tfkls from his work at https://github.com/tfkls/sio2-contest-template
+# This is free and unencumbered software released in the public domain. See <unlicense.org> for more details.
+
+name: check
+on: pull_request
+jobs:
+  check-build:
+    name: Check PR compilation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Git repository (shallow)
+        uses: actions/checkout@v4
+
+      - name: Cache LaTeX docker image
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/
+          key: release-cache
+
+      - name: Download LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          docker pull ghcr.io/xu-cheng/texlive-full:latest
+          mkdir -p ~/cache/
+          docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
+
+      - name: Load cached LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit == 'true' }}
+        run: |
+          docker load -i ~/cache/docker-latex.tar
+
+      - name: Compile the changed PDFs
+        uses: xu-cheng/texlive-action@v2
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
+          run: |
+            set -ex
+            mkdir -p ./build
+
+            for dir in *; do
+              [ -d "$dir" ] || continue
+              [ -f "$dir/main.tex" ] || continue
+
+              if timeout 90 ./build-one.sh ${dir} >/dev/null 2>&1; then
+                true
+              else
+                case "$?" in
+                 124 | 143) 
+                  echo "- ${dir} timed out" >> ./_failure
+                  ;;
+                *)
+                  echo "- ${dir} exited w/$?" >> ./_failure
+                  ;;
+                esac
+              fi
+            done
+
+      - name: Upload genererated artifacts
+        uses: actions/upload-artifact@v4
+        id: build-artifact
+        if: "!cancelled()"
+        with:
+          name: pr-check-${{ github.event.pull_request.number }}
+          path: ./build/
+          overwrite: true
+
+      - name: Comment on the PR on first release
+        env:
+          ARTIFACT_URL: ${{ steps.build-artifact.outputs.artifact-url }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PR_COMMIT: ${{ github.event.pull_request.head.sha }}
+        if: "!cancelled()"
+        run: |
+          set -x
+          if [ -n "$ARTIFACT_URL" ]; then
+          cat >>$GITHUB_STEP_SUMMARY <<-EOF
+          # PR Artifacts
+          ### You can download the built PDFs and build logs for directories changed by this PR [here]($ARTIFACT_URL).
+          ### Last build: $(echo "$PR_COMMIT" | head -c 8) — $([ -f ./_failure ] && echo "failed" || echo "succeeded")
+          $([ ! -f ./_failure ] || cat ./_failure)
+          EOF
+          fi
+
+          [ ! -f ./_failure ]
+  check-format:
+    name: Check PR formatting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup Git repository (shallow)
+        uses: actions/checkout@v4
+
+      - name: Check the formatting
+        run: |
+          ./format.sh || true
+          rm -f ./_format-failure
+          # faster but crashes # find . -type f -name "*.tex" -print0 | xargs -0 -P 8 -n 1 sh -c './.latexindent.x -k -s "$1" || echo "$1" >> _format-failure' _
+          find . -type f -name "*.tex" -exec sh -c './.latexindent.x -k -s "$1" || echo "$1" >> _format-failure' _ {} ';'
+
+          if [ -f "_format-failure" ]; then
+            echo "## Formatting check failed" >> $GITHUB_STEP_SUMMARY
+            echo "**The following files have failed the latexindent check:**" >> $GITHUB_STEP_SUMMARY
+            while IFS= read -r dir; do
+              echo "- \`$dir\`" >> $GITHUB_STEP_SUMMARY
+            done <./_format-failure
+            exit 1
+          else
+            echo "## Formatting check succeeded" >> $GITHUB_STEP_SUMMARY
+          fi

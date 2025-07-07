@@ -6,6 +6,6 @@ Dzięki linkowaniu dynamicznemu jest oszczędzana przestrzeń dyskowa oraz pami�
 
 Na Linuxie, programy używające biblioteki dynamiczne są uruchamiane za pomocą specjalnego programu \textit{ld-linux.so}, który poprzedza ich uruchomienie poprzez znalezienie i załadowanie potrzebnych bibliotek.
 
-Biblioteki dynamiczne mogą być ładowane w sposób leniwy -- funkcja z biblioteki jest początkowo przekierowaniem do kodu dynamic linkera, który zastępuje cel tego przekierowania odpowiednim załadowanym kodem biblioteki. Jest to osiągane poprzez \textbf{Procedure Linkage Table}. Dla każdej importowanej funkcji tworzone są odpowiednie informacje w tabeli PLT powiązane z \textbf{Global Offset Table} (GOT). 
+Biblioteki dynamiczne mogą być ładowane w sposób leniwy -- funkcja z biblioteki jest początkowo przekierowaniem do kodu dynamic linkera, który zastępuje cel tego przekierowania odpowiednim załadowanym kodem biblioteki. Jest to osiągane poprzez \textbf{Procedure Linkage Table}. Dla każdej importowanej funkcji tworzone są odpowiednie informacje w tabeli PLT powiązane z \textbf{Global Offset Table} (GOT).
 
 W GOT dane publiczne (eksportowane) traktowane są, jak zewnętrzne. Przestrzeń dla nich jest alokowana na stercie, nie zależą od IP, a więc znajdują się w nieznanych miejscach w pamięci. Aby dostęp do nich był możliwy, tworzona jest tablica z adresami danych zewnętrznych. Jest ona uzupełniana przez dynamic-linkera i znajduje się w sekcji danych biblioteki.

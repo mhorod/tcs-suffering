@@ -1,0 +1,136 @@
+# Adapted by @tfkls from his work at https://github.com/tfkls/sio2-contest-template
+# This is free and unencumbered software released in the public domain. See <unlicense.org> for more details.
+
+name: release
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    name: Build and release PDFs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Git repository (shallow)
+        uses: actions/checkout@v4
+
+      - name: Cache LaTeX docker image
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/cache/
+          key: release-cache
+
+      - name: Download LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: |
+          docker pull ghcr.io/xu-cheng/texlive-full:latest
+          mkdir -p ~/cache/
+          docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
+
+      - name: Load cached LaTeX docker image
+        if: ${{ steps.cache.outputs.cache-hit == 'true' }}
+        run: |
+          docker load -i ~/cache/docker-latex.tar
+
+      - name: Compile the PDFs
+        uses: xu-cheng/texlive-action@v2
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
+          run: |
+            set -ex
+
+            rm -rf ./_build/
+            mkdir ./_build/
+            mkdir ./_build/results
+            touch ./_build/status
+            touch ./_build/update
+
+            for dir in *; do
+              [ -d "$dir" ] || continue
+              [ -f "$dir/main.tex" ] || continue
+              echo "$dir" >>./_build/update
+
+              FAIL=
+
+              # Timeout ain't posix but exists on alpine/busybox
+              if timeout 90 ./build-one.sh "${dir}" >./"${dir}make.log" 2>&1; then
+                true
+              else
+                case "$?" in
+                124 | 143)
+                  FAIL="Timed out"
+                  ;;
+                *)
+                  FAIL="Failed w/exitcode $?"
+                  ;;
+                esac
+                echo "$FAIL"
+              fi
+
+              if [ -f "./build/${dir}/main.pdf" ]; then
+                mv "./build/${dir}/main.pdf" "./_build/results/${dir}.pdf"
+              fi
+
+              # Easy to add extra TeX artifacts if we want to later.
+              mv "./${dir}make.log" "./_build/results/${dir}.log" || exit "$?"
+
+              if [ -n "$FAIL" ]; then
+                echo "Failed to compile ${dir}/main.tex. Reason: $FAIL"
+                # Small appends are atomic, so no need to `flock`
+                echo "${dir}:$FAIL" >>./_build/status
+              else
+                echo "Successfully compiled ${dir}/main.tex"
+                echo "${dir}:Succeeded" >>./_build/status
+              fi
+            done
+
+      - name: Update the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -x
+          cat >./.build-release-notes.md <<-EOF
+          PDF notes generated from sources on push by a github action.
+          Last update: $(git log -1 --pretty=format:%ai | head -n 1) (commit $(git rev-parse --short HEAD))
+
+          Currently available PDFs:
+
+          | Directory | Files |
+          |-----------|-------|
+          EOF
+
+          gh release view pdfs --json assets --jq '.assets | map(.name) | .[]' >./.build-old-assets
+
+          sort ./_build/update >./.build-generated
+
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            STATUS=$(grep "^${dir}:" ./_build/status | cut -d ':' -f 2)
+
+            BUILD="[Build&nbsp;logs](https://github.com/$GH_REPO/releases/download/pdfs/${dir}.log)"
+            gh release upload pdfs "./_build/results/${dir}.log" --clobber
+
+            if [ -f "./_build/results/${dir}.pdf" ]; then
+              BUILD="$BUILD<br>[PDF&nbsp;file](https://github.com/$GH_REPO/releases/download/pdfs/${dir}.pdf)"
+              gh release upload pdfs "./_build/results/${dir}.pdf" --clobber
+            else
+              grep -q "^${dir}.pdf$" ./.build-old-assets && gh release delete-asset pdfs "${dir}.pdf"
+              BUILD="$BUILD<br>No PDF file was generated."
+            fi
+            BUILD="$BUILD<br>Build status: $STATUS"
+
+            echo "| ${dir} | ${BUILD} |" >>./.build-release-notes.md
+          done <./.build-generated
+
+          if ! gh release view pdfs >/dev/null; then
+            gh release create pdfs --title 'PDFs' --notes-file ./.build-release-notes.md
+          else
+            gh release edit pdfs --latest --notes-file ./.build-release-notes.md
+          fi

@@ -1,44 +1,44 @@
 \section{Złożoność próbkowa}
 
 \begin{definition}
-Mówimy, że hipoteza \( h_S \) utworzona na próbce \( S \) jest \textbf{spójna} jeśli 
-błąd empiryczny jest zerowy czyli \( \forall_{x \in S} : h_S(x) = c(x) \).
+	Mówimy, że hipoteza \( h_S \) utworzona na próbce \( S \) jest \textbf{spójna} jeśli
+	błąd empiryczny jest zerowy czyli \( \forall_{x \in S} : h_S(x) = c(x) \).
 \end{definition}
 
 \begin{theorem}
-    Niech \( H \subseteq Y^X \) będzie skończonym zbiorem hipotez a \( c \in H \) będzie pojęciem. Jeśli dla dowolnej próbki \( S \) zwraamy spójną hipotezę \( h_S \) to dla dowolnych \( \varepsilon, \delta > 0 \) o ile
-    \[
-        m \geq \frac{1}{\varepsilon}\pars{\ln \card{H} + \ln \frac{1}{\delta}}
-    \]
-    to
-    \[
-        p(R(h_S) \leq \varepsilon) \geq 1 - \delta
-    \]
+	Niech \( H \subseteq Y^X \) będzie skończonym zbiorem hipotez a \( c \in H \) będzie pojęciem. Jeśli dla dowolnej próbki \( S \) zwraamy spójną hipotezę \( h_S \) to dla dowolnych \( \varepsilon, \delta > 0 \) o ile
+	\[
+		m \geq \frac{1}{\varepsilon}\pars{\ln \card{H} + \ln \frac{1}{\delta}}
+	\]
+	to
+	\[
+		p(R(h_S) \leq \varepsilon) \geq 1 - \delta
+	\]
 \end{theorem}
 \begin{proof}
-    Pokażemy że możemy dobrać takie \( m \) dla którego
-    \[
-        p(R(h_S) > \varepsilon) \leq \delta
-    \]
-   
-   Skoro \( R(h_S) > \varepsilon \) to z definicji ryzyka \( p(h_S(x) \neq c(x)) > \varepsilon \).
-   
-   Ale skoro \( h_S \) jest spójna to prawdopodobieństwo wylosowania spójnego z nią \( S \) wynosi co najwyżej \( (1 - \varepsilon)^m \).
-    
-    Pesymistycznie mamy \( \card{H} - 1 \) hipotez z których każda może być spójna, ale niepoprawna -- algorytm może wybrać dowolną z nich.
-    
-    Prawdopodobieństwo, że \( S \) jest spójny z dowolną z nich ograniczamy od góry poprzez union bound:
-    \[
-        p(R(h_S) > \varepsilon) \leq (\card{H} - 1) (1 - \varepsilon)^m \leq \card{H}\exp(\varepsilon m)
-    \]
-    
-    Przekształcając dostajemy tezę:
-    \begin{align*}
-        \card{H}\exp(\varepsilon m) &\leq \delta \\
-        \exp(\varepsilon m) &\leq \frac{\delta}{\card{H}} \\
-        \varepsilon m & \leq \ln \delta - \ln \card{H} \\
-        m &\leq \frac{1}{\varepsilon}\pars{\ln \delta - \ln \card{H}} \\
-        m &\geq \frac{1}{\varepsilon}\pars{\ln \card{H} - \ln \delta} \\
-        m &\geq \frac{1}{\varepsilon}\pars{\ln \card{H} + \ln \frac{1}{\delta}}
-    \end{align*}
+	Pokażemy że możemy dobrać takie \( m \) dla którego
+	\[
+		p(R(h_S) > \varepsilon) \leq \delta
+	\]
+
+	Skoro \( R(h_S) > \varepsilon \) to z definicji ryzyka \( p(h_S(x) \neq c(x)) > \varepsilon \).
+
+	Ale skoro \( h_S \) jest spójna to prawdopodobieństwo wylosowania spójnego z nią \( S \) wynosi co najwyżej \( (1 - \varepsilon)^m \).
+
+	Pesymistycznie mamy \( \card{H} - 1 \) hipotez z których każda może być spójna, ale niepoprawna -- algorytm może wybrać dowolną z nich.
+
+	Prawdopodobieństwo, że \( S \) jest spójny z dowolną z nich ograniczamy od góry poprzez union bound:
+	\[
+		p(R(h_S) > \varepsilon) \leq (\card{H} - 1) (1 - \varepsilon)^m \leq \card{H}\exp(\varepsilon m)
+	\]
+
+	Przekształcając dostajemy tezę:
+	\begin{align*}
+		\card{H}\exp(\varepsilon m) & \leq \delta                                                          \\
+		\exp(\varepsilon m)         & \leq \frac{\delta}{\card{H}}                                         \\
+		\varepsilon m               & \leq \ln \delta - \ln \card{H}                                       \\
+		m                           & \leq \frac{1}{\varepsilon}\pars{\ln \delta - \ln \card{H}}           \\
+		m                           & \geq \frac{1}{\varepsilon}\pars{\ln \card{H} - \ln \delta}           \\
+		m                           & \geq \frac{1}{\varepsilon}\pars{\ln \card{H} + \ln \frac{1}{\delta}}
+	\end{align*}
 \end{proof}
