@@ -4,42 +4,42 @@ Przyjmijmy że mamy dwie klasy tj. \( Y = \set{-1, 1} \)
 Moglibyśmy od razu jako odpowiedź dawać \( \widehat y \in \set{-1, 1}\)
 wtedy błąd zadany jest takim wzorem:
 \[
-    \ell(f(x), y) = \indicator{f(x) \neq q}
+	\ell(f(x), y) = \indicator{f(x) \neq q}
 \]
 
 Możemy jednak być nieco sprytniejsi i przewidywać \( \widehat y \in \real \) (im większe na moduł tym silniejsze przekonanie) i dopiero na podstawie znaku odpowiadać 1 lub -1.
 
 Wtedy szczególności ryzyko empiryczne wyraża się:
 \[
-    \widehat R_m(h) = \frac{1}{m} \sum_{i=1}^m \indicator{y^{(i)} \neq h(x^{(i)} \leq 0}
+	\widehat R_m(h) = \frac{1}{m} \sum_{i=1}^m \indicator{y^{(i)} \neq h(x^{(i)} \leq 0}
 \]
 Co jest trochę słabe, bo nie jest to ani ciągłe ani różniczkowalne -- słabo się z nich uczy.
 
 \begin{definition}
-    \textbf{Marginesem} dla przewidywania \( \widehat y \in \real \) i prawdziwej odpowiedzi \( y \) nazywamy \( \widehat y \cdot y \)
+	\textbf{Marginesem} dla przewidywania \( \widehat y \in \real \) i prawdziwej odpowiedzi \( y \) nazywamy \( \widehat y \cdot y \)
 \end{definition}
 
 Na podstawie marginesu \( m \) możemy zdefiniować różne funkcje straty:
 \begin{itemize}
-    \item strata zawiasowa
-    \[
-        \max(0, 1 - m)
-    \]
-    \item strata Savage'a
-    \[
-        \frac{1}{(1 + e^m)^2}
-    \]
-    \item strata logistyczna
-    \[
-        \ln(1 + e^{-m})
-    \]
-    \item strata wykładnicza
-    \[
-        e^{-m}
-    \]
-    \item strata kwadratowa
-    \[
-        (1 - m)^2
-    \]
-    
+	\item strata zawiasowa
+	      \[
+		      \max(0, 1 - m)
+	      \]
+	\item strata Savage'a
+	      \[
+		      \frac{1}{(1 + e^m)^2}
+	      \]
+	\item strata logistyczna
+	      \[
+		      \ln(1 + e^{-m})
+	      \]
+	\item strata wykładnicza
+	      \[
+		      e^{-m}
+	      \]
+	\item strata kwadratowa
+	      \[
+		      (1 - m)^2
+	      \]
+
 \end{itemize}

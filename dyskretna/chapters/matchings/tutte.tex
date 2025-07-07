@@ -71,9 +71,9 @@ Gdyby w~naszej macierzy \(M_G\)~były konkretne liczby, to wyznacznik byłby po 
 	\begin{equation*}
 		\begin{split}
 			\det\pars{M_G}
-			&= \sum_{\pi \in S_n}\sgn\pars{\pi} \cdot \pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}
-			= \sum_{\substack{\pi \in S_n\\\text{\tiny $\pi$ --- pokr. cykl. $G$}}}\sgn\pars{\pi} \cdot \pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}\\
-			&= \pars{\sum_{\substack{\pi \in S_n\\\text{\tiny $\pi$ -- pokr. cykl. $G$}\\\text{\tiny $\pi$ bez niep. cykli}}}\sgn\pars{\pi}\pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}} + \pars{\sum_{\substack{\pi \in S_n\\\text{\tiny $\pi$ -- pokr. cykl. \(G\)}\\\text{\tiny $\pi$ ma niep. cykle}}}\sgn\pars{\pi}\pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}}
+			 & = \sum_{\pi \in S_n}\sgn\pars{\pi} \cdot \pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}
+			= \sum_{\substack{\pi \in S_n                                                           \\\text{\tiny $\pi$ --- pokr. cykl. $G$}}}\sgn\pars{\pi} \cdot \pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}\\
+			 & = \pars{\sum_{\substack{\pi \in S_n                                                  \\\text{\tiny $\pi$ -- pokr. cykl. $G$}\\\text{\tiny $\pi$ bez niep. cykli}}}\sgn\pars{\pi}\pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}} + \pars{\sum_{\substack{\pi \in S_n\\\text{\tiny $\pi$ -- pokr. cykl. \(G\)}\\\text{\tiny $\pi$ ma niep. cykle}}}\sgn\pars{\pi}\pars{\prod_{i = 1}^{n}M_G[i, \pi\pars{i}]}}
 		\end{split}
 	\end{equation*}
 	Jak nam to pomaga? Zauważmy, że druga suma się zeruje. Dlaczego? Otóż dla każdej permutacji, w~której istnieje nieparzysty cykl, możemy wziąć nieparzysty cykl zawierający najmniejszą liczbą i~go odwrócić. Np. z~poniższej permutacji \(\pi\):

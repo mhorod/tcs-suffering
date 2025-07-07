@@ -17,10 +17,17 @@
 \usepackage{mathtools}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
-\usepackage{minted}
 \usepackage{multicol}
 \usepackage{bbm}
 \usepackage{mismath}
+
+% Syntax highlighting
+
+\usepackage{minted}
+% Uncomment for TeXLive <= 2023. Left in memory of PR #28 by @tfkls.
+%\immediate\write18{printf "\\\\usepackage[outputdir=../build/" > .builddir; pwd | sed 'sX^.*/XX' | head -c -1 >> .builddir; echo "]{minted}" >> .builddir}
+%\input{.builddir}
+%\immediate\write18{rm -f .builddir}
 
 % Better links
 \usepackage{hyperref}

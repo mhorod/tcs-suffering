@@ -2,69 +2,69 @@
 \subsection{Redukcje}
 
 \begin{definition}
-    Funkcja \( f \) jest \textbf{redukcją wielomianową Karpa} jeśli istnieje wielomian \( p \) oraz Maszyna Turinga obliczająca \( f \) w czasie \( p \). 
+	Funkcja \( f \) jest \textbf{redukcją wielomianową Karpa} jeśli istnieje wielomian \( p \) oraz Maszyna Turinga obliczająca \( f \) w czasie \( p \).
 \end{definition}
 
 \begin{definition}
-    Maszyna \( M \) jest \textbf{redukcją wielomianową Turinga} / Cooke'a (tzw. redukcja przez wyrocznię) z problemu \(A\) do \(B\) jeśli jest maszyną z wyrocznią problemu \(B\) która rozwiązuje problem
-    \(A\) używając wielomianowo wiele pytań do wyroczni oraz wielomianowo wiele czasu poza tymi pytaniami.
+	Maszyna \( M \) jest \textbf{redukcją wielomianową Turinga} / Cooke'a (tzw. redukcja przez wyrocznię) z problemu \(A\) do \(B\) jeśli jest maszyną z wyrocznią problemu \(B\) która rozwiązuje problem
+	\(A\) używając wielomianowo wiele pytań do wyroczni oraz wielomianowo wiele czasu poza tymi pytaniami.
 \end{definition}
 
 \begin{definition}
-    Jeśli istnieje redukcja wielomianowa z języka \( L_1 \) do języka \( L_2 \) to zapisujemy to jako \( L_1 \leq_p L_2 \).
+	Jeśli istnieje redukcja wielomianowa z języka \( L_1 \) do języka \( L_2 \) to zapisujemy to jako \( L_1 \leq_p L_2 \).
 \end{definition}
 
 \begin{lemma}
-    Jeśli \( L_1 \) jest C-trudny i \( L_1 \leq_p L_2 \) to \( L_2 \) też jest C-trudny. 
+	Jeśli \( L_1 \) jest C-trudny i \( L_1 \leq_p L_2 \) to \( L_2 \) też jest C-trudny.
 \end{lemma}
 
 \begin{proof}
-    Skoro \( L_1 \) jest C-trudny to znaczy, że dla każdego \( L' \in C \) mamy redukcję \( f \) z \( L' \) do \( L_1 \).
-    Mamy też redukcję \( g \) z \( L_1 \) do \( L_2 \).
-    
-    Składając \( g \circ f \) dostajemy redukcję z \( L' \)  do \( L_2 \) co dowodzi, że \( L_2 \) jest trudniejszy niż dowolny \( L' \n C \)
+	Skoro \( L_1 \) jest C-trudny to znaczy, że dla każdego \( L' \in C \) mamy redukcję \( f \) z \( L' \) do \( L_1 \).
+	Mamy też redukcję \( g \) z \( L_1 \) do \( L_2 \).
+
+	Składając \( g \circ f \) dostajemy redukcję z \( L' \)  do \( L_2 \) co dowodzi, że \( L_2 \) jest trudniejszy niż dowolny \( L' \in C \)
 \end{proof}
 
 \begin{lemma}
-    \( L \) jest C-trudny wtedy i tylko wtedy, gdy \( \complement{L} \) jest  coC-trudny. 
+	\( L \) jest C-trudny wtedy i tylko wtedy, gdy \( \complement{L} \) jest  coC-trudny.
 \end{lemma}
 
 \begin{proof}
 
-Dowodzimy równoważność w obie strony:
+	Dowodzimy równoważność w obie strony:
 
-\begin{itemize}
-    \item     \( \implies \)
-    
-    Weźmy sobie \( L' \in C\). Jako, że \(L'\) jest trudne, to \(L' <_{p} L\).  Wiemy wobec tego, że istnieje taka funkcja\footnote{obliczalna w czasie wielomianowym bla bla bla} \(f\), obliczalna w czasie wielomianowym, że \( x \in L' \iff f(x) \in L\).
-    
-    Równoważnie, \( x \not\in L' \iff f(x) \not \in L\). No ale to z kolei oznacza, że \( x \in \complement{L'} \iff f(x) \in \complement{L}\). Wobec tego, dla każdego problemu należącego do \(coC\) jest tak, że redukuje się on do \( \complement{L} \), czyli \(\complement{L}\) jest \(coC\)-trudny.
+	\begin{itemize}
+		\item     \( \implies \)
 
-    \item \( \impliedby \) 
-    Centralnie piszemy to samo, ale w drugą stronę.
-    
-    
-    Bierzemy sobie \( L' \in coC\). Z racji faktu, że \(L'\) jest trudne mamy, że \(L' <_{p} \complement{L}\). To oznacza, że istnieje funkcja \(f\), taka że \( x \in L' \iff f(x) \in \complement{L} \). 
-    
-    Równoważnie, \( x \not \in L' \iff f(x) \not \in \complement{L} \). Z tego wiemy, że \( x \in \complement{L'} \iff f(x) \in L \). Wobec tego, każdy problem z \(C\) redukuje się do \(L\), czyli \(L\) jest \(C\)-trudne. 
-    
+		      Weźmy sobie \( L' \in C\). Jako, że \(L'\) jest trudne, to \(L' <_{p} L\).  Wiemy wobec tego, że istnieje taka funkcja\footnote{obliczalna w czasie wielomianowym bla bla bla} \(f\), obliczalna w czasie wielomianowym, że \( x \in L' \iff f(x) \in L\).
 
-\end{itemize}
+		      Równoważnie, \( x \not\in L' \iff f(x) \not \in L\). No ale to z kolei oznacza, że \( x \in \complement{L'} \iff f(x) \in \complement{L}\). Wobec tego, dla każdego problemu należącego do \(coC\) jest tak, że redukuje się on do \( \complement{L} \), czyli \(\complement{L}\) jest \(coC\)-trudny.
+
+		\item \( \impliedby \)
+		      Centralnie piszemy to samo, ale w drugą stronę.
+
+
+		      Bierzemy sobie \( L' \in coC\). Z racji faktu, że \(L'\) jest trudne mamy, że \(L' <_{p} \complement{L}\). To oznacza, że istnieje funkcja \(f\), taka że \( x \in L' \iff f(x) \in \complement{L} \).
+
+		      Równoważnie, \( x \not \in L' \iff f(x) \not \in \complement{L} \). Z tego wiemy, że \( x \in \complement{L'} \iff f(x) \in L \). Wobec tego, każdy problem z \(C\) redukuje się do \(L\), czyli \(L\) jest \(C\)-trudne.
+
+
+	\end{itemize}
 
 \end{proof}
 
 \subsection{Problemy trudne, zupełne}
 
 \begin{definition}
-    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-trudny} jeśli \( \forall_{L' \in C} L' \leq_p L \)
+	Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-trudny} jeśli \( \forall_{L' \in C} L' \leq_p L \)
 \end{definition}
 
 \begin{definition}
-    Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-zupełny} jeśli jest \(C\)-trudny i \( L \in C \)
+	Dla klasy problemów \( C \subseteq R \) problem \( L \) jest \textbf{C-zupełny} jeśli jest \(C\)-trudny i \( L \in C \)
 \end{definition}
 
 \begin{corollary}
-    Mówienie o problemach P-zupełnych nie ma sensu. Redukcja zajmie tyle co rozwiązanie.
+	Mówienie o problemach P-zupełnych nie ma sensu. Redukcja zajmie tyle co rozwiązanie.
 \end{corollary}
 
 Udowodnimy więc po jednym problemie zupełnym dla kolejnych klas, czyli NP oraz PSPACE. Z nich będziemy udowadniać inne problemy trudne. Są to jednak\
@@ -77,13 +77,13 @@ na tyle duże redukcje, że zasługują na osobne rozdziały.
 Pokażemy teraz wniosek z tego twierdzenia na tyle istotny, że zasłużył sobie na miano lematu:
 
 \begin{lemma}
-    3-SAT jest NP-zupełny.
+	3-SAT jest NP-zupełny.
 \end{lemma}
 
 \begin{proof}
-    Oczywiście chcemy zredukować ogólnego SATa do 3-SATa. Okazuje się to dość proste: klauzulę \(a_1 \vee a_2 \vee \dotsc \vee a_n \)\
-    zastępujemy przez \((a_1 \vee a_2 \vee y_1) \wedge (\overline{y_1} \vee a_3 \vee y_2) \dotsc \); zmiennych i klauzul powstanie wielomianowo wiele,\
-    a zachowanie formuły będzie takie samo.
+	Oczywiście chcemy zredukować ogólnego SATa do 3-SATa. Okazuje się to dość proste: klauzulę \(a_1 \vee a_2 \vee \dotsc \vee a_n \)\
+	zastępujemy przez \((a_1 \vee a_2 \vee y_1) \wedge (\overline{y_1} \vee a_3 \vee y_2) \dotsc \); zmiennych i klauzul powstanie wielomianowo wiele,\
+	a zachowanie formuły będzie takie samo.
 \end{proof}
 
 \input{chapters/exam/computational_complexity/tqbf}

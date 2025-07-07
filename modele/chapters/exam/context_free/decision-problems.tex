@@ -2,7 +2,7 @@
 
 Nie wszystkie z tutaj wymienionych problemów są rozwiązywalne. Dowody nieroztrzygalności wymagają jednak znajomości sekcji dotyczącej złożoności obliczeniowej.
 
-\subsection{Należenie do języka bezkontekstowego} 
+\subsection{Należenie do języka bezkontekstowego}
 
 Stosujemy algorytm CYK. Złożoność wielomianowa.
 
@@ -32,10 +32,10 @@ W tym celu, najpierw zredukujemy problem uniwersalności gramatyki bezkontekstow
 Pozostało pozakać, że problem uniwersalności nie jest w RE. Zredukujemy do niego dopełnienie języka uniwersalnego - czyli zbiór par (kodowanie maszyny, słowo) takich, że maszyna nie akceptuje słowa; inaczej: nie istneje przebieg akceptujący. Chcemy więc wygenerować wszystko, co nie jest przebiegiem akceptującym (aby się dało, odbijamy symetrycznie co drugi stan w przebiegu) - taka gramatyka jest generuje dowolne słowo wtedy i tylko wtedy, jeśli przebieg akceptujący nie istnieje. W tym celu będziemy zaprzeczać warunkom poprawnego przebiegu, tj. generować słowa, które spełniają jedno z poniższych, a poza tym są dowolne:
 
 \begin{itemize}
-    \item Jakiś stan nie jest legalny: np. ma dwie głowice, zero głowic, głowicę w złym miejscu, pusty symbol w złym miejscu itp.
-    \item Pierwszy stan nie jest legalnym stanem początkowym.
-    \item Ostatni stan nie jest legalnym stanem akceptującym.
-    \item Występuje nielegalne przejście: np. głowica się źle przesuwa, literka zmienia się niezgodnie z przejściami maszyny itp.
+	\item Jakiś stan nie jest legalny: np. ma dwie głowice, zero głowic, głowicę w złym miejscu, pusty symbol w złym miejscu itp.
+	\item Pierwszy stan nie jest legalnym stanem początkowym.
+	\item Ostatni stan nie jest legalnym stanem akceptującym.
+	\item Występuje nielegalne przejście: np. głowica się źle przesuwa, literka zmienia się niezgodnie z przejściami maszyny itp.
 \end{itemize}
 
 Nie jest to oczywiście dowód w pełni formalny. Jednak, nie było go na wykładzie, a pełny formalizm jest tutaj dość trudny - zatem generalnie wystarczy wiedzieć mniej więcej tyle, co tutaj napisano.

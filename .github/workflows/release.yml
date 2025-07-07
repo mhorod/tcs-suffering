@@ -13,111 +13,124 @@ concurrency:
   cancel-in-progress: false
 jobs:
   release:
-    # This is one job to save on checkout/startup time
     name: Build and release PDFs
     runs-on: ubuntu-latest
     steps:
       - name: Setup Git repository (shallow)
         uses: actions/checkout@v4
 
-      - name: Fetch release data and deepen repository
-        id: load-release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          mkdir -p ~/cache/
-          . ./.github/workflows/release-lib.sh
-          set -x
-          load_release
-
       - name: Cache LaTeX docker image
         id: cache
-        if: steps.load-release.outputs.update == 'true'
         uses: actions/cache@v4
         with:
           path: ~/cache/
           key: release-cache
 
       - name: Download LaTeX docker image
-        if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.load-release.outputs.update == 'true' }}
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: |
           docker pull ghcr.io/xu-cheng/texlive-full:latest
+          mkdir -p ~/cache/
           docker save -o ~/cache/docker-latex.tar ghcr.io/xu-cheng/texlive-full:latest
 
       - name: Load cached LaTeX docker image
-        if: ${{ steps.cache.outputs.cache-hit == 'true' && steps.load-release.outputs.update == 'true' }}
+        if: ${{ steps.cache.outputs.cache-hit == 'true' }}
         run: |
           docker load -i ~/cache/docker-latex.tar
 
       - name: Compile the PDFs
         uses: xu-cheng/texlive-action@v2
-        if: steps.load-release.outputs.update == 'true'
         with:
           docker_image: ghcr.io/xu-cheng/texlive-full:latest
           run: |
             set -ex
-            compile_dir() (
-              set -ex
+
+            rm -rf ./_build/
+            mkdir ./_build/
+            mkdir ./_build/results
+            touch ./_build/status
+            touch ./_build/update
+
+            for dir in *; do
+              [ -d "$dir" ] || continue
+              [ -f "$dir/main.tex" ] || continue
+              echo "$dir" >>./_build/update
+
               FAIL=
 
               # Timeout ain't posix but exists on alpine/busybox
-              if timeout 90 ./build-one.sh "${1}" >./"${1}make.log" 2>&1; then
+              if timeout 90 ./build-one.sh "${dir}" >./"${dir}make.log" 2>&1; then
                 true
               else
                 case "$?" in
-                  124|143)
-                    echo "Timed out"
-                    FAIL="Timeout"
-                    ;;
-                  *)
-                    echo "Failed w/exitcode: $?"
-                    FAIL="Failure"
-                    ;;
+                124 | 143)
+                  FAIL="Timed out"
+                  ;;
+                *)
+                  FAIL="Failed w/exitcode $?"
+                  ;;
                 esac
+                echo "$FAIL"
               fi
 
-              if [ -f "./build/${1}/main.pdf" ]; then
-                mv "./build/${1}/main.pdf" "./_build/results/${1}.pdf"
-                if [ "$FAIL" = "Failure" ]; then
-                  FAIL="Success w/errors"
-                fi
+              if [ -f "./build/${dir}/main.pdf" ]; then
+                mv "./build/${dir}/main.pdf" "./_build/results/${dir}.pdf"
               fi
 
               # Easy to add extra TeX artifacts if we want to later.
-              mv "./${1}make.log" "./_build/results/${1}.log" || exit "$?"
+              mv "./${dir}make.log" "./_build/results/${dir}.log" || exit "$?"
 
               if [ -n "$FAIL" ]; then
-                echo "Failed to compile ${1}/main.tex. Reason: $FAIL"
+                echo "Failed to compile ${dir}/main.tex. Reason: $FAIL"
                 # Small appends are atomic, so no need to `flock`
                 echo "${dir}:$FAIL" >>./_build/status
               else
-                echo "Successfully compiled ${1}/main.tex"
-                echo "${dir}:Success" >>./_build/status
+                echo "Successfully compiled ${dir}/main.tex"
+                echo "${dir}:Succeeded" >>./_build/status
               fi
-            )
-
-            COUNT=0
-            while IFS= read -r dir; do
-              # Had issues with parallelism; disabled for now
-              compile_dir "${dir}" # 2>/dev/null &
-              COUNT=$((COUNT+1))
-              if [ "$COUNT" -ge 4 ]; then
-                for job in $(jobs -p); do
-                  wait "$job" || true
-                done
-                COUNT=0
-              fi
-            done<./_build/update
-            for job in $(jobs -p); do
-              wait "$job" || true
             done
 
-      - name: Update release assets and notes
+      - name: Update the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          . ./.github/workflows/release-lib.sh
           set -x
-          save_release
+          cat >./.build-release-notes.md <<-EOF
+          PDF notes generated from sources on push by a github action.
+          Last update: $(git log -1 --pretty=format:%ai | head -n 1) (commit $(git rev-parse --short HEAD))
+
+          Currently available PDFs:
+
+          | Directory | Files |
+          |-----------|-------|
+          EOF
+
+          gh release view pdfs --json assets --jq '.assets | map(.name) | .[]' >./.build-old-assets
+
+          sort ./_build/update >./.build-generated
+
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            STATUS=$(grep "^${dir}:" ./_build/status | cut -d ':' -f 2)
+
+            BUILD="[Build&nbsp;logs](https://github.com/$GH_REPO/releases/download/pdfs/${dir}.log)"
+            gh release upload pdfs "./_build/results/${dir}.log" --clobber
+
+            if [ -f "./_build/results/${dir}.pdf" ]; then
+              BUILD="$BUILD<br>[PDF&nbsp;file](https://github.com/$GH_REPO/releases/download/pdfs/${dir}.pdf)"
+              gh release upload pdfs "./_build/results/${dir}.pdf" --clobber
+            else
+              grep -q "^${dir}.pdf$" ./.build-old-assets && gh release delete-asset pdfs "${dir}.pdf"
+              BUILD="$BUILD<br>No PDF file was generated."
+            fi
+            BUILD="$BUILD<br>Build status: $STATUS"
+
+            echo "| ${dir} | ${BUILD} |" >>./.build-release-notes.md
+          done <./.build-generated
+
+          if ! gh release view pdfs >/dev/null; then
+            gh release create pdfs --title 'PDFs' --notes-file ./.build-release-notes.md
+          else
+            gh release edit pdfs --latest --notes-file ./.build-release-notes.md
+          fi

@@ -3,11 +3,11 @@
 Będziemy zajmowali się klasyfikacją binarną, tj. wejścia \( X \) będą dowolne, ale wyjścia \( Y = \set{0, 1} \)
 
 \begin{definition}
-    \textbf{Pojęcie} to dowolna funkcja \( c : X \rightarrow Y \) lub równoważnie dowolny podzbiór \( c \subseteq X \) zawierający pozytywne wejścia.
+	\textbf{Pojęcie} to dowolna funkcja \( c : X \rightarrow Y \) lub równoważnie dowolny podzbiór \( c \subseteq X \) zawierający pozytywne wejścia.
 \end{definition}
 
 \begin{definition}
-    \textbf{Klasa pojęć} to dowolny podzbiór \( C \subseteq Y^X \)
+	\textbf{Klasa pojęć} to dowolny podzbiór \( C \subseteq Y^X \)
 \end{definition}
 
 Będziemy się zajmowali różnymi zbiorami hipotez \( H \subseteq Y^X \) -- nie muszą być tym samym co \( C \)
@@ -16,16 +16,16 @@ Zakładamy, że próbka \( S = \set{x^{(i)}, \dots, x^{(m)}} \subseteq X \) zost
 
 Naszym celem jest znaleźć algorytm, który dla danych wejściowych stworzonych w ten sposób minimalizuje ryzyko
 \[
-    R(h) = \expected{\indicator{h(x) \neq c(x)}}
+	R(h) = \expected{\indicator{h(x) \neq c(x)}}
 \]
 
 \begin{definition}
-    Mówimy, że klasa pojęć \( C \) jest \textbf{PAC-nauczalna} jeśli istnieje taki algorytm oraz wielomianowa funkcja \( Q : \real^2 \rightarrow \real \) taka, 
-    że dla dowolnego rozkładu \( D \) na danych wejściowych oraz dowolnego pojęcia \( c \)
-    a ponadto dowolnych \( \varepsilon, \delta > 0\) jeśli mamy próbkę \( S \) o rozmiarze \( \card{S} \geq Q(\frac{1}{\varepsilon}, \frac{1}{\delta}) \) to nasz algorytm konstruuje hipotezę \( h_S \) dla której:
-    \[
-        p(R(h_S) \leq \varepsilon) \geq 1 - \delta
-    \]
+	Mówimy, że klasa pojęć \( C \) jest \textbf{PAC-nauczalna} jeśli istnieje taki algorytm oraz wielomianowa funkcja \( Q : \real^2 \rightarrow \real \) taka,
+	że dla dowolnego rozkładu \( D \) na danych wejściowych oraz dowolnego pojęcia \( c \)
+	a ponadto dowolnych \( \varepsilon, \delta > 0\) jeśli mamy próbkę \( S \) o rozmiarze \( \card{S} \geq Q(\frac{1}{\varepsilon}, \frac{1}{\delta}) \) to nasz algorytm konstruuje hipotezę \( h_S \) dla której:
+	\[
+		p(R(h_S) \leq \varepsilon) \geq 1 - \delta
+	\]
 \end{definition}
 
 Innymi słowy -- jeśli wiemy jakie rodzaje pojęć dostajemy to mając wystarczająco dużo danych z dowolnie dużym prawdopodobieństwem mamy dowolnie dużą skuteczność.

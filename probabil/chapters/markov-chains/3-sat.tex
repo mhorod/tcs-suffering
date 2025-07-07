@@ -6,81 +6,81 @@ Pokażemy dwa algorytmy -- pierwszy będzie działał tak jak 2-sat, drugi będz
 \label{3-sat-naive-algorithm}
 Niech \( \lambda \in \natural \) będzie parametrem algorytmu (stałą czasu działania).
 \begin{enumerate}
-    \item Wylosuj dowolne wartościowanie zmniennych \( x_1, \dots, x_n \)
-    \item Powtarzaj maksymalnie \( \lambda \) razy lub do znalezienia rozwiązania
-    \begin{enumerate}
-        \item Wylosuj niespełnioną klazulę
-        \item Wylosuj literał z tej klauzuli i odwróć wartość zmiennej tego literału
-    \end{enumerate}
-    \item Jeśli mamy wartościowanie to je zwracamy
-    \item W przeciwnym razie orzekamy, że formuła jest niespełnialna
+	\item Wylosuj dowolne wartościowanie zmniennych \( x_1, \dots, x_n \)
+	\item Powtarzaj maksymalnie \( \lambda \) razy lub do znalezienia rozwiązania
+	      \begin{enumerate}
+		      \item Wylosuj niespełnioną klazulę
+		      \item Wylosuj literał z tej klauzuli i odwróć wartość zmiennej tego literału
+	      \end{enumerate}
+	\item Jeśli mamy wartościowanie to je zwracamy
+	\item W przeciwnym razie orzekamy, że formuła jest niespełnialna
 \end{enumerate}
 
 \subsection{Czas działania naiwnego algorytmu}
 \begin{theorem}
-    Jeśli dana jest spełnialna formuła to algorytm \ref{3-sat-naive-algorithm} wykonuje w oczekiwaniu \( O(2^n) \) kroków zanim ją znajdzie.
+	Jeśli dana jest spełnialna formuła to algorytm \ref{3-sat-naive-algorithm} wykonuje w oczekiwaniu \( O(2^n) \) kroków zanim ją znajdzie.
 \end{theorem}
 \begin{proof}
 
-Sytuacja ma się dość podobnie jak w 2-sacie -- mamy ciąg \( X_0, X_1, \dots \) zmiennych
-liczących zgodność z ustalonym wartościowaniem \( S \).
-Tylko oszacowania są nieco gorsze bo spośród trzech literałów, dwa mogą się zgadzać, a tylko jeden nie.
-\[
-    P(X_{i+1} = j + 1 \mid X_i = j) \geq \frac{1}{3}
-\]
-\[
-    P(X_{i+1} = j - 1 \mid X_i = j) \leq \frac{2}{3}
-\]
+	Sytuacja ma się dość podobnie jak w 2-sacie -- mamy ciąg \( X_0, X_1, \dots \) zmiennych
+	liczących zgodność z ustalonym wartościowaniem \( S \).
+	Tylko oszacowania są nieco gorsze bo spośród trzech literałów, dwa mogą się zgadzać, a tylko jeden nie.
+	\[
+		P(X_{i+1} = j + 1 \mid X_i = j) \geq \frac{1}{3}
+	\]
+	\[
+		P(X_{i+1} = j - 1 \mid X_i = j) \leq \frac{2}{3}
+	\]
 
-Zatem pesymistyczny przypadek modelujemy ciągiem \( Y_0, Y_1, \dots \)
-     \[
-        Y_0 = X_0
-    \]
-    \[
-        P(Y_{i+1} = 1 \mid Y_i = 0) = 1
-    \]
-    \[
-        P(Y_{i+1} = j + 1 \mid Y_i = j) = \frac{1}{3}
-    \]
-    \[
-        P(Y_{i+1} = j - 1 \mid Y_i = j) = \frac{2}{3}
-    \]
+	Zatem pesymistyczny przypadek modelujemy ciągiem \( Y_0, Y_1, \dots \)
+	\[
+		Y_0 = X_0
+	\]
+	\[
+		P(Y_{i+1} = 1 \mid Y_i = 0) = 1
+	\]
+	\[
+		P(Y_{i+1} = j + 1 \mid Y_i = j) = \frac{1}{3}
+	\]
+	\[
+		P(Y_{i+1} = j - 1 \mid Y_i = j) = \frac{2}{3}
+	\]
 
-Ponownie, niech \( h_i \) oznacza oczekiwaną liczbę kroków zaczynając w stanie \( i \).
-Dostajemy układ równań
-\[
-    \begin{cases}
-        h_0 = h_1 + 1 \\
-        h_i = 1 + \frac{2}{3} h_{i - 1} + \frac{1}{3} h_{i + 1} \\
-        h_n = 0
-    \end{cases}
-\]
-Przekształcamy środek do
-\[
-    h_{i + 1} = 3h_i - 2h_{i - 1} - 3
-\]
+	Ponownie, niech \( h_i \) oznacza oczekiwaną liczbę kroków zaczynając w stanie \( i \).
+	Dostajemy układ równań
+	\[
+		\begin{cases}
+			h_0 = h_1 + 1                                           \\
+			h_i = 1 + \frac{2}{3} h_{i - 1} + \frac{1}{3} h_{i + 1} \\
+			h_n = 0
+		\end{cases}
+	\]
+	Przekształcamy środek do
+	\[
+		h_{i + 1} = 3h_i - 2h_{i - 1} - 3
+	\]
 
-a następnie rozwiązujemy indukcyjnie
-\begin{align*}
-    h_1 &= h_0 - 1 \\
-    h_2 &= 3h_1 - 2h_0 - 3 = h_1 - 5  = h_1 - (8 - 3)\\
-    h_3 &= 3h_2 - 2h_1 - 3 = h_2 - 2 \cdot(8 - 3) - 3 = h_2 - (16 - 3)
-\end{align*}
-Widzimy, że wyjdzie
-\begin{align*}
-    h_{i+1} &= h_i - (2^{i+2} - 3) \\
-    h_i &= h_{i+1} + 2^{i+1} - 3
-\end{align*}
+	a następnie rozwiązujemy indukcyjnie
+	\begin{align*}
+		h_1 & = h_0 - 1                                                     \\
+		h_2 & = 3h_1 - 2h_0 - 3 = h_1 - 5  = h_1 - (8 - 3)                  \\
+		h_3 & = 3h_2 - 2h_1 - 3 = h_2 - 2 \cdot(8 - 3) - 3 = h_2 - (16 - 3)
+	\end{align*}
+	Widzimy, że wyjdzie
+	\begin{align*}
+		h_{i+1} & = h_i - (2^{i+2} - 3)   \\
+		h_i     & = h_{i+1} + 2^{i+1} - 3
+	\end{align*}
 
-W takim razie mamy
-\begin{align*}
-    h_n &= 0 \\
-    h_{n-1} &= h_n + 2^{n+1} - 3 = 2^{n+1} - 3 \\
-    h_{n-2} &= h_{n-1} + 2^n - 3 = 2^{n+1} + 2^n - 2\cdot 3 \\
-    h_i &= 2^{n+1} + 2^n + \dots + 2^{i+2} - 3(n - i) = 2^{n+2} - 2^{i+2} - 3(n - i)
-\end{align*}
+	W takim razie mamy
+	\begin{align*}
+		h_n     & = 0                                                                         \\
+		h_{n-1} & = h_n + 2^{n+1} - 3 = 2^{n+1} - 3                                           \\
+		h_{n-2} & = h_{n-1} + 2^n - 3 = 2^{n+1} + 2^n - 2\cdot 3                              \\
+		h_i     & = 2^{n+1} + 2^n + \dots + 2^{i+2} - 3(n - i) = 2^{n+2} - 2^{i+2} - 3(n - i)
+	\end{align*}
 
-Trochę do bani -- równie dobrze można sprawdzić wszystkie wartościowania w \( O(n^2 \cdot 2^n) \)
+	Trochę do bani -- równie dobrze można sprawdzić wszystkie wartościowania w \( O(n^2 \cdot 2^n) \)
 \end{proof}
 
 Naiwny algorytm ma pewną wadę -- będzie się kręcił blisko wartościowań, które mają mało wspólnych zmiennych, z prostej przyczyny, że łatwiej popsuć niż poprawić.
@@ -93,76 +93,76 @@ Losowe wartościowanie ma średnio połowę zmiennych ustawionych poprawnie, wi�
 
 Niech \( \lambda \in \natural \) będzie parametrem algorytmu (stałą czasu działania).
 \begin{enumerate}
-    \item Powtarzaj maksymalnie \( \lambda \) razy lub do znalezienia rozwiązania
-    \begin{enumerate}
-        \item Wylosuj dowolne wartościowanie zmniennych \( x_1, \dots, x_n \)
-        \item Powtarzaj maksymalnie \( 3n \) razy lub do znalezienia rozwiązania
-        \begin{enumerate}
-            \item Wylosuj niespełnioną klazulę
-            \item Wylosuj literał z tej klauzuli i odwróć wartość zmiennej tego literału
-        \end{enumerate}
-    \end{enumerate}
-    \item Jeśli mamy wartościowanie to je zwracamy
-    \item W przeciwnym razie orzekamy, że formuła jest niespełnialna
+	\item Powtarzaj maksymalnie \( \lambda \) razy lub do znalezienia rozwiązania
+	      \begin{enumerate}
+		      \item Wylosuj dowolne wartościowanie zmniennych \( x_1, \dots, x_n \)
+		      \item Powtarzaj maksymalnie \( 3n \) razy lub do znalezienia rozwiązania
+		            \begin{enumerate}
+			            \item Wylosuj niespełnioną klazulę
+			            \item Wylosuj literał z tej klauzuli i odwróć wartość zmiennej tego literału
+		            \end{enumerate}
+	      \end{enumerate}
+	\item Jeśli mamy wartościowanie to je zwracamy
+	\item W przeciwnym razie orzekamy, że formuła jest niespełnialna
 \end{enumerate}
 
 \subsection{Czas działania sprytnego algorytmu}
 Zaczynamy od lematu, który przyjmujemy na wiarę (jego dowód to przykra analiza)
 \begin{lemma}[Wzór Stirlinga]
-    \[
-        \forall n > 0: n! = \sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n \cdot (1 \pm o(1))
-    \]
-    W szczególności
-    \[
-        \forall n > 0: \sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n \leq n! \leq 2\sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n
-    \]
+	\[
+		\forall n > 0: n! = \sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n \cdot (1 \pm o(1))
+	\]
+	W szczególności
+	\[
+		\forall n > 0: \sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n \leq n! \leq 2\sqrt{2\pi n}\cdot\pars{\frac{n}{e}}^n
+	\]
 \end{lemma}
 Używamy tego lematu aby pokazać
 \begin{align*}
-    \binom{3i}{i}
-        &= \frac{(3i)!}{i!(2i)!} \\
-        &\geq \frac{\sqrt{2\pi 3i}}{\pars{2\sqrt{2 \pi i}} \cdot \pars{2\sqrt{2 \pi 2i}}}
-            \cdot \pars{\frac{3i}{e}}^{3i} \cdot \pars{\frac{e}{i}}^i \cdot \pars{\frac{e}{2i}}^{2i} \\
-        &= \frac{\sqrt{3}}{8\sqrt{\pi}\sqrt{i}} \cdot \pars{\frac{27}{4}}^i \\
-        &= \frac{c}{\sqrt{i}}\cdot \pars{\frac{27}{4}}^i
+	\binom{3i}{i}
+	 & = \frac{(3i)!}{i!(2i)!}                                                               \\
+	 & \geq \frac{\sqrt{2\pi 3i}}{\pars{2\sqrt{2 \pi i}} \cdot \pars{2\sqrt{2 \pi 2i}}}
+	\cdot \pars{\frac{3i}{e}}^{3i} \cdot \pars{\frac{e}{i}}^i \cdot \pars{\frac{e}{2i}}^{2i} \\
+	 & = \frac{\sqrt{3}}{8\sqrt{\pi}\sqrt{i}} \cdot \pars{\frac{27}{4}}^i                    \\
+	 & = \frac{c}{\sqrt{i}}\cdot \pars{\frac{27}{4}}^i
 \end{align*}
 Gdzie \( c \) jest stałą odsyfiającą wyrażenie.
 
 \begin{theorem}
-    Algorytm \ref{3-sat-better-algorithm} wykonuje w oczekiwaniu \( O\pars{n^{3/2} \cdot \pars{\frac{4}{3}}^n} \) kroków zanim znajdzie poprawne wartościowanie.
+	Algorytm \ref{3-sat-better-algorithm} wykonuje w oczekiwaniu \( O\pars{n^{3/2} \cdot \pars{\frac{4}{3}}^n} \) kroków zanim znajdzie poprawne wartościowanie.
 \end{theorem}
 \begin{proof}
-Chcemy oszacować od dołu prawdopodobieństwo \( q \), że po co najwyżej 3n krokach, z losowego wartościowania znajdziemy poprawne.
+	Chcemy oszacować od dołu prawdopodobieństwo \( q \), że po co najwyżej 3n krokach, z losowego wartościowania znajdziemy poprawne.
 
-Niech \( q_i \) oznacza prawdopodobieństwo, że startując z wartościowania, któremu brakuje dokładnie \( i \) zmiennych to po 3n krokach dojdziemy do poprawnego wartościowania.
+	Niech \( q_i \) oznacza prawdopodobieństwo, że startując z wartościowania, któremu brakuje dokładnie \( i \) zmiennych to po 3n krokach dojdziemy do poprawnego wartościowania.
 
-\( q_i\) szacujemy od dołu pesymistycznym przypadkiem, który szacujemy przez możliwe rozłożenia kroków ,,w górę'' i ,,w dół'' 
-\begin{align*}
-    q_i 
-        &\geq \max_{k = 0, \dots, i} \binom{i + 2k}{k} \cdot \pars{\frac{2}{3}}^k\cdot\pars{\frac{1}{3}}^{i + k} \\
-        &\geq \binom{3i}{i} \cdot \pars{\frac{2}{3}}^i\cdot\pars{\frac{1}{3}}^{2i} \\
-        &\geq \frac{c}{\sqrt{i}}\cdot \pars{\frac{27}{4}}^i \cdot \pars{\frac{2}{3}}^i\cdot\pars{\frac{1}{3}}^{2i} \\
-        &= \frac{c}{\sqrt{i}}\cdot2^{-i}
-\end{align*}
+	\( q_i\) szacujemy od dołu pesymistycznym przypadkiem, który szacujemy przez możliwe rozłożenia kroków ,,w górę'' i ,,w dół''
+	\begin{align*}
+		q_i
+		 & \geq \max_{k = 0, \dots, i} \binom{i + 2k}{k} \cdot \pars{\frac{2}{3}}^k\cdot\pars{\frac{1}{3}}^{i + k}   \\
+		 & \geq \binom{3i}{i} \cdot \pars{\frac{2}{3}}^i\cdot\pars{\frac{1}{3}}^{2i}                                 \\
+		 & \geq \frac{c}{\sqrt{i}}\cdot \pars{\frac{27}{4}}^i \cdot \pars{\frac{2}{3}}^i\cdot\pars{\frac{1}{3}}^{2i} \\
+		 & = \frac{c}{\sqrt{i}}\cdot2^{-i}
+	\end{align*}
 
-Niech \( \mathcal{E}_i \) oznacza zdarzenie, w którym wylosowane wartościowanie jest \textbf{różne} od zadanego \( S \) na dokładnie \( i \) pozycjach.
+	Niech \( \mathcal{E}_i \) oznacza zdarzenie, w którym wylosowane wartościowanie jest \textbf{różne} od zadanego \( S \) na dokładnie \( i \) pozycjach.
 
 
-Mamy zatem
-\begin{align*}
-    q 
-        &= \sum_{i=0}^n P(\mathcal{E}_i) \cdot q_i \\
-        &= 2^{-n} + \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^n \cdot q_i \\
-        &\geq \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^n \cdot \frac{c}{\sqrt{i}}\cdot2^{-i} \\
-        &= \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^{n+i} \cdot \frac{c}{\sqrt{i}} \\
-        &\geq \frac{c}{\sqrt{n}} \cdot \pars{\frac{1}{2}}^n \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^i \cdot 1^{n-i} \\
-        &= \frac{c}{\sqrt{n}} \cdot \pars{\frac{1}{2}}^n \cdot \pars{\frac{3}{2}}^n \\
-        &= \frac{c}{\sqrt{n}} \cdot \pars{\frac{3}{4}}^n \\
-\end{align*}
+	Mamy zatem
+	\begin{align*}
+		q
+		 & = \sum_{i=0}^n P(\mathcal{E}_i) \cdot q_i                                                                      \\
+		 & = 2^{-n} + \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^n \cdot q_i                                             \\
+		 & \geq \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^n \cdot \frac{c}{\sqrt{i}}\cdot2^{-i}                         \\
+		 & = \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^{n+i} \cdot \frac{c}{\sqrt{i}}                                   \\
+		 & \geq \frac{c}{\sqrt{n}} \cdot \pars{\frac{1}{2}}^n \sum_{i=1}^n \binom{n}{i}\pars{\frac{1}{2}}^i \cdot 1^{n-i} \\
+		 & = \frac{c}{\sqrt{n}} \cdot \pars{\frac{1}{2}}^n \cdot \pars{\frac{3}{2}}^n                                     \\
+		 & = \frac{c}{\sqrt{n}} \cdot \pars{\frac{3}{4}}^n                                                                \\
+	\end{align*}
 
-Najgorsze za nami.
+	Najgorsze za nami.
 
-\( q \) to jest prawdopodobieństwo, że w konkretnym bloku (dla konkretnego wartościowania startowego) nam się udało.
-Bloki są niezależne, więc całość ma rozkład geometryczny z parametrem \( q \), 
-zatem w oczekiwaniu musimy przejść przez \( \frac{1}{q} = O\pars{\sqrt{n} \cdot \pars{\frac{4}{3}}^n}\) bloków, a każdy blok zajmuje czas \( O(n) \) co daje tezę.
+	\( q \) to jest prawdopodobieństwo, że w konkretnym bloku (dla konkretnego wartościowania startowego) nam się udało.
+	Bloki są niezależne, więc całość ma rozkład geometryczny z parametrem \( q \),
+	zatem w oczekiwaniu musimy przejść przez \( \frac{1}{q} = O\pars{\sqrt{n} \cdot \pars{\frac{4}{3}}^n}\) bloków, a każdy blok zajmuje czas \( O(n) \) co daje tezę.
 \end{proof}

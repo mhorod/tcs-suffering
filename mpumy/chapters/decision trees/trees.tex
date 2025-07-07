@@ -4,8 +4,8 @@ Niech \( x = (x_1, \dots, x_k) \in X \) będzie elementem z przestrzeni wejść.
 
 Będziemy konstruować drzewa binarne w których węzły są jednej z dwóch postaci:
 \begin{itemize}
-    \item \( x_i \leq t \), \(t \in \real\) gdy \(i\)-ta cecha jest ciągła
-    \item \( x_i \in A_0 \) gdzie \( A_0 \) jest jakimś nietrywialnym podzbiorem wartości jakie przyjmuje ta cecha.
+	\item \( x_i \leq t \), \(t \in \real\) gdy \(i\)-ta cecha jest ciągła
+	\item \( x_i \in A_0 \) gdzie \( A_0 \) jest jakimś nietrywialnym podzbiorem wartości jakie przyjmuje ta cecha.
 \end{itemize}
 
 W ten sposób otrzymujemy podział \( X \) na parami rozłączne zbiory \( R_1, \dots, R_M \)
@@ -15,12 +15,12 @@ W ten sposób otrzymujemy podział \( X \) na parami rozłączne zbiory \( R_1, 
 Każdemu \( R_j \) przypisujemy jakąś wartość, którą przewidujemy dla wszystkich jego elementów.
 Innymi słowy funkcja decyzyjna jest postaci
 \[
-    h(x) = \sum_{j = 1}^M \widehat c_j \cdot \indicator{x \in R_j}
+	h(x) = \sum_{j = 1}^M \widehat c_j \cdot \indicator{x \in R_j}
 \]
 Jeśli \( l(y, \widehat y) = (y - \widehat y)^2 \)
 to \( \widehat c_j \) jest średnią arytmetyczną wartości w danym obszarze.
 \[
-    \widehat c_j = \frac{1}{\card{R_j}} \sum_{i : x^{(i)} \in R_j} y^{(i)}
+	\widehat c_j = \frac{1}{\card{R_j}} \sum_{i : x^{(i)} \in R_j} y^{(i)}
 \]
 
 \subsection{Złożoność drzewa}
@@ -30,21 +30,21 @@ Dla uproszczenia załóżmy, że \( x \in R^k \)
 
 Dla każdej cechy \( j \) oraz punktu \( s \) definiujemy dwa zbiory uzyskane w wyniku podziału:
 \begin{itemize}
-    \item \( R_1(j, s) = \set{x : x_j \leq s} \)
-    \item \( R_2(j, s) = \set{x : x_j > s} \)
+	\item \( R_1(j, s) = \set{x : x_j \leq s} \)
+	\item \( R_2(j, s) = \set{x : x_j > s} \)
 \end{itemize}
 oraz odpowiadające im stałe
 \begin{itemize}
-    \item \( \widehat c_1 = \sum_{i : x^{(i)} \in R_1} \frac{y^{(i)}}{\card{R_1}} \)
-    \item \( \widehat c_2 = \sum_{i : x^{(i)} \in R_2} \frac{y^{(i)}}{\card{R_2}} \)
+	\item \( \widehat c_1 = \sum_{i : x^{(i)} \in R_1} \frac{y^{(i)}}{\card{R_1}} \)
+	\item \( \widehat c_2 = \sum_{i : x^{(i)} \in R_2} \frac{y^{(i)}}{\card{R_2}} \)
 \end{itemize}
 
 Chcemy teraz zminimalizować błąd:
 \[
-    J(j, s) = 
-        \sum_{i : x^{(i)} \in R_1(j, s)}\pars{y^{(i)} - \widehat c_1(j, s)}^2
-        +
-        \sum_{i : x^{(i)} \in R_2(j, s)}\pars{y^{(i)} - \widehat c_2(j, s)}^2
+	J(j, s) =
+	\sum_{i : x^{(i)} \in R_1(j, s)}\pars{y^{(i)} - \widehat c_1(j, s)}^2
+	+
+	\sum_{i : x^{(i)} \in R_2(j, s)}\pars{y^{(i)} - \widehat c_2(j, s)}^2
 \]
 
 W tym celu dla każdej cechy \( j \) osobno sortujemy obserwacje rosnąco po \( x_j \) uzyskując ciąg \( x^{(j_1)}, \dots, x^{(j_m)} \).
@@ -59,16 +59,16 @@ Kiedyś musimy zakończyć budowę drzewa aby nie doszło do przeuczenia.
 Idea pruningu polega na tym, że celowo konstruujemy duże (przeuczone) drzewo, z którego będziemy stopniowo kasować węzły aby otrzymać coś sensownego.
 
 \begin{definition}
-    Niech \( T_0 \) będzie drzewem decyzyjnym.
-    Mówimy, że \( T \subset T_0 \) jest jego \textbf{poddrzewem} jeśli możemy je otrzymać poprzez usunięcie niektórych węzłów z \( T_0 \).
+	Niech \( T_0 \) będzie drzewem decyzyjnym.
+	Mówimy, że \( T \subset T_0 \) jest jego \textbf{poddrzewem} jeśli możemy je otrzymać poprzez usunięcie niektórych węzłów z \( T_0 \).
 \end{definition}
 \begin{definition}
-    \textbf{Złożoność} drzewa \( T \), oznaczaną przez \( \card{T} \) będziemy oznaczać liczbę liści tego drzewa.
+	\textbf{Złożoność} drzewa \( T \), oznaczaną przez \( \card{T} \) będziemy oznaczać liczbę liści tego drzewa.
 \end{definition}
 
 Dla ustalonego \( \alpha \) definiujemy funkcję kosztu drzewa \( T \)
 \[
-    J_\alpha(T) = \widehat R(T) + \alpha \card{T}
+	J_\alpha(T) = \widehat R(T) + \alpha \card{T}
 \]
 
 Intuicyjnie odpowiada to znalezieniu balansu pomiędzy ryzykiem empirycznym a rozmiarem drzewa -- w naturalny sposób większe drzewa mają mniejsze ryzyko empiryczne kosztem możliwego przeuczenia ze względu na rozmiar.
@@ -89,7 +89,7 @@ Załóżmy że mamy \( K \) klas które jakoś chcemy przypisać danym.
 Mając drzewo decyzyjne dzielące \( X \) na obszary \( R_1, \dots, R_M \)
 obliczamy prawdopodobieństwa
 \[
-    \widehat p_{n, k} = \frac{1}{\card{R_n}} \sum_{i : x^{(i)} \in R_n} \indicator{y^{(i)} = k}
+	\widehat p_{n, k} = \frac{1}{\card{R_n}} \sum_{i : x^{(i)} \in R_n} \indicator{y^{(i)} = k}
 \]
 
 Naturalnym wyborem funkcji decyzyjnej jest przypisanie każdemu liściowi najczęstszej klasy.
@@ -99,23 +99,23 @@ Intuicyjnie liść jest czysty jeśli jakaś klasa wyraźnie w nim dominuje.
 
 Przykładowe funkcje nieczystości to:
 \begin{itemize}
-    \item błąd klasyfikacji
-    \[
-        1 - \widehat p_{n, h(n)}
-    \]
-    \item współczynnik Giniego
-    \[
-        \sum_{k=1}^K \widehat p_{n, k}(1 - \widehat p_{n, k})
-    \]
-    \item entropia
-    \[
-        -\sum_{k=1}^K \widehat p_{n, k} \ln \widehat p_{n, k}
-    \]
+	\item błąd klasyfikacji
+	      \[
+		      1 - \widehat p_{n, h(n)}
+	      \]
+	\item współczynnik Giniego
+	      \[
+		      \sum_{k=1}^K \widehat p_{n, k}(1 - \widehat p_{n, k})
+	      \]
+	\item entropia
+	      \[
+		      -\sum_{k=1}^K \widehat p_{n, k} \ln \widehat p_{n, k}
+	      \]
 \end{itemize}
 
 Tak jak w przypadku regresji wybieraliśmy podział minimalizujący ryzyko empiryczne, tak tutaj będziemy chcieli minimalizować ważoną nieczystość -- dla miary nieczystości \( Q \) oraz potencjalnego podziału na \( R_1, R_2 \) minimalizujemy
 \[
-    \card{R_1} \cdot Q(R_1) + \card{R_2} \cdot Q(R_2)
+	\card{R_1} \cdot Q(R_1) + \card{R_2} \cdot Q(R_2)
 \]
 
 \subsection{Niebinarne cechy}
@@ -130,14 +130,14 @@ Mamy dzięki temu \( q - 1 \) możliwych podziałów, co jest już dużo lepsze.
 
 Zalety:
 \begin{itemize}
-    \item łatwo zrozumieć co robią
-    \item szybko klasyfikują jak już je skonstruujemy
-    \item nie wymagają przetwarzania danych
+	\item łatwo zrozumieć co robią
+	\item szybko klasyfikują jak już je skonstruujemy
+	\item nie wymagają przetwarzania danych
 \end{itemize}
 Wady:
 \begin{itemize}
-    \item nie zawsze są optymalne
-    \item wrażliwe na zmiany
-    \item długi czas uczenia
-    \item dla danych ciągłych podziały są bardzo sztywne
+	\item nie zawsze są optymalne
+	\item wrażliwe na zmiany
+	\item długi czas uczenia
+	\item dla danych ciągłych podziały są bardzo sztywne
 \end{itemize}

@@ -4,44 +4,44 @@ W GMM zakładamy, że mamy \( K \) klastrów, które mogą się na siebie nak�
 W obrębie każdego klastra punkty są rozłożone zgodnie z pewnym rozkładem normalnym.
 Aby wylosować punkt najpierw losujemy klaster, a następnie losujemy z niego punkt co zapisujemy jako
 \[
-    p(x) = \sum_{i=1}^K \pi_i \Normal(x \given \mu_i, \Sigma_i)
+	p(x) = \sum_{i=1}^K \pi_i \Normal(x \given \mu_i, \Sigma_i)
 \]
 gdzie
 \[
-    \sum_{i=1}^K \pi_i = 1
+	\sum_{i=1}^K \pi_i = 1
 \]
 
 \subsection{MLE}
 
 Mamy próbkę \( D = \set{x^{(1)}, \dots, x^{(m)}} \) wylosowaną z pewnego GMM z parametrami
 \begin{align*}
-    \pi &= (\pi_1, \dots, \pi_k) \\
-    \mu &= (\mu_1, \dots, \mu_k) \\
-    \Sigma &= (\Sigma_1, \dots, \Sigma_k)
+	\pi    & = (\pi_1, \dots, \pi_k)       \\
+	\mu    & = (\mu_1, \dots, \mu_k)       \\
+	\Sigma & = (\Sigma_1, \dots, \Sigma_k)
 \end{align*}
 
 Mamy funkcję wiarygodności zadaną wzorem
 \begin{align*}
-    L(\pi, \mu, \Sigma) 
-        &= p(D \given \pi, \mu, \Sigma) \\
-        &= \prod_{i=1}^m p(x^{(i)} \given \pi, \mu, \Sigma) \\
-        &= \prod_{i=1}^m \sum_{j=1}^K \pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)
+	L(\pi, \mu, \Sigma)
+	 & = p(D \given \pi, \mu, \Sigma)                                            \\
+	 & = \prod_{i=1}^m p(x^{(i)} \given \pi, \mu, \Sigma)                        \\
+	 & = \prod_{i=1}^m \sum_{j=1}^K \pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)
 \end{align*}
 
 Log-wiarygodność zadana jest wzorem
 \begin{align*}
-    \ell(\pi, \mu, \Sigma)
-        &= \ln L(\pi, \mu, \Sigma) \\
-        &= \sum_{i=1}^m \ln \pars{\sum_{j=1}^K \pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)}
+	\ell(\pi, \mu, \Sigma)
+	 & = \ln L(\pi, \mu, \Sigma)                                                           \\
+	 & = \sum_{i=1}^m \ln \pars{\sum_{j=1}^K \pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)}
 \end{align*}
 
-No i tutaj napotykamy na taki problem, że logarytm średnio łączy się z sumą. 
+No i tutaj napotykamy na taki problem, że logarytm średnio łączy się z sumą.
 Co gorsza, rozważana funkcja nie jest nawet wypukła i ma wiele maksimów.
 
 Możemy jednak zauważyć ciekawą rzecz -- nasz problem składa się z dwóch części:
 \begin{itemize}
-    \item przydzielenia etykiet klastrów do punktów
-    \item oszacowania rozkładów klastrów
+	\item przydzielenia etykiet klastrów do punktów
+	\item oszacowania rozkładów klastrów
 \end{itemize}
 
 Jeśli znamy którąś z tych dwóch rzeczy to jesteśmy w stanie bez większego problemu wyznaczyć drugą.
@@ -49,24 +49,24 @@ Jeśli znamy którąś z tych dwóch rzeczy to jesteśmy w stanie bez większeg
 Jeśli znamy \( \theta = (\pi, \mu, \Sigma) \) to umiemy oszacować z jakiego klastra pochodzi dany punkt.
 
 \begin{align*}
-    p(z = c \given x, \theta)
-        &= \frac{p(x \given z = c, \theta)p(z = c \given \theta)}{p(x \given \theta)} \\
-        &= \frac{\pi_c\Normal(x \given \mu_c, \Sigma_c)}{
-        \sum_{i=1}^K \pi_i \Normal(x \given \mu_i, \Sigma_i)
-        }
+	p(z = c \given x, \theta)
+	 & = \frac{p(x \given z = c, \theta)p(z = c \given \theta)}{p(x \given \theta)} \\
+	 & = \frac{\pi_c\Normal(x \given \mu_c, \Sigma_c)}{
+		\sum_{i=1}^K \pi_i \Normal(x \given \mu_i, \Sigma_i)
+	}
 \end{align*}
 
 Jeśli znamy etykiety \( z^{(1)}, \dots, z^{(m)} \) to nasza log-wiarygodność upraszcza się do
 \begin{align*}
-    \ell(\pi, \mu, \Sigma)
-        &= \sum_{i=1}^m \ln \pars{\sum_{j=1}^K \indicator{z^{(i)} = j} 
-        \pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)
-        } \\
-        &= \sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)} \\
-        &= \sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln \pi_j
-        +
-        \sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j}
-        \ln \Normal(x^{(i)} \given \mu_j, \Sigma_j)
+	\ell(\pi, \mu, \Sigma)
+	 & = \sum_{i=1}^m \ln \pars{\sum_{j=1}^K \indicator{z^{(i)} = j}
+		\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)
+	}                                                                                                             \\
+	 & = \sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)} \\
+	 & = \sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln \pi_j
+	+
+	\sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j}
+	\ln \Normal(x^{(i)} \given \mu_j, \Sigma_j)
 \end{align*}
 
 Dzięki znajomości etykiet udało nam się rozdzielić wybór rozkładu od jego parametrów co pozwala nam na proste policzenie pochodnych.
@@ -74,19 +74,19 @@ Dzięki znajomości etykiet udało nam się rozdzielić wybór rozkładu od jego
 
 Załóżmy, że mamy informacje do których klastrów przynależą nasze punkty tj. znamy
 \[
-    \gamma^{(i)}_c = p(z^{(i)} = c \given x^{(i)}, \theta)
+	\gamma^{(i)}_c = p(z^{(i)} = c \given x^{(i)}, \theta)
 \]
 
 Wtedy maksymalizujemy \textbf{oczekiwaną log-wiarygodność} (a przynajmniej tak by wynikało ze slajdów, bo inaczej ciężko sensownie uwzględnić gammy) tj.
 \begin{align*}
-    \expected{\ell(\pi, \mu, \Sigma)}
-        &= \expected{\sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)}} \\
-        &= \sum_{i=1}^m \sum_{j=1}^k \expected{\indicator{z^{(i)} = j}} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)} \\
-        &= \sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)} \\
-        &= \sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j \ln \pi_j
-        +
-        \sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j
-        \ln \Normal(x^{(i)} \given \mu_j, \Sigma_j)
+	\expected{\ell(\pi, \mu, \Sigma)}
+	 & = \expected{\sum_{i=1}^m \sum_{j=1}^k \indicator{z^{(i)} = j} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)}} \\
+	 & = \sum_{i=1}^m \sum_{j=1}^k \expected{\indicator{z^{(i)} = j}} \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)} \\
+	 & = \sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j \ln\pars{\pi_j\Normal(x^{(i)} \given \mu_j, \Sigma_j)}                     \\
+	 & = \sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j \ln \pi_j
+	+
+	\sum_{i=1}^m \sum_{j=1}^k \gamma^{(i)}_j
+	\ln \Normal(x^{(i)} \given \mu_j, \Sigma_j)
 \end{align*}
 
 Pochodne obliczamy identycznie jak w poprzednim przypadku -- w wyniku po prostu zastępujemy każde \( \indicator{z^{(i)} = c} \) przez \( \gamma^{(i)}_c \)
@@ -96,15 +96,15 @@ Pochodne obliczamy identycznie jak w poprzednim przypadku -- w wyniku po prostu 
 Bazując na powyższych spostrzeżeniach możemy szacować parametry \( \pi, \mu, \Sigma \) iteracyjnie wykonując na zmianę dwa kroki -- raz obliczamy etykiety, a raz obliczamy rozkłady klastrów.
 
 \begin{enumerate}
-    \item Wylosuj \( \pi, \mu, \Sigma \)
-    \item Wykonuj aż do warunku stopu (np. bardzo małej zmiany)
-    \begin{enumerate}
-        \item \textbf{E} (Expectation)
-        
-        Dla każdego \( x^{(i)} \)  wylicz wszystkie \( \gamma^{(i)}_c \)
-        
-        \item \textbf{M} (Maximization)
-        
-        Uaktualnij \( \pi, \mu, \Sigma \) tak, aby maksymalizowały oczekiwaną log-wiarygodność.
-    \end{enumerate}
+	\item Wylosuj \( \pi, \mu, \Sigma \)
+	\item Wykonuj aż do warunku stopu (np. bardzo małej zmiany)
+	      \begin{enumerate}
+		      \item \textbf{E} (Expectation)
+
+		            Dla każdego \( x^{(i)} \)  wylicz wszystkie \( \gamma^{(i)}_c \)
+
+		      \item \textbf{M} (Maximization)
+
+		            Uaktualnij \( \pi, \mu, \Sigma \) tak, aby maksymalizowały oczekiwaną log-wiarygodność.
+	      \end{enumerate}
 \end{enumerate}

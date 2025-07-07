@@ -3,19 +3,19 @@ Liczba Catalana jest to liczba ścieżek długości \(2n\) w kwadracie \(n \time
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{images/catalan/all_paths_1.png}
-  \caption{Ścieżki Dycka długości 2; \(c_1 = 1\)}
+	\caption{Ścieżki Dycka długości 2; \(c_1 = 1\)}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{images/catalan/all_paths_2.png}
-  \caption{Ścieżki Dycka długości 4; \(c_2 = 2\)}
+	\caption{Ścieżki Dycka długości 4; \(c_2 = 2\)}
 \end{figure}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[scale=0.5]{images/catalan/all_paths_3.png}
-  \caption{Ścieżki Dycka długości 6; \(c_3 = 5\)}
+	\caption{Ścieżki Dycka długości 6; \(c_3 = 5\)}
 \end{figure}
 
 
@@ -42,12 +42,12 @@ Wszystkich możliwych ścieżek od \((0,0)\) do \((n,n)\) mamy \(\binom{2n}{n}\)
 \begin{equation*}
 	\begin{split}
 		c_n
-		&= \binom{2n}{n} - \binom{2n}{n-1} \\
-		&= \frac{(2n)!}{n! \cdot n!} - \frac{(2n)!}{(n-1)! \cdot (n+1)!} \\
-		&= \frac{(n+1) \cdot (2n)!}{n! \cdot (n+1)!} - \frac{n \cdot (2n)!}{n! \cdot (n+1)!}\\
-		&= \frac{(2n)!}{n! \cdot (n+1)!} \\
-		&= \frac{1}{n+1} \cdot \frac {(2n)!}{n! \cdot n!} \\
-		&= \frac{1}{n+1} \cdot \binom{2n}{n}
+		 & = \binom{2n}{n} - \binom{2n}{n-1}                                                   \\
+		 & = \frac{(2n)!}{n! \cdot n!} - \frac{(2n)!}{(n-1)! \cdot (n+1)!}                     \\
+		 & = \frac{(n+1) \cdot (2n)!}{n! \cdot (n+1)!} - \frac{n \cdot (2n)!}{n! \cdot (n+1)!} \\
+		 & = \frac{(2n)!}{n! \cdot (n+1)!}                                                     \\
+		 & = \frac{1}{n+1} \cdot \frac {(2n)!}{n! \cdot n!}                                    \\
+		 & = \frac{1}{n+1} \cdot \binom{2n}{n}
 	\end{split}
 \end{equation*}
 \subsection{Zależność rekurencyjna}

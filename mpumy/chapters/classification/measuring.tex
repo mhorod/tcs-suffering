@@ -1,29 +1,29 @@
 \section{Metody oceny klasyfikatora}
 
-Załóżmy że mamy klasyfikator binarny. Jak ocenić czy dobrze sobie radzi? 
+Załóżmy że mamy klasyfikator binarny. Jak ocenić czy dobrze sobie radzi?
 
 Dla danego wejścia mamy cztery możliwości jakości odpowiedzi:
 \begin{itemize}
-    \item True Positive -- poprawnie odpowiedzieliśmy ,,TAK''
-    \item True Positive -- poprawnie odpowiedzieliśmy ,,NIE''
-    \item False Positive -- błędnie odpowiedzieliśmy ,,TAK''
-    \item False Negative -- błędnie odpowiedzieliśmy ,,NIE''
+	\item True Positive -- poprawnie odpowiedzieliśmy ,,TAK''
+	\item True Positive -- poprawnie odpowiedzieliśmy ,,NIE''
+	\item False Positive -- błędnie odpowiedzieliśmy ,,TAK''
+	\item False Negative -- błędnie odpowiedzieliśmy ,,NIE''
 \end{itemize}
 
 Mamy trzy miary jakości:
 \begin{itemize}
-    \item dokładność -- jak wiele danych jest poprawnie zaklasyfikowanych
-    \[
-        \frac{TP + TN}{TP + TN + FP + FN}
-    \]
-    \item precyzja -- jak wiele danych, które uznaliśmy za pozytywne faktycznie jest pozytywnych. Wysoka precyzja to niski poziom fałszywych alarmów.
-    \[
-        \frac{TP}{TP + FP}
-    \]
-    \item czułość -- jak dużo faktycznie pozytywnych danych uznaliśmy za pozytywne. Wysoka czułość to wysoki poziom detekcji pozytywnych przypadków.
-    \[
-        \frac{TP}{TP + FN}
-    \]
+	\item dokładność -- jak wiele danych jest poprawnie zaklasyfikowanych
+	      \[
+		      \frac{TP + TN}{TP + TN + FP + FN}
+	      \]
+	\item precyzja -- jak wiele danych, które uznaliśmy za pozytywne faktycznie jest pozytywnych. Wysoka precyzja to niski poziom fałszywych alarmów.
+	      \[
+		      \frac{TP}{TP + FP}
+	      \]
+	\item czułość -- jak dużo faktycznie pozytywnych danych uznaliśmy za pozytywne. Wysoka czułość to wysoki poziom detekcji pozytywnych przypadków.
+	      \[
+		      \frac{TP}{TP + FN}
+	      \]
 \end{itemize}
 
 Chcielibyśmy osiągnąć zarówno wysoką precyzję jak i wysoką czułość -- np. jeśli wykrywamy obecność wirusa to z jednej strony chcemy przegapiać jak najmniej zarażeń (czułość), ale nie chcemy też wszystkich kierować na kwarantannę (precyzja).
@@ -31,15 +31,15 @@ Chcielibyśmy osiągnąć zarówno wysoką precyzję jak i wysoką czułość 
 \subsection{Miara F-Beta}
 
 \begin{definition}
-Miarę \( F_\beta \) definiujemy jako
-\[
-    F_\beta = (1 + \beta^2) \cdot \frac{\textnormal{precyzja} \cdot \textnormal{czułość}}{\beta^2 \cdot \textnormal{precyzja} + \textnormal{czułość}}
-\]
+	Miarę \( F_\beta \) definiujemy jako
+	\[
+		F_\beta = (1 + \beta^2) \cdot \frac{\textnormal{precyzja} \cdot \textnormal{czułość}}{\beta^2 \cdot \textnormal{precyzja} + \textnormal{czułość}}
+	\]
 \end{definition}
 
 Szczególnym przypadkiem jest miara \( F_1 \)
 \[
-F_1 = 2 \cdot \frac{\text{precyzja} \cdot \text{czułość}}{\text{precyzja} + \text{czułość}}
+	F_1 = 2 \cdot \frac{\text{precyzja} \cdot \text{czułość}}{\text{precyzja} + \text{czułość}}
 \]
 
 \( \beta > 1 \) premiuje czułość, natomiast \( \beta < 1 \) premiuje precyzję.

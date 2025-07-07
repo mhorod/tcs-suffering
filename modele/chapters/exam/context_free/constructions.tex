@@ -3,7 +3,7 @@
 
 Skonstruujemy CFG i PDA jednego z prostszych i bardziej znanych języków bezkontekstowych:
 \[
-    \{ a^nb^ia^n | n, i > 0 \}
+	\{ a^nb^ia^n | n, i > 0 \}
 \]
 
 \subsection{CFG}
@@ -27,11 +27,11 @@ Konstruując PDA, często chcemy aby używał stosu do dopasowywania rzeczy któ
 pierwszym wystąpieniem \(b\) i sprawdzić, czy po tym wystąpieniu będzie ich tyle samo. Robimy to w dość prosty sposób:
 
 \begin{enumerate}
-    \item W pierwszym stanie, wrzucamy żeton (inny niż symbol startowy) na stos jeśli trafimy na \(a\). Przechodzimy do drugiego stanu jeśli trafimy na \(b\). Uważni czytelnicy zauważą,\
-    że musimy jeszcze zagwarantować przynajmniej jedno \(a\) - w przeciwieństwie do DFA nie dodajemy stanu, wystarczy że jeśli trafimy na \(b\) a na stosie mamy symbol startowy to odrzucamy wejście.
-    \item W drugim stanie, nie ruszamy stosu jeśli trafimy na \(b\), i przechodzimy do trzeciego, jeśli trafimy na \(a\).
-    \item W trzecim stanie, zdejmujemy żeton ze stosu jeśli trafimy na \(a\) i odrzucamy słowo, jeśli trafimy na \(b\).
-    \item W tym miejscu musimy się zdecydować, co z symbolem startowym na stosie. Możemy go zdjąć wrzucając pierwszy żeton - wówczas nasz automat będzie akceptował pustym stosem.\
-    Jeśli jednak wolimy akceptację stanem akceptującym, to musimy taki stan dorobić - tworzymy do niego \(\eps\)-przejście z stanu 3 oraz symbolu startowego stosu. Wczytanie\
-    dowolnej literki w tym stanie powoduje odrzucenie słowa\footnote{taki "wrażliwy" stan końcowy jest również motywem wartym zapamiętania}.
+	\item W pierwszym stanie, wrzucamy żeton (inny niż symbol startowy) na stos jeśli trafimy na \(a\). Przechodzimy do drugiego stanu jeśli trafimy na \(b\). Uważni czytelnicy zauważą,\
+	      że musimy jeszcze zagwarantować przynajmniej jedno \(a\) - w przeciwieństwie do DFA nie dodajemy stanu, wystarczy że jeśli trafimy na \(b\) a na stosie mamy symbol startowy to odrzucamy wejście.
+	\item W drugim stanie, nie ruszamy stosu jeśli trafimy na \(b\), i przechodzimy do trzeciego, jeśli trafimy na \(a\).
+	\item W trzecim stanie, zdejmujemy żeton ze stosu jeśli trafimy na \(a\) i odrzucamy słowo, jeśli trafimy na \(b\).
+	\item W tym miejscu musimy się zdecydować, co z symbolem startowym na stosie. Możemy go zdjąć wrzucając pierwszy żeton - wówczas nasz automat będzie akceptował pustym stosem.\
+	      Jeśli jednak wolimy akceptację stanem akceptującym, to musimy taki stan dorobić - tworzymy do niego \(\eps\)-przejście z stanu 3 oraz symbolu startowego stosu. Wczytanie\
+	      dowolnej literki w tym stanie powoduje odrzucenie słowa\footnote{taki "wrażliwy" stan końcowy jest również motywem wartym zapamiętania}.
 \end{enumerate}

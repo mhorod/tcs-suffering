@@ -1,8 +1,8 @@
 Możliwe odpowiedzi:
 \begin{enumerate}
-    \item \texttt{read} może nam zwrócić coś co nie ma (jeszcze sensu) bo system może to dowolnie pociąć
-    \item nie sprawdzamy co z sygnałami i \texttt{EINTR}
-    \item \texttt{exec} może się nie udać i dziecko się zapętli
+	\item \texttt{read} może nam zwrócić coś co nie ma (jeszcze sensu) bo system może to dowolnie pociąć
+	\item nie sprawdzamy co z sygnałami i \texttt{EINTR}
+	\item \texttt{exec} może się nie udać i dziecko się zapętli
 \end{enumerate}
 
 Wczytujemy readem jakieś rzeczy do bufora i po (jednym!) readzie cokolwiek poleciało do bufora jest podawane jako argumenty programowi? I to wszystko robimy w pętli? Pomijając fakt, że jeśli sygnał nam przerwie reada to już też nic nie zrobimy? Co się dzieje, ratunku?
