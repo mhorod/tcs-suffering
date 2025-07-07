@@ -1,0 +1,11 @@
+\section{Schemat działania}
+Przy ustalonej macierzy ortonormalnej \( Q \) wyznaczamy kolejne przybliżenia rozwiązania:
+\[
+    Qx_{n+1} = (Q - A)x_n + b,
+\]
+czyli najpierw obliczamy \( y = (Q - A)x_n \) + b, a potem rozwiązujemy układ równań \( Qx = y \). \\
+Macierz \( Q \) powinna być niezbyt gęsta, żeby mnożenie było szybkie i łatwo odwracalna, żeby układ \( Qy = c \) był rozwiązywalny:
+\[
+    x_{n+1} = Q^{-1}(Q - A)x_n + Q^{-1}b.
+\]
+Jeśli oznaczymy \( C = Q^{−1}(Q - A) \), \( b' = Q^{-1}b \), to \( x_n = (I + C + C^2 + . . . + C^n) \cdot b' \). Metoda jest więc zbieżna, jeśli \( \rho(Q^{-1}(Q - A)) < 1 \).

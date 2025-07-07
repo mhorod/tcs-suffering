@@ -1,0 +1,19 @@
+\section{Metoda gradient descent}
+Będąc w punkcie \( x_k \), idziemy w kierunku wektora gradientu:
+\[
+    x_{k+1} = x_k - \nabla f(x_k) \cdot t,
+\]
+gdzie t jest pewną stałą. Nie potrzeba wielu obliczeń f.
+\begin{warning}
+    Można kluczyć lub przeskoczyć minimum.
+\end{warning}
+
+\subsection{Metoda gradientu prostego – wariant}
+Będąc w punkcie \( x_k \), idziemy w kierunku wektora gradientu od razu do optimum na prostej:
+\[
+    h_k(t) = f(x_k - \nabla f(x_k) \cdot t)
+\]
+\[
+    x_{k+1} = \min_{t}\; h_k(t)
+\]
+Szukamy minimum \( h_k \) za pomocą metod dla jednej zmiennej (Newton, wyszukiwanie ternarne). Daje to większą dokładność, ale też trzeba więcej razy obliczać f.

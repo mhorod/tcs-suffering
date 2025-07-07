@@ -1,0 +1,119 @@
+2-SATa nikomu nie trzeba przedstawiać -- mamy \( n \) zmiennych i \( k \) klauzul postaci \( a \lor b \), gdzie \( a = x_i \) albo \( a = \bar x_i \).
+
+Przykładem instancji problemu 2-SAT jest na przykład taka formuła:
+
+\[ 
+    (x_1 \lor x_3) \land (\neg x_1 \lor x_2) \land (x_3 \lor \neg x_1)
+\]
+
+Znamy algorytm rozwiązujący ten problem w czasie \( O(n + k) \) za pomocą silnie spójnych składowych, ale tutaj pokażemy \textbf{wolniejszy} algorytm.
+
+\subsection{Algorytm}
+\label{2-sat-algorithm}
+Niech \( \lambda \in \natural \) będzie parametrem algorytmu (stałą czasu działania).
+\begin{enumerate}
+    \item Wylosuj dowolne wartościowanie zmniennych \( x_1, \dots, x_n \)
+    \item Powtarzaj maksymalnie \( 2\lambda n^2 \) razy lub do znalezienia rozwiązania
+    \begin{enumerate}
+        \item Wylosuj niespełnioną klazulę
+        \item Wylosuj literał z tej klauzuli i odwróć wartość zmiennej tego literału
+    \end{enumerate}
+    \item Jeśli mamy wartościowanie to je zwracamy
+    \item W przeciwnym razie orzekamy, że formuła jest niespełnialna
+\end{enumerate}
+
+\subsection{Własności algorytmu}
+
+\begin{theorem}[Lemat 7.1 P\&C]
+    Jeśli dana jest formuła spełnialna, oraz pozwalamy działać algorytmowi dowolnie długo 
+    to oczekiwana liczba kroków wynosi co najwyżej \( n^2 \)
+\end{theorem}
+\begin{proof}
+    Będziemy modelować zachowanie algorytmu jako łańcuch Markowa (a jakże).
+    Wybierzmy sobie dowolne wartościowanie \( S \), które spełnia formułę.
+    Nazwijmy wartościowanie stworzone przez algorytm w \(i\)-tym kroku przez \( A_i \)
+    
+    Niech \( X_i \) oznacza liczbę zmiennych, które mają to samo wartościowanie w \( S \) oraz w \( A_i \)
+    
+    Mamy zatem taki proces \( X_0, X_1, \dots \), który niestety nie jest łańcuchem Markowa, bo tracimy informacje o tym, które zmienne mają jakie wartościowanie, a prawdopodobieństwo przejścia z \( X_i \) do \( X_{i+1} \) jest zadane wartościowaniem \( A_i \), które nie jest częścią łańcucha.
+    
+    Zrobimy zatem sztuczkę i rozważymy proces \( Y_0, Y_1, \dots \), który będzie łańcuchem Markowa i jednocześnie będzie pesymistyczną sytuacją naszego procesu.
+    
+    Zauważmy, że jeśli wybieramy klauzulę, która nie jest spełniona, to wartościowania \( A_i \) oraz \( S \) wartościują którąś ze zmiennych (być może obie) inaczej.
+    W takim razie
+    \[
+        P(X_{i+1} = j + 1 \mid X_i = j) \geq \frac{1}{2}
+    \]
+    \[
+        P(X_{i+1} = j - 1 \mid X_i = j) \leq \frac{1}{2}
+    \]
+    
+    Zatem w pesymistycznej sytuacji, którą modeluje nasz \( Y_i \) mamy:
+    \[
+        Y_0 = X_0
+    \]
+    \[
+        P(Y_{i+1} = j + 1 \mid Y_i = j) = \frac{1}{2}
+    \]
+    \[
+        P(Y_{i+1} = j - 1 \mid Y_i = j) = \frac{1}{2}
+    \]
+    Przy czym (z uwagi na to, że mamy tylko jedną opcję)
+    \[
+        P(Y_{i+1} = 1 \mid Y_i = 0) = 1
+    \]
+    
+    Niech \( Z_i \) oznacza liczbę kroków potrzebną do pierwszego dotarcia do stanu \( n \) zaczynając w stanie \( i \).
+    Mamy
+    \[
+        h_i = \expected{Z_i} = \expected{1 + \frac{Z_{i-1}}{2} + \frac{Z_{i+1}}{2}}
+    \]
+    Dostajemy zatem układ \( n + 1 \) równań
+    \[
+        \begin{cases}
+            h_0 = h_1 + 1 \\
+            h_i = 1 + \frac{1}{2}\pars{h_{i-1} + h_{i+1}} \\
+            h_n = 0 
+        \end{cases}
+    \]
+    
+    Przekształcamy środkową zależność do postaci
+    \[
+        h_{i + 1} = 2h_i - h_{i - 1} - 2
+    \]
+    Rozwiązując indukcyjnie dostajemy
+    \begin{align*}
+        h_1 &= h_0 - 1 \\
+        h_2 &= 2h_1 - h_0 - 2 = h_1 - 3 = h_0 - 1 - 3 \\
+        h_3 &= 2h_2 - h_1 - 2 = h_2 - 5 = h_0 - 1 - 3 - 5 \\
+        h_i &= h_0 - i^2 \\
+    \end{align*}
+    W takim razie
+    \[
+        h_n = 0 = h_0 - n^2
+    \]
+    czyli \[ h_0 = n^2 \]
+    
+    Start w stanie 0 jest najbardziej pesymistyczny a pokazaliśmy, że w oczekiwaniu po \( n^2 \) krokach znajdziemy wartościowanie, co należało pokazać.
+\end{proof}
+
+\begin{theorem}[Lemat 7.2 P\&C]
+    Jeśli formuła jest spełnialna, to algorytm \ref{2-sat-algorithm} myli się z prawdopodobieństwem \( 2^{-\lambda} \)
+\end{theorem}
+\begin{proof}
+    Załóżmy na chwilę, że pozwalamy algorytmowi działać w nieskończoność.
+    
+    Dzielimy wykonanie algorytmu na bloki długości \( 2n^2 \).
+    Niech \( Z_i \) oznacza liczbę kroków wykonaną od początku \( i \)-tego bloku (zakładając, że nie znaleźliśmy wcześniej wartościowania).
+    
+    Pokazaliśmy przed chwilą, że \(\expected{Z_i} \leq n^2\) zatem z nierówności Markowa
+    \[
+        P(Z_i > 2n^2) \leq \frac{n^2}{2n^2} = \frac{1}{2}
+    \]
+    
+    W takim razie prawdopodobieństwo, że po wykonaniu \( \lambda \) bloków nie znaleźliśmy wartościowania wynosi
+    \[
+        \pars{\frac{1}{2}}^\lambda
+    \]
+    
+\end{proof}

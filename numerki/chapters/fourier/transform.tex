@@ -1,0 +1,22 @@
+\section{Transformata Fouriera}
+Celem jest ustalić częstotliwość danej funkcji \( f: \mathbb{R} \rightarrow \mathbb{R} \), przyjmując, że jeśli częstotliwość jest równa \( \xi \), to wartość \( \int f(x) \cdot\cos(2\pi \xi x) \) będzie raczej większa niż mniejsza. Czyli zamiast wartości funkcji w punktach, pamiętamy z jakich częstotliwości się składa. Definiujemy:
+\[
+    \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) \cdot e^{−2\pi i \xi x} = \int_{-\infty}^{\infty} f(x) \cdot  \cos(2\pi \xi x) \;dx -i \cdot \int_{-\infty}^{\infty} f(x) \cdot \sin(2\pi \xi x) \;dx
+\]
+Transformata Fouriera jest odwracalna, czyli \( \hat{\hat{f}}(x) = f(-x) \).
+
+\subsection{Dyskretna transformata Fouriera}
+Jest potrzebna, bo komputery nie operują na ciągłych funkcjach oraz znamy funkcję tylko w pewnych punktach. Przyjmujemy, że próbkowanie jest na przedziale \( [0, N) \) w punktach całkowitych.
+\[
+    \hat{f}(\xi) = \sum_{k=0}^{N-1}\; f(k)\:e^{−2\pi i\xi \cdot k}
+\]
+Ustalamy częstotliwość bazową \( \xi_0 = \frac{1}{N} \) i ograniczmy się tylko do wielokrotności \( \xi_0 \):
+\[
+    \hat{f}\!\left(\frac{j}{N}\right) = \sum_{k=0}^{N-1}\; f(k)\:e^{−2\pi i\cdot jk/N}
+\]
+Czyli zamieniamy ciąg wartości funkcji \( f(0), \dots, f(N - 1) \) na ciąg wartości transformaty \( \hat{f}(0), \hat{f}(1/N), \dots, \hat{f}((N/1)/N) \). Pierwszy ciąg oznaczmy przez \( (a_0, \dots, a_{N-1}) \), drugi przez \( (\hat{a}_0, \dots, \hat{a}_{N-1}) \). Przyjmujemy, że \( \omega = e^{−2\pi i/N} \) to \( N \)-ty pierwiastek z jedności. Stąd wzór to:
+\[
+    \hat{a}_j = \sum_{k=0}^{N-1}\; a_k \omega^{jk}
+\]
+Traktujemy \( (a_0, \dots, a_{N-1}) \) jak współczynniki wielomianu \( A \) i zamieniamy na ciąg \( (\hat{a}_0, \dots, \hat{a}_{N-1}) \) = \( (A(1), A(\omega), \dots, A(\omega^{N-1})) \). \\
+Szybka transformata Fouriera (FFT) daje złożoność \( O(N \log N) \).

@@ -1,0 +1,38 @@
+\section{Podstawowe kwadratury}
+Jeśli \( x_1, \dots, x_n \) są równo położone na przedziale \( [a, b] \), tę metodę nazywa się kwadraturą Newtona-Cotesa. \\
+\textbf{Kwadratury Newtona-Cotesa}
+\begin{itemize}
+\onehalfspacing
+    \item zamknięte (\( a \) i \( b \) są pierwszym i ostatnim węzłem interpolacji)
+    \item otwarte (\( a \) i \( b \) nie są węzłami interpolacji).
+\end{itemize}
+\vspace{1.2em}
+
+\begin{itemize}
+\onehalfspacing
+    \item Metoda prostokątów – kwadratura otwarta dla \( n = 1 \)
+    \[
+        \int_{a}^{b} f = (b-a) \cdot \frac{f(a+b)}{2}
+    \]
+    Błąd: \( O((b - a)^3) \)
+    \item Metoda trapezów – kwadratura zamknięta dla \( n = 1 \)
+    \[
+        \int_{a}^{b} f = (b-a) \cdot \frac{f(a)+f(b)}{2}
+    \]
+    Błąd: \( O((b - a)^3) \)
+    \item Metoda Simpsona – kwadratura zamknięta dla \( n = 2 \)
+    \[
+        \int_{a}^{b} f = \frac{b-a}{6} \cdot \left(f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right)
+    \]
+    Błąd: \( O((b - a)^5) \)
+    \item Metoda Simpsona 3/8 – kwadratura zamknięta dla \( n = 2 \)
+    \[
+        \int_{a}^{b} f = \frac{b-a}{8} \cdot \left(3f\left(\frac{2a+b}{3}\right) + 3f \left(\frac{a+2b}{3}\right) + f(b)\right)
+    \]
+\end{itemize}
+Dla dużych przedziałów błąd jest duży, więc lepiej zastosować kwadratury złożone, czyli dla podziału na mniejsze przedziały. Przykład dla prostokątów:
+\[
+    \sum \Delta x \cdot f\left(\frac{x_i + x_{i+1}}{2}\right)
+\]
+dla przedziałów \( [x_i,\:x_{i+1}] \) wielkości \( \Delta x \). \\
+Dla kwadratur złożonych błędy wynoszą \( O(\Delta x^2) \) (prostokąty, trapezy) i \( O(\Delta x^4) \) (Simpson).

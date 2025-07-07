@@ -1,0 +1,41 @@
+Nierówność Markowa nie daje nam zbyt dobrych ograniczeń, ale jeśli jedyne co wiemy o zmiennej \( X \) to jej wartość oczekiwana, to to jest i tak dobry wynik.
+\subsection{Definicja}
+Spodziewamy się, że jeśli wiemy coś więcej o rozkładzie \( X \) to możemy lepiej szacować pewne prawdopodobieństwa.
+
+Faktycznie, tak jest -- w nierówności Czebyszewa przyjmujemy że znamy wariancję.
+
+\begin{theorem}[Twierdzenie 3.6 P\&C]
+    Dla dowolnego \( a > 0 \)
+    \[
+        P(\abs{X - \expected{X}} \geq a) \leq \frac{\variance{X}}{a^2}
+    \]
+\end{theorem}
+\begin{proof}
+Korzystamy z nierówności Markowa
+    \[
+        P(\abs{X - \expected{X}} \geq a) = P(\pars{X - \expected{X}}^2 \geq a^2) 
+        \leq \frac{\expected{\pars{X - \expected{X}}^2}}{a^2} = \frac{\variance{X}}{a^2}
+    \]
+\end{proof}
+
+\subsection{Kolekcjoner kuponów}
+Niech \( X_1, \dots, X_n \) opisują czasy czekania na \( i \)-ty kupon oraz \( X = \sum X_i \) -- łączny czas czekania.
+
+Aby w ogóle móc liczyć coś nierównością Czebyszewa potrzebujemy obliczyć \( \variance{X} \).
+
+Skorzystamy tutaj z bardzo wygodnego twierdzenia \ref{variance-of-sum-of-independent-variables} 
+a następnie z aby dostać
+\begin{align*}
+    \variance{X} 
+        &= \sum_{i=1}^n \variance{X_i}  \\
+        &= \sum_{i=1}^n \frac{1 - p_i}{p_i^2} \\
+        &\leq \sum_{i=1}^n \frac{1}{p_i^2} \\
+        &=\sum_{i=1}^n \pars{\frac{n}{n-i+1}}^2 \\
+        &=n^2 \cdot \sum_{i=1}^n \frac{1}{i^2} \\
+        &\leq n^2\frac{\pi^2}{6}
+\end{align*}
+
+Teraz wkładamy to do nierówności Czebyszewa:
+\[
+    P(\abs{X - nH_n} \geq nH_n) \leq \frac{\variance{X}}{n^2H_n^2} = \frac{\pi^2}{6H_n^2} = O\pars{\frac{1}{\ln^2 n}}
+\]

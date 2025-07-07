@@ -1,0 +1,13 @@
+\section{Przybliżone różniczkowanie}
+\begin{itemize}
+    \item \textbf{Na zwykły użytek:} \( f'(x) \approx \frac{f(x+h) - f(x)}{h} \) \\
+    \( \rightarrow \) błąd \( O(h) \)
+    \item \textbf{Lepiej:} \( f'(x) \approx \frac{f(x+h) - f(x-h)}{2h} \) \\
+    \( \rightarrow \) błąd \( O(h^2) \)
+    \item \textbf{Jeszcze lepiej:} \( f'(x) \approx \frac{3}{2}D\!\left(\frac{h}{3}\right) - \frac{1}{2}D(h) \), dla \( D(h) = \frac{f(x+h) - f(x)}{h} \) \quad (ekstr. Richardsona) \\
+    \( \rightarrow \) błąd \( O(h^2) \)
+    \item \textbf{Dla wtajemniczonych:} \( f'(x) \approx \frac{1}{h} \cdot \left[\: \frac{1}{12}f(x-2h) - \frac{2}{3}f(x-h) + \frac{2}{3}f(x+h) - \frac{1}{12}f(x+2h) \:\right] \) \\
+    \( \rightarrow \) błąd \( O(h^4) \)
+\end{itemize}
+
+W niektórych z metod może się pojawić dzielenie przez \( h \approx 0 \).

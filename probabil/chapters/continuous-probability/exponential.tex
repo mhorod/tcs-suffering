@@ -1,0 +1,230 @@
+\begin{definition}
+    \textbf{Rozkładem wykładniczym} z parametrem \( \lambda \) nazywamy rozkład zadany dystrybuantą
+    \[
+        F(x) = \begin{cases}
+            1 - e^{-\lambda x} & \text{ dla } x \geq 0 \\
+            0 & \text{ dla } x < 0
+        \end{cases}
+    \]
+\end{definition}
+
+Gęstość rozkładu wykładniczego \( f = F' \) wynosi \( f(x) = \lambda e^{-\lambda x} \)
+
+Momenty wynoszą
+\[
+    \expected{X} = \int_0^\infty x\lambda e^{-\lambda x} \diff x = \frac{1}{\lambda}
+\]
+\[
+    \expected{X^2} = \int_0^\infty x^2\lambda e^{-\lambda x} \diff x = \frac{2}{\lambda^2}
+\]
+\[
+   \variance{X} = \expected{X^2} - \expected{X}^2 = \frac{1}{\lambda^2}
+\]
+
+\begin{theorem}[Lemat 8.4 P\&C]
+    Rozkład wykładniczy jest \textbf{bez pamięci} tzn.
+    \[ 
+        P(X > s + t \mid X > t) = P(X > s)
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+            P(X > s + t \mid X > t) &= \frac{P(X > s + t)}{P(X > t)} \\
+            &= \frac{1 - P(X \leq s + t)}{1 - P(X \leq t)} \\
+            &= \frac{\exp(-\lambda(s + t))}{\exp(-\lambda t)} \\
+            &= e^{-\lambda s} = P(X > s)
+    \end{align*}
+\end{proof}
+
+Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować'' zmienną o której wiemy, że ma większą wartość niż ustalona.
+
+\begin{theorem}
+    Rozkład wykładniczy jest jedynym ciągłym rozkładem bez pamięci, czyli jeśli \(X\) jest ciągłą zmienną losową i zachodzi
+    \[ \forall_{s,t>0} \ P\left( X> s+t \mid X>t \right) = P\left( X >s \right) ,  \] 
+    to istnieje takie \(\lambda > 0\), że \(X \sim \Exp\left( \lambda \right) \).
+\end{theorem}
+\begin{proof}
+    Niech \(S\left( x  \right) = 1 - F_X\left( x  \right) \). Mamy 
+    \[ \frac{S\left( s+t \right) }{S\left( t \right) } = S\left( s  \right) \implies  S\left( s+t \right) = S\left( s  \right) S\left( t  \right) . \] 
+    Z tego widzimy \(S \left( 2t \right) = S\left( t \right)^2 \) i indukując mamy \(S\left( p t  \right) = S\left( t  \right) ^{p}\), \( S\left( \frac{1}{q}t \right) = S\left( t  \right) ^{\frac{1}{q}} \), czyli \(S\left( \frac{p}{q}t \right) = S\left( t  \right) ^{\frac{p}{q}}\), a więc \(\forall_{r \in \Q_{\ge 0}} \ S\left( rt \right) = S\left( t  \right) ^{r} \), teraz dla \(a\in \R_{\ge 0}\) znajdujemy ciąg \(\left\{ r_n \right\} \) zbiegający do \(a\) i mamy \(S\left( r_n t  \right) = S\left( t  \right) ^{r_n}\), a więc z ciągłości \(S\left( at  \right) = S\left( t  \right) ^{a}\).
+
+    Wstawiając \(t=1\) mamy \(S\left( a  \right) = S\left( 1 \right) ^{a}\). Definiujemy \(\lambda = -\ln S\left( 1 \right) \). Dla \(x \in \R_{\ge 0}\) mamy \(S\left( x  \right) = S\left( 1 \right) ^{x} = e^{\ln S\left( 1 \right) \cdot  x } = e^{-\lambda x}\), czyli rozkład wykładniczy.
+
+    \(S\left( x  \right) \) jest nierosnąca i mamy \( \lim_{x \to 0^{+}} S\left( x  \right) = 1\), więc \(P\left( x < 0 \right) = 0\), czyli dla liczb ujemnych też się zgadza.
+\end{proof}
+
+
+\begin{theorem}[MGF] 
+    Niech \( X \) ma rozkład wykładniczy z parametrem \( \lambda \). Wtedy dla \( t < \lambda \)
+    \[
+        M_X(t) = \frac{\lambda}{\lambda - t}
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        M_X(t) 
+            &= \expected{e^{tX}} \\
+            &= \int_0^\infty e^{tx} \cdot f(x) \diff x\\
+            &= \int_0^\infty e^{tx} \cdot \lambda e^{-\lambda x} \diff x \\
+            &= \lambda \int_0^\infty e^{-x \cdot (\lambda - t)} \diff x \\
+            &= \frac{\lambda}{\lambda - t}
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Lemat 8.5 P\&C]
+\label{lemat8.5}
+Jeśli \(X_1, X_2\) są \textbf{niezależnymi} zmiennymi losowymi o rozkładzie wykładniczym o parametrach (odpowiednio) \(\lambda_1\) i \(\lambda_2\) to zmienna losowa \(Y\) będąca ich minimum jest zmienną o rozkładzie wykładniczym o parametrze \( \lambda_1 + \lambda_2 \).
+    
+Dodatkowo, prawdopodobieństwo że \(X_1 = Y\) (w sensie: że to \(X_1\) będzie mniejsze) wynosi \( \frac{\lambda_1}{\lambda_1 + \lambda_2} \). Analogicznie, dla \(X_2\) prawdopodobieństwo to wyniesie \( \frac{\lambda_2}{\lambda_1 + \lambda_2} \).
+\end{theorem}
+
+\begin{proof}
+    Policzmy sobie dystrybuantę zmiennej losowej \(Y\) (w nieco śmieszny sposób): 
+    
+    \[ 
+        1 - F_Y(x) = \mathrm{P}(x \leq Y) = \mathrm{P}(x \leq X_1 \land x \leq X_2) = \mathrm{P}(x \leq X_1) \cdot \mathrm{P}(x \leq X_2) 
+    \]
+    \[ 
+        P(x \leq X_1) \cdot P(x \leq X_2) = (1 - F_{X_1}(x)) \cdot (1 - F_{X_2}(x))
+    \]
+    Jako, że dla zmiennych \(X\) rozkładu wykładniczego \(F_{X}(x) = 1 - e^{- \lambda x}\) to \(1 - F_{X}(x) = e^{-\lambda x}\). Zatem:
+    \[
+    (1 - F_{X_1}(x)) \cdot (1 - F_{X_2}(x)) = e^{-\lambda_1 x} \cdot e^{-\lambda_2 x} = e^{-(\lambda_1 + \lambda_2)x} = 1 - F_Y(x)
+    \]
+    czyli 
+    \[ 
+        F_Y(x) = 1 - e^{-(\lambda_1 + \lambda_2)x}
+    \]
+    
+    skąd \(Y\) jest zmienną rozkładu wykładniczego z parametrem \( \lambda_1 + \lambda_2\). Teraz pozostaje pokazać, że:
+    
+    \[
+        P(X_1 \leq X_2) = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+    \]
+    
+    Zatem liczymy:
+    
+    \begin{align*} 
+        \mathrm{P}(X_1 \leq X_2) = \int_{x_2 = -\infty}^{\infty} \int_{x_1 = -\infty}^{x_2} f_{X_{1}X_{2}}(x_1, x_2) \; dx_{1}dx_{2} &= \\ 
+        \int_{x_2 = -\infty}^{\infty} f_{X_{2}}(x_2) \int_{x_1 = -\infty}^{x_2} f_{X_1}(x_1) \; dx_{1}dx_{2} &=  \\
+        \int_{x_2 = 0}^{\infty} \lambda_2 e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} \lambda_1 e^{-\lambda_1 x_1} \; dx_{1}dx_{2} &= \\
+        \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} e^{-\lambda_1 x_1} \; dx_{1}dx_{2} &= \\ 
+        \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \pars{\Big\rvert_{0}^{x_2} \frac{-1}{\lambda_1} e^{-\lambda_1 x_1} } \;  dx_{2} &= \\ 
+        \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \pars{\frac{-1}{\lambda_1} e^{-\lambda_1 x_2} - \frac{-1}{\lambda_1} e^0} \; dx_2 &= \\ 
+        \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_2 x_2} \frac{-1}{\lambda_1} \pars{e^{-\lambda_1 x_2} - 1} \; dx_2 &= \\ 
+        -\lambda_2 \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \pars{e^{-\lambda_1 x_2} - 1} \; dx_2 &= \\ 
+        -\lambda_2 \int_{x_2=0}^{\infty} e^{-\lambda_2x_2 - \lambda_1 x_2} - e^{-\lambda_2 x_2} \; dx_2 &= \\ 
+         -\lambda_2 \int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} - e^{-\lambda_2 x_2} \; dx_2 &= \\ 
+        -\lambda_2 \pars{\int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} \; dx_2 - \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \; dx_2} &= \\
+        -\lambda_2 \pars{\pars{\Big\rvert_{x_2=0}^{\infty} \frac{-1}{\lambda_1 + \lambda_2} e^{-x_2(\lambda_1 + \lambda_2)}} - \pars{\Big\rvert_{x_2=0}^{\infty} \frac{-1}{\lambda_2} e^{-\lambda_2 x_2}}} &= \\ 
+        -\lambda_2 \pars{\frac{1}{\lambda_1 + \lambda_2} - \frac{1}{\lambda_2}} &= \\ 
+        -\lambda_2 \pars{\frac{\lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}} - \frac{\lambda_1 + \lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}}} &= \\
+        (-\lambda_2)\cdot \frac{-\lambda_1}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}} &= \\ 
+        \frac{\lambda_1}{\lambda_1 + \lambda_2}
+    \end{align*}
+\end{proof}
+
+\newpage
+\subsection{Kule i urny z feedbackiem}
+
+Jak zwykle, zanim zaczniemy to pokażemy pomocniczy lemat:
+\begin{lemma}
+    \label{if-expected-is-finite-then-variable-is-finite}
+    Niech \( X \) będzie dowolną zmienną losową ze skończoną wartością oczekiwaną, tj. \( \expected{X} \in \real \).
+    Wtedy
+    \[
+        P(X < \infty) = 1
+    \]
+\end{lemma}
+\begin{proof}
+    Korzystamy z nierówności Markowa
+    \[
+        P(X \geq n) \leq \frac{\expected{X}}{n}
+    \]
+    Zatem
+    \[
+        \lim_{n \rightarrow \infty} P(X \geq n) \leq \lim_{n \rightarrow \infty} \frac{\expected{X}}{n} = 0
+    \]
+\end{proof}
+
+
+Kule i urny jakie są każdy widzi. Rozważmy sobie jednak zabawny model, w którym mamy tylko dwie urny ale z takim twistem, że im więcej kul jest w urnie, tym większa szansa na to, że wrzucimy tam kolejną kulę.
+
+Konkretniej - jeśli w pierwszej urnie jest \( x \) kul a w drugiej \( y \) to prawdopodobieństwo, że kolejna kula trafi do pierwszej urny wynosi \[ \frac{x^p}{x^p + y^p} \] a do drugiej \[ \frac{y^p}{x^p + y^p} \] 
+dla ustalonego \( p \).
+
+Będziemy się zajmować \( p > 1 \) tzn. więcej kul dostaje cięższa urna.
+
+\begin{theorem}
+    Dla dowolnego \( p > 1 \) oraz dowolnych warunków początkowych, z prawdopodobieństwem 1 od pewnego momentu kule wpadają tylko do jednej urny.
+\end{theorem}
+\begin{proof}
+    Przyjmijmy, że w obu urnach na początku jest po jednej kuli, uprości to dowód, a rozumowanie pozostaje takie same.
+    
+    Rozważmy inny, choć podobny, proces.
+    Każda urna dostaje własny, niezależny licznik, który odlicza czas do przyjścia kolejnej kuli do tej konkretnej urny.
+    
+    Jeśli w pierwszej urnie jest \( x \) kul to czas oczekiwania na kolejną wynosi \( T_x \), które ma rozkład wykładniczy z parametrem \( x^p \).
+    
+    Podobnie dla drugiej urny -- jeśli jest w niej \( y \) kul to mamy zmienną \( U_y \) z parametrem \( y^p \).
+    
+    Zauważamy teraz fajną rzecz -- prawdopodobieństwo, że kolejna kula ląduje w pierwszej urnie wynosi dokładnie
+    \[
+         \frac{x^p}{x^p + y^p}
+    \]
+    a w drugiej
+    \[
+        \frac{y^p}{x^p + y^p}
+    \]
+    Czyli nasz nowy proces jest taki sam jak oryginalny, cóż za zbieg okoliczności.
+    
+    Definiujemy czasy nasycenia -- opisują one po jakim czasie liczba kul w urnach jest dowolnie duża.
+    \[
+        F_1 = \sum_{i=1}^\infty T_i
+    \]
+    \[
+        F_2 = \sum_{i=1}^\infty U_i
+    \]
+    Możemy tak zrobić, bo \(\expected{T_i} = \expected{U_i} = \frac{1}{i^p}\), a ponieważ \( p > 1 \) to \( \expected{F_1}\) oraz \(\expected{F_2} \) są skończone.
+    
+    Tutaj należy uważać ale książka Wam tego nie powie.
+    Otóż a priori nie wiemy, że jeśli zmienna ma skończoną oczekiwaną to z prawdopodobieństwem 1 \textit{zmienna} przyjmuje skończoną wartość.
+    My się powołujemy na lemat \ref{if-expected-is-finite-then-variable-is-finite}
+    dzięki czemu wiemy, że wartości \( F_1, F_2 \) są skończone.
+    
+    
+    Co więcej, z prawdopodobieństwem 1 są różne.
+    
+    Bez straty ogólności, przyjmijmy, że \( F_2 > F_1 \). Oznacza to, że dla pewnego \( n \)
+    \[
+        \sum_{i=1}^n U_i < F_1 < \sum_{i=1}^{n+1} U_i
+    \]
+    a to z kolei oznacza, że dla wystarczająco dużych \( m \)
+    \[
+        \sum_{i=1}^n U_i < \sum_{i=1}^m T_i < \sum_{i=1}^{n+1} U_i
+    \]
+    W takim razie, dla odpowiednio dużych \( m \) pierwsza urna zawiera \( m \) kul a druga urna zawiera jedynie \( n \) kul, czyli z prawdopodobieństwem 1 druga urna utknęła na posiadaniu \( n \) kul, a to jest to co chcieliśmy pokazać.
+\end{proof}
+
+\subsection{Ćwiczenia}
+
+\begin{exercise}
+    Rozważ zmienną o rozkładzie wykładniczym z parametrem \(\lambda\).
+    Jaki rozkład ma zmienna \(\ceil{X}\)? Czy ten rozkład coś Ci przypomina?
+\end{exercise}
+\begin{proof}
+    Niech \( F \) będzie dystrybuantą \( X \), \( F(x) = 1 - e^{-\lambda x} \) dla \( x \geq 0 \).
+    
+    Wtedy
+    \begin{align*}
+        P\pars{\ceil{X} = n} 
+            &= F(n) - F(n - 1) \\
+            &= e^{-\lambda(n-1)} - e^{-\lambda n} \\
+            &= \pars{e^{-\lambda}}^{n-1} \cdot \pars{1 - e^{-\lambda}}
+    \end{align*}
+    
+    Jeśli przyjmiemy \( p = 1 - e^{-\lambda} = F(1) \) to dostaniemy \( P\pars{\ceil{X} = n} = (1-p)^{n-1} \cdot p \)
+    
+    Rozkład geometryczny z parametrem \(F(1)\). Wow.
+    
+\end{proof}

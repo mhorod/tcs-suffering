@@ -1,0 +1,9 @@
+\section{Rozwiązywanie układu równań}
+Problem równoważny: zminimalizować \( \norm{x}^2 \) dla \( x \) spełniających \( A^TAx = A^Tb \). \\
+Wstawiamy \( A = U\Sigma V^T \). Wówczas \( \Sigma V^Tx = U^Tb \). Oznaczając \( y = V^Tx \), trzeba zminimalizować \( \norm{y}^2 \). Rozwiązaniem jest \( \Sigma^+U^Tb \), gdzie \( \Sigma^+ \) ma na przekątnej odwrotności wartości z \( \Sigma \) lub zera. To prowadzi do rozwiązania \( x = V\Sigma^+U^Tb \). Macierz \( A^+ = V\Sigma^+U^Tb \) to pseudoodwrotność \( A \).
+\begin{itemize}
+\onehalfspacing
+    \item Jeśli \( A \) jest kwadratowa i nieosobliwa, to \( A^+ = A^{-1} \).
+    \item Jeśli \( Ax = b \) jest nadokreślony, to \( A^+b \) jest przybliżonym rozwiązaniem w sensie najmniejszych kwadratów.
+    \item Jeśli \( Ax = b \) jest niedookreślony, to \( A^+b \) jest najmniejszym w sensie normy rozwiązaniem
+\end{itemize}

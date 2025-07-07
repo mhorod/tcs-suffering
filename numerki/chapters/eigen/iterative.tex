@@ -1,0 +1,19 @@
+\section{Metody iteracyjne}
+Niech \( v = \alpha_1x_1 + \cdots + \alpha_nx_n \). Wówczas:
+\[
+    A^kv =\alpha_1\lambda_1^kx_1 + \cdots + \alpha_n\lambda_n^kx_n,
+\]
+Jeśli \( \abs{\lambda_1} > \abs{\lambda_i} \) dla i > 1, to \( \lambda_1^k >\!\!> \lambda_i^k \). Zatem wektor \( A^kv \) ma kierunek coraz bardziej zgodny z \( x_1 \). 
+
+\subsection{Iteracja prosta}
+Zaczynając od \( v_0 = v \), stosujemy
+\[
+    v_{k+1} = \frac{Av_k}{\norm{Av_k}}
+\]
+Wtedy \( v_ k \) zbiega do \( x_1 \), o ile \( A \) ma dominującą wartość własną.
+
+\subsection{Deflacja}
+Jeśli „wyrzucimy” wektor własny \( x_1 \) z początkowego \( v \), to teoretycznie znajdziemy wektor odpowiadający drugiej co do wielkości wartości własnej. W praktyce musimy wyrzucać \( x_1 \) po każdym kroku:
+\[
+    v = v - \langle v, x_1 \rangle x_1
+\]

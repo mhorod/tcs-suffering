@@ -1,0 +1,16 @@
+\begin{theorem}
+    Niech \(X\) będzie zmienną o rozkładzie Poissona z parametrem \(\mu\). Wtedy:
+    \begin{enumerate}
+        \item jeśli \(x>\mu\), to \(P \left( X \ge x \right) \le \frac{e^{-\mu} \left( e\mu \right) ^{x}}{x^{x}}\)
+        \item jeśli \(x < \mu\), to \(P \left( X \le x \right) \le \frac{e^{-\mu} \left( e\mu \right) ^{x}}{x^{x}}\)
+        \item jeśli \(\delta > 0\), to \(P \left( X \ge \left( 1+\delta \right) \mu \right) \le \left( \frac{e^{\delta}}{ \left( 1+\delta \right) ^{1+\delta}} \right) ^{\mu}\)
+        \item jeśli \(0 < \delta < 1\), to \(P \left( X \le \left( 1-\delta \right) \mu \right) \le \left( \frac{e^{-\delta}}{ \left( 1-\delta \right) ^{1-\delta}} \right) ^{\mu}\)
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Niech \(t>0, x>\mu\). Mamy \[ P \left( X\ge x \right) \le \frac{\mathbb{E} \left[ e^{tX} \right] }{e^{tx}} = e^{\mu \left( e^{t}-1 \right) -tx}  \le e^{\mu \frac{x}{\mu}- \mu-\ln \left( \frac{x}{\mu} \right) x} = e^{-\mu}\cdot \left( \frac{e\mu}{x} \right) ^{x} ,\] 
+    gdzie podstawiliśmy \(t= \ln \left( \frac{x}{\mu} \right) > 0 \). Drugi punkt robi się identycznie, wtedy mamy \(\ln \left( \frac{x}{\mu} \right) < 0\).
+
+    Trzeci i czwarty punkt są po prostu podstawieniem do poprzednich.
+\end{proof}
+

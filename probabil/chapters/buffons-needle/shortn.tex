@@ -1,0 +1,93 @@
+\begin{definition}
+    Krótka igła jest to piękne zdarzenie które zachodzi gdy \(l < d\) - długość igły jest mniejsza niż szerokość deski.
+\end{definition}
+
+\begin{theorem}
+    Prawdopodobieństwo że igła przetnie którąś z krawędzi wynosi \(\frac{2l}{4\pi}\).
+\end{theorem}
+\begin{proof}
+    Niech \(X\) oznacza odległość od środka igły do najbliższej krawędzi deski. Oznaczmy \(\theta\) kąt ostry pomiędzy naszą igłą a jedną z wielu równoległych prostych.
+    
+    Oczywiście obie z tych zmiennych mają rozkład jednostajny.
+    \[
+        f_X(x) = 
+        \begin{cases}
+            \frac{2}{d}: & 0 \leq x \leq \frac{d}{2} \\
+            0: & \text{wpw}
+        \end{cases}
+    \]
+    \[
+        f_\theta(\theta) = 
+        \begin{cases}
+            \frac{2}{\pi}: & 0 \leq \theta \leq \frac{\pi}{2} \\
+            0: & \text{wpw}
+        \end{cases}
+    \]
+    
+    Powyżej korzystamy z faktu, że jest bijekcja między sytuacją gdy środek igły jest bliżej lewej a sytuacją gdy jest bliżej prawej krawędzi (bo rozumowanie jest to samo). Analogicznie zakładamy z kątem ,,odchylenia'' igły. Tu też pojawia się miejsce w którym użyjemy założenia, że \( l \leq d\): dzięki temu wiemy, że igła zawsze przetnie maksymalnie jedną krawędź\footnote{Modulo sytuacja gdzie wypadnie dokładnie na środku i kąt będzie zerowy, ale takie zdarzenie ma miarę zero i nie wpłynie na wynik naszego prawdopodobieństwa; tym samym równie dobrze możemy założyć, że \(l < d\).}.
+    
+    Zmienne te są w oczywisty sposób niezależne, więc ich wspólny rozkład prawdopodobieństwa będzie ich iloczynem.
+    \[
+        f_{X\theta}(x, \theta) = 
+        \begin{cases}
+            \frac{4}{d\pi}: & 0 \leq x \leq \frac{d}{2}, 0 \leq \theta \leq \frac{\pi}{2}  \\
+            0: & \text{wpw}
+        \end{cases}
+    \]
+   
+    
+    \begin{center}
+
+    \begin{tikzpicture}[scale=1]
+
+    \draw[thick] (-3,0) -- (-3,7);
+    \draw[thick] (7,0) -- (7,7);
+
+    \draw[thick] (7,5) -- (3,3) -- (7,3);
+
+    \tkzDefPoints{3/3/O,7/5/A,7/3/B};
+    \tkzMarkAngle[size = 2, arc=ll,mkcolor = red,mkpos=.33](B,O,A);
+    \tkzLabelAngle[dist=1.5](B,O,A){\(\theta\)};
+    
+    \tkzDefPoint(5,3){X};
+    \tkzLabelPoint[below, black](X){\(x\)};
+    
+    \tkzDefPoint(5,4){Y};
+    \tkzLabelPoint[above, black](Y){\(y\)};
+    
+    \draw[red,thick,dashed, <->] (-3, 1) -- (7, 1);
+    
+    \tkzDefPoint(2,1){D};
+    \tkzLabelPoint[above, black](D){\(d\)};
+
+    \end{tikzpicture}
+    \end{center}
+    
+    Igła będzie przecinać krawędź, gdy \( \frac{l}{2} \geq y\). Jednocześnie:
+    
+    \[
+        \cos{\theta} = \frac{x}{y} \; \iff \; y = \frac{x}{\cos{\theta}} 
+    \]
+    
+    Więc aby igła przecinała krawędź musimy mieć: 
+    
+    \[ 
+        l \geq 2y = \frac{2x}{\cos{\theta}}
+    \]
+    
+    Czyli w takim razie musi być tak, że: 
+    
+    \[ 
+        x \leq \frac{l \cos{\theta}}{2}
+    \]
+    
+    Liczymy zatem nasze piękne prawdopodobieństwo:
+    \begin{align*}
+        \int_{\theta=0}^{\frac{\pi}{2}} \int_{x=0}^{\frac{l}{2}\cos{\theta}} \frac{4}{d\pi} \; dx\; d\theta = \frac{4}{d\pi}  \int_{\theta=0}^{\frac{\pi}{2}} \int_{x=0}^{\frac{l}{2}\cos{\theta}} 1 \; dx \; d\theta &= \\
+        \frac{4}{d\pi}  \int_{\theta=0}^{\frac{\pi}{2}} \frac{l}{2} \cos{\theta} \; d\theta &= \\ 
+        \frac{2l}{d\pi}  \int_{\theta=0}^{\frac{\pi}{2}} \cos{\theta} \; d\theta &= \\ 
+         \frac{2l}{d\pi} \Big\rvert_{\theta=0}^{\frac{\pi}{2}} \sin{\theta} &= \\
+         \frac{2l}{d\pi} \cdot \pars{\sin{\frac{\pi}{2}} - \sin{0}} &= \\ 
+         \frac{2l}{d\pi}
+    \end{align*}
+\end{proof}

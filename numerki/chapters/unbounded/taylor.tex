@@ -1,0 +1,21 @@
+\section{Wzór Taylora}
+Wzór Taylora dla jednej zmiennej:
+\[
+    f(x) \approx f(x_0) + f'(x_0)(x - a) + \frac{1}{2}f''(x_0)(x - x_0)^2
+\]
+Wtedy ekstremum \( f \) jest gdzieś w okolicy \( x_0 - \frac{f'(x_0)}{f''(x_0)} \). \\
+Przybliżenie ze wzoru Taylora dla funkcji wielu zmiennych:
+\[
+    f(x) \approx f(x_0) + \nabla f(x_0) \cdot (x - x_0) + (x - x_0)^T \cdot H_f(x_0) \cdot (x - x_0)
+\]
+\[
+    \nabla f = \left[ \frac{\partial f}{\partial x_1}, \cdots, \frac{\partial f}{\partial x_n} \right]
+\]
+W punkcie stacjonarnym \( x_0 \) ( spełniającym \( \nabla f = 0 \)):
+\begin{itemize}
+\onehalfspacing
+    \item jeśli \( H_f(x_0) \) jest dodatnio określona, to w \( x_0 \) jest minimum.
+    \item jeśli \( H_f(x_0) \) jest ujemnie określona, to w \( x_0 \) jest maksimum.
+    \item jeśli \( H_f(x_0) \) jest nieosobliwa, ale nie ma maksimum ani minimum, to w \( x_0 \) jest punkt siodłowy.
+    \item jeśli \( H_f(x_0) \) jest osobliwa, mogą wystąpić sytuacje zdegenerowane (może też dowolna \linebreak z powyższych).
+\end{itemize}

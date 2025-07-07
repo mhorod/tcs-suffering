@@ -1,0 +1,30 @@
+ % Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+
+
+\documentclass[12pt, a4paper, polish, openany]{book}
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\fancyhead[L]{\textbf{\textit{Algorytmy numeryczne}}}
+
+\begin{document}
+
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+
+\tableofcontents
+\input{license}
+
+% Actual content
+\mainmatter
+
+\input{chapters/main}
+
+
+\end{document}

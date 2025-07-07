@@ -1,0 +1,21 @@
+\begin{definition}
+    Długa igła jest to jeszcze piękniejsze zdarzenie, różni się tym że długa igła może przeciąć dwie krawędzie deski \( l \geq d \)
+\end{definition}
+
+\begin{theorem}
+    Prawdopodobieństwo na przecięcie długiej igły z krawędzią wynosi 
+    \[
+        \frac{2l}{d\pi} - \frac{2}{d\pi}\left(\sqrt{l^2 - d^2} + d\arcsin\frac{d}{l}\right) + 1
+    \]
+\end{theorem}
+
+\begin{proof}
+    Zobaczmy, że jeśli \( l\sin{\theta} > d\) to wówczas prawdopodobieństwo, że dana igła przetnie krawędź wynosi 1. Natomiast w w przeciwnym przypadku zachowuje się tak samo jak krótka igła. Gdy \( 0 \leq \theta \leq \arcsin\left({\frac{d}{l}}\right) \) to mamy krótką igłę. A zatem:
+    
+    \[
+        \int_{\theta=0}^{\arcsin{\frac{d}{l}}} \int_{x=0}^{\frac{l}{2}\sin{\theta}} \frac{4}{d\pi} \, dx\, d\theta + \int_{\arcsin{\frac{d}{l}}}^{\frac{\pi}{2}} \frac{2}{\pi} d\theta = 
+        \frac{2l}{d\pi} - \frac{2}{d\pi}\left(\sqrt{l^2 - d^2} + d\arcsin\frac{d}{l}\right) + 1
+    \]
+    Po trywialnych przeliczeniach.
+
+\end{proof}

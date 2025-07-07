@@ -1,0 +1,132 @@
+\begin{definition}
+    \textbf{Funkcją ekstrakcji} nazywamy taką funkcję \( \Ext \), która zwraca bity w oparciu o wartości zwracane przez zmienną \( X \) w taki sposób, że dla dowolnego ciągu binarnego \( y \) zachodzi
+    \[
+        P(\abs{\Ext(X)} = k) \neq 0 \implies P(\Ext(X) = y \mid \abs{y} = k) = 2^{-k}
+    \]
+\end{definition}
+Innymi słowy -- jeśli możemy dostać \textit{jakiś} ciąg \( k \)-bitowy to możemy dostać \textit{każdy} ciąg \(k\)-bitowy, wszystkie z równym prawdopodobieństwem.
+Dalece nie jest oczywiste, że taka funkcja ekstrakcji w ogóle istnieje (być może nasza zmienna zachowuje się w brzydki sposób).
+
+Czasem jednak jest dobrze.
+\begin{theorem}[Twierdzenie 10.4 P\&C]
+    Niech \( X \) ma rozkład jednostajny na zbiorze \( \set{0, \dots, m - 1} \).
+    Wtedy istnieje funkcja ekstrakcji \( \Ext \), która średnio zwraca co najmniej 
+    \( \floor{H(X)} - 1  = \floor{\lg m} - 1\) bitów.
+\end{theorem}
+\begin{proof}
+    Naszą funkcję konstruujemy rekurencyjnie. Niech \( \Ext_m \) będzie funkcją ekstrakcji dla ustalonego \( m \).
+    
+    Jeśli \( m = 1 \) to zwracamy pusty ciąg \( \Ext_1(0) = \varnothing \).
+    Rozważmy zatem \( m \geq 2 \).
+    
+    Niech \( \alpha = \floor{\lg m} \). Definiujemy
+    \[
+        \Ext_m(x) = \begin{cases}
+            x & \text{ dla } x < 2^\alpha \\
+            \Ext_{m - 2^\alpha}(x - 2^\alpha) & \text{ dla } x \geq 2^\alpha
+        \end{cases}
+    \]
+    Intuicyjnie działa to tak, że wybieramy największą potęgę dwójki, która mieści się w \( m \)
+    i dla wszystkich liczb mniejszych od niej zwracamy po prostu ich reprezentację bitową. (
+    wraz z zerami wiodącymi, aby miała ona długość \( \alpha \))
+    Pozostałe wartości wypełniamy rekurencyjnie krótszymi ciągami.
+    
+    Pozostaje policzyć oczekiwaną liczbę zwróconych bitów -- nazwijmy ją \( \expected{X} \).
+    Ponadto niech \( \beta = \floor{\lg \pars{m - 2^\alpha}} \)
+    \begin{align*}
+        \expected{Y} 
+            &\geq \frac{2^\alpha}{m} \cdot \alpha 
+                + \frac{m - 2^\alpha}{m} \cdot \pars{\floor{\lg\pars{m - 2^\alpha}} - 1} \\
+            &=\frac{m + 2^\alpha - m}{m} \cdot \alpha 
+                + \frac{m - 2^\alpha}{m} \cdot \pars{\beta - 1} \\
+            &= \alpha + \frac{m - 2^\alpha}{m} \cdot \pars{-\alpha + \beta - 1} \\
+    \end{align*}
+    Mamy ponadto oszacowanie
+    \[
+        \frac{m - 2^\alpha}{m} \leq \frac{2^{\beta + 1} - 1}{2^\alpha + 2^{\beta + 1} - 1}
+    \]
+    Zatem
+    \begin{align*}
+        \expected{Y} 
+            &\geq \alpha - \frac{2^{\beta + 1} - 1}{2^\alpha + 2^{\beta + 1} - 1} \cdot (\alpha - \beta + 1)\\
+            &\geq \alpha - \frac{2^{\beta + 1} - 1} {(2^{\beta + 1} - 1)\cdot(2^{\alpha - \beta - 1} + 1)} \cdot (\alpha - \beta + 1) \\
+            &\geq \alpha - \frac{\alpha - \beta + 1}{2^{\alpha - \beta - 1} + 1} \\
+            &\geq \alpha - 1
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Twierdzenie 10.5 P\&C]
+    Niech \( p \in \pars{\frac{1}{2}, 1} \) będzie prawdopodobieństwem sukcesu pojedynczej próby oraz \( \delta > 0 \)
+    
+    Wtedy dla odpowiednio dużego \( n \) oraz ciągu \( n \) niezależnych prób:
+    \begin{enumerate}
+        \item Istnieje funkcja ekstrakcji, która średnio zwraca co najmniej \((1 - \delta) \cdot n \cdot H(p) \) niezależnych bitów.
+        \item Średnia liczba bitów zwracana przez dowolną funkcję ekstrakcji to co najwyżej \( n \cdot H(p) \)
+    \end{enumerate}
+\end{theorem}
+\begin{proof} \( \)
+\begin{enumerate}
+    \item Zaczynamy od pierwszego podpunktu
+    
+    Niech \( j \) będzie liczbą sukcesów. Mamy \( \binom{n}{j} \) możliwych ciągów, każdy wypada z takim samym prawdopodobieństwem.
+    
+    Na podstawie poprzedniego twierdzenia możemy zdefiniować na takich ciągach funkcję ekstrakcji.
+    
+    Niech \( Z \) będzie liczbą sukcesów które wypadły, a \( B \) liczbą bitów, którą zwracamy w opisany sposób. Wtedy
+    \[
+        \expected{B} = \sum_{k=0}^n P(Z = k) \cdot \expected{B \mid Z = k}
+    \]
+    Z poprzedniego twierdzenia mamy
+    \[
+        \expected{B \mid Z = k} \geq \floor{\lg \binom{n}{k}} - 1
+    \]
+    
+    Będziemy chcieli skorzystać z oszacowania współczynników dwumianowych przez entropię.
+    
+    Dobieramy zatem jakiegoś małego \( 0 < \varepsilon < \min\pars{p-\frac{1}{2}, 1-p} \)
+    i będziemy się zajmować \( k \in \brackets{n(p-\varepsilon), n(p+\varepsilon)} \)
+    
+    Teraz mówimy, że 
+    \[
+        \binom{n}{k} \geq \binom{n}{\floor{n(p+\varepsilon)}} \geq \frac{2^{nH(p + \varepsilon)}}{n+1}
+    \]
+    
+    Teraz szacujemy
+    \begin{align*}
+        \expected{B} 
+            &\geq \sum_{k=\floor{n(p-\varepsilon)}}^{\ceil{n(p+\varepsilon)}} P(Z = k) \cdot \expected{B \mid Z = k} \\
+            &\geq  \sum_{k=\floor{n(p-\varepsilon)}}^{\ceil{n(p+\varepsilon)}} P(Z = k) \cdot \pars{\floor{\lg \binom{n}{k}} - 1} \\
+            &\geq \sum_{k=\floor{n(p-\varepsilon)}}^{\ceil{n(p+\varepsilon)}} P(Z = k) \cdot \pars{nH(p+\varepsilon) - \lg (n+1) - 2} \\
+            &\geq \pars{nH(p+\varepsilon) - \lg (n+1) - 2} \cdot P\pars{\abs{Z - np} \leq \varepsilon n}
+    \end{align*}
+    Drugi czynnik możemy ograniczyć nierównością Chernoffa na niezależne próby Poissona. Mamy:
+    \[
+        P\pars{\abs{Z - np} > \varepsilon n} \leq 2\cdot \exp\pars{\frac{-n\varepsilon^2}{3p}}
+    \]
+    Zatem
+    \begin{align*}
+        \expected{B} 
+            &\geq \pars{nH(p+\varepsilon) - \lg (n+1) - 2} 
+                \cdot \pars{1 -\exp\pars{\frac{-n\varepsilon^2}{3p}}} \\
+            &\geq (1 - \delta)n H(p)
+    \end{align*}
+    
+    \item Teraz drugi podpunkt, na szczęście prostszy.
+    
+    Jeśli mamy jakąś funkcję ekstrakcji \( \Ext \) i wrzucimy do niej jakiś ciąg \( x \) taki, że 
+    \( P(X = x) = q \) to \( \Ext \) może zwrócić co najwyżej \( \lg \frac{1}{q} \) bitów.
+    
+    Dzieje się tak, ponieważ jeśli wyplujemy jakieś \( k \) bitów z prawdopodobieństwem \( q \) to każde \( k \) bitów musimy zwracać z takim prawdopodobieństwem.
+    
+    Wychodzi nam z tego, że \( 2^{\abs{\Ext(x)}} \cdot q \leq 1 \).
+    
+    Zatem
+    \begin{align*}
+        \expected{B} 
+            &= \sum P(X = x) \cdot \abs{\Ext(x)} \\
+            &\leq \sum P(X = x) \cdot \lg \frac{1}{P(X = x)} \\
+            &= H(X) \\
+            &= n \cdot H(p)
+    \end{align*}
+\end{enumerate}
+\end{proof}

@@ -1,0 +1,8 @@
+\section{Wyznaczanie}
+Szukamy wartości i wektorów własnych macierzy \( A^TA \). Na przykład metodą QR, bo \( A^TA \) jest symetryczna i dodatnio określona.
+\begin{warning}
+    Samo obliczanie \( A^TA \) pogarsza stabilność.
+\end{warning}
+
+\subsection{Algorytm Goluba-Kahana}
+Szukamy najpierw takich unitarnych macierzy \( U' \) i \( V' \), żeby \( B = U'AV' \) była bidiagonalna (naprzemiennymi macierzami Householdera). Wtedy \( B^TB \) jest tridiagonalna (w postaci Hessenberga), więc potrzebne jest mniej dodawań i mnożeń \( \rightarrow \) lepsza stabilność numeryczna.

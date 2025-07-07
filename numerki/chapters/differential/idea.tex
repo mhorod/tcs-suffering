@@ -1,0 +1,10 @@
+\section{Ogólny schemat rozwiązywania}
+\textbf{Wersja prosta (Cauchy’ego): } Szukamy funkcji \(y: [0, \infty) \rightarrow \mathbb{R}^n \), spełniającej \( y' = F(y,t) \) oraz \( y(0) = c \). \\
+\textbf{Wersja ogólna:} Szukamy funkcji \(y: [0, \infty) \rightarrow \mathbb{R}^n \), spełniającej \( F(y^{(k)}, y^{(k-1)}, \dots, y, t) = 0 \) oraz warunki początkowe \( y(0) = c_0, y'(0) = c_1, \dots \)
+\begin{warning}
+    Nie każde równanie musi mieć rozwiązanie, a jeśli ma rozwiązanie, to niekoniecznie jedno.
+\end{warning}
+
+\noindent
+\textbf{Modelowe równanie} \\
+Przyjmujemy \( y' = F(y) \) liniowe, czyli \( y' = ay \). Wtedy rozwiązanie to \( y = Ce^{at} \). Problem jest stabilny dla \( a \leq 0 \).

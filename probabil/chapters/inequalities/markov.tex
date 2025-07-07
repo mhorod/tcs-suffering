@@ -1,0 +1,34 @@
+\subsection{Definicja}
+\begin{theorem}
+    Jeśli \( X \) jest zmienną losową, która przyjmuje nieujemne wartości to
+    \[
+        P(X \geq a) \leq \frac{\expected{X}}{a}
+    \]
+\end{theorem}
+\begin{proof}
+    Niech \( I \) będzie indykatorem
+    \[
+        I = \begin{cases}
+            1 & \text{ gdy } X \geq a \\
+            0 & \text{ wpp. }
+        \end{cases}
+    \]
+    Skoro \( X \geq 0 \) to \( I \leq \frac{X}{a} \).
+    Zatem
+    \[
+        P(X \geq a) = P(I = 1) = \expected{I} \leq \frac{\expected{X}}{a}
+    \]
+\end{proof}
+
+\subsection{Kolekcjoner kuponów}
+Spróbujmy użyć nierówności Markowa do oszacowania jakoś czasu zebrania wszystkich kuponów.
+Niech \( X \) będzie czasem zebrania wszystkich kuponów.
+W sekcji \ref{coupon-collectors-problem} pokazaliśmy, że \( \expected{X} = nH_n = \Theta(n \ln n) \)
+
+Możemy zatem skorzystać z nierówności Markowa aby otrzymać
+\[
+    P(X \geq 2n H_n) \leq \frac{\expected{X}}{2n H_n} = \frac{1}{2}
+\]
+
+Nie jest to jakieś szczególnie satysfakcjonujące oszacowanie -- prawdopodobieństwo, że musimy czekać dwa
+razy dłużej niż tego oczekujemy może wynosić aż \( \frac{1}{2} \) :(

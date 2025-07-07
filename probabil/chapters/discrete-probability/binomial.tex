@@ -1,0 +1,70 @@
+\begin{definition}
+    Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład dwumianowy} z parametrami \( n, p \) (Oznaczana poprzez \(B(n, p))\), jeśli
+    dla \( j = 0, 1,..., n \): 
+    \[
+        P(X = j) = \binom{n}{j}p^j(1-p)^{(n-j)}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład dwumianowy z parametrami \(n, p \). Wtedy
+    \[
+        \expected{X} = np
+    \]
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+    \expected{X} 
+        &= \sum_{j=0}^nj\binom{n}{j}p^j(1-p)^{(n-j)} \\
+        &= \sum_{j=0}^nj\frac{n!}{j!(n-j)!}p^j(1-p)^{(n-j)} \\
+        &= np\sum_{j=1}^n\frac{(n-1)!}{(j-1)!(n-j)!}p^{(j-1)}(1-p)^{(n-j)} \\
+        &= np\sum_{k=0}^{n-1}\frac{(n-1)!}{k!(n-1-k)!}p^{k}(1-p)^{(n-1-k)} \\
+        &= np\sum_{k=0}^{n-1}\binom{n-1}{k}p^{k}(1-p)^{(n-1-k)} \\
+        &= np
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    Niech \( X \) ma rozkład dwumianowy z parametrami \(n, p \). Wtedy
+    \[
+        \variance{X} = np(1-p)
+    \]
+\end{theorem}
+
+\begin{proof}
+    \[
+    \variance{X} = \expected{X^2} - (\expected{X})^2
+    \]
+    Pozostaje nam tylko policzyć \( E[X^2]\)
+    
+    \begin{align*}
+        \expected{X^2} 
+            &= \sum_{j=0}^n\binom{n}{j}p^j(1-p)^{n-j}j^2 \\
+            &= \sum_{j=0}^n\frac{n!}{j!(n-j)!}p^j(1-p)^{n-j}(j^2-j+j) \\
+            &= \sum_{j=0}^n\frac{n!(j^2-j)}{j!(n-j)!}p^j(1-p)^{(n-j)} +\sum_{j=0}^n\frac{n!j}{j!(n-j)!}p^j(1-p)^{(n-j)} \\
+            &= n(n-1)p^2 \sum_{j=0}^n\frac{(n-2)!}{(j-2)!(n-j)!}p^{j-2}(1-p)^{(n-j)}\\
+            &+np\sum_{j=1}^n\frac{(n-1)!}{(j-1)!(n-j)!}p^{(j-1)}(1-p)^{(n-j)} \\
+        &= n(n-1)p^2 + np
+    \end{align*}
+    
+    W takim razie
+    \[ \variance{X} = n(n-1)p^2 + np - (np)^2 = np - np^2 = np(1-p) \]
+\end{proof}
+
+\begin{theorem}
+    MGF:
+    \[ M_X(t) = (1 - p + pe^t)^n\]
+\end{theorem}
+
+\begin{proof}
+    \[
+    M_X(t) = \expected{e^{tX}} = \sum_{j=0}^n \binom{n}{j}p^j(1-p)^{n-j}e^{tj} =
+    \]
+    \[
+    =  \sum_{j=0}^n \binom{n}{j}(pe^t)^j(1-p)^{n-j} =
+    \]
+    \[
+    = ((1-p) + pe^t)^n
+    \]
+\end{proof}

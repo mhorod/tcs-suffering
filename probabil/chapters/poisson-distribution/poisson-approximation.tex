@@ -1,0 +1,238 @@
+Czasem mamy do czynienia ze zmiennymi, które pojedynczo zachowują się grzecznie, ale jako całość są
+powiązane w sposób, który istotnie utrudnia ich analizę.
+Z pomocą przychodzi Aproksymacja Poissona, w której uniezależnimy wszystkie zmienne, a następnie będziemy analizować ich zachowanie pod pewnymi warunkami.
+
+Bardziej formalnie opisuje to poniższe twierdzenie.
+
+\begin{theorem}[Twierdzenie 5.6 P\&C]
+    \label{poisson-approximation-probability-equality}
+    Niech 
+    \[
+        X_1^{(k)}, \dots, X_n^{(k)}
+    \]
+    opisują (faktyczne) rozmieszczenie \( k \) kul w \( n \) urnach.
+    
+    Ponadto, niech
+    \[
+        Y_1^{(m)}, \dots, Y_n^{(m)}
+    \]
+    będą niezależnymi zmiennymi z rozkładem Poissona z parametrem \( \lambda = \frac{m}{n} \)
+    
+    Wtedy
+    \[
+        \forall_m : P\pars{X_1^{(k)} = k_1, \dots, X_n^{(k)} = k_n}
+        = P\pars{Y_1^{(m)} = k_1, \dots, Y_n^{(m)} = k_n \mid \sum_{i=1}^n Y_i^{(m)} = k}
+    \]
+\end{theorem}
+\begin{proof}
+    Policzmy najpierw lewą stronę równości
+    \begin{align*}
+        P\pars{X_1^{(k)} = k_1, \dots, X_n^{(k)} = k_n}
+            &= \frac{1}{n^k} \cdot \binom{k}{k_1} \cdot \binom{k - k_1}{k_2} \cdot \dots \cdot \binom{k_n}{k_n} \\
+            &= \frac{k!}{k_1!\cdot \dots \cdot k_n! \cdot n^k}
+    \end{align*}
+    
+    Policzmy teraz prawą stronę
+    \[
+         P\pars{Y_1^{(m)} = k_1, \dots, Y_n^{(m)} = k_n \mid \sum_{i=1}^n Y_i^{(m)} = k}
+            = \frac{P\pars{Y_1^{(m)} = k_1 \land \dots \land Y_n^{(m)} = k_n}}{P\pars{\sum Y_i^{(m)} = k}}
+    \]
+    Korzystamy z faktu, że nasze zmienne są niezależne, oraz suma \( n \) Poissonów z parametrem \( \lambda = \frac{m}{n} \) ma rozkład Poissona z parametrem \( m \)
+    \begin{align*}
+        = \pars{\prod_{i=1}^n e^{-\lambda}\cdot\frac{\lambda^{k_i}}{k_i!} } \cdot \frac{k!}{e^{-m}m^k} 
+        &= \frac{k!}{k_1!\cdot \dots \cdot k_n!} \cdot \frac{e^{-n\lambda} \cdot \lambda^k}{e^{-m}m^k} \\
+        &= \frac{k!}{k_1!\cdot \dots \cdot k_n!} \cdot \frac{e^{-m} \cdot \pars{\frac{m}{n}}^k}{e^{-m}\cdot m^k} \\
+        &= \frac{k!}{k_1!\cdot \dots \cdot k_n! \cdot n^k}
+    \end{align*}
+    Po obu stronach wyszło to samo, fajnie.
+\end{proof}
+
+Skoro umiemy zamieniać kule i urny na warunkowe Poissony to fajnie byłoby coś umieć o nich powiedzieć. 
+
+\begin{theorem}
+    \label{poisson-approximation-for-any-function}
+    Niech \( f(x_1, \dots, x_n) \) będzie funkcją zwracającą nieujemne wartości. Wtedy
+    \[
+        \expected{f\pars{X_1^{(m)}, \dots, X_n^{(m)})}} \leq e\sqrt{m} \cdot \expected{f\pars{Y_1^{(m)}, \dots, Y_n^{(m)}}}
+    \]
+\end{theorem}
+\begin{proof}
+\begin{align*}
+    \expected{f\pars{Y_1^{(m)}, \dots, Y_n^{(m)}}} 
+        &= \sum_{k=0}^\infty \expected{f\pars{Y_1^{(m)}, \dots, Y_n^{(m)}} \mid \sum Y_i^{(m)} = k} \cdot P\pars{\sum Y_i^{(m)} = k} \\
+        &\geq \expected{f\pars{Y_1^{(m)}, \dots, Y_n^{(m)}} \mid \sum Y_i^{(m)} = m} \cdot P\pars{\sum Y_i^{(m)} = m} \\
+        &= \expected{f\pars{X_1^{(m)}, \dots, X_n^{(m)})}} \cdot e^{-m} \cdot \frac{m^m}{m!} \\
+        &\geq \expected{f\pars{X_1^{(m)}, \dots, X_n^{(m)})}} \cdot \frac{1}{e\sqrt{m}}
+\end{align*}
+\end{proof}
+
+\subsection{Kule i urny}
+W twierdzeniu \ref{balls-and-bins-max-load-upper-bound} pokazaliśmy, że górne ograniczenie na liczbę kul w najcięższej urnie to z dużym prawdopodobieństwem \( O\pars{\frac{\ln n}{\ln \ln n}} \).
+
+Teraz pokażemy, że dolne ograniczenie to z dużym prawdopodobieństwem \( \Omega\pars{\frac{\ln n}{\ln \ln n}} \).
+
+\begin{theorem}[Lemat 5.12 P\&C]
+    Jeśli wrzucamy \( n \) kul do \( n \) urn
+    to prawdopodobieństwo, że najcięższa urna zawiera \textbf{co najwyżej} \( M = \frac{\ln n}{\ln \ln n} \) kul wynosi co najwyżej \( \frac{1}{n} \).
+\end{theorem}
+\begin{proof}
+    Rozważmy tę sytuację w modelu Poissona -- liczba kul w ustalonej urnie ma rozkład Poissona z parametrem \( \lambda = \frac{n}{n} = 1 \).
+    
+    W takim razie, prawdopodobieństwo, że ustalona urna zawiera więcej niż \( M \) kul wynosi
+    \[
+        \sum_{k=\ceil{M}}^\infty e^{-1} \cdot \frac{1^k}{k!} \geq \frac{1}{eM!}
+    \]
+    
+    Prawdopodobieństwo, że każda urna zawiera mniej niż \( M \) kul wynosi zatem co najwyżej
+    \[
+        \pars{1 - \frac{1}{eM!}}^n \leq \exp\pars{-\frac{n}{eM!}}
+    \]
+    Nie wiem skąd wynika to oszacowanie, ale najwyraźniej tak jest.
+    
+    Jeśli nasze \( M \) jest na tyle fajne, że zachodzi 
+    \[
+        \exp\pars{-\frac{n}{eM!}} \leq \frac{1}{n^2}
+    \]
+    
+    to wtedy na mocy twierdzenia \ref{poisson-approximation-for-any-function}
+    prawdopodobieństwo, że w prawdziwym modelu każda urna ma mniej niż \( M \) kul wynosi co najwyżej
+    \[
+        e \sqrt{n} \cdot \frac{1}{n^2} < \frac{1}{n}
+    \]
+    
+    Pozostaje pokazać, że \( M = \frac{\ln n}{\ln \ln n} \) jest wystarczające dla dużych \( n \).
+    
+    Bierzemy zatem obustronnie logarytm z zadanego warunku
+    \begin{align*}
+        -\frac{n}{eM!} &\leq -2\ln n \\
+        \frac{n}{eM!} &\geq 2 \ln n \\
+        \frac{n}{2e \ln n} &\geq M!
+    \end{align*}
+    Znowu bierzemy logarytm obustronnie (bo możemy, lol)
+    \begin{align*}
+        \ln n - \ln \ln n - \ln (2e) \geq \ln (M!)
+    \end{align*}
+    
+    Wykorzystamy teraz \textit{magiczne oszacowanie} 
+    \[ M! \leq e\sqrt{M}\pars{\frac{M}{e}}^M \leq M\pars{\frac{M}{e}}^M \]
+    i dostajemy
+    \begin{align*}
+            \ln (M!)
+            &\leq \ln M + M \ln M - M \\
+            &= M \cdot \pars{(\ln \ln n) - (\ln \ln \ln n)} + \ln M - M \\
+            &= \pars{M \cdot (\ln \ln n) - M} - \pars{M \cdot (\ln \ln \ln n) - \ln M} \\
+            &= (\ln n - M) - \pars{M \cdot (\ln \ln \ln n) - \ln M} \\
+    \end{align*}
+    Teraz korzystamy z faktu, że \( \ln M \in o\pars{M \cdot (\ln \ln \ln n)} \)
+    \[
+        \leq (\ln n - M) = \ln n - \frac{\ln n}{\ln \ln n}
+    \]
+    
+    I jeszcze korzystamy z faktu, że \( (\ln \ln n)^2 \in o(\ln n) \)
+    a zatem \( \ln \ln n \in o\pars{\frac{\ln n}{\ln \ln n}} \).
+    Możemy więc zamienić \( \frac{\ln n}{\ln n \ln} \) na \( \ln \ln n + \ln 2e \)
+    \[
+        \leq \ln n - \ln \ln n - \ln (2e)
+    \]
+    czyli nasze \( M \) działa. Uff.
+\end{proof}
+
+\subsection{Kolekcjoner kuponów}
+Myśleliście, że poprzedni dowód był brzydki i miał dużo obliczeń?
+No to teraz wyrzuci Was ze skarpetek, bo ten dowód będzie jeszcze gorszy.
+
+\begin{theorem}
+    Niech \( X \) będzie liczbą zebranych kuponów aż do zebrania wszystkich \( n \) rodzajów. Wtedy dla dowolnej stałej \( c \)
+    \[
+        \lim_{n \rightarrow \infty} P(X > n \ln n + cn) = 1 - e^{-e^{-c}}
+    \]
+\end{theorem}
+\begin{proof}
+O zbieraniu kuponów możemy myśleć jak o wrzucaniu kul do urn -- wrzucenie kuli do odpowiedniej urny odpowiada zebraniu odpowiedniego kuponu. 
+
+Będziemy zatem liczyć prawdopodobieństwo, że po wrzuceniu \( m = n \ln n + cn \) kul do \( n \) urn jakaś urna nadal pozostaje pusta.
+
+Rozważmy ten problem w modelu Poissona, a potem pokażemy jak wyciągnąć z tego wynik dla rzeczywistego modelu.
+Mamy zatem \( \lambda = \frac{m}{n} = \ln n + c \)
+
+Prawdopodobieństwo, że ustalona urna jest pusta wynosi
+\[
+    e^{-\lambda} \cdot \frac{\lambda^0}{0!} = e^{-(\ln n + c)} = \frac{e^{-c}}{n}
+\]
+
+Ponieważ w modelu Poissona urny są niezależne to prawdopodobieństwo, że żadna urna nie jest pusta (czyli każda ma co najmniej jedną kulę) wynosi
+\[
+    \pars{1 - \frac{e^{-c}}{n}}^n
+\]
+
+Nazwijmy to zdarzenie \( \mathcal{E} \). Z powyższego faktu mamy
+\[
+    \lim_{n \rightarrow \infty} P(\mathcal{E}) = e^{-e^{-c}}
+\]
+
+Wszystko fajnie i w ogóle, ale my byśmy chcieli dostać rzeczywiste prawdopodobieństwo \( \mathcal{E} \), którego nie możemy sobie tak po prostu przenieść z Poissona na rzeczywisty model, bo pamiętamy z twierdzenia \ref{poisson-approximation-probability-equality}, że wolno nam jedynie przejść równością warunkową tj.
+\( P( \mathcal{E} \mid X = m) \), a tego nie znamy.
+
+Aby sobie z tym poradzić rozbijemy nasze zdarzenie \( \mathcal{E} \) na dwie części.
+Ustalamy \( \delta = \sqrt{m \ln m} \) i rozbijamy za pomocą prawdopodobieństwa całkowitego:
+\[
+    P(\mathcal{E}) = 
+        P(\mathcal{E} \mid \abs{X - m} \leq \delta) \cdot P(\abs{X - m} \leq \delta)
+        +
+        P(\mathcal{E} \mid \abs{X - m} > \delta) \cdot P(\abs{X - m} > \delta)
+\]
+
+Teraz chcemy pokazać dwie rzeczy. Po pierwsze, że drugi składnik jest pomijalnie mały (zbiega do zera).
+Po drugie, że pierwszy składnik zbiega do \( P(\mathcal{E} \mid X = m) \) czyli tego co próbujemy obliczyć.
+
+\begin{enumerate}
+    \item Szacujemy \( P(\abs{X - m} > \delta) \) przy pomocy nierówności Czebyszewa.
+    
+    Ponieważ \( X \) ma rozkład Poissona z parametrem \( \mu = m \) to
+    \[ \variance{X} = \mu = m \]
+    W takim razie z nierówności Czebyszewa
+    \[
+        P(\abs{X - m} > \delta) \leq \frac{\variance{X}}{\delta^2} = \frac{m}{m \ln m} = \frac{1}{\ln m} \in o(1)
+    \]
+    \item Szacujemy różnicę między tym czego szukamy a tym co mamy:
+    \[ \abs{P(\mathcal{E} \mid \abs{X - m} \leq \delta) - P(\mathcal{E} \mid X = m)} \]
+    
+    Zauważamy dość naturalny fakt -- im więcej kul wrzucamy tym większa szansa na to, że każda ma jakąś kulę. Innymi słowy
+    \[
+        P(\mathcal{E} \mid X = m) \geq P(\mathcal{E} \mid X = m - \delta)
+    \]
+    oraz
+    \[
+        P(\mathcal{E} \mid \abs{X - m} \leq \delta) \leq  P(\mathcal{E} \mid X = m + \delta)
+    \]
+    Możemy zatem zastąpić odpowiednie wyrażenia przez ich oszacowania aby dostać słabsze ograniczenie:
+    \[ 
+        \abs{P(\mathcal{E} \mid \abs{X - m} \leq \delta) - P(\mathcal{E} \mid X = m)}
+        \leq P(\mathcal{E} \mid X = m + \delta) - P(\mathcal{E} \mid X = m - \delta) 
+    \]
+    Wyrażenie po prawej stronie oddaje sytuację, kiedy wrzuciliśmy \( m - \delta \) kul, ale nadal jakaś urna pozostaje pusta, natomiast po dorzuceniu kolejnych \( 2 \delta \) kul została ona zapełniona.
+    
+    Prawdopodobieństwo, że konkretna kula trafi do konkretnej pustej urny wynosi \( \frac{1}{n} \), 
+    zatem prawdopodobieństwo, że jakaś kula trafi do tej urny jest ograniczone przez union bound:
+    \begin{align*}
+        P(\mathcal{E} \mid X = m + \delta) - P(\mathcal{E} \mid X = m - \delta) 
+            \leq \frac{2\delta}{n}
+           = \frac{2\sqrt{m \ln m}}{n} = 2\sqrt{\frac{m \ln m}{n^2}}
+    \end{align*}
+    Przypominamy sobie, że \( m = n \ln n + cn \), zatem \( m \ln m \in o(n^2) \).
+    W takim razie nasze oszacowanie zbiega do zera, a co za tym idzie, szacowana różnica też.
+\end{enumerate}
+Korzystając z powyższych faktów, dochodzimy do wniosku, że
+\begin{align*}
+    \lim_{n \rightarrow \infty} P(\mathcal{E})
+        &= P(\mathcal{E} \mid \abs{X - m} \leq \delta) \cdot P(\abs{X - m} \leq \delta)
+            +
+            P(\mathcal{E} \mid \abs{X - m} > \delta) \cdot P(\abs{X - m} > \delta) \\
+        &= \lim_{n \rightarrow \infty} P(\mathcal{E} \mid \abs{X - m} \leq \delta) \cdot (1 - o(1))
+            +
+            P(\mathcal{E} \mid \abs{X - m} > \delta) \cdot o(1) \\
+        &= \lim_{n \rightarrow \infty} \pars{P(\mathcal{E} \mid X = m) + o(1)} \cdot (1 - o(1))\\
+        &= P(\mathcal{E} \mid X = m) \\
+\end{align*}
+A to jest dokładnie to co chcieliśmy pokazać.
+\end{proof}

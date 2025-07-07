@@ -1,0 +1,156 @@
+\subsection{Wartość oczekiwana}
+\begin{definition}
+    \textbf{Wartość oczekiwaną} zmiennej losowej \( X \) definiujemy jako
+    \[
+        \expected{X} = \sum_{x \in \im X} x \cdot P(X = x)
+    \]
+\end{definition}
+\begin{theorem}[Lemat 2.9 P\&C]
+    \label{expected-value-of-natural-random-variable}
+    Niech \( X \) będzie zmienną losową przyjmującą jedynie wartości w liczbach naturalnych. Wtedy
+    \[
+        \expected{X} = \sum_{n=1}^\infty P(X \geq n)
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \sum_{n=1}^\infty P(X \geq n)
+            &= \sum_{n=1}^\infty \sum_{k=n}^\infty P(X = k) \\
+            &= \sum_{k=1}^\infty \sum_{n=1}^k P(X = k) \\
+            &= \sum_{k=1}^\infty k \cdot P(X = k) \\
+            &= \expected{X}
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    \textbf{Warunkową wartość oczekiwaną} \( \expected{X \mid Y = y} \) definiujemy jako
+    \[
+        \expected{X \mid Y = y} = \sum_{x \in \im X} P\pars{X = x \mid Y = y}
+    \]
+    
+    Ponadto \( \expected{X \mid Y} \) definiujemy jako zmienną losową taką, że 
+    \[ 
+        \expected{X \mid Y}(y) = \expected{X \mid Y = y} 
+    \]
+\end{definition}
+
+\begin{lemma}
+    \[
+        \expected{X} = \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y)
+    \]
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y)
+            &= \sum_{y \in \im Y} \pars{P(Y = y) \sum_{x \in \im X} x \cdot P(X = x \mid Y = y)} \\
+            &= \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}P(Y = y)  \cdot P(X = x \mid Y = y)} \\
+            &= \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}P(Y = y)  \cdot
+            \frac{P(X = x \land Y = y)}{P(Y = y)}} \\
+            &= \sum_{x \in \im X} x \cdot P(X = x) \\
+            &= \expected{X}
+    \end{align*}
+\end{proof}
+
+\begin{lemma}[Lemat Syntaktyczny]
+    \[
+        \expected{\expected{X \mid Y}} = \expected{X}
+    \]
+\end{lemma}
+\begin{proof}
+    \begin{equation*}
+        \expected{\expected{X \mid Y}}
+            &= \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y) = \expected{X}
+    \end{equation*}
+\end{proof}
+
+\subsection{Wariancja}
+\begin{definition}
+    \textbf{Wariancję} zmiennej losowej \( X \) definiujemy jako
+    \[
+        \variance{X} = \expected{\pars{X - \expected{X}^2}} = \expected{X^2} - \expected{X}^2
+    \]
+\end{definition}
+\begin{definition}
+    \textbf{Kowariancję} zmiennych losowych \( X \) oraz \( Y \) definiujemy jako
+    \[
+        \covariance{X}{Y} = \expected{\pars{X - \expected{X}} \cdot \pars{Y - \expected{Y}}}
+    \]
+\end{definition}
+
+\begin{theorem}
+    \[
+        \forall_{a, b \in \real} \variance{bX + a} = b^2\variance{X}
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \variance{bX + a}
+            &= \expected{(bX + a)^2} - \expected{bX + a}^2 \\
+            &= \expected{b^2X^2 + 2abX + a^2} - \pars{b\expected{X} + a}^2 \\
+            &= b^2\expected{X^2} + 2ab\expected{X} + a^2 - b^2\expected{X}^2 - 2ab\expected{X} - a^2 \\
+            &= b^2\pars{\expected{X^2} - \expected{X}^2} \\
+            &= b^2\variance{X}
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    Dla dowolnych zmiennych losowych \( X, Y \) zachodzi
+    \[
+        \variance{X + Y} = \variance{X} + \variance{Y} + 2\covariance{X}{Y}
+    \]
+\end{theorem}
+\begin{proof}
+    Rozpisujemy \( \variance{X + Y} \) z definicji.
+    \begin{align*}
+        \variance{X + Y} 
+            &= \expected{\pars{X + Y - \expected{X + Y}}^2} \\
+            &= \expected{\pars{\pars{X - \expected{X}} + \pars{Y - \expected{Y}}}^2} \\
+            &= \expected{\pars{X - \expected{X}}^2} + \expected{\pars{Y - \expected{Y}}^2}
+                + 2\expected{\pars{X - \expected{X}}\cdot\pars{Y - \expected{Y}}} \\
+            &= \variance{X} + \variance{Y} + 2\covariance{X}{Y}
+    \end{align*}
+\end{proof}
+
+\begin{theorem} Dla niezależnych zmiennych losowych \( X, Y \)
+    \[
+        \covariance{X}{Y} = 0
+    \]
+    a co za tym idzie
+    \[
+        \variance{X + Y} = \variance{X} + \variance{Y}
+    \]
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \covariance{X}{Y} 
+            &= \expected{\pars{X - \expected{X}} \cdot \pars{Y - \expected{Y}}} \\
+            &= \expected{X - \expected{X}} \cdot \expected{Y - \expected{Y}} \\
+            &= \pars{\expected{X} - \expected{X}} \cdot \pars{\expected{Y} - \expected{Y}} \\
+            &= 0
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    \label{variance-of-sum-of-independent-variables}
+    Niech \( X_1, \dots, X_n \) będą parami niezależne. Wtedy
+    \[
+        \variance{\sum_{i=1}^n X_i} = \sum_{i=1}^n \variance{X_i}
+    \]
+\end{theorem}
+\begin{proof}
+    Skoro nasze zmienne są parami niezależne, to dla dowolnych \( X_i \neq X_j \) mamy \( \covariance{X_i}{X_j} = 0 \). W takim razie
+    \begin{align*}
+        \variance{\sum_{i=1}^n X_i}
+            &= \expected{\pars{\sum_{i=1}^n \pars{X_i - \expected{X_i}}}^2} \\
+            &= \sum_{i=1}^n \expected{\pars{X_i - \expected{X_i}}^2} 
+            + \sum_{i=1}^n \sum_{j=1}^n \expected{\pars{X_i - \expected{X_i}}\cdot\pars{X_j - \expected{X_j}}} \\
+            &= \sum_{i=1}^n \variance{X_i} + \sum_{i=1}^n \sum_{j=1}^n \covariance{X_i}{X_j} \\
+            &= \sum_{i=1}^n \variance{X_i}
+    \end{align*}
+\end{proof}
+
+
+\subsection{Wyższe momenty}
+\begin{definition}
+\(n\)-tym momentem zmiennej losowej \( X \) nazywamy \( \expected{X^n} \)
+\end{definition}

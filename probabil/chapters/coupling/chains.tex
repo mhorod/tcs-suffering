@@ -1,0 +1,73 @@
+    Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skończony, nieprzywiedlny, nieokresowy) o macierzy przejścia \(P\), zbiorze stanów \(S\) i rozkładzie stacjonarnym \(\left( \pi_x \right) _{x \in S}\). Przez \(P^{t}\left( x, \cdot \right) \) oznaczamy rozkład \(X_t\) przy założeniu \(X_0 = x \).
+
+    \begin{definition}
+    Definiujemy \[ \Delta_x\left( t  \right) = \left\|P^{t}\left( x, \cdot  \right) - \pi\right\|_{TV}, \(\( \)\) \tau_x\left( \varepsilon  \right) = \min \left\{ t : \Delta_x\left( t  \right) \le \varepsilon  \right\} . \] 
+    Mamy też maksima tych wartości:
+    \[ \Delta\left( t  \right) = \max_{x \in S} \Delta_x\left( t  \right) , \] 
+    \[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) = \max_{x \in S} \tau_x\left( \varepsilon  \right) . \] 
+    Ostatnią z tych wartości nazywamy czasem mieszania łańcucha Markowa. Będziemy też (bez większego powodu) oznaczać \(\tau_{\mathrm{mix}} = \tau_{\mathrm{mix}}\left( \frac{1}{4} \right) \).
+\end{definition}
+
+\begin{definition}
+    Sprzęganiem łańcuchów Markowa \(X,Y\) o macierzy przejścia \(P\) i zbiorze stanów \(S\) jest dowolny łańcuch Markowa \(\left( Z_t = \left( X_t, Y_t \right)  \right) _{t \in \N}\) na przestrzeni stanów \(S \times S\) taki, że
+    \[ P\left( X_{t+1} = x' \mid Z_t = \left( x,y \right)  \right) = P\left( x,x' \right)  \] 
+    \[ P\left( Y_{t+1} = y' \mid Z_t = \left( x,y \right)  \right) = P\left( y, y' \right)  \] 
+    dla każdego \(t\ge 0, x,y,x',y' \in S\).
+
+    Sprzęgane łańcuchy to dwie równoległe kopie jednego procesu. Nie zawsze mają one te same stany, ale też nie zawsze są niezależne. Nie ustalamy nic o stanach początkowych. Będą nas interesować takie sprzęgania, które sprowadzają obie kopie do tego samego stanu i potem je tak utrzymują.
+\end{definition}
+
+\begin{lemma}
+    Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in \N}\) będzie sprzęganiem łańcuchów (skończonych, nieprzywiedlnych, nieokresowych) z macierzą przejścia \(P\) i zbiorem stanów \(S\). Niech \(T \in \N\) i \(\varepsilon > 0\) będą takie, że dla każdego \(x,y \in S\) zachodzi
+    \[ P\left( X_T \neq Y_T \mid X_0 = x, Y_0 = y  \right) \le \varepsilon. \] 
+    Wtedy czas mieszania łańcucha z macierzą \(P\) jest ograniczony:
+    \[ \forall_{x \in S} \   \Delta_x\left( T \right) \le \varepsilon \] 
+    \[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) \le T. \] 
+\end{lemma}
+\begin{proof}
+    Zauważmy, że sprzęganie spełnia założenia niezależnie od tego, w jaki sposób ustalimy \(X_0\) i \(Y_0\). Ustalmy dowolne \(x \in S\). Niech \(X_0 = x \) i niech \(Y_0\) będzie wybrany losowo z rozkładu stacjonarnego \(\pi\). Wtedy \(Y_t\) ma rozkład \(\pi\) dla każdego \(t\).
+
+    Niech \(A \subseteq S\). Mamy
+    \begin{align*}
+        P\left( X_T \in A  \right) &\ge P\left( Y_T \in A \cap X_T = Y_T \right) = 1- P\left( Y_T \notin A \cup X_T \neq Y_T \right) \\ 
+        &\ge 1-P\left( Y_T \notin A  \right) - P\left( X_T \neq Y_T \right) \ge P\left( Y_T \in A  \right) - \varepsilon = \pi\left( A  \right) - \varepsilon.
+    \end{align*}
+    Analogicznie \(P\left( X_T \in A^{c} \right) \ge \pi\left( A^{c} \right) - \varepsilon \), czyli \(P\left( X_T \in A  \right) \le \pi\left( A  \right) + \varepsilon \).
+
+    Mamy zatem
+    \[ \forall_{x \in S} \ \Delta_x\left( T \right) =  \max_{A \subseteq S} \left|P^{T}\left( x,A \right) - \pi\left( A  \right) \right|\le \varepsilon,\] 
+    a z tego wynika
+    \[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) \le T. \] 
+\end{proof}
+
+\begin{lemma}[O monotoniczności]
+   Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Dla każdych \(t\ge 0, x \in S\) zachodzi
+   \[ \Delta_x\left( t+1 \right) \le \Delta_x\left( t  \right) . \] 
+\end{lemma}
+\begin{proof}
+    Ustalmy \(t\ge 0\) i \(x \in S\). Niech \(\left( X_t,Y_t \right) \) będzie sprzęganiem rozkładów \(P^{t}\left( x,\cdot  \right) \) i \(\pi\) spełniającym \(P\left( X_t \neq Y_t \right) = \Delta_x\left( t  \right) \) (przedtem pokazaliśmy, że istnieje sprzęganie, dla którego ta równość zachodzi). Definiujemy \(\left( X_{t+1},Y_{t+1} \right) \) w następujący sposób: jeśli \(X_t = Y_t\), wykonujemy krok łańcucha zgodnie z macierzą \(P\) (na obu współrzędnych taki sam), a w przeciwnym wypadku wykonujemy dwa niezależne kroki. Zauważmy, że \(Y_{t+1}\) dalej ma rozkład \(\pi\). Mamy
+    \[ \Delta_x\left( t  \right) = P\left( X_t \neq Y_t \right) \ge P\left( X_{t+1}\neq Y_{t+1} \right) \ge \left\|P^{t+1}\left( x,\cdot  \right) - \pi \right\|_{TV} = \Delta_x\left( t+1 \right) . \] 
+\end{proof}
+
+\begin{theorem}[O geometrycznej zbieżności]
+    Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Wtedy istnieją \(\alpha \in (0,1)\) i \(C > 0\) takie, że
+    \[ \forall_{n \in \N} \ \Delta\left( n  \right) \le C \alpha^{n}.  \] 
+\end{theorem}
+\begin{proof}
+    Ustalmy \(r\ge 1\) takie, że dla każdych \(x,y \in S\) jest \(P^{r}\left( x,y \right) > 0\) (dla konkretnych dwóch istnieje, bo łańcuch jest nieokresowy i nieprzywiedlny, a ze skończoności można wziąć maksimum).
+
+    Niech \(m_y = \min_{x \in S} P^{r}\left( x,y \right)\) dla \(y \in S\). Jest to najmniejsze z prawdopodobieństw, z jakimi da się przejść do \(y\) krokiem macierzy \(P^{r}\). Niech \(m = \sum_{y \in S}^{} m_y \le 1\) (ta suma ogranicza z dołu dowolny wiersz, a wiersz sumuje się do \(1\)).
+
+    Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in  \N}\) będzie sprzęganiem łańcuchów o macierzy przejścia \(P^{r}\) zadanym w następujący sposób: mając zadane \(X_{t} = x, Y_{t} = y \) (początkowe wartości wybieramy dowolnie) oznaczamy \(\mu = P^{r}\left( x, \cdot  \right) , \nu = P^{r}\left( y,\cdot  \right) \) i \(B = \left\{ x \in S : \mu\left( x  \right) \ge \nu\left( x \right)  \right\} \). Niech \(p_1 = \mu\left( B \right) - \nu\left( B  \right) \), \(p_2 = \nu\left( B^{c} \right) - \mu\left( B^{c} \right) \) i \(p_3 = 1-p_1 = 1-p_2\).
+
+    Rzucamy monetą z prawdopodobieństwem orła \(p_3\). Jeśli wypadnie orzeł, to ustalamy \(X_{t+1} = Y_{t+1} = s \), gdzie \(s\) wybieramy z \(S\) z rozkładem \(\left( \frac{1}{p_3} \min\left( u \left( s  \right) , \nu\left( s  \right)  \right) : s \in S \right) \). Jeśli wypadnie reszka ustalamy \(X_{t+1} = x \) i \(Y_{t+1}=y\), gdzie \(x\) wybieramy losowo z \(S \) z rozkładem \(\left( \frac{1}{p_1} \max\left( \mu\left( x  \right) -\nu\left( x  \right) , 0 \right) : x \in S \right) \), a \(y\) z rozkładem \(\left( \frac{1}{p_2} \max\left( \nu\left( x  \right) -\mu\left( x  \right) , 0 \right) : x \in S \right) \).
+
+    W ten sposób skonstruowaliśmy sprzęganie, dla którego zachodzi
+    \[ \forall_{t \ge 0, y \in S} \ P\left( X_{t+1}= Y_{t+1}= y  \right) \ge p_3 \cdot \frac{1}{p_3} \min\left( \mu\left( y  \right) , \nu\left( y  \right)  \right) \ge m_y.  \] 
+    Mamy więc \[\forall_{t\ge 1} \ P\left( X_t = Y_t \right) = \sum_{y \in S}^{} P\left( X_t = Y_t = y  \right) \ge \sum_{y \in S}^{} m_y = m, \]
+    a z tego wynika \(P\left( X_t \neq Y_t \right) \le \left( 1-m \right) ^{t}.\) Teraz mając zadane \(n = rt + j\) dla \(j \in \left\{ 0,\ldots,r-1 \right\} \) możemy zapisać
+    \[ \Delta_x\left( n  \right) \le \Delta_x\left( rt \right) = \left\|P^{rt}\left( x,\cdot  \right) -\pi\right\|_{TV} \le P\left( X_t \neq Y_t \right) \le \left( 1-m \right) ^{t} = \alpha ^{rt} \le C\alpha ^{n}, \] 
+    gdzie położyliśmy \(\alpha = \left( 1-m \right) ^{\frac{1}{r}}\) i \(C = \alpha ^{-r}\).
+\end{proof}
+
+

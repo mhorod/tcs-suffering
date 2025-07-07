@@ -1,0 +1,14 @@
+Wyobraźmy sobie problem, który jest bliski wielu osobom. Próbujemy przepchać program na satori ale jak na złość mamy ANS. Sfrustrowani zaczynamy pisać własne testy w nadziei że znajdziemy przypadek brzegowy.
+I tutaj pojawia się pytanie -- jeśli generujemy testy losowo a możliwych przypadków jest \( n \) to ile testów potrzebujemy w oczekiwaniu wygenerować aby mieć pewność, że pokryliśmy każdy przypadek?
+
+Problem ten, jak wiele podobnych, możemy modelować za pomocą zbierania kuponów -- mamy ich do zebrania \( n \)
+a szansa na uzyskanie \(i\)-tego rodzaju jeśli zebraliśmy już \( i - 1 \) wynosi \( p_i = 1 - \frac{i-1}{n} \) 
+Niech \( X_i \) oznacza czas czekania na \(i\)-ty kupon jeśli mamy już \(i-1\) innych.
+Wtedy \(X = \sum_{i=1}^n X_i\) jest tym czego szukamy -- czasem otrzymania każdego kuponu (pokrycia wszystkich przypadków testowych). 
+
+Zauważmy jeszcze, że \( X_i \) ma rozkład geometryczny z parametrem \( p_i \) zatem \( \expected{X_i} = \frac{1}{p_i} = \frac{n}{n - i + 1} \)
+
+\[
+    \expected{X} = \sum_{i=1}^n \expected{X_i} = \sum_{i=1}^n \frac{n}{n-i+1} = n \sum_{i=1}^n \frac{1}{i}
+    = n \cdot H(n) = n \ln n + \Theta(n)
+\]

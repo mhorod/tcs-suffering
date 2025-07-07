@@ -1,0 +1,20 @@
+\section{Algorytm - rozkład LU}
+\begin{lstlisting}[language=Cpp]
+for i = 1, ..., n
+    m = max_j(|A[j][i]|)
+    swap(A[i], A[m]) // partial pivoting
+    swap(L[i][:i], L[m][:i])
+    a = A[i][i]
+    for j = i+1, ..., n
+        r = A[j][i] / a
+        L[i][j] = r
+        A[j] -= r * A[i]
+\end{lstlisting}
+\noindent
+Złożoność: \( O(n^3) \), dokładnie \( \frac{2}{3}n^3 \) operacji na liczbach rzeczywistych
+
+\begin{warning}
+Przy wyborze małego elementu głównego stabilność numeryczna pogarsza się przez błędy zaokrągleń - mogą pojawić się bardzo małe i bardzo duże wartości.
+\end{warning}
+
+Pivoting (częściowy) pomaga. Wybieramy wiersz z największym na wartość bezwzględną elementem na przekątnej i to daje większą stabilność numeryczną. Przy rozkładzie LU trzeba wtedy pamiętać, że wynikiem jest rozkład \( LU = PA \), gdzie \( P \) jest macierzą permutacji.

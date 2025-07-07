@@ -1,0 +1,9 @@
+\section{Układy nadokreślone – najmniejsze kwadraty}
+Jeśli Ax = b jest nadokreślony i nie ma rozwiązania, to celem jest znaleźć x\( ^* \), który minimalizuje \( \norm{Ax^* - b}^2 \).
+
+\subsection{Metoda najmniejszych kwadratów}
+Mamy dane \( x_1, \dots, x_n \) oraz \( y_1, \dots, y_n \), a szukamy \( f \), które zminimalizuje \( \sum (f(x_i) - y_i)^2 \). \\
+Jeśli Ax = b to nadokreślony układ równań, to poszukiwane przybliżone rozwiązanie \( x^* \) spełnia \( A^TAx^* = A^Tb \). \\
+\begin{warning}
+    Macierz \( A^TA \) jest gorzej uwarunkowana, \( \kappa(A^TA) \) = \( \kappa(A)^2 \)
+\end{warning}

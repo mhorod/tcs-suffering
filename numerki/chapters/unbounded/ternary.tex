@@ -1,0 +1,30 @@
+\section{Ekstrema funkcji bitonicznych}
+
+\subsection{Wyszukiwanie ternarne}
+Algorytm do szukania ekstremów funkcji bitonicznych, czyli ciągłych z jednym ekstremum:
+
+\noindent
+(wersja dla maksimum)
+\begin{lstlisting}[language=Cpp, morekeywords={ternary}]
+function ternary(p, q)
+    r = p + (q-p)/3
+    s = q - (q-p)/3
+    if f(r) < f(s)
+        return ternary(r, q)
+    else
+        return ternary(p, s)
+\end{lstlisting}
+Przedział zmniejsza się do \( \frac{2}{3} \) za pomocą dwóch wywołań f, czyli \( \sqrt{\frac{2}{3}} \) razy na jedno obliczenie f.
+
+\subsection{Wyszukiwanie ze złotym podziałem}
+Czyli ulepszona wersja poprzedniego.
+\begin{lstlisting}[language=Cpp, morekeywords={golden}]
+function golden(p, q)
+    r = q - (q-p)*phi
+    s = p + (q-p)*phi
+    if f(r) < f(s)
+        return golden(r, q)
+    else
+        return golden(p, s)
+\end{lstlisting}
+Wykorzystujemy obliczone wcześniej wartości f, więc przedział zmniejsza się o \( \Phi \approx 0.618 \) \linebreak w jednym wywołaniu.

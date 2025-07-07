@@ -1,0 +1,5 @@
+\section{Metoda simplex}
+Zaczynając od dowolnego wierzchołka obszaru dopuszczalnego, dopóki to możliwe, przesuwamy się do wierzchołka, który ma lepszą wartość funkcji celu. Jeśli rozwiązanie początkowe \( x = 0 \) nie spełnia nierówności, to dodajemy nową zmienną \( w \), którą odejmujemy od prawej strony każdej z nierówności i próbujemy zmaksymalizować (z nadzieją, że się wyzeruje).
+\begin{warning}
+    Metoda simplex może być wykładnicza i może się zapętlić. Własność stopu zapewnia Reguła Blanda - wybieramy zmienną bazową i niebazową o najmniejszym indeksie.
+\end{warning}

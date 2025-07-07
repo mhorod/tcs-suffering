@@ -1,0 +1,16 @@
+\section{Metoda QR}
+Zaczynając od \( A_0 = A \), stosujemy algorytm:
+\begin{itemize}
+\onehalfspacing
+    \item \( (Q_k, R_k) = \text{decompose}(A_k) \)
+    \item \( A_{k+1} = R_kQ_k \)
+\end{itemize}
+Kolejne \( A_k \) zmierzają do macierzy diagonalnej z wartościami własnymi na przekątnej. W teorii jest tak, jeśli \( A \) jest diagonalizowalna, symetryczna i ma różne wartości własne. \\
+Żeby przyspieszyć obliczenia, sprowadzamy \( A \) do macierzy Hessenberga (zera pod przekątną), np odbiciami Householdera i tak unikamy wielokrotnego czasochłonnego rozkładu. \\
+Żeby przyspieszyć zbieżność, stosujemy przesunięcie:
+\begin{itemize}
+\onehalfspacing
+    \item \( (Q_k, R_k) = \text{decompose}(A_k - I \cdot \mu) \)
+    \item \( A_{k+1} = R_kQ_k + I \cdot \mu \)
+\end{itemize}
+Za \( \mu \) można przyjąć prawy-dolny element \( A \).
