@@ -4,21 +4,21 @@ Możemy obłożyć wejścia jakąś funkcją \( \phi \) -- w ten sposób przenie
 
 Dla modelu
 \[
-    h_\theta(x) = \theta^T\phi(x) + \varepsilon
+	h_\theta(x) = \theta^T\phi(x) + \varepsilon
 \]
 
 gdzie \( \varepsilon \) jest szumem gaussowskim
 
 tworzymy macierz planowania:
 \[
- \Phi = \begin{bmatrix}
-        \phi_1(x^{(1)}_1) & \hdots & \phi_k(x^{(1)}_k) \\
-        \vdots & \ddots & \vdots \\
-        \phi_1(x^{(m)}_1) & \hdots & \phi_k(x^{(m)}_k) \\
-    \end{bmatrix}
+	\Phi = \begin{bmatrix}
+		\phi_1(x^{(1)}_1) & \hdots & \phi_k(x^{(1)}_k) \\
+		\vdots            & \ddots & \vdots            \\
+		\phi_1(x^{(m)}_1) & \hdots & \phi_k(x^{(m)}_k) \\
+	\end{bmatrix}
 \]
 
 i dalej liczymy tak jak normalnie tj. dostajemy
 \[
-    \widehat \theta = (\Phi^T\Phi)^{-1}\Phi^T y
+	\widehat \theta = (\Phi^T\Phi)^{-1}\Phi^T y
 \]

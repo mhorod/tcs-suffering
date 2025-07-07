@@ -1,42 +1,42 @@
 \section{Własności języków kontekstowych}
 
 \begin{lemma}
-    Języki kontekstowe są zamknięte na przecięcie.
+	Języki kontekstowe są zamknięte na przecięcie.
 \end{lemma}
 
 \begin{proof}
-    Dla dwóch \( LBA A_1, A_2\) tworzymy \(LBA A\), który zapamiętuje wejście na osobnej taśmie, i symuluje automaty kolejno.
-    Jeśli jeden z automatów nie skończy pracy to nie ma problemu, bo słowo i tak nie należy do przecięcia.
+	Dla dwóch \( LBA A_1, A_2\) tworzymy \(LBA A\), który zapamiętuje wejście na osobnej taśmie, i symuluje automaty kolejno.
+	Jeśli jeden z automatów nie skończy pracy to nie ma problemu, bo słowo i tak nie należy do przecięcia.
 \end{proof}
 
 \begin{lemma}
-    Języki kontekstowe są zamknięte na konkatencaję.
+	Języki kontekstowe są zamknięte na konkatencaję.
 \end{lemma}
-    
+
 \begin{proof}
-    Dla dwóch \(CSG G_1, G_2\) tworzymy \(CSG G\) z produkcją \(S \rightarrow S_1S_2\).
+	Dla dwóch \(CSG G_1, G_2\) tworzymy \(CSG G\) z produkcją \(S \rightarrow S_1S_2\).
 \end{proof}
 
 \begin{lemma}
-    Języki kontekstowe są zamknięte na dopełnienie.
+	Języki kontekstowe są zamknięte na dopełnienie.
 \end{lemma}
-    
+
 \begin{proof}
-    Idzie to z twierdzenia 6.6 (Immerman-Szelepcsény).
+	Idzie to z twierdzenia 6.6 (Immerman-Szelepcsény).
 \end{proof}
 
 \begin{lemma}
-    Języki kontekstowe są zamknięte na sumę.
+	Języki kontekstowe są zamknięte na sumę.
 \end{lemma}
-    
+
 \begin{proof}
-    Dla dwóch CSG \(G_1\), \(G_2\) tworzymy CSG \(G\) z produkcją \(S \rightarrow S_1|S_2\).
+	Dla dwóch CSG \(G_1\), \(G_2\) tworzymy CSG \(G\) z produkcją \(S \rightarrow S_1|S_2\).
 \end{proof}
 
 \begin{lemma}
-    Języki kontekstowe są zamknięte na gwiazdkę Kleene'go.
+	Języki kontekstowe są zamknięte na gwiazdkę Kleene'go.
 \end{lemma}
-    
+
 \begin{proof}
-    Dla dwóch CSG \(G_1\), \(G_2\) tworzymy CSG \(G\) z produkcją \(S \rightarrow S_1S'\), \(S' \rightarrow S_1S'|\epsilon\) (należy uważać, aby nie zaakceptować pustego słowa).
+	Dla dwóch CSG \(G_1\), \(G_2\) tworzymy CSG \(G\) z produkcją \(S \rightarrow S_1S'\), \(S' \rightarrow S_1S'|\epsilon\) (należy uważać, aby nie zaakceptować pustego słowa).
 \end{proof}

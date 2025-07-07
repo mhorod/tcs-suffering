@@ -5,20 +5,20 @@ Teraz będziemy chcieli znaleźć rozkład prawdopodobieństwa szukanych funkcj
 
 Mamy:
 \[
-    p(\theta) = \Normal(\theta \given \mu_0, S_0)
+	p(\theta) = \Normal(\theta \given \mu_0, S_0)
 \]
 oraz
 \[
-    p(Y \given X, \theta) = \prod_{i=1}^m \Normal(y^{(i)}, \theta^T\phi(x^{(i)}), \sigma^2)
+	p(Y \given X, \theta) = \prod_{i=1}^m \Normal(y^{(i)}, \theta^T\phi(x^{(i)}), \sigma^2)
 \]
 
 Rozkład a posteriori zadany jest wzorem:
 \[
-    p(\theta \given Y, X) = \frac{p(Y, X \given \theta)p(\theta)}{p(X, Y)}
+	p(\theta \given Y, X) = \frac{p(Y, X \given \theta)p(\theta)}{p(X, Y)}
 \]
 Mianownik jest stałą, więc \( p(\theta \given Y, X) \) jest iloczynem wielu rozkładów normalnych zatem
 \[
-    p(\theta \given Y, X) = \Normal(\theta \given \mu_m, S_m)
+	p(\theta \given Y, X) = \Normal(\theta \given \mu_m, S_m)
 \]
 
 \subsection{Rozkład predykcyjny}

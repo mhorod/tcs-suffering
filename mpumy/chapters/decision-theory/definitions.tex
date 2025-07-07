@@ -2,44 +2,44 @@
 
 Definiujemy trzy przestrzenie, którymi będziemy się zajmować:
 \begin{itemize}
-    \item \( X \) -- wejścia
-    \item \( A \) -- akcje, czyli nasze przewidywania
-    \item \( Y \) -- oczekiwane przewidywania
+	\item \( X \) -- wejścia
+	\item \( A \) -- akcje, czyli nasze przewidywania
+	\item \( Y \) -- oczekiwane przewidywania
 \end{itemize}
 
 \begin{definition}
-\textbf{Funkcja decyzyjna} to dowolna funkcja \( f : X \rightarrow A \)
+	\textbf{Funkcja decyzyjna} to dowolna funkcja \( f : X \rightarrow A \)
 \end{definition}
 
 \begin{definition}
-\textbf{Funkcja straty} (kosztu) to dowolna funkcja \( \ell : A \times Y \rightarrow \real \)
+	\textbf{Funkcja straty} (kosztu) to dowolna funkcja \( \ell : A \times Y \rightarrow \real \)
 \end{definition}
 
 Będziemy ustalali funkcję straty \( \ell \), która opisuje jak dobry jest wynik i starali się dopasować funkcję \( f \), która podejmuje dobre decyzje.
 
 
 \begin{definition}
-\textbf{Ryzyko} funkcji decyzyjnej \( f \) przy stracie \( \ell \) definiujemy jako 
-\[
-    R(f) = \expected{\ell(f(X), Y)}
-\]
-gdzie \( X, Y \) to zmienne losowe opisujące dane.
+	\textbf{Ryzyko} funkcji decyzyjnej \( f \) przy stracie \( \ell \) definiujemy jako
+	\[
+		R(f) = \expected{\ell(f(X), Y)}
+	\]
+	gdzie \( X, Y \) to zmienne losowe opisujące dane.
 \end{definition}
 
 \begin{definition}
-\textbf{Bayesowska funkcja decyzyjna} to
-\[
-    f^* = \argmin_{f : X \rightarrow A} R(f)
-\]
+	\textbf{Bayesowska funkcja decyzyjna} to
+	\[
+		f^* = \argmin_{f : X \rightarrow A} R(f)
+	\]
 \end{definition}
 
 Ponieważ w praktyce rzadko znamy rozkłady \( X, Y \) to definiujemy też ryzyko empiryczne, które odnosi się bezpośrednio do jakiegoś zbioru danych.
 
 \begin{definition}
-\textbf{Ryzyko empiryczne} funkcji decyzyjnej \( f \) na danych \( D = \set{ \pars{x^{(1)}, y^{(1)}}, \dots, \pars{x^{(m)}, y^{(m)}} }\) definiujemy jako
-\[
-    \widehat R_m(f) = \frac{1}{m} \sum_{i=1}^m \ell\pars{f(x^{(i)}), y^{(i)}}
-\]
+	\textbf{Ryzyko empiryczne} funkcji decyzyjnej \( f \) na danych \( D = \set{ \pars{x^{(1)}, y^{(1)}}, \dots, \pars{x^{(m)}, y^{(m)}} }\) definiujemy jako
+	\[
+		\widehat R_m(f) = \frac{1}{m} \sum_{i=1}^m \ell\pars{f(x^{(i)}), y^{(i)}}
+	\]
 \end{definition}
 Z silnego prawa wielkich liczb wiemy, że prawie na pewno mamy zbieżność \( \widehat R_m \rightarrow R_f \)
 
@@ -48,10 +48,10 @@ Aby znaleźć dobrą funkcję decyzyjną \( f \) mając jakieś dane \( D \) b�
 Ponieważ potencjalnych funkcji decyzyjnych może być dużo i nie wszystkie są dla nas sensowne to wprowadzamy pojęcie przestrzeni hipotez.
 
 \begin{definition}
-\textbf{Przestrzeń hipotez} to dowolny zbiór funkcji decyzyjnych.
+	\textbf{Przestrzeń hipotez} to dowolny zbiór funkcji decyzyjnych.
 \end{definition}
 
 Dla zadanego zbioru hipotez \( H \) będziemy szukać
 \[
-    \widehat f_H = \argmin_{f \in H} \frac{1}{m} \sum_{i=1}^m \ell\pars{f(x^{(i)}), y^{(i)}}
+	\widehat f_H = \argmin_{f \in H} \frac{1}{m} \sum_{i=1}^m \ell\pars{f(x^{(i)}), y^{(i)}}
 \]

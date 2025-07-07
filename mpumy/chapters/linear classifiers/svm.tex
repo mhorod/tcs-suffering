@@ -6,38 +6,38 @@ Chcemy jakoś wyrazić fakt, że nasza hiperpłaszczyzna \( w^Tx + b \) dobrze s
 Wprowadzamy zatem pojęcie marginesu.
 
 \begin{definition}
-    \textbf{Margines} dla obserwacji \( x^{(i)}, y^{(i)} \) oraz hiperpłaszczyzny \( w^Tx + b\) definiujemy jako
-    \[
-        \widehat \gamma^{(i)} = y^{(i)} \cdot \pars{w^T x^{(i)} + b}
-    \]
-    Natomiast dla zbioru \( D \)
-    \[
-        \widehat \gamma = \min_i \widehat \gamma^{(i)}
-    \]
+	\textbf{Margines} dla obserwacji \( x^{(i)}, y^{(i)} \) oraz hiperpłaszczyzny \( w^Tx + b\) definiujemy jako
+	\[
+		\widehat \gamma^{(i)} = y^{(i)} \cdot \pars{w^T x^{(i)} + b}
+	\]
+	Natomiast dla zbioru \( D \)
+	\[
+		\widehat \gamma = \min_i \widehat \gamma^{(i)}
+	\]
 \end{definition}
 
 Ponieważ wartości \( w, b \) mogą być dowolnie duże i definiować tę samą hiperpłaszczyzny to chcielibyśmy aby były one znormalizowane.
 Definiujemy zatem
 \begin{definition}
-    \textbf{Margines geometryczny} definiujemy jako
-    \[
-        \gamma^{(i)} = \frac{\widehat \gamma^{(i)}}{\norm{w}}
-    \]
-    \[
-        \gamma = \frac{\widehat \gamma}{\norm{w}}
-    \]
+	\textbf{Margines geometryczny} definiujemy jako
+	\[
+		\gamma^{(i)} = \frac{\widehat \gamma^{(i)}}{\norm{w}}
+	\]
+	\[
+		\gamma = \frac{\widehat \gamma}{\norm{w}}
+	\]
 \end{definition}
 
 Będziemy chcieli zmaksymalizować margines geometryczny czyli nasz problem jest postaci:
 \begin{align*}
-    \text{zmaksymalizować } & \gamma \\
-    \text{pod warunkami } & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq \gamma \\
-    & \norm{w} = 1
+	\text{zmaksymalizować } & \gamma                                           \\
+	\text{pod warunkami }   & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq \gamma \\
+	                        & \norm{w} = 1
 \end{align*}
 co jest równoważne
 \begin{align*}
-    \text{zminimalizować } & \norm{w}^2 \\
-    \text{pod warunkami } & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq 1 \\
+	\text{zminimalizować } & \norm{w}^2                                  \\
+	\text{pod warunkami }  & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq 1 \\
 \end{align*}
 
 Punkty \( x^{(i)} \) które realizują równość nazywamy \textbf{wektorami wspierającymi} (support vectors).
@@ -46,13 +46,13 @@ Często dane nie będą idealnie liniowo separowalne i będziemy mieli obserwac
 Dodajemy zatem czynnik regularyzacyjny.
 
 \begin{align*}
-    \text{zminimalizować } & \norm{w}^2 + \frac{C}{m} \sum_{i=1}^m \xi_i \\
-    \text{pod warunkami } & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq 1 - \xi_i \\
-        & \xi_i \geq 0
+	\text{zminimalizować } & \norm{w}^2 + \frac{C}{m} \sum_{i=1}^m \xi_i         \\
+	\text{pod warunkami }  & y^{(i)} \cdot \pars{w^T x^{(i)} + b} \geq 1 - \xi_i \\
+	                       & \xi_i \geq 0
 \end{align*}
 
 Co jest w bardzo fajny sposób równoważne minimalizacji zawiasowej funkcji straty z regularyzacją \( \ell^2 \)
 
 \[
-    \min_{w, b} \frac{1}{2} \norm{w}^2 + \frac{C}{m}\sum_{i=1}^m \max\braces{0, 1 - y^{(i)} \cdot \pars{w^T x^{(i)} + b}}
+	\min_{w, b} \frac{1}{2} \norm{w}^2 + \frac{C}{m}\sum_{i=1}^m \max\braces{0, 1 - y^{(i)} \cdot \pars{w^T x^{(i)} + b}}
 \]

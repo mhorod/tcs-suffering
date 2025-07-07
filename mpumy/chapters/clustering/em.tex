@@ -4,21 +4,21 @@
 Chcielibyśmy mieć jakiś sposób na obliczanie podobieństwa dwóch rozkładów, będzie nam to za chwilę przydatne w konstrukcji algorytmu.
 
 \begin{definition}
-\textbf{Dywergencja Kullbacka-Leiblera} dla rozkładów \( q, p \) zadana jest wzorem dla rozkładów ciągłych
-\[
-    \KL{q}{p} = \int q(x) \ln \frac{q(x)}{p(x)} \diff x
-\]
-oraz
-\[
-    \KL{q}{p} = \sum_x q(x) \ln \frac{q(x)}{p(x)}
-\]
+	\textbf{Dywergencja Kullbacka-Leiblera} dla rozkładów \( q, p \) zadana jest wzorem dla rozkładów ciągłych
+	\[
+		\KL{q}{p} = \int q(x) \ln \frac{q(x)}{p(x)} \diff x
+	\]
+	oraz
+	\[
+		\KL{q}{p} = \sum_x q(x) \ln \frac{q(x)}{p(x)}
+	\]
 \end{definition}
 
 Podstawowe jej własności:
 \begin{itemize}
-    \item \( \KL{p}{p} = 0 \)
-    \item \( \KL{p}{q} \geq 0 \)
-    \item \( \KL{p}{q} \) nie musi być równe \( \KL{q}{p} \)
+	\item \( \KL{p}{p} = 0 \)
+	\item \( \KL{p}{q} \geq 0 \)
+	\item \( \KL{p}{q} \) nie musi być równe \( \KL{q}{p} \)
 \end{itemize}
 
 \subsection{Sformułowanie problemu}
@@ -26,12 +26,12 @@ Podstawowe jej własności:
 Podobnie jak w GMM zakładamy, że dane pochodzą z mieszanego modelu o \( K \) rozkładach o parametrach \( \theta \).
 Innymi słowy
 \[
-    p(x^{(i)} \given \theta) = \sum_{c=1}^K p(z^{(i)} = c \given \theta) \cdot p(x^{(i)} \given z^{(i)} = c, \theta)
+	p(x^{(i)} \given \theta) = \sum_{c=1}^K p(z^{(i)} = c \given \theta) \cdot p(x^{(i)} \given z^{(i)} = c, \theta)
 \]
 
 Będziemy starali się znaleźć taki parametr modelu \( \theta \) który maksymalizuje log wiarygodność.
 \[
-    \theta^* = \argmax_\theta \sum_{i=1}^m \ln \sum_{c=1}^K p(x^{(i)}, z^{(i)} = c \given \theta)
+	\theta^* = \argmax_\theta \sum_{i=1}^m \ln \sum_{c=1}^K p(x^{(i)}, z^{(i)} = c \given \theta)
 \]
 
 Mamy tutaj ten sam problem co wcześniej -- nie wejdziemy z logarytmem pod sumę, więc musimy kombinować inaczej.
@@ -41,11 +41,11 @@ Mamy tutaj ten sam problem co wcześniej -- nie wejdziemy z logarytmem pod sumę
 Niech \( q \) będzie dowolnym rozkładem na \( K \) wartościach. Możemy szacować log-wiarygodność od dołu za pomocą funkcji \( \mathcal{L}(\theta, q) \)
 
 \begin{align*}
-    \ln \ell(\theta)
-        &= \sum_{i=1}^m \ln \sum_{c=1}^K p(x^{(i)}, z^{(i)} = c \given \theta) \\
-        &= \sum_{i=1}^m \ln \sum_{c=1}^K q(z^{(i)} = c) \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
-        &\geq \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
-        &= \mathcal{L}(\theta, q)
+	\ln \ell(\theta)
+	 & = \sum_{i=1}^m \ln \sum_{c=1}^K p(x^{(i)}, z^{(i)} = c \given \theta)                                        \\
+	 & = \sum_{i=1}^m \ln \sum_{c=1}^K q(z^{(i)} = c) \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}    \\
+	 & \geq \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
+	 & = \mathcal{L}(\theta, q)
 \end{align*}
 
 Nierówność mamy dzięki nierówności Jensena, wklęsłości logarytmu oraz faktu, że \( q \) jest rozkładem prawdopodobieństwa tj. \( \sum_{c=1}^K q(z = c) = 1 \)
@@ -54,24 +54,24 @@ Skoro \( \mathcal{L}(\theta, q) \) jest ograniczeniem dolnym to będziemy chciel
 
 Bardziej formalnie -- jeśli po \( k \) krokach mamy parametr \( \theta_k \) to obliczamy (krok \textbf{E})
 \[
-    q_{k + 1} = \argmax_q \mathcal{L}(\theta_k, q)
+	q_{k + 1} = \argmax_q \mathcal{L}(\theta_k, q)
 \]
 a następnie (krok \textbf{M})
 \[
-    \theta_{k + 1} = \argmax_\theta \mathcal{L}(\theta, q_{k + 1})
+	\theta_{k + 1} = \argmax_\theta \mathcal{L}(\theta, q_{k + 1})
 \]
 
 \subsection{Krok E}
 
 Szukamy największego ograniczenia dolnego czyli w praktyce minimalizujemy różnicę
 \begin{align*}
-    \ln \ell(\theta) - \mathcal{L}(\theta, q)
-        &= \sum_{i=1}^m \ln p(x^{(i)}, \theta) - \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
-        &= \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln p(x^{(i)}, \theta) - \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
-        &= \sum_{i=1}^m \sum_{c=1}^K  q(z^{(i)} = c) \pars{\ln p(x^{(i)}, \theta) - \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}} \\
-        &= \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, \theta) \cdot q(z^{(i)}=c)}{p(x^{(i)}, z^{(i)} = c \given \theta)} \\
-        &= \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{\cdot q(z^{(i)}=c)}{p(x^{(i)}, z^{(i)} = c \given x^{(i)}, \theta)} \\
-        &= \KL{q(z^{(i)})}{p(z^{(i)} \given x^{(i)}, \theta)}
+	\ln \ell(\theta) - \mathcal{L}(\theta, q)
+	 & = \sum_{i=1}^m \ln p(x^{(i)}, \theta) - \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}                             \\
+	 & = \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln p(x^{(i)}, \theta) - \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)} \\
+	 & = \sum_{i=1}^m \sum_{c=1}^K  q(z^{(i)} = c) \pars{\ln p(x^{(i)}, \theta) - \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}}                                  \\
+	 & = \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, \theta) \cdot q(z^{(i)}=c)}{p(x^{(i)}, z^{(i)} = c \given \theta)}                                          \\
+	 & = \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{\cdot q(z^{(i)}=c)}{p(x^{(i)}, z^{(i)} = c \given x^{(i)}, \theta)}                                                    \\
+	 & = \KL{q(z^{(i)})}{p(z^{(i)} \given x^{(i)}, \theta)}
 \end{align*}
 
 A wiemy że jest ona równa zero tylko gdy \( q(z^{(i)}) = p(z^{(i)} \given x^{(i)}, \theta) \).
@@ -82,11 +82,11 @@ Teraz chcemy znaleźć \( \theta \) maksymalizujące \( \mathcal{L}(\theta, q) 
 
 Mamy
 \[
-    \mathcal{L}(\theta, q) = \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}
+	\mathcal{L}(\theta, q) = \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln \frac{p(x^{(i)}, z^{(i)} = c \given \theta)}{q(z^{(i)}=c)}
 \]
 Zauważamy jednak, że \( q(z^{(i)}=c) \) w mianowniku jest stałe, zatem maksymalizujemy
 \[
-    \sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln p(x^{(i)}, z^{(i)} = c \given \theta) = \expected{\ln p(X, Z \given \theta)}
+	\sum_{i=1}^m \sum_{c=1}^K q(z^{(i)} = c) \ln p(x^{(i)}, z^{(i)} = c \given \theta) = \expected{\ln p(X, Z \given \theta)}
 \]
 gdzie wartość oczekiwana przechodzi po rozkładzie wyznaczonym przez \( q \) tak jak miało to miejsce w przypadku GMM.
 
@@ -94,5 +94,5 @@ gdzie wartość oczekiwana przechodzi po rozkładzie wyznaczonym przez \( q \) t
 
 W każdym kroku tylko maksymalizujemy, więc log-wiarygodność nie maleje
 \[
-    \ln p(X \given \theta_k) = \mathcal{L}(\theta_k, q_{k + 1}) \leq \mathcal{L}(\theta_{k+1}, q_{k+1}) \leq \ln p(X \given \theta_{k + 1})
+	\ln p(X \given \theta_k) = \mathcal{L}(\theta_k, q_{k + 1}) \leq \mathcal{L}(\theta_{k+1}, q_{k+1}) \leq \ln p(X \given \theta_{k + 1})
 \]
