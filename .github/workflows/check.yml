@@ -3,16 +3,11 @@
 
 name: check
 on: pull_request
-concurrency:
-  # No race-conditions within a single PR identified by it's branch reference (github.ref)
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
 jobs:
   check-build:
     name: Check PR compilation
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: read
     steps:
       - name: Setup Git repository (shallow)
@@ -74,9 +69,6 @@ jobs:
 
       - name: Comment on the PR on first release
         env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          GH_PR: ${{ github.event.pull_request.number }}
           ARTIFACT_URL: ${{ steps.build-artifact.outputs.artifact-url }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           PR_COMMIT: ${{ github.event.pull_request.head.sha }}
@@ -84,22 +76,15 @@ jobs:
         run: |
           set -x
           if [ -n "$ARTIFACT_URL" ]; then
-          cat >.check-file <<-EOF
+          cat >>$GITHUB_STEP_SUMMARY <<-EOF
           # PR Artifacts
           ### You can download the built PDFs and build logs for directories changed by this PR [here]($ARTIFACT_URL).
           ### Last build: $(echo "$PR_COMMIT" | head -c 8) — $([ -f ./_failure ] && echo "failed" || echo "succeeded")
           $([ ! -f ./_failure ] || cat ./_failure)
-
-          ### [See also the formatting check details here]($RUN_URL)
-
-          *Note: this comment will update automatically on each change pushed to this PR's branch.*
           EOF
-
-          gh pr comment $GH_PR --edit-last --create-if-none -F .check-file
-          cat .check-file >>$GITHUB_STEP_SUMMARY
           fi
 
-          ! [ -f ./_failure ]
+          [ ! -f ./_failure ]
   check-format:
     name: Check PR formatting
     runs-on: ubuntu-latest
