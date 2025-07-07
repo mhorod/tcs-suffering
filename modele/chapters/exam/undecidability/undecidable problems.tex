@@ -1,0 +1,36 @@
+\section{Problemy nierozstrzygamlne}
+
+\subsection{POST}
+
+\subsection{Kafelkowanie}
+
+Problem kafelkowania \textsc{TILING} jest zadany następująco: mamy skończony zbiór kwadratowych kafelków o takich samych wymiarach \( 1 \times 1 \) \( T = \set{T_1, \dots, T_n} \).
+Każdy kafelek ma cztery boki -- na każdym jest zapisany jakiś symbol/kolor. 
+
+Naszym celem jest wyłożyć ćwiartkę płaszczyzny kafelkami (tj. znaleźć funkcję \( f : \natural^2 \rightarrow T \)) w taki sposób aby kafelki dotykały się jedynie identycznymi symbolami. Ponadto mamy już zadany kafelek który się musi znaleźć w lewym dolnym rogu (0, 0)
+
+\begin{theorem}
+    \( \textsc{TILING} \notin \re \)
+\end{theorem}
+\begin{proof}
+    Pokażemy redukcję z problemu \( \overline{L_{HALT}} \notin \re \) tj. dla zadanej DMT \( M \) i słowa \( w \) skonstruujemy taki zestaw kafelków (oraz kafelek narożny) że istnieje kafelkowanie wtedy i tylko wtedy gdy maszyna się \textbf{nie} zatrzymuje.
+    
+    Zaczynamy od obserwacji, że jak \( w \) jest ustalone to możemy je zaszyć w stanach maszyny tj. stworzyć maszynę \( M' \) która zaczyna od wypisania \( w \) na początkowo pustą taśmę, a następnie zachowuje się identycznie jak \( M \). 
+    
+    Z tego powodu przyjmujemy, że \( M \) zaczyna z pustą taśmą. Ponadto przyjmujemy, że taśma \( M \) jest nieskończona tylko w prawo (bo możemy ,,złożyć taśmę na pół'' tj. indeksować \( 0, -1, 1, -2, \dots \) )
+    
+    Mając takie założenia idea konstrukcji jest następująca:
+    \begin{itemize}
+        \item wiersze kafelkowania będą kolejnymi konfiguracjami maszyny \( M \)
+        \item kafelek \( (0, 0) \) wymusza aby pierwszy wiersz reprezentował konfigurację \( q_0 \blank \blank \dots \)
+        \item dajemy kafelki pozwalające kopiować ,,bezpieczne'' fragmenty konfiguracji
+        \item przejścia głowicy załatwiamy specjalnymi kafelkami
+        \item do stanów końcowych (akceptujących/odrzucających) nie pasuje żaden kafelek tj. nie możemy nad nimi skonstruować kolejnego rzędu.
+    \end{itemize}
+    
+    Ostatni podpunkt zapewnia nas, że jeśli \( M \) się zatrzymuje to kafelkowanie nie istnieje.
+    Jeśli natomiast \( M \) się \textit{nie} zatrzymuje to kafelkowanie generujemy przepisując kolejne konfiguracje działającej w nieskończoność maszyny.
+    
+\end{proof}
+
+\subsection{CFL-INTERSECT}

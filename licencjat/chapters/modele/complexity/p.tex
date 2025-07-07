@@ -1,0 +1,123 @@
+\begin{definition}
+    Język \( L \) jest w klasie P (polynomial) jeśli istnieje wielomian \( p \)
+    oraz Deterministyczna Maszyna Turinga działająca w czasie \( p \) taka, że \( L(M) = L \)
+\end{definition}
+
+\begin{theorem}
+Język pusty jest w \(\p\). 
+\end{theorem}
+\begin{proof}
+To było mało ambitne twierdzenie. Maszyna rozpoznająca ten język od razu przechodzi do stanu odrzucającego, a tym samym działa w czasie stałym.
+\end{proof}
+
+\begin{theorem}
+\( \textsc{DNF-SAT} \in \p \).
+\end{theorem}
+\begin{proof}
+To może przez chwilę szokować i powodować ból mózgu, ale, uwaga, jeśli problem \textsc{SAT} jest w postaci \textsc{DNF} to możemy to rozwiązać w czasie wielomianowym.
+
+By to zrozumieć, wypada zobaczyć przykład formuły w \textsc{DNF}:
+
+\[ 
+            \overbrace{(x_1 \land \neg x_2 \land \neg x_3)}^{\text{Term DNF}} \lor \overbrace{(x_1 \land x_4)}^{\text{Term DNF}} \lor \overbrace{(\neg x_5)}^{\text{Term DNF}}    
+\] 
+
+Obserwujemy, że aby formuła w \textsc{DNF} była spełnialna, \textit{któryś} z jej termów musi być spełnialny. 
+
+...a kiedy ciąg koniunkcji \textit{nie} jest spełnialny?
+
+\textbf{Wtedy i tylko wtedy}, gdy zawiera w sobie jakąś zmienną i jej zaprzeczenie! Uzasadnienie tego faktu jest proste:
+
+\begin{enumerate}
+    \item Jeśli w ciągu koniunkcji występuje zmienna i jej zaprzeczenie to nie istnieje takie wartościowanie by ten ciąg koniunkcji był prawdziwy, siłą rzeczy;
+    \item jeśli w ciągu koniunkcji \textit{nie} występuje zmienna wraz z jej zaprzeczeniem, to wszystkie zmienne które występują zanegowane wartościujemy na fałsz, a wszystkie które występują niezanegowane wartościujemy na prawdę. W ten sposób otrzymujemy spełnialny term. 
+\end{enumerate}
+
+Zauważamy, że ten warunek jest (z perspektywy algorytmicznej) trywialny do zbadania w czasie wielomianowym od rozmiaru wejścia. Badamy więc ten warunek dla każdej klauzuli po kolei -- jeśli którakolwiek z nich jest spełnialna, to cała formuła jest spełnialna. Ale super. 
+
+\end{proof}
+
+\begin{theorem}
+2-SAT jest w \(\p\).
+\end{theorem}
+\begin{proof}
+To jest bardziej ambitne twierdzenie. Algorytm znamy z ASDów, ale akurat w wymaganiach egzaminacyjnych do ASD go nie ma (a więc zostanie przedstawiony tutaj). 
+
+Fundamentalna obserwacja w tym algorytmie opiera się na fakcie, że:
+
+\[ 
+p \lor q \equiv (\neg p \implies q) \land (\neg q \implies p)
+\]
+
+Aby popchnąć rozwiązanie tego problemu dalej, użyjemy \textit{teorii grafów}.
+
+Tworzymy sobie graf \textit{literałów} dla formuły, którą dostaliśmy na wejściu. Na przykład dla takiej formuły:
+
+\[
+    (x_1 \lor \neg x_2) \land (x_3 \lor \neg x_3)
+\]
+
+graf ten będzie mieć 6 wierzchołków: \(x_1, \neg x_1, x_2, \neg x_2, x_3, \neg x_3\).
+
+Rozpiszmy sobie teraz tę formułę z przykładu korzystając z naszej wcześniejszej obserwacji:
+
+\[
+    (x_1 \lor \neg x_2) \land (x_3 \lor \neg x_3) \equiv (\neg x_1 \implies \neg x_2) \land (x_2 \implies x_1) \land (\neg x_3 \implies \neg x_3) \land (x_3 \implies x_3).
+\]
+
+,,Strzałki implikacji'' zostają krawędziami w naszym grafie. Tak jest -- konstruujemy graf implikacji literałów. 
+
+\begin{center}
+
+\begin {tikzpicture}[-latex ,auto ,node distance =4 cm and 5cm ,on grid , semithick ,
+literal/.style ={ circle, top color=white, draw, text=blue , minimum width =1 cm, bottom color=pink}]
+\node[literal] (X1) {\(x_1\)};
+\node[literal] (X2) [right=of X1] {\(x_2\)};
+\node[literal] (X3) [right=of X2] {\(x_3\)};
+\node[literal] (Y1) [below=of X1] {\(\neg x_1\)};
+\node[literal] (Y2) [below=of X2] {\(\neg x_2\)};
+\node[literal] (Y3) [below=of X3] {\(\neg x_3\)};
+
+\path (Y1) edge [bend left=25] (Y2);
+\path (X2) edge [bend left=25] (X1);
+\path (Y3) edge [loop left] (Y3);
+\path (X3) edge [loop left] (X3);
+
+
+\end{tikzpicture}
+\end{center}
+
+W tym grafie wyznaczamy silnie spójne składowe (jest to graf skierowany, rzecz jasna) i zastanówmy się jaką semantykę ma silnie spójna składowa w takim grafie. 
+
+Otóż -- z definicji -- w silnie spójnej składowej dla każdej pary wierzchołków do niej należących istnieje ścieżka. W naszym przypadku, oznacza to istnienie ciągu implikacji pomiędzy dowolną parą literałów (w jedną i drugą stronę). A to oznacza, że wszystkie literały w obrębie jednej silnie spójnej składowej są sobie \textbf{równoważne}. Innymi słowy -- w obrębie danej spójnej składowej wszystkie literały muszą być zwartościowane tak samo jeśli formuła ma być prawdziwa. 
+
+Nazwijmy graf implikacji \(G\), a formułę którą dostaliśmy na wejściu (i z której on powstał) \(\varphi\). Wykonujemy fajną obserwację:
+
+\begin{lemma}
+\(\varphi\) jest spełnialna wtedy i tylko wtedy, gdy w żadnej silnie spójnej składowej \(G\) nie występuje zmienna wraz ze swoim zaprzeczeniem. 
+\end{lemma}
+\begin{proof}
+Jeśli w obrębie danej silnie spójnej składowej występuje zmienna wraz ze swoim zaprzeczeniem, to w oczywisty sposób \(\varphi\) spełnialna nie będzie. 
+
+Zastanówmy się co się dzieje w sytuacji, gdy nie ma takiej silnie spójnej składowej w której występuje zmienna wraz ze swoim zaprzeczeniem. Otóż wtedy jest fajnie.
+
+Wykonujemy standardowy trik i kompresujemy każdą silnie spójną składową do jednego wierzchołka; tak otrzymany graf silnie spójnych składowych jest DAGiem\footnote{Oczywiste.}. Skoro jest to DAG, możemy wykonać sortowanie topologiczne. Idziemy po tym grafie w odwrotnym porządku topologicznym i wartościujemy wierzchołki tego grafu (co ma taką interpretację, że wszystkie literały w obrębie danej silnie spójnej składowej są tak wartościowane). Jeśli dany wierzchołek nie ma przypisanego wartościowania to wartościujemy go na prawdę, a wierzchołek zawierający zanegowane zmienne od nas wartościujemy od razu na fałsz. 
+
+Trzeba niestety (siłą rzeczy) udowodnić, że ta procedura zawsze da nam prawidłowe wartościowanie.
+
+Pierwsza obserwacja: dla dowolnej silnej spójnej składowej \(S\), jeżeli ,,dostaje'' ona wartościowane na prawdę, to istnieje \textbf{dokładnie} jedna silnie spójna składowa która zostanie zwartościowana na fałsz. Załóżmy nie wprost, że tak nie jest:
+
+\begin{enumerate}
+    \item Jeśli zwartościowaliśmy na fałsz więcej niż jedną spójną, to oznaczałoby że mamy literały \(a, b\) takie, że \(a \iff b\), ale \(\neg a \notiff \neg b\), co jest sprzeczne z tym jak konstruowaliśmy ten graf. 
+    \item Analogiczny argument stosujemy by wykazać, że ta spójna którą obecnie chcemy zwartościować na fałsz nie była już tak wartościowana wcześniej podczas działania algorytmu. 
+\end{enumerate}
+
+Z tego mamy bijekcję między silnie spójnymi składowymi (na spójne które zawierają jakieś literały i spójne które zawierają dokładnie negacje tych literałów). 
+
+Teraz pokażemy, że algorytm przypisywania wartości działa poprawnie, to znaczy nie będzie takiej sytuacji gdzie po przypisaniu wartości ,,prawda'' do jakiegoś wierzchołka będzie szła z niego krawędź do wierzchołka który już został zwartościowany na ,,fałsz''. 
+
+Załóżmy nie wprost, że doszło do takiej sytuacji: mamy zatem literały \(x\) i \(y\) takie, że \( x \implies y\), ale wartość \(y\) została ustawiona przez algorytm na fałsz, a \(x\) na prawdę. Zauważamy, że (ze wcześniejszej obserwacji) \(\neg y\) zostało na pewno wcześniej zwartościowane na ,,prawdę'', oraz \( \neg y \implies \neg x\) z definicji naszego grafu. Ale przecież skoro teraz wartościujemy spójną składową z \(x\), to jest ona później w porządku topologicznym niż spójna z \( \neg y\) i wcześniej niż spójna z \( \neg x\), a więc ścieżka z \( \neg y\) do \( \neg x\) istnieć nie może. Otrzymana sprzeczność pokazuje, że do takiej sytuacji dojść nie może. \end{proof}
+
+Innymi słowy, by stwierdzić czy \textsc{2-SAT} jest spełnialny wystarczy sprawdzić czy istnieje jakaś ,,wewnętrznie sprzeczna'' silnie spójna składowa w \(G\). Aby explicite otrzymać wartościowanie, możemy użyć podanego algorytmu. Oczywiście, taki check (jak i ten algorytm) są wielomianowe, więc wszystko jest super. 
+
+\end{proof}

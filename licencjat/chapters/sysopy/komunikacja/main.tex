@@ -1,0 +1,11 @@
+\textbf{Pisanie do plików} - najprostszy mechanizm. Brak synchronizacji narzuconej przez system - trzeba dobrowolnie używać advisory file locking. Operacje odczytu i zapisu mogą być powolne. Można również zmapować dany plik do pamięci operacyjnej.
+
+\textbf{Named pipes} - specjalny rodzaj pliku  pozwalający na nawiązanie połączenia między procesami. Procesy otwierają taki plik w trybie do odczytu lub do zapisu i w ten sposób się komunikują (FIFO). Odczyt i zapis jest synchronizowany przez system. Gdy jest wielu czytających, to sytuacja jest nieokreślona. Może być wielu zapisujących - ich zapisy nie będą rodzielane, o ile nie przekraczają rozmiaru bufora systemu. Tak samo działają anonymous pipes, które nie są reprezentowane jako pliki na dysku, tylko są bezpośrednio tworzone jako pary deskryptorów plików.
+
+\textbf{Współdzielona pamięć} - najszybszy mechanizm. Wiele procesów mających dostęp do tego samego fragmentu pamięci operacyjnej. Trzeba synchronizować zapis za pomocą mutexów lub innych mechanizmów. Procesy-dzieci współdzielą pamięć z procesami-rodzicami. Istnieje również mechanizm, za pomocą którego niezależne procesy mogą uzgodnić współdzieloną pamięć.
+
+\textbf{POSIX threads} - W systemie posixowym, każdy proces może składać się z wielu podprocesów - wątków. Wątki domyślnie współdzielą całą pamięć procesu. Do komunikacji między nimi można używać tych samych mechanizmów co do komunikacji pomiędzy procesami, ale jest też dostępne kilka innych. 
+
+\textbf{Sygnały} - wysyłane do procesów o znanych PID lub PGID. Przerywają działanie procesów, które zazwyczaj mogą jakoś obsłużyć dany sygnał. Sygnały nie są kolejkowane, tylko ustawiają odpowiednie bity w tablicy jeszcze nieobsłużonych sygnałów. Można blokować sygnały, czyli odkładać ich obsługę na później, w szczególności można blokować sygnały na czas samej ich obsługi.
+
+\textbf{Unix sockets} - używa się ich tak jak protokołów sieciowych, ale komunikacja odbywa się tylko w obrębie systemu. Jako adres jest używany specjalny plik. Działają one dwukierunkowo.

@@ -1,0 +1,13 @@
+Believe it or not, ale w tym rozdziale będziemy używać rozkładu jednostajnego (a jeszcze go nie zdefiniowaliśmy). Pozwolimy sobie zatem przytoczyć tutaj podstawowe definicje, a potem przejść do odpowiedzi na właściwe pytanie. 
+
+\begin{definition}
+    Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład jednostajny} na przedziale \( \brackets{a, b} \) jeśli dystrybuanta tej zmiennej zadana jest przez funkcję
+    \[
+        F(x) = \begin{cases}
+            0 & \text{ gdy } x < a \\
+            \frac{x - a}{b - a} & \text{ gdy } a \leq x \leq b \\
+            1 & \text{ gdy } x > b
+        \end{cases}
+    \]
+\end{definition}
+Łatwo zauważyć, że gęstość takiej zmiennej wynosi \( \frac{1}{b-a} \) w \( \brackets{a, b} \) oraz 0 wszędzie indziej.

@@ -1,0 +1,14 @@
+\begin{theorem}
+    Nie istnieje zbiór wszystkich zbiorów
+\end{theorem}
+\begin{proof}
+    Nie wprost niech istnieje \( x \) taki, że \( \forall y: y \in x \).
+    \begin{enumerate}
+        \item Po pierwsze mamy sprzeczność z aksjomatem regularności -- \( x \cap \set{x} = x \)
+        \item Po drugie mamy sprzeczność z tw. Cantora.
+        
+            Z jednej strony \( \powerset(x) \subseteq x \) więc \( \powerset(x) \leqnum x \).
+            
+            Z drugiej strony \( x \leqnum \powerset(x) \), a więc \( x \eqnum \powerset(x) \), co istotnie jest sprzeczne z tw. Cantora.
+    \end{enumerate}
+\end{proof}

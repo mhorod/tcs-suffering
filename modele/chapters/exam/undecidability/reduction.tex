@@ -1,0 +1,22 @@
+\section{Redukcja Turinga}
+
+\subsection{Redukcja} 
+
+\begin{definition}
+
+    \textbf{Redukcja} z języka \( L_1 \) do języka \( L_2 \) to funkcja \( \sigma: \Sigma^* \rightarrow \Sigma^*\) obliczalna przez maszynę Turinga, taka że \( x \in L_1 \iff L(f(x)) \in L_2 \)
+    
+    Jeśli istnieje redukcja z \( L_1 \) do \( L_2 \) to zapisujemy to faktem \( L_1 \leq L_2 \)
+\end{definition}
+
+\subsection{Redukcja w sensie Turinga (przy rozstrzygalności)}
+
+\begin{definition}
+    Mówimy, że Maszyna Turinga \(M\) jest \textbf{maszyną z wyrocznią \(L\)} wtedy i tylko wtedy, gdy ,,ma ona dostęp'' do zbioru \(L\) (innymi słowy, istnieje specjalna taśma wejściowa na którą \(M\) może wpisać słowo co do którego ma zapytanie i zasymulować stosowną Maszynę Turinga rozpoznającą język \(L\). 
+\end{definition}
+
+\begin{definition}
+    Mówimy, że istnieje \textbf{redukcja Turinga} z języka \(L_1 \) do języka \( L_2\), jeśli istnieje Maszyna Turinga \(M\) z wyrocznią \(L_2\) taka, że \(L(M) = L_1\). 
+    
+    Taki dowód udowadniania nierozstrzygalności określany jest również jako dowodzenie nierozstrzygalności przed podprogram.
+\end{definition}

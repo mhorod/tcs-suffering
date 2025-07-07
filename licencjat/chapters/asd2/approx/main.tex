@@ -1,0 +1,17 @@
+Niektóre trudne problemy jesteśmy w stanie aproksymować, to znaczy wskazywać rozwiązanie dopuszczalne (spełniające wymagania poprawności), ale niekoniecznie optymalne.
+
+Formalniej, mówimy że algorytm aproksymacyjny $A$ ma współczynnik aproksymacji $r$, jeśli dla każdej instancji $J$ tego problemu
+\[
+\max\left(\frac{A(J)}{OPT(J)}, \frac{OPT(J)}{A(J)}\right) \leqslant r
+\],
+
+gdzie $A(J)$ to koszt rozwiązania pochodzącego z naszego algorytmu aproksymacyjnego, a $OPT(J)$ to koszt rozwiązania optymalnego.
+
+\subsection{Vertex cover}
+\input{chapters/asd2/approx/vertex-cover}
+
+\subsection{Knapsack}
+\input{chapters/asd2/approx/knapsack}
+
+\subsection{Traveling salesman problem}
+\input{chapters/asd2/approx/tsp}

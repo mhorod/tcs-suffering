@@ -1,0 +1,58 @@
+\section{AdaBoost}
+
+Zaczynamy od przydzielenia wszystkim obserwacjom takiej samej wagi \( w^{(i)}_1 = \frac{1}{m} \)
+
+W \(t\)-tej iteracji wybieramy ten klasyfikator, który popełnia najmniejszy ważony błąd \( \epsilon_t \leq \frac{1}{2} \)
+
+Oznaczamy ten klasyfikator przez \( h_t \) i nadajemy mu wagę
+\[
+    \alpha_t = \frac{1}{2} \ln \frac{1 - \epsilon_t}{\epsilon_t} \in [0, \infty)
+\]
+
+Następnie modyfikujemy wagi obserwacjom:
+\[
+    w^{(i)}_{t + 1} = \begin{cases}
+        w^{(i)}_t \cdot \exp(\alpha_t) & \text{ gdy } h_t(x^{(i)}) \neq y^{(i)} \\
+        w^{(i)}_t \cdot \exp(-\alpha_t) & \text{ gdy } h_t(x^{(i)}) = y^{(i)} \\
+    \end{cases}
+\]
+
+W ten sposób wagi dla dobrze trafionych obserwacji maleją, a nietrafionych rosną.
+
+Po każdej iteracji normalizujemy wagi tak aby ich suma wynosiła 1.
+
+Zatrzymujemy jeśli zajdzie jeden z przypadków:
+\begin{itemize}
+    \item Wykonamy \( T \) iteracji
+    \item Znajdziemy \( h_t \) z zerowym błędem
+    \item Wszystkie klasyfikatory mają ważony błąd \( \frac{1}{2} \) -- wtedy \( \alpha_t = 0 \) i już nic się nie zmieni.
+\end{itemize}
+
+Zachodzi twierdzenie:
+\begin{theorem}
+Po \( T \) iteracjach ryzyko empiryczne klasyfikatora zwróconego przez AdaBoost jest ograniczony
+\[
+    \widehat R(h) \leq \exp\pars{-2\sum_{t=1}^T \pars{\frac{1}{2} - \epsilon_t}^2}
+\]
+ponadto jeśli \( \forall_{t \in \set{1, \dots, T}} : \gamma \leq \frac{1}{2} - \epsilon_t \)
+to
+\[
+    \widehat R(h) \leq \exp\pars{-2\gamma^2T}
+\]
+\end{theorem}
+
+\subsection{Wady i zalety}
+
+Zalety
+\begin{itemize}
+    \item prosty
+    \item tylko jeden hiperparametr -- \( T \)
+    \item nie przeucza się
+    \item działa dla różnych słabych klasyfikatorów
+\end{itemize}
+
+Wady:
+\begin{itemize}
+    \item podatny na obserwacje odstające
+    \item czasem nie działa jeśli źle dobierzemy klasyfikatory
+\end{itemize}

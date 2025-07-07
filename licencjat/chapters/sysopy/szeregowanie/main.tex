@@ -1,0 +1,23 @@
+\subsection{Serwer w trybie wsadowym}
+
+W trybie wsadowym zadania są wykonywane po kolei, w pewnej ustalonej kolejności.
+
+Najprostszy sposób to \textbf{first-come first-served} - zwykłe kolejkowanie zadań. Zablokowane procesy przechodzą na koniec kolejki.
+
+Można też próbować minimalizować sumaryczny turnaround time, czyli czas między przyjściem a zakończeniem zadania:
+\begin{itemize}
+    \item \textbf{Shortest job first} - szacowanie czasów wykonywania zadań i wybieranie najkrótszego. Optymalny względem sumarycznego turnaround time, ale tylko w wersji offline.
+    \item \textbf{Shortest remaining time next} - wybieranie zadania, które zakończy się najwcześniej. Pozwalamy na wywłaszczanie procesów. Optymalny względem sumarycznego turnaround time w wersji online, o ile nie uwzględniamy czasu na zmianę kontekstu. Turnaround time pojedynczego procesu może być potencjalnie bardzo duży.
+\end{itemize}
+
+\subsection{System interaktywny}
+
+W systemie interaktywnym liczy się szybka reakcja na bodźce, więc, z punktu widzenia użytkownika, procesy są wykonywane w tym samym czasie.
+
+Każdy proces dostaje \textbf{kwant} czasu (zazwyczaj kilkadziesiąt milisekund), w obrębie którego może nieprzerwanie wykonywać obliczenia. W trybie \textbf{round robin} procesy są ustawione w kolejce i wykonywany jest pierwszy proces w kolejce aż do wyczerpania swojego kwantu czasu. Po wykorzystaniu kwantu czasu, proces trafia na koniec kolejki i dostaje nowy kwant. Zablokowany proces nie traci swojego kwantu, a po odblokowaniu trafia na początek kolejki z pozostałym czasem.
+
+Jeśli kwant czasu jest zbyt mały, to procesor traci zbyt dużo czasu na zmianę kontekstów, a jeśli jest zbyt duży, to czas reakcji systemu może być za długi.
+
+W podstawowej wersji wszystkie procesy są traktowane równo. Można jednak wprowadzić \textbf{priority scheduling}, na przykład przydzielając różne kwanty czasu w zależności od priorytetów procesów, albo używając wielu kolejek round-robin dla różnych priorytetów. Priorytety mogą być przydzielane dynamicznie w zależności od tego, jak aktywny jest dany proces.
+
+\textbf{Fair share scheduling} - wybieranie procesów nie po kolei, ale w taki sposób, żeby każdy proces lub użytkownik miał gwarantowany odpowiedni czas procesora.

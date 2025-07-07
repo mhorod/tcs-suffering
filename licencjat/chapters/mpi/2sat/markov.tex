@@ -1,0 +1,25 @@
+\begin{definition}
+    \textbf{Procesem stochastycznym} nazywamy dowolny zbiór zmiennych losowych \(\set{X(t) : t \in T}\).
+    Zwykle \(t\) oznacza moment w czasie, a \(X(t)\) jest \textbf{stanem} tego procesu w czasie \(t\) i zapisujemy \(X_t\) \\
+    Mówimy, że proces jest \textbf{skończony} jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
+\end{definition}
+
+\begin{definition}
+    \textbf{Procesem Markowa} (czasu homogenicznego) nazywamy taki proces stochastyczny \(X_0, X_1, X_2, \dots\) w którym dla dowolnego \(t\) zachodzi
+    \[ 
+        P(X_t = a_t \mid X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, \dots X_0 = a_0) =
+        P(X_t = a_t \mid X_{t-1} = a_{t-1}) 
+    \]
+\end{definition}
+
+Innymi słowy aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci.
+
+Warto zauważyć, że \textbf{nie oznacza to}, że \(X_t\) jest niezależne od \(X_{t-2}, X_{t-3}, \dots\) --
+jest zależne, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\).
+
+\begin{definition}
+    Łańcuch Markowa jest \textbf{czasu homogenicznego} jeśli \(
+    P(X_t = a_t \mid X_{t-1} = a_{t-1} \land t = t_0) = P(X_t = a_t \mid X_{t-1} = a_{t-1})
+    \)
+\end{definition}
+Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie czas w którym ten stan ma miejsce.

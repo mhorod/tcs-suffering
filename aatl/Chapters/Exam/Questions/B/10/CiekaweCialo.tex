@@ -1,0 +1,15 @@
+Jest delikatny blef w pytaniu do tego zadania bo ten wielomian musi być nad ciałem skończonym.
+\subsubsection{Twierdzenie}
+Dane jest ciało $\mathbb{F}$ charakterystyki $p$, oraz liczba $q = p^k$ dla pewnego $k$. Jeśli wielomian $f(X) = X^q - X$ ma $q$ pierwiastków, to stanowią
+one ciało ($q$-elementowe podciało $\mathbb{F}$).
+\subsubsection{Dowód}
+Niech $A = \{a \in \mathbb{F}: a^q = a\}$ (czyli poprostu nasze pierwiastki z definicji. Pokażemy teraz zamknięcie na operacje, gdyż przemienność, łączność, etc. mamy z operacji na ciele $\mathbb{F}$.
+\begin{itemize}
+    \item $0 \in A$, gdyż $0^q = 0$.
+    \item $1 \in A$, gdyż $1^q = 1$.
+    \item $-1 \in A$, gdyż $(-1)^q = -1$ (dla $p = 2$ zachodzi $1 = -1$, gdyż charakterystyka wynosi $2$, czyli $1 + 1 = 0 = 1 + -1$).
+    \item Jeżeli $a,b \in A$, to $a\cdot b \in A$, gdyż $(ab)^q = a^qb^q = ab$ czyli jest w $A$. W szczególności mamy stąd, że jeżeli $a \in A$ to $-a \in A$, gdyż $-a = (-1)a$/
+    \item Pokażemy, że jeżeli $a,b \in A$, to $a + b \in A$. Ale najpierw udowidnimy sobie coś pomocniczego, czyli że dla elementów z ciała $\mathbb{F}$ zachodzi: $(a+b)^p = a^p +b^p$ dla dowolnych $a,b \in \mathbb{F}$. Rozbijamy z dwumianu Newtona $(a+b)^p = a^p + $ $n \choose 1$ $a^{p-1}b + ... $ $n \choose n-1$ $ab^{p-1} + b^p$. Zauważamy, że każdy z dwumianów na środku jest podzielny przez $p$ (gdyż w liczniku jak rozpiszemy dwumian mamy czynnik $p$, a w mianowniku nie mamy żadnego). Czyli z faktu, że $p$ jest charakterystyką te wyrazy się zerują czyli mamy tezę. Rozpiszmy więc nasze dodawanie i skorzystajmy z faktu, że $q = p^k$. $(a+b)^q = (a+b)^{p^k} = (a+b)^{p\cdot p^{k-1}} = (a^p + b^p)^{p^{k-1}} = (a^{p^2} + b^{p^2})^{p^{k-2}} = ... = a^{p^k} + b^{p^k} = a^q + b^q = a + b$.
+
+\end{itemize}
+Generacja innych grup o liczności $p^k$, to poprostu strzelamy w wielomian stopnia $k$ i sprawdzamy czy jest nierozkładalny i mamy na to bardzo dużą szansę.

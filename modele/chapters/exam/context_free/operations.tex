@@ -1,0 +1,55 @@
+\section{Operacje na językach bezkontekstowych}
+
+\begin{theorem}
+    Języki bezkontekstowe są zamknięte na sumę.
+\end{theorem}
+\begin{proof}
+    Niech \( L_1, L_2 \in CFL \). Mamy zatem gramatyki bezkontekstowe \( G_1, G_2 \)
+    
+    Dla języka \( L = L_1 \cup L_2 \) konstruujemy gramatykę \( G = G_1 \cup G_2 \) (zakładamy, że zbiory nieterminali tych gramatyk są rozłączne).
+    Dodajemy do gramatyki produkcję:
+    \[
+        S \rightarrow S_1 \mid S_2
+    \]
+\end{proof}
+
+\begin{theorem}
+    Języki bezkontekstowe są zamknięte na konkatenację.
+\end{theorem}
+\begin{proof}
+    Czynimy tak jak w przypadku sumy ale naszą produkcją którą dodajemy jest
+    \[
+        S \rightarrow S_1S_2
+    \]
+\end{proof}
+
+\begin{theorem}
+    Języki bezkontekstowe są zamknięte na gwiazdkę Kleenego.
+\end{theorem}
+\begin{proof}
+    Jak wyżej, ale naszą produkcją jest 
+    \[
+        S \rightarrow S_1S \mid \varepsilon
+    \]
+\end{proof}
+
+
+\begin{theorem}
+    Języki bezkontekstowe \textbf{nie} są zamknięte na przecięcie.
+\end{theorem}
+\begin{proof}
+    Kontrprzykładem jest \( L_1 = \set{a^nb^nc^k : n, k \in \natural} \) \( L_2 = \set{a^kb^nc^n : n, k \in \natural} \).
+    Oczywiście \( L_1 \cap L_2 = \set{a^nb^nc^n : n \in \natural} \) co wiemy że nie jest bezkontekstowe.
+\end{proof}
+
+
+\begin{theorem}
+    Języki bezkontekstowe \textbf{nie} są zamknięte na dopełnienie.
+\end{theorem}
+\begin{proof}
+    Mamy z praw de Morgana
+    \[
+        (L_1 \cap L_2) = \complement{(\complement{L_1} \cup \complement{L_2})}
+    \]
+    Jeśli zatem mielibyśmy zamknięcie na dopełnienie to byśmy mieli zamknięcie na przecięcie co już pokazaliśmy że nie jest prawdziwe.
+\end{proof}

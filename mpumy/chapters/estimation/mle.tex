@@ -1,0 +1,9 @@
+\section{Metoda największej wiarygodności}
+
+Zwana także MLE (maximum likelihood estimation).
+
+Szukamy estymatora, który maksymalizuje wiarygodność, czyli \( p(D \given \theta) \)
+\[
+    \mle{\theta} = \argmax_{\theta} p(D \given \theta) = \argmax_{\theta} \pars{\log p(D \given \theta)}
+\]
+Zamiast logarytmu możemy wstawić dowolną inną monotoniczną funkcję (możemy też nie brać logarytmu), ważne żeby się łatwo liczyło.

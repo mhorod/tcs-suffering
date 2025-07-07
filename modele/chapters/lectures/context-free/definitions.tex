@@ -1,0 +1,79 @@
+\section{Definicje}
+\begin{definition}
+\textbf{Gramatyka bezkontekstowa} (Context-Free Grammar) to \( G = (N, \Sigma, P, S \) gdzie
+\begin{itemize}
+    \item \( N \) to skończony zbiór zmiennych (nieterminale)
+    \item \( \Sigma \) - alfabet (terminale)
+    \item \( P \) - produkcje \( P \subseteq N \times (N \cup \Sigma)^* \)
+    \item \( S \in N \) - symbol startowy
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+    \textbf{Forma zdaniowa} to dowolne słowo nad \( (N \cup \Sigma)^* \)
+\end{definition}
+
+\begin{definition}
+    Dla gramatyki \( G \) definiujemy relację \( \rightarrow_G \) na formach zdaniowych.
+    \[
+        \alpha \rightarrow_G \beta \iff
+        \exists \alpha_1, \alpha_2, \gamma \in (N \cup \Sigma)^* \exists A \in N : (A, \gamma) \in P \land
+        \alpha = \alpha_1  A \alpha_2 \land \beta = \alpha_1 \gamma \alpha_2
+    \]
+\end{definition}
+\begin{definition}
+    \( \rightarrow_G^* \) to domknięcie i przechodnie domknięcie \( \rightarrow_G \)
+\end{definition}
+\begin{definition}
+    \textbf{Język  generowany} przez gramatykę G to 
+    \[
+        L(G) = \set{w \in \Sigma^* \mid S \rightarrow_G^* w}
+    \]
+    podobnie dla \( A \in N \)
+    \[
+        L(G) = \set{w \in \Sigma^* \mid A \rightarrow_G^* w}
+    \]
+\end{definition}
+\begin{definition}
+    \textbf{Derywacja} albo \textbf{wywód} to ciąg form zdaniowych \( \alpha_0, \dots, \alpha_n \)
+    takich, że \( \alpha_i \rightarrow_G \alpha_{i+1}, \alpha_0 = S, \alpha_n = w \in \Sigma^*\)
+\end{definition}
+\begin{definition}
+    Gramatyka \( G \) jest \textbf{jednoznaczna} (unambiguous) jeśli dla każdego słowa \( w \in L(G) \) istnieje dokładnie jedno drzewo wywodu
+    (dokładnie jeden wywód lewostronny).
+\end{definition}
+\begin{definition}
+    \textbf{Wywód lewostronny} to taki wywód \( \alpha_0, \dots, \alpha_1 \)
+    w którym jeśli \( \alpha_i = xA\beta_i \)
+    to \( \alpha_{i+1} = x\gamma\beta_i \)
+    
+    Innymi słowy - rozwijamy zawsze skrajnie lewy nieterminal.
+\end{definition}
+
+\begin{definition}
+    \textbf{Drzewo wywodu} (parse tree) to ukorzenione drzewo z porządkiem na dzieciach w którym:
+    \begin{itemize}
+        \item każdy wierzchołek ma etykietę z \( \Sigma \cup N \cup \set{\eps} \)
+        \item etykieta korzenia to \( S \)
+        \item Jeśli wierzchołek ma etykietę \( A \in N \) a jego dzieci \( X_1, \dots, X_n \) to \( (A, X_1\dots X_2) \in P \)
+    \end{itemize}
+\end{definition}
+Wywód lewostronny otrzymujemy przechodząc DFSem odwiedzając dzieci od lewej do prawej.
+
+\begin{definition}
+    Język jest bezkontekstowy (Context-Free Language) jeśli jest generowany przez jakąś gramatykę bezkontekstową.
+\end{definition}
+\begin{definition}
+    Język jest niejednoznaczny (inherently ambiguous) jeśli nie istnieje jednoznaczna gramatyka, która go generuje.
+\end{definition}
+\begin{definition}
+    Gramatyka $G$ jest w postaci normalnej Chomsky'ego (CNF) jeżeli dla każdej produkcji jest tak, że jest ona postaci:
+    
+    \begin{enumerate}
+        \item \(A \rightarrow BC\) lub 
+        \item \(A \rightarrow a\) lub
+        \item \(S \rightarrow \eps\) 
+    \end{enumerate}
+    
+    gdzie \(A,B,C \in N\) (możliwe że są sobie równe), \(S\) to symbol startowy, a \(a\) to jakiś symbol terminalny. W przypadku, w którym istnieje produkcja \(S \rightarrow \eps\), \(S\) nie może znajdywać się po prawej stronie żadnej produkcji. 
+\end{definition}

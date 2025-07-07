@@ -1,0 +1,65 @@
+\begin{theorem}
+Dla dowolnych zbiorów \(A, B, C\) zachodzi
+\begin{equation*}
+    \pars{A^B}^C \eqnum A^{B \times C}
+\end{equation*}
+\end{theorem}
+\begin{proof}
+Z~definicji --- konstruujemy bijekcję
+\begin{equation*}
+    \alpha\colon \pars{A^B}^C \function A^{B \times C}
+\end{equation*}
+Funkcja \(\alpha\)~przyjmuje funkcję \(C \function A^B\) i~zwraca funkcję \(B \times C \function A\). Zdefiniujmy \(\alpha\)~następująco:
+\begin{equation*}
+    \begin{split}
+        \alpha\pars{f}
+            &\coloneqq \pars{\text{taka funkcja \(\gamma\), że \(\gamma\pars{b, c} = \pars{f\pars{c}}\pars{b}\)}}\\
+            &\coloneqq \set{\pars{\pars{b, c}, \pars{f\pars{c}}\pars{b}} : \pars{b, c} \in B \times C}
+    \end{split}
+\end{equation*}
+Nadużywając trochę notacji, możemy to bardziej intuicyjnie zapisać jako
+\begin{equation*}
+    \pars{\alpha\pars{f}}\pars{b, c} \coloneqq \pars{f\pars{c}}\pars{b}
+\end{equation*}
+Musimy pokazać, że \(\alpha\)~bijekcją.
+\begin{description}
+    \item[Injektywność.] Weźmy różne \(f_1, f_2 \in \pars{A^B}^C\) i~pokażmy, że \(\alpha\pars{f_1} \neq \alpha\pars{f_2}\).
+
+        Co to znaczy, że \(f_1, f_2\) są różne? To są funkcje \(C \function A^B\), więc gdy są różne, to na jakimś argumencie \(c_0 \in C\) przyjmują różne wartości:
+        \begin{equation*}
+            f_1\pars{c_0} \neq f_2\pars{c_0}
+        \end{equation*}
+        Ale to też są funkcje, tym razem \(B \function A\). Czyli skoro są różne, to na pewnym argumencie \(b_0 \in B\) przyjmują różne wartości:
+        \begin{equation*}
+            \pars{f_1\pars{c_0}}\pars{b_0} \neq \pars{f_2\pars{c_0}}\pars{b_0}
+        \end{equation*}
+        Możemy to zapisać za pomocą \(\alpha\)~jako
+        \begin{equation*}
+            \pars{\alpha\pars{f_1}}\pars{b_0, c_0} \neq \pars{\alpha\pars{f_2}}\pars{b_0, c_0}
+        \end{equation*}
+        Oznacza to, że funkcje \(\alpha\pars{f_1}, \alpha\pars{f_2}\colon B \times C \function \alpha\) przyjmują różne wartości na argumencie \(\pars{b_0, c_0} \in B \times C\). A~zatem są to różne funkcje \(\alpha\pars{f_1} \neq \alpha\pars{f_2}\), co właśnie chcieliśmy udowodnić.
+    \item[Surjektywność.] Weźmy \(g \in A^{B \times C}\). Musimy pokazać, że istnieje \(f \in \pars{A^B}^C\) takie, że
+        \begin{equation*}
+            \alpha\pars{f} = g
+        \end{equation*}
+        Niewątpliwie, w~dziedzinie funkcji \(\alpha\)~znajduje się w~szczególności \(f_0\colon C \function A^B\)~zdefiniowane następująco
+        \begin{equation*}
+            \begin{split}
+                f_0\pars{c}
+                    &\coloneqq \pars{\text{taka funkcja \(\gamma\), że \(\gamma\pars{b} = g\pars{b, c}\)}}\\
+                    &\coloneqq \set{\pars{b, g\pars{b, c}} : b \in B}
+            \end{split}
+        \end{equation*}
+        co można, ponownie z~drobnym nadużyciem notacji można zapisać jako
+        \begin{equation*}
+            \pars{f_0\pars{c}}\pars{b} \coloneqq g\pars{b, c}
+        \end{equation*}
+        Zobaczmy, że dla dowolnej pary \(\pars{b_0, c_0} \in B \times C\) zachodzi
+        \begin{align*}
+            \pars{\alpha\pars{f_0}}\pars{b_0, c_0}
+                &= \pars{f_0\pars{c_0}}\pars{b_0} && \text{z~definicji \(\alpha\)}\\
+                &= g\pars{b_0, c_0} && \text{z~definicji \(f_0\)}
+        \end{align*}
+        Zatem istotnie \(\alpha\pars{f_0} = g\) jako funkcje.
+\end{description}
+\end{proof}

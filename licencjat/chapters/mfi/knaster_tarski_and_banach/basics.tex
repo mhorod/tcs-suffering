@@ -1,0 +1,51 @@
+Aby zrozumieć, o~czym w~ogóle mówią twierdzenia z~tego pytania, musimy zdefiniować kilka pojęć.
+\begin{definition}[Obraz i~przeciwobraz]
+Niech \(f\colon X \function Y\) oraz \(A \subseteq X\) i~\(B \subseteq Y\).
+
+\textbf{Obrazem} zbioru \(A\)~względem \(f\)~nazywamy
+\begin{equation*}
+    \fIm{f}\pars{A} \coloneqq \set{y \in Y : \exists_{x \in A} f\pars{x} = y}
+\end{equation*}
+czyli po prostu zbiór wartości, które \(f\)~przyjmuje na argumentach pochodzących z~\(A\).
+
+\textbf{Przeciwobrazem} zbioru \(B\)~względem \(f\)~nazywamy
+\begin{equation*}
+    \fInvIm{f}\pars{B} \coloneqq \set{x \in X : \exists_{y \in B} f\pars{x} = y}
+\end{equation*}
+czyli argumenty, które \(f\)~przenosi na wartości pochodzące z~\(B\).
+
+Możemy traktować je jak funkcje
+\begin{align*}
+    \fIm{f}&\colon \powerset\pars{X} \function \powerset\pars{Y}\\
+    \fInvIm{f}&\colon \powerset\pars{Y} \function \powerset\pars{X}
+\end{align*}
+
+Jeśli chcemy być bardzo fancy i~niezrozumiali, to przeciwobraz singletonu nazywamy \textbf{włóknem} (lub \textbf{poziomicą} lub \textbf{warstwicą}, jak podaje \href{https://pl.wikipedia.org/wiki/Przeciwobraz}{Wikipedia}).
+\end{definition}
+
+\begin{definition}[Monotoniczność]
+Mówimy, że \(f\colon \powerset\pars{X} \function \powerset\pars{Y}\) jest \textbf{monotoniczna ze względu na inkluzję, gdy}
+\begin{equation*}
+    x \subseteq y \implies f\pars{x} \subseteq f\pars{y}
+\end{equation*}
+,,Większy'' argument przechodzi na ,,większą'' wartość.
+\end{definition}
+Zauważmy, że funkcje obrazu i~przeciwobrazu są monotoniczne.
+
+\begin{definition}[Punkt stały]
+Jeśli dla funkcji \(f\colon \powerset\pars{X} \function \powerset\pars{X}\) i~zbioru \(x_0 \subseteq X\) zachodzi
+\begin{equation*}
+    f\pars{x_0} = x_0
+\end{equation*}
+to \(x_0\) nazywamy \textbf{punktem stałym} funkcji \(f\).
+
+Jest \textbf{najmniejszym} punktem stałym, gdy
+\begin{equation*}
+    f\pars{y} = y \implies x_0 \subseteq y
+\end{equation*}
+
+Jest \textbf{największym} punktem stałym, gdy
+\begin{equation*}
+    f\pars{y} = y \implies y \subseteq x_0
+\end{equation*}
+\end{definition}

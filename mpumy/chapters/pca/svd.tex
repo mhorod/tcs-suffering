@@ -1,0 +1,77 @@
+\section{Rozkład według wartości osobliwych (SVD)}
+
+Niech \( A \) będzie dowolną macierzą o wymiarach \( m \times n \) i niech \( m \geq n \).
+
+Szukamy:
+\begin{itemize}
+    \item wektorów ortonormalnych 
+    \[
+        v_1, \dots, v_n \in \real^n
+    \]
+    
+    \item wektorów ortonormalnych
+    \[
+        u_1, \dots, u_n \in \real^m
+    \]
+    
+    \item wartości osobliwych
+    \[
+        \sigma_1, \dots, \sigma_n \in \real_{\geq 0}
+    \]
+\end{itemize}
+dla których
+\[
+    Av_j = \sigma_j u_j
+\]
+
+W postaci macierzowej mamy
+\[
+    A \begin{bmatrix}
+        v_1 \dots v_n
+    \end{bmatrix}
+    =\begin{bmatrix}
+        u_1 \dots u_n
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        \sigma_1 & \hdots & 0 \\
+        \vdots & \ddots & \vdots \\
+        0 & \hdots & \sigma_n
+    \end{bmatrix}
+\]
+co zapisujemy dla uproszczenia:
+\[
+    AV = \widehat U \widehat \Sigma
+\]
+
+Ponieważ \( V \) składa się z wektorów ortonormalnych to mamy 
+\[ VV^T = V^TV = I \]
+zatem
+\[ A = \widehat U \widehat \Sigma V^T\]
+
+Możemy rozszerzyć \( \widehat U \), które ma wymiar \( m \times n \) do macierzy unitarnej \( U \), która już jest kwadratowa i ma wymiary \( m \times m \).
+
+Możemy też uzupełnić \( \widehat \Sigma \) zerami do macierzy o wymiarach \( m \times n \)
+
+Rozkład \( A = U\Sigma V^T \) nazywamy \textbf{rozkładem na wartości osobliwe}
+
+Zachodzi twierdzenie
+\begin{theorem}
+Każda macierz ma rozkład na wartości osobliwe, przyczym \( \sigma_1, \dots, \sigma_n \) są jednoznaczne, a ponadto jeśli są parami różne to \( u_1, \dots, u_n \) oraz \(v_1, \dots, v_n\) są jednoznaczne z dokładnością do znaku.
+\end{theorem}
+
+\subsection{Wyznaczanie rozkładu}
+\[
+    A^TA = (U\Sigma V^T)^T(U\Sigma V^T) = V\Sigma^T\Sigma V^T
+\]
+mamy zatem
+\[
+    A^TAV = V\Sigma^T\Sigma
+\]
+W szczególności mamy
+\[
+    A^TAv_i = \sigma^2_i v_i
+\]
+czyli kolumny macierzy \( V \) są wektorami własnymi \( A^TA\).
+
+W podobny sposób kolumny \( U \) są wektorami własnymi \( AA^T \)

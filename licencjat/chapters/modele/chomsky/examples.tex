@@ -1,0 +1,253 @@
+\subsubsection{Przykład języka regularnego}
+
+\begin{theorem}
+Język \( \set{a^n : n \in \natural} \) jest regularny. 
+\end{theorem}
+\begin{proof}
+Tworzymy wyrażenie regularne postaci \(a^*\). 
+\end{proof}
+
+\subsubsection{Przykład języka bezkontekstowego}
+\label{cfl_example}
+
+\begin{theorem}
+Język  \( \set{a^nb^n : n \in \natural} \) jest bezkontekstowy.
+\end{theorem}
+\begin{proof}
+Tworzymy gramatykę bezkontekstową z następującymi produkcjami: \begin{enumerate}
+    \item \(S \rightarrow aSb \)
+    \item \(S \rightarrow \eps \)
+\end{enumerate}
+gdzie \(S\) to symbol startowy.
+
+\end{proof}
+
+Ponadto, korzystając z lematu o pompowaniu dla języków regularnych (sekcja \ref{regular-pumping}) możemy pokazać następujące twierdzenie:
+
+\begin{theorem}
+    Język
+    \[
+        L = \set{a^nb^n : n \in \natural}
+    \]
+    nie jest językiem regularnym.
+\end{theorem}
+
+\begin{proof}
+    Będziemy usiłowali pokazać, że \(L\) \textit{nie} spełnia lematu o pompowaniu. To oznacza, że będziemy musieli pokazać, że zachodzi dla niego zaprzeczenie własności opisanej w tym lemacie. Innymi słowy, chcemy pokazać że:
+    
+    \[
+        \forall_{n>0} \exists_{w \in L} \forall_{xyz=w : |xy| \leq n \land |y| \geq 1} \exists_{i \in N} xy^iz \not \in L 
+    \]
+    
+    Prościej o tym myśleć jak o pewnej grze: nasz przeciwnik daje nam stałą \(n\); my odpowiadmy mu słowem; ten nam je dzieli na 3 części które spełniają warunki lematu, a my możemy ,,wypompować'' część \(y\). Wygrywamy jeśli słowo nie należy do \(L\). Jeśli mamy tutaj strategię wygrywającą, to znaczy że język nie jest regularny. 
+    
+    W przypadku naszego języka: nasz oponent daje nam jakieś \(n\). Pora się odegrać, odegrać słowem postaci \(a^{2n}b^{2n}\). Słowo to niewątpliwie należy do \(L\), więc mogliśmy to zrobić. Przeciwnik musi je jakoś podzielić, tak by \( w = xyz\), \(|xy| \leq n \) i \(y \geq 1\). Widzimy tutaj bardzo śmieszną rzecz: niezależnie od podziału, \(xy = a^k\) dla jakiegoś \(k\). Wobec tego również \(y = a^l\) dla niezerowego \(l\), które jest mniejsze niż \(n\). W takim razie ,,depompujemy'' \(y\), ustawiając \(i\) na 0 i otrzymując słowo postaci \(a^{2n-l}b^{2n}\), które z pewnością nie należy do języka. Hehe. 
+\end{proof}
+
+\subsubsection{Przykład języka kontekstowego}
+\label{csl_example}
+\begin{theorem}
+    Język \( \set{a^nb^nc^n : n \in \natural} \) jest kontekstowy.
+\end{theorem}
+\begin{proof}
+    Dowód będziemy realizować poprzez gramatykę kontekstową, ale na marginesie: można też pokazać LBA które rozpoznaje ten język. Jeśli wierzymy że LBA może mieć wiele taśm (co ma sens, ale trudno to pokazać \textit{nieskazitelnie formalnie}) to po prostu możemy mieć 3 liczniki na taśmach które, ya know, policzą ile jest literek. I zweryfikują że są w takiej ,,formacji'' jak powinny być. Jeśli wolimy nie dotykać tematu wielotaśmowych LBA z obaw o formalizm, możemy zrobić LBA które w każdym przejściu usuwa z taśmy literkę \(a\), potem literkę \(b\) i \(c\) i pilnuje ich odpowiedniej ,,formacji'' stanami. 
+
+
+    Na początek zauważamy, że w gramatykach kontekstowych efektywnie legalne są przejścia typu \(AB \rightarrow BA\), gdzie \(A, B\) są nieterminalami. Wynika to z faktu, że możemy wprowadzić dodatkowe nieterminale (nazwijmy je \(Z_1\), \(Z_2\)) i wprowadzić następujące produkcje:
+    
+    \begin{enumerate}
+        \item \(AB \rightarrow Z_1B\)
+        \item \(Z_1B \rightarrow Z_1Z_2 \) 
+        \item \( Z_1Z_2 \rightarrow AZ_2 \)
+        \item \( AZ_2 \rightarrow AB \)        
+    \end{enumerate}
+    
+    Oczywiście: dla każdej pary nieterminali \(A, B\) którą chcemy ,,przemieniać'' konieczna jest oddzielna para \(Z_1, Z_2\) do implementacji takiego przejścia. 
+
+    Tworzymy CSG o następujących produkcjach (nieterminale to \(S, A, B, C, D, E\); symbol startowy to \(S\)), :
+    
+    \begin{enumerate}
+        \item \( S \rightarrow DABCE \)
+        \item \( E \rightarrow ABCE \) 
+        \item \( E \rightarrow \eps \) 
+        \item \( DA \rightarrow Da \)
+        \item \(Da \rightarrow a\) 
+        \item \( aA \rightarrow aa \)
+        \item \(aB  \rightarrow ab\)
+        \item \(bB \rightarrow bb\) \item \(bC \rightarrow bc\) \item \(cC \rightarrow cc\)
+        \item \( BA \rightarrow AB \)
+        \item \( CB \rightarrow BC \) 
+        \item \(CA \rightarrow AC\)
+    \end{enumerate}
+
+    Omówmy sobie semantykę symboli których będziemy chcieli używać:
+    
+    \begin{itemize}
+        \item Symbol startowy jaki jest każdy widzi;
+        \item \(D\) to \textit{delimiter} -- nieterminal który (o ile znajduje się w którymś momencie wywodu) zawsze stoi na lewym końcu formy zdaniowej;
+        \item \(E\) to taki symbol startowy, tylko że nie wstawia delimitera; jego jedynym zadaniem jest spamowanie nieterminali \(A, B, C\) w ramach kolejnych przejść wywodu;
+        \item \(A, B, C\) to nieterminale które w określonych warunkach mogą zmienić się w terminale \(a, b, c\). 
+    \end{itemize}
+    
+    Idea dowodu jest taka: ,,spamujemy'' na początek symbolami \(A, B, C\), a dzięki przejściom które mogą je permutować będzie można je ,,posortować'' tak, by wygenerowały słowo postaci \(a^nb^nc^n\). 
+    
+    Dowodzić, że gramatyka \(G\) jest taka, że generuje język \(L = \set{a^nb^nc^n : n \in \natural}\) będziemy dowodzić poprzez pokazanie inkluzji w obie strony.
+    
+    
+    \begin{lemma}
+        \(L \subseteq L(G)\)
+    \end{lemma}
+    \begin{proof}
+        Pokażemy, że jeśli słowo \(w\) jest takie, że \(w \in L\), to \(w \in L(G)\). 
+        
+        Wiemy, że \(w = a^nb^nc^n\) dla jakiegoś \(n \in \natural\). Pokażemy wywód w \(G\), który generuje \(w\) w sposób następujący:
+        
+        \[ 
+            S \rightarrow_G DABCE \rightarrow_G DABCABCE \rightarrow^*_G D \overbrace{ABC \dots ABC}^{\text{\(n\) razy}}E
+        \]
+        \[
+            D \overbrace{ABC \dots ABC}^{\text{\(n\) razy}}E \rightarrow_G D \overbrace{ABC \dots ABC}^{\text{\(n\) razy}}
+        \]
+        
+        ,,Wypychamy'' teraz wszystkie nieterminale \(C\) na sam koniec korzystając z produkcji \(CA \rightarrow AC\) i \(CB \rightarrow BC\).
+        
+        Następnie ,,wypychamy'' wszystkie nieterminale \(B\) by znajdywały się po terminalach postaci \(A\) korzystając z produkcji \(BA \rightarrow AB\). 
+        
+        Na wypadek gdyby ktoś miał tutaj wątpliwości formalne: każde takie przejście usuwa inwersję, a jeśli gdzieś jest inwersja to znaczy że gdzieś mamy nieterminale obok siebie które mogą być ,,swapnięte'' tym przejściem. Zrobiliśmy tak zwane sortowanie bąbelkowe. 
+        Wracając: mamy teraz coś postaci: 
+        
+        \[
+            D \overbrace{A \dots A}^{\text{\(n\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+            \overbrace{C \dots C}^{\text{\(n\) razy}}
+        \]
+        
+        No i teraz elegancko korzystamy z produkcji \( DA \rightarrow Da \) oraz \(Da \rightarrow a\):
+        
+        \[
+        D \overbrace{A \dots A}^{\text{\(n\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+        \overbrace{C \dots C}^{\text{\(n\) razy}} \rightarrow_G Da\overbrace{A \dots A}^{\text{\(n-1\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+        \overbrace{C \dots C}^{\text{\(n\) razy}}
+        \rightarrow_G a\overbrace{A \dots A}^{\text{\(n-1\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+        \overbrace{C \dots C}^{\text{\(n\) razy}}
+        \]
+        
+        Korzystając z produkcji \(aA \rightarrow aa\) dostaniemy:
+        
+        \[ 
+            \overbrace{a \dots a}^{\text{\(n\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+            \overbrace{C \dots C}^{\text{\(n\) razy}}
+        \]
+        
+        No i teraz lecimy z tematem korzystając z produkcji \(aB \rightarrow ab \), \(bB \rightarrow bb\), \(bC \rightarrow bc\), \( cC \rightarrow cc\):
+        
+        \[ 
+            \overbrace{a \dots a}^{\text{\(n\) razy}} \overbrace{B \dots B}^{\text{\(n\) razy}}
+            \overbrace{C \dots C}^{\text{\(n\) razy}}
+            \rightarrow_G^{*}
+            \overbrace{a \dots a}^{\text{\(n\) razy}} \overbrace{b \dots b}^{\text{\(n\) razy}}
+            \overbrace{c \dots c}^{\text{\(n\) razy}}
+            = w
+        \]
+        Ale super.
+    \end{proof}
+    
+    \begin{lemma}
+        \(L(G) \subseteq L\)
+    \end{lemma}
+    \begin{proof}
+        Pokażemy, że jeśli jakieś słowo \(w\) jest takie, że \(w \in L(G)\) to \(w \in L\). 
+        
+        Na początek całkiem banalna obserwacja: wszystkie słowa generowane przez \(G\) są takie, że mają tyle samo wystąpień terminali \(a\), \(b\) i \(c\), jako że każda produkcja która dodaje terminal \(a\) usuwa jeden nieterminal \(A\) (analogicznie dla \(B\) i \(C\); terminale \(D\), \(E\) i \(S\) nie ,,przechodzą'' w żadną literę). 
+        
+        Tym samym jedyne co mogłoby się ,,popsuć'' to to gdzie występują literki w tych słowach.
+        
+        Załóżmy więc nie wprost, że istnieje wywód w \(G\) w wyniku którego otrzymamy literę \(a\) gdzieś na pozycji \( \geq n\) (zakładając indeksację od 0). Słowo które zostało otrzymane tym wywodem będziemy oznaczać jako \(w\); \( |w| = 3n\).
+        
+        Na tę literę musiał przejść jakiś nieterminal, a jest dokładnie 1 nieterminal który mógłby na nią ,,przejść'' i jest to nieterminal \(A\). Czyli mielibyśmy coś od takiego:
+        
+        \[
+            \overbrace{a, b, \text{ lub } c}^{\text{\(k\) razy, \(k \geq n\)}} \; \overbrace{a}^{\text{felerne \(a\)}} \; \overbrace{a, b, \text{ lub } c}^{\text{\(l\) razy, \(l \geq n\)}} 
+        \]
+        
+        gdzie \( l + k = 3n - 1\). Prześledźmy w jaki sposób musiało dojść do czegoś takiego. Wiemy, że jedyne dwie produkcje która dadzą nam terminal \(a\) to \(aA \rightarrow aa\) i \(DA \rightarrow Da\). Jako, że \(D\) jest zawsze skrajnie po lewej stronie wywodu, jedyna produkcja która mogła nam tutaj dać \(a\) musiała być postaci \(aA \rightarrow aa\).
+        
+        A zatem, w którymś momencie przeprowadzania wywodu doszło do czegoś takiego:
+        
+        \[
+            \alpha a A \beta \rightarrow_G \alpha a \overbrace{a}^{\text{felerne \(a\)}} \beta 
+        \]
+        
+        Ten terminal \(a\) który ,,spowodował'' konwersję też skądś musiał się ,,wziąć'' więc podobnie możemy stracebackować w jaki sposób on powstał (i znowu otrzymując, że musiał mieć terminal \(a\) po swojej lewej stronie). Innymi słowy: felerne \(a\) musi mieć po swojej lewej w finalnym słowie jedynie inne \(a\). To daje nam sprzeczność, bo wiemy że liter \(a\) jest dokładnie \(n\), a ten terminal znajduje się na miejscu \(\geq n\). 
+        
+        Czyli wiemy już, że słowa generowane przez \(G\) mają postać:
+        
+        \[ 
+            \overbrace{a \dots a}^{\text{\(n\) razy}} \beta  
+        \]
+        
+        gdzie \(\beta \in \set{b, c}^*\). Analogiczny dowód przeprowadzamy dla literek \(b\) i mamy pokazane, że \(G\) generuje jedynie takie słowa, które nas interesują. Ufff.
+    \end{proof}
+    
+    Inkluzja w obie strony pokazana, super. 
+    
+    Ponadto język ten nie jest bezkontekstowy -- pokażemy to jako przykład zastosowania lematu o pompowaniu dla języków bezkontekstowych (sekcja \ref{context-pumping}).
+\end{proof}
+
+\subsubsection{Przykład języka rekurencyjnego}
+\label{recursive-example}
+
+\textbf{Uwaga.} Podobnie jak już było zaznaczane wcześniej -- przynajmniej anglojęzyczna Wikipedia nie notuje języków rekurencyjnych w hierarchi Chomsky'ego. Dla porządku podamy jednak przykład języka rekurencyjnego, który nie jest kontekstowy. 
+
+Żeby zrozumieć co tu się będzie działo, należy zapoznać się z sekcją \ref{lhp} gdzie wprowadzone zostanie pojęcie uniwersalnej maszyny Turinga. 
+
+Istnieją prostsze języki rekurencyjne, ale wiele z nich może zostać również ,,rozwalone'' przez LBA (czyli tak naprawdę są kontekstowe). Dlatego przykład języka rekurencyjnego który pokażemy będzie nieco dziwny, bo robi argument przekątniowy dla LBA.
+
+\begin{theorem}
+    Język \( L = \set{x_i : x_i \not \in L(\textsc{LBA}_i)} \) jest taki, że \( L \in \r \setminus \csl{\Sigma}\).
+\end{theorem}
+\begin{proof}
+    Na początek proszę zauważyć, że możemy coś takiego zrobić: istnieje sposób (skończonego) kodowania Maszyn Turinga, a LBA jest Maszyną Turinga tylko że z ograniczoną taśmą. Tym samym Maszyny Turinga (w szczególności LBA) można enumerować (bo jest ich przeliczalnie wiele), a instytucja \(i\)-tego LBA w jakimś porządku ma sens. Nie trzeba tłumaczyć, że instytucja \(i\)-tego słowa w danym alfabecie również ma sens. 
+    
+    Jak już wiemy, że definicja naszego języka jest legalna, możemy przejść do właściwego dowodu. Najpierw dowiedziemy, że \(L\) nie jest kontekstowy, a potem pokażemy że jest rekurencyjny.
+    
+    \begin{lemma}
+        \( L \not \in \csl{\Sigma}\)
+    \end{lemma}
+    \begin{proof}
+        Założmy, że język \(L\) jest kontekstowy. W takim razie istnieje LBA, które go rozpoznaje, a zatem musi być \(k\)-te w kolejności ze wszystkich LBA w jakimś porządku (czyli jest to \( \textsc{LBA}_k \) dla jakiegoś \(k \in \natural \) ). Rozważmy w takim razie \(k\)-te słowo w naszym porządku na słowach: 
+        
+        \[ w_k \in L(\textsc{LBA}_k) \iff w_k \in L \]
+        
+        Jako że \( L = L(\textsc{LBA}_k) \) z założenia nie wprost. 
+        
+        No ale jednocześnie z defnicji \(L\):
+        
+        \[
+            w_k \in L  \iff w_k \not \in  L(\textsc{LBA}_k)
+        \]
+        
+        skąd: 
+        
+        \[
+           w_k \not \in  L(\textsc{LBA}_k) \iff w_k \in L \iff w_k \in L(\textsc{LBA}_k) 
+        \]
+        
+        co daje nam sprzeczność.
+    \end{proof}
+\end{proof}
+
+  \begin{lemma}
+        \( L \in \r \)
+    \end{lemma}
+    \begin{proof}
+        Po pierwsze wypada zauważyć, że problem stopu dla LBA jest rozstrzygalny, bo LBA może mieć jedynie skończenie wiele konfiguracji (a w takim razie istnieje MT która ,,spamiętuje'' która konfiguracja wystąpiła, a która nie). W takim razie istnieje Maszyna Turinga która gdy dostanie dane słowo może policzyć które jest ono w alfabecie, a następnie wygenerować \(k\)-te LBA i sprawdzić, czy się zawiesi na tym słowie (i jaki będzie rezultat jego działania). Tym samym język ten jest ewidentnie rekurencyjny. 
+    \end{proof}
+
+\subsubsection{Przykład języka rekurencyjnie przeliczalnego}
+
+\begin{theorem}
+    Język stopu (\(L_{HP}\)) jest rekurencyjnie przeliczalny i nie jest rekurencyjny. 
+\end{theorem}
+\begin{proof}
+    Patrz: sekcja \ref{lhp}.
+\end{proof}

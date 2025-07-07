@@ -1,0 +1,25 @@
+\section{Lemat o pompowaniu}
+\begin{theorem}[O pompowaniu]
+    Jeśli \( L \) jest językiem regularnym to:
+    \[
+        \exists_{n > 0} : \forall_{w : \abs{w} \geq n} \exists_{xyz = w} : \abs{xy} \leq n \land \abs{y} \geq 1 \land \forall_{i \in \natural} : xy^iz \in L
+    \]
+\end{theorem}
+\begin{proof}
+    Skoro \( L \) jest językiem regularnym to istnieje DFA A, który rozpoznaje L.
+    
+    Niech \( n = \abs{Q} \) i weźmy dowolne słowo \( w \) dla którego \( m = \abs{w} \geq n \).
+    
+    Skoro słowo jest akceptowane to istnieje ścieżka \( s = q_0, \dots q_m \in F \)
+    
+    Mamy więc \( m + 1 > n \) stanów, czyli jakiś stan musi się powtarzać. 
+    Z takich stanów wybieramy \( q_i \), którego pierwsze powtórzenie jest najwcześniej. Niech \( q_j \) będzie drugim wystąpieniem stanu \( q_i \)
+    
+    Mamy zatem \( x = a_0\dots a_{i-1} \), \( y = a_i\dots a_{j-1} \), \( z = a_j \dots a_{m-1} \)
+    
+    Oczywiście \( \abs{xy} \leq n \) bo inaczej \( q_i \) nie powtarzałby się najwcześniej.
+    
+    Czynimy teraz fajną obserwację, mianowicie skoro  \( q_i = q_j \) to słowo \( y \) może wystąpić dowolną (również zerową) liczbę razy w akceptowanym słowie.
+    
+    Innymi słowy, dla dowolnego \( i \in \natural \) \( xy^iz \in L \)
+\end{proof}

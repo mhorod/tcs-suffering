@@ -1,0 +1,26 @@
+\section{Bayesowska regresja liniowa}
+
+W normalnej regresji liniowej staraliśmy się pokonać szum i dopasować jedną funkcję.
+Teraz będziemy chcieli znaleźć rozkład prawdopodobieństwa szukanych funkcji co nam daje dużo więcej informacji.
+
+Mamy:
+\[
+    p(\theta) = \Normal(\theta \given \mu_0, S_0)
+\]
+oraz
+\[
+    p(Y \given X, \theta) = \prod_{i=1}^m \Normal(y^{(i)}, \theta^T\phi(x^{(i)}), \sigma^2)
+\]
+
+Rozkład a posteriori zadany jest wzorem:
+\[
+    p(\theta \given Y, X) = \frac{p(Y, X \given \theta)p(\theta)}{p(X, Y)}
+\]
+Mianownik jest stałą, więc \( p(\theta \given Y, X) \) jest iloczynem wielu rozkładów normalnych zatem
+\[
+    p(\theta \given Y, X) = \Normal(\theta \given \mu_m, S_m)
+\]
+
+\subsection{Rozkład predykcyjny}
+
+Jeszcze lepiej będzie jak zamiast przewidywać sam parametr \( \theta \) będziemy umieli obliczać rozkład prawdopodobieństwa nowej danej \( x^{(m+1)}, y^{(m+1)} \).

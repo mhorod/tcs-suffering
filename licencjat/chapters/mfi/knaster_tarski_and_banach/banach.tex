@@ -1,0 +1,56 @@
+\begin{lemma}[Banach]
+\label{mfi:banach_lemma}
+Niech \(f\colon X \function Y\) oraz \(g\colon Y \implies X\).
+
+Istnieją:
+\begin{itemize}
+    \item rozkład \(\set{A_1, A_2}\) zbioru \(X\) (\(A_1 \cup A_2 = X \land A_1 \cap A_2 = \emptyset\))
+    \item rozkład \(\set{B_1, B_2}\) zbioru \(Y\) (\(B_1 \cup B_2 = Y \land B_1 \cap B_2 = \emptyset\))
+\end{itemize}
+takie, że
+\begin{itemize}
+    \item \(\fIm{f}\pars{A_1} = B_1\)
+    \item \(\fIm{g}\pars{B_2} = A_2\)
+\end{itemize}
+Uwaga! Dopuszczamy tu trywialne rozkłady, to znaczy niektóre ze zbiorów \(A_1, A_2, B_1, B_2\) mogą być puste.
+\end{lemma}
+\begin{proof}
+Zdefiniujmy następującą funkcję:
+\begin{gather*}
+    \varphi\colon \powerset\pars{X} \function \powerset\pars{X}\\
+    \varphi\pars{x} = X \setminus \fIm{g}\pars{Y \setminus \fIm{f}\pars{x}}
+\end{gather*}
+Intuicyjnie, funkcja \(\varphi\)
+\begin{enumerate}
+    \item zaczyna w~zbiorze \(x \subseteq X\)
+    \item przechodzi z~niego funkcją \(f\)~do \(Y\)
+    \item wyrzuca z~\(Y\)~elementy, na które przeszła
+    \item z~elementów pozostałych w~zbiorze \(Y\)~przechodzi funkcją \(g\)~do \(X\)
+    \item wyrzuca z~\(X\)~elementy, na które przeszła
+\end{enumerate}
+Zauważmy najpierw, że \(\varphi\)~jest monotoniczna:
+\begin{align*}
+    A &\subseteq B\\
+    \fIm{f}\pars{A} &\subseteq \fIm{f}\pars{B}\\
+    Y \setminus \fIm{f}\pars{A} &\supseteq Y \setminus \fIm{f}\pars{B}\\
+    \fIm{g}\pars{Y \setminus \fIm{f}\pars{A}} &\supseteq \fIm{g}\pars{Y \setminus \fIm{f}\pars{B}}\\
+    X \setminus \fIm{g}\pars{Y \setminus \fIm{f}\pars{A}} &\subseteq X \setminus \fIm{g}\pars{Y \setminus \fIm{f}\pars{B}}
+\end{align*}
+Na mocy twierdzenia Knastera-Tarskiego, funkcja \(\varphi\) posiada punkt stały. Nazwijmy go \(A_1\). Resztę ustalmy następująco:
+\begin{align*}
+    B_1 &\coloneqq \fIm{f}\pars{A_1}\\
+    B_2 &\coloneqq Y \setminus B_1\\
+    A_2 &\coloneqq X \setminus A_1
+\end{align*}
+Z~definicji mamy zatem spełnione wymaganie, że \(\fIm{f}\pars{A_1} = B_1\). Zauważamy też
+\begin{align*}
+    \fIm{g}\pars{B_2}
+        &= \fIm{g}\pars{Y \setminus B_1} && \text{z~definicji \(B_2\)}\\
+        &= \fIm{g}\pars{Y \setminus \fIm{f}\pars{A_1}} && \text{z~definicji \(B_1\)}\\
+        &= X \setminus \pars{X \setminus \fIm{g}\pars{Y \setminus \fIm{f}\pars{A_1}}} && \text{jesteśmy w~uniwersum \(X\)}\\
+        &= X \setminus \varphi\pars{A_1} && \text{z~definicji \(\varphi\)}\\
+        &= X \setminus A_1 && \text{\(A_1\)~jest punktem stałym}\\
+        &= A_2 && \text{z~definicji \(A_2\)}
+\end{align*}
+Zatem również drugie wymaganie \(\fIm{g}\pars{B_2} = A_2\) jest spełnione.
+\end{proof}

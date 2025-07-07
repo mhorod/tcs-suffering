@@ -1,0 +1,29 @@
+\section{Wymiar Wapnika-Czerwonienkisa}
+
+\begin{definition}
+Dla przestrzeni hipotez \( H \) definiujemy \textbf{funkcję wzrostu} \( \Pi_H : \natural \rightarrow \natural \) jako:
+\[
+    \Pi_H(m) = \max_{x^{(1)}, \dots, x^{(m)} \in X} \card{\set{(h(x^{(1)}), \dots, h(x^{(m)}) ) : h \in H}}
+\]
+\end{definition}
+Innymi słowy -- dla każdego \( m \)-elementowego podzbioru \( X \) zliczamy liczbę etykietowań, które umiemy uzyskać i wybieramy największą wartość.
+
+\begin{definition}
+    Mówimy, że \( H \) rozbija \(m\)-elementowy \( S \subseteq X \) jeśli \( \Pi_H(m) = 2^m \) tj. realizuje wszystkie możliwe jego etykietowania.
+\end{definition}
+\begin{definition}
+    \textbf{Wymiar Wapnika-Czerwonienkisa} przestrzeni hipotez \( H \) to moc największego zbioru, który jest rozbity przez \( H \)
+    \[
+        VC(H) = \max \set{m : \Pi_{H}(m) = 2^m}
+    \]
+\end{definition}
+
+\begin{lemma}[Sauer]
+    Niech \( VC(H) = d \). Wtedy dla dowolnego \( m \in \natural \) zachodzi
+    \[
+        \Pi_H(m) \leq \sum_{i=0}^d \binom{m}{i}
+    \]
+\end{lemma}
+\begin{proof}
+    
+\end{proof}

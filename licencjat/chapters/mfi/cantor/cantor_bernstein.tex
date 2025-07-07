@@ -1,0 +1,43 @@
+\begin{theorem}[Cantor-Bernstein]
+Dla dowolnych zbiorów \( A, B \) zachodzi implikacja:
+    \[
+        (A \leqnum B \land B \leqnum A) \implies A \eqnum B
+    \]
+\end{theorem}
+\begin{proof}
+    Z założeń mamy dane dwie iniekcje -- \( f: A \rightarrow B \) oraz \( g: B \rightarrow A \).
+    
+    Korzystając z lematu Banacha (\ref{mfi:banach_lemma}) możemy podzielić zbiory \(A\) i \(B\):
+    \[
+        A = A_1 \cup A_2, A_1 \cap A_2 = \varnothing
+    \]
+    \[
+        B = B_1 \cup B_2, B_1 \cap B_2 = \varnothing
+    \]
+    w taki sposób, że 
+    \[
+        \fIm{f}(A_1) = B_1, \fIm{g}(B_2) = A_2
+    \]
+    
+    Ostatnia własność mówi nam, że zawężenia \( f_{\mid A_1} : A_1 \rightarrow B_1 \) i  \( g_{\mid B_2} : B_2 \rightarrow A_2 \) są suriekcjami.
+    Ponieważ jednak z założeń \( f, g \) są iniekcjami, to ich zawężenia są eleganckimi bijekcjami.
+    
+    Dzięki nim możemy zdefiniować \( h: A \rightarrow B \)
+    \[
+        h(x) = \begin{cases}
+        f_{\mid A_1}(x) & \text{ gdy } x \in A_1 \\
+        (g_{\mid B_2})^{-1}(x) & \text{ gdy } x \in A_2
+        \end{cases}
+    \]
+    które jest bijekcją, o czym świadczy odwrotność
+    \[
+        h^{-1}(x) = \begin{cases}
+        (f_{\mid A_1})^{-1}(x) & \text{ gdy } x \in B_1 \\
+        g_{\mid B_2}(x) & \text{ gdy } x \in B_2
+        \end{cases}
+    \]
+    
+    Mamy zatem bijekcję między \( A \) i \( B \), a zatem \( A \eqnum B \)
+    
+    
+\end{proof}

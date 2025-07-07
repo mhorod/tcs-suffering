@@ -1,0 +1,57 @@
+\section{Gramatyki kontesktowe}
+
+\begin{definition}
+\textbf{Gramatyka kontekstowa} (Context-Free Grammar) to czwórka \( G = (N, \Sigma, P, S) \) gdzie
+\begin{itemize}
+    \item \( N \) to skończony zbiór zmiennych (nieterminale)
+    \item \( \Sigma \) - alfabet (terminale)
+    \item \( P \) - produkcje \( P \subseteq  
+    (N \cup \Sigma)^* \, N \, 
+    (N \cup \Sigma)^* \times 
+    (N \cup \Sigma)^* \)
+    \item \( S \in N \) - symbol startowy
+\end{itemize}
+\end{definition}
+gdzie każda produkcja jest postaci:
+\[
+    \alpha_1 A \alpha_2 \rightarrow_G \alpha_1 \gamma \alpha_2
+\]
+gdzie \( \alpha_1, \alpha_2, \gamma \in (N \cup \Sigma)^* \) oraz \( A \in N \)
+oraz \( |\gamma| \geq 1\) \\
+Praktycznie wszystko co poznaliśmy z bezkontekstowych znajduje się też tutaj.
+
+\begin{definition}
+    \textbf{Język  generowany} przez gramatykę G to oczywiście 
+    \[
+        L(G) = \set{w \in \Sigma^* \mid S \rightarrow_G^* w}
+    \]
+\end{definition}
+
+\begin{definition}
+    Język jest kontekstowy (Context-Sensitive Language) jeśli jest generowany przez jakąś gramatykę kontekstową.
+\end{definition}
+
+\begin{definition}
+    \textbf{Gramatyka monotoniczna} to gramatyka \( G = (N, \Sigma, P, S) \), w której
+    każda produkcja jest postaci
+    \[
+        \alpha \rightarrow \beta \\
+    \]
+\end{definition}
+    gdzie \( \alpha, \beta \in (N \cup \Sigma)^* \) oraz \( |\alpha| \leq |\beta|\)
+
+Klasycznie dopuszczamy produkcję
+\[
+        S \rightarrow \eps
+\]
+gdy \( S\) nie znajduje się po prawej stronie w żadnej produkcji
+
+Każda gramatyka kontekstowa jest monotoniczna z definicji.\\
+Ciekawszy jest:\\
+\begin{lemma}
+    Dla gramatyki monotonicznej istnieje równoważna gramatyka kontekstowa.
+
+\end{lemma}
+\begin{proof}
+
+\end{proof}

@@ -1,0 +1,31 @@
+\begin{theorem}
+\(\complement L_{HALT} \not \in \re\)
+\end{theorem}
+
+Powyższe twierdzenie wynika wprost z poniższego lematu:
+
+\begin{lemma}
+    Jeśli \( L \in RE \setminus R \), to \( \complement{L} \not \in RE\) 
+\end{lemma}
+\begin{proof}
+    Załóżmy, że \( L \in RE \setminus R \) i \( \complement{L} \in RE\). 
+    Mamy więc maszynę \( M \) rozpoznającą \( L \) oraz \( N \) rozpoznającą \( \complement{L} \)
+    
+    Konstruujemy DMT \( M' \) która:
+    \begin{enumerate}
+        \item Wczytuje wejście \( w \)
+        \item Aż do akceptacji:
+        \begin{enumerate}
+            \item wykonaj jeden krok symulacji \( M \) na \( w \)
+            \item wykonaj jeden krok symulacji \( N \) na \( w \)
+        \end{enumerate}
+        \item Jeśli \( M \) zaakceptowało to wypisz ,,TAK''
+        \item Jeśli \( N \) zaakceptowało to wypisz ,,NIE''
+    \end{enumerate}
+    
+    Oczywiście \( w \in L \lor w \in \complement{L} \) więc albo \( M \) zaakceptuje \( w \) albo zrobi to \( N \) -- któraś w końcu musi.
+    Stanie się to po skończonej liczbie kroków niezależnie od \( w \) zatem \( L(M') = M \) oraz \( M' \) ma własność stopu.
+    
+    Trochę przypał bo w takim razie \( L \in (RE \setminus R) \cap R \) czyli nie istnieje.
+    
+\end{proof}

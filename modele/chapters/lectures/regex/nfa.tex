@@ -1,0 +1,91 @@
+\section{Niedeterministyczne Automaty Skończone}
+Deterministyczne automaty są dość proste -- jak widzą jakąś literę to po prostu za nią idą.
+
+Ale co gdyby nasz automat miał kilka opcji do wyboru i mógł ,,zgadywać'', albo rozgałęziać się? Wtedy dostajemy automat, który przestaje być deterministyczny, ale nadal można go sensownie zdefiniować.
+
+\begin{definition}
+    \textbf{Nieeterministyczny Automat Skończony} (NFA od nondeterministic finite automaton) to tupla:
+    \[
+        A = (Q, \Sigma, \delta, S, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) jest skończonym zbiorem stanów
+        \item \( \Sigma \) jest skończonym alfabetem
+        \item \( \delta \subseteq Q \times \Sigma \times Q \) jest relacją przejścia
+        \item \( S \subseteq Q \) jest zbiorem stanów startowch
+        \item \( F \subseteq Q \) jest zbiorem stanów akceptujących (końcowych)
+    \end{itemize}
+\end{definition}
+
+To co się zmieniło względem DFA to:
+\begin{itemize}
+    \item \( \delta \) jest dowolną relacją (czyli niekoniecznie funkcją), co oddaje fakt, że możemy przechodzić do różnych stanów na podstawie tej samej litery
+    \item \( S \) jest zbiorem stanów startowych (czyli może być ich więcej niż jeden)
+\end{itemize}
+
+Zdefiniujmy pomocniczą funkcję \( \tilde \delta \), która mówi nam dokąd możemy się rozgałęzić jeśli jesteśmy w stanach \( \beta \) i widzimy literę \( a \). Jest to w pewnym sensie stworzenie takiej funkcji jaką jest \( \delta \) w DFA.
+
+\begin{definition}
+    \( \tilde \delta : \powerset\pars{Q} \times \Sigma \rightarrow \powerset\pars{Q} \)
+    
+    \[
+        \tilde \delta(\beta, a) 
+            = \set{q \in Q \mid \exists_{q_b \in \beta} (q_b, a, q) \in \delta}
+    \]
+\end{definition}
+
+Podobnie jak w DFA, \( \hat \delta \) definiuje gdzie możemy skończyć jeśli zaczynamy w jakimś zbiorze stanów \( \beta \) oraz mamy słowo \( w \).
+\begin{definition}
+    \( \hat \delta : \powerset\pars{Q} \times \Sigma^* \rightarrow \powerset\pars{Q} \)
+    \[
+        \hat \delta(\beta, w) = \begin{cases}
+        \beta & \text{ jeśli } w = \eps \\
+        \tilde \delta(\hat \delta(\beta, x), a) & \text{ jeśli } w = xa, a \in \Sigma \\
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}
+    \[ 
+        L(A) = \set{w \in \Sigma^* \mid \hat \delta(S, w) \cap F \neq \varnothing}
+    \]
+\end{definition}
+
+Można się zastanawiać, czy NFA jest silniejszy niż DFA (tzn. czy może akceptować więcej języków).
+Okazuje się, że nie. Co więcej, jesteśmy w stanie przekształcić dowolny NFA w DFA.
+\begin{theorem}
+    Niech \( L \subseteq \Sigma^* \).
+    Następujące warunki są równoważne:
+    \begin{enumerate}
+            \item Istnieje DFA \( A_D \), którego \( L(A_D) = L \)
+        \item Istnieje NFA \( A_N \), którego \( L(A_N) = L \) 
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{description}
+        \item ,,\( \implies \)''
+        
+            Każdy DFA jest NFA, bo każda funkcja jest relacją.
+            
+        \item ,,\( \impliedby \)''
+        
+        Niech 
+        \[ A_N = (Q, \Sigma, \delta, S, F) \]
+        
+        Korzystamy z faktu, że \( \tilde \delta \) jest elegancką funkcją i konstruujemy:
+        \[ A_D = (\powerset(Q), \Sigma, \tilde \delta, S, \mathcal{F}) \]
+        gdzie \( \mathcal{F} = \set{\beta \in \powerset(Q) \mid \beta \cap F \neq \varnothing} \)
+        
+        Dla pełności potrzebujemy pokazać, że \( \hat \delta_{A_N}(S, u) \cap F \neq \varnothing \iff \hat \delta_{A_D}(S, u) \in \mathcal{F} \),
+        ale to mamy tak naprawdę z definicji, bo \( \hat \delta_{A_D} = \hat \delta_{A_N} \)
+    \end{description}
+\end{proof}
+
+Wszystko fajnie, ale nie ma nic za darmo -- NFA są mniejsze (mają mniej stanów).
+\begin{lemma}
+    Dla każdego \( n \in \natural \) istnieje NFA \( A_N \) o \(n + 1\) stanach, taki, że każdy DFA \( A_D \) dla którego \( L(A_N) = L(A_D) \) ma co najmniej \( 2^n \) stanów.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}

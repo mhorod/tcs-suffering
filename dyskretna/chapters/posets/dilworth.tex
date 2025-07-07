@@ -1,33 +1,29 @@
-\begin{theorem}[Twierdzenie Dilwortha]
-	Jeśli długość maksymalnego antyłańcucha w posecie wynosi k, poset ten da się pokryć w całości z użyciem k łańcuchów.
-\end{theorem}
+ \begin{theorem}[Twierdzenie Dilwortha]
+      Jeśli długość maksymalnego antyłańcucha w posecie wynosi k, poset ten da się pokryć w całości z użyciem k łańcuchów.
+    \end{theorem}
 
-\begin{proof}
-	Robimy indukcję po liczbie elementów posetu; gdy poset $P$ składa się z jednego elementu twierdzenie zachodzi w trywialny sposób. Załóżmy teraz, że mamy poset składający się z $n$ elementów i o najdłuższym antyłańcuchu długości $k$; antyłańcuch ten nazwiemy $A$. Zdefiniujmy teraz zbiory $U$ i $D$, które będziemy określać jako \textit{upset} i \textit{downset}. Do zbioru $U$ należą wszystkie elementy $P$, takie że są większe od jakiegokolwiek elementu z $A$. Do zbioru $D$ należą zaś wszystkie elementy $P$, takie że są mniejsze od jakiegokolwiek elementu z $A$. Bardziej formalnie:
-	\begin{equation*}
-		U = \{\,x \in P \mid \exists_{y \in A}  y \leq x \} \setminus A
-	\end{equation*}
-	\begin{equation*}
-		D = \{\,x \in P \mid \exists_{y \in A} y \geq x \} \setminus A
-	\end{equation*}
+    \begin{proof}
+        Robimy indukcję po liczbie elementów posetu; gdy poset $P$ składa się z jednego elementu twierdzenie zachodzi w trywialny sposób. Załóżmy teraz, że mamy poset składający się z $n$ elementów i o najdłuższym antyłańcuchu długości $k$; antyłańcuch ten nazwiemy $A$. Zdefiniujmy teraz zbiory $U$ i $D$, które będziemy określać jako \textit{upset} i \textit{downset}. Do zbioru $U$ należą wszystkie elementy $P$, takie że są większe od jakiegokolwiek elementu z $A$. Do zbioru $D$ należą zaś wszystkie elementy $P$, takie że są mniejsze od jakiegokolwiek elementu z $A$. Bardziej formalnie:
+        \begin{equation*}
+            U = \{\,x \in P \mid \exists_{y \in A}  y \leq x \} \setminus A
+        \end{equation*}
+        \begin{equation*}
+            D = \{\,x \in P \mid \exists_{y \in A} y \geq x \} \setminus A
+        \end{equation*}
 
-	Pierwsza obserwacja którą należy wykonać, to taka że $U \cup D \cup A = P$. Jest to oczywiste; jeśli istniałby jakiś element z $L$ który nie należałby ani do downsetu ani do upsetu ani do antyłańcucha maksymalnego, to z faktu że nie należy ani do downsetu ani do upsetu wynikałoby, że musiałby należeć do antyłańcucha maksymalnego (bo nie jest porównywalny z żadnym elementem z antyłańcucha maksymalnego).
+        Pierwsza obserwacja którą należy wykonać, to taka że $U \cup D \cup A = P$. Jest to oczywiste; jeśli istniałby jakiś element z $L$ który nie należałby ani do downsetu ani do upsetu ani do antyłańcucha maksymalnego, to z faktu że nie należy ani do downsetu ani do upsetu wynikałoby, że musiałby należeć do antyłańcucha maksymalnego (bo nie jest porównywalny z żadnym elementem z antyłańcucha maksymalnego).
+        
+        Druga obserwacja: nie istnieje element, który należy jednocześnie do upsetu i downsetu. Załóżmy nie wprost, że tak jest: mamy jakieś $x, y, z$ takie, że $x \geq y$,  $x \leq z$, i $y,z \in A$. Wówczas otrzymujemy że $y \leq x \leq z$, a więc z tranzytywności $P$ mamy że $y \leq z$, ale $y, z$ są nieporównywalne bo są w jednym antyłańcuchu. Otrzymana sprzeczność dowodzi obserwację. 
 
-	Druga obserwacja: nie istnieje element, który należy jednocześnie do upsetu i downsetu. Załóżmy nie wprost, że tak jest: mamy jakieś $x, y, z$ takie, że $x \geq y$,  $x \leq z$, i $y,z \in A$. Wówczas otrzymujemy że $y \leq x \leq z$, a więc z tranzytywności $P$ mamy że $y \leq z$, ale $y, z$ są nieporównywalne bo są w jednym łańcuchu. Otrzymana sprzeczność dowodzi obserwację.
-
-	Teraz musimy rozpatrzyć trzy przypadki:
-	\begin{enumerate}
-		\item $U = D = \emptyset$ \\
-		      Bardzo fajny przypadek, głównie dlatego że trywialny do udowodnienia; każdy element z antyłańcucha tworzy jednoelementowy łańcuch zawierający tylko siebie samego, mamy podział $P$ na $k$ łańcuchów.
-		\item $U = \emptyset \hspace{5pt} \mathbf{ALBO} \hspace{5pt} D = \emptyset$ \\
-		      Wyrzucam z $P$ jakiś łańcuch maksymalny (jakikolwiek). Teraz są różne przypadki: \begin{enumerate}
-			      \item Nie ma już antyłańcucha maksymalnego o długości $k$, wtedy z założenia indukcyjnego $P$ da się podzielić, dorzucamy nasz łańcuch maksymalny z powrotem i mamy pokrycie takie jakie byśmy chcieli mieć,
-			      \item Istnieje jakiś antyłańcuch maksymalny (inny niż nasz startowy, mogło tak być) długości $k$ i mający downset i upset niepuste; wtedy patrz przypadek trzeci,
-			      \item Każdy antyłańcuch maksymalny nie ma albo downsetu albo upsetu, ale wtedy coś nie gra bo jego jeden z elementów powinien był się znaleźć w łańcuchu maksymalnym który wyleciał (bo element maksymalny łańcucha maksymalnego musiał być mniejszy niż jakiś element z antyłańcucha maksymalnego skoro był w downsecie, a więc mogłem ten element ,,dokleić'' i analogicznie w odwrotnym przypadku).
-		      \end{enumerate}
-		\item $U \not = \emptyset \wedge D \not = \emptyset$ \\
-		      Rozpatruję sobie zbiory $B = A \cup U, C = A \cup D$. Oba z nich z założenia indukcyjnego da się podzielić na $k$ łańcuchów. Ponadto każdy element $A$ ma łańcuch różny od wszystkich innych elementów $A$ w swoim pokryciu łańcuchowym dla zbiorów $B$ i $C$ (2 elementy z jednego antyłańcucha nie mogą być w jednym łańcuchu). W takim razie po prostu ,,sklejam'' łańcuchy z $B$ i $C$ w danym elemencie $A$ i mam poprawne pokrycie łańcuchowe całego posetu $P$.
-
-	\end{enumerate}
-
-\end{proof}
+        Teraz musimy rozpatrzyć trzy przypadki:
+        \begin{enumerate}
+            \item $U = D = \emptyset$ \\
+            Bardzo fajny przypadek, głównie dlatego że trywialny do udowodnienia; każdy element z antyłańcucha tworzy jednoelementowy łańcuch zawierający tylko siebie samego, mamy podział $P$ na $k$ łańcuchów.
+            \item $U = \emptyset \hspace{5pt} \mathbf{ALBO} \hspace{5pt} D = \emptyset$ \\
+            Weźmy z \(P\) takie \(x, y\), że \(x\) jest elementem maksymalnym, a \(y\) jest elementem minimalnym. Wtedy z tego, że upset lub downset jest pusty, to któryś z nich musi należeć do antyłańcucha. Rozważmy więc poset \(P' = P\setminus \{x,y \}\)\footnote{Formalnie ten zapis nie ma sensu, bo poset nie jest jednoznaczny ze zbiorem na którym jest zdefiniowany, ale chyba wiadomo o co chodzi}. Z założenia indukcyjnego wiemy, że możemy go podzielić na \(k - 1 \) łańcuchów. Tak więc dodając do \(P'\) łańcuch \( \{x, y\} \) otrzymujemy podział \(P\).
+            \item $U \not = \emptyset \wedge D \not = \emptyset$ \\
+            Rozpatruję sobie posety na zbiorach $B = A \cup U, C = A \cup D$. Oba z nich z założenia indukcyjnego da się podzielić na $k$ łańcuchów. Ponadto każdy element $A$ ma łańcuch różny od wszystkich innych elementów $A$ w swoim pokryciu łańcuchowym dla zbiorów $B$ i $C$ (2 elementy z jednego antyłańcucha nie mogą być w jednym łańcuchu). W takim razie po prostu ,,sklejam'' łańcuchy z $B$ i $C$ w danym elemencie $A$ i mam poprawne pokrycie łańcuchowe całego posetu $P$.
+            
+    \end{enumerate}
+        
+     \end{proof}

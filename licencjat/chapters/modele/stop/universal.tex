@@ -1,0 +1,78 @@
+Niech \( M = (Q, \Sigma, \Gamma, \delta, q_0, \blank, F) \) będzie (deterministyczną) maszyną którą chcemy symulować. Pokażemy jak zakodować \( M \) nad alfabetem \( \Sigma_U = \set{0, 1} \).
+
+\begin{itemize}
+    \item Niech \( Q = \set{q_1, \dots, q_n} \)
+    
+    Kodujemy \( q_i \) jako ciąg \( i \) jedynek.
+    
+    \item \( \blank \) będziemy kodować jako pojedynczą jedynkę.
+    
+    
+    \item Podobnie niech \( \Sigma = \set{a_1, \dots, a_n} \)
+    
+    Kodujemy \( a_i \) jako ciąg \( i + 1 \) jedynek.
+    
+    \item Dla \( \Gamma = \set{z_1, \dots z_n} \)
+    
+    Kodujemy \( z_i \) jako ciąg \( i + \card{\Sigma + 1} \) jedynek -- dla odróżnienia od \( \Sigma \).
+    
+    \item \( \delta \) jest funkcją, czyli zbiorem par \( ((q_1, z_1), (q_2, z_2, \pm 1) \)
+    
+    Parę \( ((q_i, z_j), (q_k, z_l), 1) \) zakodujemy jako
+    
+    \[
+        \underbrace{1 \dots 1}_i
+        0
+        \underbrace{1 \dots 1}_j
+        0
+        \underbrace{1 \dots 1}_k
+        0
+        \underbrace{1 \dots 1}_l
+        0
+        1
+    \]
+    
+    Natomiast parę \( ((q_i, z_j), (q_k, z_l), -1) \) zakodujemy jako
+    
+    \[
+        \underbrace{1 \dots 1}_i
+        0
+        \underbrace{1 \dots 1}_j
+        0
+        \underbrace{1 \dots 1}_k
+        0
+        \underbrace{1 \dots 1}_l
+        0
+        11
+    \]
+    
+    Całą deltę kodujemy kodując wszystkie jej pary (w dowolnej kolejności) i oddzielając je dwoma zerami.
+    
+    \item \( F = \set{q_{i_1}, \dots q_{i_n}} \) kodujemy jako
+    \[
+        \underbrace{1 \dots 1}_{i_1} 0 \dots 0 \underbrace{1 \dots 1}_{i_n}
+    \]
+\end{itemize}
+
+Całą maszynę \( M \) zapisujemy wpisując \( \delta, q_0, F \) oddzielając je ciągiem \( 000 \).
+
+Słowo \( w = a_{i_1} \dots a_{i_n} \) kodujemy jako
+\[
+    \underbrace{1 \dots 1}_{i_1} 0 \dots 0 \underbrace{1 \dots 1}_{i_n}
+\]
+
+Teraz musimy jeszcze powiedzieć jak kodujemy konfigurację maszyny \( M \) a robimy to dość prosto --
+Konfigurację \( X_1 \dots X_k q_i X_{k+1} \dots X_n \) kodujemy jako
+\[
+    0\underbrace{1 \dots 1}_{\text{kod } X_1} 0 \underbrace{1 \dots 1}_{\text{kod } X_k} 00 \underbrace{1 \dots 1}_{\text{kod } q_i} 00 \underbrace{1 \dots 1}_{\text{kod } X_{k + 1}} 0 \underbrace{1 \dots 1}_{\text{kod } X_n} 0
+\]
+
+Możemy założyć, że kodowanie \( M \) jest zapisane na taśmie wejściowej po której nigdy nie piszemy, zaś konfigurację \( M \) będziemy trzymać na osobnej taśmie.
+
+Krok symulacji przebiega teraz następująco:
+\begin{enumerate}
+    \item Zlokalizuj głowicę \( M \) (szukamy \( 00 \))
+    \item Znajdź w kodowaniu \( \delta \) wpis odpowiadający przejściu na \( q_i X_k \)
+    \item Wykonaj zadane przejście -- możemy wpisać nową konfigurację na osobną, tymczasową taśmę i przepisać ją z powrotem na taśmę na której operujemy.
+    
+\end{enumerate}

@@ -1,0 +1,31 @@
+\begin{definition}
+    Nieskończonym ciągiem liczbowym (liczb rzeczywistych) nazywamy dowolną funkcję $a: \mathbb{N} \rightarrow \mathbb{R}$. Jej wartości $a(1), a(2), ..., a(n), ...$ oznaczamy przez $a_1, a_2, ..., a_n, ...$, sam ciąg oznaczamy przez $\{a_n\}$.
+\end{definition}
+
+\begin{definition}
+    Dla ciągu $\{a_n\}$ rozważamy ciąg $\{s_n\}$ \textit{sum częściowych}:
+    \begin{align*} 
+        s_1 &=  a_1 \\ 
+        s_2 &=  a_1 + a_2 \\
+        &\vdots\\
+        s_n &=  \sum_{i=1}^n a_i
+    \end{align*}
+    \textit{Szereg liczbowy} oznaczamy przez $a_1 + a_2 + ... + a_n + ...$ lub $\sum_{n=1}^\infty a_n$. Wyrazy ciągu $\{a_n\}$ w tym kontekście nazywamy \textit{wyrazami szeregu}.
+\end{definition}
+
+\begin{definition}
+    Szereg $\sum_{n=1}^\infty a_n$ jest \textit{zbieżny} jeśli jego ciąg sum cząstkowych $\{s_n\}$ jest zbieżny, czyli ma granicę skończoną $s$, wtedy liczbę $s$ nazywamy \textit{sumą szeregu nieskończonego}. Szereg, który nie jest zbieżny, nazywamy rozbieżnym.
+\end{definition}
+
+[Rozpatruje się też szeregi $\sum_{n=0}^\infty a_n$ lub ogólnie szeregi postaci $\sum_{n=n_0}^\infty a_n$]
+
+\begin{example}
+    Szereg $\sum_{n=0}^\infty \frac{1}{2^n}$ jest zbieżny, bo:
+    $$s_n = \sum_{k=0}^n \frac{1}{2^k} = 1 - \frac{1}{2^n}$$
+    Wobec tego mamy $\lim_{n\to\infty}{s_n} = 1$
+    [obrazek z dowodem graficznym nie wklejamy].
+\end{example}
+
+\begin{definition}
+    Szereg $\sum_{n=1}^\infty a_n$ jest \textit{bezwzględnie zbieżny} jeśli szereg $\sum_{n=1}^\infty |a_n|$ jest zbieżny.
+\end{definition} \newpage

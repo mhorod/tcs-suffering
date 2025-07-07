@@ -1,0 +1,46 @@
+\section{Problem stopu}
+
+Innym przydatnym przykładem nierozstrzygalnego problemu jest dość znany problem stopu czyli pytanie czy Maszyna Turinga \( M \) zatrzymuje się na słowie \( w \).
+
+\begin{definition}
+    Definiujemy język \( L_{HALT} \) następująco:
+    \[
+        L_{HALT} = \set{(M, w) : M \text{ zatrzymuje się na } w}
+    \]
+\end{definition}
+
+\begin{theorem}
+    \( L_{HALT} \in \re \setminus \r \)
+\end{theorem}
+\begin{proof}
+    Oczywiście \( L_{HALT} \in \re \) bo możemy po prostu zasymulować \( M \) na \( w \) i jeśli się zatrzymamy to odpowiedź jest ,,TAK'' i wszystko super. Jeśli zaś odpowiedź to ,,NIE'' to nie musimy się w ogóle zatrzymywać.
+    
+    Aby pokazać że \( L_{HALT} \notin \r \) zakładamy nie wprost, że istnieje \( M \) z własnością stopu, taka że \( L(M) = L_{HALT} \).
+    
+    Konstruujemy teraz \( M' \) która:
+    \begin{enumerate}
+        \item wczytuje wejście \( x \)
+        \item symuluje \( M \) na \( (x, x) \)
+        \item jeśli \( M \) odpowiedziała ,,TAK'' to wpadamy w nieskończoną pętlę
+        \item w przeciwnym razie zatrzymujemy się w dowolnym stanie
+    \end{enumerate}
+    
+    Wrzucamy teraz do \( M \) wejście \( (M', M') \)
+    
+    Mamy dwie sytuacje:
+    \begin{itemize}
+        \item \( M \) zaakceptowała \( (M', M') \)
+        
+        Skoro \( (M', M') \in L(M) = L_{HALT} \) to oznacza, że
+        wykonaliśmy krok (4) co ma miejsce jedynie gdy \( (x, x) \notin L(M) \). Tak się składa że u nas \( x = M' \) czyli \( (M', M') \notin L(M) \).
+        
+        \item \( M \) odrzuciła \( (M', M') \)
+        
+        Tutaj sytuacja jest podobna -- skoro \( (M', M') \notin L(M) = L_{HALT} \) to
+        wykonaliśmy krok (3) co ma miejsce jedynie gdy \( (x, x) \in L(M) \), a ponieważ \( x = M' \) to \( (M', M') \in L(M) \).
+    \end{itemize}
+    
+    Łącząc oba powyższe dostajemy \( (M', M') \in L(M) \iff (M', M') \notin L(M) \) co jest oczywiście sprzeczne. 
+    
+    W takim razie nie istnieje \( M \) z własnością stopu rozpoznająca \( L_{HALT} \), zatem \( L_{HALT} \notin \r \).
+\end{proof}

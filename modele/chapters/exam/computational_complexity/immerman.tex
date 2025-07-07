@@ -1,0 +1,71 @@
+\section{Twierdzenie Immermana-Szelepcsenyi'ego}
+
+W tej sekcji zajmiemy się twierdzeniem w pewnym sensie dualnym do tw. Savitcha pokazanego poprzednio.
+
+\begin{definition}
+    Definiujemy problem \textsc{UNREACHABILITY} jako:
+    \begin{itemize}
+        \item wejście: Nieskierowany graf \( G = (V, E) \), wierzchołki \(v_1\) i \(v_2\).
+        \item pytanie: Czy \textbf{nie} istnieje ścieżka z \(v_1\) do \(v_2\)? 
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Immerman-Szelepcsenyi]
+    \( \textsc{UNREACHABILITY} \in \textsc{NLOGSPACE} \)
+\end{theorem}
+\begin{proof}
+    Mamy do pokonania trzy przeszkody:
+    \begin{itemize}
+        \item Mamy logarytmicznie wiele pamięci -- możemy przechowywać jedynie stałą liczbę liczników.
+        
+        \item Działamy na niedeterministycznej maszynie, musimy więc zapewnić że jeśli jakaś ścieżka obliczeń odpowie ,,TAK'' to istotnie \( v_1 \) i \( v_2 \) nie są osiągalne.
+        
+        \item Mamy odpowiedzieć ,,TAK'' jeśli ścieżki między \( v_1, v_2 \) \textit{nie ma} czyli wszystkie możliwe spacery długości \( n \) nie osiągają \( v_2 \).
+    \end{itemize}
+    
+    Chcielibyśmy utworzyć sobie niedeterministyczny pomocniczy algorytm
+    \[
+        \textrm{reachable}\pars{s, t, d, c}
+    \]
+    który sprawdza, czy istnieje ścieżka długości \(d\) z~\(s\) do \(t\). Wartość \(c\) jest pomocniczą informacją, którą funkcja otrzymuje od wyroczni --- wkrótce dowiemy się, jak ją tam zapakować. Na razie załóżmy, że magicznie znamy \(c\) i~jest to \emph{liczba} wierzchołków osiągalnych w~\(d\) krokach z~\(s\).
+    
+    De facto będzie to niedeterministyczna maszyna Turinga obliczająca funkcję boolowską. Ale co to tak naprawdę znaczy? Każda gałąź obliczeń musi zwrócić (czyli np. wypisać na taśmę wyjściową) jedną z~trzech wartości:
+    \begin{itemize}
+        \item ,,TAK''
+        \item ,,NIE''
+        \item ,,NIE WIEM''
+    \end{itemize}
+    Któraś gałąź musi zwrócić coś innego niż ,,NIE WIEM'', a~te, które zwracają coś innego, muszą to zwrócić spójnie (czyli wszystkie ,,TAK'' albo wszystkie ,,NIE''). Za odpowiedź maszyny przyjmujemy odpowiedź tych, które wiedzą.
+    
+    Intuicyjnie, głównym problemem jest to, że nie możemy (tak jak dla \(\textsc{REACHABILITY}\)) zgadnąć spaceru i powiedzieć ,,TAK, ten spacer nie działa'' bo być może źle zgadliśmy. Chcielibyśmy się upewnić, że obliczenia, które odpowiadają ,,NIE'', faktycznie mają ku temu podstawy.
+    
+    Przedstawimy teraz algorytm i~przekonamy się, że spełnia on powyższe kryteria:
+\begin{minted}{python}
+def reachable(s, t, d, c):
+    k = 0
+    for v in V:
+        if [you do not want to bother with v]: # nondeterministic choice (A)
+            continue
+        [choose a path of length d from s] # nondeterministic choice (B)
+        if [you did not hit v]:
+            return "IDK"
+        if v == t:
+            return "YES"
+        else:
+            k++
+    if k == c:
+        return "NO!"
+    else:
+        return "IDK"
+\end{minted}
+    Mamy tu dwa momenty, w~których niedeterminizm rozdziela nasz program na niezależne, lecz spójne obliczenia. Skąd mamy spójność?
+    
+    Jeśli poprawna odpowiedź to ,,TAK'', to istnieje obliczenie, która \emph{nie zignoruje} \(v = t\) w~kroku (A) i~trafi na niego w~kroku (B). Być może istnieje nawet wiele takich obliczeń i~wszystkie odpowiedzą ,,TAK''.
+    
+    Skąd jednak wiemy, że żadne obliczenie nie odpowie wtedy ,,NIE''? A~kiedy jest jedyna sytuacja, w~której obliczenie odpowiada ,,NIE''? Wtedy, gdy \(k = c\). A~kiedy tak jest? Tylko wtedy, gdy było \(c\) wierzchołków, których obliczenie nie zignorowało w~kroku (A) i~do których dotarło w~kroku (B), ale \emph{żaden z~nich} nie był \(t\). Ale zaraz --- przecież \(c\) to~liczba wierzchołków osiągalnych z~\(s\) w~\(d\) krokach --- wiemy to od wyroczni. Skoro zatem odwiedziliśmy \emph{wszystkie} takie i~\emph{żaden z~nich} nie był \(t\), to po prostu \(t\) nie jest osiągalne z~\(s\) w~\(d\) krokach, czyli odpowiedź ,,NIE'' jest słuszna i~nikt inny nie mógł odpowiedzieć ,,TAK''.
+    
+    Ta obserwacja jest kluczowa dla działania algorytmu.
+    
+    Nie wiem jak dalej :|.
+    
+\end{proof}

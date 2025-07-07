@@ -1,0 +1,22 @@
+\section {Języki rekurencyjnie przeliczalne}
+
+\begin{definition}
+    Mówimy że język \( L \) jest \textbf{rekurencyjnie przeliczalny} jeśli istnieje Maszyna Turinga \( M \) taka że \( L(M) = L \).
+    
+    Zbiór języków rekurencyjnie przeliczalnych oznaczamy przez \( \re \).
+\end{definition}
+
+\section {Języki rekurencyjne}
+
+\begin{definition}
+    Mówimy, że MT \( M \) ma \textbf{własność stopu} jeśli po skończonej liczbie kroków trafia do jednego z wyróżnionych stanów \( q_{acc}, q_{rej} \) z których jedyne przejścia prowadzą z powrotem do nich samych.
+\end{definition}
+
+Powyższa definicja działa zarówno w przypadku deterministycznym (w którym mamy jedną ścieżkę obliczeń) jak i niedeterministycznym (wtedy chcemy żeby każda ścieżka obliczeń miała taką własność).
+Niestety formalnie Maszyna Turinga się nie zatrzymuje, ale przyjmujemy że jak już wpadniemy w stan \( q_{acc} \) to akceptujemy słowo i się zatrzymujemy a gdy wpadniemy w stan \( q_{rej} \) to odrzucamy słowo i się zatrzymujemy.
+
+\begin{definition}
+    Mówimy że język \( L \) jest \textbf{rekurencyjny} albo \textbf{rozstrzygalny} jeśli istnieje Maszyna Turinga z własnością stopu \( M \) taka że \( L(M) = L \).
+    
+    Zbiór języków rekurencyjnych oznaczamy przez \( \r \).
+\end{definition}

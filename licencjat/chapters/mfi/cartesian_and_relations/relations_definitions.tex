@@ -1,0 +1,22 @@
+\begin{definition}[Relacja]
+Dowolny podzbiór iloczynu kartezjańskiego \(R \subseteq x \times y\) nazywamy \textbf{relacją}.
+\end{definition}
+Na relacjach możemy zdefiniować intuicyjne operacje. W~poniższych definicjach przyjmujemy, że mamy już dane jakieś relacje \(R \subseteq A \times B\) i~\(S \subseteq B \times C\).
+\begin{definition}[Złożenie relacji]
+\begin{equation*}
+    S \composition R
+        \coloneqq \set{\pars{x, z} \in A \times C : \exists_{y \in B} \pars{x, y} \in R \land \pars{y, z} \in S}
+\end{equation*}
+Uwaga na kolejność!
+\end{definition}
+\begin{definition}[Relacja odwrotna]
+\begin{equation*}
+    R^{-1} \coloneqq \set{\pars{y, x} \in B \times A : \pars{x, y} \in R}
+\end{equation*}
+\end{definition}
+\begin{definition}[Projekcje]
+\begin{align*}
+    \lproj{R} &\coloneqq \set{x \in A : \exists_{y \in B} \pars{x, y} \in R}\\
+    \rproj{R} &\coloneqq \set{y \in B : \exists_{x \in A} \pars{x, y} \in R}\\
+\end{align*}
+\end{definition}

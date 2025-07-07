@@ -1,0 +1,82 @@
+\section{Gramatyki liniowe}
+
+\begin{definition}
+    Mówimy, że gramatyka jest \textbf{prawoliniowa} wtedy i tylko wtedy, gdy każda produkcja ma postać: 
+    
+    \[ 
+        A \rightarrow aB
+    \] 
+    
+    lub 
+    
+    \[ 
+        A \rightarrow a 
+    \]
+    
+    gdzie \( a \in \Sigma^* \) oraz \( A, B \in N \). 
+    
+\end{definition}
+
+\begin{definition}
+    Mówimy, że gramatyka jest \textbf{silnie prawoliniowa} wtedy i tylko wtedy, gdy każda produkcja ma postać: 
+    
+    \[ 
+        A \rightarrow aB 
+    \]
+    
+    lub 
+    
+    \[ 
+        A \rightarrow \eps 
+    \]
+    
+    gdzie \(a \in \Sigma\) i \(A, B \in N\).
+\end{definition}
+
+\begin{theorem}
+    Następujące stwierdzenia są sobie równoważne dla dowolnego języka \( L \subset \Sigma^* \):
+    
+    \begin{enumerate}
+        \item \(L\) jest generowany przez pewno wyrażenie regularne.
+        \item \(L\) jest generowany przez pewną gramatykę prawoliniową.
+        \item \(L\) jest generowany przez pewną gramatykę silnie prawoliniową. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Równoważność \((2)\) i \((3)\) jest dosyć widoczna: każda gramatyka silnie prawoliniowa jest w szczególności prawoliniowa, natomiast w drugą stronę możemy wykonać konwersję bardzo podobną do tej, którą stosowaliśmy przy otrzymywaniu CNF. Tym samym pozostawiamy ją jako ćwiczenie dla czytelnika. 
+    
+    Ciekawszą rzeczą jest konwersja DFA na gramatyki prawoliniowe i z powrotem. 
+    
+    Jeśli mamy DFA \(A\), to konwertujemy je do postaci gramatyki \(G\) następująco: 
+    
+    \begin{enumerate}
+        \item Ustalamy zbiór nieterminali gramatyki \(N\) jako zbiór stanów \(Q\) naszego DFA.
+        \item Dla każdej litery \(a \in \Sigma\) i każdego stanu \(q\in Q\) dodajemy produkcję taką, że: 
+            \[ 
+                q \rightarrow a \cdot \delta(q,a)
+            \]
+        \item Nieterminal startowy naszej gramatyki to stan \(q_s\). 
+        \item Dla każdego stanu \(q \in F\) dodajemy produkcję: 
+        \[ 
+            q \rightarrow \eps 
+        \]
+    \end{enumerate}
+    
+    Otrzymana gramatyka jest w oczywisty sposób prawoliniowa (i to silnie!). Wypadałoby jakoś dowieść równoważność tej gramatyki i DFA, ale to nawet widać: jeśli DFA akceptuje słowo \(w\), to oznacza że mam w nim ścieżkę od stanu startowego do końcowego, która ,,zjada'' po kolei literki z \(w\); jestem w stanie ją odtworzyć chodząc tymi samymi przejściami z gramatyki. Formalnie pewnie poleciałaby jakoaś indukcja. 
+    
+    Dowód w drugą stronę przebiega bardzo podobnie, bo jeśli mam jakiś wywód, to jestem w stanie go trywialne przekształcić na ścieżkę w DFA, korzystając z konstrukcji.
+    
+    Teraz konstruujemy automat z gramatyki silnie prawoliniowej; robimy tym razem \(\eps\)-NFA, bo możemy i będzie prościej. Konstrukcja leci bardzo podobnie, tylko że na odwrót: każdy nieterminal \(A\) staje się stanem i ma przejście po literze \(a\) do stanu \(B\) jeśli w gramatyce znajduje się produkcja postaci: 
+    
+    \[ 
+        A \rightarrow aB
+    \]
+    
+    Zauważmy, że to musi być teraz NFA, bo może być wiele produkcji przechodzących z jednego nieterminala dodając tę samą literkę. 
+    
+    Stanem startowym staje się nieterminal startowy, a akceptującymi stają się te nieterminale, które mogą przejść na \(\eps\). 
+    
+    Jeśli mamy wywód akceptujący dla słowa \(w\) w gramatyce, to nasze NFA z pewnością je zaakceptuje (idąc krawędziami ,,pochodzącymi'' od produkcji). Z kolei jeśli nasze NFA akceptuje jakieś słowo, to jestem w stanie ,,odtworzyć'' to przejście w gramatyce (to serio widać, formalnie pewnie poleci jakaś indukcja po długości słowa). 
+    
+\end{proof}

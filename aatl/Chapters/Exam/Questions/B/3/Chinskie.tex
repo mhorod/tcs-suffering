@@ -1,0 +1,16 @@
+Układ kongruencji
+$$x \equiv_{n_1} a_1$$
+$$x \equiv_{n_2} a_2$$
+$$...$$
+$$x \equiv_{n_k} a_k$$
+(gdzie $n_i$ i $n_j$ są względnie pierwsze dla $i\neq j$) ma dokładnie jedno rozwiązanie $x<N$ ($N=n_1\cdot n_2 \cdot ... \cdot n_k$)
+
+\subsubsection{Unikalność}
+Załóżmy, że dany układ rekurencji ma dwa rozwiązania $x$ i $y$.\\
+Zauważmy, że $x\equiv_{n_i} a_i$ oraz $y\equiv_{n_i} a_i$. Zatem otrzymujemy $x-y \equiv_{n_i} 0$.\\
+Jako że $n_i$ są parami względne, to zachodzi również $x-y\equiv_N 0$. Ponieważ $x<N$ i $y<N$ to $x-y$ jest wielokrotnością $N$ tylko dla $x=y$.
+
+\subsubsection{Istnienie}
+Korzystamy z twierdzenia Bezuta (dla względnie pierwszych liczb całkowitych $x$ i $y$ istnieją liczby całkowite $a$ i $b$ takie że $ax+by=1$).\\
+Niech $N_i=N/n_i$ oraz $N_iM_i+n_im_i=1$ (z Bezuta). Wtedy otrzymujemy rozwiązanie kongruencji postaci $x= \sum_{i=1}^{k} a_iN_iM_i$.\\
+Czemu to działa? Jak łatwo zauważyć $a_iN_iM_i\equiv_{n_j}0$ dla $j\neq i$, ponieważ $N_i \equiv_{n_j} 0$. Natomiast $a_iN_iM_i\equiv_{n_i} a_i$ gdyż mamy $N_iM_i+n_im_i=1 \Longrightarrow N_iM_i\equiv_{n_i} 1$.

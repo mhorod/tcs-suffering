@@ -1,0 +1,71 @@
+\section{Enumeratory}
+
+\begin{definition}
+Enumerator dla zbioru \(S \subseteq \natural \) to taka maszyna Turinga, która ma dedykowaną taśmę ,,wyjściową'' i która wypisuje na nią elementy \(S\) (i tylko elementy \(S\), w dowolnej kolejności), zapisane unarnie i separowane znacznikiem. 
+
+Jeśli \( x \in S \) to \( x \) zostanie wypisane po jakimś skończonym czasie; jeśli \(x \not \in S\), to nigdy nie zostanie wypisane. 
+
+Enumerator nie może cofać głowicy na taśmie wyjściowej, w szczególności modyfikować tego co już napisał.
+
+W celach ujednolicenia zapisu umawiamy się, że liczby zapisywane są unarnie za pomocą symbolu \(0\), a separowane symbolem \(1\). 
+
+Przykładowo, jeśli na fragmencie taśmy wyjściowej enumeratora znajduje się napis
+\[
+    \dots 1000100100100001 \dots
+\]
+to znaczy że wypisał on na tym fragmencie liczby \(3\), \(2\), \(2\) oraz \(4\).
+\end{definition}
+
+\section{Związki enumeratorów z RE i R}
+
+Każde słowo z dowolnego języka \( L \subseteq \Sigma^* \) możemy traktować jako liczbę w systemie o podstawie \( \card{\Sigma} \) -- będziemy zatem utożsamiać \( L \) z jakimś \( S_L \subseteq \natural \).
+
+Okazuje się że jest prawdziwe twierdzenie:
+
+\begin{theorem}
+    Język \( L \) jest rekurencyjnie przeliczalny wtedy i tylko wtedy gdy istnieje enumerator dla \( S_L \)
+\end{theorem}
+\begin{proof}
+    \begin{description}
+        \item \( \implies \)
+        
+        Bierzemy MT \( M \) rozpoznającą \( L \).
+        Będziemy symulować kolejne słowa równolegle tj. konstruujemy enumerator \( M' \) który:
+        \begin{enumerate}
+            \item Tworzy pustą kolejkę symulacji słów
+            \item Dla kolejnych \( w \in \Sigma^* \):
+            \begin{enumerate}
+                \item Dodaje symulację \( w \) do kolejki
+                \item Wykonuje po jednym kroku każdej aktywnej symulacji
+                \item Jeśli któreś słowo zostało zaakceptowane to wypisz je unarnie na taśmie wyjściowej.
+            \end{enumerate}
+        \end{enumerate}
+        
+        \item \( \impliedby \)
+        
+        Aby sprawdzić czy \( w \in L \) zapisujemy \( w \) unarnie i do znudzenia gapimy się na wyjście enumeratora aż zobaczymy na nim \( w \) -- jeśli \( w \in L \) to enumerator kiedyś wypisze \( w \) i je zaakceptujemy, a jak nie no to nie.
+        
+    \end{description}
+\end{proof}
+
+Mamy też podobne twierdzenie dla języków rekurencyjnych:
+\begin{theorem}
+      Język \( L \) jest rekurencyjny wtedy i tylko wtedy gdy istnieje enumerator dla \( S_L \) wypisujący elementy \( S_L \) w ustalonym porządku liniowym (np. leksykograficznym). 
+\end{theorem}
+\begin{proof}
+    \begin{description}
+        \item \( \implies \)
+        
+        Bierzemy MT \( M \) z własnością stopu rozpoznającą \( L \).
+        Będziemy symulować kolejne słowa w porządku leksykograficznym tj. konstruujemy enumerator \( M' \) który:
+        \begin{enumerate}
+            \item Dla kolejnych \( w \in \Sigma^* \) symuluje \( M \) na \( w \).
+            W końcu się zatrzymamy i jeśli zaakceptowaliśmy to wypisujemy \( w \) na wyjście.
+        \end{enumerate}
+        
+        \item \( \impliedby \)
+        
+        Aby sprawdzić czy \( w \in L \) zapisujemy \( w \) unarnie i czytamy wyjście enumeratora aż napotkamy \( w \) lub coś większego w zadanym porządku -- wiemy, że \( w \) już później nie wystąpi więc możemy się spokojnie zatrzymać odrzucając \( w \).
+        
+    \end{description}
+\end{proof}

@@ -1,0 +1,21 @@
+\section{Problem TAUTOLOGY}
+
+\begin{definition}
+    Problem \textsc{TAUTOLOGY} definiujemy jako problem w którym:
+    \begin{itemize}
+        \item wejście: formuła rachunku zdań \( \varphi \)
+        \item wyjście: Czy \( \varphi \) jest tautologią tj. czy każde wartościowanie wartościuje \( \varphi \) na 1 ?
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}
+    \( \textsc{TAUTOLOGY} \) jest \( \textsc{coNP} \)-zupełny
+\end{theorem}
+\begin{proof}
+    Pokażemy że \( \overline{\textsc{TAUTOLOGY}} \) jest \( \textsc{NP} \)-zupełny.
+    
+    Mamy zatem formułę \( \varphi \) i chcemy sprawdzić czy tautologią nie jest, czyli czy istnieje \( v \) takie, że \( v(\varphi) = 0 \). 
+    
+    Okazuje się, że \( v(\lnot \varphi) = 0 \iff v(\varphi) = 1 \). Oznacza to, że problem \( \overline{\textsc{TAUTOLOGY}} \) i \textsc{SAT} są sobie równoważne (wystarczy zanegować formułę na wejściu) -- czyli \( \overline{\textsc{TAUTOLOGY}} \) jest \textsc{NP}-zupełny czyli \textsc{TAUTOLOGY} jest \textsc{coNP}-zupełny.
+    
+\end{proof}

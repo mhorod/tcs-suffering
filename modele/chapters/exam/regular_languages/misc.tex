@@ -1,0 +1,52 @@
+\section{Słowo resetujące}
+\begin{definition}
+Mówimy, że słowo \(w\) jest \textbf{resetujące}, jeśli:
+\[ 
+    \exists_{q \in Q} \forall_{q' \in Q} \hat\delta(q',w) = q
+\]
+\end{definition}
+
+Innymi słowy: jest to takie słowo, że niezależnie z którego stanu byśmy je puścili, wszystko koniec końców ,,znajdzie się'' w tym samym stanie.
+
+Jeśli dla DFA istnieje słowo resetujące, to ma ono długość co najwyżej \(\frac{n^3 -n}{6}\). Nie wiemy natomiast, czy istnieje lepsze ograniczenie. Istnieje \textit{Hipoteza Černego}\footnote{Ján Černý był Czechem}, obniżająca to ograniczenie górne do \((n-1)^2\), ale nikt jej jeszcze nie dowiódł. 
+
+\begin{lemma}
+    Dla DFA o \( n \) stanach oraz stanów \( q_i, q_j \) jeśli istnieje \( w \) takie, że \( \widehat \delta(q_i, w) = \widehat \delta(q_j, w) \) to istnieje też \( v \), \( \card{v} \leq n^2 \) dla którego \( \widehat \delta(q_i, v) = \widehat \delta(q_j, v) \) 
+\end{lemma}
+\begin{proof}
+    Tworzymy multigraf skierowany par stanów \( G = (Q^2, E) \).
+    Krawędź skierowaną z etykietą \( a \) między wierzchołkami \( (q, p), (q', p') \) istnieje wtedy i tylko wtedy gdy \( \delta(q, a) = q' \land \delta(p, a) = p' \)
+    
+    Słowo synchronizujące dla dwóch stanów odpowiada ścieżce w naszym grafie z wierzchołka \( (q_i, q_j) \) do pewnego \( (q, q) \).
+    
+    Z założenia mamy, że istnieje pewna taka ścieżka, być może dłuższa niż \( n^2 \). Zauważmy jednak że mamy \( n^2 \) wierzchołków, a wierzchołków na ścieżce nie ma sensu powtarzać, zatem istnieje ścieżka o co najwyżej \( n^2 \) krawędziach.
+    
+    Słowo \( v \) z tezy odzyskujemy czytając etykiety na krawędziach tejże ścieżki.
+\end{proof}
+
+
+\begin{theorem}
+    Jeśli DFA ma słowo resetujące to ma ono długość co najwyżej \( \card{Q}^3 \)
+\end{theorem}
+\begin{proof}
+    Niech \( Q = \set{q_1, \dots, q_n} \).
+    Skoro istnieje słowo resetujące dla całego automatu to w szczególności jest ono resetujące dla każdej pary \( (q_i, q_j) \). Z poprzedniego lematu wiemy, że każdą parę umiemy zsynchronizować słowem długości co najwyżej \( n^2 \).
+
+    Prowadzi nas to do następującego algorytmu:
+    \begin{enumerate}
+        \item Niech \( q_{1, 1} = q_1, \dots, q_{n, 1} = q_n \)
+        \item Niech \( w_1 = \varepsilon \)
+        \item Dla \( i = 1, \dots, n - 1 \):
+        \begin{enumerate}
+            \item Znajdź słowo resetujące \( v \) dla stanów \( q_{i, i}, q_{i + 1, i} \)
+            \item \( w_{i + 1} = w_iv \)
+            \item Ustaw \( q_{j, i + 1} = \widehat \delta(q_{j, i}, v) \)
+        \end{enumerate}
+        \item \( w_n \) jest słowem resetującym całego automatu.
+    \end{enumerate}
+    
+    Skonkatenowaliśmy \( n - 1 \) słów długości co najwyżej \( n^2 \) -- zatem \( \card{w_n} \leq n^3 \).
+    
+    Indukcyjnie pokazujemy, że \( w_i \) synchronizuje pierwsze \( i \) stanów, a zatem \( w_n \) jest resetujące dla całego automatu.
+    
+\end{proof}

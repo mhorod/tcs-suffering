@@ -1,0 +1,21 @@
+Dla porządku przytoczymy definicję wartości oczekiwanej i dowód liniowości wartości oczekiwanej. 
+
+\begin{definition}
+    \textbf{Wartość oczekiwaną} zmiennej losowej \( X \) definiujemy jako
+    \[
+        \expected{X} = \sum_{x \in \im X} x \cdot P(X = x)
+    \]
+\end{definition}
+
+\begin{theorem}
+    Jeśli \(X\) i \(Y\) są zmiennymi losowymi, to \( \expected{X + Y} = \expected{X} + \expected{Y} \).
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \expected{X+Y} = \sum_{x \in X} \sum_{y \in Y} \mathrm{P}(X=x \land Y=y) \cdot (x+y)  &= \\
+        \sum_{x \in X} \sum_{y \in Y} \mathrm{P}(X=x \land Y=y) \cdot x + \sum_{x \in X} \sum_{y \in Y} \mathrm{P}(X=x \land Y=y) \cdot y &= \\ 
+        \sum_{x \in X} x \sum_{y \in Y} \mathrm{P}(X=x \land Y=y) + \sum_{y \in Y} y \sum_{x \in X} \mathrm{P}(X=x \land Y=y) &= \\ 
+        \sum_{x \in X} x \cdot \mathrm{P}(X=x) + \sum_{y \in Y} y \cdot \mathrm{P}(Y=y) &= \\ 
+        \expected{X} + \expected{Y}
+    \end{align*}
+\end{proof}

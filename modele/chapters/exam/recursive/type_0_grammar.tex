@@ -1,0 +1,75 @@
+\subsection{Gramatyki typu 0}
+Znamy już trochę rodzajów gramatyk, ale każda ma jakieś ograniczenia, które tylko przeszkadzają nam w~generowaniu naprawdę fajnych słów. To właśnie gramatyki typu 0~dadzą nam prawdziwe artystyczne spełnienie. Standardowo mamy
+\[
+    G = \pars{N, \Sigma, P, S}
+\]
+przy czym produkcje są w~postaci \(\alpha \rightarrow \beta\), gdzie \(\alpha, \beta \in \pars{N \cup \Sigma}^*\). Prawdopodobnie chcemy też mieć \(\alpha \neq \eps\) --- nie popadajmy w~paranoję, generowanie słów z~pustych ciągów nie ma sensu. Ale ogólnie wygląda na to, że obie strony produkcji mogą być zasadniczo dowolnymi formami zdaniowymi, w~szczególności elementami \(\Sigma^*\). Dla \(\Sigma = \set{a, b}\) może na przykład istnieć produkcja
+\[
+    aba \rightarrow bb
+\]
+Ja dalej w~to nie wierzę, ale tak wynikałoby z~definicji, prawda?
+
+Język generowany przez taką gramatykę definiujemy tak, jak już to wielokrotnie widzieliśmy --- możemy podmieniać ciągi zgodnie z~produkcjami i~w~ten sposób tworzyć derywacje.
+
+Co zatem możemy takim cudem wygenerować? Okazuje się, że są to dokładnie języki \(\re\), nie mniej, nie więcej.
+\begin{theorem}
+    \(L \in \re \iff\) istnieje gramatyka \(G\) typu 0 taka, że \(L\pars{G} = L\)
+\end{theorem}
+\begin{proof}
+    Prowadzimy go oczywiście w~obie strony.
+    \begin{itemize}
+        \item[\(\impliedby\):] Dostajemy gramatykę typu 0 i~chcemy skonstruować maszynę Turinga, która akceptuje język generowany przez tę gramatykę. Mamy zatem jakieś słowo \(w\) i~chcemy sprawdzić, czy da się je wygenerować. Przypomnijmy sobie, że generowanie to już teraz tylko branie elementów zbioru \(\pars{N \cup \Sigma}^*\) i~podmienianie ich na inne w~większym słowie. Niech więc nasza maszyna Turinga będzie niedeterministyczna i, zaczynając od symbolu \(S\), zwyczajnie zgaduje \emph{co} podmienić i~\emph{na co} podmienić, byle zgodnie z~regułami produkcji. Po każdej takiej podmianie niech sprawdza, czy nie wyszło nam przypadkiem słowo \(w\). Jeśli akurat wyszło, to akceptujemy je --- nasze obliczenie jest dowodem, że da się je wygenerować z~zadanej gramatyki. Wiemy też, że jeśli się da, to któraś ścieżka obliczeń NMT zgadnie ten właściwy sposób. Jeśli zaś \(w \not\in L\pars{G}\), to maszyna Turinga oczywiście nigdy nie zgadnie odpowiedniej derywacji i~nie zaakceptujemy.
+        \item[\(\implies\):] Teraz na podstawie maszyny Turinga chcemy skonstruować gramatykę typu 0. Na początku ustalmy pewne założenia na temat otrzymanej maszyny \(M\) --- zaraz przekonamy się, że są całkiem sensowne:
+            \begin{itemize}
+                \item \(M\) jest jednotaśmowa i~deterministyczna --- wiemy, że każda wielotaśmowa i/lub niedeterministyczna da się do takiej sprowadzić
+                \item \(M\) w~jakiś sposób oznacza najdalsze użyte komórki taśmy, z~lewej i~z~prawej --- powiedzmy, że będą to symbole \(\triangleright\) i~\(\triangleleft\) --- gdy taśma się rozszerza, te markery oczywiście mogą być przesuwane, my chcemy tylko móc się zorientować, jaki fragment taśmy został jakkolwiek ruszony
+                \item gdy \(M\) znajdzie się w~stanie \(q_f \in F\), czyli zaakceptuje słowo, sprząta jeszcze po sobie --- wymazuje całą taśmę i~przysuwa prawy ogranicznik \(\triangleleft\) do lewego ogranicznika \(\triangleright\)
+                \item na koniec przechodzi w~stan \(q_\textrm{done}\), z~którego nie ma już przejść.
+            \end{itemize}
+            Zatem zakładamy że konfiguracja początkowa naszej maszyny to \(q_0\triangleright w\triangleleft\), natomiast jeśli \(w\) jest akceptowane, to \(M\) zatrzymuje się w~konfiguracji \(\triangleright q_\textrm{done}\triangleleft\). Niby sporo założeń, ale chyba możemy wymagać od maszyny Turinga, że zostawi po sobie jako taki porządek, jeśli nie wpływa to w~żaden sposób na rozpoznawany przez nią język, prawda?
+            
+            Teraz przechodzimy do fajnego pomysłu: chcemy, aby derywacje w~naszej gramatyce symulowały pracę \(M\) \emph{od końca}. Intuicyjnie, chcemy dojść do słowa \(w \in L\pars{M}\), zaczynając od konfiguracji \(\triangleright q_\textrm{done}\triangleleft\) i~zastanawiając się, jakież to słowo mogło pojawić się na wejściu, że \(M\) zakończyła pracę w~takiej właśnie konfiguracji. Mamy zatem
+            \[
+                N = \pars{\Gamma \setminus \Sigma} \cup Q \cup \set{S}
+            \]
+            gdzie \(S\) jest po prostu świeżym symbolem startowym.
+            
+            Jeśli dla pewnych \(q, q' \in Q, a, a' \in \Gamma\) mamy
+            \[
+                \delta\pars{q, a} = \pars{q', a', +1}
+            \]
+            to dodajemy produkcję
+            \[
+                a'q' \rightarrow qa
+            \]
+            Widać, że taka produkcja odpowiada za ,,wycofanie'' przejścia w~prawo.
+            
+            Podobnie, jeśli dla pewnych \(q, q' \in Q, a, a' \in \Gamma\) mamy
+            \[
+                \delta\pars{q, a} = \pars{q', a', -1}
+            \]
+            to \emph{dla każdego} \(c \in \Gamma\) dodajemy
+            \[
+                q'ca' \rightarrow cqa
+            \]
+            W~ten sposób umożliwiamy ,,wycofanie'' przejścia w~lewo. Musimy uwzględnić \(c\), ponieważ nie wiemy, co wcześniej było po lewej.
+            
+            Na koniec dodajemy produkcje
+            \begin{align*}
+                S &\rightarrow \triangleright q_\textrm{done}\triangleleft\\
+                q_0\triangleright &\rightarrow \eps\\
+                \triangleleft &\rightarrow \eps
+            \end{align*}
+            
+            Jako że poziom formalizmu tego rozwiązania nie budzi zastrzeżeń, widzimy, że \(M\) akceptuje \(w\) wtedy i~tylko wtedy, gdy istnieje derywacja
+            \[
+                S \rightarrow_G \triangleright q_\textrm{done} \triangleleft \rightarrow_G^* q_0\triangleright w\triangleleft \rightarrow_G w\triangleleft \rightarrow_G w
+            \]
+            Dokładnie tego sobie życzyliśmy. Ten dowód wymaga jeszcze dopowiedzenia paru technikaliów, ale z~pewnością gorliwy czytelnik (których, jak wiemy, nie brakuje) poradzi sobie z~nimi bez większych trudności.
+            
+            Dowiedliśmy tym samym, że gramatyki typu 0 są wystarczające do generowania języków rozpoznawanych przez Maszyny Turinga.
+            Można się zastanawiać czy to musi być koniecznie gramatyka typu 0 -- dla niektórych języków nie (bo są proste języki), ale dla niektórych języków okazuje się że tak, co dowodzimy biorąc wybrany rodzaj gramatyki i wskazując język akceptowany przez pewną MT, ale niedajacy się wyrazić w tej gramatyce.
+            
+            
+    \end{itemize}
+\end{proof}

@@ -1,0 +1,40 @@
+\section{Metoda najmniejszych kwadratów}
+
+Bierzemy model bez funkcji bazowych tj.
+\[
+    h_\theta(x) = \theta_0 + \sum_{i=1}^k \theta_i x_i
+\]
+
+oraz kwadratową funkcję straty
+
+\[
+    J(\theta) = \frac{1}{2} \sum_{i=1}^m \pars{h_\theta(x^{(i)}) - y^{(i)}}^2
+\]
+
+Tworzymy \textbf{macierz planowania} \( X \)
+\[
+    X = \begin{bmatrix}
+        1 & x^{(1)}_1 & \hdots & x^{(1)}_k \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & x^{(m)}_1 & \hdots & x^{(m)}_k \\
+    \end{bmatrix}
+\]
+
+oraz \textbf{wektor zmiennej objaśnianej} \( y \)
+\[
+    y = \begin{bmatrix}
+        y^{(1)} \\
+        \vdots \\
+        y^{(m)}
+    \end{bmatrix}
+\]
+
+Możemy teraz elegancko zapisać
+\[
+    J(\theta) = \frac{1}{2}\pars{X\theta - y}^T\pars{X\theta - y}
+\]
+
+Minimalizację robimy albo stosując spadek wzdłuż gradientu albo obliczając analitycznie
+\[
+    \theta = (X^TX)^{-1}X^Ty
+\]

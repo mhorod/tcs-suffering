@@ -1,0 +1,54 @@
+Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to pesymistycznie \( \mathcal{O}(n^2) \), ale w losowym przypadku \( \Theta(n \lg n) \).
+
+\begin{theorem}[2.11 P\&C]
+    Rozważmy standardowy algorytm Quicksort, w którym pivota wybieramy losowo, niezależnie i jednostajnie.
+    Wtedy oczekiwana liczba porównań wynosi \( 2n \ln n + \mathcal{O}(n) \).
+\end{theorem}
+\begin{proof} Niech \( x_1, \dots, x_n \) będzie wejściowym ciągiem \( n \) różnych liczb.
+Niech \( y_1, \dots y_n \) będzie posortowaną permutacją tych wartości.
+
+Definiujemy indykatory dla \( i < j \); niech
+\[
+    X_{i, j} = \begin{cases}
+        1 & \text{ jeśli }  y_i, y_j \text{ zostały porównane chociaż raz } \\
+        0 & \text{ wpp. }
+    \end{cases}
+\]
+Łączna liczba porównań \( X \) wynosi
+\(
+    X = \sum_{i = 0}^{n-1} \sum_{j=i+1}^n X_{i, j}
+\)
+Oczekiwana liczba porównań wynosi zatem
+\[
+    \expected{X} = \sum_{i = 0}^{n-1} \sum_{j=i+1}^n \expected{X_{i, j}}
+\]
+Zastanówmy się kiedy elementy \( y_i, y_j \) są porównywane. Na pewno któryś z nich musi zostać wybrany jako pivot.
+Ale ponadto muszą być w momencie tego wyboru na jednej liście, która jest aktualnie sortowana.
+Niech \( Y^{i, j} = \set{y_i, \dots, y_j} \).
+
+Jeśli wybrany zostanie pivot który leży poza tą listą, to nie dojdzie do ,,rozspójnienia'' tej listy i kiedyś będzie mogło nadal dojść do porównania \(y_i\) z \(y_j\). 
+
+Jeśli wybrany zostanie pivot z tej listy różny od \(y_i\) oraz \(y_j\), to te 2 elementy już nigdy nie zostaną ze sobą porównane, jako że będą znajdywać się na 2 oddzielnych listach. 
+
+W takim razie \( X_{i, j} = 1 \) wtedy i tylko wtedy, gdy pierwszym pivotem wybranym ze zbioru \( Y^{i, j} \) jest element \( y_i \) lub element \( y_j \).
+
+Jako, że losowanie jest jednostajne i w ogóle, to każdy element z listy ma dokładnie takie same szanse na ,,zostanie pivotem''. Jako, że elementów na liście jest \(j-i+1\), to prawdopodobieństwo, że wybierzemy \(y_1\) lub \(y_j\) wynosi \( \frac{2}{j - i + 1} \), czyli \( \expected{X_{i, j}} = \frac{2}{j - i + 1} \).
+
+Aby policzyć ostateczny wynik sumujemy się po wszystkich parach \( i < j \):
+\begin{align*}
+    \expected{X} 
+        &= \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \frac{2}{j - i + 1} \\
+        &= 2\sum_{i=1}^{n-1} \sum_{k=2}^{n-i+1} \frac{1}{k} \\
+        &= 2\sum_{k=2}^n \sum_{i=1}^{n-k+1} \frac{1}{k} \\
+        &= 2\sum_{k=2}^n \frac{n+1-k}{k} \\
+        &= 2\pars{(n+1)\sum_{k=2}^n \frac{1}{k}} - 2(n-1) \\
+        &= 2\pars{(n+1)\pars{\sum_{k=1}^n \frac{1}{k}} - (n+1)} - 2(n-1)
+\end{align*}
+Teraz korzystamy z faktu, że \( \sum_{k=1}^n \frac{1}{k} = H_n = \ln n + \Theta(1) \) i dostajemy
+\begin{align*}
+    \expected{X}
+        &= 2(n+1)\cdot H_n - \Theta(n) \\
+        &= 2(n+1)\cdot\pars{\ln n + \Theta(1)} - \Theta(n) \\
+        &= 2n \ln n + \Theta(n)
+\end{align*}
+\end{proof}

@@ -1,0 +1,46 @@
+\section{Klasteryzacja spektralna}
+
+Na podstawie danych konstruujemy graf podobieństwa, mamy kilka sposobów:
+\begin{itemize}
+    \item Łączymy punkty które są wystarczająco blisko siebie, bez wag
+    \item Łączymy k-najbliższych sąsiadów, bez wag
+    \item Tworzymy graf pełny gdzie wagi na krawędziach oznaczają jak blisko siebie są punkty np. jądrem gaussowskim lub odwrotnością odległości
+\end{itemize}
+
+Definiujemy dwie macierze:
+\[
+    A_{i, j} = \begin{cases}
+    w_{i, j} & \text{ gdy } \set{i, j} \in E \\
+    0 & \text{ wpp }
+    \end{cases}
+\]
+oraz macierz diagonalną
+\[
+    D_{i, i} = \sum_{j : \set{i, j} \in E} w_{i, j}
+\]
+
+W ten sposób otrzymujemy \textbf{laplasjan} \( L = D - A \)
+Liczymy jego wartości własne \( \lambda_1 \leq \dots \leq \lambda_m \).
+
+Możemy też policzyć znormalizowany laplasjan:
+\[
+    L_N = D^{-0.5}LD^{-0.5}
+\]
+i wyznaczyć jego \( k \) najmniejszych wartości własnych \( \lambda_1, \dots, \lambda_k \).
+Bierzemy wektory własne \( v_1, \dots, v_k \) które dajemy jako kolumny macierzy \( U \) o wymiarach \( m \times k \).
+
+Mamy teraz \( m \) wierszy na których możemy odpalić znowu klasteryzację i dostać coś sensownego.
+
+\subsection{Wady i zalety}
+Zalety:
+\begin{itemize}
+    \item Klastry mogą mieć ciekawsze kształty
+    \item Nie trzeba przechowywać całości danych
+    \item Stoi za tym jakaś matematyka
+\end{itemize}
+
+Wady:
+\begin{itemize}
+    \item Wymaga wyboru \( k \)
+    \item Kosztowne obliczeniowo
+\end{itemize}

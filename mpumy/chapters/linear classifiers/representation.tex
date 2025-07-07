@@ -1,0 +1,136 @@
+\section{Twierdzenie o reprezentacji}
+\subsection{Pomocnicze lematy}
+\begin{lemma}
+    Norma \( \norm{\cdot} : \real^d \rightarrow \real \) pochodzi od iloczynu skalarnego tj. \( \norm{x}^2 = \dotproduct{x, x} \) wtedy i tylko wtedy gdy 
+    \[
+        \forall_{x, y \in \real^d} : 2\norm{x}^2  + 2\norm{y}^2 = \norm{x + y}^2 + \norm{x - y}^2
+    \]
+\end{lemma}
+
+\begin{proof} \( \)
+    \begin{description}
+        \item \( \implies \)
+        
+        \[
+            \norm{x + y}^2 + \norm{x - y}^2 
+                = \dotproduct{x + y, x + y}
+                    + \dotproduct{x - y, x - y}
+        \]
+        
+        \item \( \impliedby \)
+        
+        Definiujemy \[ 
+            \dotproduct{x, y} = \frac{1}{4} \pars{\norm{x + y}^2 - \norm{x - y}^2}
+        \]
+        
+        \begin{enumerate}
+            \item \( \dotproduct{x} = \norm{x}^2 \)
+            \item \( \dotproduct{x, y} = \dotproduct{y, x} \)
+            \item \( \dotproduct{x + y, z} = \dotproduct{x, z} + \dotproduct{y, z} \)
+            \item \( \dotproduct{ax, y} = a\dotproduct{x, y} \)
+        \end{enumerate}
+        
+    \end{description}
+\end{proof}
+
+\begin{lemma}
+    Niech \( M \) będzie domkniętą podprzestrzenią \( \real^d \).
+    Wtedy dla dowolnego \( x \in \real^d \) istnieje dokładnie jedno \( P_M(x) = m_0 \in M \) takie że
+    \[
+        \forall_{m \in M} \norm{x - m_0} \leq \norm{x - m}
+    \]
+    gdzie \( P_M(x) \) jest rzutem ortogonalnym tj.
+    \begin{itemize}
+        \item \( P_M(ax + by) = aP_M(x) + bP_M(y) \)
+        \item \( P_M = P_M \circ P_M \)
+        \item \( \dotproduct{P_M(x), y} = \dotproduct{x, P_M(y)}\)
+        \item \( \norm{P_M(x)} \leq \norm{x} \)
+    \end{itemize}
+\end{lemma}
+\begin{proof} \( \)
+
+    Bierzemy 
+    \[
+        d = \inf_{m \in M} \norm{x - m}
+    \]
+    
+    Istnieje ciąg
+    \[
+        \pars{z_n}_{n \in \natural} \subseteq M : \norm{x - z_n}^2 \leq d^2 + \frac{1}{n}
+    \]
+    
+    Dla \( n_1, n_2 \in \natural \), \( \frac{z_{n_1} + z_{n_2}}{2} \in M \)
+    \begin{align*}
+        \norm{z_{n_1} - z_{n_2}}^2
+            &= \norm{z_{n_1} - x + x - z_{n_2}}^2 \\
+            &= 2\norm{z_{n_1} - x}^2 + 2\norm{z_{n_2} - x}^2 
+                - \norm{z_{n_1} - x - x + z_{n_2}}^2
+            \\
+            &\leq 4d^2 + \frac{2}{n_1} + \frac{2}{n_2} - 4\norm{\dots}
+    \end{align*}
+    
+    W takim razie \( \lim_{n \rightarrow \infty} z_n = m_0 \)
+    Czyli \( d \) jest realizowane przez \( m_0 \).
+    
+    Jeszcze trzeba pokazać jedyność:
+    Niech istnieje \( m_1 \) takie że
+    \[
+        \forall_{m \in M} \norm{x - m_0} = \norm{x - m_1} \leq \norm{x - m}
+    \]
+    Policzmy
+    \begin{align*}
+        \norm{m_0 - m_1}
+            &= \norm{m_0 - x + x - m_1}^2 \\
+            &= 2\norm{m_0 - x}^2 + 2\norm{m_1 - x} 
+                - \norm{m_0 - x + m_1 - x} \\
+            &\leq 2d^2 + 2d^2 - 4d^2 = 0
+    \end{align*}
+    Czyli \( m_0 = m_1 \)
+
+\end{proof}
+
+\subsection{Właściwe twierdzenie}
+\begin{theorem}[O reprezentacji]
+Niech \( x^{(1)}, \dots, x^{(m)} \in X \), \( \psi : X \rightarrow \real^k \)
+\( L : \real^k \rightarrow \real \) oraz niech \( R : \real_{\geq 0} \rightarrow 0 \) będzie niemalejąca.
+Definiujemy funkcję straty
+\[
+    J(w) = R(\norm{w}) + L(\dotproduct{w, \psi(x^{(1)})}, \dots \dotproduct{w, \psi(x^{(1)})})
+\]
+
+Jeśli \( J(w) \) osiąga minimum to istnieje 
+\[
+    \argmin J(w) = w^* = \sum_{i=1}^m \alpha_i \psi(x^{(i)})
+\]
+
+A ponadto, jeśli \( R \) jest silnie rosnąca to wszystkie argumenty są tej postaci.
+
+\end{theorem}
+\begin{proof}
+    Niech \( M = \text{span} \set{\psi\pars{x^{(1)}}, \dots \psi\pars{x^{(m)}}} \)
+    
+    Niech \( w \) minimalizuje \( J(w) \).
+    
+    \( w^* = P_M(w) \)
+    
+    \( w^\perp = w - w^* \)
+    
+    Dla dowolnego \( z \in M \) mamy
+    \begin{align*}
+        \dotproduct{w^\perp, z}
+        &= \dotproduct{w - w^*, z} \\
+        &= \dotproduct{w - w^*, P_M(z)} \\
+        &= \dotproduct{w, P_M(z)} - \dotproduct{w^*, P_M(z)} \\
+        &= \dotproduct{P_M(w), z} - \dotproduct{P_M(w^*), z} \\
+        &= 0
+    \end{align*}
+    W takim razie 
+    \[
+        \dotproduct{w^*, \psi\pars{x^{(i)}}}
+        = 
+        \dotproduct{w, \psi\pars{x^{i}}}
+    \]
+    
+    Zatem wartość funkcji \( L \) się nie zmienia.
+    Mamy ponadto \( \norm{w^*} \leq \norm{w} \) a \( R \) jest niemalejąca, zatem \( J \) nie może być większe.
+\end{proof}

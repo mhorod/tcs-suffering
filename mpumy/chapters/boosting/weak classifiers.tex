@@ -1,0 +1,21 @@
+\section{Słabe klasyfikatory}
+
+\begin{definition}
+Algorytm uczący nazwiemy \textbf{słabym} jeśli istnieje \( \gamma > 0 \) taka że dla dowolnego rozkładu \( D \) na danych wejściowych, dowolnej \( \delta > 0 \) oraz próbki \( S \subseteq X \) o odpowiednim rozmiarze \( m \) algorytm zwraca hipotezę \( h_S \) dla której zachodzi
+\[
+    p(R(h_S) \leq \frac{1}{2} - \gamma) \geq 1 - \delta
+\]
+\end{definition}
+
+Innymi słowy, z dużym prawdopodobieństwem dostajemy coś co klasyfikuje choć trochę lepiej niż losowo, w szczególności dobre klasyfikatory są również słabe w myśl tej definicji, a sama ,,słabość'' odnosi się raczej do naszych wymagań co do klasyfikatora.
+
+Na podstawie zachowania słabych klasyfikatorów będziemy przydzielać obserwacjom i klasyfikatorom jakieś wagi i na ich podstawie stworzymy końcową hipotezę.
+
+Jeśli mamy \( T \) słabych klasyfikatorów \( h_1, \dots, h_T \) to stworzymy jeden silny klasyfikator
+\[
+    h(x) = \sgn\pars{\sum_{i = 1}^T \alpha_i \cdot h_t(x)}
+\].
+
+Naszym celem jest odpowiednie dobranie wag \( \alpha_i \).
+Ponadto każda obserwacja \( (x^{(i)}, y^{(i)} \) dostanie jakąś wagę \( w^{(i)}_t \) -- im trudniej ją klasyfikować tym większa ta waga.
+

@@ -1,0 +1,24 @@
+Twierdzenie 1. \newline
+Niech $n,a \in \mathbb{Z}$ oraz $\gcd(a,n) = 1$.
+$$(X + a)^n = X^n + a \mod n$$
+Zachodzi wtedy i tylko wtedy, gdy $n$ jest liczbą pierwsza.
+\newline
+Szkic dowodu na wszelki wypadek: \newline \newline
+Jeśli $n$ jest liczbą pierwszą, to wszystkie współczynniki $n \choose k$ dla $0 < k < n$ są podzielne przez $n$, a zatem $(X + a)^n = X^n + a^n \mod n$, a dodatkowo z małego twierdzenia Fermata $a^n = a \mod n$. Jeśli $n$ nie jest liczbą pierwszą, to przynajmniej jedno $n \choose k$ nie jest podzielne przez $n$, a więc wielomian $(X + a)^n$ zawiera wyraz
+$n \choose k$ $X^ka^{n-k}$ (wystarczy wziąć za $k$ najmniejszy dzielnik $n$), nie może więc być równy $X^n + a \mod n$
+\newline \newline
+Od teraz zacznie się ciekawiej. Niestety obliczenie wielomianu $(X + a)^n$ jest za drogie dlatego obliczenia będziemy prowadzić w pierścieniu ilorazowym $\mathbb{Z}_n[X]/(X^r - 1)$ ($r$ sobie za chwile wyczarujemy). Po tej redukcji okaże się, że jednak jedno $a$ nie wystarczy ale będziemy musieli sprawdzić ich stosunkowo mało.
+\newline \newline
+Idea Algorytmu:
+\begin{itemize}
+    \item 1. Sprawdź czy n jest potęgą liczby pierwszej tzn. $n = p^k$ dla pewngo $k \geq 2$ lub czy $2 \mid n$ jeżeli tak to zwróć złożona.
+    \item 2. Znajdź najmniejsze $r$ takie, że rząd $n \mod r$ jest większy niż $\log^2 n$.
+    \item 3. Jeżeli dla jakiegoś $a \leq min(r,n-1)$ $\gcd(a,n) \neq 1$,  to zwróć złożona.
+    \item 4. Jeżeli $n \leq r$ zwróć pierwsza.
+    \item 5. Niech $l = \sqrt{r} \log n$, Dla każdego $a$ takiego, że $1 \leq a \leq l$ sprawdź równość $(X + a)^n = X^n + a \mod (n,X^r - 1)$, jeżeli równość nie zajdzie zwróć złożona.
+    \item 6. Jak nic się wcześniej nie wywaliło to zwróć pierwsza
+
+\end{itemize}
+
+Szybki argument złożoności:\newline
+Najwięcej sprawdzamy w punkcie 5, gdyż $r$ jest rzedu $\bigO(\log^5 n)$. Z tego wynika, że $l$ jest rzędu $\bigO(\log^{3.5} n)$, A na obliczenie każdego równania potrzebujesz czasu $\bigO(r \log^2 n) = \bigO(log^7 n)$ co wymnażając otrzymujemy $\bigO(\log^{10.5} n)$.

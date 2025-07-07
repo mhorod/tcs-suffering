@@ -1,0 +1,23 @@
+\begin{theorem}
+    Następujące stwierdzenia są równoważne dla dowolnego języka \( L \subset \Sigma^*\):
+    \begin{enumerate}
+        \item Istnieje deterministyczna Maszyna Turinga DM taka, że \(L(DM) = L\).
+        \item Istnieje niedeterministyczna Maszyna Turinga NM taka, że \(L(NM) = L \). 
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Dowód faktu, że mając deterministyczną Maszynę Turinga możemy utworzyć niedeterministyczną Maszynę Turinga jest trywialny (każda funkcja jest relacją). 
+    
+    Skupmy się zatem na dowodzie w drugą stronę; mamy daną niedeterministyczną Maszynę Turinga \(N\) i chcemy stworzyć równoważną deterministyczną Maszynę Turinga \(M\). Aby to uczynić, będziemy (intuicyjnie) chodzić BFS-em po nieskończonym grafie konfiguracji maszyny \(N\).
+    
+    Formalizacja tego jest bardzo ciężka, mimo faktu że idea jest prosta (zatem podamy ideę). W alfabecie chcemy mieć jakiś separator, który jedyne do czego będzie używany, to do rozpatrywania kolejnych konfiguracji ,,w kolejce''. 
+    
+    Na początku ,,w kolejce'' konfiguracji do analizy mamy jedynie konfigurację startową. Mając głowicę w jakimś położeniu, znając jej stan i to co jest ,,na prawo'' od niej, dopisujemy do kolejki symbol separacji konfiguracji, a następnie całą naszą konfigurację po wykonanym którymś przejściu z maszyny \(N\). Procedurę tę wykonujemy dla każdego możliwego przejścia z \(N\). 
+    
+    Gdy ,,przerobimy'' wszystkie możliwe przejścia z \(N\) (dla każdej sytuacji jest ich skończenie wiele, więc zakodowanie tego jak \(M\) ma się zachowywać by wygenerować wszystkie te konfiguracji jest osiągalne), przechodzimy do następnej konfiguracji z~kolejki. No BFS, co tu jeszcze można powiedzieć?
+    
+    Za każdym razem, gdy analizujemy nową konfigurację, sprawdzamy czy zapisany w niej stan jest akceptujący; jeśli tak, to wtedy akceptujemy słowo. Jeśli nie ma zdefiniowanych przejść dla określonej sytuacji, to nie robimy nic i przechodzimy do kolejnej konfiguracji w kolejce.
+    
+    Again, formalizowanie tego wymagałoby wprowadzenia dodatkowych stanów które trzymałyby informacje o tym, co ,,widzi'' maszyna \(N\); ponadto wszystkie stany maszyny \(N\) muszą wejść do alfabetu taśmowego maszyny \(M\) by móc je również trzymać taśmie. To wszystko jest wykonywalne, ale przykre w implementacji. 
+\end{proof}

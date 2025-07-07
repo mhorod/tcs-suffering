@@ -1,0 +1,245 @@
+\section{Maszyna Turinga}
+\begin{definition}
+    \textbf{Maszyna Turinga} to tupla
+    \[
+        MT = (Q, \Sigma, \Gamma, \delta, q_0, B, F)
+    \]
+    gdzie
+    \begin{itemize}
+        \item \( Q \) -- skończony zbiór stanów
+        \item \( \Sigma \subseteq \Gamma \) -- skończony alfabet wejściowy
+        \item \( \Gamma \) -- skończony alfabet taśmowy
+        \item \( \delta : Q \times \Gamma \rightarrow 
+        Q \times \Gamma \times \set{-1, +1}
+        \) -- stan, litera \( \rightarrow \) nowy stan, zmiana litery, ruch głowicą
+        \item \( q_0 \) -- stan startowy
+        \item \( B \in \Gamma \setminus \Sigma \) -- pusty symbol / zero (domyślny symbol taśmy)
+        \item \( F \) -- zbiór stanów akceptujących
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    \textbf{Opis chwilowy} (konfiguracja) Maszyny Turinga to
+    ciąg
+    \[
+        X_1, \dots, X_{k-1}, q, X_k, \dots, X_m
+    \]
+    gdzie \( X_i \in \Gamma, q \in Q\) oraz \( X_1, X_m \neq B \) przy czym możemy mieć sytuację \( X_1 = B \) jeśli mamy \( q, X_1 \) oraz \( X_m = B \) gdy mamy \( q, X_m \) 
+    
+    Maszyna Turinga zaczyna w stanie \( q_0, w \)
+\end{definition}
+
+\begin{definition}
+    Definiujemy relację \( \vdash_M \) na konfiguracjach MT.
+    
+    Przejście w lewo ,,wewnątrz'':
+    \[
+        X_1, \dots, X_{k-1}, q, X_k, \dots, X_m
+        \vdash_M
+        X_1, \dots, X_{k-2}, q, X_{k-1}, Y, \dots X_m
+    \]
+    Przejście w prawo ,,wewnątrz'':
+    \[
+        X_1, \dots, X_{k-1}, q, X_k, \dots, X_m
+        \vdash_M
+        X_1, \dots, Y, q, X_{k+1}, \dots X_m
+    \]
+    
+    Podobnie definiujemy skrajne przejścia.
+    
+    Przejście w lewo ,,na zewnątrz''
+    \[
+        q X_1, \dots, X_m \vdash_M
+    \]
+    
+    
+\end{definition}
+
+
+\begin{definition}
+    \textbf{Język akceptowany przez Maszynę Turinga} definiujemy jako
+    \[
+        L(M) = \set{w \in \Sigma^* \mid q_0, w\vdash_M^* \alpha q, \beta, q \in F}
+    \]
+\end{definition}
+
+\begin{definition}
+    Język \( L \subseteq \Sigma^* \) jest \textbf{rekurencyjnie przeliczalny} (recursively enumerable RE) jeśli istnieje Maszyna Turinga \( M \)
+    \[
+        L(M) = L
+    \]
+\end{definition}
+
+\begin{definition}
+    Mówimy że Maszyna Turinga  \( M \) ma \textbf{własność stopu} jeśli istnieją dwa stany \( q_{acc} \neq q_{rej} \in Q \)
+    i jednocześnie \[
+        \forall_{w \in \Sigma^*} : q_0, w \vdash_M^* \alpha, q_f, \beta
+    \]
+    gdzie \( q_f \in \set{q_{acc}, q_{rej}} \).
+    Przy czym \( F = \set{q_{acc}} \) oraz nie ma przejsć ze stanów \( q_{acc}, q_{rej} \)
+\end{definition}
+
+\begin{definition}
+    Mówmy że język \( L \) jest \textbf{rekurencyjny} (rozstrzygalny) jeśli istnieje Maszyna Turinga z własnością stopu taka, że
+    \( L(M) = L \)
+\end{definition}
+
+\begin{lemma}
+    Każdy język regularny jest rekurencyjny.
+\end{lemma}
+\begin{lemma}
+    \[
+        HALT = \set{
+            (M, w) \mid 
+            M \text{ zatrzymuje się na } w
+        } \in RE \setminus R
+    \]
+\end{lemma}
+Innymi słowy, problem stopu jest nierozstrzygalny.
+
+\begin{definition}
+    \(k\)-taśmowa Maszyna Turinga to 
+    \[
+        M_k = (Q, \Sigma, \Gamma, \delta, q_0, B, F)
+    \]
+    gdzie
+    \( \delta : Q \times \Gamma^k \rightarrow Q \times \pars{\Gamma \times \set{-1, +1}}^k\)
+\end{definition}
+
+\begin{theorem}
+    Dla każdego \( k \) każdy język akceptowany przez \(k\)-taśmową jest rekurencyjnie przeliczalny.
+\end{theorem}
+\begin{proof}
+    Konstruujemy maszynę jednotaśmową, która symuluje \(k\) taśm.
+\end{proof}
+
+Zastanawiamy się teraz, czy jak mamy jakieś słowo \( w \) i zadaną MT \( M \) to umiemy sprawdzić czy \( w \in L(M) \)
+
+Maszynę Turinga możemy zakodować używając tylko zer i jedynek:
+\begin{itemize}
+    \item Stany \( Q = \set{q_1, \dots, q_k} \) kodujemy unarnie -- stan \( q_i \) zamieniamy na \( i \) zer.
+    
+    \item Podobnie \( \Gamma = \set{x_1, \dots x_l} \) -- każdy \( x_i \) jest reprezentowany jako \( i \) zer.
+    
+    \item Przejście w lewo kodujemy jako \(0\) a w prawo jako \(00\)
+    
+    \item funkcję przejścia \( \delta \) kodujemy jako ciąg zakodowanych tupli \( (q_i, x_j, q_i', x_j', a) \)
+\end{itemize}
+
+Czynimy obserwacje:
+\begin{itemize}
+    \item Każdą MT umiemy zakodować
+    \item Być może mamy więcej niż jedno kodowanie na każdą MT
+    \item Niektórym kodowaniom nie odpowiada żadna maszyna.
+\end{itemize}
+
+Ponieważ nie wszystkie kodowania są poprawne to tym niepoprawnym przypisujemy jakąś maszynę tak, żeby wszystkie kodowania dawały nam maszyny.
+
+\begin{lemma}
+    Istnieją języki, które nie są rekurencyjnie przeliczalne
+\end{lemma}
+
+\begin{proof}
+Maszyn jest przeliczalnie wiele (bo każde kodowanie jest skończone) możemy więc je ponumerować \( M_1, M_2, \dots \)
+
+Możemy zrobić nieskończoną tabelę maszyny vs słowa, w której \( A_{i, j} = 1 \iff w_j \in L(M_i) \) 
+
+Robimy teraz język \( L_d = \set{w_i \mid w_i \notin L(M_i)} \) tj. bierzemy te słowa, które \textbf{nie} są akceptowane przez maszynę, którą opisują.
+
+Załóżmy nie wprost, że istnieje maszyna \( M_k \), która akceptuje język \( L_d \)
+
+Zastanawiamy się teraz czy jakieś słowo \( w_k \in L_d \)
+Jeśli \( w_k \in L_d \) to \( w \notin L(M_k) \) czyli \( w_k \notin L_d \)
+Tak samo jeśli \( w_k \notin L_d \) to \( w \in L(M_k) \) czyli \( w_k \in L_d \)
+
+W takim razie \( w_k \in L_d \iff w_k \notin L_d \) -- sprzeczność, zatem \( L_d \) nie jest rekurencyjnie przeliczalny.
+\end{proof}
+
+
+
+A co z dopełnieniem \( L_d \) ? Czy \( \Sigma^* \setminus L_d \in R \) ? 
+
+Zadajmy ogólniejsze pytanie -- Czy jeśli \( L \in R \) to \( \Sigma^* \setminus L \in R \) ? 
+
+Okazuje się że tak, bo jeśli mamy MT z własnością  stopu to możemy po prostu zamienić stan akceptujący z odrzucającym i dostać MT, która akceptuje dokładnie dopełnienie i nadal ma własność stopu.
+
+W takim razie \( \Sigma^* \setminus L_d \notin R \) bo inaczej \( L_d \) jest rekurencyjny.
+
+\begin{lemma}
+    \( \Sigma^* \setminus L_d \) jest rekurencyjnie przeliczalny.
+\end{lemma}
+\begin{proof}
+    Robimy uniwersalną maszynę \( U \), która potrafi zasymulować dowolną zakodowaną maszynę \( M \) na słowie startowym \( w \).
+\end{proof}
+
+\begin{lemma}
+    \[
+        L_U = \set{(M, w) : w \in L(M)} \in RE \setminus R
+    \]
+\end{lemma}
+
+\begin{definition}
+    \textbf{Redukcja} z języka \( L_1 \) do języka \( L_2 \) to funkcja obliczalna przez maszynę Turinga, taka że \( x \in L_1 \iff L(f(x)) \in L_2 \)
+    
+    Jeśli istnieje redukcja z \( L_1 \) do \( L_2 \) to zapisujemy to faktem \( L_1 \leq L_2 \)
+\end{definition}
+
+\begin{lemma}
+    Jeśli \( L_1 \leq L_2 \) i \( L_1 \) nie jest R (RE) to \( L_2 \) też nie jest R (RE).
+\end{lemma}
+\begin{proof}
+    Nie wprost załóżmy, że \( L_2 \) jest R o czym świadczy maszyna \( M_2 \)
+    
+    Skonstruujemy maszynę \( M_1 \), która akceptuje \( L_1 \).
+    
+    Przepuszcza ona wejście \( x \) przez funkcję redukującą \( L_1 \) do \( L_2\) a następnie uruchamia \( M_2 \) na słowie \( f(x) \).
+\end{proof}
+
+\begin{lemma}
+    \[
+        L_{NE} = \set{ M : L(M) \neq \varnothing } \in RE
+    \]
+\end{lemma}
+\begin{proof}
+    Możemy generować kolejne słowa, dodawać je do kolejki, i wykonywać po jednym kroku symulacji dla każdego słowa z kolejki.
+\end{proof}
+
+\begin{lemma}
+    \[ L_{NE} \notin R \]
+\end{lemma}
+\begin{proof}
+    Przeprowadzimy redukcję z \( L_u\) do \( L_{NE} \).
+    
+    Dla wejścia \( (M, w) \) konstruujemy maszynę \( M' \) taką, że
+    \( w \in L(M) \iff M' \neq \varnothing \)
+\end{proof}
+
+\begin{definition}
+    Własność \( P \) języków RE to podklasa RE (tj. jakiś zbiór języków)
+    
+    Własność \( P \) jest nietrywialna jeśli \( P \neq \varnothing \) oraz \( P \neq RE \).
+    
+    Własności reprezentujemy jako \( L_p = \set{M \mid L(M) \in P} \)
+\end{definition}
+
+\begin{theorem}[Rice]
+    Każda nietrywialna własność RE jest nierozstrzygalna.
+\end{theorem}
+\begin{proof}
+    Weźmy dowolną własność \( P \)
+
+    Zredukujemy \( L_U \) do \( L_P \)
+    
+    
+\end{proof}
+
+\begin{lemma}
+    Dla dwóch gramatyk bezkontekstowych \( G_1, G_2 \) problem 
+    \[
+        L(G_1) \cap G(L_2) \neq \varnothing ?
+    \]
+    jest nierozstrzygalny
+\end{lemma}
+\begin{proof}
+    Zredukujemy \( L_{NE} \) do tego problemu.
+\end{proof}

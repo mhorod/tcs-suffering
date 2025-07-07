@@ -1,0 +1,23 @@
+Definicja problemu Discrete-Log:\newline
+Mamy dowolną grupę cykliczną $G$ oraz element $g \in G$ będący generatorem wtedy:\newline \newline
+
+Mając na wejściu $a \in G$ znajdź taki $x$, że $g^x = a$.
+\newline \newline
+Discrete-Log $\in NP$:\newline
+Zgadnij $x$ oraz sprawdź czy $g^x = a$, jeżeli tak to zwróć $x$.
+\newline \newline
+Niestety więcej o tym problemie nie wiemy. W kryptografi zakładamy, że Discrete-Log $\notin P$ oraz Discrete-Log $\notin BPP$ ale tego nie wiemy! Nie wiemy też czy jest to problem trudny w klasie $NP$.
+\newline \newline
+Definicja problemu Diffie-Helman:
+Mamy dowolną grupę cykliczną $G$ oraz element $g \in G$ będący generatorem wtedy:\newline \newline
+
+Mając na wejsciu $g^x,g^y$ ($x,y$ nie jest podane) znajdź $g^{xy}$.
+\newline \newline
+Diffie-Hellman $\in NP$:\newline
+Zgadnij $x$, sprawdź czy $g^x$ równa się temu z wejścia równa się temu z wejścia. Wykonaj teraz $(g^{y})^x = g^{xy}$ bo znamy $x$ i zwróc $g^{xy}$.
+\newline \newline
+Niestety w tym przypadku też nie jesteśmy w stanie powiedzieć wiecej na temat należenia tego problemu do innych klas, które nas interesują. Natomias możemy stwierdzić, że za pomocą Discrete-Log możemy rozwiązać Diffie-Helmana (poprostu obliczmy $x$ i postępujemy tak jak w dowodzie dla $NP$).
+
+%\newline \newline
+Protokół Diffiego-Helmana:\newline
+Jest to protokół symetryczny czyli wyślemy sobie nawzajem klucze publiczne i stworzymy na podstawie go nasz klucz symetryczny. Klucz prywatny to $a$ oraz dla drugiej osoby $b$. Do publicznej wiadomości dajemy $g^a$ oraz druga osoba $g^b$. Naszym kluczem symetrycznym będzie $g^{ab}$. Jak widać jest on dosyć podobny do El-Gammal.

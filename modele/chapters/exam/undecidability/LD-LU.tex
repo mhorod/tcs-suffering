@@ -1,0 +1,75 @@
+\section{Język \texorpdfstring{\( L_d \)}{Ld} oraz \texorpdfstring{\(L_u\)}{Lu}}
+
+\subsection{Język \texorpdfstring{\( L_d \)}{Ld}} 
+
+\begin{definition} 
+    Definiujemy język \(L_d\) następująco: 
+    
+    \[ 
+        L_d = \set{w_i : w_i \not \in L(M_i)}
+    \]
+\end{definition}
+
+\begin{theorem}
+    \( L_d \not \in \re \)
+\end{theorem}
+\begin{proof}
+    Załóżmy, że istnieje Maszyna Turinga M taka, że \(L(M) = L_d\). Wówczas ma ona jakiś indeks \(k\) (Maszyn Turinga jest przeliczalnie wiele). Rozważmy co się dzieje ze słowem \(w_k\):
+    
+    \begin{itemize}
+        \item Jeśli \(w_k \in L_d\), to znaczy, że \(w_k \in L(M_k)\), ale to znaczy, że \(w_k \not \in L_d\), co prowadzi nas do sprzeczności.
+        
+        \item Jeśli \(w_k \not\in L_d\), to znaczy że \(w_k \not\in L(M_k)\), ale to znaczy, że \(w_k \in L_d\), co również prowadzi do sprzeczności.
+    \end{itemize}
+    
+    W obu przypadkach otrzymujemy sprzeczność, co kończy dowód. 
+\end{proof}
+    
+\subsection{Język \texorpdfstring{\(L_u\)}{Lu}} 
+
+\begin{definition}
+    Definiujemy język \(L_u\) następująco:
+    
+    \[ 
+        L_u = \set{ (M, w) : w \in L(M)}
+    \]
+    
+\end{definition}
+    
+Język \(L_u\) nazywamy \textit{językiem uniwersalnym}, bo zawiera wszystkie pary (maszyna, słowo) takie, że dana maszyna akceptuje określone słowo. 
+
+\begin{theorem}
+    \( L_u \in \re \setminus \r \)
+\end{theorem}
+\begin{proof}
+    Oczywiście \( L_u \in \re \) bo możemy po prostu zasymulować maszynę \( M \) na słowie \( w \) na Uniwersalnej Maszynie Turinga.
+    
+    Aby pokazać, że \( L_u \notin \r \) załóżmy nie wprost, że mamy maszynę \( M \) z własnością stopu taką, że \( L(M) = L_u \).
+    
+    Konstruujemy maszynę M', która:
+    \begin{enumerate}
+        \item wczytuje wejście \( x \) 
+        \item symuluje \( M \) na \( (x, x) \)
+        \item neguje wyjście \( M \) -- możemy to zrobić bo \( M \) ma własność stopu
+    \end{enumerate}
+    
+    Dajemy teraz maszynie \( M' \) na wejściu \( w \).
+    
+    Mamy teraz dwie sytuacje:
+    \begin{itemize}
+        \item \( M' \) zaakceptowała \( w \)
+        \[
+            w \in L(M') \Rightarrow (w, w) \notin L_u \Rightarrow w \notin L(w) \Rightarrow w \in L_d
+        \]
+        
+        \item \( M' \) odrzuciła \( w \)
+        \[
+            w \notin L(M') \Rightarrow (w, w) \in L_u \Rightarrow w \in L(w)
+            \Rightarrow w \notin L_d
+        \]
+    \end{itemize}
+    No i mamy przypał bo \( L(M') = L_d \notin \re \) -- w takim razie nie może istnieć maszyna \( M \) z własnością stopu czyli \( L_u \notin \r \).
+    
+    Warto zauważyć, że jeśli \( M \) nie ma własności stopu to krok (3) maszyny \( M' \) nie ma sensu -- chcemy, żeby \( M' \) zatrzymywała się na wszystkich TAK-instancjach (z definicji akceptacji), ale NIE-instancje maszyny \( M \) mogą działać w nieskończoność. Wiemy zatem raczej co do \( L(M') \) nie należy niż należy.
+    
+\end{proof}

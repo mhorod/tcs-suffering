@@ -1,0 +1,69 @@
+\begin{theorem}[Knaster-Tarski]
+Każde monotoniczne odwzorowanie \(f\colon \powerset\pars{X} \function \powerset\pars{X}\) posiada najmniejszy punkt stały i~największy punkt stały.
+\end{theorem}
+\begin{proof}
+    Tak naprawdę dwukrotnie przeprowadzimy bardzo sprytne i~na swój sposób analogiczne rozumowania.
+    \begin{description}
+        \item[Najmniejszy punkt stały.] Zdefiniujmy
+            \begin{equation*}
+                \alpha = \set{z \in \powerset\pars{X} : f\pars{z} \subseteq z}
+            \end{equation*}
+            Zauważmy, że \(\alpha \neq \emptyset\), ponieważ \(X \in \alpha\).
+            
+            Weźmy \(x_0 = \bigcap \alpha\). Z~własności przecięcia mamy
+            \begin{equation*}
+                \forall_{z \in \alpha} x_0 \subseteq z
+            \end{equation*}
+            i~dalej z~monotoniczności
+            \begin{equation*}
+                \forall_{z \in \alpha} f\pars{x_0} \subseteq f\pars{z}
+            \end{equation*}
+            Skoro jednak rozważamy \(z \in \alpha\), to z~definicji zbioru \(\alpha\)~mamy \(f\pars{z} \subseteq z\). Czyli tak naprawdę otrzymujemy
+            \begin{equation*}
+                \forall_{z \in \alpha} f\pars{x_0} \subseteq z
+            \end{equation*}
+            Skoro \(f\pars{x_0}\) zawiera się w~każdym elemencie zbioru \(\alpha\), to mamy też \(f\pars{x_0} \subseteq \bigcap \alpha = x_0\).
+            
+            A~skoro \(f\pars{x_0} \subseteq x_0\), to z~monotoniczności mamy
+            \begin{equation*}
+                f\pars{f\pars{x_0}} \subseteq f\pars{x_0}
+            \end{equation*}
+            co oznacza, że \(f\pars{x_0} \in \alpha\). No a~jeśli \(f\pars{x_0} \in \alpha\), to
+            \begin{equation*}
+                f\pars{x_0} \supseteq \bigcap \alpha = x_0
+            \end{equation*}
+            
+            Mamy zatem zarówno \(f\pars{x_0} \subseteq x_0\), jak i~\(f\pars{x_0} \supseteq x_0\). To oznacza po prostu, że \(f\pars{x_0} = x_0\), czyli \(x_0\)~jest punktem stałym! Zauważmy, że jest najmniejszym: jeśli mamy jakiś punkt stały \(z\), to \(f\pars{z} = z\), czyli w~szczególności \(f\pars{z} \subseteq z\), czyli \(z \in \alpha\). A~wiemy, że wtedy
+            \begin{equation*}
+                x_0 = \bigcap \alpha \subseteq z
+            \end{equation*}
+            Czyli rzeczywiście \(x_0\)~zawiera się w~każdym innym punkcie stałym. Sprytne, nie? Aż chce się stworzyć sequel tego dowodu!
+        \item[Największy punkt stały.] Zdefiniujmy
+            \begin{equation*}
+                \beta = \set{z \in \powerset\pars{X} : z \subseteq f\pars{z}}
+            \end{equation*}
+            Oczywiście \(\emptyset \in \beta\), więc \(\beta \neq \emptyset\). Widać już, dokąd z~tym zmierzamy, prawda? Tak jest, bierzemy \(y_0 = \bigcup \beta\). Z~własności sumy zachodzi
+            \begin{equation*}
+                \forall_{z \in \beta} z \subseteq y_0
+            \end{equation*}
+            i~dalej z~monotoniczności
+            \begin{equation*}
+                \forall_{z \in \beta} f\pars{z} \subseteq f\pars{y_0}
+            \end{equation*}
+            Przytaczając definicję zbioru \(\beta\), możemy z~tego wyciągnąć po prostu
+            \begin{equation*}
+                \forall_{z \in \beta} z \subseteq f\pars{y_0}
+            \end{equation*}
+            Innymi słowy, wszystkie elementy zbioru \(\beta\)~mieszczą się pod \(f\pars{y_0}\). Czyli mieści się tam również ich suma:
+            \begin{equation*}
+                y_0 = \bigcup \beta \subseteq f\pars{y_0}
+            \end{equation*}
+            Monotoniczność pozwala nam zamienić \(y_0 \subseteq f\pars{y_0}\) na \(f\pars{y_0} \subseteq f\pars{f\pars{y_0}}\), co pokazuje, że \(f\pars{y_0} \in \beta\). No, a~skoro \(f\pars{y_0} \in \beta\), to
+            \begin{equation*}
+                f\pars{y_0} \subseteq \bigcup \beta = y_0
+            \end{equation*}
+            Skoro mamy obydwie inkluzje --- \(y_0 \subseteq f\pars{y_0}\) i~\(f\pars{y_0} \subseteq y_0\) --- to \(y_0\)~jest punktem stałym.
+            
+            Czy największym? Tak! Jeśli \(f\pars{z} = z\), to w~szczególności \(z \subseteq f\pars{z}\), czyli \(z \in \beta\), czyli \(z \subseteq \bigcup \beta = y_0\).
+    \end{description}
+\end{proof}
