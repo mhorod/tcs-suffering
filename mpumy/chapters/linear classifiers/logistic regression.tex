@@ -2,24 +2,24 @@
 
 Regresja logistyczna korzysta z funkcji decyzyjnej zadanej wzorem
 \[
-    h_\theta(x) = \sigma(\theta^T x) = \frac{1}{1 + \exp(-\theta^Tx)}
+	h_\theta(x) = \sigma(\theta^T x) = \frac{1}{1 + \exp(-\theta^Tx)}
 \]
 
 Traktujemy wyjście jako rozkład prawdopodobieństwa:
 \[
-    p(y = 1 \given x, \theta) = h_\theta(x)
+	p(y = 1 \given x, \theta) = h_\theta(x)
 \]
 \[
-    p(y = 0 \given x, \theta) = 1 - h_\theta(x)
+	p(y = 0 \given x, \theta) = 1 - h_\theta(x)
 \]
 Możemy też zapisać sprytnie jako
 \[
-    p(y \given x, \theta) = \pars{h_\theta(x)}^y\pars{1 - h_\theta(x)}^{1-y}
+	p(y \given x, \theta) = \pars{h_\theta(x)}^y\pars{1 - h_\theta(x)}^{1-y}
 \]
 
 Chcemy zmaksymalizować log-wiarygodnosć
 \begin{align*}
-    \ell(\theta) 
-        &= \log \prod_{i=1}^m p(y^{(i)} \given x^{(i)}, \theta) \\
-        &= \sum_{i=1}^m \pars{y^{(i)} \log h_\theta(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_\theta(x^{(i)}))}
+	\ell(\theta)
+	 & = \log \prod_{i=1}^m p(y^{(i)} \given x^{(i)}, \theta)                                            \\
+	 & = \sum_{i=1}^m \pars{y^{(i)} \log h_\theta(x^{(i)}) + (1 - y^{(i)}) \log (1 - h_\theta(x^{(i)}))}
 \end{align*}

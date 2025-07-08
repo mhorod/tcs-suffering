@@ -15,12 +15,12 @@ sprawdza czy wszystkie literki są oznaczone (wykorzystane). Jeśli tak to słow
 Tu jest istotnie trudniej. Zaczynamy od wygenerowania słowa \(A^nB^n\), a następnie chcemy przypychać żetony.
 
 \begin{enumerate}
-    \item Nieterminal \(A\) może wygenerować żeton, jeśli on nie był wykorzystany, a po lewej nic nie ma, lub jest nieterminal wykorzystany \(A'\).
-    \item Generowanie żetonu to produkcja \(A \rightarrow [A', Z_1]\).
-    \item Żeton możemy przepychać: jeśli lewy sąsiad ma żeton, to ja mogę go wziąc do siebie (\(A \rightarrow [A, Z_1]\)\). Jeśli prawy sąsiad ma żeton,\
-    to znaczy że go oddałem, więc mogę się go u siebie pozbyć: \([A, Z_1] \rightarrow A\).
-    \item Jeśli żeton \(Z_1\) dotrze do \(B\), to \(B\) zostaje wykorzystane, a żeton zamienia się w \(Z_2\).
-    \item Jeśli żeton \(Z_2\) dotrze do ostatniego \(B\), to możemy wygenerować literę \(c\), a żeton znika.
-    \item Litery \(a, b\) powstają tylko z \(A', B'\) - czyli wykorzystanych do produkcji C. Oznacza to że nieterminale mogą zniknąć tylko jeśli\
-    wyprodukowaliśmy \(n\) razy \(c\) na końcu (żeton nie może zniknąć inaczej); jednocześnie, nie da się wyprodukować więcej żetonów (więc także literek \(c\)).
+	\item Nieterminal \(A\) może wygenerować żeton, jeśli on nie był wykorzystany, a po lewej nic nie ma, lub jest nieterminal wykorzystany \(A'\).
+	\item Generowanie żetonu to produkcja \(A \rightarrow [A', Z_1]\).
+	\item Żeton możemy przepychać: jeśli lewy sąsiad ma żeton, to ja mogę go wziąc do siebie (\(A \rightarrow [A, Z_1]\)). Jeśli prawy sąsiad ma żeton,\
+	      to znaczy że go oddałem, więc mogę się go u siebie pozbyć: \([A, Z_1] \rightarrow A\).
+	\item Jeśli żeton \(Z_1\) dotrze do \(B\), to \(B\) zostaje wykorzystane, a żeton zamienia się w \(Z_2\).
+	\item Jeśli żeton \(Z_2\) dotrze do ostatniego \(B\), to możemy wygenerować literę \(c\), a żeton znika.
+	\item Litery \(a, b\) powstają tylko z \(A', B'\) - czyli wykorzystanych do produkcji C. Oznacza to że nieterminale mogą zniknąć tylko jeśli\
+	      wyprodukowaliśmy \(n\) razy \(c\) na końcu (żeton nie może zniknąć inaczej); jednocześnie, nie da się wyprodukować więcej żetonów (więc także literek \(c\)).
 \end{enumerate}
