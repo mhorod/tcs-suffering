@@ -65,23 +65,23 @@ Gdyby nie była właśnie godzina 2 to bym zrobił to zadanie...
 \subsection{Zadanie 4}
 BSO $b\leq a$. Niech $F_n$ to bedzie pierwsza liczba Fibonacciego wieksza lub równa $a$. Spójrzmy jak działa algorytm Euklidesa w zależnoci od tego jakiej wielkości jest $b$:
 \begin{enumerate}
-\item $b\leq F_{n-2}$\\
-Ponieważ $a\%b < b \leq F_{n-2}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-2}$.
-\item $F_{n-2}< b\leq F_{n-1}$\\
-Ponieważ $a\%b < b \leq F_{n-1}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-1}$.
-\item  $F_{n-1}< b \leq F_{n}$\\
-Jako że zachodzi:
-$$F_{n-1}< b$$
-$$2F_{n-1}< 2b$$
-$$F_n=F_{n-1}+F_{n-2}\leq 2F_{n-1}< 2b$$
-$$b \leq a \leq F_n < 2b$$
-To mamy $a\%b = a-b$. Z kolejnych nierównoci;
-$$a\leq F_{n-1}+F_{n-2} =  F_n$$
-$$F_{n-2} \leq  F_{n-1}$$
-$$F_{n-1}< b$$
-Otrzymujemy:
-$$a\%b=a-b\leq F_{n-2}$$
-Zatem w nastepnym wykonaniu funkcji dostaniemy przypadek pierwszy
+	\item $b\leq F_{n-2}$\\
+	      Ponieważ $a\%b < b \leq F_{n-2}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-2}$.
+	\item $F_{n-2}< b\leq F_{n-1}$\\
+	      Ponieważ $a\%b < b \leq F_{n-1}$ to w nastepnym wywołaniu funkcji otrzymujemy że wiekszy element z $a,b$ jest mniejszy lub równy $F_{n-1}$.
+	\item  $F_{n-1}< b \leq F_{n}$\\
+	      Jako że zachodzi:
+	      $$F_{n-1}< b$$
+	      $$2F_{n-1}< 2b$$
+	      $$F_n=F_{n-1}+F_{n-2}\leq 2F_{n-1}< 2b$$
+	      $$b \leq a \leq F_n < 2b$$
+	      To mamy $a\%b = a-b$. Z kolejnych nierównoci;
+	      $$a\leq F_{n-1}+F_{n-2} =  F_n$$
+	      $$F_{n-2} \leq  F_{n-1}$$
+	      $$F_{n-1}< b$$
+	      Otrzymujemy:
+	      $$a\%b=a-b\leq F_{n-2}$$
+	      Zatem w nastepnym wykonaniu funkcji dostaniemy przypadek pierwszy
 \end{enumerate}
 Ponieważ w każdym kroku schodzimy o 1 lub o 2 w dół (a jak nie, to w nastepnym nadrabiamy 2 krokami) to funkcja wywoła sie co najwyżej $n$ razy.
 Zauwazmy, że n-ta liczba Fibonacciego jest przedstawiana wzorem (Binet's formula):

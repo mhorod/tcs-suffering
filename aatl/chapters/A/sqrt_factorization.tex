@@ -1,31 +1,31 @@
 Pomysł opiera się na tym, że możemy sprowadzić faktoryzację \( n \) do szukania nietrywialnych rozwiązań równania \( x^2 = y^2 \mod n \).
 
 \begin{lemma}
-Niech \( n \) będzie nieparzystą liczbą złożoną, nie potęgą liczby pierwszej. Dla dowolnego \( s \) równanie:
-\[
-    x^2 = s \pmod{n},
-\]
-jeśli ma jakiekolwiek rozwiązanie, to ma co najmniej 4 różne.
+	Niech \( n \) będzie nieparzystą liczbą złożoną, nie potęgą liczby pierwszej. Dla dowolnego \( s \) równanie:
+	\[
+		x^2 = s \pmod{n},
+	\]
+	jeśli ma jakiekolwiek rozwiązanie, to ma co najmniej 4 różne.
 \end{lemma}
 \begin{proof}
-    Przedstawmy liczbę \( n \) jako \( n = p \cdot q \), gdzie \( p, \ q \) są względnie pierwsze. Jeśli \( x \) jest rozwiazaniem równania postaci \( x^2 = s \pmod{p} \), to \( -x \) również. Zapiszmy kongruencje:
-    \[
-        x^2 = s \pmod{p}
-    \]
-    \[
-        x^2 = s \pmod{q}
-    \]
-    Z Chińskiego Twierdzenia o Resztach wynika, że rozwiązań oryginalnego równania jest co najmniej tyle, ile wynosi iloczyn liczby rozwiązań poszczególnych równań, czyli \( 2 \cdot 2 = 4 \).
+	Przedstawmy liczbę \( n \) jako \( n = p \cdot q \), gdzie \( p, \ q \) są względnie pierwsze. Jeśli \( x \) jest rozwiazaniem równania postaci \( x^2 = s \pmod{p} \), to \( -x \) również. Zapiszmy kongruencje:
+	\[
+		x^2 = s \pmod{p}
+	\]
+	\[
+		x^2 = s \pmod{q}
+	\]
+	Z Chińskiego Twierdzenia o Resztach wynika, że rozwiązań oryginalnego równania jest co najmniej tyle, ile wynosi iloczyn liczby rozwiązań poszczególnych równań, czyli \( 2 \cdot 2 = 4 \).
 \end{proof}
 To wystarcza, żeby skonstruować algorytm.
 \begin{greyframe}
-    Algorytm na faktoryzację:
-    \begin{enumerate}
-        \item Wylosuj \( x < n \) i oblicz \( s = x^2 \pmod{n} \).
-        \item Oblicz \( y = \textcolor{Blue}{\text{sqrt}(s, n)} \).
-        \item Jeśli \( x \neq \pm y \), to \( \gcd(x + y, n) \) lub \( \gcd(x - y, n) \) jest nietrywialnym dzielnikiem \( n \).
-        \item Jeśli \( x = y \) lub \( x = -y \), powtórz losowanie.
-    \end{enumerate}
+	Algorytm na faktoryzację:
+	\begin{enumerate}
+		\item Wylosuj \( x < n \) i oblicz \( s = x^2 \pmod{n} \).
+		\item Oblicz \( y = \textcolor{Blue}{\text{sqrt}(s, n)} \).
+		\item Jeśli \( x \neq \pm y \), to \( \gcd(x + y, n) \) lub \( \gcd(x - y, n) \) jest nietrywialnym dzielnikiem \( n \).
+		\item Jeśli \( x = y \) lub \( x = -y \), powtórz losowanie.
+	\end{enumerate}
 \end{greyframe}
 {\small (Funkcja \( \textcolor{Blue}{\text{sqrt}(x, n)} \) to czarna skrzynka, która oblicza lub zgaduje w czasie wielomianowym pierwiastek z liczby \( x \) modulo \( n \).)}
 

@@ -1,33 +1,33 @@
 \begin{theorem}
-Dla ciała skończonego \( \mathbb{F}_q \) istnieje taki element \( g \), że \( \mathbb{F}^{*}_q = \set{1, g, g^2, \text{\dots}} \).
+	Dla ciała skończonego \( \mathbb{F}_q \) istnieje taki element \( g \), że \( \mathbb{F}^{*}_q = \set{1, g, g^2, \text{\dots}} \).
 \end{theorem}
 \begin{proof}
-    Oznaczmy \( n = \abs{\mathbb{F}^{*}_q} = q-1 \). Definiujemy zbiory:
-    \[
-        A_d = \set{a \in \mathbb{F}_q : a^d = 1}
-    \]
-    \[
-        B_d = \set{a \in \mathbb{F}_q : a^d = 1, a^{d'} \neq 1 \text{ dla } d' < d}
-    \]
-    czyli \( B_d \) zawiera elementy, których rząd jest równy \( d \). Widać, że \( B_d \subseteq A_d \).
+	Oznaczmy \( n = \abs{\mathbb{F}^{*}_q} = q-1 \). Definiujemy zbiory:
+	\[
+		A_d = \set{a \in \mathbb{F}_q : a^d = 1}
+	\]
+	\[
+		B_d = \set{a \in \mathbb{F}_q : a^d = 1, a^{d'} \neq 1 \text{ dla } d' < d}
+	\]
+	czyli \( B_d \) zawiera elementy, których rząd jest równy \( d \). Widać, że \( B_d \subseteq A_d \).
 
-    Z twierdzenia Lagrange'a wynika, że \( B_d \) może być niepusty tylko dla \( d \) będącego dzielnikiem \( n \), a także \( \sum_{d \mid n} \abs{B_d} = n \), bo każdy element należy do któregoś \( B_d \). Chcemy pokazać, że \( B_n \neq \emptyset \), czyli istnieje element rzędu \( n \).
+	Z twierdzenia Lagrange'a wynika, że \( B_d \) może być niepusty tylko dla \( d \) będącego dzielnikiem \( n \), a także \( \sum_{d \mid n} \abs{B_d} = n \), bo każdy element należy do któregoś \( B_d \). Chcemy pokazać, że \( B_n \neq \emptyset \), czyli istnieje element rzędu \( n \).
 
-    Jeśli dla pewnego \( d \) zachodzi \( B_d \neq \emptyset \), to \( \abs{A_d} \geq d \), bo jeśli \( a^d = 1 \), to również \( (a^j)^d = 1 \) dla~\( 0 \leq j < d \). Z drugiej strony, \( \abs{A_d} \leq d \), bo wielomian \( X^d-1 \) może mieć co najwyżej \( d \) pierwiastków. Zatem jeśli istnieje element rzędu \( d \), to \( \abs{A_d} = d \).
-    Wtedy \( \abs{B_d} = \varphi(d) \) -- na ćwiczeniach udowodniliśmy, że jeśli istnieje jakiś generator, to można znaleźć \( \varphi(d) \) generatorów.
-    Podsumowując, dla każdego \( d \) zachodzi jedna z dwóch możliwości:
-    \begin{itemize}
-        \item \( \abs{B_d} = 0 \)
-        \item \( \abs{B_d} = \varphi(d) \)
-    \end{itemize}
-    Wynika stąd, że
-    \[
-        n = \sum_{d \mid n} \abs{B_d} \leq \sum_{d \mid n} \varphi(d), 
-    \]
-    przy czym jeśli chociaż jedno \( d \) ma \( B_d = \emptyset \), to nierówność jest ostra.
-    
-    Wiemy jednak, że \( \sum_{d \mid n} \varphi(d) = n \), ponieważ możemy rozważyć wszystkie \( n \) ułamków właściwych postaci \( \frac{k}{n} \) dla \( 1 \leq k \leq n \).
-    Po skróceniu mają postać \( \frac{k'}{d} \), gdzie \( d \mid n \) oraz \( k' \) jest względnie pierwsze z \( d \), więc dokładnie \( \varphi(d) \) ułamków ma taki mianownik. To dowodzi równości.
+	Jeśli dla pewnego \( d \) zachodzi \( B_d \neq \emptyset \), to \( \abs{A_d} \geq d \), bo jeśli \( a^d = 1 \), to również \( (a^j)^d = 1 \) dla~\( 0 \leq j < d \). Z drugiej strony, \( \abs{A_d} \leq d \), bo wielomian \( X^d-1 \) może mieć co najwyżej \( d \) pierwiastków. Zatem jeśli istnieje element rzędu \( d \), to \( \abs{A_d} = d \).
+	Wtedy \( \abs{B_d} = \varphi(d) \) -- na ćwiczeniach udowodniliśmy, że jeśli istnieje jakiś generator, to można znaleźć \( \varphi(d) \) generatorów.
+	Podsumowując, dla każdego \( d \) zachodzi jedna z dwóch możliwości:
+	\begin{itemize}
+		\item \( \abs{B_d} = 0 \)
+		\item \( \abs{B_d} = \varphi(d) \)
+	\end{itemize}
+	Wynika stąd, że
+	\[
+		n = \sum_{d \mid n} \abs{B_d} \leq \sum_{d \mid n} \varphi(d),
+	\]
+	przy czym jeśli chociaż jedno \( d \) ma \( B_d = \emptyset \), to nierówność jest ostra.
 
-    Zatem nierówność nie może być ostra i zachodzi \( B_d \neq \emptyset \) dla każdego \( d \mid n \), w szczególności istnieje element rzędu \( n \).
+	Wiemy jednak, że \( \sum_{d \mid n} \varphi(d) = n \), ponieważ możemy rozważyć wszystkie \( n \) ułamków właściwych postaci \( \frac{k}{n} \) dla \( 1 \leq k \leq n \).
+	Po skróceniu mają postać \( \frac{k'}{d} \), gdzie \( d \mid n \) oraz \( k' \) jest względnie pierwsze z \( d \), więc dokładnie \( \varphi(d) \) ułamków ma taki mianownik. To dowodzi równości.
+
+	Zatem nierówność nie może być ostra i zachodzi \( B_d \neq \emptyset \) dla każdego \( d \mid n \), w szczególności istnieje element rzędu \( n \).
 \end{proof}

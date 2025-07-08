@@ -1,49 +1,49 @@
 Dla danych \( a, b > 0 \) algorytm zwraca \( d = \gcd(a,b) \) oraz liczby całkowite \( s \) i \( t \), które spełniają \( d = s\cdot a + t\cdot b \).
 
 \begin{greyframe}
-    Algorytm:
-    \begin{enumerate}
-        \item Jeśli \( a < b \), zamień \( a \) z \( b \).
-        \item Jeśli \( b = 0 \), zwróć \( d = a \) i parę \( (1,0) \).
-        \item Oblicz \( a = q \cdot b + r \).
-        \item Wywołaj \( \gcd(b,r) \), otrzymując \( d \) i parę \( (s', t') \) taką, że \( s'\cdot b + t' \cdot r = d \).
-        \item Zwróć \( d \) i parę \( (t', s' - q \cdot t') \).
-    \end{enumerate}
+	Algorytm:
+	\begin{enumerate}
+		\item Jeśli \( a < b \), zamień \( a \) z \( b \).
+		\item Jeśli \( b = 0 \), zwróć \( d = a \) i parę \( (1,0) \).
+		\item Oblicz \( a = q \cdot b + r \).
+		\item Wywołaj \( \gcd(b,r) \), otrzymując \( d \) i parę \( (s', t') \) taką, że \( s'\cdot b + t' \cdot r = d \).
+		\item Zwróć \( d \) i parę \( (t', s' - q \cdot t') \).
+	\end{enumerate}
 \end{greyframe}
 
 \vspace{1em}\noindent
 \textit{Algorytm zwraca poprawne \( d = \gcd(a, b) \).}
 \begin{proof}
-    Wystarczy pokazać, że \( \gcd(a, b) = \gcd(b, r) \), jeśli \( a = q \cdot b + r \). Niech \( d = \gcd(a, b) \).
-    \[
-        a = 0 \pmod{d}
-    \]
-    \[
-        b = 0 \pmod{d}
-    \]
-    \[
-        r = a - q \cdot b = 0 \pmod{d}
-    \]
+	Wystarczy pokazać, że \( \gcd(a, b) = \gcd(b, r) \), jeśli \( a = q \cdot b + r \). Niech \( d = \gcd(a, b) \).
+	\[
+		a = 0 \pmod{d}
+	\]
+	\[
+		b = 0 \pmod{d}
+	\]
+	\[
+		r = a - q \cdot b = 0 \pmod{d}
+	\]
 \end{proof}
 \textit{Algorytm zwraca poprawne \( (s, t) \).}
 \begin{proof}[Dowód -- indukcja po mniejszym argumencie]
-    Jako krok bazowy indukcji po \( a, b \) sprawdzamy przypadek \( b = 0 \), rzeczywiście \( a \cdot 1 + 0 = \gcd(a, 0) \). \\
-    Niech \( a = q \cdot b + r \). Korzystając z tego, że \( \gcd(a, b) = \gcd(b, r) = d \), otrzymujemy:
-    \[
-        b \cdot s' + r \cdot t' = d,
-    \]
-    \[
-        b \cdot s' + (a - q \cdot b) \cdot t' = d,
-    \]
-    czyli \( s = t', \ t = s' - q \cdot t' \), co było do pokazania.
+	Jako krok bazowy indukcji po \( a, b \) sprawdzamy przypadek \( b = 0 \), rzeczywiście \( a \cdot 1 + 0 = \gcd(a, 0) \). \\
+	Niech \( a = q \cdot b + r \). Korzystając z tego, że \( \gcd(a, b) = \gcd(b, r) = d \), otrzymujemy:
+	\[
+		b \cdot s' + r \cdot t' = d,
+	\]
+	\[
+		b \cdot s' + (a - q \cdot b) \cdot t' = d,
+	\]
+	czyli \( s = t', \ t = s' - q \cdot t' \), co było do pokazania.
 \end{proof}
 Zatem algorytm w konstruktywny sposób dowodzi tożsamości B\'ezout.
 
 Własności algorytmu:
 \begin{enumerate}
-    \item Liczba iteracji: co najwyżej \( \log_{\phi} a \), gdzie \( \phi = \frac{1 + \sqrt{5}}{2} \)
-    \item Złożoność: \( \bigO(\log^2 a) \)
-    \item \( \abs{s} \leq b \), \( \abs{t} \leq a \)
+	\item Liczba iteracji: co najwyżej \( \log_{\phi} a \), gdzie \( \phi = \frac{1 + \sqrt{5}}{2} \)
+	\item Złożoność: \( \bigO(\log^2 a) \)
+	\item \( \abs{s} \leq b \), \( \abs{t} \leq a \)
 \end{enumerate}
 Ad 1. Żeby obliczenie \( \gcd(a, b) \) wymagało \( k \) kroków, potrzeba \( a \geq F_{k+2} \), \( b \geq F_{k+1} \) -- dowód przez indukcję po \( k \). \\
 Ad 2. Przy każdym wywołaniu rekurencyjnym przynajmniej jeden z argumentów zmniejsza się o połowę: \\

@@ -14,7 +14,7 @@ $\textbf{Rozwiązanie:}$ \\
 Nie jest. Przykład Pierścień $\mathbb{R}\times\mathbb{R}$ z mnożeniem po współżędnych.\\
 Weźmy sobie element (1,0) oraz (0,1), po wymnożeniu otrzymamy (0,0) czyli nasze 0 w pierścieniu, natomiast gdy dodamy owe liczby po współżędnych otrzymamy (1,1) co nie może być dzielnikiem 0, gdyż jest elementem neutalnym względem mnożenia. \\ \\
 2. Zbiór nilpotentów jest ideałem. \\ \\
-Tak, pokażemy sobie to: \\ 
+Tak, pokażemy sobie to: \\
 1. $0 \in I$ \\ \\
 2. $a,b \in I => a + b \in I$ ( zamkniętość na dodawanie ) \\
 Weźmy sobie takie $r,s$ że $a^r = 0, b^s = 0$.\\
@@ -35,16 +35,16 @@ Pokaż, że pierścień $S$ jest ciałem wtedy i tylko wtedy, kiedy jego jedynym
 ideałami są (0) (ideał z jednym elementem 0) oraz cały $S$.
 \\
 \\
- $\textbf{Rozwiązanie:}$ \\
- \\
- 1) Pierścień $S$ jest ciałem \\
- 2) Pierścień $S$ ma tylko ideały $(0)$ oraz cały $S$ \\
- \\
- 1 => 2 \\ \\
- $(0)$ ma na pewno ( trywialny ideał ) \\
- Weźmy sobie nie wprost że ma jakiś ideał różny od $(0)$ oraz mniejszy od całego $S$. Wiemy że skoro $S$ jest ciałem to dla każdego elementu ma element odwrotny. Wieny też że istnieje $x$ w naszym ideale więc z faktu że mamy $x^{-1}$ to znaczy że $x^{-1}x$ należy do ideału ( z definicji ) co oznacza że $1$ należy do ideału. Skoro 1 należy do ideału to możemy przeiterować się po każdym elemencie z $S$ i wymożyć go z $1$, która musi być w tym ideale co oznacza że każdy element $S$ będzie w ideale ale założyliśmy że owy ideał nie być całym $S$ SPRZECZNOŚĆ \\ 
- \\
- 2 => 1 \\ \\
+$\textbf{Rozwiązanie:}$ \\
+\\
+1) Pierścień $S$ jest ciałem \\
+2) Pierścień $S$ ma tylko ideały $(0)$ oraz cały $S$ \\
+\\
+1 => 2 \\ \\
+$(0)$ ma na pewno ( trywialny ideał ) \\
+Weźmy sobie nie wprost że ma jakiś ideał różny od $(0)$ oraz mniejszy od całego $S$. Wiemy że skoro $S$ jest ciałem to dla każdego elementu ma element odwrotny. Wieny też że istnieje $x$ w naszym ideale więc z faktu że mamy $x^{-1}$ to znaczy że $x^{-1}x$ należy do ideału ( z definicji ) co oznacza że $1$ należy do ideału. Skoro 1 należy do ideału to możemy przeiterować się po każdym elemencie z $S$ i wymożyć go z $1$, która musi być w tym ideale co oznacza że każdy element $S$ będzie w ideale ale założyliśmy że owy ideał nie być całym $S$ SPRZECZNOŚĆ \\
+\\
+2 => 1 \\ \\
 Do tego faktu musimy pokazać że każdy element ma element odwrotny względem mnożenia. Pokażemy sobie że dla dowolnego $a$ znajdziemy dla niego element odwrotny. \\ \\
 Weżmy sobie zbiór w którym narazie jest tylko element $a$ ( nie będzie to jeszcze ideał ale nie ma problemu za chwile z niego zrobimy ideał ). Teraz wiemy że jakiegoś elementu jeszcze nie osiągneliśmy. A więc weźmy sobie ideał w postaci dla każdego $i \in S$ dodajmy do naszego zbioru $a\cdot i$. Skoro wiemy że dla każdego elementu będzie on w ideale to z definicji jest to ideałem ( spełnia własność wciągania do ideału ) a to oznacza, że $1$ jest w ideale ponieważ nasz ideał musi być całym $S$ z założenia bo $S$ ma tylko 2 ideały ( albo siebie albo $(0)$ ), A jeżeli $1$ jest w ideale oraz jedyne liczby w ideale to $i\cdot a$ to oznacza że jakiś element $i$ po wymnożeniu z $a$ dał $1$ co oznacza że jest jego odwrotnością. Taką procedurę możemy powtórzyć dla każdego $a \in S$ co będzie oznaczało że każdy element ma element odwrotny. co należało pokazać
 
@@ -56,12 +56,12 @@ bez potrzeby osobnego sprawdzania tego przypadku).
 \\
 \\
 $\textbf{Rozwiązanie:}$ \\
- Korzystam z ćwiczenia 5. Wiemy że liczby Charmichaela są bez kwadratowe co znaczyczy że nie dzieli ich żaden kwadrat liczby natruralnej większej od 1. Co oznacza że liczba w postaci $p^k$, gdzie $p$ pierwsza i $k > 1$ nie może być liczbą Charmichala gdyż $p^2 | p^k$ dla $k \ge 2$. Wynika z tego że istnieje $x$ taki że nie spełnia on testu fermata dla $p^k$. Oznaczmy sobie dla ułatwienia $n = p^k$. Weźmy sobie więc podgupę G = \{$b \in  \mathbb{Z}_{n} : b^{n-1} = 1$ mod $n$ \} $\subset \mathbb{Z}_{n}^{*}$. Wiemy że G jest podgrupą oraz istnieje $x$, który nie należy do G. Z Lagrange'a rząd podgrupy dzieli rząd grupy czyli oraz z wcześniej wiemy że G nie jest rozmiaru $n$ co oznacza $|G| \leq \frac{n}{2}$. Czyli pradowpodobieństwo że wybierzemy $x$ nie spełniającego testu fermata (którego wykonujemy w końcowym kroku testu millera-rabina) wynosi conajwyżej $\frac{1}{2}$
+Korzystam z ćwiczenia 5. Wiemy że liczby Charmichaela są bez kwadratowe co znaczyczy że nie dzieli ich żaden kwadrat liczby natruralnej większej od 1. Co oznacza że liczba w postaci $p^k$, gdzie $p$ pierwsza i $k > 1$ nie może być liczbą Charmichala gdyż $p^2 | p^k$ dla $k \ge 2$. Wynika z tego że istnieje $x$ taki że nie spełnia on testu fermata dla $p^k$. Oznaczmy sobie dla ułatwienia $n = p^k$. Weźmy sobie więc podgupę G = \{$b \in  \mathbb{Z}_{n} : b^{n-1} = 1$ mod $n$ \} $\subset \mathbb{Z}_{n}^{*}$. Wiemy że G jest podgrupą oraz istnieje $x$, który nie należy do G. Z Lagrange'a rząd podgrupy dzieli rząd grupy czyli oraz z wcześniej wiemy że G nie jest rozmiaru $n$ co oznacza $|G| \leq \frac{n}{2}$. Czyli pradowpodobieństwo że wybierzemy $x$ nie spełniającego testu fermata (którego wykonujemy w końcowym kroku testu millera-rabina) wynosi conajwyżej $\frac{1}{2}$
 
 
 \subsection{Zadanie 4}
 $\textbf{Treść:}$  \\ \\
- Pokaż, że jeśli dla pewnego $n$ liczby $6n + 1, 12n + 1 i 18n + 1$ są pierwsze,
+Pokaż, że jeśli dla pewnego $n$ liczby $6n + 1, 12n + 1 i 18n + 1$ są pierwsze,
 to $m = (6n + 1)(12n + 1)(18n + 1)$ jest liczbą Carmichaela
 \\
 \\

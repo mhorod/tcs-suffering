@@ -1,13 +1,13 @@
 \begin{definition}[Ideał]
-Jeżeli \( R \) jest pierścieniem, to \( I \subseteq R \) jest ideałem wtedy i tylko wtedy, gdy:
-\begin{itemize}
-    \item \( x, y \in I \implies x + y \in I \) (zamknięcie na sumę)
-    \item \( x \in I, y \in R \implies y\cdot x \in I \) (własność wciągania -- silniejsza niż zamkniętość na mnożenie)
-\end{itemize}
+	Jeżeli \( R \) jest pierścieniem, to \( I \subseteq R \) jest ideałem wtedy i tylko wtedy, gdy:
+	\begin{itemize}
+		\item \( x, y \in I \implies x + y \in I \) (zamknięcie na sumę)
+		\item \( x \in I, y \in R \implies y\cdot x \in I \) (własność wciągania -- silniejsza niż zamkniętość na mnożenie)
+	\end{itemize}
 \end{definition}
 Definicję ideału można uogólnić na więcej elementów -- ideał \( I \subseteq R \) generowany przez elementy \( (a_1, \ldots, a_s) \) to:
 \[
-    \set{ x_1 a_1 + \ldots + x_s a_s : a_1, \ldots, a_s \in I, x_1, \ldots, x_s \in R}
+	\set{ x_1 a_1 + \ldots + x_s a_s : a_1, \ldots, a_s \in I, x_1, \ldots, x_s \in R}
 \]
 zbiór sum wszystkich wielokrotności elementów \( a_1, \ldots, a_s \).
 
@@ -15,25 +15,25 @@ Ideałem głównym nazywamy ideał generowany przez jeden element. \\
 Przykład: zbiór liczb całkowitych jest pierścieniem ideałów głównych, czyli każdy jego ideał jest ideałem głównym.
 
 \begin{definition}[Pierścień ilorazowy]
-Definiujemy relację równoważności \( R \) następująco:
-\[
-    x \sim y \iff x - y \in I
-\]
-Pierścień ilorazowy to zbiór klas abstrakcji \( R/I = \set{[x]_{\sim} : x \in R} = \set{x + I : x \in R} \).
+	Definiujemy relację równoważności \( R \) następująco:
+	\[
+		x \sim y \iff x - y \in I
+	\]
+	Pierścień ilorazowy to zbiór klas abstrakcji \( R/I = \set{[x]_{\sim} : x \in R} = \set{x + I : x \in R} \).
 \end{definition}
 Mniej formalnie mówimy po prostu o operacjach modulo ideał \( I \).
 
 Przykład: pierścień \( \integer \) z ideałem głównym \( n \integer = \set{n \cdot x : x \in \integer} \), dla pewnego \( n \).
 Wtedy \( \integer / n\integer \) to pierścień liczb całkowitych z działaniami modulo \( n \).
 \begin{theorem}
-Pierścień \( \integer_p[X]/(W) \) jest ciałem wtw, gdy \( W \) jest nierozkładalny, czyli nie daje się przedstawić jako iloczyn wielomianów stopnia co najmniej 1.
+	Pierścień \( \integer_p[X]/(W) \) jest ciałem wtw, gdy \( W \) jest nierozkładalny, czyli nie daje się przedstawić jako iloczyn wielomianów stopnia co najmniej 1.
 \end{theorem}
 \begin{proof}
-    \textit{Pierścień \( \mathbb{Z}_p[X]/(W) \) jest ciałem \( \implies \) \( W \) jest nierozkładalny.} \\
-    Załóżmy nie wprost, że \( \mathbb{Z}_p[X]/W \) jest ciałem i \( W \) jest rozkładalny, czyli można zapisać \linebreak \( W = g_1 \cdot g_2 \), gdzie \( 1 < \deg(g_1), \deg(g_2) < \deg(W) \).
-    Wynika z tego, że \( g_1 \cdot g_2 = 0 \), czyli \( g_1, \ g_2 \) są dzielnikami zera w tym ciele. Nie mają więc odwrotności względem mnożenia, co daje sprzeczność.
+	\textit{Pierścień \( \mathbb{Z}_p[X]/(W) \) jest ciałem \( \implies \) \( W \) jest nierozkładalny.} \\
+	Załóżmy nie wprost, że \( \mathbb{Z}_p[X]/W \) jest ciałem i \( W \) jest rozkładalny, czyli można zapisać \linebreak \( W = g_1 \cdot g_2 \), gdzie \( 1 < \deg(g_1), \deg(g_2) < \deg(W) \).
+	Wynika z tego, że \( g_1 \cdot g_2 = 0 \), czyli \( g_1, \ g_2 \) są dzielnikami zera w tym ciele. Nie mają więc odwrotności względem mnożenia, co daje sprzeczność.
 
-    \textit{Pierścień \( \mathbb{Z}_p[X]/(W) \) jest ciałem \( \impliedby \) \( W \) jest nierozkładalny.} \\
-    Wiemy, że \( \integer_p[X]/W \) jest pierścieniem. Wystarczy pokazać, że każdy wielomian \( g \) stopnia mniejszego niż \( W \) ma odwrotność.
-    Skoro \( W \) jest nierozkładalny, to \( \gcd(g, W) = 1 \). Możemy więc zastosować rozszerzony algorytm Euklidesa do znajdowania odwrotności \( g \), która istnieje dla każdego \( g \neq 0 \). Zatem \( \integer_p[X]/W \) jest ciałem.
+	\textit{Pierścień \( \mathbb{Z}_p[X]/(W) \) jest ciałem \( \impliedby \) \( W \) jest nierozkładalny.} \\
+	Wiemy, że \( \integer_p[X]/W \) jest pierścieniem. Wystarczy pokazać, że każdy wielomian \( g \) stopnia mniejszego niż \( W \) ma odwrotność.
+	Skoro \( W \) jest nierozkładalny, to \( \gcd(g, W) = 1 \). Możemy więc zastosować rozszerzony algorytm Euklidesa do znajdowania odwrotności \( g \), która istnieje dla każdego \( g \neq 0 \). Zatem \( \integer_p[X]/W \) jest ciałem.
 \end{proof}

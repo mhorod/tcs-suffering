@@ -1,87 +1,87 @@
 \begin{definition}
-    \textbf{Grupa permutacji} to zbiór \( S_n \) z działaniem składania permutacji.
+	\textbf{Grupa permutacji} to zbiór \( S_n \) z działaniem składania permutacji.
 \end{definition}
 
 \begin{definition}
-    \textbf{Stabilizatorem} \( i \) w grupie permutacji \( A \) jest zbiór \( A_i = \set{\pi \in A : \pi(i) = i} \).
+	\textbf{Stabilizatorem} \( i \) w grupie permutacji \( A \) jest zbiór \( A_i = \set{\pi \in A : \pi(i) = i} \).
 \end{definition}
 
 \begin{definition}
-    \textbf{Orbitą} \( i \) w grupie permutacji \( A \) jest zbiór \(O_i = \set{\pi(i) : \pi \in A}\).
+	\textbf{Orbitą} \( i \) w grupie permutacji \( A \) jest zbiór \(O_i = \set{\pi(i) : \pi \in A}\).
 \end{definition}
 
 Dla danego zbioru permutacji \(\Sigma = \set{\sigma_1, \sigma_2, \ldots, \sigma_k} \subset S_n\) chcemy określić, ile elementów ma grupa \(A \subseteq S_n\) generowana przez \(\Sigma\).
 
 Korzystamy z następującego twierdzenia:
 \begin{theorem}
-    \( \abs{A} = \abs{A_1} \cdot \abs{O_1} \)
+	\( \abs{A} = \abs{A_1} \cdot \abs{O_1} \)
 \end{theorem}
 \begin{proof}
-    Dzielimy grupę \( A \) na podzbiory \( B_1, \ldots, B_n \) zdefiniowane jako:
-    \[
-        B_x = \set{\pi \in A : \pi(1) = x}
-    \]
-    Zbiór \( B_x \) jest niepusty, jeśli \( x \in O_1 \), czyli istnieje permutacja \( \pi \in A \) taka, że \(\pi_x(1) = x\).
-    Zatem odwzorowanie z \( A_1 \) do \( B_x \):
-    \[
-        \zeta \mapsto \pi_x \circ \zeta
-    \]
-    jest bijekcją i każdy niepusty zbiór \( B_x \) jest równoliczny z \( A_1 \). Stąd otrzymujemy:
-    \[
-        \abs{A} = \abs{B_1} + \ldots + \abs{B_n} = \abs{A_1} \cdot \abs{O_1},
-    \]
-    co było do pokazania.
+	Dzielimy grupę \( A \) na podzbiory \( B_1, \ldots, B_n \) zdefiniowane jako:
+	\[
+		B_x = \set{\pi \in A : \pi(1) = x}
+	\]
+	Zbiór \( B_x \) jest niepusty, jeśli \( x \in O_1 \), czyli istnieje permutacja \( \pi \in A \) taka, że \(\pi_x(1) = x\).
+	Zatem odwzorowanie z \( A_1 \) do \( B_x \):
+	\[
+		\zeta \mapsto \pi_x \circ \zeta
+	\]
+	jest bijekcją i każdy niepusty zbiór \( B_x \) jest równoliczny z \( A_1 \). Stąd otrzymujemy:
+	\[
+		\abs{A} = \abs{B_1} + \ldots + \abs{B_n} = \abs{A_1} \cdot \abs{O_1},
+	\]
+	co było do pokazania.
 \end{proof}
 
 Z twierdzenia wynika schemat algorytmu:
 \begin{greyframe}
-    \begin{enumerate}
-        \item Znajdź zbiór \( O_1 \).
-        \item Utwórz zbiór \( \Sigma' \subseteq \Sigma \), który generuje \( A_1 \).
-        \item Rekurencyjnie wyznacz \(\abs{A_1}\).
-        \item Oblicz \(\abs{A} = \abs{O_1} \cdot \abs{A_1}\).
-    \end{enumerate}
+	\begin{enumerate}
+		\item Znajdź zbiór \( O_1 \).
+		\item Utwórz zbiór \( \Sigma' \subseteq \Sigma \), który generuje \( A_1 \).
+		\item Rekurencyjnie wyznacz \(\abs{A_1}\).
+		\item Oblicz \(\abs{A} = \abs{O_1} \cdot \abs{A_1}\).
+	\end{enumerate}
 \end{greyframe}
 
 \newpage
 \subsubsection*{Jak wyznaczyć orbitę \(O_1\)?}
 \begin{greyframe}
-    \begin{enumerate}
-        \item Utwórz graf \( G=(\set{1, \ldots, n}, E) \), gdzie \( E = \set{(x, \sigma_i(x)) : x \in V, \ \sigma_i \in \Sigma } \).
-        \item Wyznacz \( O_1 \), czyli elementy osiągalne z \( 1 \), na przykład BFSem.
-        \item Dla każdego \( x \in O_1 \) zapamiętaj \( \pi_x \in A \) taką, że \( \pi_x(1) = x \). \\
-        Permutacja \(\pi_x\) jest złożeniem generatorów na ścieżce od \( 1 \) do \( x \).
-    \end{enumerate}
+	\begin{enumerate}
+		\item Utwórz graf \( G=(\set{1, \ldots, n}, E) \), gdzie \( E = \set{(x, \sigma_i(x)) : x \in V, \ \sigma_i \in \Sigma } \).
+		\item Wyznacz \( O_1 \), czyli elementy osiągalne z \( 1 \), na przykład BFSem.
+		\item Dla każdego \( x \in O_1 \) zapamiętaj \( \pi_x \in A \) taką, że \( \pi_x(1) = x \). \\
+		      Permutacja \(\pi_x\) jest złożeniem generatorów na ścieżce od \( 1 \) do \( x \).
+	\end{enumerate}
 \end{greyframe}
 
 \subsubsection*{Jak wyznaczyć zbiór \(\Sigma'\) generujący \(A_1\)?}
 Dla \(\sigma_i \in \Sigma\) oraz \(x \in \{1, 2, \ldots, n\}\) konstruujemy:
 \[
-    \tau_{i,x} = \pi_{\sigma_i(x)}^{-1} \circ \sigma_i \circ \pi_x
+	\tau_{i,x} = \pi_{\sigma_i(x)}^{-1} \circ \sigma_i \circ \pi_x
 \]
 Permutacja \(\tau_{i,x}\) działa następująco:
 \[
-    1 \xrightarrow{\pi_x} x \xrightarrow{\sigma_i} \sigma_i(x) \xrightarrow{\pi_{\sigma_i(x)}^{-1}} 1,
+	1 \xrightarrow{\pi_x} x \xrightarrow{\sigma_i} \sigma_i(x) \xrightarrow{\pi_{\sigma_i(x)}^{-1}} 1,
 \]
 czyli \(\tau_{i,x} \in A_1\).
 
 \begin{lemma}[Schreiera]
-    Zbiór \( \Sigma' = \set{\tau_{i,x} : 1 \leq i \leq k, \ 1 \leq x \leq n} \) generuje \( A_1 \).
+	Zbiór \( \Sigma' = \set{\tau_{i,x} : 1 \leq i \leq k, \ 1 \leq x \leq n} \) generuje \( A_1 \).
 \end{lemma}
 \begin{proof}
-    Dowolna permutacja \(\zeta \in A_1\) musi być iloczynem generatorów:
-    \[
-        \zeta = \sigma_s \circ \sigma_{s-1} \circ \ldots \circ \sigma_2 \circ \sigma_1
-    \]
-    Ustalamy \(y_j = (\sigma_j \circ \ldots \circ \sigma_1)(1)\), dla \(j = 1, 2, \ldots, s\) i dodajemy \(\pi_{y_j} \circ \pi_{y_j}^{-1}\) między każde \(\sigma_j\) i \(\sigma_{j+1}\):
-    \[
-        \zeta = \sigma_s \circ \pi_{y_{s-1}} \circ \pi_{y_{s-1}}^{-1} \circ \sigma_{s-1} \circ \pi_{y_{s-2}} \circ \pi_{y_{s-2}}^{-1} \circ \ldots \circ \sigma_2 \circ \pi_{y_1} \circ \pi_{y_1}^{-1} \circ \sigma_1
-    \]
-    Ponieważ \(\pi_1 = \text{id}\), otrzymujemy:
-    \[
-        \zeta = (\pi_1^{-1} \circ \sigma_s \circ \pi_{y_{s-1}}) \circ (\pi_{y_{s-1}}^{-1} \circ \sigma_{s-1} \circ \pi_{y_{s-2}}) \circ \ldots \circ (\pi_{y_1}^{-1} \circ \sigma_1 \circ \pi_1)
-    \]
-    Udało się wygenerować permutację \(\zeta\) jako złożenie generatorów z \(\Sigma'\).
+	Dowolna permutacja \(\zeta \in A_1\) musi być iloczynem generatorów:
+	\[
+		\zeta = \sigma_s \circ \sigma_{s-1} \circ \ldots \circ \sigma_2 \circ \sigma_1
+	\]
+	Ustalamy \(y_j = (\sigma_j \circ \ldots \circ \sigma_1)(1)\), dla \(j = 1, 2, \ldots, s\) i dodajemy \(\pi_{y_j} \circ \pi_{y_j}^{-1}\) między każde \(\sigma_j\) i \(\sigma_{j+1}\):
+	\[
+		\zeta = \sigma_s \circ \pi_{y_{s-1}} \circ \pi_{y_{s-1}}^{-1} \circ \sigma_{s-1} \circ \pi_{y_{s-2}} \circ \pi_{y_{s-2}}^{-1} \circ \ldots \circ \sigma_2 \circ \pi_{y_1} \circ \pi_{y_1}^{-1} \circ \sigma_1
+	\]
+	Ponieważ \(\pi_1 = \text{id}\), otrzymujemy:
+	\[
+		\zeta = (\pi_1^{-1} \circ \sigma_s \circ \pi_{y_{s-1}}) \circ (\pi_{y_{s-1}}^{-1} \circ \sigma_{s-1} \circ \pi_{y_{s-2}}) \circ \ldots \circ (\pi_{y_1}^{-1} \circ \sigma_1 \circ \pi_1)
+	\]
+	Udało się wygenerować permutację \(\zeta\) jako złożenie generatorów z \(\Sigma'\).
 \end{proof}
 Konstrukcja zbioru \( \Sigma' \) jest poprawna, ale w rekurencji jego rozmiar może dojść do \( n! \), ponieważ \( \abs{\Sigma'} \approx n \cdot \abs{\Sigma} \).
 Do kontroli nad tym służy filtr Simsa.
@@ -89,15 +89,15 @@ Do kontroli nad tym służy filtr Simsa.
 \newpage
 \subsection{Filtr Simsa}
 \begin{theorem}
-    Dla dowolnego zbioru \( P \subseteq S_n \) istnieje zbiór \( Q \subseteq S_n \) taki, że podgrupy generowane przez \(P\) i \(Q\) są równe oraz \( \abs{Q} \leq \frac{n(n-1)}{2} \).
+	Dla dowolnego zbioru \( P \subseteq S_n \) istnieje zbiór \( Q \subseteq S_n \) taki, że podgrupy generowane przez \(P\) i \(Q\) są równe oraz \( \abs{Q} \leq \frac{n(n-1)}{2} \).
 \end{theorem}
 Dowód twierdzenia jest algorytmizowalny: \\
 Dzielimy permutacje na klasy -- permutacja \(\zeta \neq \text{id}\) jest klasy \((i, j)\), jeśli:
 \[
-    \zeta(1) = 1, \zeta(2) = 2, \ldots, \zeta(i - 1) = i - 1,
+	\zeta(1) = 1, \zeta(2) = 2, \ldots, \zeta(i - 1) = i - 1,
 \]
 \[
-    \zeta(i) = j > i.
+	\zeta(i) = j > i.
 \]
 Chcemy, żeby w \( Q \) był co najwyżej jeden element z każdej klasy, ponieważ to gwarantuje, że \( \abs{Q} \leq \frac{n(n-1)}{2} \).
 
@@ -105,8 +105,8 @@ Zaczynając od \(Q = \emptyset\), przekładamy permutacje z \(P\) do \(Q\), utrz
 
 Dla każdego elementu \(\zeta \in P\) klasy \((i, j)\):
 \begin{enumerate}
-    \item Jeśli w \(Q\) nie ma nic klasy \((i, j)\), przekładamy \(\zeta\) do \(Q\).
-    \item Jeśli w \(Q\) jest element \(\varphi\) klasy \((i, j)\), zastępujemy \(\zeta\) przez \(\zeta' = \varphi^{-1} \circ \zeta\) i powtarzamy.
+	\item Jeśli w \(Q\) nie ma nic klasy \((i, j)\), przekładamy \(\zeta\) do \(Q\).
+	\item Jeśli w \(Q\) jest element \(\varphi\) klasy \((i, j)\), zastępujemy \(\zeta\) przez \(\zeta' = \varphi^{-1} \circ \zeta\) i powtarzamy.
 \end{enumerate}
 Procedura zachowuje niezmienniki, ponieważ \(\zeta = \varphi \circ \zeta'\), więc zbiór generowany przez \(P \cup Q\) pozostaje taki sam.
 Zmienia się natomiast klasa elementu, ponieważ \(\zeta'(i) = i\), więc \(\zeta'\) jest klasy \((i', j')\), gdzie \(i' > i\).
@@ -116,8 +116,8 @@ Filtr Simsa działa więc w czasie \(\bigO(k \cdot n^2)\), bo operacje na permut
 
 Poszczególne etapy algorytmu Schreiera-Simsa mają złożoność:
 \begin{enumerate}
-    \item Obliczenie orbity \(O_1\) \( \longrightarrow \bigO(\abs{\Sigma} \cdot n) \)
-    \item Wyznaczenie \(\Sigma'\) \( \longrightarrow \abs{\Sigma'} = \bigO(n \cdot \abs{\Sigma}) \)
-    \item Filtrowanie \(\Sigma'\) \( \longrightarrow n^2 \cdot \abs{\Sigma'} = \bigO(n^3 \cdot \abs{\Sigma}) \)
+	\item Obliczenie orbity \(O_1\) \( \longrightarrow \bigO(\abs{\Sigma} \cdot n) \)
+	\item Wyznaczenie \(\Sigma'\) \( \longrightarrow \abs{\Sigma'} = \bigO(n \cdot \abs{\Sigma}) \)
+	\item Filtrowanie \(\Sigma'\) \( \longrightarrow n^2 \cdot \abs{\Sigma'} = \bigO(n^3 \cdot \abs{\Sigma}) \)
 \end{enumerate}
 Algorytm wykonuje \( n \) wywołań rekurencyjnych, a \( \abs{\Sigma} \) w każdym z nich mieści się w \( \bigO(n^2) \), więc łączna złożoność to \( \bigO(n^6) \).

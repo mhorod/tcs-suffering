@@ -3,37 +3,37 @@ Najważniejszym założeniem jest, że nie potrafimy efektywnie odtworzyć klucz
 
 \subsection{Algorytm RSA}
 \begin{greyframe}
-    Algorytm RSA:
-    \begin{enumerate}
-        \item Oblicz \( N = p \cdot q \) dla wybranych liczb pierwszych \( p \), \( q \). \\
-        Wtedy \( \varphi(N) = (p-1) \cdot (q-1) \).
-        \item Wybierz \( e \) względnie pierwsze z \( \varphi(N) \). Oblicz \( d \) takie, że  \( e\cdot d = 1 \pmod{\varphi(N)} \).
-        \item Ustal klucz publiczny \( (e, N) \).
-        \item Zaszyfruj wiadomość \( x \): \( E(x) = x^e \pmod{N} \)
-        \item Odszyfruj wiadomość: \( D(x) = x^d \pmod{N} \)
-    \end{enumerate}
+	Algorytm RSA:
+	\begin{enumerate}
+		\item Oblicz \( N = p \cdot q \) dla wybranych liczb pierwszych \( p \), \( q \). \\
+		      Wtedy \( \varphi(N) = (p-1) \cdot (q-1) \).
+		\item Wybierz \( e \) względnie pierwsze z \( \varphi(N) \). Oblicz \( d \) takie, że  \( e\cdot d = 1 \pmod{\varphi(N)} \).
+		\item Ustal klucz publiczny \( (e, N) \).
+		\item Zaszyfruj wiadomość \( x \): \( E(x) = x^e \pmod{N} \)
+		\item Odszyfruj wiadomość: \( D(x) = x^d \pmod{N} \)
+	\end{enumerate}
 \end{greyframe}
 
 Ad 1. Zamiast \( \varphi(N) \) można użyć (rozwiązanie często stosowane) funkcji Carmichaela
 \[
-    \lambda(N) = \lcm(p - 1, q - 1)
+	\lambda(N) = \lcm(p - 1, q - 1)
 \]
 Funkcja \( \lambda \) znajduje najmniejszą liczbę całkowitą \( x \) taką, że \( x^{\lambda(N)} = 1 \pmod{N} \) dla każdego \( x \) względnie pierwszego z \( N \).
 Wybór \( \lambda(N) \) zamiast \( \varphi(N) \) nie zmniejsza bezpieczeństwa, a daje zazwyczaj mniejszy wykładnik. \\
 Ad 2. Do znalezienia liczby \( d \) można użyć rozszerzonego algorytmu Euklidesa:
 \[
-    e \cdot s + \varphi(N) \cdot t = 1
+	e \cdot s + \varphi(N) \cdot t = 1
 \]
 \[
-    s + \varphi(N) \cdot t \cdot e^{-1} = e^{-1} \pmod{\varphi(N)}
+	s + \varphi(N) \cdot t \cdot e^{-1} = e^{-1} \pmod{\varphi(N)}
 \]
 \[
-    d = s = e^{-1} \pmod{\varphi(N)}
+	d = s = e^{-1} \pmod{\varphi(N)}
 \]
 Dlaczego deszyfrowanie działa? \\
 Rząd grupy multiplikatywnej modulo \( N \) jest równy \( \varphi(N) \), więc dla każdego \( x \) względnie pierwszego z \( N \) zachodzi
 \[
-    (x^{e})^d = x^{ed} = x^{k \cdot \varphi(N) + 1} = x,
+	(x^{e})^d = x^{ed} = x^{k \cdot \varphi(N) + 1} = x,
 \]
 ponieważ \( e \cdot d = 1 \pmod{\varphi(N)} \), a na mocy twierdzenia Lagrange'a \( x^{\varphi(N)} = 1 \).
 
@@ -43,13 +43,13 @@ W tym dniu (18.05.2025), nie ma ani dowodu na to, że algorytm rozkładu na czyn
 
 \subsection{Algorytm Elgamal}
 \begin{greyframe}
-    Algorytm Elgamal:
-    \begin{enumerate}
-        \item Wybierz jakąś grupę \( G \) (np. grupę multiplikatywną ciała \( \mathbb{F}_q \)) i element \( g \in G \) \\ (najlepiej generator).
-        \item Wylosuj liczbę \( x \in \set{1, \ldots, \abs{G}-1} \).
-        \item Ustal klucz publiczny \( (g,g^x) \) i klucz prywatny \( (g,x) \).
-        \item Zaszyfruj wiadomość \( M \): wylosuj liczbę \( y \), wyślij \( (g^y, M \cdot g^{xy}) \). 
-    \end{enumerate}
+	Algorytm Elgamal:
+	\begin{enumerate}
+		\item Wybierz jakąś grupę \( G \) (np. grupę multiplikatywną ciała \( \mathbb{F}_q \)) i element \( g \in G \) \\ (najlepiej generator).
+		\item Wylosuj liczbę \( x \in \set{1, \ldots, \abs{G}-1} \).
+		\item Ustal klucz publiczny \( (g,g^x) \) i klucz prywatny \( (g,x) \).
+		\item Zaszyfruj wiadomość \( M \): wylosuj liczbę \( y \), wyślij \( (g^y, M \cdot g^{xy}) \).
+	\end{enumerate}
 \end{greyframe}
 Otrzymawszy \( (g^y, \ M \cdot g^{xy}) \) i znając klucz prywatny \( x \), można łatwo obliczyć \( g^{xy} \), czyli też odtworzyć \( M = \pars{M \cdot g^{xy}} \cdot g^{-xy} \).
 Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a obecnie ludzkość nie potrafi go rozwiązać.

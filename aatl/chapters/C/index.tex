@@ -6,22 +6,22 @@ Działając w grupie \( \integer_p \) o znanym generatorze \( g \), dla \( g^x =
 Ustalamy zbiór małych liczby pierwszych \( Q = \{q_1, \dots, q_r\} \) -- bazę czynników.
 Wybieramy lub losujemy \( k \), tak żeby uzyskać \( r \) różnych liczb, dla których \( g^k \pmod{p} \) rozkłada się na czynniki z bazy \( Q \). W ten sposób otrzymujemy \( r \) równań postaci:
 \[
-    g^k = q_1^{\beta_1} \cdot \ldots \cdot q_r^{\beta_r} \pmod{p},
+	g^k = q_1^{\beta_1} \cdot \ldots \cdot q_r^{\beta_r} \pmod{p},
 \]
 \[
-    \text{czyli } k = \beta_1 \cdot \log q_1 + \ldots + \beta_r \cdot \log q_r \pmod{p - 1}
+	\text{czyli } k = \beta_1 \cdot \log q_1 + \ldots + \beta_r \cdot \log q_r \pmod{p - 1}
 \]
 
 \textbf{Faza II:} \\
 Znając wszystkie \( \beta_i \) oraz \( k \), chcemy rozwiązać układ równań:
 \[
-    k^{(1)} = \beta_1^{(1)} \cdot \log q_1 + \ldots + \beta_r^{(1)} \cdot \log q_r
+	k^{(1)} = \beta_1^{(1)} \cdot \log q_1 + \ldots + \beta_r^{(1)} \cdot \log q_r
 \]
 \[
-    \cdots
+	\cdots
 \]
 \[
-    k^{(r)} = \beta_1^{(r)} \cdot \log q_1 + \ldots + \beta_r^{(r)} \cdot \log q_r
+	k^{(r)} = \beta_1^{(r)} \cdot \log q_1 + \ldots + \beta_r^{(r)} \cdot \log q_r
 \]
 z niewiadomymi \( \log q_i \). Możemy wykorzystać do tego metody algebry liniowej z dokładnością do jednej trudności -- operacje są modulo \( p-1 \), które nie jest pierwsze, więc niekoniecznie da się policzyć odwrotność względem mnożenia.
 Jako wynik otrzymujemy logarytmy dyskretny liczb \( q_1, \dots, q_r \).

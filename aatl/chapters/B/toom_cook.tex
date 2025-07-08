@@ -1,22 +1,22 @@
 Omówimy algorytm w wersji Toom-\(m\) z przykładem dla \( m = 3 \). Chcemy pomnożyć \(n\)-cyfrowe liczby A i B zapisane w systemie binarnym.
 Rozkładamy je podobnie jak w algorytmie Karatsuby, tym razem na \( K = 2^{n / m} \) składników:
 \[
-    A = A_{m-1} \cdot K^{m-1} + \dots + A_1 \cdot K + A_0
+	A = A_{m-1} \cdot K^{m-1} + \dots + A_1 \cdot K + A_0
 \]
 \[
-    B = B_{m-1} \cdot K^{m-1} + \dots + B_1 \cdot K + B_0
+	B = B_{m-1} \cdot K^{m-1} + \dots + B_1 \cdot K + B_0
 \]
 Traktujemy tak zapisane liczby jak wielomiany:
 \[
-    \mathcal{A}(X) = A_{m-1} \cdot X^{m-1} + \dots + A_1 \cdot X + A_0
+	\mathcal{A}(X) = A_{m-1} \cdot X^{m-1} + \dots + A_1 \cdot X + A_0
 \]
 \[
-    \mathcal{B}(X) = B_{m-1} \cdot X^{m-1} + \dots + B_1 \cdot X + B_0
+	\mathcal{B}(X) = B_{m-1} \cdot X^{m-1} + \dots + B_1 \cdot X + B_0
 \]
 Wtedy wynikiem mnożenia jest \( \mathcal{C}(K) = \mathcal{A}(K) \cdot \mathcal{B}(K) \). Ponieważ wielomian \( \mathcal{C} \) jest stopnia \( 2m-2 \), obliczamy wartości wielomianów \( \mathcal{A}(X) \) i \( \mathcal{B}(X) \) w \( 2m-1 \) punktach.
 Następnie mnożymy punktowo i interpolujemy \( \mathcal{C} \), korzystając z twierdzenia, że dla dowolnych wielomianów \( f \), \( g \) zachodzi:
 \[
-    f(x) \cdot g(x) = (f \cdot g)(x)
+	f(x) \cdot g(x) = (f \cdot g)(x)
 \]
 Wartość wielomianu w punkcie obliczamy w czasie \( \bigO(n) \). \\
 Przyjrzyjmy się złożoności całego algorytmu dla \( m = 3 \). Dzielimy \( A \) i \( B \) na 3 części i traktujemy je jak wielomiany \( \mathcal{A} \) i \( \mathcal{B} \) stopnia 2. Wyznaczamy wartości tych wielomianów w 5 wybranych punktach rekurencyjnie na liczbach długości \( \frac{n}{3} \). To daje złożoność \( T(n) = 5T(\frac{n}{3}) + \bigO(n) \), czyli \( T(n) \in \bigO(n^{\log_3 5}) \approx \bigO(n^{1.46}) \).

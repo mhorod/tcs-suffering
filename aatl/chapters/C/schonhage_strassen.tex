@@ -4,13 +4,13 @@ Wzory rekurencyjne i własność wzajemnej odwrotności DFT i IDFT przenoszą si
 Z twierdzenia Lagrange'a oraz faktu, że \( \integer_p \) jest cykliczna wiemy, że taki element istnieje, jeśli \( n \mid (p - 1) \). Algorytm FFT modulo \( p \) (czyli właśnie NTT) działa dla \( p \) postaci \( q \cdot n + 1 \).
 
 \begin{greyframe}
-    Splatanie ciągów \( A = (a_0, a_1, \ldots, a_n) \) i \( B = (b_0, b_1, \ldots, b_n) \):
-    \begin{enumerate}
-        \item Znajdź \( p \) postaci \( q \cdot n + 1 \), gdzie \( q \) jest niedużą liczbą pierwszą -- można wylosować i sprawdzić pierwszość lub szukać po kolei.
-        \item Znajdź generator \( g \) grupy \( \integer^{*}_p \) -- generatorów jest \( \varphi(q \cdot n) = (q - 1) \cdot \frac{n}{2} \), więc losowanie zadziała.
-        Generator musi spełniać \( g^{\frac{p-1}{2}} \neq 1 \pmod{p} \) oraz \( g^{\frac{p-1}{q}} \neq 1 \pmod{p} \).
-        \item Ustal \( \omega = g^q \) rzędu \( n \) i oblicz splot za pomocą NTT.
-    \end{enumerate}
+	Splatanie ciągów \( A = (a_0, a_1, \ldots, a_n) \) i \( B = (b_0, b_1, \ldots, b_n) \):
+	\begin{enumerate}
+		\item Znajdź \( p \) postaci \( q \cdot n + 1 \), gdzie \( q \) jest niedużą liczbą pierwszą -- można wylosować i sprawdzić pierwszość lub szukać po kolei.
+		\item Znajdź generator \( g \) grupy \( \integer^{*}_p \) -- generatorów jest \( \varphi(q \cdot n) = (q - 1) \cdot \frac{n}{2} \), więc losowanie zadziała.
+		      Generator musi spełniać \( g^{\frac{p-1}{2}} \neq 1 \pmod{p} \) oraz \( g^{\frac{p-1}{q}} \neq 1 \pmod{p} \).
+		\item Ustal \( \omega = g^q \) rzędu \( n \) i oblicz splot za pomocą NTT.
+	\end{enumerate}
 \end{greyframe}
 Można wybrać na tyle duże \( p \), żeby modulo nie miało wpływu na wynik. Przy mnożeniu liczb binarnych wystarczy \( p > n \).
 
@@ -22,32 +22,32 @@ Pierwszym z wyzwań jest wybór pierścienia do obliczeń -- jeśli liczba \( p 
 Liczba \( p \) nie musi być pierwsza, wystarczy nam względna pierwszość z \( n \), (potrzebne jest dzielenie przez \( n \)) i musi istnieć element \( \omega \) rzędu \( n \) modulo \( p \).
 Te warunki spełniają \( p = 2^m + 1 \), \\ \( \omega = 2^{\alpha} \) takie, żeby \( \omega^n = 1 \pmod{p} \). Sprytny dobór liczb upraszcza obliczenia:
 \begin{itemize}
-    \item branie reszty modulo \( p \) -- zauważamy, że \( 2^m = p - 1 = -1 \pmod{p} \), więc możemy podzielić liczbę na \( m \)-cyfrowe fragmenty i dodać je z naprzemiennymi znakami:
-    \[
-        101001110_2 \pmod{2^3 + 1} = 101_2 - 001_2 + 110_2 \pmod{2^3 + 1},
-    \]
-    \item mnożenie przez \( \omega = 2^{\alpha} \) -- dopisujemy zera na końcu liczby binarnej i wyciągamy resztę modulo \( p \),
-    \item dzielenie przez \( \omega = 2^{\alpha} \) -- mnożymy przez \( \omega^{-1} = -2^{m-\alpha} \), czyli też potęgę 2.
-    \item mnożenie dwóch liczb w \( \integer_p \) -- nadal trudne, ale wykonujemy je niewiele razy i można sobie z nim poradzić rekurencją na liczbach o długości \( m \),
+	\item branie reszty modulo \( p \) -- zauważamy, że \( 2^m = p - 1 = -1 \pmod{p} \), więc możemy podzielić liczbę na \( m \)-cyfrowe fragmenty i dodać je z naprzemiennymi znakami:
+	      \[
+		      101001110_2 \pmod{2^3 + 1} = 101_2 - 001_2 + 110_2 \pmod{2^3 + 1},
+	      \]
+	\item mnożenie przez \( \omega = 2^{\alpha} \) -- dopisujemy zera na końcu liczby binarnej i wyciągamy resztę modulo \( p \),
+	\item dzielenie przez \( \omega = 2^{\alpha} \) -- mnożymy przez \( \omega^{-1} = -2^{m-\alpha} \), czyli też potęgę 2.
+	\item mnożenie dwóch liczb w \( \integer_p \) -- nadal trudne, ale wykonujemy je niewiele razy i można sobie z nim poradzić rekurencją na liczbach o długości \( m \),
 \end{itemize}
 
 Algorytm Sch{\"o}nhage-Strassena służy do obliczania iloczynu \( N \)-bitowych liczb \( A \), \( B \) modulo \( p = 2^N + 1 \).
 Jeśli chce się otrzymać wynik pełny (nie modulo), wystarczy przyjąć \( N \) większe od sumy długości liczb na wejściu. Zakładamy, że \( N \) jest potęgą 2. Algorym działa rekurencyjnie, sprowadzając iloczyn \( A \) i \( B \) do splotu wielomianów w mniejszym pierścieniu.
 
 \begin{greyframe}
-    Algorytm fastmul(\( A, B, N \)):
-    \begin{enumerate}
-        \item Rozbijamy liczby \( A \) i \( B \) na fragmenty o długości około \( \sqrt{N} \), czyli na \( t \) binarnych liczb \( b \)-cyfrowych. Liczby \( t, \ b \) powinny być potęgami dwójki wielkości mniej więcej \( \sqrt{N} \).
-        \[
-            A = u_0 + u_1 \cdot 2^b + u_2 \cdot 2^{2b} + \ldots + u_{t-1} \cdot  2^{(t-1)b}
-        \]
-        \[
-            B = v_0 + v_1 \cdot 2^b + v_2 \cdot 2^{2b} + \ldots + v_{t-1} \cdot 2^{(t-1)b}
-        \]
-        Zadanie sprowadza się do pomnożenia dwóch liczb \( t \)-cyfrowych w systemie o podstawie \( 2^b \).
+	Algorytm fastmul(\( A, B, N \)):
+	\begin{enumerate}
+		\item Rozbijamy liczby \( A \) i \( B \) na fragmenty o długości około \( \sqrt{N} \), czyli na \( t \) binarnych liczb \( b \)-cyfrowych. Liczby \( t, \ b \) powinny być potęgami dwójki wielkości mniej więcej \( \sqrt{N} \).
+		      \[
+			      A = u_0 + u_1 \cdot 2^b + u_2 \cdot 2^{2b} + \ldots + u_{t-1} \cdot  2^{(t-1)b}
+		      \]
+		      \[
+			      B = v_0 + v_1 \cdot 2^b + v_2 \cdot 2^{2b} + \ldots + v_{t-1} \cdot 2^{(t-1)b}
+		      \]
+		      Zadanie sprowadza się do pomnożenia dwóch liczb \( t \)-cyfrowych w systemie o podstawie \( 2^b \).
 
-        \item Wykonujemy algorytm NTT w pierścieniu \( \integer_p \) dla \( p = 2^{b'} + 1 \). Wymaga to obliczenia \( 2t \) iloczynów modulo \( 2^{b'} + 1 \) rekurencyjnie.
-    \end{enumerate}
+		\item Wykonujemy algorytm NTT w pierścieniu \( \integer_p \) dla \( p = 2^{b'} + 1 \). Wymaga to obliczenia \( 2t \) iloczynów modulo \( 2^{b'} + 1 \) rekurencyjnie.
+	\end{enumerate}
 \end{greyframe}
 
 W punkcie 2 splatamy liczby w pierścieniu \( \integer_p \) dla \( p = 2^{b'} + 1 \), gdzie \( b' \approx 2b + \log t \) oraz \( t \mid b' \). Bierze się to stąd, że wynik splotu nie przekracza \( p \), czyli \( p > t \cdot \pars{2^b}^2 \), więc \( b' \geq 2b + \log t \).
@@ -55,11 +55,11 @@ Podzielność \( t \mid b' \) jest ważna, żeby rząd \( \omega = 2^{\frac{2b'}
 
 Algorytm można opisać ogólnym równaniem
 \[
-    T(n) = 2 \sqrt{n} \cdot T(\alpha \sqrt{n}) + \Theta(n \log n)
+	T(n) = 2 \sqrt{n} \cdot T(\alpha \sqrt{n}) + \Theta(n \log n)
 \]
 dla pewnego całkowitego \( \alpha \).
 
 Sprowadzamy mnożenie dwóch liczb \( N \)-bitowych do około \( 2\sqrt{N} \) mnożeń liczb o długości \( 4\sqrt{N} \), co daje złożoność \( \bigO(N \log^2 N) \).
 Poprawienie jej do \( \bigO(N \log N \log \log N) \) wymaga zmniejszenia stałych \( (2, 4) \rightarrow (1, 2) \) technicznymi sztuczkami.
-        
+
 W praktyce rekursja jest płytka, ponieważ dla \( N < 10^3 \) lepiej użyć prostszych algorytmów, na przykład Tooma-Cooka albo nawet kwadratowego mnożenia.

@@ -11,11 +11,11 @@ W każdym kroku sprawdzamy, czy \( (\alpha_i, \beta_i) = (\alpha'_i, \beta'_i) \
 
 Pozostaje uszczegółowić wybór funkcji \( f \). Powinna ona rozrzucać wartości ciągu możliwie przypadkowo wśród elementów \( G \). Technika stosowana w praktyce jest następująca:
 \begin{itemize}
-    \onehalfspacing
-    \item Wybieramy małą liczbę naturalną \( n \).
-    \item Wybieramy funkcję haszującą \( h \), która parze liczb całkowitych \( (\alpha, \beta) \) przyporządkowuje liczbę ze zbioru \( \set{1, 2, \dots, n} \).
-    \item Losujemy liczby naturalne \( x_1, \dots, x_n \) oraz \( y_1, \dots, y_n \).
-    \item Definiujemy \( f(\alpha, \beta) = (\alpha + x_s, \beta + y_s) \), gdzie \( s = h(\alpha, \beta) \).
+	\onehalfspacing
+	\item Wybieramy małą liczbę naturalną \( n \).
+	\item Wybieramy funkcję haszującą \( h \), która parze liczb całkowitych \( (\alpha, \beta) \) przyporządkowuje liczbę ze zbioru \( \set{1, 2, \dots, n} \).
+	\item Losujemy liczby naturalne \( x_1, \dots, x_n \) oraz \( y_1, \dots, y_n \).
+	\item Definiujemy \( f(\alpha, \beta) = (\alpha + x_s, \beta + y_s) \), gdzie \( s = h(\alpha, \beta) \).
 \end{itemize}
 
 Algorytm ,,ro'' działa w oczekiwanym czasie \( \bigO\pars{\sqrt{\abs{G}}} \) i stałej pamięci.
