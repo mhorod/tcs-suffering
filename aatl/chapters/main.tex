@@ -1,12 +1,10 @@
-\usepackage{titlesec}
-\usepackage{chngcntr}
 \newcommand{\letterchapterformat}{
-  \titleformat{\chapter}[display]
-    {\normalfont\huge\bfseries}{}{0pt}{}
-  \titlespacing*{\chapter}{0pt}{0pt}{0pt}
-  
-  \renewcommand{\thechapter}{\Alph{chapter}}
-  \renewcommand{\thesection}{\thechapter.\arabic{section}}
+	\titleformat{\chapter}[display]
+	{\normalfont\huge\bfseries}{}{0pt}{}
+	\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+
+	\renewcommand{\thechapter}{\Alph{chapter}}
+	\renewcommand{\thesection}{\thechapter.\arabic{section}}
 }
 
 \letterchapterformat
