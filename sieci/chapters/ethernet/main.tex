@@ -1,0 +1,22 @@
+\section{Historia rozwoju}
+Ethernet został stworzony przez Boba Metcalfe kiedy to pracował on nad rozwojem systemu ALOHA, stworzono wtedy metodę wykrywania kolizji poprzez CSMA/CD. Pierwsza wersja powstała na bazie ALOHA w 1973 roku, ale oficjalnie opublikowana została dopiero w 1980, osiągał wtedy maksymalną przepustowość 2,94Mb/s. Później przez wiele lat udoskonalany, w 2022 roku Metcalfe dostał za ten wynalazek Nagrodę Turinga.
+
+\section{Ramka Ethernet}
+\begin{itemize}
+	\item Nagłówek (7 x 10101010 + 10101011) -- ułatwia synchronizację, wiadomo, kiedy zaczyna się właściwa wiadomość.
+	\item Adres odbiorcy (adres MAC, 6 bajtów).
+	\item Adres nadawcy (6 bajtów).
+	\item typ protokołu / długość komunikatu (2 bajty)
+	\item dane (46-1500 bajtów)
+	\item suma kontrolna (czyli hash, 4 bajty)
+\end{itemize}
+
+\section{Szczegóły działania}
+\begin{itemize}
+	\item Adres MAC -- unikalny adres urządzenia fizycznego zapisywany w postaci szesnastkowej XX:XX:XX:XX:XX:XX.
+	\item Broadcast -- adres FF:FF:FF:FF:FF:FF, transmituje wiadomość do wszystkich.
+	\item Protokół ARP (Address Resolution Protocol) -- służy do tłumaczenia adresów IP na adresy MAC. Wysyłamy broadcast z pytaniem, czy jakaś maszyna ma dany adres IP, którego szukamy. Odpowiada na nie tylko host o adresie podanym w zapytaniu.
+	\item Switche -- urządzenia pośredniczące w komunikacji pomiędzy urządzeniami. Switche przekazują komunikaty (nie kopiują sygnału, tylko rozpoznają ramki i nadają je dalej -- dzięki temu mogą same decydować o tym, kiedy wyślą wiadomość do każdego odbiorcy i np. robić współdzielenie łącza). Mechanizm ten pozwala na minimalizowanie liczby kolizji przy zachowaniu wszechstronnego połączenia. Algorytm switcha: nie odbija wiadomości (nie ma sensu przekazywać wiadomości maszynie, od której się ją dostało), broadcast wysyła wszędzie (poza źródłem). Ramka jest wysyłana w kierunku jej adresata (zapamiętuje, na jakich portach byli obserwowani dani nadawcy, potem wysyła do nich po tych portach) jeśli switch zna ten kierunek, inaczej do wszystkich. Takie ścieżki są pamiętane jakiś czas (rzędu minut), po zapomnieniu uczy się na nowo.
+	\item Cykle w sieci mogą powodować zatory, komunikacja może podróżować w kółko co bez odpowiednich środków zaradczych spowoduje przeciążenie, w dodatku podczas cyklenia się adresy MAC mogą być nieprawidłowo aktualizowane. Stosuje się Spanning Tree Protocol -- switche uczą się sieci i eliminują cykle. W sieci wybierany jest lider (switch z najmniejszym MAC'iem), który na podstawie informacji o sieci decyduje, które kable nie będą używane.
+	\item VLAN (wirtualna sieć lokalna) -- fizyczna sieć podzielona na logiczne segmenty na poziomie drugiej warstwy. Mówimy switchom, po których kabelkach przesyłać daną komunikację, część maszyn traktować jak w jednej sieci, a część jak w drugiej. Połączenie pomiędzy switchami jest uznane za należące do obu sieci. W ramce trzymamy informację o tym, w jakiej sieci została wysłana. Zmieniamy ramkę tak, by było wiadomo, z której sieci idzie wiadomość. W polu z długością komunikatu trzymamy też tryb protokołu, wpisujemy długość dłuższą niż maksymalna możliwa, wtedy wiemy, że dalej będzie numer sieci wirtualnej i dopiero potem długość.
+\end{itemize}
