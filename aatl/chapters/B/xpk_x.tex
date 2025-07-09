@@ -1,0 +1,42 @@
+\begin{theorem}
+	Dane jest ciało \( \mathbb{F} \) charakterystyki \( p \) i liczba \( q = p^k \) dla pewnego \( k \). Jeśli wielomian \( f(X) = X^q - X \) ma \( q \) pierwiastków, to stanowią one \( q \)-elementowe podciało \( \mathbb{F} \).
+\end{theorem}
+\begin{proof}
+	Niech \( A = \{a \in \mathbb{F}: f(a) = 0\} = \{a \in \mathbb{F}: a^q = a\} \) będzie zbiorem pierwiastków. Wystarczy pokazać, że zbiór \( A \) jest zamknięty na działania, bo inne aksjomaty ciała (łączność, przemienność, rozdzielność, etc.) wynikają z faktu, że pracujemy w~\( \mathbb{F} \), które od początku je spełniało.
+	\begin{itemize}
+		\item Elementy neutralne: \( 0, 1 \in A \)
+		\item Element \( -1 \in A \): \\
+		      \( (-1)^q = -1 \) (również dla \( p = 2 \))
+		\item Elementy odwrotne: \\
+		      \( \pars{a^{-1}}^q \cdot a = \pars{a^{-1}}^q \cdot a^q = 1 \), czyli \( \pars{a^{-1}}^q = a^{-1} \in A \)
+		\item Zamkniętość na mnożenie: \\
+		      \( (a \cdot b)^q = a^q \cdot b^q = a \cdot b \) \\
+		      W szczególności, jeśli \( a \in A \), to \( -a = -1 \cdot a \in  A \), stąd mamy elementy odwrotne w dodawaniu.
+		\item Zakmniętość na dodawanie: \\
+		      Najpierw udowodnimy, że w \( \mathbb{F} \) zachodzi \( (a + b)^p = a^p + b^p \) dla dowolnych \( a, \ b \). \\
+		      Wiemy, że:
+		      \[
+			      (a + b)^p = a^p + \ldots + {p \choose i}a^{p-i}b^i + \ldots + b^p
+		      \]
+		      Wszystkie współczynniki \( p \choose i \) dla \( 1 \leq i < p \) są podzielne przez \( p \), bo licznik jest równy \( p! \) \linebreak a mianownik jest niepodzielny przez \( p \).
+		      Zatem w ciele charakterystyki \( p \) wszystkie składniki oprócz \( a^p, \ b^p \) są równe \( 0 \).
+		      Korzystając z tego, dostajemy:
+		      \[
+			      (a + b)^q = ((a + b)^p)^{p^{k-1}} = (a^p + b^p)^{p^{k-1}} = (a^{p^2} + b^{p^2})^{p^{k-2}} = \ldots = a^{p^k} + b^{p^k} = a^q + b^q = a + b
+		      \]
+	\end{itemize}
+\end{proof}
+
+\subsection{Generowanie ciała skończonego}
+Ustalamy nierozkładalny wielomian \( w \) stopnia \( k \), wtedy \( \integer_p^*[X]/(w) \) jest ciałem.
+
+Losując wielomian \( w \) mamy dużą szansę trafić na nierozkładalny na mocy twierdzenia:
+\begin{theorem}
+	Nierozkładalnych wielomianów stopnia \( k \) nad \( \integer_p \) jest co najmniej \( \frac{p^k}{2k} \).
+\end{theorem}
+Przy losowaniu sprawdzamy nierozkładalność wielomianu, korzystając z tego, że:
+\begin{theorem}
+	Dla \( k \in \natural \), wielomian \( X^{p^k} - X \) nad \( \integer_p \) jest iloczynem wszystkich unormowanych wielomianów nierozkładalnych, których stopnie dzielą \( k \).
+\end{theorem}
+Wystarczy więc sprawdzić, czy potencjalny kandydat \( w \) jest względnie pierwszy z \( X^{p^d} - X \) dla każdego \( d < k \) -- jeśli tak, jest nierozkładalny. \\
+\textit{Uwaga techniczna}: Ponieważ \( p^d \) jest potencjalnie bardzo duże, obliczamy najpierw \( X^p \pmod{w} \), a~potem podnosimy wynik do odpowiedniej potęgi \( d \).

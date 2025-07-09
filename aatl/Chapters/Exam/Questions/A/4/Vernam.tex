@@ -1,6 +1,0 @@
-Idea klucza jednorazowego Vernama polega na tym, że mamy sobie osobę A oraz osobę B. Osoba A chce przesłać osobie B wiadomość $x$ zapisaną bitowo oraz mają one między sobą bezpieczny kanał i normalny (być może niebezpieczny) kanał do przesyłania wiadomości. Teraz osoba A losuje sobie $k$ o tej samej długości co wiadomość $x$ oraz wykonuje operacje $w = x \oplus k$. Następnie osoba A przesyła bezpiecznym kanałem wartość $k$ oraz normalnym kanałem wartość $w$. Aby osoba B mogła odczytać $x$ wystarczy, że weźmie i wykona operację $w \oplus k$, gdyż $x = x \oplus k \oplus k$ i xor jest łączny i przemienny a $k \oplus k = 0$. \newline \newline
-Dlaczego to było by super bezpieczne? \newline
-Okazuje się że losując nasze $k$ to wygląda tak samo jakbyśmy osobno losowali jej każdy bit, a co za tym idzie to to że jeżeli wylosujemy 1 na jakimś miejscu to że mienimy ten sam bit na przeciwny w zapisie $x$. Czyli w pełni (no być może pseudolosowo) losowo pozmieniemy wszystkie bity $x$ co za tym idzie, że miedzy kolenymi wysłaniami wiadomości nie ma żadnych relacji i jest on nie do złamania.
-\newline \newline
-Jakie są jego przypadki użycia? \newline 
-Żadne !!! Po co robić cokolwiek jeżeli mamy bezpieczny kanał to poprostu wyślimy $x$ bezpiecznym kanałem i tyle, nie jest wtedy potrzebna żadna kryptografia.

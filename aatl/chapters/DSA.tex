@@ -1,0 +1,75 @@
+\textbf{Digital Signature Algorithm (DSA)} służy do generowania podpisu cyfrowego -- mając wiadomość \( M \) oraz klucz prywatny chcemy wygenerować podpis, czyli obliczyć wartość pewnej funkcji na \( M \), którą może sprawdzić każdy, kto dysponuje kluczem publicznym.
+Bez klucza prywatnego powinno być trudno wygenerować podpis przechodzący pomyślnie weryfikację. \\
+
+\noindent
+Algorytm składa się z następujących etapów:
+\begin{greyframe}
+	Przygotowanie:
+	\begin{enumerate}
+		\item Wybieramy duże liczby pierwsze \( p \) i \( q \) takie, że \( q \mid (p-1) \). Zaleca się \( p \) o długości 2048 lub 3072 bitów i \( q \) o długości 256 bitów.
+		\item Znajdujemy element \( \zeta \), który jest równy \( q \) modulo \( p \). Możemy wylosować \( \xi \), po czym ustalić
+		      \[
+			      \zeta = \xi^{\frac{p-1}{q}}
+		      \]
+		      Wtedy otrzymujemy
+		      \[
+			      \zeta^q = \xi^{p-1} = 1 \mod p,
+		      \]
+		      czyli rząd \( \zeta \) rzeczywiście jest równy \( q \), bo \( q \) jest liczbą pierwszą, więc rząd nie może być mniejszy.
+	\end{enumerate}
+\end{greyframe}
+Wartości \( p \), \( q \) oraz \( \zeta \) są publiczne, wszyscy mogą ich używać (dokładnie tych samych).
+
+\begin{greyframe}
+	Generowanie klucza:
+	\begin{enumerate}
+		\item Losujemy \( x \) i obliczamy \( y = \zeta^x \mod p \).
+		\item Wartość \( x \) jest kluczem prywatnym, a wartość \( y \) kluczem publicznym.
+	\end{enumerate}
+\end{greyframe}
+Odzyskanie klucza prywatnego wymaga rozwiązania logarytmu dyskretnego w~grupie \( \integer^{*}_p \).
+
+\begin{greyframe}
+	Podpisywanie wiadomości:
+	\begin{enumerate}
+		\item Obliczamy hash \( H \) wiadomości \( M \), np. za pomocą \texttt{SHA-2}.
+		\item Losujemy \( k \) z \( \set{2, \ldots, q-1} \).
+		\item Podpisem jest para \( (r, s) \), gdzie:
+		      \[
+			      r = (\zeta^k \mod p) \mod q
+		      \]
+		      \[
+			      s = \frac{H + x \cdot r}{k} \mod q
+		      \]
+	\end{enumerate}
+\end{greyframe}
+
+\begin{greyframe}
+	Weryfikacja podpisu:
+	\begin{enumerate}
+		\item Obliczamy
+		      \[
+			      \alpha = \frac{H}{s} \mod q,
+		      \]
+		      \[
+			      \beta = \frac{r}{s} \mod q,
+		      \]
+		      \[
+			      \gamma = (\zeta^{\alpha} \cdot y^{\beta} \mod p) \mod q
+		      \]
+		\item Jeśli \( \gamma = r \), to podpis się zgadza.
+	\end{enumerate}
+\end{greyframe}
+
+Algorym działa poprawnie.
+\begin{proof}
+	Definiujemy \( w = (H + x \cdot r)^{-1} \mod q \), a wtedy \( \alpha = H \cdot k \cdot w \mod q \) oraz \( \beta = r \cdot k \cdot w \mod q \).
+	Element \( \zeta \) jest dobrany tak, że ma rząd \( q \) modulo \( p \), czyli dla dowolnego \( t \) zachodzi
+	\[
+		\zeta^t \mod p = \zeta^{t \!\!\mod q} \mod p
+	\]
+	\[
+		\gamma = (\zeta^{\alpha} y^{\beta} \!\!\mod p) \!\!\mod q = (\zeta^{H k w \!\!\!\mod q} (\zeta^{x})^{r k w} \!\!\mod p) \!\!\mod q  = \zeta^{k w \cdot (H + x r) \!\!\!\mod q} \!\!\mod p, q
+	\]
+	Z definicji \( w \) jest odwrotnością \( (H + x \cdot r) \) modulo \( q \), zachodzi więc \( \gamma = (\zeta^k \mod p) \mod q \), co (ponownie z definicji) jest równe \( r \).
+\end{proof}

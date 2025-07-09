@@ -1,0 +1,24 @@
+Kryptosystem plecakowy jest systemem kryptograficznym opartym na założeniu o trudności problemu Subset-Sum.
+
+\subsubsection*{Problem Subset-Sum}
+\textbf{Wejście:} Zbiór \( V = \set{v_1, v_2, \dots, v_n} \) oraz liczba \( s \) \\
+\textbf{Wyjście:} Czy istnieje taki zbiór \( A \subseteq V \), że \( \sum_{a \in A} a = s \)? \\
+\textbf{Klasa złożoności:} NP (problem NP-zupełny)
+
+Problem Subset-Sum jest jednak łatwy do rozwiązania, jeśli \( v_1, \dots, v_n \) tworzą ciąg nadrosnący, czyli \( v_i > v_{i-1} + \ldots + v_1 \).
+W takim przypadku działa liniowy algorytm zachłanny, ponieważ jeśli \( v_i \leq s \) jest największym elementem nie przekraczającym \( s \), to musi zostać wybrany, bo~\( v_1 + \ldots + v_{i-1} < s \).
+
+W kryptosystemie plecakowym ustalamy nadrosnący ciąg \( v_1, \dots, v_n \), liczbę \( m > v_1 + \ldots + v_n \) oraz \( a \)~względnie pierwsze z \( m \).
+Konstruujemy ciąg \( w_1, \dots, w_n \), obliczając \( w_i = a \cdot v_i \mod m \), który posłuży za klucz publiczny.
+
+\textbf{Szyfrowanie}: \\
+Chcąc zaszyfrować bity \( b_1, \dots, b_n \), obliczamy i wysyłamy \( s = \sum_i w_i \cdot b_i \). Odtworzenie wartości \( b_i \) jest równoznaczne z wyborem podzbioru \( \set{w_1, \ldots, w_n} \), który sumuje się do \( s \).
+
+\textbf{Deszyfrowanie}: \\
+Otrzymawszy \( s \), obliczamy odwrotność \( a \) modulo \( m \) i otrzymujemy równanie:
+\[
+	s \cdot a^{-1} = \sum_i b_i \cdot v_i \pmod{m}
+\]
+Ponieważ \( m > \sum_i v_i \), rozwiązanie można znaleźć wspomnianym algorytmem zachłannym.
+
+Kryptosystem plecakowy można złamać, ponieważ wielokrotność ciągu nadrosnącego jest szczególnym przypadkiem problemu Subset-Sum, rozwiązywalnym w czasie wielomianowym, co udowodnił Adi Shamir w 1982.
