@@ -57,6 +57,7 @@
 \def\natural{\mathbb{N}}
 \def\integer{\mathbb{Z}}
 \def\real{\mathbb{R}}
+\def\rational{\mathbb{Q}}
 
 % Set theory
 \let\set\braces
@@ -152,6 +153,7 @@
 % TikZ
 \usepackage{pgfplots}
 \usepackage {tikz}
+\usepackage{circuitikz}
 \usepackage{tkz-euclide}
 \usetikzlibrary {positioning,angles,calc,intersections}
 
@@ -231,19 +233,34 @@
 
 % Warning text box
 \usepackage{manfnt}
-\usepackage{pifont, mdframed}
+\usepackage{pifont}
+\usepackage{mdframed}
 
-\newenvironment{warning}
-{
+\newenvironment{customframe}[1]{
 	\par\begin{mdframed}[
-			linewidth=0pt,
-			backgroundcolor=bggrey,
-			roundcorner=25pt,
-			innertopmargin=10pt, innerbottommargin=10pt,
-			innerrightmargin=15pt, innerleftmargin=10pt,
-			skipbelow=10pt, skipabove=10pt
-		]
-		\begin{list}{}{\leftmargin=1cm
-				\labelwidth=\leftmargin}\item[\dbend\;]}
-			{
-		\end{list}\end{mdframed}\par}
+		linewidth=0pt,
+		backgroundcolor=bggrey,
+		roundcorner=25pt,
+		innertopmargin=10pt, innerbottommargin=10pt,
+		innerrightmargin=15pt, innerleftmargin=10pt,
+		skipbelow=10pt, skipabove=10pt
+	]
+	\begin{list}{}{\leftmargin=#1
+		\labelwidth=\leftmargin}\item[]
+}
+{
+    \end{list}\end{mdframed}\par
+}
+
+\newenvironment{warning}{
+	\begin{customframe}{1cm}
+		\item[\dbend\;]
+}{
+	\end{customframe}
+}
+
+\newenvironment{greyframe}{
+	\begin{customframe}{0cm}
+}{
+	\end{customframe}
+}

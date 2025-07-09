@@ -1,0 +1,32 @@
+% \begin{theorem}(O charakterystyce)
+% Charakterystyka ciała skończonego jest zawsze dodatnią liczbą pierwszą.
+% \end{theorem}
+% \begin{proof}
+%     \textit{Charakterystyka jest liczbą dodatnią.} \\
+%     Załóżmy nie wprost, że po dodaniu jedynki \( n = \abs{\mathbb{F}} \) razy, nie udało się otrzymać zera. Jakiś element musiał się więc powtórzyć, czyli dla pewnych \( j < k \) zachodzi \( j \cdot 1 = k \cdot 1 \) w \( \mathbb{F} \).
+%     Wynika z tego, że \( (k - j) \cdot 1 = 0 \), więc mamy skończoną dodatnią charakterystykę. Inaczej każda suma jedynek musiałaby być równa innej wartości, czyli \( \mathbb{F} \) miałoby nieskończenie wiele elementów, co daje sprzeczność.
+
+%     \textit{Charakterystyka jest liczbą pierwszą.} \\
+%     Załóżmy nie wprost, że charakterystyka jest liczbą złożoną \( n = p \cdot q \). Wynika z tego, że
+%     \[
+%         \underbrace{(1 + \dots + 1)}_n = \underbrace{(1 + \dots + 1)}_p \cdot \underbrace{(1 + \dots + 1)}_q = 0,
+%     \]
+%     czyli \( p \) lub \( q \) jest równe 0. Zatem \( n \) nie jest najmniejszą liczbą jedynek, które po dodaniu dają 0, co daje sprzeczność z tym, że \( n \) jest charakterystyką.
+% \end{proof}
+
+% \newpage
+\begin{theorem}
+	Ciało skończone \( \mathbb{F} \)  o charakterystyce \( p \) ma \( p^k \) elementów dla pewnego \( k \in \integer \).
+\end{theorem}
+\begin{proof}
+	Wiedząc, że \( \integer_p \) jest ciałem, możemy wprowadzić mnożenie przez element z \( \integer_p \) elementów z ciała \( \mathbb{F} \):
+	\[
+		a \cdot x = \underbrace{x + x + ... + x}_a, \ a \in \integer_p,\; x \in \mathbb{F}
+	\]
+	Definiujemy w ten sposób przestrzeń liniową \( \mathbb{F} \) nad \( \integer_p \), jako że mamy dodawanie i mnożenie przez skalar. Nasza przestrzeń liniowa ma skończony wymiar \( k \) i bazę \( x_1, \dots, x_k \). \\
+	Każdy element \( x \in \mathbb{F} \) możemy zapisać jako:
+	\[
+		a_1x_1 + a_2x_2 + \dots + a_kx_k
+	\]
+	Różne ciągi \( (a_1, \dots, a_k) \) dają różne elementy \( \mathbb{F} \) z definicji bazy. Stąd liczba elementów \( \mathbb{F} \) jest równa liczbie ciągów \( (a_1, \dots, a_k) \), czyli \( p^k \).
+\end{proof}

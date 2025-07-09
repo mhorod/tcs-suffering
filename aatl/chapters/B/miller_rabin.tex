@@ -1,0 +1,70 @@
+Każda liczba pierwsza \( p \) spełnia Małe Twierdzenie Fermata: \[ a^{p-1} = 1 \pmod{p} \] Byłby to dobry test pierwszości, gdyby nie to, że liczba złożona też może go zdać dla szczególnych \( a \). Algorytm Millera-Rabina rozwiązuje, a przynajmniej minimalizuje ten problem.
+
+W grupie \( \integer_p^{*} \) równanie \( x^2 = 1 \pmod{p} \) ma dokładnie dwa rozwiązania: \( 1 \) i \( p - 1 = -1 \).
+Mając \( a \) takie, że \( a^{n-1} = 1 \pmod{n} \):
+\begin{itemize}
+	\item jeśli \( a^{\frac{n-1}{2}} \neq \pm 1 \), to mamy dowód, że \( n \) jest liczbą złożoną.
+	\item jeśli \( a^{\frac{n-1}{2}} = -1 \pmod{n} \), to \( a \) nie nada się na świadka niepierwszości \( n \).
+	\item jeśli \( a^{\frac{n-1}{2}} = 1 \pmod{n} \), to możemy powtórzyć sprawdzenie dla \( a^{\frac{n-1}{4}}\).
+\end{itemize}
+Składając powyższe przypadki w całość, otrzymujemy algorytm.
+\begin{greyframe}
+	Algorytm Millera-Rabina:
+	\begin{enumerate}
+		\item Znajdź \( s \) i nieparzyste \( k \), dla których \( n-1 = k \cdot 2^s \).
+		\item Wylosuj \( a \in \set{2, \dots, p - 1} \).
+		\item Oblicz \( (r_1, \dots, r_s ) = (a^k, a^{2k}, \dots, a^{2^{s-1}k}, a^{n-1}) \).
+		\item Jeśli \( (r_1, \dots, r_s) = (1, \dots, 1) \), zwróć PIERWSZA.
+		\item Jeśli \( (r_1, \dots, r_s) = (\dots, -1, 1, \dots, 1) \), zwróć PIERWSZA.
+		\item Zwróć ZŁOŻONA.
+	\end{enumerate}
+\end{greyframe}
+Jeśli algorytm orzeka złożoność, na pewno tak jest. W przeciwnym przypadku prawdopodobieństwo pomyłki jest nie większe niż \( \frac{1}{2} \), w praktyce mniejsze od \( \frac{1}{4} \).
+
+\begin{lemma}
+	Niech \( n \) będzie liczbą złożoną. Dla losowego \( a \) liczba \( n \) nie przechodzi testu Millera-Rabina z prawdopodobieństwem co najmniej \( \frac{1}{2} \).
+\end{lemma}
+\begin{proof}
+	Rozważamy dwa przypadki:
+	\begin{itemize}
+		\item \( n \) nie jest potęgą liczby pierwszej. \\
+		      Zapisujemy \( n = p \cdot q \), gdzie liczby \( p, \ q > 1 \) są względnie pierwsze.
+		      Dla grupy
+		      \[
+			      \integer_n^* = \set{a : 1 \le a < n, \gcd(a,n) = 1}
+		      \]
+		      dobieramy takie \( m = \frac{n-1}{2^t} \) dla pewnego \( t \), żeby jakieś \( a \in \integer_n^* \) nie spełniało \( a^m = 1 \).
+		      Sprawdzając \( m = n-1, \frac{n-1}{2}, \dots, \frac{n-1}{2^s} \), w końcu znajdziemy odpowiednie \( m \), ponieważ \( \frac{n-1}{2^s} \) jest nieparzyste, więc dla \( a = -1\)  na pewno \( a^{\frac{n-1}{2^s}} = -1 \ne 1 \).
+
+		      Wybieramy największe takie \( m \), czyli albo \( m = n - 1 \), albo \( a^{2m} = 1 \) dla każdego \( a \in \integer_n^* \). Oznaczmy któreś z \( a \) takich, że \( a^m \neq 1 \) przez \( \alpha \).
+
+		      Wykażemy, że istnieje \( \beta \) takie, że \( \beta^m \neq \pm 1 \). Jeśli \( \alpha^m \neq -1 \), to mamy \( \beta = \alpha \). W~przeciwnym przypadku rozwiązujemy układ równań:
+		      \[
+			      \beta = 1 \pmod{p}
+		      \]
+		      \[
+			      \beta = \alpha \pmod{q}
+		      \]
+		      Chińskie Twierdzenie o Resztach zapewnia istnienie rozwiązania modulo \( p \cdot q = n \). Wtedy \( \beta^m = 1 \pmod{p} \) oraz \( \beta^m = \alpha^m = -1 \pmod{q} \).
+		      Zatem niemożliwe, żeby \( \beta^m \) przystawało do \( \pm 1 \) modulo \( n \).
+
+		      Ustalamy zbiór \( M = \set{a : a^m = \pm 1} \), który stanowi podgrupę \( \integer_n^* \), ponieważ jest podzbiorem elementów odwracalnych zamkniętym na mnożenie.
+		      Wiadomo też, że \( M \subsetneq \integer_n^* \), ponieważ \( \beta \in \integer_n^* \setminus M \). Rząd \( M \) musi więc dzielić rząd \( \integer_n^* \), w szczególności \( |M| < \frac{n-1}{2} \).
+		      Zatem losując \( a \in \set{1, \dots, n-1} \) trafimy na \( a \notin M \) z prawdopodobieństwem co najmniej \( \frac{1}{2} \). Taka podstawa \( a \) świadczy o niepierwszości \( n \), ponieważ dla \( m = n-1 \) albo \( a^{n-1} \neq 1 \), albo \( a^{2m} = 1 \) i \( a^m \neq \pm 1 \), co jest wychwytywane przez algorytm.
+
+		\item \( n = p^k \) jest potęgą liczby pierwszej. \\
+		      Liczby \( M = \set{a : a^{n-1} = 1 \mod n} \) stanowią podgrupę \( \integer_n^* \). Chcemy pokazać, że jest to podgrupa właściwa, czyli istnieje \( \beta \in \integer_n^* \setminus M \)
+		      Dla \( \beta = p + 1 \) zachodzi:
+		      \[
+			      \beta^p = (p + 1)^p = p^p + \ldots + \binom{p}{1} p + 1 = 1 \pmod{p^2},
+		      \]
+		      ponieważ \( p^2 \) dzieli wszystkie składniki oprócz \( 1 \).
+
+		      Skoro \( n = p^k \) dla \( k > 1 \), to \( \beta^n = 1 \pmod{p^2} \).
+		      Gdyby było tak, że \( \beta^{n-1} = 1 \pmod{n} \), to również \( \beta^{n-1} = 1 \pmod{p^2} \), czyli \( \beta^n = b = p + 1 \pmod{p^2} \), co daje sprzeczność. Zatem \( \beta^{n-1} \neq 1 \pmod{n} \).
+
+		      To wystarcza, żeby zamknąć dowód analogicznie jak w pierwszym przypadku.
+	\end{itemize}
+\end{proof}
+Oczywiście można uzyskać jeszcze lepszą wiarygodność, powtarzając test dla kilku \( a \), na przykład 12 kolejnych liczb pierwszych. \\
+Złożoność jednego powtórzenia algorytmu to \( \bigO(\log^3(n)) \), ponieważ trzeba wykonać \( \bigO(\log(n)) \) mnożeń na liczbach długości \( \log(n) \). Można zrobić to szybciej, używając FFT.

@@ -1,0 +1,15 @@
+Algorytm Baby-Step-Giant-Step służy do rozwiązywania problemu logarytmu dyskretnego w~czasie wykładniczym około \( \sqrt{G} \), czyli prawie najlepszym osiągalnym aktualnie dla ludzkości.
+
+W pewnej grupie \( G \) dla zadanych \(a, \ b \in G \), chcemy obliczyć \( x \), spełniające \( a^x = b \).
+\begin{greyframe}
+	Algorytm Baby-Step-Giant-Step:
+	\begin{enumerate}
+		\item Ustal \( s = \ceil{\sqrt{\abs{G}}} \).
+		\item Oblicz \( A = \set{a^0, \dots, a^{s-1}} \).
+		\item Oblicz \( B = \set{b \cdot a^{-s}, \dots,  b \cdot a^{-(s-1)s}} \).
+		\item Jeśli \( A \cap B = \emptyset \), nie ma rozwiązania.
+		\item Wybierz \( u, \ v \) takie, że \( b \cdot a^{-us} = a^v \in A \cap B \). \item Zwróć \( x = u \cdot s + v \).
+	\end{enumerate}
+\end{greyframe}
+
+Wadą tej metody jest złożoność pamięciowa równa czasowej, czyli \( \Theta\pars{\sqrt{\abs{G}}} \).

@@ -1,0 +1,24 @@
+Celem jest rozłożyć liczbę \( n \) na czynniki pierwsze. Zakładamy, że \( n \) jest nieparzyste (można wydzielić największą potęgę 2) i nie jest liczbą pierwszą, czyli, \( n = p \cdot q \), gdzie \( p > q \) są nieparzyste.
+Definiujemy \( a = \frac{p+q}{2} \) oraz \( b = \frac{p-q}{2} \). Wtedy:
+\[
+	a^2 - b^2 = (a+b) \cdot (a-b) = p \cdot q = n
+\]
+Jeśli znajdziemy \( a \) takie, że \( a^2 - n = b^2 \), gdzie \( b^2 \) jest dowolnym kwadratem liczby naturalnej, to możemy łatwo wyliczyć \( p \) i \( q \).
+
+\begin{greyframe}
+	Algorytm faktoryzacji Fermata:
+	\begin{enumerate}
+		\item Ustal \( a = \ceil{\sqrt{n}} \).
+		\item Jeśli istnieje \( b \in \natural \) takie, że \( b^2 = a^2 - n \), to zwróć dzielniki \( p = a+b, \ q = a-b \).
+		\item Wpp powtórz procedurę dla \( a = a + 1\).
+	\end{enumerate}
+\end{greyframe}
+
+Algorytm znajduje rozkład \( n \) na dwa czynniki po około \( a - \sqrt{n} \) krokach, bo trzeba sprawdzić po kolei \( \sqrt{n}, \dots, a \), każde w \( \Theta(1) \).
+Całkowita liczba operacji jest równa:
+\[
+	a - \sqrt{n} = \frac{a^2 - n}{a + \sqrt{n}} = \frac{b^2}{a + \sqrt{n}} \leq \frac{b^2}{\sqrt{n}} = \frac{(p-q)^2}{4\sqrt{n}}
+\]
+Pesymistyczna złożoność algorytmu to \( \bigO(n) \). Jednak przy małej różnicy \( \abs{p - q} \) algorytm działa szybko, a dla  \( \abs{p-q} \leq \sqrt[4]{n} \) nawet w czasie stałym.
+
+Wniosek jest taki, żeby do RSA nie używać liczb pierwszych położonych blisko siebie.

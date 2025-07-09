@@ -1,0 +1,36 @@
+Dla zadanej liczby \( A \) chcemy znaleźć jej rozkład na czynniki pierwsze, umiejąc wyznaczyć rząd dowolnego elementu z \( \integer_A^* \).
+Pomysł jest następujący:
+\begin{greyframe}
+	\begin{enumerate}
+		\item Wylosuj \( a \in \integer_A^* \) o parzystym rzędzie \( r \).
+		\item Jeśli \( d = \gcd(A, \ a^{\frac{r}{2}} - 1) \) jest nietrywialnym dzielnikiem, zwróć \(d\).
+		\item Jeśli \( d' = \gcd(A, \ a^{\frac{r}{2}} + 1) \) jest nietrywialnym dzielnikiem, zwróć \(d'\).
+		\item Wpp powtórz losowanie.
+	\end{enumerate}
+\end{greyframe}
+Ponieważ \( A = (a^{\frac{r}{2}} + 1) (a^{\frac{r}{2}} - 1) \), to z dużym prawdopodobieństem \( d \) jest nietrywialnym dzielnikiem \( A \).
+
+Jak trudno jest wylosować odpowiednie \( a \)?
+\begin{theorem}
+	Niech \( N \) będzie nieparzystą liczbą złożoną, nie potęgą liczby pierwszej. Jeśli \( r \) jest rzędem \( a \in \set{0, \ldots, N-1} \), to prawdopodobieństwo,
+	że \( r \) jest nieparzyste lub \( a^{\frac{r}{2}} = -1 \) nie przekracza \( \frac{1}{2} \).
+\end{theorem}
+\begin{proof}
+	Niech \( N = p_1^{\alpha_1} \cdot \ldots \cdot p_s^{\alpha_s} \), gdzie \(s \geq 2\) i \( 2 \nmid p_i \).
+	Z Chińskiego Twierdzenia o Resztach wynika, że losowanie \(a\) jest równoważne niezależnemu losowaniu s reszt \(a_i\) modulo \(p_i^{\alpha_i}\).
+	Oznaczmy przez \(r_i\) rząd \(a_i\) modulo \(p_i^{\alpha_i}\) oraz niech \(r = \text{lcm}(r_1, \ldots, r_s)\). Niech \(v(r_i)\) oznacza liczbę dwójek w rozkładzie \(r_i\).
+
+	\begin{itemize}
+		\item Żeby \( r \) było nieparzyste, musi zachodzić \( v(r_1) = \ldots = v(r_s) = 0 \).
+		\item Żeby \( a^{\frac{r}{2}} = -1 \), to również \( v(r_1) = \ldots = v(r_s) \). Inaczej byłoby takie~\( i \), dla którego \(2r_i \mid r\), więc też \(a^{r_i} \mid a^{r/2}\).
+		      Czyli zachodziłoby \(a^{r/2} = 1 \pmod{p_i^{\alpha_i}}\), co jest sprzeczne z~tym, że \(a^{r/2} = -1 \mod N\).
+	\end{itemize}
+
+	\newpage
+	Jakie jest prawdopodobieństwo, że tak będzie?
+
+	Korzystamy z tego, że \(G_i = \integer_{p_i^{\alpha_i}}^*\) jest grupą cykliczną. Niech \( G_i \) ma generator \(g\) i rząd \\ \( t = (p_i - 1) \cdot p_i^{\alpha_i-1} \). Zbiory \(G_i' = \{g^1, g^3, g^5, \ldots\}\) i~\(G_i'' = \{1, g^2, g^4, \ldots\}\) są równoliczne, niezależne i \(G_i = G_i' \cup G_i''\).
+	Rząd każdego elementu z \(G_i'\) ma tyle samo dwójek w rozkładzie co \(t\), a rząd elementu z \(G_i''\) ma ich mniej. Wynika z tego, że losując element z \(G_i\), mamy szansę co najmniej \(\frac{1}{2}\) nie trafić w element rzędu \( r \) taki, że \(v(r) = q\) dla ustalonego \(q\).
+
+	Prawdopodobieństwo, że dla wylosowanych \(a_1, \ldots, a_s\) zajdzie \(v(r_1) = \ldots = v(r_s)\), wynosi co najwyżej \(\frac{1}{2^{s-1}} \leq \frac{1}{2}\).
+\end{proof}
