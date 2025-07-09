@@ -1,0 +1,82 @@
+\section{TCP}
+
+\subsection{Podstawy działania}
+Połączeniowy, niezawodny, strumieniowy protokół do przesyłania sieciowego, operuje w warstwie transportowej OSI.
+
+\begin{itemize}
+	\item Podczas transmisji między hostami utrzymywane jest wirtualne trwałe połączenie.
+	\item Zapewnia niezawodny transfer danych, dzięki potwierdzaniu dostarczenia i retransmisji zgubionych pakietów.
+	\item Transmisja jest dwustronna (w jedną stronę dane, w drugą potwierdzenia).
+	\item Radzi sobie z niepoprawną kolejnością.
+	\item Steruje przepływem, zapewniając, że nie przeciąży odbiorcy dzięki mechanizmowi \emph{sliding window}. TCP wysyła tylko tyle pakietów ile zmieści się w tym momencie w buforze użytkownika, kiedy wiadomość jest przetworzona to wysyłany jest ACK tej wiadomości wraz z aktualnym rozmiarem bufora.
+	\item Ma uzgadnianie tożsamości poprzez handshake \ref{handshake}.
+	\item W celu weryfikacji wysyłki i poprawności datagramu używa sum kontrolnych.
+	\item Zakończenie połączenia może być zainicjowane przez dowolną stronę, wysyłany jest pakiet z flagą FIN. Operacja ta wymaga potwierdzenia pakietem z flagą FIN-ACK, w awaryjnych przypadkach można też zakończyć połączenie flagą RST (reset), co nie wymaga potwierdzenia.
+\end{itemize}
+
+\subsection{Stany połączenia}
+Połączenie może znajdować się w jednym z 11 stanów.
+\begin{multicols}{2}
+	\begin{itemize}
+		\item \textbf{LISTEN}
+		\item \textbf{SYN-SENT}
+		\item \textbf{SYN-RECEIVED}
+		\item \textbf{ESTABLISHED}
+		\item \textbf{FIN-WAIT-1}
+		\item \textbf{FIN-WAIT-2}
+		\item \textbf{CLOSE-WAIT}
+		\item \textbf{CLOSING}
+		\item \textbf{LAST-ACK}
+		\item \textbf{TIME-WAIT}
+		\item \textbf{CLOSED}.
+	\end{itemize}
+\end{multicols}
+
+\subsection{Potrójny uścisk dłoni (three-way handshake)}
+\label{handshake}
+\begin{itemize}
+	\item Pierwsze urządzenie wysyła drugiemu wiadomość SYN (synchronize), z własnym numerem \(x\).
+	\item Drugie urządzenie odpowiada wiadomością SYN-ACK, z własnym numerem \(y\) i potwierdzającym \(x+1\).
+	\item Pierwsze urządzenie odpowiada wiadomością ACK, z numerem potwierdzającym \(y+1\).
+	\item Drugie już nie odpowiada, synchronizacja zakończona.
+\end{itemize}
+
+\subsection{Prędkość przesyłu}
+\textbf{Slow start} to algorytm na kontrolę szybkości transmisji, gdy nie znamy prędkości łącza. Zaczynamy od bardzo powolnego przesyłu i zwiększamy jego prędkość, póki dostajemy poprawne potwierdzenie jej otrzymania. Kiedy jej nie dostaniemy to zmniejszamy prędkość. Najczęściej implementowane poprzez bin-search. Nie jest idealne, ale działa bardzo dobrze kiedy wszyscy użytkownicy sieci się do tego stosują, gdyż dzieli wtedy łącze po równo. Mamy różne strategie:
+\begin{itemize}
+	\item TCP Tahoe -- zaczyna się od małej wartości, rośnie wykładniczo do ustalonej stałej, potem liniowo. Przy pojawieniu się problemów prędkość spada do początkowej wartości.
+	\item TCP Reno -- w miarę to samo, tylko spada do tej wartości, od której zaczyna się wzrost liniowy.
+	\item TCP Vegas
+	\item Cubic -- podobny mechanizm, tylko funkcja liniowa jest zastąpiona sześcienną. Działa np. w Linux'ie.
+\end{itemize}
+
+\section{UDP}
+Protokół stosowany w warstwie transportowej OSI, nie gwarantuje dostarczenia datagramu.
+
+\subsection{Zastosowania}
+\begin{itemize}
+	\item DHCP - protokół umożliwiający hostom uzyskania od serwera danych konfiguracyjnych. Musi używać UDP bo w momencie gdy prosimy serwer o te dane nie mamy jeszcze nadanego adresu IP, a TCP wymaga posiadania stałego adresu IP.
+	\item DNS - używa UDP bo komunikaty są małe i muszą być wysłane tak szybko jak to możliwe.
+\end{itemize}
+
+\section{Różnice między TCP a UDP}
+Są używane w różnych scenariuszach, TCP znacznie popularniejszy.
+\begin{enumerate}
+	\item \textbf{Prędkość}. UDP znacznie szybszy od TCP.
+	\item \textbf{Połączenie}.
+	      \begin{itemize}
+		      \item TCP jest zorientowany na połączenie, podczas wysyłania danych trwa ciągła komunikacja.
+		      \item UDP wysyła wszystko jak leci, bez zastanowienia.
+	      \end{itemize}
+	\item \textbf{Gwarancje i kolejność pakietów}.
+	      \begin{itemize}
+		      \item TCP gwarantuje pełność i odpowiednią kolejność pakietów.
+		      \item W UDP dane mogą przyjść w złej kolejności, albo nawet wcale.
+	      \end{itemize}
+	\item \textbf{Zastosowania}.
+	      \begin{itemize}
+		      \item TCP używane wszędzie, gdzie potrzebne jest niezawodne połączenie i gwarancja poprawności danych.
+		      \item UDP jest używane, gdy zależy nam na przesyle o jak najmniejszym opóźnieniu, używany przede wszystkim w streamingu wideo i grach online, dla których utrata pojedynczego pakietu nie jest istotna.
+	      \end{itemize}
+	\item Większość implementacji faworyzuje transfer TCP nad UDP.
+\end{enumerate}

@@ -1,0 +1,29 @@
+\section{BitTorrent}
+Zdecentralizowany protokół wymiany i dystrybucji plików przez Internet, którego celem jest odciążenie łączy serwera udostępniającego pliki. Jego największą zaletą w porównaniu do protokołu HTTP jest podział pasma pomiędzy osoby, które w tym samym czasie pobierają dany plik. Oznacza to, że użytkownik w czasie pobierania wysyła fragmenty pliku innym użytkownikom.
+
+Chcemy stworzyć zdecentralizowaną sieć, która będzie niezależna od działania konkretnych serwerów. Mamy wiele klientów, żadnego serwera, pobieramy pliki od każdego -- wysyłamy zapytanie o plik, dostajemy odpowiedź od dowolnego klienta. Jest podział na paczki, każdą paczkę można dostać od kogoś innego. Jest zachęta do wysyłania plików w sieci -- klienci wysyłają dane tylko do klientów, którzy im coś wysłali. Z tego powodu klienci faktycznie dzielą się plikami, a nie tylko pobierają je.
+
+\section{Torrentowe Pojęcia}
+\begin{itemize}
+	\item \textbf{Peer} -- użytkownik, który w danym momencie pobiera i udostępnia dany plik.
+	\item \textbf{Seeder} -- użytkownik, który posiada kompletny plik i udostępnia go innym osobom.
+	\item \textbf{Tracker} -- serwer przekazujący informacje (adresy IP) o innych użytkownikach pobierających dany plik.
+	\item \textbf{Plik .torrent} -- metaplik zawierający niezbędne informacje (między innymi zawartość archiwum i adres trackera, sumy kontrolne plików) do rozpoczęcia pobierania pliku.
+	\item \textbf{Magnet} -- typ linku URI używany w torrentach, który prowadzi do jakiegoś pliku, plik jest identyfikowany poprzez jego hasz, a nie lokalizacje czy nazwę.
+\end{itemize}
+
+\section{DHT}
+\textbf{Rozproszona tablica mieszająca} (z ang. distributed hash table, DHT) służy w sieciach P2P do odszukania komputerów, na których znajduje się plik. Działa jak zwykła hasz mapa, ale przestrzeń adresowa jest rozrzucona po różnych komputerach, dobrze zaimplementowana jest jednak odporna na awarie urządzeń składowych.
+
+\textbf{Chord} to protokół do implementacji DHT w sieci P2P. Przypisujemy każdemu wierzchołkowi (urządzeniu) zestaw kluczy, który ma zapamiętać. Robimy cykl haszy, do którego wpinają się komputery losując hasz i przechodzimy po nim. Pamiętamy jump-pointery do kolejnych potęg dwójki, żeby było szybciej. Oczywiście część miejsc w naszym kółku będzie niezapełniona przez żadne urządzenie.
+
+Każdy klient pamięta część tablicy, a że mogą się komunikować, to można przekazać prośbę o odczyt lub zapis. W ten sposób pamiętamy dane, którymi się dzielimy i tablice klientów, którzy posiadają dane.
+
+Klienci mogą się odłączać, chcemy nie stracić naszej bazy. Dlatego trzymamy dane w miejscu odpowiadającemu ich haszowi i jeszcze w kilku kolejnych. Nowi klienci muszą mieć połączenie do jakiegoś jednego, mając to mogą się wpiąć w bazę -- nadać sobie hasz i zająć odpowiednie miejsce. Takie zmiany powodują, że jump pointery często się deaktualizują, więc co jakiś czas budujemy je od nowa.
+
+Można przejąć bazę jak poda się konkretny hasz i połączy wiele swoich klientów z danym obszarem bazy -- wtedy ma się wyłączne posiadanie części danych i można je usunąć odłączając się. Dlatego chcemy aby obliczenie hasza klienta było trudne obliczeniowo (nie można wtedy samemu stworzyć wielu klientów) i co jakiś czas zmieniamy haszowanie.
+
+Wpisując plik do tablicy wpisujemy go pod jego hasz -- wtedy sam się podpisuje i sprawdzenie poprawności to po prostu policzenie hasza i porównanie z miejscem w tablicy.
+
+\section{TOR}
+TOR to sieć, która dzięki P2P zapewnia użytkownikom prawie anonimowy dostęp do zasobów, który nie podlega analizie ruchu sieciowego. Wielowarstwowo szyfruje komunikaty (stąd ta cebula w logo). Bazuje na protokole SOCKS, który polega na wymianie pakietów przy pośrednictwie serwera proxy.  Użytkownik musi mieć uruchomiony program, który łączy się z serwerem pośredniczącym (węzłem). Zwykle komunikacja przechodzi przez wiele węzłów, przez co trudne jest ustalenie jej trasy.

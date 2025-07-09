@@ -5,6 +5,7 @@ Notes from subjects taught on the [Theoretical Computer Science course at Jagiel
 Currently, this repository contains notes for the following:
 - `dyskretna` – Discrete Mathematics (Matematyka Dyskretna)
 - `systemy-operacyjne` – Operating Systems (Systemy Operacyjne)
+- `sieci` - Computer Networks (Sieci Komputerowe)
 - `mpumy` – Probabilistic Methods in Machine Learning (Metody Probabilistyczne w Uczeniu Maszynowym)
 - `aatl` – Algorithms in Algebra and Number Theory (Algorytmy Algebry i Teorii Liczb)
 - `probabil` – Probabilistic Methods in Computer Science (Metody Probabilistyczne Informatyki)
