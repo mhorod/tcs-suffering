@@ -1,0 +1,75 @@
+\section{Charakterystyka}
+Rozważamy warstwę internetu, czyli tworzenie sieci, które są bardzo duże. Potrzebujemy w jakiś sposób adresować nasze maszyny, mieć sposób znajdowania tras dla naszych pakietów. Małe sieci, które będziemy łączyć, będą bardzo różne, kolejne metody transportu danych będą się różnić, musimy mieć komunikat, który będzie pasował do wszystkich. Chcielibyśmy też mieć możliwość wysyłania do wielu adresatów, w jakiś sposób związanych ze sobą. Musimy też zajmować się buforowaniem danych.
+
+Na niższych poziomach mamy nadane losowo adresy MAC, pojawiają się też różne dziwne pomysły (np. adresowanie sieci za pomocą klucza publicznego, którego używa kryptografia sieci).
+
+W warstwie internetu mamy adresy IP -- krótkie (4 bajty), prefix adresu ma sygnalizować lokalizację -- adresy o tym samym prefixie powinny znajdować się blisko siebie (geograficznie). Mamy też adresy DNS -- adresujemy czytelnym dla człowieka ciągiem znaków.
+
+Komputery łączące się w sieć są ze sobą bezpośrednio połączone za pomocą różnych technologii. Jeden komputer generuje pakiet IP i adresuje go do innego komputera. Chcemy znaleźć ścieżkę między nimi w sieci, która jest jak najkrótsza i daje najmniejsze opóźnienie. Jednocześnie chcemy to robić szybko. Właściwie sprowadza się to do znalezienia najkrótszej ważonej ścieżki w grafie. Problem jest taki, że sieć cały czas się zmienia, bo np. jedne połączenia są bardziej zajęte niż inne. Do tego komputery mogą łączyć się i odłączać.
+
+Pomysł na efektywny routing jest taki, że tworzymy hierarchię sieci, dzielimy ją na fragmenty, które odpowiadają prefixom w numerach IP. Znacznie ogranicza to rozmiar problemu -- jeśli dzielimy po bajtach, to na najwyższym poziomie mamy 256 wierzchołków, więc nawet trzymanie wszystkich tras działa sensownie. Następnie wewnątrz tych fragmentów znowu dzielimy na fragmenty i powtarzamy cały pomysł.
+
+W tej chwili dzielimy nie na cztery jednostki, tylko na dwie. Mamy Autonomous Systems (AS), które odpowiadają pierwszej połowie adresu IP. Wewnątrz nich rozchodzimy się na faktyczne adresy IP maszyn.
+
+Podczas przesyłania danych pojawia się problem, gdy wiele pakietów chce wykorzystać to samo połączenie. Wtedy nie mamy miejsca, żeby zmieścić wszystkie na raz, musimy buforować pakiety. Dane są przesyłane po równo (wolniej niż przychodzą), reszta jest zapamiętywana, czeka w kolejce do wysłania. Jeśli bufor jest nieograniczony, to wraz ze wzrostem kolejki opóźnienia mogą bardzo rosnąć.
+
+Dlatego ograniczamy bufor, jak przychodzi niemieszczący się pakiet, to możemy wyrzucać ten, który jest najstarszy -- wtedy mamy zerową przepustowość, bo nawet jak wyślemy pakiet, to następny router go odrzuci, bo już będzie stary. Możemy wyrzucać losowe pakiety, co powoduje, że połączenia wysyłające więcej są karane (bo mają większą szansę, że ich pakiet zostanie odrzucony). To powoduje, że komputery będą chciały dzielić się połączeniami po równo.
+
+Współpraca z wyższymi warstwami: ECN (Explicit Congestion Notification) informuje nadawcę o zatorze, żeby podjąć odpowiednie działania. Oznacza pakiety poprzez odwrócenia bitu nagłówków. Hipotetyczna sytuacja:
+\begin{itemize}
+	\item X wysyła kopertę do Z dwa domy od niego.
+	\item X przekazuje kopertę pośrednikowi Y.
+	\item Jeśli Y jest zatłoczony, to stawia krzyżyk w rogu koperty i przekazuje ją dalej.
+	\item Kiedy Z otrzymuje kopertę i odnotowuje krzyżyk, to wie, że u któregoś z pośredników jest tłoczno.
+	\item Z wysyła ACK do X, również oznaczając je krzyżykiem i w ten sposób X też wie o zatorze.
+\end{itemize}
+
+\textbf{QoS (Quality of Service)} - charakterystyka usługi komunikacyjnej obejmująca następujące mechanizmy kształtowania i ograniczania przepustowości:
+\begin{itemize}
+	\item Zapewnianie sprawiedliwego dostępu do zasobów.
+	\item Nadawanie odpowiednich priorytetów pakietom wędrującym przez sieć.
+	\item Zarządzanie opóźnieniami w przesyle danych.
+	\item Zarządzanie buforowaniem nadmiarowych pakietów (DRR, WFQ, WRR):
+	      \begin{itemize}
+		      \item DDR (Deficit Round Robin) - mechanizm zarządzania pamięcią.
+		      \item WRR (Weighted Round Robin) - mechanizm zarządzania pakietami.
+		      \item WFQ (Weighted Fair Queuing) - mechanizm zarządzania przepływami w oparciu o przypisane im wagi.
+	      \end{itemize}
+	\item Określenie charakterystyki gubienia pakietów.
+	\item Unikanie przeciążeń (CAC, UPC): CAC - Connection Admission Control, UPC - Usage Parameter Control.
+\end{itemize}
+
+\textbf{RED (Random Early Detection)} - algorytm kolejkowania oraz unikania zakleszczeń. W tradycyjnym algorytmie router lub inne urządzenie sieciowe buforuje tyle pakietów, ile tylko może, a resztę po prostu odrzuca.
+
+\section{Adresy IP}
+Ważne adresy IP, wydzielone do specjalnych zadań (notacja /x oznacza, że pierwsze x bitów jest ustalonych):
+\begin{itemize}
+	\item 0.0.0.0/8 -- obecna sieć.
+	\item 127.0.0.0/8 -- adres loopback, w szczególności 127.0.0.1 to localhost.
+	\item  prywatne sieci 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, które są używane w sieciach lokalnych.
+	\item 255.255.255.255 -- broadcast.
+	\item 192.88.99.0/24 -- IPv6 to IPv4 relay.
+	\item 224.0.0.0/4 -- IP Multiticast.
+\end{itemize}
+
+Maska (czyli /x) określa, które bity muszą się zgadzać.
+
+Multicasty są realizowane poprzez zakładanie wirtualnego adresu IP dla całej grupy odbiorców.
+
+Zasięg adresów zaczynających się od 10 jest ograniczony do sieci prywatnej. Dlatego można nadać taki sam numer wielu urządzeniom, jeśli tylko są w różnych sieciach prywatnych.
+
+Adresy są globalnie zarządzane przez IANA. Organizacja sprzedaje paczki adresów organizacjom na dany region świata.
+
+\section{Protokoły towarzyszące IP}
+\begin{itemize}
+	\item ARP (Address Resolution Protocol) -- protokół do mapowania logicznych adresów warstwy sieciowej na fizyczne adresy warstwy łącza danych.
+	\item DHCP (Dynamic Host Configuration Protocol) -- protokół komunikacyjny umożliwiający hostom uzyskanie od serwera danych konfiguracyjnych, np. adresu IP hosta.
+	\item ICMP (Internet Control Message Protocol) -- protokół do diagnostyki sieci i trasowania. Kontroluje transmisję danych.
+	\item IGMP (Internet Group Management Protocol) -- protokół do zarządzania grupami multicastowymi.
+\end{itemize}
+
+Działanie tego wszystkiego można zobaczyć na stronach:
+\begin{itemize}
+	\item \href{https://www.iana.org/numbers}{https://www.iana.org/numbers}
+	\item \href{https://stat.ripe.net}{https://stat.ripe.net}
+\end{itemize}

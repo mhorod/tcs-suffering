@@ -1,0 +1,63 @@
+\section{Wi-Fi}
+Wi-Fi to standard bezprzewodowej radiowej komunikacji. Buduje się w niej wirtualne sieci lokalne oparte na routerach (punktach dostępowych), przez które urządzenia się komunikują. Maksymalna przepustowość to około 1000Mbit/s.
+
+\subsection{Wykrywanie kolizji}
+W technologiach radiowych niemożliwe jest wykrywanie kolizji podczas przesyłu, więc Wi-Fi nasłuchuje tylko na początku czy coś jest wysyłane i zaczyna wysyłać dopiero jak pasmo jest wolne, nie może przerwać w trakcie, później używa
+potwierdzeń, aby ustalić czy transmisja się udała.
+
+\subsection{Podłączanie się}
+Chcąc podłączyć się do sieci Wi-Fi urządzenie nasłuchuje wysyłanych periodycznie przez punkty dostępowe Beacon Frame'ów, które zawierają informacje o sieci. Klient informuje punkt dostępu o chęci komunikacji i następuje negocjacja zabezpieczeń (jeśli sieć jest zabezpieczona). Większość sieci jest zabezpieczona protokołami WPA lub WPA2. Wymieniają one wtedy klucze uwierzytelniające i jeśli są one poprawne, to ustalane są klucze, które będą używane do komunikacji między urządzeniami. W WPA używa się do tego 4-way handshake'ów. Ustalany jest adres IP podłączonego urządzenia i można zacząć komunikacje.
+
+\subsection{Point to Point Wi-Fi}
+Point to Point Wi-Fi to bezprzewodowa metoda rozprzestrzeniania łączności internetowej na dużych obszarach bez konieczności stosowania rozbudowanego okablowania. Osiąga się to poprzez utworzenie pojedynczego szybkiego łącza w optymalnej lokalizacji oraz wykorzystanie anten i sprzętu radiowego PtP do skonfigurowania dodatkowych punktów połączeń.
+
+\subsection{Wi-Fi + Ethernet}
+Połączenie Wi-Fi i Ethernetu polega odbywa się przez punkt dostępowy. Punkt dostępowy jest podłączony kablem do sieci Ethernet i umożliwia on komunikację urządzenia do niego podłączonym.
+
+\subsection{Problemy z komunikacją}
+W sieciach Wi-Fi sygnały słabną z odległością, występują zakłócenia (w szczególności sygnał może sam siebie zakłócić), często nie widać innych uczestników komunikacji -- problem ukrytej stacji (nie widzimy, że ktoś inny nadaje do naszego rozmówcy, nie wiemy o zakłóceniu) i eksponowanej stacji (widzimy, że ktoś nadaje, a nasz rozmówca nie, wydaje nam się, że wystąpiło zakłócenie).
+
+Możemy zastosować kształtowanie wiązki, czyli kierowanie sygnału Wi-Fi w określonym kierunku (nie we wszystkich kierunkach jak router) oraz protokół QAM (Quadrature Amplitude Modulation), który tłumaczy cyfrowe paczki danych na sygnał analogowy.
+
+\subsection{Role punktów dostępu}
+\begin{itemize}
+	\item AP (Access Point) w Wi-Fi wzmacnia sygnał z routera.
+	\item BTS w GSM (Base Transceiver Station) to stacja bazowa w systemie radiotelefonii Global System for Mobile Telecommunication (standard telefonii komórkowej).
+	\item Nawiązywanie połączenia.
+	\item Sterowanie komunikacją.
+	\item Przekazywanie połączenia.
+	\item Bezpieczeństwo.
+\end{itemize}
+
+\subsection{Kontrola przepływu}
+W zależności od protokołu podczas transmisji często konieczne jest wysłanie specjalnej wiadomości informującej drugą stronę o stanie transmisji np.:
+\begin{itemize}
+	\item \textbf{ACK (Acknowledgement)} - wiadomość z potwierdzeniem dostarczenia poprawnej wiadomości wysyłana przez odbiorcę.
+	\item \textbf{ARQ (Automatic Repeat Request / Query)} - retransmituje wiadomość, jeśli ACK nie przyszło przed upływem określonego czasu. Używane w przypadku zmiennej lub nieznanej przepustowości.
+	\item\textbf{LDCP (Low-Density Parity Check)} - kody wyznaczane liniowo, które pozwalają na wykrywanie błędów w wiadomościach rzadkich
+	\item \textbf{RTS i CTS (request to send / clear to send)} - opcjonalny mechanizm rozwiązujący problem ukrytej stacji. Działa, jeśli urządzenia z niego korzystają. Jest wykorzystywany przy przesyłaniu dużych paczek danych.
+\end{itemize}
+
+\subsection{Bezpieczeństwo Wi-Fi}
+\begin{itemize}
+	\item Szyfrowanie kluczem symetrycznym AES (Advanced Encryption Standard) to algorytm symetrycznego szyfru blokowego o rozmiarze porcji wynoszącym 128 bitów. Konwertuje pojedyncze bloki przy użyciu kluczy o długości 128, 192 i 256 bitów. Po zaszyfrowaniu tych bloków łączy je ze sobą, tworząc zaszyfrowany tekst.
+	\item CCMP (Counter Mode with Cipher Block Chaining Message Authentication Code Protocol) to protokół szyfrowania stanowiący część standardu dla bezprzewodowych sieci lokalnych (WLAN). CCMP używa szyfru AES do szyfrowania wrażliwych danych. Wykorzystuje 128-bitowe klucze i 48-bitowy wektor inicjujący (CCM) do wykrywania powtórek.
+
+	      CCMP = CTR + CBC-MAC, gdzie
+
+	      CTR (counter mode) - tryb szyfrowania \textbf{AES}, w którym wszystkie kroki można wykonywać równolegle
+
+	      CBC-MAC (Cipher Block Chaining Message Authentication Code) - technika konstruowania kodu uwierzytelniającego wiadomość (MAC). Wiadomość jest szyfrowana za pomocą algorytmu szyfru blokowego w trybie łączenia bloków szyfru (CBC) w celu utworzenia łańcucha bloków w taki sposób, że każdy blok zależy od prawidłowego zaszyfrowania poprzedniego bloku. Ta współzależność gwarantuje, że zmiana dowolnego bitu tekstu jawnego spowoduje zmianę końcowego zaszyfrowanego bloku w sposób, którego nie można przewidzieć bez znajomości klucza do szyfru blokowego
+	\item WPA-PSK (Wi-Fi Protected Access Pre-Shared Key), 4-way handshake. WPA to protokół zabezpieczeń sieci Wi-Fi z silnym algorytmem szyfrowania oraz uwierzytelnianiem użytkownika. WPA-PSK to wersja protokołu WPA ze współdzielonym kluczem. Wszystkie podłączone stacje wykorzystują jeden wspólny klucz (hasło) do autoryzacji i szyfrowania transmisji.
+	\item WPA-Enterprise -- system zabezpieczeń oparty na uwierzytelnianiu klucza za pomocą serwera RADIUS, co często wiąże się z koniecznością posiadania odpowiedniego certyfikatu. W przeciwieństwie do WPA-PSK każdy użytkownik dostaje oddzielny klucz.
+	\item SAE (Diffie-Hellman) w WPA3 (Simultaneous Authentication of Equals) -- mechanizm równoczesnego uwierzytelniania równych stron, pozwalający zapobiegać ujawnieniu komunikacji klienta, kiedy hasło zostanie odgadnięte (np. brute forcem).
+\end{itemize}
+
+\subsection{Inne sieci bezprzewodowe}
+\begin{itemize}
+	\item LTE (Long Term Evolution) -- standard przesyłu danych w sieci 4g.
+	\item Ad-hoc -- struktura sieci bezprzewodowej bez centralnego punktu dostępu.
+	\item Sensor networks -- sieć czujników komunikujących się między sobą i / lub przesyłających dane do wspólnego punktu.
+	\item Bluetooth -- standard bezprzewodowej komunikacji krótkiego zasięgu.
+	\item Zigbee -- protokół transmisji danych w sieci bezprzewodowej (np. mesh, cluster tree). Podobny do Wi-Fi, ale zużywa mniej energii. Ma zasięg do 100 km.
+\end{itemize}

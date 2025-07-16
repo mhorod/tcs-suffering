@@ -1,0 +1,32 @@
+\section{Twierdzenie Fouriera}
+\begin{theorem}[Fourier]
+	Rozsądne funkcje okresowe wyrażają się szeregiem funkcji trygonometrycznych.
+	\[
+		f(x) = c_0 + \sum_{i=1}^\infty a_i \sin(i \cdot x) + \sum_{i=1}^\infty b_i \cos(i \cdot x)
+	\]
+
+	\[
+		c_0 = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(x)dx
+	\]
+	\[
+		a_i = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin(i \cdot x) dx, \ b_i = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(i \cdot x) dx
+	\]
+\end{theorem}
+\begin{proof}
+	Trygonometria jest \textit{magiczna}.
+\end{proof}
+
+\section{Twierdzenie Nyquista}
+\begin{theorem}[Nyquist]
+	Jeżeli funkcja \(f\) nie ma składowych o częstotliwościach większych niż \(B\) Hz i próbkujemy ją z częstotliwością \(2B\) Hz, to możemy jednoznacznie odtworzyć \(f\).
+\end{theorem}
+W szczególności więcej próbek nie ma sensu. Dlatego większa częstotliwość (np. światłowód) daje lepszą przepustowość niż mniejsza (kabel miedziany).
+\begin{corollary}
+	Maksymalna przepustowość to \(2B\log\Sigma\), gdzie \(\Sigma\) to liczba bitów w każdej próbce.
+\end{corollary}
+
+\section{Twierdzenie Shannona}
+\begin{theorem}[Shannon]
+	Jeżeli \(\frac{S}{N}\) to stosunek mocy sygnału do mocy szumu, to maksymalna przepustowość to \(B \log(1+ \frac{S}{N})\), gdzie \(B\) jest najwyższą częstotliwością sygnału.
+\end{theorem}
+
