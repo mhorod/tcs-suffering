@@ -1,0 +1,39 @@
+Na początek skupmy się na prostym problemie: mamy \(\Omega\) - uniwersum, oraz \(A \subset \Omega\). Losujemy jednostajnie element \(x \in \Omega\) i chcemy poznać \(\prob(x \in A)\).
+
+Naturalnie nasuwa się definicja
+\[
+	\prob(x \in A) = \frac{\text{wielkość}(A)}{\text{wielkość}(\Omega)}
+\]
+Jak możemy jednak zdefiniować wielkość? Dla \(|\Omega| < \infty\) jest to proste: wielkość\((X) = |X|\), lecz dla \(\Omega\) nieskończonego nie ma już oczywistej odpowiedzi. Na ratunek przychodzi pojęcie miary.
+
+\begin{example} Przykładowe miary
+	\begin{itemize}
+		\item Długość odcinka
+		\item Pole powierzchni na płaszczyźnie
+		\item Objętość w przestrzeni trójwymiarowej
+	\end{itemize}
+\end{example}
+
+Okazuje się jednak, że nie wszystkie zbiory można mierzyć.
+\begin{example}
+	Paradoks Banacha-Tarskiego
+	
+	Niech \(S\) to będzie sfera w przestrzeni trójwymiarowej. Możemy podzielić \(S\) na rozłączne części w następujący sposób
+	\[
+		S = P_1 \cup P_2 \cup P_3 \cup P_4 \cup P_5
+	\]
+	a następnie za pomocą ustalonych przesunięć \(\tau_1, \tau_2, \tau_3, \tau_4, \tau_5\) dojść do
+	\[
+		S = \tau_1(P_1) \cup \tau_2(P_2)
+	\]
+	\[
+		S = \tau_3(P_3) \cup \tau_4(P_4) \cup \tau_5(P_5)
+	\]
+	
+	Gdybyśmy chcieli mierzyć objętość naszej sfery i pozwalalibyśmy na podzielenie jej na części i wykonanie przesunięć doszlibyśmy więc do oczywiście sprzecznego wniosku
+	\[
+		\text{Objętość}(S) = 2 \cdot \text{Objętość}(S) 
+	\]
+\end{example}
+
+Widzimy, że nie we wszystkich przypadkach intuicyjne pojęcie miary jest poprawne i nie wszystkie zbiory są mierzalne. W następnej sekcji skupimy się na znalezieniu zbiorów, które możemy mierzyć i dokładnie zdefiniujemy miarę.

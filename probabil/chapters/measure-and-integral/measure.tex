@@ -1,0 +1,57 @@
+\begin{definition}
+	\textbf{Przestrzeń mierzalna} to para \((\Omega, \Sigma)\) dla uniwersum \(\Omega\) i \(\Sigma\) będącego \(\sigma\)-algebrą na \(\Omega\).
+\end{definition}
+
+\begin{definition}
+	\textbf{Miara} dla danej przestrzeni mierzalnej \((\Omega, \Sigma)\) to funkcja \(\mu: \Sigma \to [0, \infty]\) spełniająca
+	\begin{itemize}
+		\item \(\mu(\emptyset) = 0\)
+		\item \(E_1, E_2, \dots \in \Sigma \text{ parami rozłaczne} \implies \mu(\bigcup_{i=1]^\infty E_i}) = \sum_{i=1}^{\infty} \mu(E_i)\)
+	\end{itemize}
+\end{definition}
+
+\begin{definition}
+	\textbf{Miara probabilistyczna} to miara dla której \(\mu(\Omega) = 1\)
+\end{definition}
+
+\begin{lemma}
+	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \subset A_{i+1}\). Wtedy
+	\[
+		\mu(\bigcup_{i=1}^\infty A_i) = \lim_{x \to \infty} \mu(A_i)
+	\]
+\end{lemma}
+% TODO: dowód (nie był podany na wykładzie)
+
+\begin{lemma}
+	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \supset A_{i+1}\) oraz \(\mu(A_1) < \infty\). Wtedy
+	\[
+		\mu(\bigcap_{i=1}^\infty A_i) = \lim_{x \to \infty} \mu(A_i)
+	\]
+\end{lemma}
+% TODO: dowód (nie był podany na wykładzie)
+
+\begin{example}
+	Miara licząca
+	
+	Miara licząca dla \(\Omega < \infty\) to
+	
+	\[
+		\mu(A) = |A|
+	\]
+\end{example}
+
+\begin{example} 
+	Miara Lebesgue'a
+	
+	Miara Lebesgue'a to uogólnienie pojęcia długości, pola powierzchni i objętości na większą liczbę wymiarów. Przykładowo, w jednym wymiarze:
+	\[
+		\mu([a, b]) = b - a
+	\]
+	a więc
+	\[
+		\mu(\set{a}) = \mu(\bigcap_{n=1}^\infty [a, a + \frac{1}{n}]) = \lim_{n \to \infty} \frac{1}{n} = 0
+	\]
+	\[
+		\mu(\rational) = \mu(\set{q_1, q_2, \dots}) = \mu(\bigcup_{n=1}^\infty \set{q_1, \dots, q_n}) = \lim_{n \to \infty} \mu(\set{q_1, \dots, q_n}) = 0
+	\]
+\end{example}

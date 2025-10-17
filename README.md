@@ -8,6 +8,7 @@ Currently, this repository contains notes for the following:
 - `mpumy` – Probabilistic Methods in Machine Learning (Metody Probabilistyczne w Uczeniu Maszynowym)
 - `aatl` – Algorithms in Algebra and Number Theory (Algorytmy Algebry i Teorii Liczb)
 - `probabil` – Probabilistic Methods in Computer Science (Metody Probabilistyczne Informatyki)
+- `probabil-2025` - Probabilistic Methods in Computer Science, in the 2025 lecture order
 - `modele` – Models of Computation (Modele Obliczeń); incomplete
 - `licencjat` – Final exam for the licencjat degree; incomplete
 

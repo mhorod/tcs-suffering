@@ -3,3 +3,8 @@
 licencjat/chapters-unofficial
 .latexindent.x
 **/.builddir
+
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
