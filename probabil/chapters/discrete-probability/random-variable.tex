@@ -1,0 +1,47 @@
+\begin{definition}
+	\textbf{Zmienna losowa} przestrzeni \((\Omega, \mathcal{F}, \prob)\) to \(X: \Omega \to \real\) taka, że
+	\[
+		\forall_{F \in \mathcal{F}} X(F) \in B(\real)\footnote{Zbiór borelowski: \ref{borel-set}.}
+	\]
+\end{definition}
+
+\begin{definition}
+	\textbf{Dyskretna zmienna losowa}\\
+	Dyskretna zmienna losowa to zmienna losowa, która przyjmuje w swoim obrazie przeliczalnie wiele wartości.
+\end{definition}
+
+\begin{example} Rzut dwa razy symetryczną kostką\\
+	Rozważmy równie prawdopodobne zdarzenia elementarne \(\Omega = \{ (1, 1), ..., (6, 6)\}\) oraz zmienną losową
+    \(X((i, j)) := i + j\) (suma oczek w dwóch rzutach).
+
+    Naturalnie możemy chcieć policzyć prawdopodobieństwo, że dostaniemy sumę oczek równą $a$
+    \[
+        \prob(X = a) = \sum_{\substack{s \in \Omega \\ X(s) = a}} \prob(\{ s \})
+    \]
+    Na przykład $\prob(X = 4) = \prob(\{1, 3\}) + \prob(\{2, 2\}) + \prob(\{3, 1\}) = \frac{3}{36}$
+\end{example}
+
+\begin{definition}
+	Zmienne losowe \(X, Y\) są \textbf{niezależne} gdy
+	\[
+		\forall_{x, y \in \real} \prob((X = x) \land (Y = y)) = \prob(X = x) \cdot \prob(Y = y).
+	\]
+\end{definition}
+
+\begin{definition}
+	Zmienne losowe \(X_1, X_2, ..., X_k\) są \textbf{niezależne} gdy
+	\[
+		\forall_{I \subseteq [k]} \forall_{\substack{\{x_i\}_{i \in I} \\ x_i \in \mathbb{R}}} \quad \prob(\bigcap_{i \in I}(X_i = x_i)) = \prod_{i \in I} \prob(X_i = x_i)
+	\]
+\end{definition}
+
+\begin{definition}
+	\textbf{Indykator} zdarzenia \(A\) to zmienna losowa \(Y\) spełniająca 
+	\[
+		Y = \left\{ \begin{array}{lr} 1 & \text{ gdy } A \text{ zaszło} \\ 0 & \text{wpp.} \end{array} \right.
+	\]
+	Mamy 
+	\[
+		\mathbb{E} \left[ Y \right] = 0 \cdot P\left( Y=0 \right) + 1\cdot P\left( Y=1 \right) = P\left( Y=1 \right) = P\left( A \right) .
+	\]
+\end{definition}

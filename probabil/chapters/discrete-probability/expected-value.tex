@@ -1,0 +1,152 @@
+%<*probabil-2025-10-03-wartosc-oczekiwana-1>
+\subsection{Definicja}
+\begin{definition}
+	\textbf{Wartość oczekiwaną} zmiennej losowej \( X \) definiujemy jako
+	\[
+		\expected{X} = \sum_{x \in \im X} x \cdot \prob(X = x)
+	\]
+\end{definition}
+%</probabil-2025-10-03-wartosc-oczekiwana-1>
+
+\begin{theorem}[Lemat 2.9 P\&C]
+	\label{expected-value-of-natural-random-variable}
+	Niech \( X \) będzie zmienną losową przyjmującą jedynie wartości w liczbach naturalnych. Wtedy
+	\[
+		\expected{X} = \sum_{n=1}^\infty P(X \geq n)
+	\]
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\sum_{n=1}^\infty P(X \geq n)
+		 & = \sum_{n=1}^\infty \sum_{k=n}^\infty P(X = k) \\
+		 & = \sum_{k=1}^\infty \sum_{n=1}^k P(X = k)      \\
+		 & = \sum_{k=1}^\infty k \cdot P(X = k)           \\
+		 & = \expected{X}
+	\end{align*}
+\end{proof}
+
+%<*probabil-2025-10-03-wartosc-oczekiwana-2>
+\subsection{Liniowość wartości oczekiwanej}
+\begin{theorem} \textbf{Liniowość wartości oczekiwanej} (wariant z sumą)\\
+	Dla dowolnych \(X_1, ..., X_n\) z ograniczonymi wartościami oczekiwanymi
+    \[
+        \expected{\sum_{i = 1}^n X_i} = \sum_{i=1}^n \; \expected{X_i}
+    \]
+\end{theorem}
+\begin{proof} (\(n = 2\))
+	\begin{align*}
+		\expected{X + Y} =& \sum_k k \cdot \prob(X + Y = k) \quad &=& \sum_{i, j} (i + j) \cdot \prob((X = i) \land (Y = j)) \\
+		=& \sum_i \; i \; \colorbox{BurntOrange}{\(\sum_j \cdot \prob((X = i) \land (Y = j))\)} \quad &+& \sum_j \; j \; \colorbox{cyan}{\(\sum_i \prob((X = i) \land (Y = j))\)} \\
+		=& \sum_i \; i \; \colorbox{BurntOrange}{\(\prob(X = i)\)} \quad &+& \sum_j \; j \; \colorbox{cyan}{\(\prob(Y = j)\)} \\
+		=& \expected{X} + \expected{Y}
+	\end{align*}
+\end{proof}
+
+\begin{theorem} \textbf{Liniowość wartości oczekiwanej} (wariant ze współczynnikiem)\\
+	Dla danej zmiennej losowej \(X\) oraz \(c \in \real\)
+	\[
+		\quad \expected{cX} = c \cdot \expected{X}.
+	\]
+\end{theorem}
+\begin{proof}
+	Dla \(c = 0\) oczywiste. Zakładamy, że \(c \ne 0\).
+	\begin{align*}
+		\expected{cX} &= \sum_j j \cdot \prob(cX = j) \\
+		&= c \cdot \sum_j \frac{j}{c} \cdot \prob(X = \frac{j}{c}) \\
+		&= c \cdot \sum_k k \cdot \prob(X = k) \\
+		&= c \cdot \expected{X}.
+	\end{align*}
+\end{proof}
+
+\begin{example} Niech \(X\) to zmienna losowa reprezentująca sumę oczek na dwóch kostkach. Ile wynosi \(\expected{X}\)? Z definicji trudno jest to policzyć:
+	\[
+		\expected{X} = 2\cdot\frac{1}{36} + 3 \cdot \frac{2}{36} + ... + 12 \cdot \frac{1}{36} = 7.
+	\]
+	Z tw. o liniowości wynik dostajemy natychmiast. Niech \(X_1\) i \(X_2\) to odpowiednio wartość rzutu pierwszej i drugiej kostki. Wtedy \(X = X_1 + X_2\).
+	\[
+		\expected{X} = \expected{X_1 + X_2} = \expected{X_1} + \expected{X_2} = 3.5 + 3.5 = 7.
+	\]
+\end{example}
+
+\begin{example} Urna ma w sobie 4 kulki, każda z których jest innego koloru. 4 razy wyjmujemy kulę, obserwujemy kolor i wrzucamy kulę z powrotem. Jaka jest oczekiwana liczba zaobserwowanych kolorów?\\
+	Niech \(X\) to liczba zaobserwowanych kolorów oraz 
+	\(
+		X_i =:
+		\begin{cases}
+			1, \text{ jeśli } i \text{-ty kolor zaobserwowany}\\
+			0
+		\end{cases}
+	\)\\
+	Wtedy
+	\[
+		X = X_1 + X_2 + X_3 + X_4
+	\]
+	\(X_i\) to indykatory, a więc \(\expected{X_i} = \prob(X_i)\). Zastanówmy się więc jakie jest prawdopodobieństwo \(\prob(X_i = 1)\). Aby to zrobić, łatwiej będzie policzyć prawdopodobieństwo, że kolor \(i\)-ty \textit{nie} wystąpi, a więc 4 razy dostaniemy jeden z pozostałych 3 kolorów: \(\prob(X_i = 1) = 1 - \left( \frac{3}{4} \right)^4\). Dostajemy zatem
+	\begin{align*}
+		\expected{X} = \expected{X_1 + X_2 + X_3 + X_4} &= \sum_{i=1}^4 \expected{X_i} \\
+		&= \sum_{i=1}^4 \prob(X_i = 1) \\
+		&= 4 \cdot \left( 1 - \left(\frac{3}{4} \right)^4 \right).
+	\end{align*}
+\end{example}
+
+\begin{example} Mrówki chodzące po kiju\\
+	Zacznijmy od zagadki:
+	\begin{quote}
+		Rozważamy kij o długości 1m. Losowo kładziemy na niego 25 mrówek i losowo ustalamy zwrot w lewo lub w prawo. Każda mrówka porusza się z szybkością 1cm/s. Gdy mrówki się spotkają, odbijają się od siebie, a więc zmienia się ich zwrot. Ilu sekund potrzebujemy, aby mieć pewność, że każda mrówka spadnie z kija.
+	\end{quote}
+	Można zauważyć, że mrówki są nierozróżnialne, a więc gdy dwie mrówki się spotykają, możemy pryjąć, iż się nie odbijają, a po prostu przenikają się wzajemnie i idą dalej. Zatem odpowiedź to 100s.
+	
+	W modelu takim jak w zagadce zastanawiamy się, jaka jest wartość oczekiwana wszystkich odbić. Problematyczne w zadaniu może okazać się, że jest continuum możliwych pozycji dla każdej mrówki. W rozwiązaniu jednak nie będzie nam potrzebna ta informacja.
+	
+	Niech \(X\) to liczba odbić, lub równoważnie liczba przeniknięć. Ponadto niech \(X_{i,j}\) to liczba przeniknięć \(i\)-tej i \(j\)-tej mrówki \(X_{i, j} \in \{0, 1\}\). Zakładamy, że mrówki są posortowane i dla \(i < j\) mrówka \(i\)-ta jest przed \(j\)-tą. Zauważmy, że 
+	\[
+		\expected{X_{i,j}} = \prob(X_{i,j} = 1) = \frac{1}{4}
+	\]
+	a więc
+	\[
+		E(X) = \expected{\sum_{1 \leq i < j \leq 25} X_{i,j}} = \sum_{1 \leq i < j \leq 25} \expected{X_{i,j}} = \sum_{1 \leq i < j \leq 25} \prob(X_{i,j} = 1) = \sum_{1 \leq i < j \leq 25} \frac{1}{4} = \binom{25}{2} \frac{1}{4}.
+	\]
+\end{example}
+%</probabil-2025-10-03-wartosc-oczekiwana-2>
+
+\subsection{Warunkowa wartość oczekiwana}
+\begin{definition}
+	\textbf{Warunkową wartość oczekiwaną} \( \expected{X \mid Y = y} \) definiujemy jako
+	\[
+		\expected{X \mid Y = y} = \sum_{x \in \im X} P\pars{X = x \mid Y = y}
+	\]
+
+	Ponadto \( \expected{X \mid Y} \) definiujemy jako zmienną losową taką, że
+	\[
+		\expected{X \mid Y}(y) = \expected{X \mid Y = y}
+	\]
+\end{definition}
+
+\begin{lemma}
+	\[
+		\expected{X} = \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y)
+	\]
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		\sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y)
+		 & = \sum_{y \in \im Y} \pars{P(Y = y) \sum_{x \in \im X} x \cdot P(X = x \mid Y = y)}       \\
+		 & = \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}P(Y = y)  \cdot P(X = x \mid Y = y)} \\
+		 & = \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}P(Y = y)  \cdot
+		\frac{P(X = x \land Y = y)}{P(Y = y)}}                                                       \\
+		 & = \sum_{x \in \im X} x \cdot P(X = x)                                                     \\
+		 & = \expected{X}
+	\end{align*}
+\end{proof}
+
+\begin{lemma}[Lemat Syntaktyczny]
+	\[
+		\expected{\expected{X \mid Y}} = \expected{X}
+	\]
+\end{lemma}
+\begin{proof}
+	\begin{equation*}
+		\expected{\expected{X \mid Y}}
+		= \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y) = \expected{X}
+	\end{equation*}
+\end{proof}

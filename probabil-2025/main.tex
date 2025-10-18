@@ -19,8 +19,18 @@
 \tableofcontents
 \input{license}
 
+% Remove the "Rozdział x" chapter headings, as we already number our chapters
+\titleformat{\chapter}[display]{\normalfont\Huge\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
 % Actual content
 \mainmatter
+
+\chapter{Wykład 1 (2025-10-03)}
+\input{chapters/2025-10-03-lecture/main}
+
+\chapter{Nagranie 1 (2025-10-04)}
+\input{chapters/2025-10-04-recording/main}
 
 \chapter{Wykład 3 (2025-10-17)}
 \input{chapters/2025-10-17-lecture/main}

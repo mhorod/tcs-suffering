@@ -1,0 +1,60 @@
+\begin{definition}
+	\textbf{Przestrzeń probabilistyczna} to trójka (\(\Omega\), \(\mathcal{F}\), \(\prob\)), gdzie
+	\begin{itemize}
+		\item \(\Omega\) to zbiór zdarzeń elementarnych
+		\item \(\mathcal{F} \subseteq 2^{\Omega}\) to rodzina zdarzeń mierzalnych\\
+		W przypadku dyskretnym \(\mathcal{F} = 2^{\Omega}\)\\
+		W przypadku ogólnym, \(\mathcal{F}\) musi być \(\sigma\)-algebrą (definicja \(\sigma\)-algebry: \ref{sigma-algebra-definition})
+		\item \(\prob : \mathcal{F} \to \mathbb{R}\) taka, że
+		\begin{itemize}
+			\item \(\forall_{E \in \mathcal{F}} \; 0 \leq \prob(E) \leq 1\)
+			\item \(\prob(\Omega) = 1\)
+			\item \(\forall_{\substack{\set{E_i}_{i \in \natural} \\ \forall_{i \in \natural} E_i \in \mathcal{F} \\ \forall_{i, j, i \not= j} E_i \cap E_j = \emptyset}} \; \prob(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty \; \prob(E_i)\)
+		\end{itemize}
+	\end{itemize}
+\end{definition}
+
+\begin{lemma}
+	Dla dowolnych zdarzeń \(E_1, E_2\) zachodzi
+	\[
+		\prob(E_1 \cup E_2) = \prob(E_1) + \prob(E_2) - \prob(E_1 \cap E_2)
+	\]
+\end{lemma} 
+
+\begin{lemma} Prawdopodobieństwo sumy / union bound \\
+	Dla dowolnej skończonej lub przeliczalnej rodziny zdarzeń \(E_1, E_2, ...\) zachodzi
+	\[
+		\prob(\bigcup_{i=1}^\infty E_i) \leq \sum_{i=1}^\infty \prob(E_i)
+	\]
+\end{lemma}
+
+\begin{lemma} Zasada włączeń i wyłączeń \\
+	Dla dowolnych zdarzeń \(E_1, ..., E_n\)
+	
+	\[
+		\prob(\bigcup_{i=1}^n E_i) = \sum_{i=1}^n \prob(E_i) - \sum_{\{i,j\} \in \binom{[n]}{2}} \prob(E_i \cap E_j) \; + \; \sum_{\{i,j,k\} \in \binom{[n]}{3}} \prob(E_i \cap E_j \cap E_k) \; - ...
+	\]
+\end{lemma}
+
+\begin{definition} Zdarzenia \(E_1, E_2 \in \mathcal{F}\) są \textbf{niezależne} gdy
+	\[
+		\prob(E_1 \cap E_2) = \prob(E_1) \cdot \prob(E_2)
+	\]
+\end{definition}
+
+\begin{definition} Zdarzenia \(E_1, ..., E_k \in \mathcal{F}\) są \textbf{niezależne} gdy
+	\[
+		\forall_{\substack{I \subseteq [k] \\ I \ne \emptyset}} \prob(\bigcap_{i \in I} E_i) = \prod_{i \in I} \prob(E_i)
+	\]
+\end{definition}
+
+\begin{definition} Prawdopodobieństwo warunkowe \\
+	Zdarzenie \(E\) pod warunkiem zdarzenia \(F\)
+	\[
+		\prob(E|F) = \frac{\prob(E \cap F)}{\prob(F)}, \prob(F) > 0
+	\]
+	Jeżeli \(E\) i \(F\) są niezależne:
+	\[
+		\prob(E|F) = \frac{\prob(E \cap F)}{\prob(F)} = \frac{\prob(E)\cdot \prob(F)}{\prob(F)} = \prob(E)
+	\]
+\end{definition}

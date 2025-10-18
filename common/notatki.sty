@@ -79,5 +79,17 @@
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 %\titlespacing*{\paragraph}
 
+% Needed for probabil-2025
+\usepackage{catchfilebetweentags}
+% This is horrible but it works: catchfilebetweentags
+% sets \endlinechar=-1, which makes it ignore newlines
+% in the provided file. This removes that 
+% \endlinechar=-1 call
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\CatchFBT@Fin@l}{\endlinechar\m@ne}{}
+  {}{\typeout{Unsuccessful patch!}}
+\makeatother
+
 % Import custom commands
 \usepackage{tcs}
