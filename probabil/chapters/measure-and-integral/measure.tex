@@ -3,11 +3,22 @@
 \end{definition}
 
 \begin{definition}
-	\textbf{Miara} dla danej przestrzeni mierzalnej \((\Omega, \Sigma)\) to funkcja \(\mu: \Sigma \to [0, \infty]\) spełniająca
+	\textbf{Miara} dla danej przestrzeni mierzalnej \((\Omega, \Sigma)\) to funkcja \(\mu: \Sigma \to [0, +\infty]\) spełniająca
 	\begin{itemize}
 		\item \(\mu(\emptyset) = 0\)
-		\item \(E_1, E_2, \dots \in \Sigma \text{ parami rozłaczne} \implies \mu(\bigcup_{i=1]^\infty E_i}) = \sum_{i=1}^{\infty} \mu(E_i)\)
+		\item \(E_1, E_2, \dots \in \Sigma \text{ parami rozłaczne} \implies \mu(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^{\infty} \mu(E_i)\)
 	\end{itemize}
+\end{definition}
+
+\begin{definition}
+	\textbf{Przestrzeń z miarą} to trójka \((\Omega, \Sigma, \mu)\) gdzie \((\Omega, \Sigma)\) tworzą przestrzeń mierzalną, a \(\mu\) jest miarą na tej przestrzeni mierzalnej.
+\end{definition}
+
+\begin{definition}
+	Funkcja \(f: \Omega_1 \to \Omega_2\) jest \textbf{mierzalna} dla przestrzeni probabilistycznych \((\Omega_1, \Sigma_1), (\Omega_2, \Sigma_2)\) gdy
+	\[
+		\forall_{B \in \Sigma_2} f^{-1}(B) \in \Sigma_1
+	\]
 \end{definition}
 
 \begin{definition}
@@ -33,11 +44,7 @@
 \begin{example}
 	Miara licząca
 	
-	Miara licząca dla \(\Omega < \infty\) to
-	
-	\[
-		\mu(A) = |A|
-	\]
+	Miara licząca dla \(\Omega < \infty\) to \(\mu(A) = |A|\)
 \end{example}
 
 \begin{example} 

@@ -19,7 +19,7 @@
 	\begin{itemize}
 		\item \(\Sigma = 2^{\Omega}\) - \(\sigma\)-algebra
 		\item \(\Sigma = \set{\emptyset, \Omega}\) - \(\sigma\)-algebra
-		\item \(\Omega = \real, \Sigma = \set{\bigcup_{i=1}^n (a_i, b_i] \mid a_i, b_i \in \real \cup \set{-\infty, \infty}, a_i < b_i}\) - algebra, ale nie \(\sigma\)-algebra, bo np. \(\bigcup_{i=1}^\infty (0, 1 - \frac{1}{n}] = (0, 1) \notin \Sigma\)
+		\item \(\Omega = \real, \Sigma = \set{\bigcup_{i=1}^n (a_i, b_i] \mid a_i, b_i \in \real \cup \set{-\infty, +\infty}, a_i < b_i}\) - algebra, ale nie \(\sigma\)-algebra, bo np. \(\bigcup_{i=1}^\infty (0, 1 - \frac{1}{n}] = (0, 1) \notin \Sigma\)
 	\end{itemize}
 \end{example}
 
@@ -34,7 +34,7 @@
 \begin{definition}
 	\textbf{\(\sigma\)-algebra generowana przez \(F \subset 2^\Omega\)} to
 	\[
-		\sigma(F) = \bigcap_{\substack{\Sigma \text{ - } \sigma\text{-algebra}\\F \subset \Sigma}} \Sigma
+		\sigma(F) = \bigcap_{\substack{\Sigma \text{ to } \sigma\text{-algebra}\\F \subset \Sigma}} \Sigma
 	\]
 	
 	Intuicyjnie, jest to najmniejsza możliwa \(\sigma\)-algebra zawierająca w sobie \(F\)
@@ -43,7 +43,12 @@
 \begin{example}
 	Przykład \(\sigma\)-algebry generowanej
 	\[
-		\sigma(\set{[a, b] \mid a, b \in \real, a \leq b}) := B(\real) \text{ (zbiory borelowskie)}
+		\sigma(\set{[a, b] \mid a, b \in \real, a \leq b}) := B(\real)
 	\]
-	Zbiory borelowskie są przykładem zbiorów mierzalnych, nie mając problemów takich jak Banach-Tarski.
+	\[
+		\sigma(d\text{-wymiarowe kostki}) := B(\real^d)
+	\]
+	\(B\) to oznaczenie na zbiory borelowskie, które są przykładem zbiorów mierzalnych, nie mając problemów takich jak Banach-Tarski.
+	
+	\textbf{Uwaga. } Od teraz, gdy będziemy mówić o \(\real, \mathbb{C}\) w kontekscie miary, mamy na myśli przestrzenie mierzalne \((\real, B(\real)), (\mathbb{C}, B(\mathbb{C}))\), o ile nie jest powiedziane inaczej.
 \end{example}
