@@ -1,0 +1,244 @@
+\subsection{Definicje}
+
+\begin{definition}
+    Funckja \( S: \Omega\to [0, +\infty] \) jest \textbf{prosta} (schodkowa), jeśli:
+    \[
+        S = \sum_{j = 1}^{n} \alpha_j \chi_{A_j}
+    \]
+    gdzie \( \forall_{j \in [n]} A_j \in \Sigma, \alpha_j \in \real \)
+    a \( \chi_{A_j} \) jest funkcją charakterystyczną \( A_j \)
+\end{definition}
+
+Od teraz niech \( E \in \Sigma \)
+
+\begin{definition}
+    Niech \( S : \Omega\to [0, +\infty] \) - funkcja prosta.
+    \[
+        \int_E S \diff \mu := \sum_{j = 1}^n \alpha_j \mu\left(A_j \cap E \right)
+    \]
+    Gdzie \( \mu \) jest miarą Lebesgue'a.
+
+    Można sobie to wyobrazić jako suma pól prostokątów pod funkcją \( S \):
+
+    \begin{figure}[h!]
+        \centering
+
+        \begin{tikzpicture}[
+                dot/.style={circle, fill, inner sep=1.5pt}
+            ]
+
+            \coordinate (p1) at (0,0);
+            \coordinate (p2) at (3,0);
+            \coordinate (p3) at (5,0);
+            \coordinate (p4) at (8,0);
+
+            \def\height{1.2}
+            \coordinate (p1_up) at (0, \height);
+            \coordinate (p2_up) at (3, \height);
+            \coordinate (p3_up) at (5, \height);
+            \coordinate (p4_up) at (8, \height);
+
+            \coordinate (m1) at ($(p1)!0.5!(p2)$);
+            \coordinate (m2) at ($(p3)!0.5!(p4)$);
+
+            \fill[gray!30] (m1) rectangle (p2_up);
+            \fill[gray!30] (p3) rectangle ($(m2)+(0,\height)$);
+
+            \draw (-1,0) -- (9,0);
+
+          \draw (p1_up) -- (p2_up);
+            \draw (p3_up) -- (p4_up);
+
+            \draw[dashed] (p1) -- (p1_up);
+            \draw[dashed] (p2) -- (p2_up);
+            \draw[dashed] (p3) -- (p3_up);
+            \draw[dashed] (p4) -- (p4_up);
+
+            \node[dot] at (p1) {};
+            \node[dot] at (p2) {};
+            \node[dot] at (p3) {};
+            \node[dot] at (p4) {};
+
+            \node[below=3mm] at (m1) {$A_1$};
+            \node[below=3mm] at (m2) {$A_2$};
+
+            \draw[|-|] ($(m1)-(0,1)$) -- ($(m2)-(0,1)$) node[midway, below] {$E$};
+
+        \end{tikzpicture}
+    \end{figure}
+\end{definition}
+
+\begin{definition}
+    Niech \( f: \Omega\to [0, +\infty] \) - funkcja mierzalna.
+    \[
+        \int_E f \diff \mu = \sup \left\{\int_E s \diff \mu \; : \; s: \Omega\to [0, \infty], s \text{ jest prosta, } s \leq f \right\}
+    \]
+\end{definition}
+
+\begin{definition}
+    Niech  \( f: \Omega\to \real \) mierzalna
+
+    \( f_+ := \max \left\{0, f\right\} \)
+
+    \( f_- := -\min \left\{0, f\right\} \)
+
+    \[
+        \int_E d \diff \mu = \int_E f_+ \diff \mu - \int_E f_- \diff \mu
+    \]
+\end{definition}
+
+\begin{definition}
+    Dla liczb zespolonych:
+
+    \( f: \Omega\to \mathbb{C} \)
+
+    Dzielimy \( f \) na część rzeczywistą i urojoną:
+
+    \( f = u + i \cdot v \), gdzie \( u\left( z \right) = \text{Re}\left( f\left( z \right) \right) \), \( v\left( z \right) = \text{Im}\left( f\left( z \right) \right) \)
+
+    \[
+        \int_E f \diff \mu = \int_E u \diff \mu - i \cdot \int_E v \diff \mu
+    \]
+\end{definition}
+
+Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z funkcji prostej. Potem na jej podstawie defniujemy całkę z funkcji nieujemnej mierzalnej i ostatecznie dochodzimy do dowolnej funkcji mierzalnej.
+
+\begin{theorem} (bez dowodu)
+
+    Dla:
+
+    \( f: \left( \Omega, \Sigma \right) \to [0, +\infty] \) mierzalna
+
+    \( \{S_n\}_{n = 1}^{+\infty} \)
+
+    \( S_n : \Omega \to [0, +\infty] \), \( S_1 \leq S_2 \leq \ldots \leq f \), \( \forall_{x \in \Omega} f(x) = \lim_{n \to \infty} S_n(x) \) \hfill \( (*) \)
+    
+    Zachodzi:
+
+    \[
+        \forall_{E \in \Sigma} \int_E f \diff \mu = \lim_{n \to \infty} \int_E S_n \diff \mu
+    \]
+\end{theorem}
+
+\begin{theorem}
+    \[
+        f : \left( \Omega, \Sigma \right) \to [0, +\infty] \text{ mierzalna } \implies \exists \{S_n\}_{n = 1}^{+\infty} \text{ takie, że } (*)
+    \]
+\end{theorem}
+
+\begin{corollary}
+
+    Jak to się łączy z prawdopodobieństwem?
+
+    \textbf{Prawdopodobieństwo} definiujemy jako miarę probabilistyczną na \( \left( \Omega, \Sigma \right) \)
+
+    \textbf{Zmienną losową} definiujemy jako funkcję mierzalną \( f: \left( \Omega, \Sigma \right) \to \real \)
+
+    \textbf{Wartość oczekiwaną} definiujemy:
+    \[
+        \expected{X} = \int_{\Omega} X \diff \prob
+    \]
+
+    \textbf{Wariancję} definiujemy:
+    \[
+        \variance{X} = \int_{\Omega} \left( X - \expected{X} \right)^2 \diff \prob
+    \]
+
+    Dzięki temu otrzymujemy odpowiednie definicje poza przypadkiem dyskretnym.
+\end{corollary}
+
+\subsection{Przykłady}
+
+\begin{example}
+
+    Niech \( \left| \Omega \right| = n < +\infty \), \( \Sigma = 2^{\Omega} \)
+
+    Niech \( X \) - zmienna losowa przyjmująca wartości od 1 do \( n \) z równym prawdopodobieństwem.
+
+    \( \expected{X} \) możemy obliczyć z miary liczącej:
+
+    \[ 
+        \prob \left( A \right) = \frac{ \left| A \right| }{ \left| \Omega \right| } \implies \prob \left( X = i \right) = \frac{1}{n} 
+    \]
+
+    \[ 
+        \expected{X} = \sum_{i = 1}^{n} \prob \left( X = 1 \right) \cdot i 
+    \]
+
+    Alternatywnie, możemy zauważyć, że \( X \) jest funckją prostą.
+
+    \[ 
+        X \left( x \right) = \sum_{i = 1}^{n} \chi_{\left\{ i \right\}}\left( x \right) \frac{1}{n} 
+    \]
+
+    \[ 
+        \expected{X} = \int_{\Omega} X \diff \prob = \sum_{i=1}^{n} i \cdot \frac{1}{n} 
+    \]
+
+\end{example}
+
+\begin{example}
+    Losowanie z odcinka.
+
+    \( \Omega = [ 0, 1] \), \( \Sigma = B\left([0, 1] \right) \)
+
+    Wtedy \( \prob(A) = \lambda(A) \), gdzie \( \lambda \) jest miarą Lebesgue'a (długością).
+    
+\end{example}
+
+\begin{example}
+    Losowanie zgodnie z funkcją
+
+    \( \Omega = \real \), \( \Sigma = B(\real) \), \( A \in \Sigma \)
+
+    Niech \( \int_{-\infty}^{+\infty} f(x) \diff x = 1 \), oraz chcemy losować zgodnie z \( f \).
+
+    Wtedy \( \prob(A) = \int_A f \diff \lambda \) 
+
+    Analogicznie dla \( \Omega = \real^2 \), \( \Sigma = B\left( \real^2 \right) \) otrzymamy:
+
+    \( \prob(A) = \int_A f \diff \lambda^2 \)
+
+\end{example}
+
+\begin{example}
+
+    Możemy także łączyć prawdopodobieństwo dyskretne z ciągłym. Rozważmy następujący problem:
+
+    Mamy odcinek \( [0, 1] \). Przy punkcie \( 0 \) znajduje się magnes, który przyciąga wszystko z przedziału \( [0, \frac{1}{3}] \). W punkcie \( 1 \) stoi osoba, która rzuca piłką i z jednostajnym prawdopodobieństwem trafia w dowolny punkt na naszym odcinku. Jakie jest prawdopodobieństwo, że trafi w dany przedział \( A \)?
+
+    \( \Omega = [0, 1] \)
+
+    Dla \( A \subseteq [0, 1] \) mamy: \( \prob\left(\{0\}\right) = \frac{1}{3} \) - to, co przyciągnie magnes.
+
+    Dla \( A \subseteq [\frac{1}{3}, 1] \): \( \prob(A) = \lambda(A) \)
+
+\end{example}
+
+\begin{example}
+    Nieskończony ciąg rzutów monetą symetryczną.
+
+    \( \Omega = \left\{ (X_n)_{n = 1}^{+\infty} : X_n \in \{0, 1\} \right\} \)
+
+    Pojawia się problem - jak zdefiniować \( \Sigma \), aby był mierzalny?
+
+    Definiujemy \textbf{cylindry}:
+
+    \[ 
+        a_1, \ldots, a_k \in \{0, 1\} 
+    \]
+    \[ 
+        [a_1, \ldots, a_k] := \left\{ (x_n)_{n=1}^{+\infty} \middle| a_1 = x_1, \ldots, a_k = x_k \right\} 
+    \]
+    \[ 
+        \text{Cyl} := \left\{ [a_1, \ldots, a_k] \middle| a_1, \ldots, a_k \in \{0, 1\}, k \in \natural \right\} 
+    \]
+    \[ 
+        \Sigma = \sigma\left( \text{Cyl} \right) 
+    \] 
+    czyli \( \Sigma \) jest \( \sigma \)-algebrą generowana przez zbiór cylindrów.
+
+    \[ 
+        \prob\left( [a_1, \ldots, a_k] \right) = \frac{1}{2^k} 
+    \]
+\end{example}
