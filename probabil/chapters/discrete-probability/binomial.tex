@@ -1,10 +1,18 @@
+%<*probabil-2025-10-10-rozklad-dwumianowy>
 \begin{definition}
 	Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład dwumianowy} z parametrami \( n, p \) (Oznaczana poprzez \(B(n, p))\), jeśli
 	dla \( j = 0, 1,..., n \):
 	\[
 		P(X = j) = \binom{n}{j}p^j(1-p)^{(n-j)}
 	\]
+	Jest tak, gdy powtarzamy jakiś eksperyment wielokrotnie (\(n\) razy, gdzie \(p\) to szansa powodzenia) i liczymy, ile razy eksperyment się powiódł.
 \end{definition}
+
+\begin{fact} Rozkład dwumianowy jest poprawnie zdefiniowany
+	\[
+    	\sum_{j = 0}^{n} \prob(X = j) = (p + (1 - p))^n = 1
+	\]
+\end{fact}
 
 \begin{theorem}
 	Niech \( X \) ma rozkład dwumianowy z parametrami \(n, p \). Wtedy
@@ -23,8 +31,20 @@
 		 & = np\sum_{k=0}^{n-1}\binom{n-1}{k}p^{k}(1-p)^{(n-1-k)}            \\
 		 & = np
 	\end{align*}
+	Można to też zrobić prościej:
+    \[
+        X = \sum_{i = 1}^{n} X_i, \; X_i = \begin{cases}
+            1, \text{ sukces w } i \text{-tej próbie} \\
+            0 \text{ wpp}
+        \end{cases}
+    \]
+    \[
+        \ev{X} = \ev{\sum_{i = 1}^{n} X_i} = \sum_{i = 1}^{n} \ev{X_i} = \sum_{i = 1}^{n} \prob(X_i = 1) = \sum_{i = 1}^{n} p = np
+    \]
 \end{proof}
+%</probabil-2025-10-10-rozklad-dwumianowy>
 
+%<*probabil-2025-10-10-wariancja-7>
 \begin{theorem}
 	Niech \( X \) ma rozkład dwumianowy z parametrami \(n, p \). Wtedy
 	\[
@@ -50,7 +70,28 @@
 
 	W takim razie
 	\[ \variance{X} = n(n-1)p^2 + np - (np)^2 = np - np^2 = np(1-p) \]
+	
+	Ponieważ kolejne próby sa niezależne, można obliczyć to prościej:
+    \[
+        \Var(X) = \Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n \Var(X_i)
+    \]
+
+    Gdzie \(X_i\) to indykatory dla kolejnych zdarzeń.
+    Wariancja dla jednego indykatora:
+	\begin{align*}
+		\Var(X_i)
+		 & = \ev{[(X_i - \ev{X_i})^2}\\
+		 & = \prob(X_i = 0) \cdot (0 - p)^2 + \prob(X_i = 1) \cdot (1-p)^2\\
+		 & = (1-p)p^2 + p(1-p)^2 \\
+		 & = (1-p)p
+	\end{align*}
+
+    Sumując po i dostajemy:
+    \[
+        \sum_{i=1}^n \Var(X_i) = \sum_{i=1}^n (1-p)p = np(1-p)
+    \]
 \end{proof}
+%</probabil-2025-10-10-wariancja-7>
 
 \begin{theorem}
 	MGF:

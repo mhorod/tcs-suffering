@@ -1,0 +1,193 @@
+%<*probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
+\begin{lemma} \(H_n = ln(n) + \Theta(1)\)\\
+	\begin{tikzpicture}
+		\draw[->] (-0.5, 0) -- (8, 0) node[right] {$x$};
+		\draw[->] (0, -0.5) -- (0, 4.2) node[above] {$y$};
+		\draw[yscale=3, domain=0.7:7, smooth, variable=\x, blue] plot ({\x}, {1/\x});
+		\draw (-0.2,3) -- (0.2,3);
+		\node at (-0.4,3) {1};
+		\node[text=red] at (1.5,3.3) {1};
+		\draw[draw=red] (1,0) rectangle (2,3);
+		\node[text=red] at (2.5,3/2 + 0.4) {${\frac{1}{2}}$};
+		\draw[draw=red] (2,0) rectangle (3,3/2);
+		\node[text=red] at (3.5,3/3 + 0.4) {${\frac{1}{3}}$};
+		\draw[draw=red] (3,0) rectangle (4,3/3);
+		\node[text=red] at (4.5,3/4 + 0.4) {${\frac{1}{4}}$};
+		\draw[draw=red] (4,0) rectangle (5,3/4);
+		\node[text=red] at (5.5,3/5 + 0.4) {${\frac{1}{5}}$};
+		\draw[draw=red] (5,0) rectangle (6,3/5);
+		\draw[draw=teal] (1,0) rectangle (2,3/2);
+		\node[text=teal] at (1.5,-0.4) {${\frac{1}{2}}$};
+		\draw[draw=teal] (2,0) rectangle (3,3/3);
+		\node[text=teal] at (2.5,-0.4) {${\frac{1}{3}}$};
+		\draw[draw=teal] (3,0) rectangle (4,3/4);
+		\node[text=teal] at (3.5,-0.4) {${\frac{1}{4}}$};
+		\draw[draw=teal] (4,0) rectangle (5,3/5);
+		\node[text=teal] at (4.5,-0.4) {${\frac{1}{5}}$};
+		\draw[draw=teal] (5,0) rectangle (6,3/6);
+		\node[text=teal] at (5.5,-0.4) {${\frac{1}{6}}$};
+		\draw (1.0,-0.2) -- (1.0,0.2);
+		\node at (1,-0.5) {1};
+		\draw (2.0,-0.2) -- (2.0,0.2);
+		\node at (2,-0.5) {2};
+		\draw (3.0,-0.2) -- (3.0,0.2);
+		\node at (3,-0.5) {3};
+		\draw (4.0,-0.2) -- (4.0,0.2);
+		\node at (4,-0.5) {4};
+		\draw (5.0,-0.2) -- (5.0,0.2);
+		\node at (5,-0.5) {5};
+		\draw (6.0,-0.2) -- (6.0,0.2);
+		\node at (6,-0.5) {6};
+	\end{tikzpicture}
+
+	\[
+	\left.
+	\begin{array}{l}
+	\displaystyle \textcolor{red}{\sum_{i=1}^{n-1} \frac{1}{i} = H_{n-1}} \geq \int_1^n \frac{1}{x} dx = ln(n) \rule{0pt}{2.5ex} \\[1.5em]
+	\displaystyle \textcolor{teal}{\sum_{i=2}^n \frac{1}{i} = H_n - 1} \leq \int_1^n \frac{1}{x} dx = ln(n)
+	\end{array}
+	\right\}
+	\implies ln(n) \leq H_n \leq ln(n) + 1 
+	\]
+\end{lemma}
+%</probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
+
+%<*probabil-2025-10-10-problem-kolekcjonera-kuponow>
+\subsection{Problem kolekcjonera kuponów}
+\label{coupon-collectors-problem}
+Wyobraźmy sobie problem, który jest bliski wielu osobom. Próbujemy przepchać program na satori ale jak na złość mamy ANS. Sfrustrowani zaczynamy pisać własne testy w nadziei że znajdziemy przypadek brzegowy.
+I tutaj pojawia się pytanie -- jeśli generujemy testy losowo a możliwych przypadków jest \( n \) to ile testów potrzebujemy w oczekiwaniu wygenerować aby mieć pewność, że pokryliśmy każdy przypadek?
+
+Problem ten, jak wiele podobnych, możemy modelować za pomocą zbierania kuponów -- mamy ich do zebrania \( n \)
+a szansa na uzyskanie \(i\)-tego rodzaju jeśli zebraliśmy już \( i - 1 \) wynosi \( p_i = 1 - \frac{i-1}{n} \)
+Niech \( X_i \) oznacza czas czekania na \(i\)-ty kupon jeśli mamy już \(i-1\) innych.
+Wtedy \(X = \sum_{i=1}^n X_i\) jest tym czego szukamy -- czasem otrzymania każdego kuponu (pokrycia wszystkich przypadków testowych).
+
+Zauważmy jeszcze, że \( X_i \) ma rozkład geometryczny z parametrem \( p_i \) zatem \( \expected{X_i} = \frac{1}{p_i} = \frac{n}{n - i + 1} \)
+
+\[
+	\expected{X} = \sum_{i=1}^n \expected{X_i} = \sum_{i=1}^n \frac{n}{n-i+1} = n \sum_{i=1}^n \frac{1}{i}
+	= n \cdot H_n = n \ln n + \Theta(n)
+\]
+%</probabil-2025-10-10-problem-kolekcjonera-kuponow>
+
+\newpage
+%<*probabil-2025-10-10-proces-galaskowy>
+\subsection{Proces gałązkowy}
+
+Zaczynamy od programu A, który \(n\) razy próbuje stworzyć kopię siebie z prawopodobieństwem \(p\). Następnie, każda utworzona kopia powtarza ten sam proces.
+
+Przykład dla \(n = 3\)
+
+\begin{tikzpicture}[]
+	\node[draw] at (-3,0) {Pokolenie 1:};
+	\node[draw] at (-3,-1) {Pokolenie 2:};
+	\node[draw] at (-3,-2) {Pokolenie 3:};
+	\filldraw (0, 0) circle (2pt);
+	\draw[densely dashed] (0, 0) -- (0, -1);
+	\draw (0, 0) -- (-1, -1);
+	\draw (0, 0) -- (1, -1);
+	\filldraw (-1, -1) circle (2pt);
+	\draw (-1, -1) -- ($(-1, -1)!1!(-1.3, -2)$);
+	\draw[densely dashed] (-1, -1) -- ($(-1, -1)!0.6!(-1, -2)$);
+	\draw (-1, -1) -- ($(-1, -1)!1!(-0.7, -2)$);
+	\filldraw (1, -1) circle (2pt);
+	\draw[densely dashed] (1, -1) -- ($(1, -1)!0.6!(0.7, -2)$);
+	\draw[densely dashed] (1, -1) -- ($(1, -1)!0.6!(1, -2)$);
+	\draw (1, -1) -- (1.3, -2);
+	\filldraw (1.3, -2) circle (2pt);    
+	\draw[densely dashed] (1.3, -2) -- ($(1.3, -2)!0.6!(1, -3)$);
+	\draw (1.3, -2) -- ($(1.3, -2)!0.8!(1.3, -3)$);
+	\draw[densely dashed] (1.3, -2) -- ($(1.3, -2)!0.6!(1.6, -3)$);
+	\filldraw (-1.3, -2) circle (2pt);
+	\draw[densely dashed] (-1.3, -2) -- ($(-1.3, -2)!0.6!(-1.6, -3)$);
+	\draw[densely dashed] (-1.3, -2) -- ($(-1.3, -2)!0.6!(-1.3, -3)$);
+	\draw (-1.3, -2) -- ($(-1.3, -2)!0.8!(-1, -3)$);
+	\filldraw (-0.7, -2) circle (2pt);
+	\draw[densely dashed] (-0.7, -2) -- ($(-0.7, -2)!0.6!(-1, -3)$);
+	\draw[densely dashed] (-0.7, -2) -- ($(-0.7, -2)!0.6!(-0.7, -3)$);
+	\draw[densely dashed] (-0.7, -2) -- ($(-0.7, -2)!0.6!(-0.4, -3)$);
+\end{tikzpicture}
+
+Jaka jest oczekiwana liczba wszystkich odpalonych programów?
+
+\(Y_i\) - liczba programów w \(i\)-tym pokoleniu\\
+\(Y_0 = 0\), \(Y_1\) ma rozkład dwumianowy z parametrami \((n, p)\) \(\implies \ev{Y_1} = np\)
+\begin{align*}
+    \ev{Y_i | Y_{i-1} = y_{i-1}} &= \ev{\sum_{j=1}^{y_{i-1}} Z_j | Y_{i-1} = y_{i-1}} \\   
+    &= \sum_{\ell = 0}^{\infty} \ell \prob(\sum_{j=1}^{y_{i-1}} Z_j = \ell | Y_{i-1} = y_{i-1}) \\
+    &= \sum_{\ell = 0}^{\infty} \ell \prob(\sum_{j=1}^{y_{i-1}} Z_j = \ell) \\
+    &= \ev{\sum_{j=1}^{y_{i-1}} Z_j} = \sum_{j=1}^{y_{i-1}} \ev{Z_j} = \sum_{j=1}^{y_{i-1}} np = y_{i-1} np
+\end{align*}
+\[
+    \ev{Y_i | Y_{i-1}} = Y_{i-1} np
+\]
+Teraz, dowodzimy indukcyjnie, że \(\ev{Y_i} = (np)^i\)
+\[
+    \ev{Y_i} = \ev{\ev{Y_i | Y_{i-1}}} = \ev{Y_{i-1} np} = np \ev{Y_{i-1}} = np (np)^{i-1} = (np)^i
+\]
+A następnie obliczamy wynik:
+\[
+    \ev{\sum_{i=0}^{\infty} Y_i} =\footnote{Według Micka można to zrobić, o ile prawa strona równości jest zbieżna} \sum_{i=0}^{\infty} \ev{Y_i} = \sum_{i=0}^{\infty} (np)^i
+\]
+Widzimy, że dla \(np < 1\) wartość oczekiwana wynosi \(\frac{1}{1-np}\), a w przeciwnym przypadku nie ma wartości oczekiwanej, ponieważ liczba programów rośnie do nieskończoności.
+%</probabil-2025-10-10-proces-galaskowy>
+
+
+%<*probabil-2025-10-10-oczekiwany-czas-quicksorta>
+\subsection{Oczekiwany czas Quicksorta}
+Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to pesymistycznie \( \mathcal{O}(n^2) \), ale w losowym przypadku \( \Theta(n \lg n) \).
+
+\begin{theorem}[2.11 P\&C]
+	Rozważmy standardowy algorytm Quicksort, w którym pivota wybieramy losowo, niezależnie i jednostajnie.
+	Wtedy oczekiwana liczba porównań wynosi \( 2n \ln n + \mathcal{O}(n) \).
+\end{theorem}
+\begin{proof} Niech \( x_1, \dots, x_n \) będzie wejściowym ciągiem \( n \) różnych liczb.
+	Niech \( y_1, \dots y_n \) będzie posortowaną permutacją tych wartości.
+
+	Definiujemy indykatory dla \( i < j \); niech
+	\[
+		X_{i, j} = \begin{cases}
+			1 & \text{ jeśli }  y_i, y_j \text{ zostały porównane chociaż raz } \\
+			0 & \text{ wpp. }
+		\end{cases}
+	\]
+	Łączna liczba porównań \( X \) wynosi
+	\(
+	X = \sum_{i = 0}^{n-1} \sum_{j=i+1}^n X_{i, j}
+	\)
+	Oczekiwana liczba porównań wynosi zatem
+	\[
+		\expected{X} = \sum_{i = 0}^{n-1} \sum_{j=i+1}^n \expected{X_{i, j}}
+	\]
+	Zastanówmy się kiedy elementy \( y_i, y_j \) są porównywane. Na pewno któryś z nich musi zostać wybrany jako pivot.
+	Ale ponadto muszą być w momencie tego wyboru na jednej liście, która jest aktualnie sortowana.
+	Niech \( Y^{i, j} = \set{y_i, \dots, y_j} \).
+
+	Jeśli wybrany zostanie pivot który leży poza tą listą, to nie dojdzie do ,,rozspójnienia'' tej listy i kiedyś będzie mogło nadal dojść do porównania \(y_i\) z \(y_j\).
+
+	Jeśli wybrany zostanie pivot z tej listy różny od \(y_i\) oraz \(y_j\), to te 2 elementy już nigdy nie zostaną ze sobą porównane, jako że będą znajdywać się na 2 oddzielnych listach.
+
+	W takim razie \( X_{i, j} = 1 \) wtedy i tylko wtedy, gdy pierwszym pivotem wybranym ze zbioru \( Y^{i, j} \) jest element \( y_i \) lub element \( y_j \).
+
+	Jako, że losowanie jest jednostajne i w ogóle, to każdy element z listy ma dokładnie takie same szanse na ,,zostanie pivotem''. Jako, że elementów na liście jest \(j-i+1\), to prawdopodobieństwo, że wybierzemy \(y_1\) lub \(y_j\) wynosi \( \frac{2}{j - i + 1} \), czyli \( \expected{X_{i, j}} = \frac{2}{j - i + 1} \).
+
+	Aby policzyć ostateczny wynik sumujemy się po wszystkich parach \( i < j \):
+	\begin{align*}
+		\expected{X}
+		 & = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \frac{2}{j - i + 1}         \\
+		 & = 2\sum_{i=1}^{n-1} \sum_{k=2}^{n-i+1} \frac{1}{k}              \\
+		 & = 2\sum_{k=2}^n \sum_{i=1}^{n-k+1} \frac{1}{k}                  \\
+		 & = 2\sum_{k=2}^n \frac{n+1-k}{k}                                 \\
+		 & = 2\pars{(n+1)\sum_{k=2}^n \frac{1}{k}} - 2(n-1)                \\
+		 & = 2\pars{(n+1)\pars{\sum_{k=1}^n \frac{1}{k}} - (n+1)} - 2(n-1)
+	\end{align*}
+	Teraz korzystamy z faktu, że \( \sum_{k=1}^n \frac{1}{k} = H_n = \ln n + \Theta(1) \) i dostajemy
+	\begin{align*}
+		\expected{X}
+		 & = 2(n+1)\cdot H_n - \Theta(n)                     \\
+		 & = 2(n+1)\cdot\pars{\ln n + \Theta(1)} - \Theta(n) \\
+		 & = 2n \ln n + \Theta(n)
+	\end{align*}
+\end{proof}
+%</probabil-2025-10-10-oczekiwany-czas-quicksorta>

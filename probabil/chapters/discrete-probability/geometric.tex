@@ -1,15 +1,16 @@
+%<*probabil-2025-10-10-rozklad-geometryczny-1>
 \begin{definition}
-	Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład geometryczny} z parametrem \( p \) jeśli
+	Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład geometryczny} z parametrem \( p \in (0, 1) \) jeśli
 	dla \( n > 0 \)
 	\[
-		P(X = n) = (1 - p)^{n-1} \cdot p
+		\prob(X = n) = (1 - p)^{n-1} \cdot p
 	\]
 \end{definition}
 
 \begin{theorem}[Lemat 2.8 P\&C]
 	Rozkład geometryczny jest \textbf{bez pamięci} tzn. jeśli \( X \) ma rozkład geometryczny z parametrem \( p \) to
 	\[
-		\forall_{n, k} : P(X = n + k \mid X > k) = P(X = n)
+		\forall_{n, k} : \prob(X = n + k \mid X > k) = \prob(X = n)
 	\]
 \end{theorem}
 \begin{proof}
@@ -20,17 +21,19 @@
 
 	W takim razie
 	\begin{align*}
-		P(X = n + k \mid X > k)
-		 & = \frac{P(X = n + k \land X > k)}{P(X > k)}                             \\
-		 & = \frac{P(X = n + k)}{P(X > k)}                                         \\
+		\prob(X = n + k \mid X > k)
+		 & = \frac{\prob(X = n + k \land X > k)}{\prob(X > k)}                             \\
+		 & = \frac{\prob(X = n + k)}{\prob(X > k)}                                         \\
 		 & = \frac{(1 - p)^{n + k - 1} \cdot p}{\sum_{i=k}^\infty (1-p)^i \cdot p} \\
 		 & = \frac{(1-p)^{n + k - 1}}{\sum_{i=k}^\infty (1-p)^i}                   \\
 		 & = (1-p)^{n + k - 1} \cdot \frac{p}{(1-p)^k}                             \\
 		 & = (1-p)^{n-1} \cdot p                                                   \\
-		 & = P(X = n)
+		 & = \prob(X = n)
 	\end{align*}
 \end{proof}
+%</probabil-2025-10-10-rozklad-geometryczny-1>
 
+%<*probabil-2025-10-10-rozklad-geometryczny-3>
 \begin{theorem}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy
 	\[
@@ -41,13 +44,29 @@
 	Skorzystamy z twierdzenia \ref{expected-value-of-natural-random-variable}
 	\begin{align*}
 		\expected{X}
-		 & = \sum_{n=1}^\infty P(X \geq n)                           \\
+		 & = \sum_{n=1}^\infty \prob(X \geq n)                           \\
 		 & = \sum_{n=1}^\infty \sum_{i=n}^\infty (1-p)^{i-1} \cdot p \\
 		 & = \sum_{n=1}^\infty (1-p)^n                               \\
 		 & = \frac{1}{1 - (1-p)}                                     \\
 		 & = \frac{1}{p}
 	\end{align*}
+	
+	Alternatywna metoda:
+
+	\(Y = \begin{cases}
+		1 & \text{sukces w pierwszym rzucie} \\
+		0 & \text{wpp.}
+	\end{cases}\)
+	\begin{align*}
+		\ev{X} &= \ev{X|Y=0}\prob(Y=0) + \ev{X|Y=1}\prob(Y=1) \\
+		&= (1+\ev{X})(1-p) + 1 \cdot p \\
+		&= 1 + \ev{X} - p \ev{X}
+	\end{align*}
+	\[
+		p \ev{X} = 1 \implies \ev{X} = \frac{1}{p}
+	\]
 \end{proof}
+%</probabil-2025-10-10-rozklad-geometryczny-3>
 
 \begin{theorem}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy

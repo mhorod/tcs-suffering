@@ -1,15 +1,35 @@
+%<*probabil-2025-10-10-wariancja-1>
+\begin{definition}
+	\(n\)-tym \textbf{momentem} (\(n \geq 1\)) zmiennej losowej \( X \) nazywamy 
+	\[
+		\expected{X^n}
+	\]
+	W szczególności, wartość oczekiwana jest pierwszym momentem zmiennej losowej.
+\end{definition}
+
 \begin{definition}
 	\textbf{Wariancję} zmiennej losowej \( X \) definiujemy jako
 	\[
 		\variance{X} = \expected{\pars{X - \expected{X}^2}} = \expected{X^2} - \expected{X}^2
 	\]
+	Czyli jest to drugi moment zmiennej \(X\) przesuniętej o swoją wartość oczekiwaną.
+	Intuicyjnie jest to miara tego, jakiego odchylenia od wartości oczekiwanej możemy się spodziwać. \\
+	Operator wariancji nie jest liniowy.
 \end{definition}
+\begin{definition} \textbf{Odchylenie standardowe} zmiennej losowej \(X\) definiujemy jako
+	\[
+		\sigma(X) = \sqrt{\text{Var}(X)}
+	\]
+\end{definition}
+%</probabil-2025-10-10-wariancja-1>
+%<*probabil-2025-10-10-wariancja-3>
 \begin{definition}
 	\textbf{Kowariancję} zmiennych losowych \( X \) oraz \( Y \) definiujemy jako
 	\[
 		\covariance{X}{Y} = \expected{\pars{X - \expected{X}} \cdot \pars{Y - \expected{Y}}}
 	\]
 \end{definition}
+%</probabil-2025-10-10-wariancja-3>
 
 \begin{theorem}
 	\[
@@ -27,6 +47,7 @@
 	\end{align*}
 \end{proof}
 
+%<*probabil-2025-10-10-wariancja-4>
 \begin{theorem}
 	Dla dowolnych zmiennych losowych \( X, Y \) zachodzi
 	\[
@@ -44,7 +65,9 @@
 		 & = \variance{X} + \variance{Y} + 2\covariance{X}{Y}
 	\end{align*}
 \end{proof}
+%</probabil-2025-10-10-wariancja-4>
 
+%<*probabil-2025-10-10-wariancja-6>
 \begin{theorem} Dla niezależnych zmiennych losowych \( X, Y \)
 	\[
 		\covariance{X}{Y} = 0
@@ -58,11 +81,13 @@
 	\begin{align*}
 		\covariance{X}{Y}
 		 & = \expected{\pars{X - \expected{X}} \cdot \pars{Y - \expected{Y}}}            \\
-		 & = \expected{X - \expected{X}} \cdot \expected{Y - \expected{Y}}               \\
+		 & =\footnotemark \expected{X - \expected{X}} \cdot \expected{Y - \expected{Y}}               \\
 		 & = \pars{\expected{X} - \expected{X}} \cdot \pars{\expected{Y} - \expected{Y}} \\
 		 & = 0
 	\end{align*}
 \end{proof}
+\footnotetext{Możemy to zrobić przez \ref{ev-of-independent-variable-product}}
+%</probabil-2025-10-10-wariancja-6>
 
 \begin{theorem}
 	\label{variance-of-sum-of-independent-variables}
@@ -83,6 +108,34 @@
 	\end{align*}
 \end{proof}
 
-\begin{definition}
-	\(n\)-tym momentem zmiennej losowej \( X \) nazywamy \( \expected{X^n} \)
-\end{definition}
+%<*probabil-2025-10-10-wariancja-2>
+\begin{example}
+	Niech \(X\) - stała, \(X = c\) (z prawopodobieństwem 1 przyjmuje wartość \(c\)). \\
+    Wartość oczekiwana X:
+    \[
+        \ev{X} = c \cdot \prob(X = c) = c \cdot 1 = c
+    \]
+    Wariancja:
+    \[
+        \Var{X} = \ev{(X - \ev{X})^2} = \ev{(c - c)^2} = 0
+    \]
+    Wariancja wynosi 0 i rzeczywiście, dla stałej nie spodziewamy się żadnego odchylenia od wartości oczekiwanej.
+
+
+    Niech \(Y = \begin{cases}
+        k \cdot c, \text{ z prawdopodobieństwem } \frac{1}{k} \\
+        0, \text{ z prawdopodobieństwem } \frac{k - 1}{k}
+    \end{cases}\)
+
+    Wartość oczekiwana Y:
+    \[
+        \ev{Y} = 0 \cdot \frac{k-1}{k} + k \cdot c \cdot \frac{1}{k} = c
+    \]
+    Wariancja Y:
+    \[
+        \Var{Y} = \ev{Y^2} - \ev{Y}^2 = (kc)^2 \cdot \frac{1}{k} - c^2 = kc^2 - c^2 = c^2 \cdot (k - 1)
+    \]
+
+    Więc dwie zmienne mające tą samą wartość oczekiwaną mogą mieć różne wariancje.
+\end{example}
+%</probabil-2025-10-10-wariancja-2>

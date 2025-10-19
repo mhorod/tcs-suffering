@@ -1,8 +1,9 @@
+%<*probabil-2025-10-10-markov>
 \subsection{Definicja}
 \begin{theorem}
 	Jeśli \( X \) jest zmienną losową, która przyjmuje nieujemne wartości to
 	\[
-		P(X \geq a) \leq \frac{\expected{X}}{a}
+		\prob(X \geq a) \leq \frac{\expected{X}}{a}
 	\]
 \end{theorem}
 \begin{proof}
@@ -16,9 +17,34 @@
 	Skoro \( X \geq 0 \) to \( I \leq \frac{X}{a} \).
 	Zatem
 	\[
-		P(X \geq a) = P(I = 1) = \expected{I} \leq \frac{\expected{X}}{a}
+		\prob(X \geq a) = P(I = 1) = \expected{I} \leq \frac{\expected{X}}{a}
 	\]
 \end{proof}
+
+\subsection{Rzuty monetą}
+Rzucamy \(n\) razy monetą - zliczamy liczbę orłów.
+
+Jak \textit{bardzo} możemy ograniczyć prawdopodobieństwo otrzymania \textit{dużej} liczby orłów?
+(Jest to troche nieformalne, nie wiemy co dokładnie znaczy \textit{bardzo} ani \textit{duża liczba orłów}, ale jakieś przykładowe ograniczenie możemy podać)
+
+Niech \(X_i = \begin{cases}
+	1, \text{ orzeł za i-tym razem} \\
+	0 \text{ wpp}
+\end{cases}\)
+
+\[
+	\ev{X} = \ev{\sum_i X_i} = \sum_i \ev{X_i} = \frac{n}{2}
+\]
+
+Chcemy ograniczyć prawdopodobieństwo tego, że w więcej niż \(\frac{3}{4}\) rzutów otrzymamy orła.
+
+Z Markowa:
+\[
+	\prob(X \geq \frac{3}{4} \cdot n) \leq \frac{\frac{n}{2}}{\frac{3}{4} \cdot n} = \frac{2}{3}
+\]
+
+Intuicyjnie ta wartość powinna być dużo mniejsza (i coraz mniejsza dla większych \(n\)) ale Markow daje formalne ograniczenie (chociaż jak widać dość słabe).
+%</probabil-2025-10-10-markov>
 
 \subsection{Kolekcjoner kuponów}
 Spróbujmy użyć nierówności Markowa do oszacowania jakoś czasu zebrania wszystkich kuponów.
