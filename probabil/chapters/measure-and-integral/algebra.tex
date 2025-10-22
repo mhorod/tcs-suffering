@@ -1,5 +1,5 @@
 \begin{definition}
-	\textbf{Algebra} to takie \(\Sigma \subset 2^{\Omega}\) dla danego uniwersum \(\Omega\), że spełnione są następujące warunki
+	\textbf{Algebra} to takie \(\Sigma \subseteq 2^{\Omega}\) dla danego uniwersum \(\Omega\), że spełnione są następujące warunki
 	\begin{itemize}
 		\item \(\emptyset, \Omega \in \Sigma\)
 		\item \(e \in \Sigma \implies \Omega \setminus e \in \Sigma\)
@@ -33,12 +33,12 @@
 % TODO: dowód (nie był podany na wykładzie)
 
 \begin{definition}
-	\textbf{\(\sigma\)-algebra generowana przez \(F \subset 2^\Omega\)} to
+	\textbf{\(\sigma\)-algebra generowana przez \(F \subseteq 2^\Omega\)} to
 	\[
-		\sigma(F) = \bigcap_{\substack{\Sigma \text{ to } \sigma\text{-algebra}\\F \subset \Sigma}} \Sigma
+		\sigma(F) = \bigcap \set{\Sigma \subseteq 2^\Omega : F \subseteq \Sigma \text{ i } \Sigma \text{ jest } \sigma \text{-algebrą}}
 	\]
 	
-	Intuicyjnie, jest to najmniejsza możliwa \(\sigma\)-algebra zawierająca w sobie \(F\)
+	Intuicyjnie, jest to najmniejsza możliwa \(\sigma\)-algebra zawierająca w sobie \(F\).
 \end{definition}
 
 \begin{example}
