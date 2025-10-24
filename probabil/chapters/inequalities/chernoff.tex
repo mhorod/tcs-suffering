@@ -1,3 +1,4 @@
+%<*probabil-2025-10-24-nierownosc-chernoffa-1>
 \subsection{Definicja}
 Łączymy ze sobą dwie rzeczy -- funkcje tworzące momentów, oraz nierówność Markowa.
 \begin{theorem}
@@ -8,6 +9,10 @@
 	\[
 		\forall_{t < 0} : P(X \leq a) = P(e^{tX} \geq e^{ta}) \leq \frac{\expected{e^{tX}}}{e^{ta}}
 	\]
+    w szczególności
+    \[
+        \prob(X \geq a) \leq min_{t > 0}\left\{ \frac{\expected{e^{tx}}}{e^{ta}} \right\}
+    \]
 \end{theorem}
 \begin{proof}
 	Niezależnie od tego jakie wartości przyjmuje \( X \) oraz ile wynosi \( t \) to \( e^{tX} \) oraz \( e^{ta} \) zawsze będą dodatnie.
@@ -27,7 +32,10 @@
 	\[
 		\mu = \expected{\sum X_i} = \sum \expected{X_i} = \sum p_i
 	\]
+    Dodatkowo, jeżeli \( \forall_{i,j \in [n]} p_i = p_j \), to nazywamy to \textbf{próbami Bernoulliego}.
 \end{definition}
+%</probabil-2025-10-24-nierownosc-chernoffa-1>
+
 
 \begin{lemma}
 	\label{independent-poisson-trials-abs-bound}
@@ -43,6 +51,48 @@
 		P(\abs{X - \mu} \geq \delta\mu) \leq P\pars{X \geq (1 + \delta)\mu} + P\pars{X \leq (1 - \delta)\mu}
 	\]
 \end{proof}
+
+%<*probabil-2025-10-24-nierownosc-chernoffa-2>
+\begin{example}
+    Chcemy ograniczyć z góry prawdopodobieństwo, że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy.
+
+    Niech \( X_1, \ldots, X_n \) - ciąg niezależnych prób Poissona oraz \( \prob(X_i = 1) = p_i \). Niech \( \mu = \expected{X} = \sum_{i=1}^{n} p_i \). Niech \( \delta > 0 \) będzie ustalone.
+
+    Liczymy z funkcji tworzącej:
+
+    \[
+        M_{X_i}(t) = \expected{e^{tX_i}} = p_ie^t + (1 - p_i) = 1 + p_i(e^t - 1) \leq e^{p_i(e^t-1)}
+    \]
+
+    Z niezależności:
+
+    \[
+        M_X(t) = \Pi_{i=1}^n M_{X_i}(t) \leq \Pi_{i=1}^n e^{p_i(e^t - 1)} = e^{(e^t - 1)\mu}
+    \]
+
+    Teraz stosujemy to dla monet:
+
+    \[
+        M_{X_i}(t) \leq e^{\frac{1}{2} \left( e^t - 1 \right)} \implies M_X(t) \leq e^{\frac{1}{2} n \left( e^t - 1 \right)}
+    \]
+    \[
+        \prob\left( X \geq \frac{3}{4}n \right) \leq 
+        \frac{e^{\frac{1}{2} n \left( e^t - 1 \right)}}{e^{\frac{3}{4} nt}} = e^{\frac{1}{2} n \left( e^t - 1 - \frac{3}{2} t \right)}
+    \]
+
+    Następnie minimalizujemy wykładnik:
+
+    \[
+        f(t) = e^t - 1 - \frac{3}{2}t \implies f'(t) = e^t - \frac{3}{2}
+    \]
+
+    Stąd mamy wartość minimalną \( f \) dla \( t = \ln\left(\frac{3}{2}\right) \) równą \( -\frac{1}{10} \)
+
+    \[
+        \prob\left( X \geq \frac{3}{4}n \right) \leq e^{-\frac{n}{20}}
+    \]
+\end{example}
+%</probabil-2025-10-24-nierownosc-chernoffa-2>
 
 \subsection{Przypadki specjalne}
 

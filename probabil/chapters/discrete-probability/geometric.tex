@@ -117,6 +117,8 @@
 	\]
 \end{proof}
 
+
+%<*probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego>
 \begin{theorem}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy tworząca tej zmiennej wynosi
 	\[
@@ -148,3 +150,30 @@
 		t < -\ln (1-p)
 	\]
 \end{proof}
+
+
+\begin{corollary}
+    Wcześniej obliczyliśmy już \( \expected{X} \) oraz \( \expected{X^2} \). Możemy to też zrobić z funkcji tworzącej momentów.
+
+    Wiemy, że \( M_X^{(n)}(0) = \expected{X^n} \). Obliczamy więc \( M_X^{(1)}(t) \) oraz \( M_X^{(2)}(t) \). Otrzymujemy:
+
+    \[
+        M_X^{(1)}(t) = p(1-(1-p)e^t)^{-2}
+    \]
+
+    \[
+        M_X^{(2)}(t) = 2p(1-p)(1-(1-p)e^t)^{-3}e^{2t} + p(1-(1-p)e^t)^{-2}e^t
+    \]
+
+    Po podstawieniu \( t = 0 \) otrzymujemy znane już wartości:
+
+    \[
+        M_X^{(1)}(0) = \expected{X} = \frac{1}{p}
+    \]
+
+    \[
+        M_X^{(2)}(0) = \expected{X^2} = \frac{2-p}{p^2}
+    \]
+\end{corollary}
+%</probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego>
+
