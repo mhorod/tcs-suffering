@@ -22,9 +22,10 @@
 \end{lemma} 
 
 \begin{lemma} Prawdopodobieństwo sumy / union bound \\
+	\label{union-bound}
 	Dla dowolnej skończonej lub przeliczalnej rodziny zdarzeń \(E_1, E_2, ...\) zachodzi
 	\[
-		\prob(\bigcup_{i=1}^\infty E_i) \leq \sum_{i=1}^\infty \prob(E_i)
+		\prob\pars{\bigcup_{i=1}^\infty E_i} \leq \sum_{i=1}^\infty \prob\pars{E_i}
 	\]
 \end{lemma}
 
@@ -32,7 +33,7 @@
 	Dla dowolnych zdarzeń \(E_1, ..., E_n\)
 	
 	\[
-		\prob(\bigcup_{i=1}^n E_i) = \sum_{i=1}^n \prob(E_i) - \sum_{\{i,j\} \in \binom{[n]}{2}} \prob(E_i \cap E_j) \; + \; \sum_{\{i,j,k\} \in \binom{[n]}{3}} \prob(E_i \cap E_j \cap E_k) \; - ...
+		\prob\pars{\bigcup_{i=1}^n E_i} = \sum_{i=1}^n \prob(E_i) - \sum_{\{i,j\} \in \binom{[n]}{2}} \prob(E_i \cap E_j) \; + \; \sum_{\{i,j,k\} \in \binom{[n]}{3}} \prob(E_i \cap E_j \cap E_k) \; - ...
 	\]
 \end{lemma}
 
@@ -44,7 +45,7 @@
 
 \begin{definition} Zdarzenia \(E_1, ..., E_k \in \mathcal{F}\) są \textbf{niezależne} gdy
 	\[
-		\forall_{\substack{I \subseteq [k] \\ I \ne \emptyset}} \prob(\bigcap_{i \in I} E_i) = \prod_{i \in I} \prob(E_i)
+		\forall_{\substack{I \subseteq [k] \\ I \ne \emptyset}} \prob\pars{\bigcap_{i \in I} E_i} = \prod_{i \in I} \prob(E_i)
 	\]
 \end{definition}
 

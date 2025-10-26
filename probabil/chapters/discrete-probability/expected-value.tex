@@ -101,11 +101,11 @@
 	\[
 		X = X_1 + X_2 + X_3 + X_4
 	\]
-	\(X_i\) to indykatory, a więc \(\expected{X_i} = \prob(X_i)\). Zastanówmy się więc jakie jest prawdopodobieństwo \(\prob(X_i = 1)\). Aby to zrobić, łatwiej będzie policzyć prawdopodobieństwo, że kolor \(i\)-ty \textit{nie} wystąpi, a więc 4 razy dostaniemy jeden z pozostałych 3 kolorów: \(\prob(X_i = 1) = 1 - \left( \frac{3}{4} \right)^4\). Dostajemy zatem
+	\(X_i\) to indykatory, a więc \(\expected{X_i} = \prob(X_i)\). Zastanówmy się więc jakie jest prawdopodobieństwo \(\prob(X_i = 1)\). Aby to zrobić, łatwiej będzie policzyć prawdopodobieństwo, że kolor \(i\)-ty \textit{nie} wystąpi, a więc 4 razy dostaniemy jeden z pozostałych 3 kolorów: \(\prob(X_i = 1) = 1 - \pars{\frac{3}{4}}^4\). Dostajemy zatem
 	\begin{align*}
 		\expected{X} = \expected{X_1 + X_2 + X_3 + X_4} &= \sum_{i=1}^4 \expected{X_i} \\
 		&= \sum_{i=1}^4 \prob(X_i = 1) \\
-		&= 4 \cdot \left( 1 - \left(\frac{3}{4} \right)^4 \right).
+		&= 4 \cdot \pars{ 1 - \pars{\frac{3}{4}}^4 }.
 	\end{align*}
 \end{example}
 
@@ -146,7 +146,7 @@
 \end{proof}
 \begin{example} Niech \(X\) to zmienna losowa, \(\prob(X = n) = \frac{1}{99}, n \in \{1,...,99\}\)
     \[
-        \ev{X}^2 = (\sum_{n = 1}^{99} \frac{1}{99} \cdot n)^2 = (\frac{1}{99} \cdot \frac{99 \cdot 100}{2})^2 = 50^2 = 2500
+        \ev{X}^2 = \pars{\sum_{n = 1}^{99} \frac{1}{99} \cdot n}^2 = \pars{\frac{1}{99} \cdot \frac{99 \cdot 100}{2}}^2 = 50^2 = 2500
     \]
     \[
         \ev{X^2} = \sum_{n = 1}^{99} \frac{1}{99} \cdot n^2 = \frac{1}{99} \cdot \frac{99 \cdot 100 \cdot 199}{6} = \frac{9950}{3} > 2500
@@ -227,6 +227,7 @@
 \end{example}
 
 \begin{lemma}
+	\label{ev-equal-to-sum-of-conditional-ev}
 	\[
 		\expected{X} = \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot \prob(Y = y)
 	\]

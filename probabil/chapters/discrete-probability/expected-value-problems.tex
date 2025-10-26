@@ -1,5 +1,5 @@
 %<*probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
-\begin{lemma} \(H_n = ln(n) + \Theta(1)\)\\
+\begin{lemma} \(H_n = \ln(n) + \Theta(1)\)\\
 	\begin{tikzpicture}
 		\draw[->] (-0.5, 0) -- (8, 0) node[right] {$x$};
 		\draw[->] (0, -0.5) -- (0, 4.2) node[above] {$y$};
@@ -43,11 +43,11 @@
 	\[
 	\left.
 	\begin{array}{l}
-	\displaystyle \textcolor{red}{\sum_{i=1}^{n-1} \frac{1}{i} = H_{n-1}} \geq \int_1^n \frac{1}{x} dx = ln(n) \rule{0pt}{2.5ex} \\[1.5em]
-	\displaystyle \textcolor{teal}{\sum_{i=2}^n \frac{1}{i} = H_n - 1} \leq \int_1^n \frac{1}{x} dx = ln(n)
+	\displaystyle \textcolor{red}{\sum_{i=1}^{n-1} \frac{1}{i} = H_{n-1}} \geq \int_1^n \frac{1}{x} dx = \ln(n) \rule{0pt}{2.5ex} \\[1.5em]
+	\displaystyle \textcolor{teal}{\sum_{i=2}^n \frac{1}{i} = H_n - 1} \leq \int_1^n \frac{1}{x} dx = \ln(n)
 	\end{array}
 	\right\}
-	\implies ln(n) \leq H_n \leq ln(n) + 1 
+	\implies \ln(n) \leq H_n \leq \ln(n) + 1 
 	\]
 \end{lemma}
 %</probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
@@ -115,8 +115,8 @@ Jaka jest oczekiwana liczba wszystkich odpalonych programów?
 \(Y_0 = 0\), \(Y_1\) ma rozkład dwumianowy z parametrami \((n, p)\) \(\implies \ev{Y_1} = np\)
 \begin{align*}
     \ev{Y_i | Y_{i-1} = y_{i-1}} &= \ev{\sum_{j=1}^{y_{i-1}} Z_j | Y_{i-1} = y_{i-1}} \\   
-    &= \sum_{\ell = 0}^{\infty} \ell \prob(\sum_{j=1}^{y_{i-1}} Z_j = \ell | Y_{i-1} = y_{i-1}) \\
-    &= \sum_{\ell = 0}^{\infty} \ell \prob(\sum_{j=1}^{y_{i-1}} Z_j = \ell) \\
+    &= \sum_{\ell = 0}^{\infty} \ell \prob\pars{\sum_{j=1}^{y_{i-1}} Z_j = \ell | Y_{i-1} = y_{i-1}} \\
+    &= \sum_{\ell = 0}^{\infty} \ell \prob\pars{\sum_{j=1}^{y_{i-1}} Z_j = \ell} \\
     &= \ev{\sum_{j=1}^{y_{i-1}} Z_j} = \sum_{j=1}^{y_{i-1}} \ev{Z_j} = \sum_{j=1}^{y_{i-1}} np = y_{i-1} np
 \end{align*}
 \[

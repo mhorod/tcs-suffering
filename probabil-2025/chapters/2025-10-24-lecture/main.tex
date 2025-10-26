@@ -4,12 +4,32 @@
 \makeatother
 \graphicspath{{../probabil}}
 
+\section{Zastosowania nierówności na zmiennych losowych}
+\input{chapters/inequalities/usecases}
+{
+	\begin{example} Nierówność Markowa dla kolekcjonera kuponów\\
+		\ExecuteMetaData[chapters/inequalities/markov]{probabil-2025-10-24-markov-kolekcjoner-kuponow}
+	\end{example}
+}
+
+\newpage
+\section{Nierówność Czebyszewa}
+{
+	\ExecuteMetaData[chapters/inequalities/chebyshev]{probabil-2025-10-24-chebyshev-1}\\
+	Potrzebne nam do tego będzie następujące twierdzenie
+	\ExecuteMetaData[chapters/discrete-probability/geometric]{probabil-2025-10-24-wariancja-rozkladu-geometrycznego}
+	Wracamy do zastosowania nierówności Czebyszewa dla kolekcjonera kuponów.
+	\ExecuteMetaData[chapters/inequalities/chebyshev]{probabil-2025-10-24-chebyshev-2}
+}
+
+\newpage
 \section{Funkcje tworzące momentów}
 \input{chapters/discrete-probability/moment-generating-functions}
 {
     \ExecuteMetaData[chapters/discrete-probability/geometric]{probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego}
 }
 
+\newpage
 \section{Nierówność Chernoffa}
 {
     \ExecuteMetaData[chapters/inequalities/chernoff]{probabil-2025-10-24-nierownosc-chernoffa-1}

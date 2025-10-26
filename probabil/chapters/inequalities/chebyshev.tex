@@ -1,3 +1,4 @@
+%<*probabil-2025-10-24-chebyshev-1>
 Nierówność Markowa nie daje nam zbyt dobrych ograniczeń, ale jeśli jedyne co wiemy o zmiennej \( X \) to jej wartość oczekiwana, to to jest i tak dobry wynik.
 \subsection{Definicja}
 Spodziewamy się, że jeśli wiemy coś więcej o rozkładzie \( X \) to możemy lepiej szacować pewne prawdopodobieństwa.
@@ -5,6 +6,7 @@ Spodziewamy się, że jeśli wiemy coś więcej o rozkładzie \( X \) to możemy
 Faktycznie, tak jest -- w nierówności Czebyszewa przyjmujemy że znamy wariancję.
 
 \begin{theorem}[Twierdzenie 3.6 P\&C]
+	\label{chebyshev-inequality}
 	Dla dowolnego \( a > 0 \)
 	\[
 		P(\abs{X - \expected{X}} \geq a) \leq \frac{\variance{X}}{a^2}
@@ -18,13 +20,42 @@ Faktycznie, tak jest -- w nierówności Czebyszewa przyjmujemy że znamy warianc
 	\]
 \end{proof}
 
+\subsection{Rzuty monetą}
+\label{chebyshev-coin-tosses}
+
+Rzucamy \(n\) razy monetą - zliczamy liczbę orłów.
+
+Niech \(X_i = \begin{cases}
+	1, \text{ orzeł za i-tym razem} \\
+	0 \text{ wpp}
+\end{cases}\)
+
+\[
+	\forall_{i \in [n]} \ev{X_i} = \frac{1}{2} \land \ev{{X_i}^2} = \frac{1}{2}
+\]
+\[
+	\variance{X_i} = \ev{X_i^2} - \ev{X_i}^2 = \frac{1}{2} - \pars{\frac{1}{2}}^2 = \frac{1}{4}
+\]
+
+Ponieważ zmienne losowe \(X_i\) są od siebie niezależne, to z \ref{variance-of-sum-of-independent-variables} mamy
+\[
+	\variance{X} = \sum_{i=1}^n \variance{X_i} = \frac{n}{4}
+\]
+a więc, z nierówności Chebysheva
+\[
+	\prob\pars{X \geq \frac{3}{4}n} = \prob\pars{X - \frac{n}{2} \geq \frac{n}{4}} \leq \prob\pars{\abs{X - \frac{n}{2}} \geq \frac{n}{4}} \leq \frac{\frac{n}{4}}{16} = \frac{4}{n}
+\]
+
 \subsection{Kolekcjoner kuponów}
+\label{chebyshev-coupon-collector}
 Niech \( X_1, \dots, X_n \) opisują czasy czekania na \( i \)-ty kupon oraz \( X = \sum X_i \) -- łączny czas czekania.
 
 Aby w ogóle móc liczyć coś nierównością Czebyszewa potrzebujemy obliczyć \( \variance{X} \).
+%</probabil-2025-10-24-chebyshev-1>
 
+%<*probabil-2025-10-24-chebyshev-2>
 Skorzystamy tutaj z bardzo wygodnego twierdzenia \ref{variance-of-sum-of-independent-variables}
-a następnie z aby dostać
+a następnie z \ref{variance-of-geometric} aby dostać
 \begin{align*}
 	\variance{X}
 	 & = \sum_{i=1}^n \variance{X_i}          \\
@@ -39,3 +70,4 @@ Teraz wkładamy to do nierówności Czebyszewa:
 \[
 	P(\abs{X - nH_n} \geq nH_n) \leq \frac{\variance{X}}{n^2H_n^2} = \frac{\pi^2}{6H_n^2} = O\pars{\frac{1}{\ln^2 n}}
 \]
+%</probabil-2025-10-24-chebyshev-2>

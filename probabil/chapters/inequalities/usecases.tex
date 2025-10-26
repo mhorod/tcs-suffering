@@ -1,0 +1,42 @@
+Pokażmy przykład zastosowania nierówności na zmiennych losowych poprzez wypełnienie tabelki pokazującej rezultaty jakie dają nam poszczególne nierówności.
+
+Dla wprowadzenia, gdy mówimy o problemie kolekcjonera kuponów odwołujemy się do \ref{coupon-collectors-problem}. Za to gdy mówimy o rzutach monetą, to \(X_i\) to zmienna losowa dla której 
+\[
+	\prob(X_i = 0) = \prob(X_i = 1) = \frac{1}{2}
+\]
+oraz
+\[
+	X = \sum_{i=1}^n X_i, \ev{X} = \frac{n}{2}
+\]
+
+\begin{tabular}{p{6cm} p{5.5cm} p{5.5cm}}
+\toprule
+ & Rzuty monetą \newline Ograniczenie \(\prob(X \geq \frac{3}{4}n)\)  & Kolekcjoner kuponów \newline Ograniczenie \(\prob(X \geq 2 n H_n)\)\\
+\midrule
+Nierówność Markowa (\ref{markov-inequality}) & \(\frac{2}{3}\) (\ref{markov-coin-tosses}) & \(\frac{1}{2}\) (\ref{markov-coupon-collector}) \\
+
+Nierówność Czebyszewa (\ref{chebyshev-inequality}) & \(\frac{4}{n}\) (\ref{chebyshev-coin-tosses}) & \(O(\frac{1}{\ln^2 n})\) (\ref{chebyshev-coupon-collector})\\
+
+Nierówność Chernoffa (\ref{chernoff-inequality}) & \(e^{-\frac{n}{20}}\) (\ref{chernoff-coin-tosses})& \(e^{-n}\) \\
+
+Union bound (\ref{union-bound}) & \(\) & \(\frac{1}{n}\) (\ref{union-bound-coupon-collector}) \\
+\bottomrule
+\end{tabular}
+
+W następnych sekcjach pokażdemy odpowiednie definicje tych nierówności oraz dowody wartości podanych w tabelce.
+
+\begin{example} Union bound dla kolekcjonera kuponów\\
+	\label{union-bound-coupon-collector}
+	Niech \(A_i\) to zdarzenie polegające na nieuzyskaniu \(i\)-tego kuponu po \(n \ln(n) + cn\) krokach
+	\[
+		\prob\pars{A_i} = \pars{1 - \frac{1}{n}}^{n \ln(n) + cn} = \pars{1 + \frac{1}{-n}}^{-n(-\ln(n) -c)} \leq e^{-(\ln(n) + c)} = \frac{1}{e^c n}
+	\]
+	Z \ref{union-bound} wiemy, że
+	\[
+		\prob\pars{\bigcup_{i=1}^n A_i} = \sum_{i=1}^n \prob\pars{A_i} = \frac{1}{e^c}
+	\]
+	Niech \(c = \ln(n)\), a więc \(A_i\) to zdarzenie polegające na nieuzyskaniu \(i\)-tego kuponu po \(2n \ln(n)\) krokach, a \(2n \ln(n) \leq 2n H_n\), a więc
+	\[
+		\prob(X \geq 2n H_n) \leq \prob\pars{X \geq 2n \ln(n)} = \prob\pars{\bigcup_{i=1}^n A_i} \leq \frac{1}{e^{\ln(n)}} = \frac{1}{n}
+	\]
+\end{example}

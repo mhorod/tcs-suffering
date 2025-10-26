@@ -16,9 +16,9 @@
 
     Naturalnie możemy chcieć policzyć prawdopodobieństwo, że dostaniemy sumę oczek równą $a$
     \[
-        \prob(X = a) = \sum_{\substack{s \in \Omega \\ X(s) = a}} \prob(\{ s \})
+        \prob(X = a) = \sum_{\substack{s \in \Omega \\ X(s) = a}} \prob(\set{s})
     \]
-    Na przykład $\prob(X = 4) = \prob(\{1, 3\}) + \prob(\{2, 2\}) + \prob(\{3, 1\}) = \frac{3}{36}$
+    Na przykład $\prob(X = 4) = \prob(\set{1, 3}) + \prob(\set{2, 2}) + \prob(\set{3, 1}) = \frac{3}{36}$
 \end{example}
 
 \begin{definition}
@@ -31,7 +31,7 @@
 \begin{definition}
 	Zmienne losowe \(X_1, X_2, ..., X_k\) są \textbf{niezależne} gdy
 	\[
-		\forall_{I \subseteq [k]} \forall_{\substack{\{x_i\}_{i \in I} \\ x_i \in \mathbb{R}}} \quad \prob(\bigcap_{i \in I}(X_i = x_i)) = \prod_{i \in I} \prob(X_i = x_i)
+		\forall_{I \subseteq [k]} \forall_{\substack{\{x_i\}_{i \in I} \\ x_i \in \mathbb{R}}} \quad \prob\pars{\bigcap_{i \in I}\pars{X_i = x_i}} = \prod_{i \in I} \prob\pars{X_i = x_i}
 	\]
 \end{definition}
 
@@ -42,6 +42,6 @@
 	\]
 	Mamy 
 	\[
-		\mathbb{E} \left[ Y \right] = 0 \cdot \prob\left( Y=0 \right) + 1\cdot \prob\left( Y=1 \right) = \prob\left( Y=1 \right) = \prob\left( A \right) .
+		\ev{Y} = 0 \cdot \prob\pars{Y=0} + 1\cdot \prob\pars{Y=1} = \prob\pars{Y=1} = \prob\pars{A}
 	\]
 \end{definition}

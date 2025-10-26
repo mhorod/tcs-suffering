@@ -1,6 +1,7 @@
 %<*probabil-2025-10-10-markov>
 \subsection{Definicja}
 \begin{theorem}
+	\label{markov-inequality}
 	Jeśli \( X \) jest zmienną losową, która przyjmuje nieujemne wartości to
 	\[
 		\prob(X \geq a) \leq \frac{\expected{X}}{a}
@@ -22,6 +23,7 @@
 \end{proof}
 
 \subsection{Rzuty monetą}
+\label{markov-coin-tosses}
 Rzucamy \(n\) razy monetą - zliczamy liczbę orłów.
 
 Jak \textit{bardzo} możemy ograniczyć prawdopodobieństwo otrzymania \textit{dużej} liczby orłów?
@@ -47,6 +49,8 @@ Intuicyjnie ta wartość powinna być dużo mniejsza (i coraz mniejsza dla więk
 %</probabil-2025-10-10-markov>
 
 \subsection{Kolekcjoner kuponów}
+%<*probabil-2025-10-24-markov-kolekcjoner-kuponow>
+\label{markov-coupon-collector}
 Spróbujmy użyć nierówności Markowa do oszacowania jakoś czasu zebrania wszystkich kuponów.
 Niech \( X \) będzie czasem zebrania wszystkich kuponów.
 W sekcji \ref{coupon-collectors-problem} pokazaliśmy, że \( \expected{X} = nH_n = \Theta(n \ln n) \)
@@ -58,3 +62,4 @@ Możemy zatem skorzystać z nierówności Markowa aby otrzymać
 
 Nie jest to jakieś szczególnie satysfakcjonujące oszacowanie -- prawdopodobieństwo, że musimy czekać dwa
 razy dłużej niż tego oczekujemy może wynosić aż \( \frac{1}{2} \) :(
+%</probabil-2025-10-24-markov-kolekcjoner-kuponow>

@@ -14,7 +14,7 @@ Od teraz niech \( E \in \Sigma \)
 \begin{definition}
     Niech \( S : \Omega\to [0, +\infty] \) - funkcja prosta.
     \[
-        \int_E S \diff \mu := \sum_{j = 1}^n \alpha_j \mu\left(A_j \cap E \right)
+        \int_E S \diff \mu := \sum_{j = 1}^n \alpha_j \mu\pars{A_j \cap E }
     \]
     Gdzie \( \mu \) jest miarą Lebesgue'a.
 
@@ -71,16 +71,16 @@ Od teraz niech \( E \in \Sigma \)
 \begin{definition}
     Niech \( f: \Omega\to [0, +\infty] \) - funkcja mierzalna.
     \[
-        \int_E f \diff \mu = \sup \left\{\int_E s \diff \mu \; : \; s: \Omega\to [0, \infty], s \text{ jest prosta, } s \leq f \right\}
+        \int_E f \diff \mu = \sup \set{\int_E s \diff \mu \; : \; s: \Omega\to [0, \infty], s \text{ jest prosta, } s \leq f }
     \]
 \end{definition}
 
 \begin{definition}
     Niech  \( f: \Omega\to \real \) mierzalna
 
-    \( f_+ := \max \left\{0, f\right\} \)
+    \( f_+ := \max \set{0, f} \)
 
-    \( f_- := -\min \left\{0, f\right\} \)
+    \( f_- := -\min \set{0, f} \)
 
     \[
         \int_E d \diff \mu = \int_E f_+ \diff \mu - \int_E f_- \diff \mu
@@ -94,7 +94,7 @@ Od teraz niech \( E \in \Sigma \)
 
     Dzielimy \( f \) na część rzeczywistą i urojoną:
 
-    \( f = u + i \cdot v \), gdzie \( u\left( z \right) = \text{Re}\left( f\left( z \right) \right) \), \( v\left( z \right) = \text{Im}\left( f\left( z \right) \right) \)
+    \( f = u + i \cdot v \), gdzie \( u\pars{ z } = \text{Re}\pars{ f\pars{ z } } \), \( v\pars{ z } = \text{Im}\pars{ f\pars{ z } } \)
 
     \[
         \int_E f \diff \mu = \int_E u \diff \mu - i \cdot \int_E v \diff \mu
@@ -107,7 +107,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
     Dla:
 
-    \( f: \left( \Omega, \Sigma \right) \to [0, +\infty] \) mierzalna
+    \( f: \pars{ \Omega, \Sigma } \to [0, +\infty] \) mierzalna
 
     \( \{S_n\}_{n = 1}^{+\infty} \)
 
@@ -122,7 +122,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
 \begin{theorem}
     \[
-        f : \left( \Omega, \Sigma \right) \to [0, +\infty] \text{ mierzalna } \implies \exists \{S_n\}_{n = 1}^{+\infty} \text{ takie, że } (*)
+        f : \pars{ \Omega, \Sigma } \to [0, +\infty] \text{ mierzalna } \implies \exists \{S_n\}_{n = 1}^{+\infty} \text{ takie, że } (*)
     \]
 \end{theorem}
 
@@ -130,9 +130,9 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
     Jak to się łączy z prawdopodobieństwem?
 
-    \textbf{Prawdopodobieństwo} definiujemy jako miarę probabilistyczną na \( \left( \Omega, \Sigma \right) \)
+    \textbf{Prawdopodobieństwo} definiujemy jako miarę probabilistyczną na \( \pars{ \Omega, \Sigma } \)
 
-    \textbf{Zmienną losową} definiujemy jako funkcję mierzalną \( f: \left( \Omega, \Sigma \right) \to \real \)
+    \textbf{Zmienną losową} definiujemy jako funkcję mierzalną \( f: \pars{ \Omega, \Sigma } \to \real \)
 
     \textbf{Wartość oczekiwaną} definiujemy:
     \[
@@ -141,7 +141,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
     \textbf{Wariancję} definiujemy:
     \[
-        \variance{X} = \int_{\Omega} \left( X - \expected{X} \right)^2 \diff \prob
+        \variance{X} = \int_{\Omega} \pars{ X - \expected{X} }^2 \diff \prob
     \]
 
     Dzięki temu otrzymujemy odpowiednie definicje poza przypadkiem dyskretnym.
@@ -158,17 +158,17 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
     \( \expected{X} \) możemy obliczyć z miary liczącej:
 
     \[ 
-        \prob \left( A \right) = \frac{ \left| A \right| }{ \left| \Omega \right| } \implies \prob \left( X = i \right) = \frac{1}{n} 
+        \prob \pars{ A } = \frac{ \left| A \right| }{ \left| \Omega \right| } \implies \prob \pars{ X = i } = \frac{1}{n} 
     \]
 
     \[ 
-        \expected{X} = \sum_{i = 1}^{n} \prob \left( X = 1 \right) \cdot i 
+        \expected{X} = \sum_{i = 1}^{n} \prob \pars{ X = 1 } \cdot i 
     \]
 
     Alternatywnie, możemy zauważyć, że \( X \) jest funckją prostą.
 
     \[ 
-        X \left( x \right) = \sum_{i = 1}^{n} \chi_{\left\{ i \right\}}\left( x \right) \frac{1}{n} 
+        X \pars{ x } = \sum_{i = 1}^{n} \chi_{\set{ i }}\pars{ x } \frac{1}{n} 
     \]
 
     \[ 
@@ -180,7 +180,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 \begin{example}
     Losowanie z odcinka.
 
-    \( \Omega = [ 0, 1] \), \( \Sigma = B\left([0, 1] \right) \)
+    \( \Omega = [ 0, 1] \), \( \Sigma = B\pars{[0, 1] } \)
 
     Wtedy \( \prob(A) = \lambda(A) \), gdzie \( \lambda \) jest miarą Lebesgue'a (długością).
     
@@ -195,7 +195,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
     Wtedy \( \prob(A) = \int_A f \diff \lambda \) 
 
-    Analogicznie dla \( \Omega = \real^2 \), \( \Sigma = B\left( \real^2 \right) \) otrzymamy:
+    Analogicznie dla \( \Omega = \real^2 \), \( \Sigma = B\pars{ \real^2 } \) otrzymamy:
 
     \( \prob(A) = \int_A f \diff \lambda^2 \)
 
@@ -209,7 +209,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 
     \( \Omega = [0, 1] \)
 
-    Dla \( A \subseteq [0, 1] \) mamy: \( \prob\left(\{0\}\right) = \frac{1}{3} \) - to, co przyciągnie magnes.
+    Dla \( A \subseteq [0, 1] \) mamy: \( \prob\pars{\{0\}} = \frac{1}{3} \) - to, co przyciągnie magnes.
 
     Dla \( A \subseteq [\frac{1}{3}, 1] \): \( \prob(A) = \lambda(A) \)
 
@@ -218,7 +218,7 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
 \begin{example}
     Nieskończony ciąg rzutów monetą symetryczną.
 
-    \( \Omega = \left\{ (X_n)_{n = 1}^{+\infty} : X_n \in \{0, 1\} \right\} \)
+    \( \Omega = \set{ (X_n)_{n = 1}^{+\infty} : X_n \in \{0, 1\} } \)
 
     Pojawia się problem - jak zdefiniować \( \Sigma \), aby był mierzalny?
 
@@ -228,17 +228,17 @@ Co tutaj w ogóle definiujemy? Zaczynamy od definicji funkcji prostej i całki z
         a_1, \ldots, a_k \in \{0, 1\} 
     \]
     \[ 
-        [a_1, \ldots, a_k] := \left\{ (x_n)_{n=1}^{+\infty} \middle| a_1 = x_1, \ldots, a_k = x_k \right\} 
+        [a_1, \ldots, a_k] := \set{ (x_n)_{n=1}^{+\infty} \middle| a_1 = x_1, \ldots, a_k = x_k } 
     \]
     \[ 
-        \text{Cyl} := \left\{ [a_1, \ldots, a_k] \middle| a_1, \ldots, a_k \in \{0, 1\}, k \in \natural \right\} 
+        \text{Cyl} := \set{ [a_1, \ldots, a_k] \middle| a_1, \ldots, a_k \in \{0, 1\}, k \in \natural } 
     \]
     \[ 
-        \Sigma = \sigma\left( \text{Cyl} \right) 
+        \Sigma = \sigma\pars{ \text{Cyl} } 
     \] 
     czyli \( \Sigma \) jest \( \sigma \)-algebrą generowana przez zbiór cylindrów.
 
     \[ 
-        \prob\left( [a_1, \ldots, a_k] \right) = \frac{1}{2^k} 
+        \prob\pars{ [a_1, \ldots, a_k] } = \frac{1}{2^k} 
     \]
 \end{example}

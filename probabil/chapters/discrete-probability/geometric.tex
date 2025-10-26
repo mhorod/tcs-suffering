@@ -8,6 +8,7 @@
 \end{definition}
 
 \begin{theorem}[Lemat 2.8 P\&C]
+	\label{geometric-is-memoryless}
 	Rozkład geometryczny jest \textbf{bez pamięci} tzn. jeśli \( X \) ma rozkład geometryczny z parametrem \( p \) to
 	\[
 		\forall_{n, k} : \prob(X = n + k \mid X > k) = \prob(X = n)
@@ -35,6 +36,7 @@
 
 %<*probabil-2025-10-10-rozklad-geometryczny-3>
 \begin{theorem}
+	\label{geometric-expected-value}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy
 	\[
 		\expected{X} = \frac{1}{p}
@@ -68,14 +70,16 @@
 \end{proof}
 %</probabil-2025-10-10-rozklad-geometryczny-3>
 
+%<*probabil-2025-10-24-wariancja-rozkladu-geometrycznego>
 \begin{theorem}
+	\label{variance-of-geometric}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy
 	\[
 		\variance{X} = \frac{1 - p}{p^2}
 	\]
 \end{theorem}
 \begin{proof}
-	Pokazaliśmy przed chwilą, że \( \expected{X} = \frac{1}{p} \). Pozostaje nam zatem policzyć \( \expected{X^2} \)
+	Pokazaliśmy w \ref{geometric-expected-value}, że \( \expected{X} = \frac{1}{p} \). Pozostaje nam zatem policzyć \( \expected{X^2} \)
 
 	Zaczniemy od pokazania pomocniczych równości.
 
@@ -116,6 +120,33 @@
 		\variance{X} = \expected{X^2} - \expected{X}^2 = \frac{2-p}{p^2} - \frac{1}{p^2} = \frac{1-p}{p^2}
 	\]
 \end{proof}
+Alternatywny dowód
+\begin{proof} Niech \(Y\) ma rozkład geometryczny z parametrem \(p\)\\
+	Niech \(X = \begin{cases}
+		1 & \text{w pierwszym rzucie orzeł} \\
+		0 & \text{w pierwszym rzucie reszka}
+	\end{cases}\)\\
+	Z \ref{ev-equal-to-sum-of-conditional-ev} mamy:
+	\begin{align*}
+		\ev{Y^2}
+			& = \prob(X = 0) \ev{Y^2 \mid X = 0} + \prob(X = 1) \ev{Y^2 \mid X = 1}\\
+			& = (1-p)\ev{Y^2 \mid X = 0} + p\ev{Y^2 \mid X = 1}\\
+	\end{align*}
+	Wiemy, że
+	\begin{itemize}
+		\item Dla \(X = 1\), \(Y = 1\), a więc \(E(Y^2 \mid X = 1) = 1\)
+		\item Dla \(X = 0\), \(Y > 1\). Niech \(Z\) to liczba pozostałych rzutów do otrzymania pierwszego orła
+	\end{itemize}
+	W takim razie
+	\[
+		\ev{Y^2} = (1-p)\ev{(Z + 1)^2} + p = (1-p)\ev{Z^2} + 2(1-p)\ev{Z} + 1
+	\]
+	Wiemy z \ref{geometric-is-memoryless}, że rozkład geometryczny jest bez pamięci, a więc \(Z\) też ma rozkład geometryczny z parametrem \(p\), a więc \(\ev{Z} = \frac{1}{p}, \ev{Z^2} = \ev{Y^2}\), co znaczy, że
+	\[
+		\ev{Y^2} = (1-p)\ev{Y^2} + 2(1-p)\frac{1}{p} + 1 \implies p\ev{Y^2} = \frac{2-p}{p} \implies \ev{Y^2} = \frac{2-p}{p^2}
+	\]
+\end{proof}
+%</probabil-2025-10-24-wariancja-rozkladu-geometrycznego>
 
 
 %<*probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego>

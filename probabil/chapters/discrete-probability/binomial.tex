@@ -73,13 +73,13 @@
 	
 	Ponieważ kolejne próby sa niezależne, można obliczyć to prościej:
     \[
-        \Var(X) = \Var(\sum_{i=1}^n X_i) = \sum_{i=1}^n \Var(X_i)
+        \variance{X} = \variance{\sum_{i=1}^n X_i} = \sum_{i=1}^n \variance{X_i}
     \]
 
     Gdzie \(X_i\) to indykatory dla kolejnych zdarzeń.
     Wariancja dla jednego indykatora:
 	\begin{align*}
-		\Var(X_i)
+		\variance{X_i}
 		 & = \ev{[(X_i - \ev{X_i})^2}\\
 		 & = \prob(X_i = 0) \cdot (0 - p)^2 + \prob(X_i = 1) \cdot (1-p)^2\\
 		 & = (1-p)p^2 + p(1-p)^2 \\
@@ -88,7 +88,7 @@
 
     Sumując po i dostajemy:
     \[
-        \sum_{i=1}^n \Var(X_i) = \sum_{i=1}^n (1-p)p = np(1-p)
+        \sum_{i=1}^n \variance{X_i} = \sum_{i=1}^n (1-p)p = np(1-p)
     \]
 \end{proof}
 %</probabil-2025-10-10-wariancja-7>

@@ -18,7 +18,7 @@
 \end{definition}
 \begin{definition} \textbf{Odchylenie standardowe} zmiennej losowej \(X\) definiujemy jako
 	\[
-		\sigma(X) = \sqrt{\text{Var}(X)}
+		\sigma(X) = \sqrt{\variance{X}}
 	\]
 \end{definition}
 %</probabil-2025-10-10-wariancja-1>
@@ -89,6 +89,7 @@
 \footnotetext{Możemy to zrobić przez \ref{ev-of-independent-variable-product}}
 %</probabil-2025-10-10-wariancja-6>
 
+%<*probabil-2025-10-10-wariancja-8>
 \begin{theorem}
 	\label{variance-of-sum-of-independent-variables}
 	Niech \( X_1, \dots, X_n \) będą parami niezależne. Wtedy
@@ -107,6 +108,7 @@
 		 & = \sum_{i=1}^n \variance{X_i}
 	\end{align*}
 \end{proof}
+%</probabil-2025-10-10-wariancja-8>
 
 %<*probabil-2025-10-10-wariancja-2>
 \begin{example}
@@ -117,7 +119,7 @@
     \]
     Wariancja:
     \[
-        \Var{X} = \ev{(X - \ev{X})^2} = \ev{(c - c)^2} = 0
+        \variance{X} = \ev{(X - \ev{X})^2} = \ev{(c - c)^2} = 0
     \]
     Wariancja wynosi 0 i rzeczywiście, dla stałej nie spodziewamy się żadnego odchylenia od wartości oczekiwanej.
 
@@ -133,7 +135,7 @@
     \]
     Wariancja Y:
     \[
-        \Var{Y} = \ev{Y^2} - \ev{Y}^2 = (kc)^2 \cdot \frac{1}{k} - c^2 = kc^2 - c^2 = c^2 \cdot (k - 1)
+        \variance{Y} = \ev{Y^2} - \ev{Y}^2 = (kc)^2 \cdot \frac{1}{k} - c^2 = kc^2 - c^2 = c^2 \cdot (k - 1)
     \]
 
     Więc dwie zmienne mające tą samą wartość oczekiwaną mogą mieć różne wariancje.

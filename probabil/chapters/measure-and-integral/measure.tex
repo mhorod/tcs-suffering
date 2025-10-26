@@ -28,7 +28,7 @@
 \begin{lemma}
 	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \subseteq A_{i+1}\). Wtedy
 	\[
-		\mu(\bigcup_{i=1}^\infty A_i) = \lim_{x \to \infty} \mu(A_i)
+		\mu\pars{\bigcup_{i=1}^\infty A_i} = \lim_{x \to \infty} \mu(A_i)
 	\]
 \end{lemma}
 % TODO: dowód (nie był podany na wykładzie)
@@ -36,7 +36,7 @@
 \begin{lemma}
 	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \supseteq A_{i+1}\) oraz \(\mu(A_1) < \infty\). Wtedy
 	\[
-		\mu(\bigcap_{i=1}^\infty A_i) = \lim_{x \to \infty} \mu(A_i)
+		\mu\pars{\bigcap_{i=1}^\infty A_i} = \lim_{x \to \infty} \mu(A_i)
 	\]
 \end{lemma}
 % TODO: dowód (nie był podany na wykładzie)
@@ -56,9 +56,9 @@
 	\]
 	a więc
 	\[
-		\mu(\set{a}) = \mu(\bigcap_{n=1}^\infty [a, a + \frac{1}{n}]) = \lim_{n \to \infty} \frac{1}{n} = 0
+		\mu(\set{a}) = \mu\pars{\bigcap_{n=1}^\infty [a, a + \frac{1}{n}]} = \lim_{n \to \infty} \frac{1}{n} = 0
 	\]
 	\[
-		\mu(\rational) = \mu(\set{q_1, q_2, \dots}) = \mu(\bigcup_{n=1}^\infty \set{q_1, \dots, q_n}) = \lim_{n \to \infty} \mu(\set{q_1, \dots, q_n}) = 0
+		\mu(\rational) = \mu(\set{q_1, q_2, \dots}) = \mu\pars{\bigcup_{n=1}^\infty \set{q_1, \dots, q_n}} = \lim_{n \to \infty} \mu(\set{q_1, \dots, q_n}) = 0
 	\]
 \end{example}
