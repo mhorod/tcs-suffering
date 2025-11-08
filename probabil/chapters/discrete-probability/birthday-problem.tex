@@ -1,0 +1,63 @@
+Zadajmy sobie pytanie - ile osób w sali wystarczy, aby prawdopodobieństwo tego, że dwie osoby
+mają urodziny w tym samym dniu było większe od \( \frac{1}{2} \)?\\
+Zakładamy, że każdy dzień urodzin jest równie prawdopodobny, oraz że rok ma 365 dni.\\
+Odpowiedź: wystarczą 23 osoby.
+
+\begin{example}
+Sprawdźmy najpierw co się stanie dla 30 osób. 
+
+\[
+    \prob(\textit{Żaden dzień się nie powtórzy}) = \frac{\binom{365}{30} \cdot 30!}{365^{30}} = \left(1 - \frac{1}{365} \right)\left( 1 - \frac{2}{365} \right)\ldots\left(1 - \frac{29}{365}\right) \approx 0,29
+\]
+
+\end{example}
+
+\begin{example}
+Spróbujmy teraz trochę bardziej ogólnie.\\
+Niech \( n \) - liczba dni w roku.\\
+\( m \) - wymagana liczba osób w pokoju.\\
+
+Skorzystamy tutaj z takiego przybliżenia (przy założeniu, że \( k \) jest małe względem \( n \)):
+\[
+    1 - \frac{k}{n} \approx e^{-\frac{k}{n}}
+\]
+
+\[
+    \prod_{j = 1}^{m - 1}\left( 1 - \frac{j}{n} \right) \approx \prod_{j = 1}^{m - 1}e^{-\frac{j}{n}} = e^{\sum_{j = 1}^{m - 1}-\frac{j}{n}} = e^{-\frac{m(m-1)}{2n}} \approx e^{-\frac{m^2}{2n}}
+\]
+
+Następnie szukamy \( m \):
+\[
+    e^{-\frac{m^2}{2n}} = \frac{1}{2}
+\]
+Logarytmujemy stronami:
+\[
+    -\frac{m^2}{2n} = \ln\left(\frac{1}{2}\right)
+\]
+\[
+    m = \sqrt{2n\ln2}
+\]
+Podstawiając \( n = 365 \):
+\[
+    m \approx 22,49
+\]
+
+Użyliśmy tutaj kilku przybliżeń, ale wynik wciąż jest bardzo blisko poprawnego \(23\)
+\end{example}
+
+\begin{example}
+Spróbujmy jeszcze bardziej ogólnie.\\
+Niech \( E_i \) - \(i\)-ta osoba ma dzień urodzin różny od wszystkich osób przed nią.\\
+\( \overline{E_i} \) - \(i\)-ta osoba powtórzyła dzień urodzin.\\
+Wtedy prawdopodobieństwo tego, że jakiś dzień się powtórzy to:
+\[
+    \prob\left( \overline{E_1 \cap \ldots \cap E_m } \right) = \prob\left( \overline{E_1} \cup \ldots \cup \overline{E_m} \right) \leq \sum_{j = 1}^{m}\prob\left( \overline{E_i} \right) \leq \sum_{i = 1}^{m}\frac{i-1}{n} = \frac{m(m-1)}{2n}
+\]
+Teraz możemy zauważyć, że dla \( m \leq \sqrt{n} \) to prawdopodobieństwo będzie mniejsze od \( \frac{1}{2} \) (dla \( n = 365, m \approx 19,1 \)).
+
+Możemy też oszacować co się stanie dla \( m \geq 2\sqrt{n} \):
+\[
+    \prob(\textit{dzień urodzin się nie powtórzy}) < \left( 1 - \frac{\sqrt{n}}{n} \right)^{\sqrt{n}} < \frac{1}{e} < \frac{1}{2}
+\]
+Czyli dzielimy nasze osoby na dwie grupy po \(\sqrt{n}\) osób. Zakładamy, że w pierwszej nie będzie żadnych powtórzeń. Wtedy każda osoba z drugiej grupy musi ominąć przynajmniej \(\sqrt{n}\) miejsc i stąd nasze oszacowanie.
+\end{example}
