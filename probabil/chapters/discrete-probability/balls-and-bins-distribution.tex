@@ -1,0 +1,49 @@
+Rozważmy ponownie model z urnami i kulami - rzucamy \(m\) kul do \(n\) urn.
+Zbadajmy indykatory \(X_i\) zdarzeń polegających na tym, że \(i\)-ta urna jest pusta.
+
+\begin{align*}
+    \ev{X_i} = \pars{1 - \frac{1}{n}}^m
+\end{align*}
+
+Zanim przejdziemy dalej warto przyjąć następujące przybliżenie:
+
+\begin{lemma}
+    \begin{align*}
+        \pars{1 - \frac{1}{n}}^m \approx e^{-\frac{m}{n}}
+    \end{align*}
+\end{lemma}
+\begin{proof}
+Jeśli przyjmiemy najlepiej że \(m\) jest duże i podstawimy \(\lambda = \frac{m}{n}\) dostajemy:
+    \begin{align*}
+        \pars{1 + \frac{-\lambda}{m}}^m \approx e^{-\lambda}
+    \end{align*}
+\end{proof}
+
+Niech \(X = \sum X_i\) zlicza liczbę pustych urn. Przyjmując powyższe przybliżenie dostajemy:
+
+\begin{theorem}
+    \begin{align*}
+        \ev{X} \approx ne^{-\frac{m}{n}}
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \ev{X} = \sum \ev{X_i} = n\pars{1 - \frac{1}{n}}^m \approx ne^{-\frac{m}{n}}
+    \end{align*}
+\end{proof}
+
+Podobnie postąpimy szacując prawdopodobieństwo, że w konkretnej urnie jest \(r\) kul.
+
+\begin{theorem}
+    \begin{align*}
+        \prob\pars{\text{W danej urnie jest \(r\) kul}} \approx \frac{e^{-\frac{m}{n}}\pars{\frac{m}{n}}^r}{r!}
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    \begin{align*}
+        \prob\pars{\text{W danej urnie jest \(r\) kul}} &= \binom{m}{r}\pars{\frac{1}{n}}^r\pars{1 - \frac{1}{n}}^{m-r}\\
+        &= \frac{1}{r!} \cdot \frac{m(m-1) \dots (m-r+1)}{n^r} \pars{1 - \frac{1}{n}}^{m-r}\\
+        &\approx \frac{1}{r!}\pars{\frac{m}{n}}^r\pars{1 - \frac{1}{n}}^{m-r}\\
+        &\approx \frac{\pars{\frac{m}{n}}^r e^{-\frac{m}{n}}}{r!}
+    \end{align*}
+\end{proof}
