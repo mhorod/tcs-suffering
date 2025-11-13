@@ -55,9 +55,21 @@ Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty
 	Jeśli \( X \) ma rozkład Poissona z parametrem \( \lambda_X \) a \( Y \) rozkład Poissona z parametrem \( \lambda_Y \), a ponadto obie zmienne są niezależne to \( X + Y \) ma rozkład Poissona z parametrem \( \lambda_X + \lambda_Y\)
 \end{theorem}
 \begin{proof}
-	Są dwie ścieżki aby to pokazać -- jedna polega na przeliczeniu explicite \( P(X + Y = n) \) -- zostawiamy to jako ćwiczenie dla Czytelnika.
+	Są dwie ścieżki aby to pokazać -- pierwszy polega na przeliczeniu explicite \( P(X + Y = n) \).
 
-	Pokażemy bardziej elegancki dowód korzystający z funkcji tworzących momentów.
+	\begin{align*}
+		\prob\pars{X+Y=n} &= \sum_{k=0}^{\infty}\prob\pars{X = k \cap Y = n-k}												\\
+		&= \sum_{k=0}^{\infty}\prob\pars{X = k}\prob\pars{Y = n-k}															\\
+		&= \sum_{k=0}^{\infty}\frac{e^{-\lambda_X}\lambda_X^k}{k!}\cdot\frac{e^{-\lambda_Y}\lambda_Y^{n-k}}{\pars{n-k}!}	\\
+		&= \frac{e^{-\lambda_X-\lambda_Y}}{n!}\sum_{k=0}^{\infty}\frac{\lambda_X^k\lambda_Y^{n-k}n!}{k!\pars{n-k}!}			\\
+		&= \frac{e^{-\lambda_X-\lambda_Y}}{n!}\sum_{k=0}^{\infty}\lambda_X^k\lambda_Y^{n-k}\binom{n}{k}						\\
+		&= \frac{e^{-\lambda_X-\lambda_Y}}{n!}\pars{\lambda_X+\lambda_Y}^n
+	\end{align*}
+
+	Co daje nam rozkład Poissona z parametrem \(\lambda_X + \lambda_Y\).
+\end{proof}
+\begin{proof}
+	Pokażemy teraz bardziej elegancki dowód korzystający z funkcji tworzących momentów.
 
 	Ponieważ \( X \) i \( Y \) są niezależne to
 	\begin{align*}
