@@ -68,6 +68,7 @@ Skoro umiemy zamieniać kule i urny na warunkowe Poissony to fajnie byłoby coś
 \end{proof}
 %</probabil-2025-11-07-aproksymacja-poissona>
 
+%<*probabil-2025-11-14-kule-i-urny-lower-bound>
 \subsection{Kule i urny}
 W twierdzeniu \ref{balls-and-bins-max-load-upper-bound} pokazaliśmy, że górne ograniczenie na liczbę kul w najcięższej urnie to z dużym prawdopodobieństwem \( O\pars{\frac{\ln n}{\ln \ln n}} \).
 
@@ -89,7 +90,7 @@ Teraz pokażemy, że dolne ograniczenie to z dużym prawdopodobieństwem \( \Ome
 	\[
 		\pars{1 - \frac{1}{eM!}}^n \leq \exp\pars{-\frac{n}{eM!}}
 	\]
-	Nie wiem skąd wynika to oszacowanie, ale najwyraźniej tak jest.
+	Z faktu, że \(1 - x \leq e^{-x}\).
 
 	Jeśli nasze \( M \) jest na tyle fajne, że zachodzi
 	\[
@@ -138,6 +139,7 @@ Teraz pokażemy, że dolne ograniczenie to z dużym prawdopodobieństwem \( \Ome
 	\]
 	czyli nasze \( M \) działa. Uff.
 \end{proof}
+%</probabil-2025-11-14-kule-i-urny-lower-bound>
 
 \subsection{Kolekcjoner kuponów}
 Myśleliście, że poprzedni dowód był brzydki i miał dużo obliczeń?
