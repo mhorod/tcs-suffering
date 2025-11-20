@@ -1,15 +1,30 @@
 \begin{theorem}
-	Niech \(X\) będzie zmienną o rozkładzie Poissona z parametrem \(\mu\). Wtedy:
+	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona, czyli \(\prob \pars{X_i = 1} = p_i, \prob \pars{X_i = 0} = 1-p_i\).
+    Dodatkowo oznaczamy \(X = \sum{X_i}\) i \(\mu = \expected{X}\). Wtedy:
 	\begin{enumerate}
 		\item jeśli \(\delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le \pars{\frac{e^{\delta}}{ \pars{1+\delta}^{1+\delta}}} ^{\mu}\)   \\
 		\item jeśli \(1 > \delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le e^{\frac{-\mu\delta^2}{3}}\)                                 \\
 		\item jeśli \(R \ge 6\mu\), to \(\prob \pars{X \ge R} \le 2^{-R}\)
 	\end{enumerate}
 \end{theorem}
-Punkt \(1\) pokazaliśmy już w \ref{poisson-chernoff-bounds}. Udowodnimy jeszcze punkty \(2\) i \(3\).
 
 \begin{proof}
-    Chcemy wpierw pokazać, że \(\frac{e^\delta}{\pars{1+\delta}^{1+\delta}} \le e^{\frac{-\delta^2}{3}}\) dla \(\delta \in \pars{0, 1}\).
+    Zaczniemy od punktu \(1\), a pozostałe wynikną z niego.
+    \begin{align*}
+        \prob \pars{X \ge (1+\delta)\mu} &= \prob \pars{e^{tX} \ge e^{t(1+\delta)\mu}}  \\
+        &\le \frac{\expected {e^{tX}}}{e^{t(1+\delta)\mu}}                              \\
+        &\le \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}}
+    \end{align*}
+    Podstawiamy tutaj \(t = \ln{(1+\delta)}\)
+    \begin{align*}
+        \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}} &= \frac{e^{\delta\mu}}{e^{(1+\delta)\mu\ln{1+\delta}}} \\
+        &= \frac{e^{\delta\mu}}{{(1+\delta)}^{(1+\delta)^\mu}}                                              \\
+        &= \pars{\frac{e^\delta}{(1+\delta)^{1+\delta}}}^\mu
+    \end{align*}
+\end{proof}
+
+\begin{proof}
+    Do drugiego punktu pokażemy, że \(\frac{e^\delta}{\pars{1+\delta}^{1+\delta}} \le e^{\frac{-\delta^2}{3}}\) dla \(\delta \in \pars{0, 1}\).
     Weźmiemy obustronnie logarytm i po odrobinie analizy wyjdzie:
 
     \begin{align*}
