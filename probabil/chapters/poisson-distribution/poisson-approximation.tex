@@ -75,13 +75,13 @@ W twierdzeniu \ref{balls-and-bins-max-load-upper-bound} pokazaliśmy, że górne
 Teraz pokażemy, że dolne ograniczenie to z dużym prawdopodobieństwem \( \Omega\pars{\frac{\ln n}{\ln \ln n}} \).
 
 \begin{theorem}[Lemat 5.12 P\&C]
-	Jeśli wrzucamy \( n \) kul do \( n \) urn
+	Dla wystarczająco dużego \(n\), jeśli wrzucamy \( n \) kul do \( n \) urn
 	to prawdopodobieństwo, że najcięższa urna zawiera \textbf{co najwyżej} \( M = \frac{\ln n}{\ln \ln n} \) kul wynosi co najwyżej \( \frac{1}{n} \).
 \end{theorem}
 \begin{proof}
 	Rozważmy tę sytuację w modelu Poissona -- liczba kul w ustalonej urnie ma rozkład Poissona z parametrem \( \lambda = \frac{n}{n} = 1 \).
 
-	W takim razie, prawdopodobieństwo, że ustalona urna zawiera więcej niż \( M \) kul wynosi
+	W takim razie, prawdopodobieństwo, że ustalona urna zawiera co najmniej \( M \) kul wynosi
 	\[
 		\sum_{k=\ceil{M}}^\infty e^{-1} \cdot \frac{1^k}{k!} \geq \frac{1}{eM!}
 	\]
