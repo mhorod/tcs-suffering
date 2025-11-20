@@ -1,4 +1,4 @@
-%<*probabil-2025-11-19-stany-definicje>
+%<*probabil-2025-11-19-stany-definicje1>
 \begin{definition}
 	Stan \(i\) jest \textbf{pochłaniający} jeśli \(P_{ii} = 1\).
 \end{definition}
@@ -37,26 +37,116 @@
 	\end{enumerate}
 \end{proof}
 
-\begin{definition}
-	Łańcuch jest \textbf{nieprzywiedlny (nieredukowalny)} jeśli wszystkie stany są parami skomunikowane.
-\end{definition}
-%</probabil-2025-11-19-stany-definicje>
+Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow \) tworzą silnie spójne składowe.
 
 \begin{definition}
-	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania w zadanym momencie} \(r_{i, j}^t\)
+	Stan \( i \) jest \textbf{nieistotny} jeśli \( \exists_j : i \rightarrow j \land j \nrightarrow i \)
+\end{definition}
+%</probabil-2025-11-19-stany-definicje1>
+
+%<*probabil-2025-11-19-lancuchy-nieprzywiedlne>
+\begin{definition}
+	Łańcuch jest \textbf{nieprzywiedlny (nieredukowalny)} jeśli wszystkie stany są parami skomunikowane. Wtedy jego graf skierowany jest silnie spójny.
+\end{definition}
+
+\begin{definition}
+	Stan \(i\) jest \textbf{okresowy} jeśli \( o(i) > 1 \), czyli jego okres jest większy od 1.
+	Łańcuch jest okresowy jeśli posiada co najmniej jeden stan okresowy.
+	Stan lub łańcuch, które nie są okresowe nazywamy nieokresowymi.
+\end{definition}
+
+\begin{lemma}
+	W nieprzywiedlnym łańcuchu Markowa wszystkie stany mają ten sam okres.
+\end{lemma}
+\begin{proof}
+	Niech \( i, j \in S \) - dwa stany łańcucha.
+
+	Z nieprzywiedlności mamy:
+	\[
+		\exists_m P_{ij}(m) > 0
+	\]
+	\[
+		\exists_l P_{ji}(l) > 0
+	\]
+	Niech \( n \in \mathcal{T}(j) \)
+	\[
+		P_{ii}(m + n + l) \geq P_{ij}(m) \cdot P_{jj}(n) \cdot P_{ji}(l) > 0
+	\]
+	\[
+		P_{ii}(m + l) \geq P_{ij}(m) \cdot P_{ji}(l) > 0
+	\]
+	To znaczy chcemy dojść z \( i \) do \( i \) w \(m + n + l\) krokach, więc możemy iść z \( i \) do \( j \), z \( j \) do \( j \) i z \( j \) do \( i \). W drugim przypadku pomijamy \( n \) kroków z \( j \) do \( j \).
+	\[
+		m+n+l \in \mathcal{T}(i) \implies o(i)|m+n+l
+	\]
+	\[
+		m+l \in \mathcal{T}(i) \implies o(i)|m+l
+	\]
+	\[
+		\implies o(i)|n \implies o(i) \leq o(j)
+	\]
+	Analogicznie dowodzimy w drugą stronę, otrzymując równość.
+\end{proof}
+
+\begin{lemma}
+	Jeśli \( \pars{ X_t \mid t \in \natural } \) jest nieokresowym (okres jest równy 1) i nieprzywiedlnym łańcuchem Markowa, to:
+	\[
+		\forall_{i, j \in S} \exists_{n_0} \forall_{n \geq n_0} P_{ij}(n) > 0
+	\]
+\end{lemma}
+\begin{proof}
+	Lemat Schura:
+	\[
+		\forall_{x \subset \natural^+, \gcd(x) = 1} \exists_{m_0} \forall_{m \geq m_0} 
+		\exists_{r \geq 1, x_1, \ldots, x_r \in x, l_1, \ldots, l_r \ in \natural} : \sum_{i \in [r]}l_ix_i = m
+	\]
+	Niech \( i, j \in S \)\\
+	Z lematu Schura mamy:
+	\[
+		\exists_{m_0} \forall_{m \geq m_0} \exists_{r \geq 1, m_1, \ldots, m_r \in \mathcal{T}(j), l_1, \ldots, l_r \in \natural} : \sum_{i \in [r]} l_im_i = m
+	\]
+	\[
+		P_{jj}(m) \geq \prod_{i \in [r]}P_{jj}(l_im_i) \geq \prod_{i \in [r]} P_{jj}(m_i)^{l_i} > 0
+	\]
+	Z kolei z nieprzywiedlności mamy:
+	\[
+		i \rightarrow j \implies \exists_{m_1} : P_{ij}(m_1) > 0
+	\]
+	Niech \( n_0 = m_0 + m_1 \)
+	\[
+		\forall_{n \geq n_0} P_{ij}(n) \geq P_{ij}(m_1)P_{jj}(n-m_1) > 0
+	\]
+\end{proof}
+%</probabil-2025-11-19-lancuchy-nieprzywiedlne>
+
+%<*probabil-2025-11-19-stany-definicje2>
+\begin{definition}
+	Definiujemy \textbf{piewszy czas pojawienia się w j} jako:
+	\[
+		T_j = \min\pars{n \in \natural \mid X_n = j}
+	\]
+	\[
+		T_j^+ = \min\pars{n \in \natural_1 \mid X_n = j}
+	\]
+	W drugim przypadku pomijamy stan początkowy \( n = 0 \)
+\end{definition}
+
+\begin{definition}
+	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania w zadanym momencie} \(f_{ij}(n)\)
 	jako
 	\[
-		r_{i, j}^t = P(X_t = j \land X_{t-1} \neq j \dots X_{1} \neq j \mid X_0 = i)
+		f_{ij}(n) = P(X_n = j \land X_{n-1} \neq j \dots X_{1} \neq j \mid X_0 = i) = P(T_j^+ = n \mid X_0 = i)
 	\]
 \end{definition}
 
 \begin{definition}
-	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania} \(r_{i, j}\)
+	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania} \(f_{ij}\)
 	jako
 	\[
-		r_{i, j} = \sum_{t=1}^{\infty} r_{i,j}^{t}
+		f_{ij} = \sum_{n=1}^{\infty} f_{ij}(n) = P(T_j^+ = n \mid X_0 = i)
 	\]
 \end{definition}
+%</probabil-2025-11-19-stany-definicje2>
 
 %<*probabil-2025-11-19-stany-powracajace>
 \begin{definition}
@@ -154,25 +244,6 @@
 %</probabil-2025-11-19-stany-powracajace>
 
 \begin{definition}
-	Stan \(i\) jest \textbf{okresowy} jeśli istnieje \(\Delta \in \natural, \Delta > 1 \) takie, że
-	\[
-		\forall s : P(X_s = i \mid X_0 = i) \neq 0 \Rightarrow \Delta \mid s
-	\]
-	oraz
-	\[
-		\exists s : P(X_s = i \mid X_0 = i) \neq 0
-	\]
-	Łańcuch jest okresowy jeśli posiada co najmniej jeden stan okresowy.
-	Stan lub łańcuch, które nie są okresowe nazywamy nieokresowymi.
-\end{definition}
-\begin{figure}[H]
-	\centering
-	\includegraphics{img/markov-chains/periodic-states-example.png}
-	\caption{Przykład okresowości -- stany \( x \) i \( y \) są okresowe, stan \( z \) nie jest}
-\end{figure}
-
-
-\begin{definition}
 	Stan jest \textbf{ergodyczny} jeśli jest nieokresowy i pozytywnie rekurencyjny.
 	Łańcuch jest ergodyczny jeśli każdy jego stan jest ergodyczny.
 \end{definition}
@@ -264,9 +335,4 @@ Z lematu tego wysuwamy poniższy wniosek:
 
 	Innymi słowy przechodzimy nieskończenie wiele razy po pętli \( x \rightarrow x \) za każdym razem z prawdopodobieństem \( p \), a szansa na takie zdarzenie wynosi \( \lim_{n \rightarrow \infty} p^n = 0 \)
 
-
-
-
-
 \end{proof}
-

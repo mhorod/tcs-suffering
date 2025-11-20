@@ -114,3 +114,21 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 		\item Tak, a ponadto \( \bar \pi = \brackets{\frac{1}{n}, \dots, \frac{1}{n}} \)
 	\end{enumerate}
 \end{proof}
+
+%<*probabil-2025-11-19-okres-stanu>
+\begin{definition} \textbf{Okres Stanu}
+	Niech \( i \in S \).\\
+	Definiujemy:
+	\[
+		\mathcal{T}(i) = \pars{t \geq 1 | P_{ii}(t) > 0}
+	\]
+	Czyli zbiór takich \( t \), że jesteśmy w stanie dojść z \( i \) do \( i \) w t krokach.\\
+	\textbf{Okres stanu} \( i \) definiujemy jako \(o(i) = \gcd\pars{\mathcal{T}(i)}\).
+\end{definition}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/markov-chains/periodic-states-example.png}
+	\caption{Stan z ma okres 1}
+\end{figure}
+%</probabil-2025-11-19-okres-stanu>
