@@ -1,7 +1,13 @@
+%<*probabil-2025-11-19-lancuchy-markowa-definicje>
 \begin{definition}
 	\textbf{Procesem stochastycznym} nazywamy dowolny zbiór zmiennych losowych \(\set{X(t) : t \in T}\).
 	Zwykle \(t\) oznacza moment w czasie, a \(X(t)\) jest \textbf{stanem} tego procesu w czasie \(t\) i zapisujemy \(X_t\) \\
-	Mówimy, że proces jest \textbf{skończony} jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
+	Mówimy, że proces jest \textbf{skończony}, jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
+	Proces jest także \textbf{dyskretny}, jeśli zmienne te przyjmują wartości ze zbioru przeliczalnego.
+\end{definition}
+
+\begin{definition}
+	Proces jest \textbf{z czasem dyskretnym}, jeśli \(T\) jest przeliczalne (najczęściej \(T = \N\)).
 \end{definition}
 
 \begin{definition}
@@ -10,6 +16,10 @@
 		P(X_t = a_t \mid X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, \dots X_0 = a_0) =
 		P(X_t = a_t \mid X_{t-1} = a_{t-1})
 	\]
+\end{definition}
+
+\begin{definition}
+	\textbf{Łańcuchem Markowa} nazywamy proces Markowa z czasem dyskretnym.
 \end{definition}
 
 Innymi słowy aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci.
@@ -25,14 +35,12 @@ jest, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\)
 Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie czas w którym ten stan ma miejsce.
 
 \begin{definition}
-	\textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) taką, że
-	\[
-		P_{i, j} = P(X_t = j \mid X_{t-1} = i)
-	\]
-	oraz
-	\[
-		\forall_i : \sum_j P_{i, j} = 1
-	\]
+	Oznaczamy dalej \(P_{ij} = P(X_t = j \mid X_{t-1} = i)\). \\
+	\textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) zadaną współczynnikami \(P_{ij}\).
+\end{definition}
+
+\begin{definition}
+	\(P_{ij}(n) = P(X_n = j \mid X_0 = i)\) \\
 \end{definition}
 
 %<*probabil-2025-11-19-rozklad-stacjonarny>
@@ -40,6 +48,7 @@ Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie 
 	\textbf{Rozkładem stacjonarnym} nazywamy wektor \( \bar \pi \) taki, że \( \bar \pi = \bar \pi \mathbf{P} \) oraz \( \sum_i \bar \pi_i = 1 \)
 \end{definition}
 Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p(n, n + 1) = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
+%</probabil-2025-11-19-lancuchy-markowa-definicje>
 
 \begin{theorem} Istnienie rozkładu stacjonarnego
 	

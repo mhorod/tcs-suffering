@@ -1,16 +1,46 @@
+%<*probabil-2025-11-19-stany-definicje>
 \begin{definition}
-	Stan \(j\) jest \textbf{osiągalny} ze stanu \(i\) jeśli istnieje \(n \geq 0\) takie, że
-	\(\pars{P^n}_{i, j} > 0\).
+	Stan \(i\) jest \textbf{pochłaniający} jeśli \(P_{ii} = 1\).
 \end{definition}
 
 \begin{definition}
-	Stany \(i\) oraz \(j\) są \textbf{skomunikowane} jeśli \(i\) jest osiągalne z \(j\) oraz
+	Stan \(j\) jest \textbf{osiągalny} ze stanu \(i\) jeśli istnieje \(n \geq 0\) takie, że
+	\(P_{ij}(n) > 0\).
+\end{definition}
+
+\begin{definition}
+	Stany \(i\) oraz \(j\) są \textbf{wzajemnie skomunikowane} jeśli \(i\) jest osiągalne z \(j\) oraz
 	\(j\) jest osiągalne z \(i\). Zapisujemy \( i \leftrightarrow j \).
 \end{definition}
 
+\begin{lemma}
+	Relacja skomunikowania jest relacją równoważności.
+\end{lemma}
+\begin{proof} Rozważamy trzy warunki bycia relacją równoważności
+	\begin{enumerate}
+		\item \( i \leftrightarrow i \) \\
+		      Możemy dojść z \( i \) do \( i \) w 0 krokach -- \(P_{ij}(0) = 1\)
+
+		\item \( i \leftrightarrow j \implies j \leftrightarrow i \) \\
+		      Koniunkcja jest przemienna, możemy zatem zamienić kolejność warunków w definicji.
+
+		\item \( i \leftrightarrow j \land j \leftrightarrow k \implies i \leftrightarrow k \) \\
+		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(\P_{ij}(n) > 0\).
+
+		      Podobnie mamy \( m \) dla którego \( \P_{jk}(m) > 0 \).
+
+		      W takim razie \( P_{ik}(n+m) \geq P_{ij}(n) \cdot \P_{jk}(m) > 0 \)
+		      zatem \( k \) jest osiągalne z \( i \).
+
+		      Analogicznie pokazujemy, że \( i \) jest osiągalne z \( k \), czyli stany te są skomunikowane.
+
+	\end{enumerate}
+\end{proof}
+
 \begin{definition}
-	Łańcuch jest \textbf{nieredukowalny (nieprzywiedlny)} jeśli wszystkie stany są parami skomunikowane.
+	Łańcuch jest \textbf{nieprzywiedlny (nieredukowalny)} jeśli wszystkie stany są parami skomunikowane.
 \end{definition}
+%</probabil-2025-11-19-stany-definicje>
 
 \begin{definition}
 	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania w zadanym momencie} \(r_{i, j}^t\)
@@ -146,30 +176,6 @@
 	Stan jest \textbf{ergodyczny} jeśli jest nieokresowy i pozytywnie rekurencyjny.
 	Łańcuch jest ergodyczny jeśli każdy jego stan jest ergodyczny.
 \end{definition}
-
-\begin{lemma}
-	Relacja skomunikowania jest relacją równoważności.
-\end{lemma}
-\begin{proof} Rozważamy trzy warunki bycia relacją równoważności
-	\begin{enumerate}
-		\item \( i \leftrightarrow i \) \\
-		      Możemy dojść z \( i \) do \( i \) w 0 krokach -- \( \pars{P^0}_{i, j} = 1 \)
-
-		\item \( i \leftrightarrow j \implies j \leftrightarrow i \) \\
-		      Koniunkcja jest przemienna, możemy zatem zamienić kolejność warunków w definicji.
-
-		\item \( i \leftrightarrow j \land j \leftrightarrow k \implies i \leftrightarrow k \) \\
-		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(\pars{P^n}_{i, j} > 0\).
-
-		      Podobnie mamy \( m \) dla którego \( \pars{P^m}_{j, k} > 0 \).
-
-		      W takim razie \( \pars{P^{n+m}} \geq \pars{P^n}_{i, j} \cdot \pars{P^m}_{j, k} > 0 \)
-		      zatem \( k \) jest osiągalne z \( i \).
-
-		      Analogicznie pokazujemy, że \( i \) jest osiągalne z \( k \), czyli stany te są skomunikowane.
-
-	\end{enumerate}
-\end{proof}
 
 \begin{lemma}
 	W skończonym procesie Markowa:
