@@ -28,20 +28,100 @@
 	\]
 \end{definition}
 
+%<*probabil-2025-11-19-stany-powracajace>
 \begin{definition}
-	Stan \(i\) jest \textbf{rekurencyjny (powracający)} jeśli \( \sum_{t \geq 1} r_{i, i}^t = 1 \)
-	a \textbf{chwilowy} jeśli \( \sum_{t \geq 1} r_{i, i}^t < 1 \). \\
+	Stan \(i\) jest \textbf{powracający (rekurencyjny)} jeśli \( f_{i, i} = 1 \),
+	a \textbf{chwilowy} jeśli \( f_{i, i} < 1 \). \\
 	Mówimy, że łańcuch jest rekurencyjny jeśli każdy jego stan jest rekurencyjny.
 \end{definition}
 
 \begin{definition}
-	Definiujemy \textbf{oczekiwany czas pierwszego spotkania} \(h_{i, j} = \sum_{t \geq 1} t \cdot r_{i, j}^t\)
+	Definiujemy \textbf{czas pierwszego spotkania} 
+	\[
+		T_{i, j} = \min \set{n \in \natural_1 \mid X_0 = i \land X_n = j}
+	\]
+	dodatkowo
+	\[
+		\ev{T_{i, j}} = \ev{T_j^+ \mid X_0 = i} = \sum_{n = 1}^\infty n \prob(T_j^+ = n \mid X_0 = i)
+	\]
 \end{definition}
 
 \begin{definition}
-	Rekurencyjny stan \(i\) jest \textbf{pozytywnie rekurencyjny} jeśli \(h_{i, i} < \infty\),
-	w przeciwnym wypadku jest \textbf{null rekurencyjny}.
+	Stan powracający \(i\) jest \textbf{dodatni} jeśli \(\ev{T_{i, i}} < \infty\),
+	w przeciwnym wypadku jest \textbf{zerowy}.
 \end{definition}
+
+\begin{example}
+	Niech zbiór stanów \(S = \natural_1\) oraz niech
+	\[
+		\prob(X_{j + 1} = i + 1 \mid X_j = i) = \frac{i}{i+1}
+	\]
+	\[
+		\prob(X_{j + 1} = 1 \mid X_j = i) = \frac{1}{i+1}
+	\]
+	\begin{center}
+		\tikz {
+			\tikzstyle{fixed_size_circle}=[circle, draw, minimum size=1.0cm]
+			\node [fixed_size_circle,draw] (1) at (0, 0) {1};
+			\node at (3, 0) {\(\dots\dots\dots\dots\dots\dots\dots\)};
+			\node [fixed_size_circle,draw] (i) at (6, 0) {i};
+			\node [fixed_size_circle,draw] (i+1) at (8, 0) {i+1};
+			
+			\draw [->, thick] (i) edge [bend left=45] 
+				node [midway, above] {\(\frac{1}{i+1}\)}
+				(1);
+			\draw [->, thick] (i) edge [bend left=45] 
+				node [midway, above] {\(\frac{i}{i+1}\)}
+				(i+1);
+		}
+	\end{center}
+
+	\[
+		\prob(T_1^+ > t \mid X_0 = 1) = \frac{1}{2} \cdot \frac{2}{3} \dots \frac{t}{t+1} = \frac{1}{t+1}
+	\]
+	\[
+		f_{1, 1} = \prob(T_1^+ < \infty \mid X_0 = 1) = 1 - \lim_{t \to \infty} \prob(T_1^+ > t \mid X_0 = 1) = 1 - \lim_{t \to \infty} \frac{1}{t+1} = 1
+	\]
+	\[
+		\ev{T_{1, 1}} = \sum_{t = 1}^\infty t \prob(T_i^+ = t \mid X_0 = i) = \sum_{t = 1}^\infty t \pars{\frac{1}{2} \dots \frac{t-1}{t} \frac{1}{t+1}} = \sum_{t = 1}^\infty \frac{1}{t+1} \to \infty
+	\]
+	Z \(f_{1, 1} = 1\) stan 1 jest powracający, a z \(\ev{T_{1, 1}} \to \infty\) jest zerowy.
+\end{example}
+
+\begin{theorem}
+	W skończonym, nieprzywiedlnym łańcuchu Markowa zachodzi
+	\[
+		\forall_{x, y} \quad \ev{T_{x, y}} < \infty
+	\]
+\end{theorem}
+\begin{proof}
+	Nieprzywiedlność oraz skończoność dają nam
+	\[
+		\exists_{r > 0, \varepsilon > 0} \quad \forall_{x, y \in S} \quad \exists_{j \in [r]} \quad p_{x, y}(j) > \varepsilon
+	\]
+	Mimo tego, że linia ta może początkowo być trudna do przetworzenia, jest całkiem prosta. Nieprzywiedlność mówi nam że dla każdego \((x, y)\), \(y\) jest osiągalne z \(x\), a więc \(\exists_n \quad p_{x, y}(n) > 0\). Nasze \(r\) to po prostu maksimum po tych \(n\) dla wszystkich par \((x, y)\), a \(\varepsilon\) to minimum z wartości \(p_{x, y}(n)\).
+	
+	Następnie chcemy pokazać, że
+	\[
+		\prob(T_y^+ > kr \mid X_0 = x) \leq \prob(T_y^+ > (k - 1)r \mid X_0 = x)(1 - \varepsilon)
+	\]
+	Dlaczego tak jest? Otóż wiemy, że dla każdej możliwej wartości \(z = X_{(k-1)r}\) zachodzi \(\exists_{j \in [r]} \quad p_{z, y}((k - 1)r + j) > \varepsilon\), a więc z prawdopodobieństwem przynajmniej \(\varepsilon\) odwiedzimy \(y\) w następnych \(r\) krokach. W takim razie, jeśli \(T_y^+ > (k-1)r\), to \(\prob(T_y^+ \leq kr) \geq \varepsilon\), a więc prawdopodobieństwo tego, że nie dojdziemy do \(y\) jest ograniczone od góry przez \(1 - \varepsilon\), co daje nam naszą nierówność.
+	
+	Następnie, poprzez prostą indukcję można pokazać, że
+	\[
+		\prob(T_y^+ > kr \mid X_0 = x) \leq (1 - \varepsilon)^k
+	\]
+	Teraz, przechodząc do finalnego dowodu
+	\begin{align*}
+		\ev{T_{x, y}} &= \ev{T_y^+ \mid X_0 = x}\\
+		&=\footnotemark \sum_{t = 0}^\infty \prob(T_y^+ > t \mid X_0 = x)\\
+		&\leq \sum_{k = 0}^\infty r \prob(T_y^+ > kr \mid X_0 = x)\\
+		&\leq r \sum_{k = 0}^\infty (1 - \varepsilon)^k \\
+		&< \infty
+    \end{align*}
+	\footnotetext{Wynika to z \ref{expected-value-of-natural-random-variable}}
+\end{proof}
+%</probabil-2025-11-19-stany-powracajace>
 
 \begin{definition}
 	Stan \(i\) jest \textbf{okresowy} jeśli istnieje \(\Delta \in \natural, \Delta > 1 \) takie, że

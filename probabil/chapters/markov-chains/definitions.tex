@@ -35,10 +35,48 @@ Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie 
 	\]
 \end{definition}
 
+%<*probabil-2025-11-19-rozklad-stacjonarny>
 \begin{definition}
 	\textbf{Rozkładem stacjonarnym} nazywamy wektor \( \bar \pi \) taki, że \( \bar \pi = \bar \pi \mathbf{P} \) oraz \( \sum_i \bar \pi_i = 1 \)
 \end{definition}
 Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p(n, n + 1) = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
+
+\begin{theorem} Istnienie rozkładu stacjonarnego
+	
+	Niech \(z \in S, \overline{\pi_z} = (\overline{\pi_{z, y}})_{y \in S}\). Dodatkowo niech
+	\[
+		\mathbb{E}_z[A] \coloneq \ev{A \mid X_0 = z}
+	\]
+	\[
+		\prob_z(A) \coloneq \prob(A \mid X_0 = z)
+	\]
+	\[
+		\overline{\pi_{z, y}} \coloneq \mathbb{E}_z[\text{liczba wizyt w \(y\) przed pierwszym powrotem do \(z\)}] = \sum_{t=0}^{\infty} \prob_z(X_t = y \land T_z^+ > t)
+	\]
+	Dla \(z \in S, \mathbb{E}_z[T_z^+] < \infty\) zachodzi:
+	\begin{itemize}
+		\item \(\overline{\pi_z} = \overline{\pi_z} P\)
+		\item \(\pi = \frac{\overline{\pi_z}}{\mathbb{E}_z[T_z^+]}\) jest rozkładem stacjonarnym
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	Druga część prosto wynika z pierwszej, ponieważ oczywiście z definicji \(\overline{\pi_{z, y}}\) mamy
+	\[
+		\sum_{y \in S} \overline{\pi_{z, y}} = \mathbb{E}_z[T_z^+]
+	\]
+	
+	Pozostaje nam więc tylko udowodnić część pierwszą
+	\begin{align*}
+		\sum_{x \in S} \overline{\pi_{z, x}} p_{x, y} &= \sum_{x \in S} \sum_{t=0}^{\infty} \prob_z(X_t = x \land T_z^+ > t) p_{x, y}\\
+		&= \sum_{t=0}^\infty \prob_z(X_{t+1} = y \land T_z^+ \geq t + 1)\\
+		&= \sum_{t=1}^\infty \prob_z(X_{t} = y \land T_z^+ \geq t)\\
+		&= \overline{\pi_{z, x}} p_{z, y} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t)\\
+		&= \overline{\pi_{z, x}} p_{z, y} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)\\
+		&= \overline{\pi_{z, x}} p_{z, y}
+	\end{align*}
+	\(\prob_z(X_0 = y) = \prob_z(X_{T_z^+} = y)\) ponieważ oba są indykatorami \(x = y\).
+\end{proof}
+%</probabil-2025-11-19-rozklad-stacjonarny>
 
 \begin{exercise}
 	Niech dana będzie macierz \( Q \) wymiaru \( n \times n \), taka, że suma wartości w każdym wierszu wynosi 1.
