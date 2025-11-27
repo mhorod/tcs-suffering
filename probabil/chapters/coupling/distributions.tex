@@ -1,3 +1,4 @@
+%<*probabil-2025-11-21-norma-calkowitego-wahania>
 \begin{definition}
 	Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Normą całkowitego wahania (total variation distance) tych rozkładów nazywamy wartość
 	\[ \left\|\mu-\nu\right\|_{TV} = \max_{A \subseteq S} \left|\mu\left( A  \right) - \nu\left( A \right) \right| .\]
@@ -8,8 +9,85 @@
 	\[ \left\|\mu-\nu\right\|_{TV} = \mu\left( B  \right) - \nu\left( B  \right) = \nu\left( B^{c} \right) - \mu\left( B^{c} \right)  .\]
 \end{lemma}
 \begin{proof}
-	Niech \(A \subseteq S\). Zachodzi \(\mu\left( A  \right) - \nu\left( A  \right) \le \mu\left( A \cap B  \right) - \nu\left( A \cap B  \right) \le \mu\left( B  \right) - \nu\left( B  \right) \), gdzie pierwsza nierówność to wzięcie tylko tych elementów \(A\) dla których różnica rozkładów jest dodatnia a potem rozszerzamy się na wszystkie takie elementy. Analogicznie mamy \(\nu\left( A  \right) - \mu\left( A \right) \le \nu\left( B^{c} \right) - \mu\left( B^{c} \right) = 1-\nu\left( B  \right) - 1 + \mu\left( B  \right) \). Zatem te wartości są równe i świadczą o maksimum.
+	Spróbujmy przekazać intuicję tego, czym jest norma całkowitego wahania. Poniżej mamy wykres, na którym zaznaczone są rozkłady \(\mu\) oraz \(\nu\) oraz zbiory \(B\) i \(B^c\)
+
+	\begin{center}
+	\begin{tikzpicture}[xscale=0.4, yscale=0.4, font=\large]
+        % Kolory
+        \definecolor{fillPink}{RGB}{236, 218, 222}
+        \definecolor{lineMu}{RGB}{227, 187, 88}
+        \definecolor{lineNu}{RGB}{155, 118, 97}
+        \definecolor{textGray}{RGB}{100, 100, 100}
+        \colorlet{fillMu}{lineMu!10}
+        \colorlet{fillNu}{lineNu!10}
+
+        % Dane
+        \def\data{
+            0/  2.0/ 0.3, 1/  4.5/ 0.4, 2/  7.5/ 0.5, 3/ 10.0/ 0.7,
+            4/ 11.5/ 1.0, 5/ 12.0/ 1.5, 6/ 11.8/ 2.5, 7/ 11.0/ 3.5,
+            8/ 10.0/ 4.8, 9/  8.8/ 6.0, 10/ 7.5/ 7.0, 11/ 6.5/ 7.8,
+            12/ 5.5/ 8.2, 13/ 4.8/ 8.4, 14/ 4.2/ 8.3, 15/ 3.6/ 8.0,
+            16/ 3.0/ 7.6, 17/ 2.5/ 7.2, 18/ 2.0/ 6.8, 19/ 1.6/ 6.2,
+            20/ 1.3/ 5.6, 21/ 1.0/ 5.0, 22/ 0.8/ 4.4, 23/ 0.6/ 3.8,
+            24/ 0.5/ 3.2, 25/ 0.4/ 2.6
+        }
+
+        % Wypełnienie pasków
+        \foreach \x/\mu/\nu in \data {
+            \pgfmathsetmacro{\minH}{min(\mu,\nu)}
+            \pgfmathsetmacro{\maxH}{max(\mu,\nu)}
+            
+            % Przecięcie
+            \fill[fillPink, draw=white, line width=0.5pt] (\x, 0) rectangle (\x+1, \minH);
+            
+            % Różnica
+            \ifdim \mu pt > \nu pt
+                % Region I -> fillMu
+                \fill[fillMu, draw=white, line width=0.5pt] (\x, \minH) rectangle (\x+1, \maxH);
+            \else
+                % Region II -> fillNu
+                \fill[fillNu, draw=white, line width=0.5pt] (\x, \minH) rectangle (\x+1, \maxH);
+            \fi
+        }
+
+        \newcommand{\muPath}{} \newcommand{\nuPath}{}
+        \foreach \x/\mu/\nu [count=\i] in \data {
+            \ifnum\i=1
+                \xdef\muPath{(\x,\mu) -- (\x+1,\mu)}
+                \xdef\nuPath{(\x,\nu) -- (\x+1,\nu)}
+            \else
+                \xdef\muPath{\muPath -- (\x,\mu) -- (\x+1,\mu)}
+                \xdef\nuPath{\nuPath -- (\x,\nu) -- (\x+1,\nu)}
+            \fi
+        }
+        \draw[lineMu, very thick] \muPath;
+        \draw[lineNu, very thick] \nuPath;
+
+        \draw[gray!40] (0,0) -- (0, 13);
+        \draw[gray!40] (26,0) -- (26, 13);
+
+        \node[lineMu] at (2, 11) {\Huge $\mu$};
+        \node[lineNu] at (20, 8.5) {\Huge $\nu$};
+        \node[textGray, scale=1.5] at (6, 8) {I};
+        \node[textGray, scale=1.5] at (18, 5) {II};
+
+        \draw[<->, >=latex, line width=1pt, textGray] (0, -1.5) -- (11.5, -1.5) 
+            node[midway, below, scale=1.5] {$B$};
+        \draw[<->, >=latex, line width=1pt, textGray] (11.5, -1.5) -- (26, -1.5) 
+            node[midway, below, scale=1.5] {$B^c$};
+    \end{tikzpicture}
+	\end{center}
+	
+	Wiemy, że pole pod \(\mu = 1\) oraz pole pod \(\nu = 1\). W takim razie, możemy zauważyć że pola I i II są sobie wzajemnie równe. Dodatkowo, patrząc na definicję normy całkowitego wahania, można prosto zauważyć, że jest ona równa polu I (bo B to zbiór w którym \(\mu\) najbardziej dominuje nad \(\nu\)) oraz polu II (analogicznie). Prosto widzimy, że
+	\[
+		\text{Pole I} = \mu(B) - \nu(B)
+	\]
+	\[
+		\text{Pole II} = \nu(B^c) - \mu(B^c)
+	\]
+	Co kończy dowód
 \end{proof}
+%</probabil-2025-11-21-norma-calkowitego-wahania>
 
 \begin{lemma}
 	Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Zachodzi

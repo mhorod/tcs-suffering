@@ -1,0 +1,20 @@
+Interesuje nas pytanie, jak długo należy prowadzić eksperyment aby rozkład aktualnego stanu był bliski rozkładowi stacjonarnemu. Oczywiście pytanie to ma sens tylko dla łańcuchów nieokresowych. Co jednak nawet znaczy "bliski" w tym kontekscie?
+
+\begin{example}
+	Tasujemy \(n\) kart. W każdym kroku:
+	\begin{itemize}
+		\item Wybieramy kartę losowo, jednostajnie i niezależnie od poprzednich kroków
+		\item Kładziemy wybraną kartę na wierzchu talii
+	\end{itemize}
+	Niech \(X_0\) to pewna ustalona permutacja początkowa, a \(X_n\) to permutacja kart po \(n\) krokach. Możemy zauważyć, że \((X_n)_{n \in \natural}\) jest skończonym, nieprzywiedlnym oraz nieokresowym (bo możemy wziąć kartę z wierzchu) łańcuchem Markowa, a więc ma rozkład stacjonarny \((\pi_x)_{x \in S}\).
+	
+	Niech \(x \in S\). \(N(x)\) to zbiór stanów osiągalnych z \(x\) w jednym kroku. Oczywiście \(|N(x)| = n\) oraz
+	\[
+		\pi_x = \frac{1}{n} \sum_{y \in N(x)} \pi_y
+	\]
+	Możemy zauważyć, że rozkład jednostajny spełnia ten układ równań, a więc z unikalności rozkładu stacjonarnego
+	\[
+		\pi_x = \frac{1}{n!}
+	\]
+	Jeśli wierzymy w to, że odpowiednio długo tasując zbiegamy do rozkładu stacjonarnego, to jest to dobre tasowanie, bo w rozkładzie stacjonarnym każda permutacja jest równie prawdopodobna.
+\end{example}
