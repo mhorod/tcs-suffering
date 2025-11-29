@@ -40,7 +40,7 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	a z tego wynika
 	\[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) \le T. \]
 \end{proof}
-
+%<*probabil-2025-11-21-lancuchy-markowa-monotonicznosc>
 \begin{lemma}[O monotoniczności]
 	Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Dla każdych \(t\ge 0, x \in S\) zachodzi
 	\[ \Delta_x\left( t+1 \right) \le \Delta_x\left( t  \right) . \]
@@ -51,6 +51,7 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 \end{proof}
 
 \begin{theorem}[O geometrycznej zbieżności]
+	\label{geometric-convergence}
 	Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Wtedy istnieją \(\alpha \in (0,1)\) i \(C > 0\) takie, że
 	\[ \forall_{n \in \N} \ \Delta\left( n  \right) \le C \alpha^{n}.  \]
 \end{theorem}
@@ -70,5 +71,6 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	\[ \Delta_x\left( n  \right) \le \Delta_x\left( rt \right) = \left\|P^{rt}\left( x,\cdot  \right) -\pi\right\|_{TV} \le P\left( X_t \neq Y_t \right) \le \left( 1-m \right) ^{t} = \alpha ^{rt} \le C\alpha ^{n}, \]
 	gdzie położyliśmy \(\alpha = \left( 1-m \right) ^{\frac{1}{r}}\) i \(C = \alpha ^{-r}\).
 \end{proof}
+%</probabil-2025-11-21-lancuchy-markowa-monotonicznosc>
 
 
