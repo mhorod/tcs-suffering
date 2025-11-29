@@ -1,20 +1,45 @@
+%<*probabil-2025-11-28-prawdopodobienstwo-ciagle-definicje>
 \begin{definition}
-	Zmienna losowa \(X\) jest ciągła, jeśli istnieje funkcja \(f: \R\to \R_{\ge 0}\) taka, że
-	\[\forall_{B\in \mathcal{B\left( \R \right) }} \ P\left( X\in B  \right) = \int_{B} f\left( x  \right) \diff x .\]
+	Zmienna losowa \(X\) jest ciągła, jeśli istnieje funkcja \(f: \real\to \real_{\ge 0}\) taka, że
+	\[\forall_{B\in \mathcal{B\left( \real \right) }} \ \prob\left( X\in B  \right) = \int_{B} f\left( x  \right) \diff x .\]
 	Taką funkcję nazywamy funkcją gęstości lub gęstością zmiennej \(X\).
 \end{definition}
 
 Własności funkcji gęstości:
 \begin{itemize}
-	\item \(\forall_{x\in \R} \ f\left( x  \right) \ge 0 \)
-	\item \(\int_{\R} f\left( x  \right) \diff x = 1\)
-	\item \(P\left( y<X<y+\delta \right) = \int_{y}^{y+\delta} f\left( x  \right) \diff x \approx \delta\cdot f\left( y \right)  \). Czyli \(f\left( x  \right) \) mówi, jak szybko rośnie prawdopodobieństwo przyjmowania wartości z przedziału, gdy przedział zaczyna się od \(x\).
+	\item \(\forall_{x\in \real} \ f\left( x  \right) \ge 0 \)
+	\item \(\int_{\real} f\left( x  \right) \diff x = 1\)
+	\item \(\prob\pars{a < X < b} = \int_a^bf(x)\diff \)
+	\item \(\prob\left( y<X<y+\delta \right) = \int_{y}^{y+\delta} f\left( x  \right) \diff x \approx \delta\cdot f\left( y \right)  \). Czyli \(f\left( x  \right) \) mówi, jak szybko rośnie prawdopodobieństwo przyjmowania wartości z przedziału, gdy przedział zaczyna się od \(y\).
 \end{itemize}
 
-Mamy \(\forall_{x\in \R} \ P\left( X=x \right) =0 \). W szczególności daje to \(P\left( X\le x  \right) = P\left( X<x \right) \).
+Wizualizujemy to jako pole pod wykresem:
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth]
+		\draw[->] (-0.5,0) -- (6.5,0) node[right] {$x$};
+	
+		\def\Func{2*exp(-(\x-3)^2 / 2) + 0.5}
+		\draw[thick, blue] plot[domain=0:6, smooth, samples = 100] (\x, {\Func}) node[right, black] {$f(x)$};
+		\def\xa{1}
+		\def\xb{4}
+
+		\fill[gray!50, opacity=0.7] plot[domain=\xa:\xb, smooth, samples = 50] (\x, {\Func}) -- (\xb,0) -- (\xa,0) -- cycle;
+
+		\draw (\xa, 0.1) -- (\xa, -0.1) node[below] {$a$};
+		\draw (\xb, 0.1) -- (\xb, -0.1) node[below] {$b$};
+	\end{tikzpicture}
+	\caption{Przykład dla \(\prob\pars{a < X < b}\)}
+\end{figure}
+
+Mamy \(\forall_{x\in \real} \ \prob\left( X=x \right) =0 \). W szczególności daje to \(\prob\left( X\le x  \right) = \prob\left( X<x \right) \).
+Dlaczego tak jest? Można to pokazać na przykładzie jednostajnym. Powiedzmy, że losujemy wartości z przedziału \( [0,1) \).
+Wtedy \( \prob(X = x) = p \). Weźmy teraz jakiś zbiór \(S\) \(k\) punktów. Wtedy \(\prob(X \in S) = kp\). Z tego, że jest to prawdopodobieństwo, mamy
+\( \forall_{k \in \natural} kp \leq 1 \) a z tego dostajemy \( p = 0 \).
 
 \begin{definition}
-	Dystrybuanta zmiennej losowej \(X\) to funkcja \(F\left( x  \right) = P\left( X\le x  \right) \). Dla zmiennej ciągłej jest \(F\left( x  \right) = \int_{-\infty}^{x} f\left( y  \right) \diff y \), a więc \(f\left( x  \right) = F'\left( x  \right) \).
+	Dystrybuanta zmiennej losowej \(X\) to funkcja \(F\left( x  \right) = \prob\left( X\le x  \right) \). Dla zmiennej ciągłej jest \(F\left( x  \right) = \int_{-\infty}^{x} f\left( y  \right) \diff y \), a więc \(f\left( x  \right) = F'\left( x  \right) \).
 \end{definition}
 
 \begin{definition}
@@ -22,6 +47,15 @@ Mamy \(\forall_{x\in \R} \ P\left( X=x \right) =0 \). W szczególności daje to 
 	\[ \mathbb{E}\left[  X \right] = \int_{-\infty}^{\infty} x f\left( x  \right) \diff x  .\]
 \end{definition}
 
+\begin{definition}
+	Wariancja ciągłej zmiennej \(X\):
+	\begin{align*}
+		\variance{X} &= \expected{\pars{X - \expected{X}}^2} = \int_{-\infty}^{\infty} \pars{x - \expected{x}}^2 f(x) \diff x \\
+		&= \int_{-\infty}^{\infty}x^2 f(x) \diff x - 2\int_{-\infty}^{\infty} x\expected{x}f(x)\diff x + \expected{X}^2 \\
+		&= \expected{X^2} - 2 \expected{X}^2 + \expected{X}^2 = \expected{X^2} - \expected{X}^2
+	\end{align*}
+\end{definition}
+%</probabil-2025-11-28-prawdopodobienstwo-ciagle-definicje>
 
 \begin{lemma}[Lemat 8.1 P\&C]
 	\label{continuous-positive-random-variable-lemma}
