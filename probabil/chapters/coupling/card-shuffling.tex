@@ -1,0 +1,18 @@
+\begin{example}
+    Powrócimy na moment do poprzedniego przykładu z tasowaniem kart. Ustalmy \(\pi\) jako rozkład stacjonarny oraz \(x\) jako pewną ustaloną permutację kart.
+    Będziemy tasować, aż obecny stan ma rozkład \(D\) taki, że \(\left\|D-\pi\right\|_{TV} > \epsilon\) dla pewnego \(\epsilon > 0\).
+    \begin{align*}
+        \epsilon > \left\|D-\pi\right\|_{TV} = \max_{A \subseteq S}\left|D(A) - \pi(A)\right|
+        \ge \left|D(x) - \frac{1}{n!}\right| \\
+        \frac{1}{n!} - \epsilon < D(x) < \frac{1}{n!} + \epsilon
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Dla kontrastu, gdy będziemy oszukiwać przy tasowaniu zostawiając asa pik na wierzchu talii.
+    Ustalmy \(B\) jako zbiór wszystkich permutacji z asem pik na wierzchu.
+    \begin{align*}
+        \epsilon > \left\|D-\pi\right\|_{TV} &= \max_{A \subseteq S}\left|D(A) - \pi(A)\right|\\
+        \ge \left|D(B) - \pi(B)\right| &= \left|1 - \frac{1}{52}\right| = \frac{51}{52}
+    \end{align*}
+\end{example}
