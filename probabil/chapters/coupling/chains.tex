@@ -1,3 +1,4 @@
+%<*probabil-2025-11-21-definicje>
 Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skończony, nieprzywiedlny, nieokresowy) o macierzy przejścia \(P\), zbiorze stanów \(S\) i rozkładzie stacjonarnym \(\left( \pi_x \right) _{x \in S}\). Przez \(P^{t}\left( x, \cdot \right) \) oznaczamy rozkład \(X_t\) przy założeniu \(X_0 = x \).
 
 \begin{definition}
@@ -8,7 +9,9 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	\[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) = \max_{x \in S} \tau_x\left( \varepsilon  \right) . \]
 	Ostatnią z tych wartości nazywamy czasem mieszania łańcucha Markowa. Będziemy też (bez większego powodu) oznaczać \(\tau_{\mathrm{mix}} = \tau_{\mathrm{mix}}\left( \frac{1}{4} \right) \).
 \end{definition}
+%</probabil-2025-11-21-definicje>
 
+%<*probabil-2025-11-21-lemat-o-sprzeganiu>
 \begin{definition}
 	Sprzęganiem łańcuchów Markowa \(X,Y\) o macierzy przejścia \(P\) i zbiorze stanów \(S\) jest dowolny łańcuch Markowa \(\left( Z_t = \left( X_t, Y_t \right)  \right) _{t \in \N}\) na przestrzeni stanów \(S \times S\) taki, że
 	\[ P\left( X_{t+1} = x' \mid Z_t = \left( x,y \right)  \right) = P\left( x,x' \right)  \]
@@ -40,6 +43,7 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	a z tego wynika
 	\[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) \le T. \]
 \end{proof}
+%</probabil-2025-11-21-lemat-o-sprzeganiu>
 %<*probabil-2025-11-21-lancuchy-markowa-monotonicznosc>
 \begin{lemma}[O monotoniczności]
 	Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Dla każdych \(t\ge 0, x \in S\) zachodzi
