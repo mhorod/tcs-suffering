@@ -1,11 +1,11 @@
 %<*probabil-2025-11-19-stany-definicje1>
 \begin{definition}
-	Stan \(i\) jest \textbf{pochłaniający} jeśli \(P_{ii} = 1\).
+	Stan \(i\) jest \textbf{pochłaniający} jeśli \(p_{ii} = 1\).
 \end{definition}
 
 \begin{definition}
 	Stan \(j\) jest \textbf{osiągalny} ze stanu \(i\) jeśli istnieje \(n \geq 0\) takie, że
-	\(P_{ij}(n) > 0\).
+	\(p_{ij}(n) > 0\). Zapisujemy \(i \rightarrow j\).
 \end{definition}
 
 \begin{definition}
@@ -19,17 +19,17 @@
 \begin{proof} Rozważamy trzy warunki bycia relacją równoważności
 	\begin{enumerate}
 		\item \( i \leftrightarrow i \) \\
-		      Możemy dojść z \( i \) do \( i \) w 0 krokach -- \(P_{ij}(0) = 1\)
+		      Możemy dojść z \( i \) do \( i \) w 0 krokach -- \(p_{ij}(0) = 1\)
 
 		\item \( i \leftrightarrow j \implies j \leftrightarrow i \) \\
 		      Koniunkcja jest przemienna, możemy zatem zamienić kolejność warunków w definicji.
 
 		\item \( i \leftrightarrow j \land j \leftrightarrow k \implies i \leftrightarrow k \) \\
-		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(\P_{ij}(n) > 0\).
+		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(\p_{ij}(n) > 0\).
 
-		      Podobnie mamy \( m \) dla którego \( \P_{jk}(m) > 0 \).
+		      Podobnie mamy \( m \) dla którego \( \p_{jk}(m) > 0 \).
 
-		      W takim razie \( P_{ik}(n+m) \geq P_{ij}(n) \cdot \P_{jk}(m) > 0 \)
+		      W takim razie \( p_{ik}(n+m) \geq p_{ij}(n) \cdot \p_{jk}(m) > 0 \)
 		      zatem \( k \) jest osiągalne z \( i \).
 
 		      Analogicznie pokazujemy, że \( i \) jest osiągalne z \( k \), czyli stany te są skomunikowane.
@@ -63,17 +63,17 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 
 	Z nieprzywiedlności mamy:
 	\[
-		\exists_m P_{ij}(m) > 0
+		\exists_m p_{ij}(m) > 0
 	\]
 	\[
-		\exists_l P_{ji}(l) > 0
+		\exists_l p_{ji}(l) > 0
 	\]
 	Niech \( n \in \mathcal{T}(j) \)
 	\[
-		P_{ii}(m + n + l) \geq P_{ij}(m) \cdot P_{jj}(n) \cdot P_{ji}(l) > 0
+		p_{ii}(m + n + l) \geq p_{ij}(m) \cdot p_{jj}(n) \cdot p_{ji}(l) > 0
 	\]
 	\[
-		P_{ii}(m + l) \geq P_{ij}(m) \cdot P_{ji}(l) > 0
+		p_{ii}(m + l) \geq p_{ij}(m) \cdot p_{ji}(l) > 0
 	\]
 	To znaczy chcemy dojść z \( i \) do \( i \) w \(m + n + l\) krokach, więc możemy iść z \( i \) do \( j \), z \( j \) do \( j \) i z \( j \) do \( i \). W drugim przypadku pomijamy \( n \) kroków z \( j \) do \( j \).
 	\[
@@ -91,7 +91,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 \begin{lemma}
 	Jeśli \( \pars{ X_t \mid t \in \natural } \) jest nieokresowym (okres jest równy 1) i nieprzywiedlnym łańcuchem Markowa, to:
 	\[
-		\forall_{i, j \in S} \exists_{n_0} \forall_{n \geq n_0} P_{ij}(n) > 0
+		\forall_{i, j \in S} \exists_{n_0} \forall_{n \geq n_0} p_{ij}(n) > 0
 	\]
 \end{lemma}
 \begin{proof}
@@ -106,15 +106,15 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 		\exists_{m_0} \forall_{m \geq m_0} \exists_{r \geq 1, m_1, \ldots, m_r \in \mathcal{T}(j), l_1, \ldots, l_r \in \natural} : \sum_{i \in [r]} l_im_i = m
 	\]
 	\[
-		P_{jj}(m) \geq \prod_{i \in [r]}P_{jj}(l_im_i) \geq \prod_{i \in [r]} P_{jj}(m_i)^{l_i} > 0
+		p_{jj}(m) \geq \prod_{i \in [r]}p_{jj}(l_im_i) \geq \prod_{i \in [r]} p_{jj}(m_i)^{l_i} > 0
 	\]
 	Z kolei z nieprzywiedlności mamy:
 	\[
-		i \rightarrow j \implies \exists_{m_1} : P_{ij}(m_1) > 0
+		i \rightarrow j \implies \exists_{m_1} : p_{ij}(m_1) > 0
 	\]
 	Niech \( n_0 = m_0 + m_1 \)
 	\[
-		\forall_{n \geq n_0} P_{ij}(n) \geq P_{ij}(m_1)P_{jj}(n-m_1) > 0
+		\forall_{n \geq n_0} p_{ij}(n) \geq p_{ij}(m_1)p_{jj}(n-m_1) > 0
 	\]
 \end{proof}
 %</probabil-2025-11-19-lancuchy-nieprzywiedlne>
@@ -135,7 +135,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania w zadanym momencie} \(f_{ij}(n)\)
 	jako
 	\[
-		f_{ij}(n) = P(X_n = j \land X_{n-1} \neq j \dots X_{1} \neq j \mid X_0 = i) = P(T_j^+ = n \mid X_0 = i)
+		f_{ij}(n) = \prob(X_n = j \land X_{n-1} \neq j \dots X_{1} \neq j \mid X_0 = i) = \prob(T_j^+ = n \mid X_0 = i)
 	\]
 \end{definition}
 
@@ -143,7 +143,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	Definiujemy \textbf{prawdopodobieństwo pierwszego spotkania} \(f_{ij}\)
 	jako
 	\[
-		f_{ij} = \sum_{n=1}^{\infty} f_{ij}(n) = P(T_j^+ = n \mid X_0 = i)
+		f_{ij} = \sum_{n=1}^{\infty} f_{ij}(n) = \prob(T_j^+ < \infty \mid X_0 = i)
 	\]
 \end{definition}
 %</probabil-2025-11-19-stany-definicje2>

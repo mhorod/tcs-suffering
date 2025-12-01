@@ -11,36 +11,33 @@
 \end{definition}
 
 \begin{definition}
-	\textbf{Procesem Markowa} (czasu homogenicznego) nazywamy taki proces stochastyczny \(X_0, X_1, X_2, \dots\) w którym dla dowolnego \(t\) zachodzi
-	\[
-		P(X_t = a_t \mid X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, \dots X_0 = a_0) =
-		P(X_t = a_t \mid X_{t-1} = a_{t-1})
-	\]
+	\textbf{Łańcuchem Markowa} nazywamy proces stochastyczny z czasem dyskretnym \(\set{X_t}_{t \in \natural}\) dla którego
+	
+	\begin{enumerate}
+		\item dla każdego \(t \geq 0\) oraz \((a_0, \dots, a_t)\) takiego, że \(\prob(\bigcap_{i=0}^t X_i = a_i) > 0\) zachodzi
+		\[
+			\prob\pars{X_{t + 1} = y \mid \bigcap_{i=0}^t X_i = a_i} = \prob\pars{X_{t + 1} = y \mid X_t = a_t}
+		\]
+		\item dla każdego \(t \geq 0\) i \(x, y \in S\) zachodzi
+		\[
+			\prob(X_{t+1} = x \mid X_t = y) = \prob(X_t = x \mid X_{t-1} = y)
+		\]
+	\end{enumerate} 
+\end{definition}
+
+Właściwość 1. mówi nam, że aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci. Warto zauważyć, że \textbf{nie oznacza to}, że \(X_t\) jest niezależne od \(X_{t-2}, X_{t-3}, \dots\) -- jest, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\).
+
+Za właściwość 2. mówi nam, że bez znaczenia na czas, prawdopodobieństwo przejścia z określonego stanu \(x\) do stanu \(y\) jest zawsze takie samo.
+
+Warto zaznaczyć że niektóre źródła definiują łańcuchy Markowa jako procesy spełniające wyłącznie właściwość 1., a procesy spełniające 1. oraz 2. nazywają łańcuchami Markowa czasu homogenicznego, jednak na probabilu dla uproszczenia terminologii używamy powyższej definicji.
+
+\begin{definition}
+	Oznaczamy dalej \(p_{ij} = \prob(X_t = j \mid X_{t-1} = i)\). \\
+	\textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) zadaną współczynnikami \(p_{ij}\).
 \end{definition}
 
 \begin{definition}
-	\textbf{Łańcuchem Markowa} nazywamy proces Markowa z czasem dyskretnym.
-\end{definition}
-
-Innymi słowy aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci.
-
-Warto zauważyć, że \textbf{nie oznacza to}, że \(X_t\) jest niezależne od \(X_{t-2}, X_{t-3}, \dots\) --
-jest, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\).
-
-\begin{definition}
-	Łańcuch Markowa jest \textbf{czasu homogenicznego} jeśli \(
-	P(X_t = a_t \mid X_{t-1} = a_{t-1} \land t = t_0) = P(X_t = a_t \mid X_{t-1} = a_{t-1})
-	\)
-\end{definition}
-Mniej formalnie - na rozwój wydarzeń ma jedynie wpływ stan łańcucha, a nie czas w którym ten stan ma miejsce.
-
-\begin{definition}
-	Oznaczamy dalej \(P_{ij} = P(X_t = j \mid X_{t-1} = i)\). \\
-	\textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) zadaną współczynnikami \(P_{ij}\).
-\end{definition}
-
-\begin{definition}
-	\(P_{ij}(n) = P(X_n = j \mid X_0 = i)\) \\
+	\(p_{ij}(n) = \prob(X_n = j \mid X_0 = i)\) \\
 \end{definition}
 %</probabil-2025-11-19-lancuchy-markowa-definicje>
 
@@ -160,7 +157,7 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 	Niech \( i \in S \).\\
 	Definiujemy:
 	\[
-		\mathcal{T}(i) = \pars{t \geq 1 | P_{ii}(t) > 0}
+		\mathcal{T}(i) = \pars{t \geq 1 | p_{ii}(t) > 0}
 	\]
 	Czyli zbiór takich \( t \), że jesteśmy w stanie dojść z \( i \) do \( i \) w t krokach.\\
 	\textbf{Okres stanu} \( i \) definiujemy jako \(o(i) = \gcd\pars{\mathcal{T}(i)}\).
