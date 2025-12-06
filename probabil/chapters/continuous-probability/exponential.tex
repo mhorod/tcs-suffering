@@ -1,28 +1,111 @@
+%<*probabil-2025-12-05-rozklad-wykladniczy-1>
+\subsection{Właściwości}
 \begin{definition}
-	\textbf{Rozkładem wykładniczym} z parametrem \( \lambda \) nazywamy rozkład zadany dystrybuantą
-	\[
-		F(x) = \begin{cases}
-			1 - e^{-\lambda x} & \text{ dla } x \geq 0 \\
-			0                  & \text{ dla } x < 0
-		\end{cases}
-	\]
+	\textbf{Rozkładem wykładniczym} z parametrem \( \lambda \) nazywamy rozkład zadany gęstością
+	
+	\begin{minipage}[c]{0.5\linewidth}
+		\[
+			f(x) = \begin{cases}
+				\lambda e^{-\lambda x} & \text{ dla } x \geq 0 \\
+				0 					   & \text{wpp.} \\
+			\end{cases}
+		\]
+	\end{minipage}
+	\quad
+	\begin{minipage}[c]{0.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+		\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
+		\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+		\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
+		\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {e^(-\x)});
+	\end{tikzpicture}
+	\end{minipage}
 \end{definition}
 
-Gęstość rozkładu wykładniczego \( f = F' \) wynosi \( f(x) = \lambda e^{-\lambda x} \)
+Intuicyjnie widzimy, że im \(\lambda\) jest mniejsze, tym bardziej ten wykres się "wypłaszcza".
 
-Momenty wynoszą
+Dystrybuanta takiej zmiennej wynosi
+
+\begin{minipage}[c]{0.5\linewidth}
+	\[
+		F(x) = \begin{cases}
+			1 - e^{-\lambda x}  & \text{ dla } x \geq 0           \\
+			0 					& \text{ wpp. }
+		\end{cases}
+	\]
+\end{minipage}
+\quad
+\begin{minipage}[c]{0.4\linewidth}
+	\centering
+	\begin{tikzpicture}
+	\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
+	\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+	\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
+	\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {1 - e^(-\x)});
+\end{tikzpicture}
+\end{minipage}
+
+dodatkowo definiujemy
 \[
-	\expected{X} = \int_0^\infty x\lambda e^{-\lambda x} \diff x = \frac{1}{\lambda}
+	G(x) = P(X > x) = 1 - F(x) = \begin{cases}
+		e^{-\lambda x}  & \text{ dla } x \geq 0           \\
+		0 					& \text{ wpp. }
+	\end{cases}
 \]
-\[
-	\expected{X^2} = \int_0^\infty x^2\lambda e^{-\lambda x} \diff x = \frac{2}{\lambda^2}
-\]
-\[
-	\variance{X} = \expected{X^2} - \expected{X}^2 = \frac{1}{\lambda^2}
-\]
+
+\begin{lemma}
+	\label{exponential-divided-by-constant}
+	Dla \(X \sim \Exp(a)\) oraz \(Y = \frac{X}{b}\) zachodzi
+	\[
+		Y \sim \Exp(ab)
+	\]
+\end{lemma}
+\begin{proof}
+	\[
+		\prob(Y \leq y) = \prob(X \leq by) = 1 - e^{-aby}
+	\]
+\end{proof}
+
+\begin{theorem}
+	Dla \(X \sim \Exp(\lambda)\) zachodzi
+	\[
+		\expected{X} = \frac{1}{\lambda}
+	\]
+	\[
+		\expected{X^2} = \frac{2}{\lambda^2}
+	\]
+	\[
+		\variance{X} =\frac{1}{\lambda^2}
+	\]
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\ev{X} &= \int_{-\infty}^\infty t f(t) \diff t\\
+		&= \int_0^\infty t \lambda e^{-\lambda t} \diff t\\
+		&= -\int_0^\infty t \pars{-\lambda e^{-\lambda t}} \diff t\\
+		&= -\brackets{t e^{-\lambda t}}_0^\infty + \int_0^\infty e^{-\lambda t} \diff t\\
+		&= 0 + \brackets{-\frac{1}{\lambda} e^{-\lambda t}}_0^\infty\\
+		&= \frac{1}{\lambda}
+	\end{align*}
+	
+	\begin{align*}
+		\ev{X^2} &= \int_0^\infty t^2 \lambda e^{-\lambda t} \diff t\\
+		&= -\int_0^\infty t^2 \pars{-\lambda e^{-\lambda t}} \diff t\\
+		&= -\brackets{t^2 e^{-\lambda t}}_0^\infty + \int_0^\infty 2t e^{-\lambda t} \diff t\\
+		&= 0 + \frac{2}{\lambda} \int_0^\infty t \lambda e^{-\lambda t} \diff t\\
+		&= 0 + \frac{2}{\lambda} \cdot \frac{1}{\lambda}\\
+		&= \frac{2}{\lambda^2}
+	\end{align*}
+	
+	\[
+		\variance{X} = \expected{X^2} - \expected{X}^2 = \frac{1}{\lambda^2}
+	\]
+\end{proof}
+Alternatywnie, dla uproszczenia można to udowodnić wyłącznie dla \(\lambda = 1\) a potem z \ref{exponential-divided-by-constant} rozszerzyć na dowolne \(\lambda\).
 
 \begin{theorem}[Lemat 8.4 P\&C]
-	Rozkład wykładniczy jest \textbf{bez pamięci} tzn.
+	Rozkład wykładniczy jest \textbf{bez pamięci}, tzn. dla \(X \sim \Exp(\lambda)\), \(s, t \in \real^+\) zachodzi
 	\[
 		P(X > s + t \mid X > t) = P(X > s)
 	\]
@@ -39,10 +122,11 @@ Momenty wynoszą
 Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować'' zmienną o której wiemy, że ma większą wartość niż ustalona.
 
 \begin{theorem}
-	Rozkład wykładniczy jest jedynym ciągłym rozkładem bez pamięci, czyli jeśli \(X\) jest ciągłą zmienną losową i zachodzi
+	Rozkład wykładniczy jest jedynym ciągłym rozkładem bez pamięci o dziedzinie \([0, \infty)\), czyli jeśli \(X\) jest ciągłą zmienną losową i zachodzi
 	\[ \forall_{s,t>0} \ P\left( X> s+t \mid X>t \right) = P\left( X >s \right) ,  \]
 	to istnieje takie \(\lambda > 0\), że \(X \sim \Exp\left( \lambda \right) \).
 \end{theorem}
+%</probabil-2025-12-05-rozklad-wykladniczy-1>
 \begin{proof}
 	Niech \(S\left( x  \right) = 1 - F_X\left( x  \right) \). Mamy
 	\[ \frac{S\left( s+t \right) }{S\left( t \right) } = S\left( s  \right) \implies  S\left( s+t \right) = S\left( s  \right) S\left( t  \right) . \]
@@ -71,39 +155,41 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 	\end{align*}
 \end{proof}
 
+%<*probabil-2025-12-05-rozklad-wykladniczy-2>
 \begin{theorem}[Lemat 8.5 P\&C]
 	\label{lemat8.5}
-	Jeśli \(X_1, X_2\) są \textbf{niezależnymi} zmiennymi losowymi o rozkładzie wykładniczym o parametrach (odpowiednio) \(\lambda_1\) i \(\lambda_2\) to zmienna losowa \(Y\) będąca ich minimum jest zmienną o rozkładzie wykładniczym o parametrze \( \lambda_1 + \lambda_2 \).
-
-	Dodatkowo, prawdopodobieństwo że \(X_1 = Y\) (w sensie: że to \(X_1\) będzie mniejsze) wynosi \( \frac{\lambda_1}{\lambda_1 + \lambda_2} \). Analogicznie, dla \(X_2\) prawdopodobieństwo to wyniesie \( \frac{\lambda_2}{\lambda_1 + \lambda_2} \).
+	Jeśli \(X_1, \dots, X_n\) są \textbf{niezależnymi} zmiennymi losowymi spełniającymi \(X_i \sim \Exp(\lambda_i)\), to 
+	\[
+		\min(X_1, \dots, X_n) \sim \Exp\pars{\sum_{i=1}^n \lambda_i}
+	\]
+	oraz
+	\[
+		\prob(X_i = \min(X_1, \dots, X_n)) = \frac{\lambda_i}{\sum_{j=1}^n \lambda_j}
+	\]
 \end{theorem}
 
 \begin{proof}
-	Policzmy sobie dystrybuantę zmiennej losowej \(Y\) (w nieco śmieszny sposób):
+	Przeprowadzimy dowód dla \(n = 2\), który później prostą indukcją można rozszerzyć na \(n > 2\).
+	
+	\begin{align*}
+		\prob(\min(X_1, X_2) > x) &= \prob(X_1 > x \land X_2 > x)\\
+		&= \prob(X_1 > x) \cdot \prob(X_2 > x)\\
+		&= e^{-\lambda_1 x} \cdot e^{-\lambda_2 x}\\
+		&= e^{-(\lambda_1 + \lambda_2)x}
+	\end{align*}
+
+	a więc \(\min(X_1, X_2) \sim \Exp(\lambda_1 + \lambda_2)\). Teraz pozostaje pokazać, że:
 
 	\[
-		1 - F_Y(x) = \mathrm{P}(x \leq Y) = \mathrm{P}(x \leq X_1 \land x \leq X_2) = \mathrm{P}(x \leq X_1) \cdot \mathrm{P}(x \leq X_2)
-	\]
-	\[
-		P(x \leq X_1) \cdot P(x \leq X_2) = (1 - F_{X_1}(x)) \cdot (1 - F_{X_2}(x))
-	\]
-	Jako, że dla zmiennych \(X\) rozkładu wykładniczego \(F_{X}(x) = 1 - e^{- \lambda x}\) to \(1 - F_{X}(x) = e^{-\lambda x}\). Zatem:
-	\[
-		(1 - F_{X_1}(x)) \cdot (1 - F_{X_2}(x)) = e^{-\lambda_1 x} \cdot e^{-\lambda_2 x} = e^{-(\lambda_1 + \lambda_2)x} = 1 - F_Y(x)
-	\]
-	czyli
-	\[
-		F_Y(x) = 1 - e^{-(\lambda_1 + \lambda_2)x}
-	\]
-
-	skąd \(Y\) jest zmienną rozkładu wykładniczego z parametrem \( \lambda_1 + \lambda_2\). Teraz pozostaje pokazać, że:
-
-	\[
-		P(X_1 \leq X_2) = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+		\prob(X_1 \leq X_2) = \frac{\lambda_1}{\lambda_1 + \lambda_2}
 	\]
 
 	Zatem liczymy:
 
+	{
+	% Wyjątkowo pozwalam na pagebreak wewnątrz align,
+	% bo ten align jest ogromny i inaczej formatowanie poprzedniej strony robi się dziwne
+	\allowdisplaybreaks
 	\begin{align*}
 		\mathrm{P}(X_1 \leq X_2) = \int_{x_2 = -\infty}^{\infty} \int_{x_1 = -\infty}^{x_2} f_{X_{1}X_{2}}(x_1, x_2) \; dx_{1}dx_{2}                                                                       & = \\
 		\int_{x_2 = -\infty}^{\infty} f_{X_{2}}(x_2) \int_{x_1 = -\infty}^{x_2} f_{X_1}(x_1) \; dx_{1}dx_{2}                                                                                               & = \\
@@ -122,9 +208,15 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 		(-\lambda_2)\cdot \frac{-\lambda_1}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}}                                                                                                                  & = \\
 		\frac{\lambda_1}{\lambda_1 + \lambda_2}
 	\end{align*}
+	}
 \end{proof}
 
-\newpage
+\subsection{Kantory}
+Jesteśmy na lotnisku, na którym stoi \(n\) kantorów obsługujących klientów. W chwili \(t\) kiedy do nich podchodzimy, wszystkie z nich są zajęte. Przyjmijmy, że czas obsługi przez \(i\)-ty kantor ma rozkład \(X_i \sim \Exp(1)\). Jaki jest rozkład czasu oczekiwania na zwolnienie pierwszego kantoru?
+
+W chwili w której podchodzimy do kantorów, każdy z nich jest zajęty od nieznanej nam chwili wcześniejszej od \(t\). Wiemy jednak, że wszystkie z nich są obecnie zajęte. W takim razie, z faktu, że rozkład wykładniczy jest bez pamięci, możemy myśleć o nich jako o rozkładach wykładniczych rozpoczynających się w momencie \(t\). A więc z \ref{lemat8.5}, rozkład czasu po którym pierwszy kantor się zwolni to po prostu \(\Exp(n)\).
+%</probabil-2025-12-05-rozklad-wykladniczy-2>
+
 \subsection{Kule i urny z feedbackiem}
 
 Jak zwykle, zanim zaczniemy to pokażemy pomocniczy lemat:
