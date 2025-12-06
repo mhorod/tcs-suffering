@@ -1,0 +1,109 @@
+\begin{definition}
+    Funkcją gamma nazywamy funkcję:
+    \[
+        \Gamma(a) = \int_0^{\infty} x^a e^{-x} \frac{\diff x}{x} = \int_0^{\infty} x^{a-1} e^{-x} \diff x
+    \]
+    dla \( a > 0 \).
+    Powyższe dwie notacje są równoważne, my będziemy korzystać z tej pierwszej.
+\end{definition}
+
+Parę faktów o funkcji gamma:
+\begin{fact}
+    \( \Gamma(1) = 1 \)
+\end{fact}
+\begin{proof}
+    \[
+        \Gamma(1) = \int_0^{\infty} x e^{-x} \frac{\diff x}{x} = \int_0^{\infty} e^{-x} \diff x = \left[-e^{-x} \right]_0^{\infty} = 1
+    \]
+\end{proof}
+
+\begin{fact}
+    \( \forall_{a > 0} \Gamma(a+1) = a\Gamma(a) \)
+\end{fact}
+\begin{proof}
+    \[
+        \Gamma(a+1) = \int_0^{\infty} x^a e^{-x} \diff x = \left[ -x^a e^{-x}  \right]_0^{\infty} + a\int_0^{\infty} x^{a-1} e^{-x} \diff x = 0 + a\Gamma(a) = a\Gamma(a)
+    \]
+\end{proof}
+
+\begin{fact}
+    \( \forall_{n \geq 1} \Gamma(n) = (n-1)! \) \\
+    Wynika to bezpośrednio z poprzedniego faktu.
+\end{fact}
+
+\begin{definition} 
+    Mówimy, że ciągła zmienna losowa ma \textbf{Rozkład Gamma} z parametrem \( (a, 1) \), jeżeli jej funkcja gęstości jest równa:
+    \[
+        f(x) = \frac{1}{\Gamma(a)} x^a e^{-x} \frac{1}{x}
+    \]
+    Wtedy:
+    \[
+        \int_0^{\infty} \frac{1}{\Gamma(a)}x^a e^{-x} \frac{\diff x}{x} = \frac{1}{\Gamma(a)} \int_0^{\infty} x^a e^{-x} \frac{\diff x}{x} = \frac{1}{\Gamma(a)} \cdot \Gamma(a) = 1
+    \]
+    Zatem jest to poprawny rozkład.
+\end{definition}
+
+\begin{definition}
+    Mówimy, że ciągła zmienna losowa ma \textbf{rozkład Gamma} z parametrem \( \pars{a, \lambda} \), jeżeli jej funkcja gęstości jest równa:
+    \[
+        f(x) = \frac{1}{\Gamma(a)} (\lambda x)^a e^{-\lambda x} \frac{1}{x}
+    \]
+\end{definition}
+
+\begin{proof}
+    Niech \( X \) ma rozkład Gamma z parametrem \( (a, 1) \). Niech \( Y = \frac{X}{\lambda} \). Wtedy mówimy, że \( Y \) ma rozkład Gamma z parametrem \( (a, \lambda) \). 
+    Chcemy pokazać, że to poprawny rozkład. Możemy to sobie oczywiście przecałkować i zobaczyć, że faktycznie wyjdzie \( 1 \) ale można też skorzystać z takiego przekształcenia:
+    \[
+        f_Y(y) = f_X(x) \cdot \abs{\frac{\diff x}{\diff y}} = \frac{1}{\Gamma(a)}(\lambda y)^a e^{-\lambda y} \frac{1}{\lambda y} \lambda = \frac{1}{\Gamma(a)}(\lambda y)^a e^{-\lambda y} \frac{1}{y}
+    \]
+\end{proof}
+
+\begin{fact}
+    Dla \( X \sim \) Gamma(\(a, 1\)), 
+    \[ 
+        \expected{X} = a 
+    \] 
+    \[ 
+        \expected{X^2} = a(a+1) 
+    \]
+\end{fact}
+\begin{proof}
+    \[
+        \expected{X} = \int_0^{\infty} x \frac{1}{\Gamma(a)} x^a e^{-x} \frac{\diff x}{x} = \frac{1}{\Gamma(a)} \int_0^{\infty} x^{a+1} e^{-x} \frac{\diff x}{x} = \frac{\Gamma(a+1)}{\Gamma{a}} = \frac{a\Gamma(a)}{\Gamma(a)} = a
+    \]
+    \[
+        \expected{X^2} = \int_0^{\infty} x^2 \frac{1}{\Gamma(a)} x^a e^{-x} \frac{\diff x}{x} = \frac{1}{\Gamma(a)} \int_0^{\infty} x^{a+2} e^{-x} \frac{\diff x}{x} = \frac{\Gamma(a+2)}{\Gamma(a)} = a(a+1)
+    \]
+\end{proof}
+
+\begin{fact}
+    Dla \( Y \sim \) Gamma(\(a, \lambda\)) (Czyli \(Y = \frac{X}{\lambda} \), dla \( X \sim \) Gamma(\(a, 1\))):
+    \[
+        \expected{Y} = \expected{\frac{X}{\lambda}} = \frac{1}{\lambda}\expected{X} = \frac{a}{\lambda}
+    \]
+\end{fact}
+
+\begin{fact}
+    Gamma(\(1,1\)) \( \equiv \) Exp(\(1\))\\
+    Gamma(\(1, \lambda\)) \( \equiv \) Exp(\(\lambda\))
+\end{fact}
+
+\begin{theorem}
+    Niech \(X_1, \ldots, X_n\) - niezależne zmienne losowe o rozkładzie wykładniczym z parametrem \( \lambda \). Wtedy:\\
+    \( X_1 + \ldots + X_n \sim \) Gamma(\(n, \lambda\)).
+\end{theorem}
+\begin{proof}
+    Skorzystamy z twierdzenia \ref{generating-function-equality}. Policzymy funkcję tworzącą dla sumy \(X_i\) oraz dla \(Y \sim \) Gamma(\(n, \lambda\)).
+    \[
+        M_{X_i}(t) = \expected{e^{tX_i}} = \int_0^{\infty} e^{tx} \lambda e^{-\lambda x} \diff x = \frac{\lambda}{\lambda - t}
+    \]
+    \[
+        X = \sum_{i \in [n]}X_i \implies M_X(t) = \prod_{i \in [n]} M_{X_i}(t) = \pars{\frac{\lambda}{\lambda - t}}^n
+    \]
+    \begin{align*}
+        M_Y(t) &= \expected{e^{tY}} = \int_0^{\infty} e^{tY} \frac{1}{\Gamma(n)} (\lambda y)^n \frac{\diff y}{y} \\
+        &= \frac{\lambda^n}{(\lambda - t)^n}\int_0^{\infty} \frac{1}{\Gamma(n)} e^{-(\lambda - t)y}((\lambda - t)y)^n \frac{\diff y}{y} \\
+        &= \pars{\frac{\lambda}{\lambda - t}}^n \frac{\Gamma(n)}{\Gamma(n)} = \pars{\frac{\lambda}{\lambda - t}}^n
+    \end{align*}
+    Obie funkcje tworzące są równe, więc zmienne \( X \) i \( Y \) mają ten sam rozkład.
+\end{proof}
