@@ -1,30 +1,39 @@
 \begin{definition}
-	\label{poisson-process-definition}
-	\textbf{Procesem Poissona} z parametrem \( \lambda \) nazywamy proces stochastyczny
-	\[ \set{N(t) \mid t \in \real, t \geq 0} \]
-	(intuicyjnie: \(N(t)\) mówi ile \textit{jakichś} zdarzeń zaszło od momentu rozpoczęcia procesu do jakiejś chwili \(t\).
+	\textbf{Stochastycznym procesem liczącym} nazywamy \hyperref[stochastic-process-definition]{proces stochastyczny} 
+	\[\set{N(t), \mid t \geq 0}\] 
+	
+	spełniający
+	\begin{enumerate}
+		\item \(N(t) \in \natural_0\)
+		\item \(\forall_{s < t} N(s) \leq N(t)\)
+	\end{enumerate}
+\end{definition}
 
-	taki, że:
+Intuicyjnie: \(N(t)\) mówi ile \textit{jakichś} zdarzeń zaszło od momentu rozpoczęcia procesu do chwili \(t\), a dla \(s \leq t\) liczba zdarzeń które zaszły w przedziale czasu \((s, t]\) to \(N(t) - N(s)\) 
+
+\begin{definition}
+	\label{poisson-process-definition}
+	\textbf{Procesem Poissona} z parametrem \( \lambda \) nazywamy stochastyczny proces liczący \( \set{N(t) \mid t \in \real, t \geq 0} \) taki, że:
 
 	\begin{enumerate}
 		\item \( N(0) = 0 \)
-
-		\item Rozłączne przedziały są niezależne tj. zmienne \\
-		      \( N(a) - N(b) \) i \( N(c) - N(d) \) są niezależne dla \( [b, a] \cap [d, c] = \varnothing \)
-
-		\item Liczba zdarzeń na przedziałach jest stacjonarna tj. \\
-		      \( N(t + s) - N(s) \) ma taki sam rozkład jak \( N(t) \)
-
+		
+		\item Proces ma stacjonarne i niezależne przyrosty, tzn.
+		\begin{enumerate}[label=\arabic{enumi}\alph*.]
+			\item Stacjonarność: \(\forall_{s, t \geq 0}\) zmienne \(N(s)\) oraz \(N(s+t) - N(t)\) mają taki sam rozkład
+			\item Niezależność: \(\forall_{t_1 < t_2 \leq t_3 < t_4}\) zmienne \( N(t_2) - N(t_1) \) oraz \( N(t_4) - N(t_3) \) są niezależne
+		\end{enumerate}
+		
 		\item Prawdopodobieństwo jednego zdarzenia w małym przedziale długości \( t \) zbiega do \( \lambda  \) \\
-		      \[ \lim_{t \rightarrow 0} \frac{P(N(t) = 1)}{t} = \lambda \]
+		      \[ \lim_{t \rightarrow 0} \frac{\prob(N(t) = 1)}{t} = \lambda \]
 
 		\item Prawdopodobieństwo więcej niż jednego zdarzenia w małym przedziale zbiega do zera \\
-		      \[ \lim_{t \rightarrow 0} \frac{P(N(t) > 1)}{t} = 0 \]
+		      \[ \lim_{t \rightarrow 0} \frac{\prob(N(t) > 1)}{t} = 0 \]
 	\end{enumerate}
 \end{definition}
 
 
-Powyższa definicja nie jest jedyną możliwą definicją procesu Poissona. Okazuje się, że możemy skorzystać też z nieco wygodniejszej definicji bez tych dwóch limesów, ale za to korzystającej z rozkładu Poissona.
+Powyższa definicja nie jest jedyną możliwą definicją procesu Poissona. Okazuje się, że możemy skorzystać też z nieco wygodniejszej definicji bez warunków 3. i 4., ale za to korzystającej z rozkładu Poissona.
 
 Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma definicjami.
 
@@ -32,23 +41,28 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 \begin{theorem}[Twierdzenie 8.7 P\&C]
 	Niech \( \set{N(t) \mid t \geq 0} \) będzie procesem Poissona z parametrem \( \lambda \). Wtedy dla dowolnego \( t \geq 0 \) oraz \( n \in \natural \)
 	\[
-		P_n(t) = P(N(t) = n) = e^{-\lambda t} \frac{\pars{\lambda t}^n}{n!}
+		\prob_n(t) \coloneq P(N(t) = n) = e^{-\lambda t} \frac{\pars{\lambda t}^n}{n!}
 	\]
 \end{theorem}
 
 \begin{proof}
-	Zaczynamy od policzenia \( P_0(t) \); dowód będzie indukcyjny.
-
-	Zauważamy, że z niezależności rozłącznych przedziałów mamy
-	\[
-		P_0(t + h) = P_0(t) \cdot P_0(h)
-	\]
+	Zaczynamy od policzenia \( \prob_0(t) \); dowód będzie indukcyjny.
+	
+	Zauważmy, że z niezależności przyrostów mamy
+	\begin{align*}
+		\prob_0(t+h) &= \prob(N(t+h) = 0)\\
+		&= \prob(N(t) = 0 \land N(t + h) - N(t) = 0)\\
+		&= \prob(N(t) = 0)\prob(N(t + h) - N(t) = 0)\\
+		&= \prob(N(t) = 0) \prob(N(h) = 0)\\
+		&= \prob_0(t) \prob_0(h)
+	\end{align*}
+	
 	Robimy więc pierwszą rzecz, która nam przychodzi do głowy tj. liczymy pochodną \( P_0(t) \), a co.
 	\begin{align*}
 		P_0'(t)
 		 & = \lim_{h \rightarrow 0} \frac{P_0(t + h) - P_0(t)}{h}                                                             \\
 		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{P_0(h) - 1}{h}                                                         \\
-		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{1 - P(N(h) = 1) - P(N(h)  > 1) - 1}{h}                                 \\
+		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{(1 - P(N(h) = 1) - P(N(h)  > 1)) - 1}{h}                                 \\
 		 & = \lim_{h \rightarrow 0} \pars{ P_0(t) \cdot \pars{ \frac{- P(N(h) = 1)}{h} - \frac{P(N(h) > 1)}{h}}}              \\
 		 & = P_0(t) \cdot \pars{-\lim_{h \rightarrow 0} \frac{P(N(h) = 1)}{h} - \lim_{h \rightarrow 0} \frac{P(N(h) > 1)}{h}} \\
 		 & = P_0(t) \cdot \pars{-\lambda - 0}                                                                                 \\
@@ -96,15 +110,15 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 				P_n(t) \cdot P_0(h) + P_{n-1}(t) \cdot P_1(h) + \sum_{k=2}^n \pars{P_{n-k}(t) \cdot P(N(h) = k)} - P_n(t)}{h}
 		}                                                                                                                                                                                                                 \\
 		 & =  \lim_{h \rightarrow 0} \pars{ \frac{
-				P_n(t) \cdot (P_0(h) - 1) + P_{n-1}(t) \cdot P(N(h)=1) + \sum_{k=2}^n P_{n-k}(t) \cdot P(N(h) = k)}{h}
+				P_n(t) \cdot (P_0(h) - 1) + P_{n-1}(t) \cdot P(N(h)=1) + \sum_{k=2}^n (P_{n-k}(t) \cdot P(N(h) = k))}{h}
 		}                                                                                                                                                                                                                 \\
 		 & =  \lim_{h \rightarrow 0} \pars{
 			\frac{P_n(t) \cdot (P_0(h) - 1)}{h}
 			+ \frac{P_{n-1}(t)\cdot P(N(h) = 1)}{h}
 		+ \sum_{k=2}^n P_{n-k}(t) \cdot \frac{P(N(h) = k)}{h}}                                                                                                                                                            \\
 		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{P_0(h) - 1}{h}} + P_{n-1}(t) \lim_{h \rightarrow 0} \pars{\frac{P(N(h)=1)}{h}} + \sum_{k=2}^n P_{n-k}(t) \cdot \lim_{h \rightarrow 0} \pars{\frac{P(N(h) = k)}{h}} \\
-		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{1 - \mathrm{P}(N(h) = 1) - \mathrm{P}(N(h) = 2) - 1}{h}} + P_{n-1}(t) \cdot \lambda + \sum_{k=2}^n P_{n-k}(t) \cdot 0                                              \\
-		 & = P_n(t) \pars{-\lim_{h \rightarrow 0}\frac{\mathrm{P}(N(h)=1)}{h} - \lim_{h \rightarrow 0} \frac{\mathrm{P}(N(h)=2)}{h}} + \lambda P_{n-1}(t)                                                                 \\
+		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{(1 - \mathrm{P}(N(h) = 1) - \mathrm{P}(N(h) > 1)) - 1}{h}} + P_{n-1}(t) \cdot \lambda + \sum_{k=2}^n P_{n-k}(t) \cdot 0                                              \\
+		 & = P_n(t) \pars{-\lim_{h \rightarrow 0}\frac{\mathrm{P}(N(h)=1)}{h} - \lim_{h \rightarrow 0} \frac{\mathrm{P}(N(h)>1)}{h}} + \lambda P_{n-1}(t)                                                                 \\
 		 & = -\lambda P_n(t) + \lambda P_{n-1}(t)
 	\end{align*}
 	Znowu dostajemy równanie różniczkowe
@@ -118,7 +132,7 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 
 	I z założenia indukcyjnego:
 	\[
-		\frac{d}{dt}\pars{e^{\lambda t}\cdot P_n(t)} = \lambda e^{\lambda t} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^{n-1}}{(n-1)!} = \frac{\lambda^n \cdot t^{n-1}}{(n-1)!}
+		\lambda e^{\lambda t} P_{n-1}(t) = \lambda e^{\lambda t} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^{n-1}}{(n-1)!} = \frac{\lambda^n \cdot t^{n-1}}{(n-1)!}
 	\]
 
 	Całkujemy obustronnie:
