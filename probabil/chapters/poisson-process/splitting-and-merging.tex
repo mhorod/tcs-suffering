@@ -6,7 +6,15 @@ Ta prostsza część.
 	a ponadto każde zdarzenie procesu \( N \) przyszło z procesu \( N_1 \) z prawdopodobieństwem \( \frac{\lambda_1}{\lambda_1 + \lambda_2} \)
 \end{theorem}
 \begin{proof}
-	Pierwsze trzy warunki mamy za darmo.
+	Pierwszy warunek mamy za darmo.
+	Żeby pokazać niezależność przyrostów, musimy zauważyć tylko że dla \( t_1 < t_2 < t_3 < t_4 \) mamy:
+	\[
+		N(t_2) - N(t_1) = N_1(t_2) - N_1(t_1) + N_2(t_2) - N_2(t_1)
+	\]
+	\[
+		N(t_4) - N(t_3) = N_1(t_4) - N_1(t_3) + N_2(t_4) - N_2(t_3)
+	\]
+	a \(N_1\) i \(N_2\) są niezależne z założenia.
 
 	Zauważamy, że skoro \( N_1(t), N_2(t) \) miały rozkład Poissona, to \( N_1(t) + N_2(t) \) również ma rozkład Poissona, tyle, że z parametrem \( \lambda_1 + \lambda_2 \), zatem otrzymujemy proces Poissona z parametrem \( \lambda_1 + \lambda_2 \).
 
@@ -53,4 +61,5 @@ Ta smutniejsza część.
 	Pokazaliśmy już, że \( N_1(t) \) oraz \( N_2(t) \) są niezależne, więc wystarczy pokazać, że
 	\( N_1(t) \) oraz \(N_2(u) - N_2(t)\) też są niezależne.
 	A tak jest, dlatego, że oryginalny \( N \) był procesem Poissona i rozdzielanie robiliśmy niezależnie, więc to ile zdarzeń z przedziału \( \pars{t, u} \) wpadło do \( N_2 \) jest niezależne od \( N_1(t) \).
+	%TODO: faktycznie to obliczyc (bylo na cwiczeniach)
 \end{proof}
