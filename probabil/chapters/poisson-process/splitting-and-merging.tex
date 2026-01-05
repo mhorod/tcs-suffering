@@ -23,12 +23,20 @@ Ta prostsza część.
 
 \subsection{Rozdzielanie}
 Ta smutniejsza część.
+
+\begin{definition} Niezależność procesów Poissona.
+
+	Niech \(N_1\), \(N_2\) - procesy Poisonna. Mówimy, że są one niezależne, jeśli \(\forall_{x, y} N_1(x)\) i \(N_2(y)\) są niezależne. 
+	
+\end{definition}
+
 \begin{theorem}[Twierdzenie 8.13 P\&C]
 	Niech \( N \) będzie procesem Poissona z parametrem \( \lambda \).
 	Każde zdarzenie jest niezależnie typu 1 z prawdopodobieństwem \( p \) oraz typu 2 z prawdopodobieństwem \( 1 - p \).
 
 	Wtedy zdarzenia typu 1 tworzą proces Poissona \( N_1 \) z parametrem \( \lambda p \) a typu 2 proces Poissona \( N_2 \) z parametrem \( \lambda (1-p) \). Ponadto, te dwa procesy są niezależne.
 \end{theorem}
+
 \begin{proof}
 	Niezależność i stacjonarność dziedziczymy z \( N \), tak samo \( N_1(0) = 0 \).
 	Policzymy zatem
