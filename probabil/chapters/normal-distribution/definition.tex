@@ -1,3 +1,16 @@
+%<*probabil-2025-12-19-definicje-1>
+
+Rozważmy sobie rozkład na \(\real^2\) o następujących własnościach:
+\begin{itemize}
+	\item gęstość wokół każdego punktu zależy jedynie od odległości od środka układu (w szczególności rotacja nie zmienia rozkładu).
+	\item wartości współrzędnych \(x\) i \(y\) są od siebie niezależne.
+	\item ten rozkład jest ciągły.
+\end{itemize}
+
+Okazuje się, że istnieje tylko jeden taki rozkład (z dokładnością do stałej), nazywamy go rozkładem normalnym. \\
+%</probabil-2025-12-19-definicje-1>
+
+
 \begin{definition}
 	Definiujemy rozkład normalny (uogólniony) jako rozkład o następującej funkcji gęstości prawdopodobieństwa:
 
@@ -12,8 +25,17 @@
 	Standardowy rozkład Normalny to rozkład normalny o parametrach \( \mu = 0\) i \( \sigma^2 = 1\); oznaczamy go (bez większego szoku) jako \(N(0, 1)\).
 \end{definition}
 
+%<*probabil-2025-12-19-definicje-2>
 \begin{definition}
-	Dystrybuantę standardowego rozkładu normalnego oznaczamy jako \( \Phi \).
+	Dystrybuantę standardowego rozkładu normalnego oznaczamy jako \( \Phi \), gdzie:
+	\[
+		\Phi = \frac{1}{\sqrt{2\pi}} \int_{\infty}^{z} e^{-\frac{t^2}{2}} \diff t
+	\]
+	Oraz:
+	\[
+		\Phi(-z) = 1 - \Phi(z)
+	\]
+	Ta całka generalnie nie jest do policzenia, jeżeli trzeba skorzystać z dystrybuanty to są do tego specjalne tabele wartości
 \end{definition}
 
 Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wygląda jak \sout{dzban} dzwon.
@@ -38,3 +60,5 @@ Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wyglą
 		\end{axis}
 	\end{tikzpicture}
 \end{center}
+%</probabil-2025-12-19-definicje-2>
+

@@ -1,0 +1,79 @@
+Wyznaczymy funkcję gęstości dla \( Z \approx N(0,1) \), czyli dla standardowego rozkładu normalnego.
+
+Zgodnie z definicją, gęstość zależy jedynie od odległości punktu od środka układu współrzędnych. Możemy więc to zapisać jako:
+    \[
+    f((x, y)) = f(r) = f\pars{\sqrt{x^2 + y^2}} = g(x)h(y) = g(x)g(y)
+    \]
+Ostatnie przekształcenie wynika z tego, że nasza gęstość nie zależy od rotacji, więc możemy obrócić wszystko o \(90\) stopni.
+Dodatkowo, dla punktu \((r, 0 )\) równanie przyjmie postać:
+    \[
+    f((r, 0)) = g(r)g(0)
+    \]
+gdzie \( g(0) \) jest stałą. Z tego powodu możemy wstępnie założyć, że \( f = g \) a potem całość odpowiednio przeskalować. Tak więc teraz mamy:
+    \[
+    f\pars{\sqrt{x^2 + y^2}} = f(x)f(y)
+    \]
+Niech:
+    \[ 
+    h(x) = f\pars{\sqrt{x}} 
+    \]
+Wtedy:
+    \[ h(x^2) = f(x) \]
+    \[ h(x^2 + y^2) = h(x^2)h(y^2) \]
+    \[ h(x + y) = h(x)h(y) \]
+
+Z ostatniego punktu można przez indkucję pokazać, że \( \forall_{n \in \natural} \forall_{x_1, \ldots, x_n \in \real} h(x_1 + \ldots + x_n) = h(x_1)\ldots h(x_n) \)
+Niech \( h(1) = b \). Korzystając z poprzedniego faktu mamy, że \(\forall_{n \in \natural} h(n) = b^n \).
+
+Teraz chcemy udowodnić to samo dla liczb wymiernych:
+    \[
+    h\pars{\frac{p}{q} + \ldots + \frac{p}{q}} = h(p) = b^p = h\pars{\frac{p}{q}}^q
+    \]
+Gdzie na początku mamy dokładnie \(q\) ułamków \( \frac{p}{q} \) w funkcji \(h\).
+Przekształcając ostatnią równość otrzymujemy:
+    \[
+    h\pars{\frac{p}{q}} = b^{\frac{p}{q}}
+    \]
+
+Na koniec chcemy udowodnić to samo dla liczb rzeczywistych (co na wykładzie chyba pominęliśmy).
+Z MFI pamiętamy, że każdą liczbę rzeczywistą możemy przybliżyć jakimś ciągiem liczb wymiernych, a bardziej formalnie:
+    \[
+    \forall_{x \in \real} \exists_{q_n} x = \lim_{n \to \infty} q_n
+    \]
+Gdzie \( q_n \) jest jakimś ciągiem liczb wymiernym. Z połączenia tego faktu i założenia o ciągłości funkcji \(h\) otrzymamy:
+    \[
+    h(x) = h(\lim_{n \to \infty} q_n) = \lim_{n \to \infty}h(q_n) = \lim_{n \to \infty} b^{q_n} = b^{\lim_{n \to \infty} q_n} = b^x
+    \]
+
+Alternatywnie:
+    \[
+    h(x) = e^{cx}
+    \]
+
+Teraz podstawiamy to do naszej funkcji gęstości, uwzględniamy skalowanie i otrzymujemy:
+    \[
+    f(z) = a \cdot e^{cx^2}
+    \]
+Gdzie \( c < 0 \). \\
+
+
+Przyjmijmy \( c = -\frac{1}{2} \). Teraz chcemy znaleźć stałą \( a \). Oczywiście chcemy, żeby pole pod naszą funkcją wynosiło 1, więc wystarczy obliczyć odpowiednią całkę.
+Całki:
+    \[
+    \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z 
+    \]
+nie jesteśmy w stanie ładnie rozwiązać, więc posłużymy się takim trikiem:
+    \begin{align*}
+    \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z \cdot \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-\frac{x^2 + y^2}{2}} \diff x \diff y \\
+    &= \int_0^{2\pi} \int_0^{\infty} e^{-\frac{r^2}{2}} \cdot e \diff r \diff \theta \\
+    &= \int_0^{2\pi} \int_0^{\infty} e^{-u} \diff u \diff \theta \\
+    &= \int_0^{2\pi} 1 \diff \theta = 2\pi
+    \end{align*}
+Gdzie kolejno druga i trzecia równość to przejście na współrzędne biegunowe, oraz podstawienie \( u = \frac{r^2}{2} \) (dlatego przyjęliśmy akurat \( c = -\frac{1}{2} \) ).
+Dalej mamy:
+    \[
+    \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z = \sqrt{2\pi} \implies a = \frac{1}{\sqrt{2\pi}}
+    \]
+    \[
+    f(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}
+    \]
