@@ -64,13 +64,27 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 
 	Niech \(m_y = \min_{x \in S} P^{r}\left( x,y \right)\) dla \(y \in S\). Jest to najmniejsze z prawdopodobieństw, z jakimi da się przejść do \(y\) krokiem macierzy \(P^{r}\). Niech \(m = \sum_{y \in S}^{} m_y \le 1\) (ta suma ogranicza z dołu dowolny wiersz, a wiersz sumuje się do \(1\)).
 
-	Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in  \N}\) będzie sprzęganiem łańcuchów o macierzy przejścia \(P^{r}\) zadanym w następujący sposób: mając zadane \(X_{t} = x, Y_{t} = y \) (początkowe wartości wybieramy dowolnie) oznaczamy \(\mu = P^{r}\left( x, \cdot  \right) , \nu = P^{r}\left( y,\cdot  \right) \) i \(B = \left\{ x \in S : \mu\left( x  \right) \ge \nu\left( x \right)  \right\} \). Niech \(p_1 = \mu\left( B \right) - \nu\left( B  \right) \), \(p_2 = \nu\left( B^{c} \right) - \mu\left( B^{c} \right) \) i \(p_3 = 1-p_1 = 1-p_2\).
+	Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in  \N}\) będzie sprzęganiem łańcuchów o macierzy przejścia \(P^{r}\) zadanym w następujący sposób:
+	Niech (\(X_t, Y_t \)) = (\(x_1, x_2\)). Zakładamy, że jeżeli łańcuchy się zeszły, to już się nie rozchodzą (czyli jeżeli \(X_t\) oraz \(Y_t\) są równe, to \(X_{t+1}\) i \(Y_{t+1}\) również będą równe).
+	W przeciwnym przypadku rzucamy monetą, na której orzeł wypada z prawdopodobieństem \(m\):
+	\begin{itemize}
+		\item Jeżeli wypadnie orzeł, to \(X_{t+1} = Y_{t+1} = x\), gdzie \(x\) wybieramy losowo z rozkładem:
+			\[
+				\pars{\frac{1}{m} m_y \mid y \in S}
+			\]
+		\item Jeżeli wypadnie reszka, to \(X_{t+1} = x_1'\), \(Y_{t+1} = x_2'\), gdzie \(x_1'\) i \(x_2'\) wybieramy kolejno z rozkładami:
+			\[
+				\pars{\frac{1}{1-m} \pars{P^r(x_1, y) - m_y} \mid y \in S}
+			\]
+			\[
+				\pars{\frac{1}{1-m} \pars{P^r(x_2, y) - m_y} \mid y \in S}
+			\]
+	\end{itemize}
 
-	Rzucamy monetą z prawdopodobieństwem orła \(p_3\). Jeśli wypadnie orzeł, to ustalamy \(X_{t+1} = Y_{t+1} = s \), gdzie \(s\) wybieramy z \(S\) z rozkładem \(\left( \frac{1}{p_3} \min\left( u \left( s  \right) , \nu\left( s  \right)  \right) : s \in S \right) \). Jeśli wypadnie reszka ustalamy \(X_{t+1} = x \) i \(Y_{t+1}=y\), gdzie \(x\) wybieramy losowo z \(S \) z rozkładem \(\left( \frac{1}{p_1} \max\left( \mu\left( x  \right) -\nu\left( x  \right) , 0 \right) : x \in S \right) \), a \(y\) z rozkładem \(\left( \frac{1}{p_2} \max\left( \nu\left( x  \right) -\mu\left( x  \right) , 0 \right) : x \in S \right) \).
-
-	W ten sposób skonstruowaliśmy sprzęganie, dla którego zachodzi
-	\[ \forall_{t \ge 0, y \in S} \ P\left( X_{t+1}= Y_{t+1}= y  \right) \ge p_3 \cdot \frac{1}{p_3} \min\left( \mu\left( y  \right) , \nu\left( y  \right)  \right) \ge m_y.  \]
-	Mamy więc \[\forall_{t\ge 1} \ P\left( X_t = Y_t \right) = \sum_{y \in S}^{} P\left( X_t = Y_t = y  \right) \ge \sum_{y \in S}^{} m_y = m, \]
+	W ten sposób skonstruowaliśmy sprzęganie, dla którego zachodzi:
+	\[
+		\prob(X_{t+1} = Y_{t+1}) = \sum_{y \in S} \prob(X_{t+1} = Y_{t+1} = y) \geq \sum_{y \in S} m \cdot \frac{m_y}{m} = m
+	\]
 	a z tego wynika \(P\left( X_t \neq Y_t \right) \le \left( 1-m \right) ^{t}.\) Teraz mając zadane \(n = rt + j\) dla \(j \in \left\{ 0,\ldots,r-1 \right\} \) możemy zapisać
 	\[ \Delta_x\left( n  \right) \le \Delta_x\left( rt \right) = \left\|P^{rt}\left( x,\cdot  \right) -\pi\right\|_{TV} \le P\left( X_t \neq Y_t \right) \le \left( 1-m \right) ^{t} = \alpha ^{rt} \le C\alpha ^{n}, \]
 	gdzie położyliśmy \(\alpha = \left( 1-m \right) ^{\frac{1}{r}}\) i \(C = \alpha ^{-r}\).
