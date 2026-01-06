@@ -1,0 +1,101 @@
+\begin{example} \label{markov-chain-example}
+	Rozważamy łańcuch Markowa na zbiorze stanów \(S = \set{0, 1, \dots, n}\).
+	Mamy także wartości \(\set{p_k, r_k, q_k}_{k \in \set{0, \dots, n}}\), gdzie \(q_0 = p_n = 0\).
+	\(p_i\) określa prawdopodobieństwo przejścia z \(i\) do \(i+1\), \(q_i\) dotyczy przejścia z \(i\) do \(i-1\), a \(r_i\) pozostania w stanie \(i\).
+
+	\begin{center}
+		\tikz {
+			\tikzstyle{fixed_size_circle}=[circle, draw, minimum size=1.0cm]
+			\node [fixed_size_circle,draw] (0) at (0, 0) {0};
+			\node [fixed_size_circle,draw] (1) at (2, 0) {1}
+			\node (x) at (4, 0) {\(\dots\dots\dots\)};
+			\node [fixed_size_circle,draw] (n-1) at (6, 0) {n-1};
+			\node [fixed_size_circle,draw] (n) at (8, 0) {n};		
+			\draw [->, thick] (n) edge [bend left=45] 
+				node [midway, above] {\(q_n\)}
+				(n-1);
+			\draw [->, thick] (n-1) edge [bend left=45] 
+				node [midway, above] {\(p_{n-1}\)}
+				(n);
+			\draw [->, thick] (1) edge [bend left=45] 
+				node [midway, above] {\(q_1\)}
+				(0);
+			\draw [->, thick] (0) edge [bend left=45] 
+				node [midway, above] {\(p_0\)}
+				(1);
+			\draw [->, thick] (1) edge [bend left=45] 
+				node [midway, above] {\(p_1\)}
+				(x);
+			\draw [->, thick] (x) edge [bend left=45] 
+				node [midway, above] {\(q_2\)}
+				(1);
+			\draw [->, thick] (x) edge [bend left=45] 
+				node [midway, above] {\(p_{n-2}\)}
+				(n-1);
+			\draw [->, thick] (n-1) edge [bend left=45] 
+				node [midway, above] {\(q_{n-1}\)}
+				(x);
+			\draw [->, thick] (0) edge [loop above] 
+				node [midway, above] {\(r_0\)}
+				(0);
+			\draw [->, thick] (1) edge [loop above] 
+				node [midway, above] {\(r_1\)}
+				(1);
+			\draw [->, thick] (n-1) edge [loop above] 
+				node [midway, above] {\(r_{n-1}\)}
+				(n-1);
+			\draw [->, thick] (n) edge [loop above] 
+				node [midway, above] {\(r_n\)}
+				(n);
+		}
+	\end{center}
+\end{example}
+
+\begin{lemma}
+	Łańcuch z \ref{markov-chain-example} jest odwracalny.
+\end{lemma}
+\begin{proof}
+	Ustalamy wektor \(w\), gdzie \(w_0 = 1\), \(w_k = \pi_{i=1}^k \frac{p_{i-1}}{q_i}\) dla \(k \in \set{1, \dots, n}\).
+	Pokażemy, że wektor \(w\) spełnia \ref{reversible-markov-chain}.
+
+	\begin{enumerate}
+		\item Dla \(k \geq 2\), \(x = k-1\), \(y = k\).
+		\begin{align*}
+			\frac{p_0p_1\dots p_{k-2}}{q_1q_2\dots q_{k-1}}p_{k-1} &= w_{k-1}p_k\\
+			\frac{p_0p_1\dots p_{k-1}}{q_1q_2\dots q_k}q_k &= w_kq_k
+		\end{align*}
+		\item Dla \(k = 1\):
+		\begin{align*}
+			w_0p_0 = p_0 = \frac{p_0}{q_1}q_1 = w_1q_1
+		\end{align*}
+		\item Dla \((x,y) \neq (k-1, k)\) dostajemy \(p_{xy} = p_{yx} = 0\).
+	\end{enumerate}
+
+	Warto dodać, że \(w\) jest nie jest rozkładem - ale będzie nim po odpowiednim przeskalowaniu \(\pi_k = \frac{w_k}{\sum_{j=0}^n w_j}\).
+\end{proof}
+
+\begin{theorem}
+	Oczekiwany czas powrotu \(\expected{T^+_\ell \mid X_0 = \ell-1}\) do stanu \(\ell\) zaczynając w \(\ell\) jest równy \(\frac{1}{q_\ell w_\ell}\sum_{j=0}^{\ell-1}w_j\).
+\end{theorem}
+\begin{proof}
+	Rozważmy najpierw restrykcję tego łańcucha do stanów \(\set{0, \dots, \ell}\). Łańcuch ten ma nowy rozkład stacjonarny \(\tilde{\pi}_k = \frac{w_k}{\sum_{j=0}^\ell w_j}\).
+	Obliczamy czas powrotu z \(\ell\) do \(\ell\).
+	\begin{align*}
+		\expected{\tilde{T}^+_\ell \mid \tilde{X}_0 = \ell} = (p_\ell + r_\ell) \cdot 1 + (q_\ell)\left[\expected{\tilde{T}^+_\ell \mid \tilde{X}_0 = \ell-1} + 1\right]\\
+		= 1 + q_\ell \expected{T_\ell^+ \mid X_0 = \ell - 1}\\
+		\expected{\tilde{T}^+_\ell \mid \tilde{X}_0 = \ell} = \frac{1}{\tilde{\pi}_\ell} = \frac{1}{w_\ell}\sum_{j=0}^l w_j\\
+		\expected{T_\ell^+ \mid X_0 = \ell - 1} = \frac{1}{q_\ell}\pars{\frac{1}{w_\ell}\sum_{j=0}^l w_j - 1}
+	\end{align*}
+\end{proof}
+
+\begin{example}
+	Po rozwikłaniu bardziej ogólnego przypadku możemy przyjrzeć się nieco konkretniejszym. Na przykład, jeśli \((p_k, q_k, r_k) = (p, q, r)\), gdzie \(p \neq q\):
+	\begin{align*}
+		\expected{T_\ell \mid X_0 = \ell - 1} &= \frac{1}{q\pars{\frac{p}{q}}^\ell}\sum_{j=0}^{\ell-1}\pars{\frac{p}{q}}^j =\\
+		&= \frac{\pars{\frac{p}{q}}^\ell - 1}{q\pars{\frac{p}{q}}^\ell \pars{\frac{p}{q}-1}} = \frac{1}{p-q}\pars{1 - \frac{q}{p}}^\ell
+	\end{align*}
+	Natomiast gdy \(p=q\):
+	\begin{align*}
+		\expected{T_\ell \mid X_0 = \ell - 1} = \frac{\ell}{p}
+	\end{align*}
+\end{example}

@@ -1,0 +1,27 @@
+\begin{definition} \label{reversible-markov-chain}
+    Niech \(\pars{X_t}_{t \in \N}\) to łańcuch Markowa z macierzą \(p\).
+    Do tego niech \(S\) - zbiór stanów oraz \(\pi\) - rozkład na stanach tego łańcucha.
+    Definiujemy własność, która będzie nam potrzebna wkrótce:
+
+    \[
+        \forall_{x,y \in S}\pi_xp_{xy} = \pi_yp_{yx}
+    \]
+\end{definition}
+
+\begin{lemma}
+    Każdy rozkład \(\pi\), który spełnia \ref{reversible-markov-chain} jest rozkładem stacjonarnym.
+\end{lemma}
+\begin{proof}
+    \begin{align*}
+        \sum_{y \in S}\pi_yp_{yx} = \sum_{y \in S}\pi_xp_{xy} = \pi_x\sum_{y \in S}p_{xy} = \pi_x
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    Łańcuch Markowa jest odwracalny, jeśli ma rozkład (stacjonarny) spełniający \ref{reversible-markov-chain}.
+\end{definition}
+
+Zauważmy, że w takim łańcuchu prawdopodobieństwo przejścia kolejno po stanach \(x_0, x_1, \dots, x_n\) jest takie samo niezależnie od której strony zaczniemy.
+\[
+    \pi_{x_0}p_{x_0x_1}p_{x_1x_2}\dots p_{x_{n-1}x_n} = \pi_{x_n}p_{x_n x_{n-1}}\dots p_{x_2x_1}p_{x_1x_0}
+\]
