@@ -27,8 +27,12 @@
 		 & = \int_{z_1=0}^{s_1} \ldots \int_{z_n=0}^{s_n - \sum_{j=1}^{n-1} z_j} \int_{z_{n+1}= t - \sum_{j=1}^{n} z_j}^{\infty} \lambda^{n+1}e^{-\lambda \sum_{j=1}^{n+1} z_j} \diff{z_{n+1}} \ldots\diff{z_1}                                           \\
 		 & = \lambda^{n} e^{-\lambda t } \int_{z_1=0}^{s_1} \ldots \int_{z_n=0}^{s_n - \sum_{j=1}^{n-1} z_j} \diff{z_n} \ldots \diff{z_1} = \lambda^{n}e^{-\lambda t } \int_{u_1=0}^{s_1} \ldots \int_{u_n = u_{n-1}}^{s_n} \diff{u_n} \ldots\diff{u_1} ,
 	\end{align*}
-	gdzie trzecie przejście jest policzeniem najbardziej wewnętrznej całki, a później podstawiamy \(u_i = \sum_{j=1}^{i} z_j\) (całkujemy funkcję stałą, więc znaczenie ma tak naprawdę tylko długość przedziału).
+	gdzie trzecie przejście jest policzeniem najbardziej wewnętrznej całki (wychodzi \(\lambda^n e^{-\lambda t}\) co jest stałą względem pozostałych całek, więc wyciągamy to na przód), a później podstawiamy \(u_i = \sum_{j=1}^{i} z_j\) (całkujemy funkcję stałą, więc znaczenie ma tak naprawdę tylko długość przedziału).
 
-	Wiemy, że \(P\left( N\left( t  \right) = n  \right) = \frac{e^{-\lambda t }\left( \lambda t  \right) ^{n}}{n!}\), więc prawdopodobieństwo warunkowe będzie takie, jakie ma być.
+	Wiemy, że \(P\left( N\left( t  \right) = n  \right) = \frac{e^{-\lambda t }\left( \lambda t  \right) ^{n}}{n!}\), więc prawdopodobieństwo warunkowe będzie wynosiło:
+	\begin{align*}
+		\prob\pars{\pars{T_1, \ldots, T_n} \leq \pars{s_1, \ldots, s_n} \mid N\pars{t} = n} & = \frac{\lambda^n e^{-\lambda t} \int_{u_1 = 0}^{s_1} \ldots \int_{u_n = u_{n-1}}^{s_n} \diff u_n \ldots \diff u_1}{\frac{e^{-\lambda t}\pars{\lambda t}^n}{n!}} \\
+		& = \frac{n!}{t^n} \int_{u_1 = 0}^{s_1} \ldots \int_{u_n = u_{n-1}}^{s_n} \diff u_n \ldots \diff u_1
+	\end{align*}
 \end{proof}
 
