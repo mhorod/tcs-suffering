@@ -1,4 +1,5 @@
 %<*probabil-2025-11-21-definicje>
+%<*probabil-egzamin-12-sprzeganie-lancuchow>
 Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skończony, nieprzywiedlny, nieokresowy) o macierzy przejścia \(P\), zbiorze stanów \(S\) i rozkładzie stacjonarnym \(\left( \pi_x \right) _{x \in S}\). Przez \(P^{t}\left( x, \cdot \right) \) oznaczamy rozkład \(X_t\) przy założeniu \(X_0 = x \).
 
 \begin{definition}
@@ -20,7 +21,9 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 
 	Sprzęgane łańcuchy to dwie równoległe kopie jednego procesu. Nie zawsze mają one te same stany, ale też nie zawsze są niezależne. Nie ustalamy nic o stanach początkowych. Będą nas interesować takie sprzęgania, które sprowadzają obie kopie do tego samego stanu i potem je tak utrzymują.
 \end{definition}
+%</probabil-egzamin-12-sprzeganie-lancuchow>
 
+%<*probabil-egzamin-12-lemat-o-sprzeganiu>
 \begin{lemma}
 	Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in \N}\) będzie sprzęganiem łańcuchów (skończonych, nieprzywiedlnych, nieokresowych) z macierzą przejścia \(P\) i zbiorem stanów \(S\). Niech \(T \in \N\) i \(\varepsilon > 0\) będą takie, że dla każdego \(x,y \in S\) zachodzi
 	\[ P\left( X_T \neq Y_T \mid X_0 = x, Y_0 = y  \right) \le \varepsilon. \]
@@ -44,6 +47,9 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	\[ \tau_{\mathrm{mix}}\left( \varepsilon  \right) \le T. \]
 \end{proof}
 %</probabil-2025-11-21-lemat-o-sprzeganiu>
+%</probabil-egzamin-12-lemat-o-sprzeganiu>
+
+%<*probabil-egzamin-12-lemat-o-monotonicznosci>
 %<*probabil-2025-11-21-lancuchy-markowa-monotonicznosc>
 \begin{lemma}[O monotoniczności]
 	Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Dla każdych \(t\ge 0, x \in S\) zachodzi
@@ -53,7 +59,9 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	Ustalmy \(t\ge 0\) i \(x \in S\). Niech \(\left( X_t,Y_t \right) \) będzie sprzęganiem rozkładów \(P^{t}\left( x,\cdot  \right) \) i \(\pi\) spełniającym \(P\left( X_t \neq Y_t \right) = \Delta_x\left( t  \right) \) (przedtem pokazaliśmy, że istnieje sprzęganie, dla którego ta równość zachodzi). Definiujemy \(\left( X_{t+1},Y_{t+1} \right) \) w następujący sposób: jeśli \(X_t = Y_t\), wykonujemy krok łańcucha zgodnie z macierzą \(P\) (na obu współrzędnych taki sam), a w przeciwnym wypadku wykonujemy dwa niezależne kroki. Zauważmy, że \(Y_{t+1}\) dalej ma rozkład \(\pi\). Mamy
 	\[ \Delta_x\left( t  \right) = P\left( X_t \neq Y_t \right) \ge P\left( X_{t+1}\neq Y_{t+1} \right) \ge \left\|P^{t+1}\left( x,\cdot  \right) - \pi \right\|_{TV} = \Delta_x\left( t+1 \right) . \]
 \end{proof}
+%</probabil-egzamin-12-lemat-o-monotonicznosci>
 
+%<*probabil-egzamin-13-geometryczna-zbieznosc>
 \begin{theorem}[O geometrycznej zbieżności]
 	\label{geometric-convergence}
 	Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego łańcucha Markowa ze zbiorem stanów \(S\) i rozkładem stacjonarnym \(\pi\). Wtedy istnieją \(\alpha \in (0,1)\) i \(C > 0\) takie, że
@@ -90,5 +98,4 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 	gdzie położyliśmy \(\alpha = \left( 1-m \right) ^{\frac{1}{r}}\) i \(C = \alpha ^{-r}\).
 \end{proof}
 %</probabil-2025-11-21-lancuchy-markowa-monotonicznosc>
-
-
+%</probabil-egzamin-13-geometryczna-zbieznosc>

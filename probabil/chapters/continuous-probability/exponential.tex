@@ -1,5 +1,6 @@
 %<*probabil-2025-12-05-rozklad-wykladniczy-1>
 \subsection{Właściwości}
+%<*probabil-egzamin-16-rozklad-wykladniczy-1>
 \begin{definition}
 	\textbf{Rozkładem wykładniczym} z parametrem \( \lambda \) nazywamy rozkład zadany gęstością
 	
@@ -120,6 +121,7 @@ Alternatywnie, dla uproszczenia można to udowodnić wyłącznie dla \(\lambda =
 \end{proof}
 
 Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować'' zmienną o której wiemy, że ma większą wartość niż ustalona.
+%</probabil-egzamin-16-rozklad-wykladniczy-1>
 
 \begin{theorem}
 	Rozkład wykładniczy jest jedynym ciągłym rozkładem bez pamięci o dziedzinie \([0, \infty)\), czyli jeśli \(X\) jest ciągłą zmienną losową i zachodzi
@@ -137,7 +139,7 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 	\(S\left( x  \right) \) jest nierosnąca i mamy \( \lim_{x \to 0^{+}} S\left( x  \right) = 1\), więc \(P\left( x < 0 \right) = 0\), czyli dla liczb ujemnych też się zgadza.
 \end{proof}
 
-
+%<*probabil-egzamin-16-rozklad-wykladniczy-2>
 \begin{theorem}[MGF]
 	Niech \( X \) ma rozkład wykładniczy z parametrem \( \lambda \). Wtedy dla \( t < \lambda \)
 	\[
@@ -210,6 +212,7 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 	\end{align*}
 	}
 \end{proof}
+%</probabil-egzamin-16-rozklad-wykladniczy-2>
 
 \subsection{Kantory}
 Jesteśmy na lotnisku, na którym stoi \(n\) kantorów obsługujących klientów. W chwili \(t\) kiedy do nich podchodzimy, wszystkie z nich są zajęte. Przyjmijmy, że czas obsługi przez \(i\)-ty kantor ma rozkład \(X_i \sim \Exp(1)\). Jaki jest rozkład czasu oczekiwania na zwolnienie pierwszego kantoru?
@@ -218,6 +221,7 @@ W chwili w której podchodzimy do kantorów, każdy z nich jest zajęty od niezn
 %</probabil-2025-12-05-rozklad-wykladniczy-2>
 
 \subsection{Kule i urny z feedbackiem}
+%<*probabil-egzamin-17-kule-urny-feedback>
 %<*probabil-2025-12-05-kule-i-urny-z-feedbackiem>
 Jak zwykle, zanim zaczniemy to pokażemy pomocniczy lemat:
 \begin{lemma}
@@ -298,6 +302,7 @@ Będziemy się zajmować \( p > 1 \) tzn. więcej kul dostaje cięższa urna.
 	W takim razie, dla odpowiednio dużych \( m \) pierwsza urna zawiera \( m \) kul a druga urna zawiera jedynie \( n \) kul, czyli z prawdopodobieństwem 1 druga urna utknęła na posiadaniu \( n \) kul, a to jest to co chcieliśmy pokazać.
 \end{proof}
 %</probabil-2025-12-05-kule-i-urny-z-feedbackiem>
+%</probabil-egzamin-17-kule-urny-feedback>
 
 \subsection{Ćwiczenia}
 

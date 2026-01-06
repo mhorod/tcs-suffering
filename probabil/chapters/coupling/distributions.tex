@@ -1,4 +1,5 @@
 %<*probabil-2025-11-21-norma-calkowitego-wahania>
+%<*probabil-egzamin-11-norma-calkowitego-wahania>
 \begin{definition}
 	Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Normą całkowitego wahania (total variation distance) tych rozkładów nazywamy wartość
 	\[ \left\|\mu-\nu\right\|_{TV} = \max_{A \subseteq S} \left|\mu\left( A  \right) - \nu\left( A \right) \right| .\]
@@ -97,6 +98,7 @@
 	\[ \left\|\mu-\nu\right\|_{TV} = \frac{1}{2} \left( \mu\left( B  \right) - \nu\left( B  \right) + \nu\left( B^{c} \right) - \mu\left( B^{c} \right)  \right) = \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x  \right) \right|. \]
 \end{proof}
 %</probabil-2025-11-21-norma-calkowitego-wahania>
+%</probabil-egzamin-11-norma-calkowitego-wahania>
 
 \begin{lemma}
 	Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Zachodzi
@@ -115,6 +117,7 @@
 	\[ \frac{1}{2} \left( \sum_{x \in S}^{} f^{\star}\left( x  \right) \mu\left( x  \right) - \sum_{x \in S}^{} f^{\star}\left( x  \right) \nu\left( x  \right)  \right) = \frac{1}{2} \sum_{x \in S}^{} \left|\mu\left( x  \right) - \nu\left( x  \right) \right|= \left\|\mu-\nu\right\|_{TV}. \]
 \end{proof}
 
+%<*probabil-egzamin-11-sprzeganie>
 %<*probabil-2025-11-21-sprzeganie>
 \begin{definition}
 	Niech \(\mu, \nu\) będą rozkładami prawdopodobieństwa nad skończonym zbiorem \(S\). Sprzęganiem \(\mu\) i \(\nu\) nazywamy dowolną parę zmiennych losowych \(\left( X,Y \right) \) taką, że \(X\) ma rozkład \(\mu\), a \(Y\) ma rozkład \(\nu\). W szczególności te zmienne nie muszą być niezależne.
@@ -135,3 +138,4 @@
 	Rzucamy monetą z prawdopodobieństwem orła \(p_3\). Jeśli wypadnie orzeł to ustalamy \(X = Y = s \), gdzie \(s\) wybieramy z \(S\) z rozkładem \(\left( \frac{1}{p_3} \min\left( \mu\left( s  \right) ,\nu\left( s  \right)  \right) : s \in S \right) \). Jeśli wypadnie reszka ustalamy \(X = x \) i \(Y=y\), gdzie \(x\) jest wybierany losowo z \(S \) z rozkładem \(\left( \frac{1}{p_1} \max\left( \mu\left( x  \right) -\nu\left( x  \right) , 0 \right) : x \in S \right) \), a \(y\) z rozkładem \(\left( \frac{1}{p_2} \max\left( \nu\left( x  \right) -\mu\left( x  \right) , 0 \right) : x \in S \right) \). W przypadku reszki jedna zmienna przyjmuje tylko te wartości, na których \(\mu\) jest większe, a druga tylko te, na których \(\nu\) jest większe. Mamy więc \(P\left( X\neq Y \right) = 1-p_3 = \left\|\mu-\nu\right\|_{TV}\), a \(\left( X,Y \right) \) faktycznie jest sprzęganiem \(\mu\) i \(\nu\) -- zmienne mają odpowiednie rozkłady.
 \end{proof}
 %</probabil-2025-11-21-sprzeganie>
+%</probabil-egzamin-11-sprzeganie>
