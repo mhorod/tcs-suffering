@@ -1,3 +1,4 @@
+%<*probabil-egzamin-rozklad-geometryczny-1>
 %<*probabil-2025-10-10-rozklad-geometryczny-1>
 \begin{definition}
 	Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład geometryczny} z parametrem \( p \in (0, 1) \) jeśli
@@ -33,6 +34,7 @@
 	\end{align*}
 \end{proof}
 %</probabil-2025-10-10-rozklad-geometryczny-1>
+%</probabil-egzamin-rozklad-geometryczny-1>
 
 %<*probabil-2025-10-10-rozklad-geometryczny-3>
 \begin{theorem}
@@ -148,7 +150,7 @@ Alternatywny dowód
 \end{proof}
 %</probabil-2025-10-24-wariancja-rozkladu-geometrycznego>
 
-
+%<*probabil-egzamin-rozklad-geometryczny-2>
 %<*probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego>
 \begin{theorem}
 	Niech \( X \) ma rozkład geometryczny z parametrem \( p \). Wtedy tworząca tej zmiennej wynosi
@@ -182,10 +184,11 @@ Alternatywny dowód
 	\]
 \end{proof}
 
-
 \begin{corollary}
+	%</probabil-egzamin-rozklad-geometryczny-2>
     Wcześniej obliczyliśmy już \( \expected{X} \) oraz \( \expected{X^2} \). Możemy to też zrobić z funkcji tworzącej momentów.
-
+	
+	%<*probabil-egzamin-rozklad-geometryczny-3>
     Wiemy, że \( M_X^{(n)}(0) = \expected{X^n} \). Obliczamy więc \( M_X^{(1)}(t) \) oraz \( M_X^{(2)}(t) \). Otrzymujemy:
 
     \[
@@ -203,8 +206,8 @@ Alternatywny dowód
     \]
 
     \[
-        M_X^{(2)}(0) = \expected{X^2} = \frac{2-p}{p^2}
+        M_X^{(2)}(0) = \expected{X^2} = \frac{2-p}{p^2} \implies \variance{X} = \frac{1-p}{p^2}
     \]
 \end{corollary}
+%</probabil-egzamin-rozklad-geometryczny-3>
 %</probabil-2025-10-24-funkcja-tworzaca-dla-rozkladu-geometrycznego>
-

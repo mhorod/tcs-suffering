@@ -5,6 +5,7 @@ Spodziewamy się, że jeśli wiemy coś więcej o rozkładzie \( X \) to możemy
 
 Faktycznie, tak jest -- w nierówności Czebyszewa przyjmujemy że znamy wariancję.
 
+%<*probabil-egzamin-chebyshev-1>
 \begin{theorem}[Twierdzenie 3.6 P\&C]
 	\label{chebyshev-inequality}
 	Dla dowolnego \( a > 0 \)
@@ -19,6 +20,7 @@ Faktycznie, tak jest -- w nierówności Czebyszewa przyjmujemy że znamy warianc
 		\leq \frac{\expected{\pars{X - \expected{X}}^2}}{a^2} = \frac{\variance{X}}{a^2}
 	\]
 \end{proof}
+%</probabil-egzamin-chebyshev-1>
 
 \subsection{Rzuty monetą}
 \label{chebyshev-coin-tosses}
@@ -46,6 +48,7 @@ a więc, z nierówności Chebysheva
 	\prob\pars{X \geq \frac{3}{4}n} = \prob\pars{X - \frac{n}{2} \geq \frac{n}{4}} \leq \prob\pars{\abs{X - \frac{n}{2}} \geq \frac{n}{4}} \leq \frac{\frac{n}{4}}{16} = \frac{4}{n}
 \]
 
+%<*probabil-egzamin-chebyshev-2>
 \subsection{Kolekcjoner kuponów}
 \label{chebyshev-coupon-collector}
 Niech \( X_1, \dots, X_n \) opisują czasy czekania na \( i \)-ty kupon oraz \( X = \sum X_i \) -- łączny czas czekania.
@@ -71,3 +74,4 @@ Teraz wkładamy to do nierówności Czebyszewa:
 	P(\abs{X - nH_n} \geq nH_n) \leq \frac{\variance{X}}{n^2H_n^2} = \frac{\pi^2}{6H_n^2} = O\pars{\frac{1}{\ln^2 n}}
 \]
 %</probabil-2025-10-24-chebyshev-2>
+%<*probabil-egzamin-chebyshev-2>

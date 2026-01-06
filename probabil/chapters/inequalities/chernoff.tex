@@ -1,6 +1,7 @@
 %<*probabil-2025-10-24-nierownosc-chernoffa-1>
+%<*probabil-egzamin-chernoff>
 \subsection{Definicja}
-Łączymy ze sobą dwie rzeczy -- funkcje tworzące momentów, oraz nierówność Markowa.
+Łączymy ze sobą dwie rzeczy -- funkcje tworzące momenty, oraz nierówność Markowa.
 \begin{theorem}
 	\label{chernoff-inequality}
 	\[
@@ -17,14 +18,12 @@
 \end{theorem}
 \begin{proof}
 	Niezależnie od tego jakie wartości przyjmuje \( X \) oraz ile wynosi \( t \) to \( e^{tX} \) oraz \( e^{ta} \) zawsze będą dodatnie.
-	Monotoniczność \( e^{tx} \) przy ustalonym \( t \) zależy jedynie od znaku zatem przejścia między prawdopodobieństwami zachodzą.
+	Monotoniczność \( e^{tx} \) przy ustalonym \( t \) zależy jedynie od znaku zatem przejścia między prawdopodobieństwami zachodzą.
 
 	Ograniczenie górne uzyskujemy korzystając z nierówności Markowa zastosowanej do (dodatnich) wartości \( e^{tX} \) oraz \( e^{ta} \).
 \end{proof}
 
-\subsection{Rzuty monetą}
-\label{chernoff-coin-tosses}
-
+\subsection{Próby Poissona}
 \begin{definition}
 	\textbf{Próbami Poissona} nazywany ciąg zmiennych losowych \( X_1, \dots, X_n \), dla których
 	\[
@@ -38,24 +37,62 @@
 \end{definition}
 %</probabil-2025-10-24-nierownosc-chernoffa-1>
 
+%<*probabil-2025-11-14-poisson-trial-chernoff-bound>
+\begin{theorem}
+	\label{poisson-trial-chernoff-bounds}
+	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy:
+	\begin{enumerate}
+		\item jeśli \(\delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le \pars{\frac{e^{\delta}}{ \pars{1+\delta}^{1+\delta}}} ^{\mu}\)   \\
+		\item jeśli \(1 > \delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le e^{\frac{-\mu\delta^2}{3}}\)                                 \\
+		\item jeśli \(R \ge 6\mu\), to \(\prob \pars{X \ge R} \le 2^{-R}\)
+	\end{enumerate}
+\end{theorem}
 
-\begin{lemma}
-	\label{independent-poisson-trials-abs-bound}
-	Niech \( X_1, \dots X_n \) będą niezależnymi próbami Poissona oraz \( X = \sum X_i, \mu = \expected{X} \).
-
-	Wtedy dla \( 0 < \delta < 1 \)
-	\[
-		P(\abs{X - \mu} \geq \delta \mu) \leq 2 \exp\pars{\frac{-\mu\delta^2}{3}}
-	\]
-\end{lemma}
 \begin{proof}
-	\[
-		P(\abs{X - \mu} \geq \delta\mu) \leq P\pars{X \geq (1 + \delta)\mu} + P\pars{X \leq (1 - \delta)\mu}
-	\]
+    Zaczniemy od punktu \(1\), a pozostałe wynikną z niego.
+    \begin{align*}
+        \prob \pars{X \ge (1+\delta)\mu} &= \prob \pars{e^{tX} \ge e^{t(1+\delta)\mu}}  \\
+        &\le \frac{\expected {e^{tX}}}{e^{t(1+\delta)\mu}}                              \\
+        &\le \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}}
+    \end{align*}
+    Podstawiamy tutaj \(t = \ln{(1+\delta)}\)
+    \begin{align*}
+        \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}} &= \frac{e^{\delta\mu}}{e^{(1+\delta)\mu\ln{1+\delta}}} \\
+        &= \frac{e^{\delta\mu}}{{(1+\delta)}^{(1+\delta)^\mu}}                                              \\
+        &= \pars{\frac{e^\delta}{(1+\delta)^{1+\delta}}}^\mu
+    \end{align*}
 \end{proof}
 
+\begin{proof}
+    Do drugiego punktu pokażemy, że \(\frac{e^\delta}{\pars{1+\delta}^{1+\delta}} \le e^{\frac{-\delta^2}{3}}\) dla \(\delta \in \pars{0, 1}\).
+    Weźmiemy obustronnie logarytm i po odrobinie analizy wyjdzie:
+
+    \begin{align*}
+        f(\delta) &= \delta - (1+\delta)\ln{1+\delta} + \frac{\delta^2}{3} \le 0                         \\
+        \frac{d}{d\delta}f(\delta) &= 1 - \ln{1+\delta} = \frac{1+\delta}{1+\delta} + \frac{2\delta}{3}  \\
+        \frac{d^2}{d\delta^2}f(\delta) &= \frac{2}{3}-\frac{1}{1+\delta}                                 \\
+    \end{align*}
+    Zauważmy, że druga pochodna jest równa 0 tylko dla \(\delta = \frac{1}{2}\): dla mniejszych wartości jest ujemna, a dla większych dodatnia.
+    Pierwsza pochodna jest w zerze równa 0 i w jedynce ujemna - wraz z poprzednim implikuje to, że dla \(\delta \in \pars{0, 1}\) mamy ujemną pochodną.
+    Dodając do tego jeszcze \(f(0) = 0\) dostajemy zadaną na początku nierówność.
+\end{proof}
+
+\begin{proof}
+    Do trzeciego punktu położymy \(R = (1+\delta)\mu\). I dalej:
+
+    \begin{align*}
+        \prob \pars{X \ge R} &= \prob \pars{X \ge (1+\delta)\mu}            \\
+        &\le \pars{\frac{e^{\delta}}{\pars{1+\delta}^{1+\delta}}}^{\mu}     \\
+        &\le \pars{\frac{e}{\pars{1+\delta}}}^{(1+\delta)\mu}               \\
+        &\le \pars{\frac{e}{6}}^R \le \pars{\frac{1}{2}}^R = 2^{-R}
+    \end{align*}
+\end{proof}
+%</probabil-2025-11-14-poisson-trial-chernoff-bound>
+
+\subsection{Rzuty monetą}
 %<*probabil-2025-10-24-nierownosc-chernoffa-2>
 \begin{example}
+	\label{chernoff-coin-tosses}
     Chcemy ograniczyć z góry prawdopodobieństwo, że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy.
 
     Niech \( X_1, \ldots, X_n \) - ciąg niezależnych prób Poissona oraz \( \prob(X_i = 1) = p_i \). Niech \( \mu = \expected{X} = \sum_{i=1}^{n} p_i \). Niech \( \delta > 0 \) będzie ustalone.
@@ -95,6 +132,16 @@
     \]
 \end{example}
 %</probabil-2025-10-24-nierownosc-chernoffa-2>
+
+\begin{example}
+	Możemy też ograniczyć prawdopodobieństwo że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy w inny sposób, po prostu stosując \ref{poisson-trial-chernoff-bounds}.
+	
+	Widzimy, że nasze rzuty to niezależne próby Poissona o \(p = \frac{1}{2}\). \(\mu = \frac{n}{2}, \delta = \frac{1}{2}\), a więc możemy użyć wzoru 2. W takim razie mamy
+	\[
+		\prob\pars{X \geq \frac{3}{4}n} \leq e^{\frac{-\mu\delta^2}{3}} = e^{\frac{-\frac{n}{2} \cdot \frac{1}{4}}{3}} = e^{\frac{-n}{24}}
+	\]
+\end{example}
+%</probabil-egzamin-chernoff>
 
 \subsection{Przypadki specjalne}
 

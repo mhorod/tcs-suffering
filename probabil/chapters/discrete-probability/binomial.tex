@@ -1,3 +1,4 @@
+%<*probabil-egzamin-rozklad-dwumianowy-1>
 %<*probabil-2025-10-10-rozklad-dwumianowy>
 \begin{definition}
 	Mówimy, że zmienna losowa \( X \) ma \textbf{rozkład dwumianowy} z parametrami \( n, p \) (Oznaczana poprzez \(B(n, p))\), jeśli
@@ -22,6 +23,7 @@
 \end{theorem}
 
 \begin{proof}
+%</probabil-egzamin-rozklad-dwumianowy-1>
 	\begin{align*}
 		\expected{X}
 		 & = \sum_{j=0}^nj\binom{n}{j}p^j(1-p)^{(n-j)}                       \\
@@ -32,6 +34,7 @@
 		 & = np
 	\end{align*}
 	Można to też zrobić prościej:
+%<*probabil-egzamin-rozklad-dwumianowy-2>
     \[
         X = \sum_{i = 1}^{n} X_i, \; X_i = \begin{cases}
             1, \text{ sukces w } i \text{-tej próbie} \\
@@ -53,6 +56,7 @@
 \end{theorem}
 
 \begin{proof}
+	%</probabil-egzamin-rozklad-dwumianowy-2>
 	\[
 		\variance{X} = \expected{X^2} - (\expected{X})^2
 	\]
@@ -72,6 +76,7 @@
 	\[ \variance{X} = n(n-1)p^2 + np - (np)^2 = np - np^2 = np(1-p) \]
 	
 	Ponieważ kolejne próby sa niezależne, można obliczyć to prościej:
+	%<*probabil-egzamin-rozklad-dwumianowy-3>
     \[
         \variance{X} = \variance{\sum_{i=1}^n X_i} = \sum_{i=1}^n \variance{X_i}
     \]
@@ -94,21 +99,19 @@
 %</probabil-2025-10-10-wariancja-7>
 
 \begin{theorem}
-	MGF:
+	Funkcja tworząca momenty:
 	\[ M_X(t) = (1 - p + pe^t)^n\]
 \end{theorem}
 
 \begin{proof}
-	\[
-		M_X(t) = \expected{e^{tX}} = \sum_{j=0}^n \binom{n}{j}p^j(1-p)^{n-j}e^{tj} =
-	\]
-	\[
-		=  \sum_{j=0}^n \binom{n}{j}(pe^t)^j(1-p)^{n-j} =
-	\]
-	\[
-		= ((1-p) + pe^t)^n
-	\]
+	\begin{align*}
+		M_X(t) &= \expected{e^{tX}} \\
+		&= \sum_{j=0}^n \binom{n}{j}p^j(1-p)^{n-j}e^{tj}\\
+		&=  \sum_{j=0}^n \binom{n}{j}(pe^t)^j(1-p)^{n-j}\\
+		&= ((1-p) + pe^t)^n
+	\end{align*}
 \end{proof}
+%</probabil-egzamin-rozklad-dwumianowy-3>
 
 %<*probabil-2025-11-07-granica-rozkladu-dwumianowego>
 \begin{theorem}

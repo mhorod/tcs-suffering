@@ -1,0 +1,114 @@
+% Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+
+\documentclass[12pt, a4paper, polish, openany]{book}
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\fancyhead[L]{\textbf{\textit{MPI}}}
+
+\begin{document}
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+
+\tableofcontents
+\input{license}
+
+% Remove the "Rozdział x" chapter headings, as we already number our chapters
+\titleformat{\chapter}[display]{\normalfont\Huge\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+\newenvironment{questiontext}
+    {
+     \vspace{1em}
+     \begin{center}
+     \begin{minipage}{0.9\textwidth}
+     \fontsize{14}{14}\selectfont
+     \setlength{\parskip}{1em}
+    }
+    {
+     \end{minipage}
+     \end{center}
+     \vspace{2em}
+     \hrule height 0.5pt
+     \vspace{2em}
+    }
+
+% Actual content
+\mainmatter
+
+\chapter{Pytanie 1}
+\input{chapters/question-1.tex}
+
+\chapter{Pytanie 2}
+\input{chapters/question-2.tex}
+
+\chapter{Pytanie 3}
+\input{chapters/question-3.tex}
+
+\chapter{Pytanie 4}
+\input{chapters/question-4.tex}
+
+\chapter{Pytanie 5}
+\input{chapters/question-5.tex}
+
+\chapter{Pytanie 6}
+\input{chapters/question-6.tex}
+
+\chapter{Pytanie 7}
+\input{chapters/question-7.tex}
+
+\chapter{Pytanie 8}
+\input{chapters/question-8.tex}
+
+\chapter{Pytanie 9}
+\input{chapters/question-9.tex}
+
+\chapter{Pytanie 10}
+\input{chapters/question-10.tex}
+
+\chapter{Pytanie 11}
+\input{chapters/question-11.tex}
+
+\chapter{Pytanie 12}
+\input{chapters/question-12.tex}
+
+\chapter{Pytanie 13}
+\input{chapters/question-13.tex}
+
+\chapter{Pytanie 14}
+\input{chapters/question-14.tex}
+
+\chapter{Pytanie 15}
+\input{chapters/question-15.tex}
+
+\chapter{Pytanie 16}
+\input{chapters/question-16.tex}
+
+\chapter{Pytanie 17}
+\input{chapters/question-17.tex}
+
+\chapter{Pytanie 18}
+\input{chapters/question-18.tex}
+
+\chapter{Pytanie 19}
+\input{chapters/question-19.tex}
+
+\chapter{Pytanie 20}
+\input{chapters/question-20.tex}
+
+\chapter{Pytanie 21}
+\input{chapters/question-21.tex}
+
+\chapter{Pytanie 22}
+\input{chapters/question-22.tex}
+
+\chapter{Pytanie 23}
+\input{chapters/question-23.tex}
+
+\end{document}
