@@ -45,15 +45,20 @@ Parę faktów o funkcji gamma:
 \end{definition}
 
 \begin{definition}
-    Mówimy, że ciągła zmienna losowa ma \textbf{rozkład Gamma} z parametrem \( \pars{a, \lambda} \), jeżeli jej funkcja gęstości jest równa:
-    \[
-        f(x) = \frac{1}{\Gamma(a)} (\lambda x)^a e^{-\lambda x} \frac{1}{x}
-    \]
+	Dla \(X \sim \Gam(a, 1)\) oraz \(\lambda > 0\) definiujemy \(Y \sim \Gam(a, \lambda)\) jako
+	\[
+		Y = \frac{X}{\lambda}
+	\]
 \end{definition}
 
+\begin{theorem}
+	Funkcja gęstości \(Y \sim \Gam(a, \lambda)\) jest równa
+	\[
+        f(x) = \frac{1}{\Gamma(a)} (\lambda x)^a e^{-\lambda x} \frac{1}{x}
+    \]
+\end{theorem}
 \begin{proof}
-    Niech \( X \) ma rozkład Gamma z parametrem \( (a, 1) \). Niech \( Y = \frac{X}{\lambda} \). Wtedy mówimy, że \( Y \) ma rozkład Gamma z parametrem \( (a, \lambda) \). 
-    Chcemy pokazać, że to poprawny rozkład. Możemy to sobie oczywiście przecałkować i zobaczyć, że faktycznie wyjdzie \( 1 \) ale można też skorzystać z takiego przekształcenia:
+	Niech \( X \sim \Gam(a, 1), Y = \frac{X}{\lambda} \). Liczymy gęstość
     \[
         f_Y(y) = f_X(x) \cdot \abs{\frac{\diff x}{\diff y}} = \frac{1}{\Gamma(a)}(\lambda y)^a e^{-\lambda y} \frac{1}{\lambda y} \lambda = \frac{1}{\Gamma(a)}(\lambda y)^a e^{-\lambda y} \frac{1}{y}
     \]
@@ -61,7 +66,7 @@ Parę faktów o funkcji gamma:
 %</probabil-egzamin-16-gamma-1>
 
 \begin{fact}
-    Dla \( X \sim \) Gamma(\(a, 1\)), 
+    Dla \( X \sim \Gam(a, 1)\) zachodzi
     \[ 
         \expected{X} = a 
     \] 
@@ -79,7 +84,7 @@ Parę faktów o funkcji gamma:
 \end{proof}
 
 \begin{fact}
-    Dla \( Y \sim \) Gamma(\(a, \lambda\)) (Czyli \(Y = \frac{X}{\lambda} \), dla \( X \sim \) Gamma(\(a, 1\))):
+    Dla \( Y \sim \Gam(a, \lambda)\) (czyli \(Y = \frac{X}{\lambda} \) dla \( X \sim \Gam(a, 1)\)) zachodzi
     \[
         \expected{Y} = \expected{\frac{X}{\lambda}} = \frac{1}{\lambda}\expected{X} = \frac{a}{\lambda}
     \]
@@ -87,10 +92,13 @@ Parę faktów o funkcji gamma:
 
 %<*probabil-egzamin-16-gamma-2>
 \begin{fact}
-    Gamma(\(1,1\)) \( \equiv \) Exp(\(1\))\\
-    Gamma(\(1, \lambda\)) \( \equiv \) Exp(\(\lambda\))
+	\[
+		\Gam(1, 1) \equiv \Exp(1)
+	\]
+    \[
+		\Gam(1, \lambda) \equiv \Exp(\lambda)	
+	\]
 \end{fact}
-%</probabil-egzamin-16-gamma-2>
 
 \begin{theorem}
     Niech \(X_1, \ldots, X_n\) - niezależne zmienne losowe o rozkładzie wykładniczym z parametrem \( \lambda \). Wtedy:\\
@@ -111,3 +119,4 @@ Parę faktów o funkcji gamma:
     \end{align*}
     Obie funkcje tworzące są równe, więc zmienne \( X \) i \( Y \) mają ten sam rozkład.
 \end{proof}
+%</probabil-egzamin-16-gamma-2>
