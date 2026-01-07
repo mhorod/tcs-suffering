@@ -1,5 +1,5 @@
 %<*probabil-2025-10-24-nierownosc-chernoffa-1>
-%<*probabil-egzamin-chernoff>
+%<*probabil-egzamin-chernoff-1>
 \subsection{Definicja}
 Łączymy ze sobą dwie rzeczy -- funkcje tworzące momenty, oraz nierówność Markowa.
 \begin{theorem}
@@ -43,52 +43,77 @@
 	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy:
 	\begin{enumerate}
 		\item jeśli \(\delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le \pars{\frac{e^{\delta}}{ \pars{1+\delta}^{1+\delta}}} ^{\mu}\)   \\
-		\item jeśli \(1 > \delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le e^{\frac{-\mu\delta^2}{3}}\)                                 \\
+		\item jeśli \(1 \geq \delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le e^{\frac{-\mu\delta^2}{3}}\)                                 \\
 		\item jeśli \(R \ge 6\mu\), to \(\prob \pars{X \ge R} \le 2^{-R}\)
 	\end{enumerate}
 \end{theorem}
-
 \begin{proof}
-    Zaczniemy od punktu \(1\), a pozostałe wynikną z niego.
-    \begin{align*}
-        \prob \pars{X \ge (1+\delta)\mu} &= \prob \pars{e^{tX} \ge e^{t(1+\delta)\mu}}  \\
-        &\le \frac{\expected {e^{tX}}}{e^{t(1+\delta)\mu}}                              \\
-        &\le \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}}
-    \end{align*}
-    Podstawiamy tutaj \(t = \ln{(1+\delta)}\)
-    \begin{align*}
-        \frac{{e^{(e^t-1)\mu}}}{e^{t(1+\delta)\mu}} &= \frac{e^{\delta\mu}}{e^{(1+\delta)\mu\ln{1+\delta}}} \\
-        &= \frac{e^{\delta\mu}}{{(1+\delta)}^{(1+\delta)^\mu}}                                              \\
-        &= \pars{\frac{e^\delta}{(1+\delta)^{1+\delta}}}^\mu
-    \end{align*}
+	Liczymy funkcję tworzącą \[M_{X_i} \pars{ t } = \mathbb{E}\left[ e ^{tX_i} \right] = p_ie^{t}+ \pars{ 1-p_i } = 1 + p_i \pars{ e^{t}-1 } \le e^{p_i \pars{ e^{t}-1 } } .\]
+
+	Zatem \[M_X \pars{ t } = \prod_{i=1}^{n} M_{X_i} \pars{ t } \le \prod_{i=1}^{n} e^{p_i \pars{ e^{t}-1 } } = e^{ \pars{ e^{t}-1 } \mu}  .\]
+
+	Ustalmy \(t > 0\), mamy \[P \pars{ X \ge \pars{ 1+\delta } \mu } = P \pars{ e ^{tX}\ge e^{t \pars{ 1+\delta } \mu} } \le \frac{\mathbb{E}\left[ e^{tX} \right] }{e^{t \pars{ 1+\delta } \mu}} \le  \frac{e^{\pars{e^{t}-1}\mu}}{e^{t \pars{ 1+\delta } \mu}} .\]
+	Niech \(t = \ln \pars{ 1+\delta } > 0\). Wychodzi nam \(P \pars{ X \ge \pars{ 1+\delta } \mu } \le  \pars{\frac{e^{1+\delta-1}}{ \pars{ 1+\delta } ^{1+\delta}}} ^{\mu}\), co kończy dowód pierwszej części.
+
+	Punkt drugi dowodzimy korzystając z pierwszego, wystarczy pokazać, że dla \(\delta \in (0,1]\) jest \[\frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} \le e^{- \frac{\delta^2}{3}}.\]
+
+	Logarytmujemy stronami, chcemy pokazać, że \(\delta - \pars{ 1+ \delta }\ln \pars{ 1+\delta   } + \frac{\delta^2}{3} \le 0\). Oznaczmy lewą stronę przez \(f \pars{ \delta } \). Liczymy pochodne:
+	\[f' \pars{ \delta } = 1- 1\cdot \ln \pars{ 1+\delta } - \frac{1+\delta}{1+\delta} + \frac{2}{3}\delta = - \ln \pars{ 1+\delta } + \frac{2}{3}\delta,\]
+	\[f'' \pars{ \delta } = -\frac{1}{1+\delta} + \frac{2}{3}.\]
+
+	\(f' \pars{ 0 } = 0\), a potem maleje do \(\delta = \frac{1}{2}\) (tam druga pochodna się zeruje, przedtem ujemna), potem rośnie, ale \(f' \pars{ 1 } < 0\), więc jest ujemna na całym \((0,1]\).
+
+	\(f \pars{ \delta } \) tylko maleje na \((0,1]\), więc nierówność działa, bo \(f \pars{ 0 } = 0\).
+
+	Dowodząc punkt trzeci zakładamy \(R \ge 6\mu\). Niech \(R = \pars{ 1+\delta } \mu\), czyli \(\delta = \frac{R}{\mu}-1 \ge 5\).
+
+	\[P \pars{ X \ge \pars{ 1+\delta } \mu } \le \pars{ \frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} } ^{\mu} \le \pars{ \frac{e}{1+\delta} } ^{ \pars{ 1+\delta } \mu} \le \pars{ \frac{e}{6} } ^{R} \le \pars{ \frac{1}{2} } ^{R} = 2 ^{-R}.\]
 \end{proof}
-
-\begin{proof}
-    Do drugiego punktu pokażemy, że \(\frac{e^\delta}{\pars{1+\delta}^{1+\delta}} \le e^{\frac{-\delta^2}{3}}\) dla \(\delta \in \pars{0, 1}\).
-    Weźmiemy obustronnie logarytm i po odrobinie analizy wyjdzie:
-
-    \begin{align*}
-        f(\delta) &= \delta - (1+\delta)\ln{1+\delta} + \frac{\delta^2}{3} \le 0                         \\
-        \frac{d}{d\delta}f(\delta) &= 1 - \ln{1+\delta} = \frac{1+\delta}{1+\delta} + \frac{2\delta}{3}  \\
-        \frac{d^2}{d\delta^2}f(\delta) &= \frac{2}{3}-\frac{1}{1+\delta}                                 \\
-    \end{align*}
-    Zauważmy, że druga pochodna jest równa 0 tylko dla \(\delta = \frac{1}{2}\): dla mniejszych wartości jest ujemna, a dla większych dodatnia.
-    Pierwsza pochodna jest w zerze równa 0 i w jedynce ujemna - wraz z poprzednim implikuje to, że dla \(\delta \in \pars{0, 1}\) mamy ujemną pochodną.
-    Dodając do tego jeszcze \(f(0) = 0\) dostajemy zadaną na początku nierówność.
-\end{proof}
-
-\begin{proof}
-    Do trzeciego punktu położymy \(R = (1+\delta)\mu\). I dalej:
-
-    \begin{align*}
-        \prob \pars{X \ge R} &= \prob \pars{X \ge (1+\delta)\mu}            \\
-        &\le \pars{\frac{e^{\delta}}{\pars{1+\delta}^{1+\delta}}}^{\mu}     \\
-        &\le \pars{\frac{e}{\pars{1+\delta}}}^{(1+\delta)\mu}               \\
-        &\le \pars{\frac{e}{6}}^R \le \pars{\frac{1}{2}}^R = 2^{-R}
-    \end{align*}
-\end{proof}
+%</probabil-egzamin-chernoff-1>
 %</probabil-2025-11-14-poisson-trial-chernoff-bound>
 
+\begin{theorem}
+	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi takimi, że \(P \pars{ X_i = 1 } = p_i\) oraz \(P \pars{ X_i = 0 } = 1-p_i\). Niech \(X = \sum_{i=1}^{n} X_i\), \(\mu = \mathbb{E}\left[ X \right] \) Wtedy dla każdego \(\delta \in (0,1)\) zachodzi:
+	\begin{enumerate}
+		\item \( P \pars{ X \le \pars{ 1-\delta } \mu } \le \pars{ \frac{e^{-\delta}}{ \pars{ 1-\delta } ^{1-\delta}} } ^{\mu}\)
+		\item \(P \pars{ X \le \pars{ 1-\delta } \mu } \le e^{-\frac{\mu\delta^2}{2}}\).
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Dowód identyczny jak w poprzednim twierdzeniu, wybieramy \(t = \ln \pars{ 1-\delta } < 0\) i korzystamy z tego, że \(e^{-z}\) jest antymonotoniczne. Drugiego punktu ponownie dowodzimy licząc pochodne i na ich podstawie dowodząc odpowiedniej nierówności.
+\end{proof}
+
+\subsection{Przypadki specjalne}
+\begin{theorem}
+	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi losowymi o rozkładzie prawdopodobieństwa \(P \pars{ X_i = 1 } = P \pars{ X_i = -1 } = \frac{1}{2}\). Niech \(X = \sum_{i=1}^{n} X_i\). Dla każdego \(a>0\) mamy \(P \pars{ X \ge a } \le e^{-\frac{a^2}{2n}}\). Zauważmy, że nie ma sensu rozważać tu odchyleń multiplikatywnych, bo \(\mathbb{E}\left[ X \right] = 0\).
+\end{theorem}
+\begin{proof}
+	Mamy \(\mathbb{E}\left[ e^{tX_{i}} \right] = \frac{1}{2}e^{-t} + \frac{1}{2}e^{t}\).
+
+	Rozwijamy w szereg Taylora:
+	\[e^{t} = 1 + t + \frac{t^2}{2} + \ldots + \frac{t ^{i}}{i!} + \ldots\]
+	\[e^{-t} = 1 -t + \frac{t^2}{2} + \ldots + \pars{ -1 } ^{i} \frac{t ^{i}}{i!} + \ldots\]
+
+	Z tego wynika \[\mathbb{E}\left[ e^{tX_i} \right] = \sum_{i\ge 0}^{} \frac{t ^{2i}}{ \pars{ 2i } !} \le \sum_{i\ge 0}^{} \frac{ \pars{ \frac{t^2}{2} } ^{i}}{i!} = e^{\frac{t^2}{2}},\] gdzie w nierówności wyciągnęliśmy \(2\) z dwukrotności każdej liczby od \(1\) do \(i\), a pozostałe składniki zignorowaliśmy.
+
+	Zatem \(\mathbb{E}\left[ e^{tX} \right] = \prod_{i=1}^{n} \mathbb{E}\left[e^{tX_i}\right] \le e^{\frac{t^2n}{2}} \).
+
+	Dostajemy \(P \pars{ X\ge a } = P \pars{ e^{tX}\ge e^{ta} } \le \frac{\mathbb{E}\left[ e^{tX} \right] }{e^{ta}} \le e^{t^2n\cdot \frac{1}{2}-ta} = e^{a^2 \frac{1}{n} \frac{1}{2} - \frac{a^2}{n}} = e^{-a^2\cdot \frac{1}{2n}}\), gdzie podstawiliśmy \(t = \frac{a}{n} > 0\).
+\end{proof}
+
+\begin{theorem}
+	Niech \(Y_1,\ldots,Y_n\) będą niezależnymi indykatorami \(P \pars{ Y_i = 0 } = P \pars{ Y_i = 1 } = \frac{1}{2}\). Niech \(Y = \sum_{i=1}^{n} Y_i\), \(\mu = \mathbb{E}\left[ Y \right] = \frac{n}{2}\). Wtedy
+	\begin{enumerate}
+		\item \(\forall_{a>0} \ P \pars{ Y \ge \mu+a } \le e^{-\frac{2a^2}{n}} \)
+		\item \(\forall_{\delta > 0} \   P \pars{ Y \ge \pars{ 1+\delta } \mu } \le e ^{-\delta^2\mu}\)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Bierzemy \(Y_i = \frac{X_i + 1}{2}\). Mamy \(P \pars{ X_i = 1 } = P \pars{ X_i = -1 } = \frac{1}{2}\). Dla  \(X = \sum_{i=1}^{n} X_i = 2Y-2\mu\) mamy \[ P \pars{ Y \ge \mu+a } = P \pars{ X \ge 2a } \le e^{-\frac{2a^2}{n}}  \]
+	oraz \[ P \pars{ Y \ge \pars{ 1+\delta } \mu } = P \pars{ X \ge 2\delta\mu } \le e^{- \frac{2\delta^2\mu^2}{n}} = e^{-\delta^2\mu}. \]
+\end{proof}
+
+%<*probabil-egzamin-chernoff-2>
 \subsection{Rzuty monetą}
 %<*probabil-2025-10-24-nierownosc-chernoffa-2>
 \begin{example}
@@ -141,81 +166,7 @@
 		\prob\pars{X \geq \frac{3}{4}n} \leq e^{\frac{-\mu\delta^2}{3}} = e^{\frac{-\frac{n}{2} \cdot \frac{1}{4}}{3}} = e^{\frac{-n}{24}}
 	\]
 \end{example}
-%</probabil-egzamin-chernoff>
-
-\subsection{Przypadki specjalne}
-
-\begin{theorem}
-	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi takimi, że \(P \pars{ X_i=1 } = p_i\) oraz \(P \pars{ X_i = 0 } = 1-p_i\). Niech \(X = \sum_{i=1}^{n} X_i\) oraz \(\mu = \mathbb{E}\left[ X \right] \). Wtedy:
-	\begin{enumerate}
-		\item \(\forall_{\delta > 0} \ P \pars{ X \ge \pars{ 1+\delta } \mu } \le \pars{ \frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} } ^{\mu} \)
-		\item \(\forall_{\delta \in (0,1]} \ P \pars{ X \ge \pars{ 1+\delta } \mu } \le e^{-\frac{\mu\delta^2}{3}} \)
-		\item \(\forall_{R \ge 6\mu} \ P \pars{ X \ge R } \le 2^{-R} \).
-	\end{enumerate}
-\end{theorem}
-\begin{proof}
-	Liczymy funkcję tworzącą \[M_{X_i} \pars{ t } = \mathbb{E}\left[ e ^{tX_i} \right] = p_ie^{t}+ \pars{ 1-p_i } = 1 + p_i \pars{ e^{t}-1 } \le e^{p_i \pars{ e^{t}-1 } } .\]
-
-	Zatem \[M_X \pars{ t } = \prod_{i=1}^{n} M_{X_i} \pars{ t } \le \prod_{i=1}^{n} e^{p_i \pars{ e^{t}-1 } } = e^{ \pars{ e^{t}-1 } \mu}  .\]
-
-	Ustalmy \(t > 0\), mamy \[P \pars{ X \ge \pars{ 1+\delta } \mu } = P \pars{ e ^{tX}\ge e^{t \pars{ 1+\delta } \mu} } \le \frac{\mathbb{E}\left[ e^{tX} \right] }{e^{t \pars{ 1+\delta } \mu}} \le  \frac{e^{\pars{e^{t}-1}\mu}}{e^{t \pars{ 1+\delta } \mu}} .\]
-	Niech \(t = \ln \pars{ 1+\delta } > 0\). Wychodzi nam \(P \pars{ X \ge \pars{ 1+\delta } \mu } \le  \pars{\frac{e^{1+\delta-1}}{ \pars{ 1+\delta } ^{1+\delta}}} ^{\mu}\), co kończy dowód pierwszej części.
-
-	Punkt drugi dowodzimy korzystając z pierwszego, wystarczy pokazać, że dla \(\delta \in (0,1]\) jest \[\frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} \le e^{- \frac{\delta^2}{3}}.\]
-
-	Logarytmujemy stronami, chcemy pokazać, że \(\delta - \pars{ 1+ \delta }\ln \pars{ 1+\delta   } + \frac{\delta^2}{3} \le 0\). Oznaczmy lewą stronę przez \(f \pars{ \delta } \). Liczymy pochodne:
-	\[f' \pars{ \delta } = 1- 1\cdot \ln \pars{ 1+\delta } - \frac{1+\delta}{1+\delta} + \frac{2}{3}\delta = - \ln \pars{ 1+\delta } + \frac{2}{3}\delta,\]
-	\[f'' \pars{ \delta } = -\frac{1}{1+\delta} + \frac{2}{3}.\]
-
-	\(f' \pars{ 0 } = 0\), a potem maleje do \(\delta = \frac{1}{2}\) (tam druga pochodna się zeruje, przedtem ujemna), potem rośnie, ale \(f' \pars{ 1 } < 0\), więc jest ujemna na całym \((0,1]\).
-
-	\(f \pars{ \delta } \) tylko maleje na \((0,1]\), więc nierówność działa, bo \(f \pars{ 0 } = 0\).
-
-	Dowodząc punkt trzeci zakładamy \(R \ge 6\mu\). Niech \(R = \pars{ 1+\delta } \mu\), czyli \(\delta = \frac{R}{\mu}-1 \ge 5\).
-
-	\[P \pars{ X \ge \pars{ 1+\delta } \mu } \le \pars{ \frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} } ^{\mu} \le \pars{ \frac{e}{1+\delta} } ^{ \pars{ 1+\delta } \mu} \le \pars{ \frac{1}{2} } ^{R} = 2 ^{-R}.\]
-\end{proof}
-
-\begin{theorem}
-	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi takimi, że \(P \pars{ X_i = 1 } = p_i\) oraz \(P \pars{ X_i = 0 } = 1-p_i\). Niech \(X = \sum_{i=1}^{n} X_i\), \(\mu = \mathbb{E}\left[ X \right] \) Wtedy dla każdego \(\delta \in (0,1)\) zachodzi:
-	\begin{enumerate}
-		\item \( P \pars{ X \le \pars{ 1-\delta } \mu } \le \pars{ \frac{e^{-\delta}}{ \pars{ 1-\delta } ^{1-\delta}} } ^{\mu}\)
-		\item \(P \pars{ X \le \pars{ 1-\delta } \mu } \le e^{-\frac{\mu\delta^2}{2}}\).
-	\end{enumerate}
-\end{theorem}
-\begin{proof}
-	Dowód identyczny jak w poprzednim twierdzeniu, wybieramy \(t = \ln \pars{ 1-\delta } < 0\) i korzystamy z tego, że \(e^{-z}\) jest antymonotoniczne. Drugiego punktu ponownie dowodzimy licząc pochodne i na ich podstawie dowodząc odpowiedniej nierówności.
-\end{proof}
-
-\begin{theorem}
-	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi losowymi o rozkładzie prawdopodobieństwa \(P \pars{ X_i = 1 } = P \pars{ X_i = -1 } = \frac{1}{2}\). Niech \(X = \sum_{i=1}^{n} X_i\). Dla każdego \(a>0\) mamy \(P \pars{ X \ge a } \le e^{-\frac{a^2}{2n}}\). Zauważmy, że nie ma sensu rozważać tu odchyleń multiplikatywnych, bo \(\mathbb{E}\left[ X \right] = 0\).
-\end{theorem}
-\begin{proof}
-	Mamy \(\mathbb{E}\left[ e^{tX_{i}} \right] = \frac{1}{2}e^{-t} + \frac{1}{2}e^{t}\).
-
-	Rozwijamy w szereg Taylora:
-	\[e^{t} = 1 + t + \frac{t^2}{2} + \ldots + \frac{t ^{i}}{i!} + \ldots\]
-	\[e^{-t} = 1 -t + \frac{t^2}{2} + \ldots + \pars{ -1 } ^{i} \frac{t ^{i}}{i!} + \ldots\]
-
-	Z tego wynika \[\mathbb{E}\left[ e^{tX_i} \right] = \sum_{i\ge 0}^{} \frac{t ^{2i}}{ \pars{ 2i } !} \le \sum_{i\ge 0}^{} \frac{ \pars{ \frac{t^2}{2} } ^{i}}{i!} = e^{\frac{t^2}{2}},\] gdzie w nierówności wyciągnęliśmy \(2\) z dwukrotności każdej liczby od \(1\) do \(i\), a pozostałe składniki zignorowaliśmy.
-
-	Zatem \(\mathbb{E}\left[ e^{tX} \right] = \prod_{i=1}^{n} \mathbb{E}\left[e^{tX_i}\right] \le e^{\frac{t^2n}{2}} \).
-
-	Dostajemy \(P \pars{ X\ge a } = P \pars{ e^{tX}\ge e^{ta} } \le \frac{\mathbb{E}\left[ e^{tX} \right] }{e^{ta}} \le e^{t^2n\cdot \frac{1}{2}-ta} = e^{a^2 \frac{1}{n} \frac{1}{2} - \frac{a^2}{n}} = e^{-a^2\cdot \frac{1}{2n}}\), gdzie podstawiliśmy \(t = \frac{a}{n} > 0\).
-\end{proof}
-
-\begin{theorem}
-	Niech \(Y_1,\ldots,Y_n\) będą niezależnymi indykatorami \(P \pars{ Y_i = 0 } = P \pars{ Y_i = 1 } = \frac{1}{2}\). Niech \(Y = \sum_{i=1}^{n} Y_i\), \(\mu = \mathbb{E}\left[ Y \right] = \frac{n}{2}\). Wtedy
-	\begin{enumerate}
-		\item \(\forall_{a>0} \ P \pars{ Y \ge \mu+a } \le e^{-\frac{2a^2}{n}} \)
-		\item \(\forall_{\delta > 0} \   P \pars{ Y \ge \pars{ 1+\delta } \mu } \le e ^{-\delta^2\mu}\)
-	\end{enumerate}
-\end{theorem}
-\begin{proof}
-	Bierzemy \(Y_i = \frac{X_i + 1}{2}\). Mamy \(P \pars{ X_i = 1 } = P \pars{ X_i = -1 } = \frac{1}{2}\). Dla  \(X = \sum_{i=1}^{n} X_i = 2Y-2\mu\) mamy \[ P \pars{ Y \ge \mu+a } = P \pars{ X \ge 2a } \le e^{-\frac{2a^2}{n}}  \]
-	oraz \[ P \pars{ Y \ge \pars{ 1+\delta } \mu } = P \pars{ X \ge 2\delta\mu } \le e^{- \frac{2\delta^2\mu^2}{n}} = e^{-\delta^2\mu}. \]
-\end{proof}
-
+%</probabil-egzamin-chernoff-2>
 
 \subsection{Estymacja parametru}
 
