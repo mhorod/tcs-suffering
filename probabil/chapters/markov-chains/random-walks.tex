@@ -1,6 +1,7 @@
 %<*probabil-2025-12-18-spacery-losowe>
+%<*probabil-egzamin-14-spacery-losowe>
 \begin{definition}
-	\textbf{Spacerem losowym} na nieskierowanym grafie \( G \) nazywamy łańcuch Markowa, którego stany odpowiadają wierzchołkom grafu. Prawdopodobieństwo przejścia ze stanu \( v \) do stanu \( u \) wynosi \( \frac{1}{\text{deg}(v)} \) gdy \( (v, u) \in \mathbb{E}\) i 0 w przeciwnym przypadku.
+	\textbf{Spacerem losowym} na nieskierowanym grafie \( G \) nazywamy łańcuch Markowa, którego stany odpowiadają wierzchołkom grafu. Prawdopodobieństwo przejścia ze stanu \( v \) do stanu \( u \) wynosi \( \frac{1}{\text{deg}(v)} \) gdy \( (v, u) \in E\) i 0 w przeciwnym przypadku.
 \end{definition}
 
 \begin{theorem}[Lemat 7.12 P\&C] Spacer losowy na grafie \( G \) jest nieokresowy wtedy i tylko wtedy gdy \( G \) nie jest dwudzielny
@@ -15,9 +16,9 @@
 \end{theorem}
 \begin{proof}
 	Pokażemy, że tak zadane \(\bar\pi\) faktycznie jest rozkładem stacjonarnym. Mamy
-	\[ \sum_{v\in V \left( G  \right) }^{} \pi_v = \sum_{v\in V \left( G  \right) }^{} \frac{d \left( v  \right) }{2 \mathbb{E}\left( G  \right) } = \frac{1}{2 \mathbb{E}\left( G  \right)} \sum_{v\in V \left( G  \right) }^{} d \left( v  \right) = 1, \]
+	\[ \sum_{v\in V \left( G  \right) }^{} \pi_v = \sum_{v\in V \left( G  \right) }^{} \frac{d \left( v  \right) }{2 |E| } = \frac{1}{2 |E|} \sum_{v\in V \left( G  \right) }^{} d \left( v  \right) = 1, \]
 	a więc faktycznie jest to rozkład. Mamy też
-	\[ \left( \pi P \right)_v  = \sum_{u \in V \left( G  \right)}^{} \pi_u \cdot P_{uv} = \sum_{u \in N \left( v \right) }^{} \frac{d \left( u  \right) }{2 \mathbb{E}\left( G  \right) } \cdot \frac{1}{d \left( u \right) } = \frac{d \left( v  \right) }{2 \mathbb{E}\left( G  \right) } = \pi_v,\]
+	\[ \left( \pi P \right)_v  = \sum_{u \in V \left( G  \right)}^{} \pi_u \cdot P_{uv} = \sum_{u \in N \left( v \right) }^{} \frac{d \left( u  \right) }{2 |E| } \cdot \frac{1}{d \left( u \right) } = \frac{d \left( v  \right) }{2 |E| } = \pi_v,\]
 	gdzie drugie przejście to zastosowanie określenia macierzy \(P\) dla spaceru.
 \end{proof}
 
@@ -30,26 +31,27 @@
 \end{definition}
 
 \begin{lemma}
-	Dla każdej krawędzi \(uv\) w grafie \(G\) zachodzi \(\mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le 2 \mathbb{E}\left( G  \right) \).
+	Dla każdej krawędzi \(uv\) w grafie \(G\) zachodzi \(\mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le 2 |E| \).
 \end{lemma}
 \begin{proof}
 	Mając graf \(G\) będziemy tworzyć łańcuch Markowa na krawędziach skierowanych. Rozważamy skierowany graf \(D\), który jest grafem \(G\), w którym każda krawędź została przedstawiona jako dwie krawędzie skierowane. Stanem łańcucha będą krawędzie, a z zadanej krawędzi będzie można przejść do krawędzi wychodzących z jej końca (z równym prawdopodobieństwem).
 
-	W takim łańcuchu rozkład jednostajny \(\pi_{uv} = \frac{1}{2 \mathbb{E}\left( G  \right) }\) jest stacjonarny. Po pierwsze \( \sum_{uv \in \mathbb{E}\left( D  \right) }^{} \pi_{uv} = \sum_{uv \in \mathbb{E}\left( D  \right) }^{} \frac{1}{2 \mathbb{E}\left( G  \right) } = 1\), więc jest to rozkład.
-	Mamy też \[ \sum_{w\in N\left( u  \right) }^{} \pi_{wu} \frac{1}{d\left( u \right) } = \frac{1}{d\left( u  \right) }\cdot \frac{d\left( u  \right) }{2 \mathbb{E}\left( G  \right) } = \frac{1}{2\mathbb{E}\left( G  \right) } = \pi_{uv},\]
+	W takim łańcuchu rozkład jednostajny \(\pi_{uv} = \frac{1}{2 |E_G| }\) jest stacjonarny. Po pierwsze \( \sum_{uv \in E_D }^{} \pi_{uv} = \sum_{uv \in E_D }^{} \frac{1}{2 |E_G| } = 1\), więc jest to rozkład.
+	Mamy też \[ \sum_{w\in N\left( u  \right) }^{} \pi_{wu} \frac{1}{d\left( u \right) } = \frac{1}{d\left( u  \right) }\cdot \frac{d\left( u  \right) }{2 |E_G| } = \frac{1}{2|E_G| } = \pi_{uv},\]
 	gdzie \(uv\) jest pewną krawędzią w \(D\). Z tego wynika, że rozkład jest stacjonarny.
 
 	Ograniczana wartość \(\mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \) jest oczekiwaną liczbą kroków w spacerze \(u \to v \to u \). W grafie \(D\) można patrzeć na spacer z krawędzi \(vu\) do \(vu\). Idzie on tak samo jak przejście z \(u\) do \(v\) i z powrotem do \(u\), ale ma ustaloną krawędź, którą trzeba wrócić do \(u\). Zatem będzie dłuższy od zwykłego spaceru po wierzchołkach i mamy
-	\[ \mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le \mathbb{E}\left[ r_{(vu)(vu)} \right] = \frac{1}{\pi_{vu}} = 2\mathbb{E}\left( G  \right) . \]
+	\[ \mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le \mathbb{E}\left[ r_{(vu)(vu)} \right] = \frac{1}{\pi_{vu}} = 2|E_G| \]
 \end{proof}
 
 \begin{theorem}[Twierdzenie 7.15 P\&C] Czas pokrycia grafu \( G = (V, E) \) jest ograniczony od góry przez \( 2|E|\left( |V|-1 \right)  \).
 \end{theorem}
 \begin{proof}
 	Niech \(T\) będzie drzewem rozpinającym \(G\). Przejdziemy po jego wierzchołkach w kolejności DFSa. Niech \(v_0,v_1,\ldots,v_{2\left|V\right|-2}\) będą kolejnymi wierzchołkami odwiedzonymi przez DFSa. Oczekiwany czas pokrycia grafu jest ograniczony przez oczekiwany czas kolejnego odwiedzania wierzchołków wypisanych w takiej kolejności. Zatem
-	\[ \mathbb{E}\left[ C_G \right] \le \sum_{i=0}^{2\left|V\right|-3} \mathbb{E}\left[ r_{v_iv_{i+1}} \right] = \sum_{xy\in T}^{} \mathbb{E}\left[ r_{xy} \right] + \mathbb{E}\left[ r_{yx} \right] \le 2\left|\mathbb{E}\right|\cdot \left( \left|V\right|-1 \right)  .\]
+	\[ \mathbb{E}\left[ C_G \right] \le \sum_{i=0}^{2\left|V\right|-3} \mathbb{E}\left[ r_{v_iv_{i+1}} \right] = \sum_{xy\in T}^{} \mathbb{E}\left[ r_{xy} \right] + \mathbb{E}\left[ r_{yx} \right] \le 2|E|\cdot \left( \left|V\right|-1 \right)  .\]
 \end{proof}
 %</probabil-2025-12-18-spacery-losowe>
+%</probabil-egzamin-14-spacery-losowe>
 
 \subsection{Ćwiczenia}
 
