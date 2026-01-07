@@ -1,3 +1,4 @@
+%<*probabil-2025-12-18-spacery-losowe>
 \begin{definition}
 	\textbf{Spacerem losowym} na nieskierowanym grafie \( G \) nazywamy łańcuch Markowa, którego stany odpowiadają wierzchołkom grafu. Prawdopodobieństwo przejścia ze stanu \( v \) do stanu \( u \) wynosi \( \frac{1}{\text{deg}(v)} \) gdy \( (v, u) \in \mathbb{E}\) i 0 w przeciwnym przypadku.
 \end{definition}
@@ -24,6 +25,10 @@
 	Czas pokrycia grafu \(G\) to chwila (indeks łańcucha Markowa), w której spacer odwiedził już każdy wierzchołek. Taką zmienną losową oznaczamy \(C_G\).
 \end{definition}
 
+\begin{definition}
+	Zmienna losowa \(r_{uv}\) określa liczbę kroków spaceru losowego przebiegającego od wierzchołka \(u\) do wierzchołka \(v\).
+\end{definition}
+
 \begin{lemma}
 	Dla każdej krawędzi \(uv\) w grafie \(G\) zachodzi \(\mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le 2 \mathbb{E}\left( G  \right) \).
 \end{lemma}
@@ -44,7 +49,7 @@
 	Niech \(T\) będzie drzewem rozpinającym \(G\). Przejdziemy po jego wierzchołkach w kolejności DFSa. Niech \(v_0,v_1,\ldots,v_{2\left|V\right|-2}\) będą kolejnymi wierzchołkami odwiedzonymi przez DFSa. Oczekiwany czas pokrycia grafu jest ograniczony przez oczekiwany czas kolejnego odwiedzania wierzchołków wypisanych w takiej kolejności. Zatem
 	\[ \mathbb{E}\left[ C_G \right] \le \sum_{i=0}^{2\left|V\right|-3} \mathbb{E}\left[ r_{v_iv_{i+1}} \right] = \sum_{xy\in T}^{} \mathbb{E}\left[ r_{xy} \right] + \mathbb{E}\left[ r_{yx} \right] \le 2\left|\mathbb{E}\right|\cdot \left( \left|V\right|-1 \right)  .\]
 \end{proof}
-
+%</probabil-2025-12-18-spacery-losowe>
 
 \subsection{Ćwiczenia}
 
@@ -56,7 +61,7 @@
 \end{exercise}
 
 \begin{proof}
-	Wyznaczamy ścieżkę złożoną z \( O(n) \) wierzchołków w grafie \(G'\) takich, że wierzchołek początkowy
+	Wyznaczamy ścieżkę złożoną z \( O(n) \) wierzchołków w grafie \(G'\) takich, że wierzchołek początkowy
 	to wyjściowe pozycje myszy oraz kota, a wierzchołek końcowy to stan, w którym oba zwierzęta są w tym samym wierzchołku.
 	Oczekiwany czas przejścia między kolejnymi stanami jest ograniczony przez \( 2|E(G')| \)
 	zatem oczekiwany czas przejścia to \( O(n \cdot |E(G')|) \)
@@ -69,7 +74,7 @@
 	Ponieważ każda krawędź z \( G' \) jest tworzona przez unikatową parę krawędzi z \( G \)
 	to \( |E(G')| \leq m^2 \).
 
-	Jak natomiast konstruujemy naszą ścieżkę?
+	Jak natomiast konstruujemy naszą ścieżkę?
 	Korzystamy z faktu, że graf nie jest dwudzielny i wybieramy w nim dowolny cykl nieparzysty.
 	Prowadzimy mysz i kota najkrótszymi ścieżkami do momentu aż oba wylądują na cyklu. Jeśli któreś zwierzę
 	znajdzie się tam wcześniej to po prostu każemy mu chodzić dookoła. Pesymistycznie musimy przejść po
