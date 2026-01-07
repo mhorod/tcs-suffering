@@ -12,9 +12,9 @@ Niech \(X_1\) to czas pierwszego zdarzenia, a \(X_i\) dla \(i \geq 2\) to czas p
 	A teraz pokażmy, że jest to prawda dla \(X_i, i > 1\)
 	\begin{align*}
 		\prob\pars{X_i > t_i \mid (X_0, X_1, \dots, X_{i-1}) = (t_0, t_1, \dots, t_{i-1})} &= \prob\pars{N\pars{\sum_1^i t_j} - N\pars{\sum_1^{i-1} t_j} = 0}\\
-		&= \prob\pars{N(t_i) = 0} = e^{-\lambda t_i} = \prob\pars{X_i > t_i}
+		&= \prob\pars{N(t_i) = 0} = e^{-\lambda t_i}
 	\end{align*}
-	Tu także odnajdujemy rozkład wykładniczy z parametrem \(\lambda\). 
+	A więc \(X_i\) też ma rozkład wykładniczy z parametrem \(\lambda\), i jest niezależne od wartości poprzednich międzyczasów.
 \end{proof}
 
 \begin{theorem}[Twierdzenie 8.11 P\&C]
@@ -45,7 +45,7 @@ Niech \(X_1\) to czas pierwszego zdarzenia, a \(X_i\) dla \(i \geq 2\) to czas p
 
 		      Ponieważ \( X_1, X_2 \) mają rozkład wykładniczy a \( X_1 + X_2 \) nie jest specjalnie ładnym tworem, to będziemy chcieli poradzić sobie nieco inaczej.
 
-		      Skorzystamy zatem z twierdzenia o trzech ciągach aby udowodnić zadaną granicę.
+		      Skorzystamy zatem z twierdzenia o trzech funkcjach aby udowodnić zadaną granicę.
 
 		      Nasze oszacowania będą wyglądały następująco:
 		      \[
@@ -82,9 +82,19 @@ Niech \(X_1\) to czas pierwszego zdarzenia, a \(X_i\) dla \(i \geq 2\) to czas p
 		      Podobnie zauważamy, że \( 0 \leq P(N(t) > 1) \leq P(X_1 < t \land X_2 < t) \)
 		      -- to, że oba czasy są mniejsze niż \( t \) nie oznacza jeszcze, że ich suma również taka jest, zatem jest to warunek konieczny, ale nie wystarczający.
 
-		      Pokazanie \[ \lim_{t \rightarrow 0} \frac{P(X_1 < t \land X_2 < t)}{t} = 0 \] pozostawiamy jako ćwiczenie.
-
-
-
+			  \begin{align*}
+			      \lim_{t \rightarrow 0} \frac{\prob(X_1 < t \land X_2 < t)}{t}
+			       & = \lim_{t \rightarrow 0} \frac{\prob(X_1 < t)\prob(X_2 < t)}{t} \\
+				   & = \lim_{t \rightarrow 0} \frac{\pars{1 - \exp(-\lambda t)}\pars{1 - \exp(-\lambda t)}}{t}\\
+				   & = \lim_{t \rightarrow 0} \frac{1 + \exp(-2\lambda t) - 2\exp(-\lambda t)}{t} = \brackets{\frac{0}{0}} \\
+				   & = \lim_{t \rightarrow 0} -2\lambda\exp(-2\lambda t) + 2\lambda\exp(-\lambda t)\\
+			       & = -2\lambda + 2\lambda = 0
+		      \end{align*}
+			  
+		      Wyszła nam granica jaką chcieliśmy, a więc z twierdzenia o trzech funkcjach 
+			  \[
+			  	\lim_{t \rightarrow 0} \frac{\prob(N(t) > 1)}{t} = 0 
+			  \]
+			  co kończy dowód.
 	\end{enumerate}
 \end{proof}
