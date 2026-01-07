@@ -58,7 +58,11 @@ Aby w ogóle móc liczyć coś nierównością Czebyszewa potrzebujemy obliczyć
 
 %<*probabil-2025-10-24-chebyshev-2>
 Skorzystamy tutaj z bardzo wygodnego twierdzenia \ref{variance-of-sum-of-independent-variables}
-a następnie z \ref{variance-of-geometric} aby dostać
+a następnie z 
+%</probabil-egzamin-chebyshev-2>
+\ref{variance-of-geometric}
+%<*probabil-egzamin-chebyshev-3>
+aby dostać
 \begin{align*}
 	\variance{X}
 	 & = \sum_{i=1}^n \variance{X_i}          \\
@@ -74,4 +78,4 @@ Teraz wkładamy to do nierówności Czebyszewa:
 	P(\abs{X - nH_n} \geq nH_n) \leq \frac{\variance{X}}{n^2H_n^2} = \frac{\pi^2}{6H_n^2} = O\pars{\frac{1}{\ln^2 n}}
 \]
 %</probabil-2025-10-24-chebyshev-2>
-%</probabil-egzamin-chebyshev-2>
+%</probabil-egzamin-chebyshev-3>

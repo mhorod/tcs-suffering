@@ -1,6 +1,6 @@
-%<*probabil-egzamin-kolekcjoner-kuponow>
+%<*probabil-egzamin-approximation-of-harmonic>
 %<*probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
-\begin{lemma} \(H_n = \ln(n) + \Theta(1)\)\\
+\begin{lemma} \label{approximation-of-harmonic} \(H_n = \ln(n) + \Theta(1)\)\\
 	\begin{tikzpicture}
 		\draw[->] (-0.5, 0) -- (8, 0) node[right] {$x$};
 		\draw[->] (0, -0.5) -- (0, 4.2) node[above] {$y$};
@@ -52,7 +52,9 @@
 	\]
 \end{lemma}
 %</probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
+%</probabil-egzamin-approximation-of-harmonic>
 
+%<*probabil-egzamin-kolekcjoner-kuponow>
 %<*probabil-2025-10-10-problem-kolekcjonera-kuponow>
 \subsection{Problem kolekcjonera kuponów}
 \label{coupon-collectors-problem}
@@ -70,6 +72,7 @@ Zauważmy jeszcze, że \( X_i \) ma rozkład geometryczny z parametrem \( p_i \)
 	\expected{X} = \sum_{i=1}^n \expected{X_i} = \sum_{i=1}^n \frac{n}{n-i+1} = n \sum_{i=1}^n \frac{1}{i}
 	= n \cdot H_n = n \ln n + \Theta(n)
 \]
+Ostatnia równość wynika z \ref{approximation-of-harmonic}.
 %</probabil-2025-10-10-problem-kolekcjonera-kuponow>
 %</probabil-egzamin-kolekcjoner-kuponow>
 
@@ -184,7 +187,7 @@ Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to 
 		 & = 2\pars{(n+1)\sum_{k=2}^n \frac{1}{k}} - 2(n-1)                \\
 		 & = 2\pars{(n+1)\pars{\sum_{k=1}^n \frac{1}{k}} - (n+1)} - 2(n-1)
 	\end{align*}
-	Teraz korzystamy z faktu, że \( \sum_{k=1}^n \frac{1}{k} = H_n = \ln n + \Theta(1) \) i dostajemy
+	Teraz korzystamy z \ref{approximation-of-harmonic} i dostajemy
 	\begin{align*}
 		\expected{X}
 		 & = 2(n+1)\cdot H_n - \Theta(n)                     \\
