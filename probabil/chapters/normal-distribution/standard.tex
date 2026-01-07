@@ -1,4 +1,12 @@
-Wyznaczymy funkcję gęstości dla \( Z \approx N(0,1) \), czyli dla standardowego rozkładu normalnego.
+\subsection{Wyprowadzenie}
+Rozważmy sobie rozkład na \(\real^2\) o następujących własnościach:
+\begin{itemize}
+	\item gęstość wokół każdego punktu zależy jedynie od odległości od środka układu (w szczególności rotacja nie zmienia rozkładu).
+	\item wartości współrzędnych \(x\) i \(y\) są od siebie niezależne.
+	\item ten rozkład jest ciągły.
+\end{itemize}
+
+Okazuje się, że istnieje tylko jeden taki rozkład (z dokładnością do stałej), nazywamy go standardowym rozkładem normalnym. Oznaczamy go przez \( Z \sim N(0,1) \).
 
 Zgodnie z definicją, gęstość zależy jedynie od odległości punktu od środka układu współrzędnych. Możemy więc to zapisać jako:
     \[
@@ -42,12 +50,12 @@ Z MFI pamiętamy, że każdą liczbę rzeczywistą możemy przybliżyć jakimś 
     \]
 Gdzie \( q_n \) jest jakimś ciągiem liczb wymiernym. Z połączenia tego faktu i założenia o ciągłości funkcji \(h\) otrzymamy:
     \[
-    h(x) = h(\lim_{n \to \infty} q_n) = \lim_{n \to \infty}h(q_n) = \lim_{n \to \infty} b^{q_n} = b^{\lim_{n \to \infty} q_n} = b^x
+    h(x) = h\pars{\lim_{n \to \infty} q_n} = \lim_{n \to \infty}h(q_n) = \lim_{n \to \infty} b^{q_n} = b^{\lim_{n \to \infty} q_n} = b^x
     \]
 
-Alternatywnie:
+Ustalmy:
     \[
-    h(x) = e^{cx}
+    	b = e^c \implies h(x) = e^{cx}
     \]
 
 Teraz podstawiamy to do naszej funkcji gęstości, uwzględniamy skalowanie i otrzymujemy:
@@ -74,6 +82,63 @@ Dalej mamy:
     \[
     \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z = \sqrt{2\pi} \implies a = \frac{1}{\sqrt{2\pi}}
     \]
-    \[
-    f(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}
-    \]
+
+\begin{minipage}[c]{0.5\linewidth}
+	\[
+		f(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}
+	\]
+\end{minipage}
+\quad
+\begin{minipage}[c]{0.4\linewidth}
+	\centering
+	\begin{tikzpicture}
+	\draw[->] (-3.5, 0) -- (3.5, 0) node[right] {$x$};
+	\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+	\draw[domain=-3.5:3.5, samples=100, yscale=5, smooth, variable=\x, blue, thick] plot ({\x}, {1/sqrt(2*pi) * exp(-0.5*\x*\x)});
+	\draw (-0.2,0.5) -- (0.2,0.5);
+	\node[scale=0.66] at (-0.45,0.5) {\(0.1\)};
+	\draw (-0.2,1) -- (0.2,1);
+	\node[scale=0.66] at (-0.45,1) {\(0.2\)};
+	\draw (-0.2,1.5) -- (0.2,1.5);
+	\node[scale=0.66] at (-0.45,1.5) {\(0.3\)};
+\end{tikzpicture}
+\end{minipage}
+
+Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wygląda jak \sout{dzban} dzwon.
+
+
+\subsection{Właściwości}
+\begin{theorem}
+	Wartość oczekiwana standardowego rozkładu normalnego wynosi 0, wariancja wynosi 1.
+\end{theorem}
+
+\begin{proof}
+	Wartość oczekiwana wynosi 0, ponieważ standardowy rozkład normalny jest symetryczny wobec prostej \( OY\)
+	Wariancja:
+	\[
+		\variance{Z} = \expected{Z^2} - \expected{Z}^2 = \expected{Z^2} = \\
+	\]
+	ponieważ \( \expected{Z} = 0 \)
+	\[
+		= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}t^2e^{-t^2/2} dt =
+	\]
+	\[
+		= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{z}(t)(te^{-t^2/2}) dt =
+	\]
+	całkowanie przez części
+	\[
+		-\frac{1}{\sqrt{2\pi}}te^{-t^2/2}|_{-\infty}^{\infty} + \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{-t^2/2} dt = 1
+	\]
+	Ponieważ pierwszy wyraz jest równy 0 a drugi jest to dystrybuanta na od \(-\infty \) do \( \infty \) więc wynosi ona 1.
+\end{proof}
+\begin{definition}
+	Dystrybuantę standardowego rozkładu normalnego oznaczamy jako \( \Phi \), gdzie:
+	\[
+		\Phi(z) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} e^{-\frac{t^2}{2}} \diff t
+	\]
+	Oraz:
+	\[
+		\Phi(-z) = 1 - \Phi(z)
+	\]
+	Ta całka generalnie nie jest do policzenia, jeżeli trzeba skorzystać z dystrybuanty to są do tego specjalne tabele wartości
+\end{definition}

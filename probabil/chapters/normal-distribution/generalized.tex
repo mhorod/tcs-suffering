@@ -1,0 +1,63 @@
+\begin{definition}
+	Dla \(Z \sim N(0, 1)\) definiujemy (uogólniony) rozkład normalny \(X \sim N(\mu, \sigma^2)\) jako
+	\[
+		X = \mu + \sigma Z
+	\]
+\end{definition}
+
+\begin{theorem}
+	Dla \(X \sim N(\mu, \sigma^2)\) zachodzi
+	\begin{itemize}
+		\item \(\ev{X} = \mu\)
+		\item \(\variance{X} = \sigma^2\)
+		\item \(F_X(x) = \Phi(\frac{x - \mu}{\sigma})\)
+		\item \(f_X(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{\pars{x-\mu}^2}{2\sigma^2}}\)
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	Ponieważ zmienna losowa \( X\) z \(N(\mu, \sigma^2) \) ma ten sam rozkład co \( \mu + \sigma Z \) mamy że
+	\[
+		\expected{X} = \expected{\mu + \sigma Z} = \mu + \sigma \ev{Z} = \mu
+	\]
+	\[
+		\variance{X} = \variance{\sigma Z + \mu} = \sigma^2 \variance{Z} = \sigma^2
+	\]
+	\[
+		F_X(x) = \prob\pars{X \leq x} = \prob\pars{\frac{X-\mu}{\sigma} \leq \frac{x-\mu}{\sigma}} = \prob\pars{Z \leq \frac{x-\mu}{\sigma}} = \Phi\pars{\frac{x-\mu}{\sigma}}
+	\]
+	\[
+		f_X(x) = (F_X(x))' = \pars{\Phi\pars{\frac{x-\mu}{\sigma}}}' = \frac{1}{\sigma} \pars{\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{\pars{\frac{t-\mu}{\sigma}}^2}{2}} \diff t}' = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{\pars{x-\mu}^2}{2\sigma^2}}
+	\]
+\end{proof}
+
+\begin{theorem}
+	Funkcja tworząca momemty rozkładu normalnego \(N(\mu, \sigma^2)\) wynosi
+	\[
+		\mathcal{M}_X(t) = e^{\frac{t^2\sigma^2}{2}+\mu t}
+	\]
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\mathcal{M}_X(t) &= \mathbb{E}[e^{tX}] \\
+		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} e^{tx} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx \\
+		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2\mu x + \mu^2 - 2\sigma^2 tx}{2\sigma^2} \right) dx \\
+		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2(\mu + \sigma^2 t)x + (\mu + \sigma^2 t)^2 - (\mu + \sigma^2 t)^2 + \mu^2}{2\sigma^2} \right) dx \\
+		&= \exp\left( \frac{(\mu + \sigma^2 t)^2 - \mu^2}{2\sigma^2} \right) \underbrace{\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x - (\mu + \sigma^2 t))^2}{2\sigma^2}} dx}_{1} \\
+		&= \exp\left( \frac{\mu^2 + 2\mu\sigma^2 t + \sigma^4 t^2 - \mu^2}{2\sigma^2} \right) \\
+		&= e^{\mu t + \frac{t^2\sigma^2}{2}}
+	\end{align*}
+	
+	Całka w 3 linii od dołu jest równa 1, bo jest to całka po gęstości rozkładu \(N(\mu + \sigma^2 t, \sigma^2)\).
+\end{proof}
+
+\begin{theorem}
+	Niech \(X \sim N(\mu_1, \sigma^2_1), Y \sim N(\mu_2, \sigma^2_2)\) to niezależne zmienne losowe. Wtedy \(X+Y \sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)\).
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\mathcal{M}_{X+Y}(t) = \pars{\mathcal{M}_X(t)}\pars{\mathcal{M}_Y(t)} = \pars{e^{\frac{t^2\sigma_1^2}{2}+\mu_1 t}}\pars{e^{\frac{t^2\sigma_2^2}{2}+\mu_2 t}} =\\
+		= e^{\frac{t^2(\sigma_1^2+\sigma_2^2)}{2} + t(\mu_1 + \mu_2)}
+	\end{align*}
+\end{proof}
+
+Podobnie możemy pokazać, że dla niezależnych \(X_1 \sim N(0, \sigma_1^2), X_2 \sim N(0, \sigma_2^2)\) dostajemy \(X_1+X_2 \sim N(0, \sigma_1^2+\sigma_2^2)\) oraz \(X_1-X_2 \sim N(0, \sigma_1^2+\sigma_2^2)\).
