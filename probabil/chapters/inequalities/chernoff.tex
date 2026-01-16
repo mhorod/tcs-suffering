@@ -119,6 +119,7 @@
 \begin{example}
 	\label{chernoff-coin-tosses}
     Chcemy ograniczyć z góry prawdopodobieństwo, że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy.
+%</probabil-egzamin-chernoff-2>
 
     Niech \( X_1, \ldots, X_n \) - ciąg niezależnych prób Poissona oraz \( \prob(X_i = 1) = p_i \). Niech \( \mu = \expected{X} = \sum_{i=1}^{n} p_i \). Niech \( \delta > 0 \) będzie ustalone.
 
@@ -160,13 +161,13 @@
 
 \begin{example}
 	Możemy też ograniczyć prawdopodobieństwo że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy w inny sposób, po prostu stosując \ref{poisson-trial-chernoff-bounds}.
-	
+%<*probabil-egzamin-chernoff-3>
 	Widzimy, że nasze rzuty to niezależne próby Poissona o \(p = \frac{1}{2}\). \(\mu = \frac{n}{2}, \delta = \frac{1}{2}\), a więc możemy użyć wzoru 2. W takim razie mamy
 	\[
 		\prob\pars{X \geq \frac{3}{4}n} \leq e^{\frac{-\mu\delta^2}{3}} = e^{\frac{-\frac{n}{2} \cdot \frac{1}{4}}{3}} = e^{\frac{-n}{24}}
 	\]
 \end{example}
-%</probabil-egzamin-chernoff-2>
+%</probabil-egzamin-chernoff-3>
 
 \subsection{Estymacja parametru}
 
