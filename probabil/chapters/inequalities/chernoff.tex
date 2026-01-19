@@ -40,7 +40,7 @@
 %<*probabil-2025-11-14-poisson-trial-chernoff-bound>
 \begin{theorem}
 	\label{poisson-trial-chernoff-bounds}
-	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy:
+	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy
 	\begin{enumerate}
 		\item jeśli \(\delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le \pars{\frac{e^{\delta}}{ \pars{1+\delta}^{1+\delta}}} ^{\mu}\)   \\
 		\item jeśli \(1 \geq \delta > 0\), to \(\prob \pars{X \ge \pars{1+\delta}\mu} \le e^{\frac{-\mu\delta^2}{3}}\)                                 \\
@@ -72,8 +72,10 @@
 %</probabil-egzamin-chernoff-1>
 %</probabil-2025-11-14-poisson-trial-chernoff-bound>
 
+%<*probabil-2025-11-14-poisson-trial-chernoff-bound-2>
 \begin{theorem}
-	Niech \(X_1,\ldots,X_n\) będą niezależnymi zmiennymi takimi, że \(P \pars{ X_i = 1 } = p_i\) oraz \(P \pars{ X_i = 0 } = 1-p_i\). Niech \(X = \sum_{i=1}^{n} X_i\), \(\mu = \mathbb{E}\left[ X \right] \) Wtedy dla każdego \(\delta \in (0,1)\) zachodzi:
+	\label{poisson-trial-chernoff-lowerbounds}
+	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy dla każdego \(\delta \in (0,1)\) zachodzi
 	\begin{enumerate}
 		\item \( P \pars{ X \le \pars{ 1-\delta } \mu } \le \pars{ \frac{e^{-\delta}}{ \pars{ 1-\delta } ^{1-\delta}} } ^{\mu}\)
 		\item \(P \pars{ X \le \pars{ 1-\delta } \mu } \le e^{-\frac{\mu\delta^2}{2}}\).
@@ -82,6 +84,7 @@
 \begin{proof}
 	Dowód identyczny jak w poprzednim twierdzeniu, wybieramy \(t = \ln \pars{ 1-\delta } < 0\) i korzystamy z tego, że \(e^{-z}\) jest antymonotoniczne. Drugiego punktu ponownie dowodzimy licząc pochodne i na ich podstawie dowodząc odpowiedniej nierówności.
 \end{proof}
+%</probabil-2025-11-14-poisson-trial-chernoff-bound-2>
 
 \subsection{Przypadki specjalne}
 \begin{theorem}

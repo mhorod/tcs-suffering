@@ -1,0 +1,63 @@
+Przejdźmy wreszcie do pierwszego dowodu ograniczenia górnego twierdzenia \ref{power-of-two-choices-theorem}. Tak naprawdę będziemy dowodzić że 
+\[
+	\prob\pars{\max(X_1, \dots, X_n) \geq \log_2 \ln n + \mathcal{O}(1)} < \frac{1}{n^{\alpha - 1}}
+\]
+ale jak się temu przyjrzymy to możemy zauważyć, że z odpowiednim \(\alpha\) da nam to co chcemy.
+
+Niech
+\[
+	\beta_4 = \frac{n}{4}
+\]
+\[
+	\beta_{i+1} = 2\frac{\beta_i^2}{n} \text{ dla } 4 \leq i \leq i^*
+\]
+\(i^*\) zostanie zdefiniowane później.
+
+\begin{lemma}
+	\[
+		\beta_{i+4} = \frac{n}{2^{2^i + 1}}
+	\]
+	a więc
+	\[
+		\beta_{i+4} \leq \frac{n}{2^{2^i}}
+	\]
+\end{lemma}
+\begin{proof}
+	Przeprowadźmy dowód indukcyjny. Dla \(i = 0\)
+	\[
+		\beta_4 = \frac{n}{4} = \frac{n}{2^{1 + 1}} = \frac{n}{2^{2^0 + 1}} = \beta_{0 + 4}
+	\]
+	Jeśli lemat zachodzi dla \(i\) to
+	\[
+		\beta_{i+5} = 2\frac{\beta_{i+4}^2}{n} 
+		= 2\frac{\pars{\frac{n}{2^{2^i + 1}}}^2}{n} 
+		= 2\frac{n}{2^{2(2^i + 1)}}
+		= 2\frac{n}{2^{2^{i + 1} + 2}}
+		= \frac{n}{2^{2^{i + 1} + 1}}
+		= \beta_{(i + 1) + 4}
+	\]
+	a więc zachodzi też dla \(i + 1\)
+\end{proof}
+
+Zdefiniujmy teraz \(\mathcal{E}_i\) jako zdarzenie zachodzące jeśli \(\nu_i(n) \leq \beta_i\). Widzimy, że
+\[
+	\prob(\mathcal{E}_4) = \prob\pars{\nu_4(n) \leq \frac{n}{4}} = 1
+\]
+bo oczywiście \(\geq \frac{n}{4}\) kul może mieć co najwyżej \(\frac{n}{4}\) urn.
+
+Chcemy teraz wykazać, że jeśli \(\mathcal{E}_i\) zaszło, to prawie na pewno \(\mathcal{E}_{i + 1}\) też zaszło. Dla \(t \in [n]\) definiujemy binarną zmienną losową \(Y_t\)
+\[
+	Y_t = \left\{ \begin{array}{lr} 1 & \text{ dla } h(t) \geq i + 1 \land \nu_i(t - 1) \leq \beta_i \\ 0 & \text{wpp.} \end{array} \right.
+\]
+Zauważmy, że dla \((K_1, \dots, K_{t - 1})\) będącego zmiennymi losowymi reprezentującymi urny do których trafiły kolejne kule oraz \((\omega_1, \dots, \omega_{t - 1})\) takiego, że \(\forall_{i \in [t - 1]} \, \omega_i \in [n]\) zachodzi
+\[
+	\prob(Y_t = 1 \mid (K_1, \dots, K_{t - 1}) = (\omega_1, \dots, \omega_{t - 1})) \leq \pars{\frac{\beta_i}{n}}^2
+\]
+Jest tak, ponieważ aby zaszło \(h(t) \geq i + 1\) \(t\)-ta kula musi obiema symulacjami trafić w urnę o przynajmniej \(i\) kulach, ale wiemy z \(\nu_i(t - 1) \leq \beta_i \) że takich urn jest co najwyżej \(\beta_i\) z \(n\) możliwych.
+
+Jeśli \(\mathcal{E}_i\) zaszło, to \(\mu_{i+1}(n) = \sum_{t \in [n]} Y_t\), ponieważ z \(\mathcal{E}_i\) wiemy, że \(\nu_i(t - 1) \leq \beta_i\) jest prawdziwe dla każdego \(t\), a więc \(Y_t = 1 \iff h(t) \geq i + 1\), a więc suma \(Y_t\) zlicza liczbę kul o wysokości \(\geq i + 1\), co jest dokładnie definicją \(\mu_{i+1}(n)\).
+
+Niech \(p_i \coloneq \pars{\frac{\beta_i}{n}}^2\). Z lematu \ref{binary-random-variable-binomial-upperbound} dostajemy
+\[
+	\prob\pars{\sum_{t \in [n]} Y_t > k} \leq \prob(\Bin(n, p_i) > k)
+\]

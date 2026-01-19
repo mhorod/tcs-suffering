@@ -1,0 +1,102 @@
+\subsection{Wprowadzenie modelu eksperymentu}
+W tej sekcji wracamy do znanego nam już problemu kul i urn. W \ref{balls-and-bins-max-load-upper-bound} oraz \ref{balls-and-bins-max-load-lower-bound} pokazaliśmy, że jeśli dla wystarczająco dużego \(n\) wrzucamy \(n\) kul do \(n\) urn niezależnie i jednostajnie oraz \(X_i\) to liczba kul w \(i\)-tej urnie, to
+\[
+	\prob\pars{\frac{\ln n}{\ln \ln n} \leq \max(X_1, \dots, X_n) \leq 3\frac{\ln n}{\ln \ln n}} \geq 1 - \frac{2}{n}
+\]
+Na wykładzie było powiedziane, że jest to prawda nie tylko dla \(\frac{2}{n}\), ale dla \(\frac{1}{n^\alpha}\) dla dowolnego \(\alpha\), ale nie było na to żadnego dowodu, a więc raczej nie trzeba tego wiedzieć.
+
+Rozważmy teraz wariant standardowego eksperymentu z kulami i urnami. Rzucamy \(n\) kul sekwencyjnie do \(n\) urn i dla każdej kuli symulujemy dwa rzuty. Kula trafia do tej urny z dwóch wylosowanych która jest mniej wypełniona, a remisy rozsrzygamy dowolnie. Okazuje się, że znacząco zmienia to rozkład \(\max(X_1, \dots, X_n)\), co pokazuje następujące twierdzenie
+
+\begin{theorem}
+	\label{power-of-two-choices-theorem}
+	W opisanym powyżej modelu \(\forall_{\alpha \geq 1} \, \exists_{n_0} \, \forall_{n \geq n_0}\) zachodzi
+	\[
+		\prob\pars{\frac{\ln \ln n}{\ln 2} - \mathcal{O}_\alpha(1) \leq \max(X_1, \dots, X_n) \leq \frac{\ln \ln n}{\ln 2} + \mathcal{O}_\alpha(1)} \geq 1 - \frac{1}{n^\alpha}
+	\]
+	lub równoważnie
+	\[
+		\prob\pars{\log_2 \ln n - \mathcal{O}_\alpha(1) \leq \max(X_1, \dots, X_n) \leq \log_2 \ln n + \mathcal{O}_\alpha(1)} \geq 1 - \frac{1}{n^\alpha}
+	\]
+\end{theorem}
+Dodatkowo, jeśli symulujemy \(d\) rzutów zamiast dwóch, w powyższym wzorze zamiast \(\ln 2\) jest obecne \(\ln d\) i musimy zamienić \(\mathcal{O}_\alpha(1)\) na jakieś \(\mathcal{O}_{d, \alpha}(1)\). Widzimy, że nie zmienia to bardzo naszych ograniczeń, a dowody tych wariantów są bardzo podobne, a więc dla uproszczenia nasze rozumowanie będziemy przeprowadzać dla \(d = 2\).
+
+Dla demonstracji tego, o ile lepsze jest losowanie z dwoma symulacjami od standardowego eksperymentu, możemy użyć \href{https://medium.com/the-intuition-project/load-balancing-the-intuition-behind-the-power-of-two-random-choices-6de2e139ac2f}{artykułu}, którego autor przeprowadził symulację komputerową wrzucenia miliona kul do tysiąca urn. Histogram po lewej pokazuje rozkład liczby kul w urnie dla losowego przydzielenia urn, a histogram po prawej dla wyboru lepszej urny z dwóch.
+\includegraphics[width=\linewidth]{img/power-of-two-choices/simulated-distributions.png}
+
+\subsection{Lematy pomocnicze}
+\begin{lemma}
+	Dla \(Z \sim \Bin(n, p)\) zachodzi
+	\[
+		\prob(Z \geq 2np) \leq e^{-\frac{np}{3}}
+	\]
+	\[
+		\prob\pars{Z \leq \frac{1}{2}np} \leq e^{-\frac{np}{8}}
+	\]
+\end{lemma}
+\begin{proof}
+	Pierwsza nierównośc wynika wprost z punktu 2. \ref{poisson-trial-chernoff-bounds} z \(\delta = 1\), a druga z punktu 2. \ref{poisson-trial-chernoff-lowerbounds} z \(\delta = \frac{1}{2}\).
+	\[
+		\ev{Z} = np
+	\]
+	\[
+		\prob(Z \geq 2np) = \prob(Z \geq (1 + \delta)\ev{Z}) \leq e^{-\frac{1}{3} \ev{Z} \delta^2} = e^{-\frac{np}{3}}
+	\]
+	\[
+		\prob\pars{Z \leq \frac{1}{2}np} = \prob(Z \leq (1 - \delta)\ev{Z}) \leq e^{-\frac{1}{2} \ev{Z} \delta^2} = e^{-\frac{np}{8}}
+	\]
+\end{proof}
+
+\begin{lemma}
+	\label{binary-random-variable-binomial-upperbound}
+	Niech \(X_1, \dots, X_n\) to zmienne losowe, \(Y_1, \dots, Y_n\) to binarne zmienne losowe, \(Y_i = f_i(X_1, \dots, X_i)\) (jest wyznaczona przez \(X_1, \dots, X_i\)) oraz \(Z \sim \Bin(n, p)\) jest niezależna od poprzednich zmiennych. Jeśli dla każdego \(i \in [n]\) oraz \((x_1, \dots, x_{i - 1})\) takiego, że \(\prob((X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) > 0\) zachodzi
+	\[
+		\prob(Y_i = 1 \mid (X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) \leq p
+	\]
+	to
+	\[
+		\prob\pars{\sum_{i = 1}^n Y_i > k} \leq \prob(Z > k)
+	\]
+\end{lemma}
+\begin{proof} (dla \(n = 3\), dla wyższych \(n\) analogicznie)
+	\begin{align*}
+		\prob(Y_1 + Y_2 + Y_3 > k) &\leq \prob(Z_1 + Y_2 + Y_3 > k) \\
+		&= \sum\nolimits_{x_1} \prob(Z_1 + Y_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
+		&\leq \sum\nolimits_{x_1} \prob(Z_1 + Z_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
+		&= \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Y_3 > k \mid (X_1, X_2) = (x_1, x_2)) \\
+		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
+		&\leq \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k \mid (X_1, X_2) = (x_1, x_2)) \\
+		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
+		&= \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k) \\
+		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
+		&= \prob(Z_1 + Z_2 + Z_3 > k) \cdot \sum\nolimits_{(x_1, x_2)} \prob(X_2 = x_2 \mid X_1 = x_1) \prob(X_1 = x_1) \\
+		&= \prob(Z_1 + Z_2 + Z_3 > k)
+	\end{align*}
+\end{proof}
+
+\begin{lemma} (Lemat dualny dla \ref{binary-random-variable-binomial-upperbound}) 
+	Niech \(X_1, \dots, X_n\) to zmienne losowe, \(Y_1, \dots, Y_n\) to binarne zmienne losowe, \(Y_i = f_i(X_1, \dots, X_i)\) (jest wyznaczona przez \(X_1, \dots, X_i\)) oraz \(Z \sim \Bin(n, p)\) jest niezależna od poprzednich zmiennych. Jeśli dla każdego \(i \in [n]\) oraz \((x_1, \dots, x_{i - 1})\) takiego, że \(\prob((X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) > 0\) zachodzi
+	\[
+		\prob(Y_i = 1 \mid (X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) \geq p
+	\]
+	to
+	\[
+		\prob\pars{\sum_{i = 1}^n Y_i > k} \geq \prob(Z > k)
+	\]
+\end{lemma}
+\begin{proof}
+	Tak samo jak w poprzednim lemacie.
+\end{proof}
+
+\subsection{Oznaczenia}
+Do dowodów ograniczenia górnego przez iterację ograniczeń oraz ograniczenia dolnego przydadzą nam się funkcje pomocnicze. Dla \(t \in [n]\) niech
+\begin{itemize}
+	\item \(h(t)\) to wysokość \(t\)-tej kuli, czyli liczba kul w urnie, w której wylądowała \(t\)-ta kula zaraz po jej wrzuceniu
+	\item \(\nu_i(t)\) to liczba urn zawierających \(\geq i\) kul zaraz po wrzuceniu \(t\)-tej kuli
+	\item \(\mu_i(t)\) to liczba kul o wysokości \(\geq i\) zaraz po wrzuceniu \(t\)-tej kuli
+\end{itemize}
+
+Prosto widzimy, że 
+\[
+	\forall_{i \in [n], \, t \in [n]} \,\, \nu_i(t) \leq \mu_i(t)
+\]
+bo w każdej urnie zawierającej \(\geq i\) kul jest przynajmniej jedna kula wysokości \(\geq i\). 
