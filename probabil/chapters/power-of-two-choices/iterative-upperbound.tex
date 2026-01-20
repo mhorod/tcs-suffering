@@ -61,3 +61,108 @@ Niech \(p_i \coloneq \pars{\frac{\beta_i}{n}}^2\). Z lematu \ref{binary-random-v
 \[
 	\prob\pars{\sum_{t \in [n]} Y_t > k} \leq \prob(\Bin(n, p_i) > k)
 \]
+
+Teraz przy użyciu tego pokażemy, że \( \prob\pars{\neg\mathcal{E}_{i+1}} \) jest małe, jeżeli \( \mathcal{E}_i \) zaszło.
+Najpierw policzymy prawdopodobieństwo warunkowe:
+\begin{align*}
+	\prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i} &= \prob\pars{\nu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i} \\
+	&\leq \prob\pars{\mu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i} \\
+	&= \prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i} \\
+\end{align*}
+Tutaj w ostatniej równości robimy dwie rzeczy: korzystamy z faku, że jeżeli \( \mathcal{E}_i \) zaszło, to \(\mu_{i+1} = \sum_{t \in [n]} Y_t \), oraz 
+z definicji \( \beta_{i+1} \) i \( p_i \) podstawiamy \( \beta_{i+1} = 2np_i \)
+\begin{align*}
+	\prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i} &\leq \frac{\prob\pars{\sum_{t \in [n]} Y_t > 2np_i}}{\prob\pars{\mathcal{E}_i}} \\
+	&\leq \frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}} \\
+\end{align*}
+W drugiej nierówności korzystamy z faktu z lematu \ref{binary-random-variable-binomial-upperbound}. Przekształacając dalej:
+\begin{align*}
+	\frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}} &\leq \frac{1}{e^{\frac{np_i}{3}}\prob\pars{\mathcal{E}_i}} \\
+	&\leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_i}}
+\end{align*}
+Na koniec korzystamy z nierówności Czernowa (lemat \ref{chernow-for-power-of-two}), oraz zakładamy, że \( np_i \geq 3\alpha\ln(n) \).
+Ostatecznie otrzymujemy:
+\[
+	\prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i} \leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_i}}
+\]
+
+Teraz możemy ograniczyć \( \prob\pars{\neg\mathcal{E}_{i+1}} \):
+\begin{align*}
+	\prob\pars{\neg\mathcal{E}_{i+1}} &= \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_{i+1} \mid \neg\mathcal{E}_i}\prob\pars{\neg\mathcal{E}_i} \\
+	&\leq \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_i} \\
+	&\leq \frac{1}{n^{\alpha}} + \prob\pars{\neg\mathcal{E}_i}
+\end{align*}
+Gdzie na końcu ponownie korzystamy z założenia, że \( np_i \geq 3\alpha\ln(n) \).
+Pokazujemy przez indukcję:
+\[
+	\prob\pars{\neg\mathcal{E}_{i+1}} \leq \frac{1}{n^{\alpha}} + \prob\pars{\neg\mathcal{E}_i} \leq \frac{1}{n^{\alpha}} + \frac{i}{n^{\alpha}} = \frac{i + 1}{n^{\alpha}}
+\]
+Ponieważ wiemy, że \(\prob\pars{\mathcal{E}_4} = 1 \), zatem \( \prob\pars{\neg\mathcal{E}_4} = 0 \leq \frac{4}{n^\alpha} \)
+
+Teraz wracamy do \( i^* \) i definiujemy je jako minimalne \( i \) takie, że \( np_i < 3\alpha\ln n \).
+Możemy zauważyć, że to co pokazaliśmy z indukcji jest prawdziwe jedynie dla \( i \leq i^* \), zatem \( \prob\pars{\neg\mathcal{E}_{i^*}} \leq \frac{i^*}{n^{\alpha}} \)
+
+Chcemy jeszcze znaleźć \( i^* \) więc rozważamy następujący ciąg nierówności:
+\[
+	np_i < 3\alpha\ln n
+\]
+Podstawiamy \( p_i = \pars{\frac{\beta_i}{n}}^2 \)
+\[
+	n\pars{\frac{\beta_i}{n}}^2 < 3\alpha\ln n
+\]
+Tworzymy mocniejszą nierówność, korzystając z faktu, że \( \beta_i \leq \frac{n}{2^{2^{i-4}}} \)
+\[
+	n\pars{\frac{\frac{n}{2^{2^{i-4}}}}{n}}^2 < 3\alpha\ln n
+\]
+\[
+	\frac{n}{3\alpha\ln n} < 2^{2^{i-4} \cdot 2} = 2^{2^{i-3}}
+\]
+Logarytmujemy stronami i podstawiamy \( c = \frac{1}{\ln2} \):
+\[
+	c \cdot \ln n - c \cdot \ln(3\alpha) - \log_2 \ln n < 2^{i-3}
+\]
+Ponownie tworzymy mocniejszą nierówność przez zwiększenie lewej strony:
+\[
+	c \cdot \ln n < 2^{i-3}
+\]
+Znowu logarytmujemy stronami:
+\[
+	\ln c + \log_2 \ln n < i-3
+\]
+Ostatecznie otrzymujemy
+\[
+	\log_2 \ln n + \mathcal{O}(1) < i \implies i^* \leq \log_2 \ln n + \mathcal{O}(1)
+\]
+Znając \( i^* \) możemy dalej ograniczać prawdopodobieństwo, że \( \nu_i(n) \) będzie duże dla \( i \geq i^* \)
+\begin{align*}
+	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} &\leq \prob\pars{\mu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} \\
+	&= \prob\pars{\sum_{t \in [n]} Y_t > 9\alpha\ln n \mid \mathcal{E}_{i^*}} \\
+	&\leq \frac{\prob\pars{\Bin(n, p_i) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}} \\
+	&\leq \frac{\prob\pars{\Bin(n, \frac{3\alpha\ln n}{n}) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}} \\
+	&\leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_{i^*}}}
+\end{align*}
+Pierwsze przekształcenia robimy tak samo jak wyżej. Ostatnia nierówność wynika z Czernowa:
+\[
+	\prob\pars{X > (1 + 2) \cdot 3\alpha\ln n} \leq \pars{\frac{e^2}{3^3}}^{3\alpha\ln n} < \pars{e^{-\frac{1}{3}}}^{3\alpha\ln n} = \frac{1}{n^{\alpha}}
+\]
+Z tego otrzymujemy:
+\[
+	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n} \leq \prob\pars{\neg\mathcal{E}_{i^*}} + \frac{1}{n^{\alpha}} \leq \frac{i^* + 1}{n^{\alpha}}
+\]
+Zostało nam ostatnie warunkowe ograniczenie:
+\begin{align*}
+	\prob\pars{\mu_{i^* + 2}(n) \geq \beta \mid \nu_{i^* + 1}(n) \leq 9\alpha\ln n} &\leq \frac{\prob\pars{\Bin(n, \pars{\frac{9\alpha\ln n}{n}}^2) \geq \beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}} \\
+	&\leq \frac{n^{\beta}\pars{\frac{9\alpha\ln n}{n}}^{2\beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}} \\
+	&\leq \frac{\pars{9\alpha\ln n}^4}{n^{2\beta -2}\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}}
+\end{align*}
+Gdzie w pierwszej nierówności jako \( p \) dla w rozkładzie dwumianowym podstawiamy prawdopodobieństwo, że dwukrotnie trafimy do wystarczająco wypełnionych urn. Druga nierówność to union bound.
+
+Teraz mamy wszystko, żeby pokazać górne ograniczenie.
+\begin{align*}
+	\prob\pars{\nu_{i^* + 2 + 2\alpha}(n) \geq 1} &\leq \prob\pars{\mu_{i^* + 2 + 2\alpha}(n) \geq 1} \\
+	&\leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha} \\
+	&\leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha \mid \nu_{i^* + 1}(n) < 9\alpha\ln n}\prob\pars{\nu_{i^* + 1}(n) < 9\alpha\ln n} + \prob\pars{\nu_{i^* + 1}(n) < 9\alpha\ln n} \\
+	&\leq \frac{\pars{9\alpha\ln n}^4}{n^{2*2\alpha - 2}} + \frac{i^* + 1}{n^{\alpha}} \\
+	&< \frac{1}{n^{\alpha - 1}}
+\end{align*}
+Gdzie ostatnia nierówność zachodzi dla odpowiednio dużego \( n \).
