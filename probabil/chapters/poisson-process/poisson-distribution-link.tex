@@ -132,7 +132,7 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 	\begin{enumerate}
 		\item \(N(0) = 0\)
 		\item Proces ma niezależne przyrosty
-		\item \(\forall_{t,s}\prob\pars{N(s+t) - N(t) = n} = e^{-\lambda S}\frac{(\lambda S)^n}{n!}\)
+		\item \(\forall_{t,s}\prob\pars{N(s+t) - N(t) = n} = e^{-\lambda s}\frac{(\lambda s)^n}{n!}\)
 	\end{enumerate}
 	Wtedy jest to proces Poissona z parametrem \(\lambda\).
 \end{theorem}
@@ -143,7 +143,7 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 		\item Niezależność i stacjonarność przyrostów również bezpośrednio z założeń
 		\item
 			\[
-				\lim_{t \to 0}\frac{\prob\pars{N(t) = 1}}{t} = \lim_{t \to 0}\frac{e^{-\lambda S}\frac{\lambda t}{1!}}{t} =
+				\lim_{t \to 0}\frac{\prob\pars{N(t) = 1}}{t} = \lim_{t \to 0}\frac{e^{-\lambda s}\frac{\lambda t}{1!}}{t} =
 					\lim_{t \to 0}\lambda e^{-\lambda t} = \lambda
 			\]
 			

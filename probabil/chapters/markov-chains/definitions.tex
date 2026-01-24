@@ -3,9 +3,15 @@
 \begin{definition}
 	\label{stochastic-process-definition}
 	\textbf{Procesem stochastycznym} nazywamy dowolny zbiór zmiennych losowych \(\set{X_t : t \in T}\).
-	Zwykle \(t\) oznacza moment w czasie, a \(X_t\) jest \textbf{stanem} tego procesu w czasie \(t\). Zbiór stanów często oznaczany jest jako \(S\).\\
-	Mówimy, że proces jest \textbf{skończony}, jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
-	Proces jest także \textbf{dyskretny}, jeśli zmienne te przyjmują wartości ze zbioru przeliczalnego.
+	Zwykle \(t\) oznacza moment w czasie, a \(X_t\) jest \textbf{stanem} tego procesu w czasie \(t\). Zbiór stanów często oznaczany jest jako \(S\).
+\end{definition}
+
+\begin{definition}
+	Proces jest \textbf{skończony}, jeśli zmienne \(X_t\) przyjmują skończenie wiele wartości.
+\end{definition}
+
+\begin{definition}
+	Proces jest \textbf{dyskretny}, jeśli zmienne \(X_t\) przyjmują wartości ze zbioru przeliczalnego.
 \end{definition}
 
 \begin{definition}
@@ -34,8 +40,11 @@ Za właściwość 2. mówi nam, że bez znaczenia na czas, prawdopodobieństwo p
 Warto zaznaczyć że niektóre źródła definiują łańcuchy Markowa jako procesy spełniające wyłącznie właściwość 1., a procesy spełniające 1. oraz 2. nazywają łańcuchami Markowa czasu homogenicznego, jednak na probabilu dla uproszczenia terminologii używamy powyższej definicji.
 
 \begin{definition}
-	Oznaczamy dalej \(p_{ij} = \prob(X_t = j \mid X_{t-1} = i)\). \\
-	\textbf{Macierzą przejścia} nazywamy macierz \(\mathbf{P}\) zadaną współczynnikami \(p_{ij}\).
+	Oznaczamy dalej \(p_{ij} = \prob(X_t = j \mid X_{t-1} = i)\).
+\end{definition}
+
+\begin{definition}
+	\textbf{Macierzą przejścia} łańcucha Markowa nazywamy macierz \(P\) zadaną współczynnikami \(p_{ij}\).
 \end{definition}
 
 \begin{definition}
@@ -47,9 +56,9 @@ Warto zaznaczyć że niektóre źródła definiują łańcuchy Markowa jako proc
 %<*probabil-2025-11-19-rozklad-stacjonarny>
 %<*probabil-egzamin-10-rozklad-stacjonarny>
 \begin{definition}
-	\textbf{Rozkładem stacjonarnym} nazywamy wektor \( \bar \pi \) taki, że \( \bar \pi = \bar \pi \mathbf{P} \) oraz \( \sum_i \bar \pi_i = 1 \)
+	\textbf{Rozkładem stacjonarnym} nazywamy wektor \( \pi \) taki, że \( \pi = \pi P \) oraz \( \sum_{i \in S} \pi_i = 1 \)
 \end{definition}
-Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p(n, n + 1) = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
+Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p_{n, n + 1} = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
 
 \begin{theorem} Istnienie rozkładu stacjonarnego\\
 	\label{stationary-distribution-existance}
@@ -80,9 +89,9 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 		\sum_{x \in S} \overline{\pi_{z, x}} p_{x, y} &= \sum_{x \in S} \sum_{t=0}^{\infty} \prob_z(X_t = x \land T_z^+ > t) p_{x, y}\\
 		&= \sum_{t=0}^\infty \prob_z(X_{t+1} = y \land T_z^+ \geq t + 1)\\
 		&= \sum_{t=1}^\infty \prob_z(X_{t} = y \land T_z^+ \geq t)\\
-		&= \overline{\pi_{z, x}} p_{z, y} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t)\\
-		&= \overline{\pi_{z, x}} p_{z, y} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)\\
-		&= \overline{\pi_{z, x}} p_{z, y}
+		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t)\\
+		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)\\
+		&= \overline{\pi_{z, y}}
 	\end{align*}
 	\(\prob_z(X_0 = y) = \prob_z(X_{T_z^+} = y)\) ponieważ oba są indykatorami \(x = y\).
 \end{proof}
@@ -159,14 +168,11 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 
 %<*probabil-egzamin-9-okres-stanu>
 %<*probabil-2025-11-19-okres-stanu>
-\begin{definition} \textbf{Okres Stanu}
-	Niech \( i \in S \).\\
-	Definiujemy:
-	\[
-		\mathcal{T}(i) = \pars{t \geq 1 | p_{ii}(t) > 0}
-	\]
-	Czyli zbiór takich \( t \), że jesteśmy w stanie dojść z \( i \) do \( i \) w t krokach.\\
-	\textbf{Okres stanu} \( i \) definiujemy jako \(o(i) = \gcd\pars{\mathcal{T}(i)}\).
+\begin{definition}
+	Dla \( i \in S \) definiujemy \(\mathcal{T}(i) = \set{t \geq 1 \mid p_{ii}(t) > 0}\). Jest to zbiór takich \( t \), że jesteśmy w stanie dojść z \( i \) do \( i \) w t krokach.
+\end{definition}
+\begin{definition} 
+	\textbf{Okres stanu} dla \(i \in S\) definiujemy jako \(o(i) = \gcd\pars{\mathcal{T}(i)}\)
 \end{definition}
 
 \begin{figure}[H]

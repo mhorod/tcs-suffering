@@ -44,7 +44,7 @@
 	\[ \mathbb{E}\left[ r_{uv} \right] + \mathbb{E}\left[ r_{vu} \right] \le \mathbb{E}\left[ r_{(vu)(vu)} \right] = \frac{1}{\pi_{vu}} = 2|E_G| \]
 \end{proof}
 
-\begin{theorem}[Twierdzenie 7.15 P\&C] Czas pokrycia grafu \( G = (V, E) \) jest ograniczony od góry przez \( 2|E|\left( |V|-1 \right)  \).
+\begin{theorem}[Twierdzenie 7.15 P\&C] Wartość oczekiwana czasu pokrycia grafu \( G = (V, E) \) jest ograniczona od góry przez \( 2|E|\left( |V|-1 \right)  \).
 \end{theorem}
 \begin{proof}
 	Niech \(T\) będzie drzewem rozpinającym \(G\). Przejdziemy po jego wierzchołkach w kolejności DFSa. Niech \(v_0,v_1,\ldots,v_{2\left|V\right|-2}\) będą kolejnymi wierzchołkami odwiedzonymi przez DFSa. Oczekiwany czas pokrycia grafu jest ograniczony przez oczekiwany czas kolejnego odwiedzania wierzchołków wypisanych w takiej kolejności. Zatem

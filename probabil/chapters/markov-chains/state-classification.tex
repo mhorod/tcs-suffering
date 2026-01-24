@@ -55,7 +55,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 \begin{definition}
 	Stan \(i\) jest \textbf{okresowy} jeśli \( o(i) > 1 \), czyli jego okres jest większy od 1.
 	Łańcuch jest okresowy jeśli posiada co najmniej jeden stan okresowy.
-	Stan lub łańcuch, które nie są okresowe nazywamy nieokresowymi.
+	Stan lub łańcuch, który nie jest okresowy nazywamy \textbf{nieokresowym}.
 \end{definition}
 %</probabil-egzamin-9-nieprzywiedlnosc-2>
 
@@ -68,10 +68,10 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 
 	Z nieprzywiedlności mamy:
 	\[
-		\exists_m p_{ij}(m) > 0
+		\exists_m \, p_{ij}(m) > 0
 	\]
 	\[
-		\exists_l p_{ji}(l) > 0
+		\exists_l \, p_{ji}(l) > 0
 	\]
 	Niech \( n \in \mathcal{T}(j) \)
 	\[
@@ -82,13 +82,13 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	\]
 	To znaczy chcemy dojść z \( i \) do \( i \) w \(m + n + l\) krokach, więc możemy iść z \( i \) do \( j \), z \( j \) do \( j \) i z \( j \) do \( i \). W drugim przypadku pomijamy \( n \) kroków z \( j \) do \( j \).
 	\[
-		m+n+l \in \mathcal{T}(i) \implies o(i)|m+n+l
+		m+n+l \in \mathcal{T}(i) \implies o(i) \mid m+n+l
 	\]
 	\[
-		m+l \in \mathcal{T}(i) \implies o(i)|m+l
+		m+l \in \mathcal{T}(i) \implies o(i) \mid m+l
 	\]
 	\[
-		\implies o(i)|n \implies o(i) \leq o(j)
+		\implies o(i) \mid n \implies o(i) \leq o(j)
 	\]
 	Analogicznie dowodzimy w drugą stronę, otrzymując równość.
 \end{proof}
@@ -96,32 +96,31 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 
 %<*probabil-egzamin-9-wlasnosc-nieprzywiedlnego-nieokresowego>
 \begin{lemma}
-	Jeśli \( \pars{ X_t \mid t \in \natural } \) jest nieokresowym (okres jest równy 1) i nieprzywiedlnym łańcuchem Markowa, to:
+	Jeśli \( \set{ X_t \mid t \in \natural } \) jest nieokresowym i nieprzywiedlnym łańcuchem Markowa, to:
 	\[
-		\forall_{i, j \in S} \exists_{n_0} \forall_{n \geq n_0} p_{ij}(n) > 0
+		\forall_{i, j \in S} \, \exists_{n_0} \, \forall_{n \geq n_0} \, p_{ij}(n) > 0
 	\]
 \end{lemma}
 \begin{proof}
 	Lemat Schura:
 	\[
-		\forall_{x \subset \natural^+, \gcd(x) = 1} \exists_{m_0} \forall_{m \geq m_0} 
-		\exists_{r \geq 1, x_1, \ldots, x_r \in x, l_1, \ldots, l_r \ in \natural} : \sum_{i \in [r]}l_ix_i = m
+		\forall_{x \subset \natural^+, \gcd(x) = 1} \, \exists_{m_0} \, \forall_{m \geq m_0} \,
+		\exists_{r \geq 1, x_1, \ldots, x_r \in x, l_1, \ldots, l_r \in \natural} \sum_{i \in [r]}l_ix_i = m
 	\]
-	Niech \( i, j \in S \)\\
-	Z lematu Schura mamy:
+	Niech \( i, j \in S \). Z lematu Schura mamy:
 	\[
-		\exists_{m_0} \forall_{m \geq m_0} \exists_{r \geq 1, m_1, \ldots, m_r \in \mathcal{T}(j), l_1, \ldots, l_r \in \natural} : \sum_{i \in [r]} l_im_i = m
+		\exists_{m_0} \, \forall_{m \geq m_0} \, \exists_{r \geq 1, m_1, \ldots, m_r \in \mathcal{T}(j), l_1, \ldots, l_r \in \natural} \sum_{i \in [r]} l_im_i = m
 	\]
 	\[
 		p_{jj}(m) \geq \prod_{i \in [r]}p_{jj}(l_im_i) \geq \prod_{i \in [r]} p_{jj}(m_i)^{l_i} > 0
 	\]
 	Z kolei z nieprzywiedlności mamy:
 	\[
-		i \rightarrow j \implies \exists_{m_1} : p_{ij}(m_1) > 0
+		i \rightarrow j \implies \exists_{m_1} \, p_{ij}(m_1) > 0
 	\]
 	Niech \( n_0 = m_0 + m_1 \)
 	\[
-		\forall_{n \geq n_0} p_{ij}(n) \geq p_{ij}(m_1)p_{jj}(n-m_1) > 0
+		\forall_{n \geq n_0} \, p_{ij}(n) \geq p_{ij}(m_1)p_{jj}(n-m_1) > 0
 	\]
 \end{proof}
 %</probabil-2025-11-19-lancuchy-nieprzywiedlne>
@@ -137,7 +136,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	\[
 		T_j^+ = \min\pars{n \in \natural_1 \mid X_n = j}
 	\]
-	W drugim przypadku pomijamy stan początkowy \( n = 0 \)
+	W drugim przypadku pomijamy stan początkowy \( n = 0 \).
 \end{definition}
 
 \begin{definition}
@@ -171,7 +170,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	\]
 	dodatkowo
 	\[
-		\ev{T_{i, j}} = \ev{T_j^+ \mid X_0 = i} = \sum_{n = 1}^\infty n \prob(T_j^+ = n \mid X_0 = i)
+		\ev{T_{i, j}} = \ev{T_j^+ \mid X_0 = i} = \sum_{n = 1}^\infty n \prob(T_j^+ = n \mid X_0 = i) = \sum_{n = 1}^\infty n f_{ij}(n)
 	\]
 \end{definition}
 
@@ -213,7 +212,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 		f_{1, 1} = \prob(T_1^+ < \infty \mid X_0 = 1) = 1 - \lim_{t \to \infty} \prob(T_1^+ > t \mid X_0 = 1) = 1 - \lim_{t \to \infty} \frac{1}{t+1} = 1
 	\]
 	\[
-		\ev{T_{1, 1}} = \sum_{t = 1}^\infty t \prob(T_i^+ = t \mid X_0 = i) = \sum_{t = 1}^\infty t \pars{\frac{1}{2} \dots \frac{t-1}{t} \frac{1}{t+1}} = \sum_{t = 1}^\infty \frac{1}{t+1} \to \infty
+		\ev{T_{1, 1}} = \sum_{t = 1}^\infty t \prob(T_i^+ = t \mid X_0 = 1) = \sum_{t = 1}^\infty t \pars{\frac{1}{2} \dots \frac{t-1}{t} \frac{1}{t+1}} = \sum_{t = 1}^\infty \frac{1}{t+1} \to \infty
 	\]
 	Z \(f_{1, 1} = 1\) stan 1 jest powracający, a z \(\ev{T_{1, 1}} \to \infty\) jest zerowy.
 \end{example}
@@ -222,35 +221,38 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 \begin{theorem}
 	W skończonym, nieprzywiedlnym łańcuchu Markowa zachodzi
 	\[
-		\forall_{x, y} \quad \ev{T_{x, y}} < \infty
+		\forall_{x, y \in S} \, \ev{T_{x, y}} < \infty
 	\]
 \end{theorem}
 \begin{proof}
 	Nieprzywiedlność oraz skończoność dają nam
 	\[
-		\exists_{r > 0, \varepsilon > 0} \quad \forall_{x, y \in S} \quad \exists_{j \in [r]} \quad p_{x, y}(j) > \varepsilon
+		\exists_{r > 0, \varepsilon > 0} \, \forall_{x, y \in S} \, \exists_{j \in [r]} \, p_{x, y}(j) > \varepsilon
 	\]
-	Mimo tego, że linia ta może początkowo być trudna do przetworzenia, jest całkiem prosta. Nieprzywiedlność mówi nam że dla każdego \((x, y)\), \(y\) jest osiągalne z \(x\), a więc \(\exists_n \quad p_{x, y}(n) > 0\). Nasze \(r\) to po prostu maksimum po tych \(n\) dla wszystkich par \((x, y)\), a \(\varepsilon\) to minimum z wartości \(p_{x, y}(n)\).
+	Mimo tego, że linia ta może początkowo być trudna do przetworzenia, jest całkiem prosta. Nieprzywiedlność mówi nam że dla każdego \((x, y)\), \(y\) jest osiągalne z \(x\), a więc \(\exists_n \, p_{x, y}(n) > 0\). Nasze \(r\) to po prostu maksimum po tych \(n\) dla wszystkich par \((x, y)\), a \(\varepsilon\) to minimum z wartości \(p_{x, y}(n)\).
 	
 	Następnie chcemy pokazać, że
 	\[
 		\prob(T_y^+ > kr \mid X_0 = x) \leq \prob(T_y^+ > (k - 1)r \mid X_0 = x)(1 - \varepsilon)
 	\]
-	Dlaczego tak jest? Otóż wiemy, że dla każdej możliwej wartości \(z = X_{(k-1)r}\) zachodzi \(\exists_{j \in [r]} \quad p_{z, y}((k - 1)r + j) > \varepsilon\), a więc z prawdopodobieństwem przynajmniej \(\varepsilon\) odwiedzimy \(y\) w następnych \(r\) krokach. W takim razie, jeśli \(T_y^+ > (k-1)r\), to \(\prob(T_y^+ \leq kr) \geq \varepsilon\), a więc prawdopodobieństwo tego, że nie dojdziemy do \(y\) jest ograniczone od góry przez \(1 - \varepsilon\), co daje nam naszą nierówność.
+	Dlaczego tak jest? Otóż wiemy, że dla każdej możliwej wartości \(z = X_{(k-1)r}\) zachodzi 
+	\[
+		\exists_{j \in [r]} \, p_{z, y}((k - 1)r + j) > \varepsilon
+	\]
+	a więc z prawdopodobieństwem przynajmniej \(\varepsilon\) odwiedzimy \(y\) w następnych \(r\) krokach. W takim razie, jeśli \(T_y^+ > (k-1)r\), to \(\prob(T_y^+ \leq kr) \geq \varepsilon\), a więc prawdopodobieństwo tego, że nie dojdziemy do \(y\) jest ograniczone od góry przez \(1 - \varepsilon\), co daje nam naszą nierówność.
 	
 	Następnie, poprzez prostą indukcję można pokazać, że
 	\[
 		\prob(T_y^+ > kr \mid X_0 = x) \leq (1 - \varepsilon)^k
 	\]
-	Teraz, przechodząc do finalnego dowodu
+	Teraz, przechodząc do finalnego dowodu i korzystając z \ref{expected-value-of-natural-random-variable}
 	\begin{align*}
 		\ev{T_{x, y}} &= \ev{T_y^+ \mid X_0 = x}\\
-		&=\footnotemark \sum_{t = 0}^\infty \prob(T_y^+ > t \mid X_0 = x)\\
+		&= \sum_{t = 0}^\infty \prob(T_y^+ > t \mid X_0 = x)\\
 		&\leq \sum_{k = 0}^\infty r \prob(T_y^+ > kr \mid X_0 = x)\\
 		&\leq r \sum_{k = 0}^\infty (1 - \varepsilon)^k \\
 		&< \infty
     \end{align*}
-	\footnotetext{Wynika to z \ref{expected-value-of-natural-random-variable}}
 \end{proof}
 %</probabil-2025-11-19-stany-powracajace>
 %</probabil-egzamin-9-wlasnosc-nieprzywiedlnego-skonczonego>
