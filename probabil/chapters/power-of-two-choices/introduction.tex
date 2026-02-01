@@ -5,7 +5,9 @@ W tej sekcji wracamy do znanego nam już problemu kul i urn. W \ref{balls-and-bi
 \]
 Na wykładzie było powiedziane, że jest to prawda nie tylko dla \(\frac{2}{n}\), ale dla \(\frac{1}{n^\alpha}\) dla dowolnego \(\alpha\), ale nie było na to żadnego dowodu, a więc raczej nie trzeba tego wiedzieć.
 
-Rozważmy teraz wariant standardowego eksperymentu z kulami i urnami. Rzucamy \(n\) kul sekwencyjnie do \(n\) urn i dla każdej kuli symulujemy dwa rzuty. Kula trafia do tej urny z dwóch wylosowanych która jest mniej wypełniona, a remisy rozsrzygamy dowolnie. Okazuje się, że znacząco zmienia to rozkład \(\max(X_1, \dots, X_n)\), co pokazuje następujące twierdzenie
+Rozważmy teraz wariant standardowego eksperymentu z kulami i urnami. %
+%<*probabil-egzamin-24-26-introduction-1>
+Rzucamy \(n\) kul sekwencyjnie do \(n\) urn i dla każdej kuli symulujemy dwa rzuty. Kula trafia do tej urny z dwóch wylosowanych która jest mniej wypełniona, a remisy rozsrzygamy dowolnie. Okazuje się, że znacząco zmienia to rozkład \(\max(X_1, \dots, X_n)\), co pokazuje następujące twierdzenie
 
 \begin{theorem}
 	\label{power-of-two-choices-theorem}
@@ -19,10 +21,12 @@ Rozważmy teraz wariant standardowego eksperymentu z kulami i urnami. Rzucamy \(
 	\]
 \end{theorem}
 Dodatkowo, jeśli symulujemy \(d\) rzutów zamiast dwóch, w powyższym wzorze zamiast \(\ln 2\) jest obecne \(\ln d\) i musimy zamienić \(\mathcal{O}_\alpha(1)\) na jakieś \(\mathcal{O}_{d, \alpha}(1)\). Widzimy, że nie zmienia to bardzo naszych ograniczeń, a dowody tych wariantów są bardzo podobne, a więc dla uproszczenia nasze rozumowanie będziemy przeprowadzać dla \(d = 2\).
+%</probabil-egzamin-24-26-introduction-1>
 
 Dla demonstracji tego, o ile lepsze jest losowanie z dwoma symulacjami od standardowego eksperymentu, możemy użyć \href{https://medium.com/the-intuition-project/load-balancing-the-intuition-behind-the-power-of-two-random-choices-6de2e139ac2f}{artykułu}, którego autor przeprowadził symulację komputerową wrzucenia miliona kul do tysiąca urn. Histogram po lewej pokazuje rozkład liczby kul w urnie dla losowego przydzielenia urn, a histogram po prawej dla wyboru lepszej urny z dwóch.
 \includegraphics[width=\linewidth]{img/power-of-two-choices/simulated-distributions.png}
 
+%<*probabil-egzamin-24-26-introduction-2>
 \subsection{Lematy pomocnicze}
 \begin{lemma}
 	\label{chernow-for-power-of-two}
@@ -75,6 +79,7 @@ Dla demonstracji tego, o ile lepsze jest losowanie z dwoma symulacjami od standa
 \end{proof}
 
 \begin{lemma} (Lemat dualny dla \ref{binary-random-variable-binomial-upperbound}) 
+	\label{binary-random-variable-binomial-lowerbound}
 	Niech \(X_1, \dots, X_n\) to zmienne losowe, \(Y_1, \dots, Y_n\) to binarne zmienne losowe, \(Y_i = f_i(X_1, \dots, X_i)\) (jest wyznaczona przez \(X_1, \dots, X_i\)) oraz \(Z \sim \Bin(n, p)\) jest niezależna od poprzednich zmiennych. Jeśli dla każdego \(i \in [n]\) oraz \((x_1, \dots, x_{i - 1})\) takiego, że \(\prob((X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) > 0\) zachodzi
 	\[
 		\prob(Y_i = 1 \mid (X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) \geq p
@@ -82,6 +87,10 @@ Dla demonstracji tego, o ile lepsze jest losowanie z dwoma symulacjami od standa
 	to
 	\[
 		\prob\pars{\sum_{i = 1}^n Y_i > k} \geq \prob(Z > k)
+	\]
+	a więc też
+	\[
+		\prob\pars{\sum_{i = 1}^n Y_i < k} \leq \prob(Z < k)
 	\]
 \end{lemma}
 \begin{proof}
@@ -101,3 +110,4 @@ Prosto widzimy, że
 	\forall_{i \in [n], \, t \in [n]} \,\, \nu_i(t) \leq \mu_i(t)
 \]
 bo w każdej urnie zawierającej \(\geq i\) kul jest przynajmniej jedna kula wysokości \(\geq i\). 
+%</probabil-egzamin-24-26-introduction-2>
