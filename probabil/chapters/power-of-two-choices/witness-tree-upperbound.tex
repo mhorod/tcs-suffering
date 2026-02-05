@@ -1,0 +1,149 @@
+Dowód ograniczenia górnego przez drzewa świadczące wzorowany \href{https://dl.acm.org/doi/10.1145/792538.792546}{artykułem}.
+
+\subsection*{Definicje drzew świadczących}
+
+Jak poprzednio, rzucając kulę losujemy jednostajnie \(d \geq 2\) urn i wrzucamy kulę do najmniejszej.
+Będziemy dalej nazywać \(i\)-tą wylosowaną urnę dla kuli \(b\) \(i\)-tą lokacją kuli \(b\).
+
+\begin{definition}
+    \textbf{Drzewo świadczące} rzędu \(L\) to pełne, ukorzenione drzewo \(d\)-arne wysokości \(L\).
+    Każdy wierzchołek w drzewie reprezentuje pewną kulę, niekoniecznie unikalną - kula może być reprezentowana przez wiele wierzchołków.
+    Dodatkowo, dla każdego wierzchołka \(v\) niebędącego liściem, kule odpowiadające dzieciom \(v\) muszą już znajdować się w urnach w momencie rzucania kuli \(v\).
+\end{definition}
+
+Ogólna idea dowodu będzie następująca; rozważmy wszystkie drzewa świadczące.
+Powiemy za moment, co oznacza że jakieś konkretne drzewo świadczące jest \textit{aktywne}, a następnie pokażemy, że jeśli w którejś z urn jest dużo kul, to któreś z drzew świadczących jest \textit{aktywne}.
+Tym samym prawdopodobieństwo, że któraś urna ma dużo kul jest ograniczone przez prawdopodobieństwo, że jest jakieś \textit{aktywne} drzewo świadczące.
+
+\begin{definition}
+    Dodajmy sobie dodatkową intepretację dla struktury dowolnego drzewa świadczącego.
+
+    \begin{itemize}
+        \item \textbf{Krawędziozdarzenie} (\textit{"edge event"}) - dla krawędzi \(e = \pars{u, v}\), gdzie \(v\) jest \(i\)-tym dzieckiem \(u\),
+        krawędź \(e\) określa zdarzenie, że \(i\)-ta lokacja kuli \(u\) jest taka sama, co któraś z lokacji kuli \(v\).
+        \item \textbf{Liściozdarzenie} (\textit{"leaf event"}) - liść drzewa świadczącego \(v\) określa zdarzenie, że każda z \(d\) lokacji kuli \(v\) wskazuje na urnę, gdzie znajdują się już co najmniej 3 inne kule, które nie są zareprezentowane wierzchołkami drzewa.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Krawędź lub liść drzewa świadczącego są aktywne, jeśli podczas rzucania kul do urn zaszły odpowiadające im krawędzio- lub liściozdarzenia.
+    Drzewo świadczące jest aktywne, jeśli wszystkie jego krawędzie i liście są aktywne.
+\end{definition}
+
+\subsection*{Konstrukcja drzew świadczących}
+
+Z początku będziemy zakładać, że zdarzenia opisywane przez drzewa świadczące są niezależne od siebie.
+W szczególności, rozważamy tylko drzewa, gdzie wierzchołki reprezentują parami różne kule - ta prostsza wersja posłuży później do pełnego dowodu.
+
+\begin{lemma}
+    Jeśli któraś z urn posiada więcej niż \(L+3\) kule, to istnieje aktywne drzewo świadczące rzędu \(L\).
+\end{lemma}
+\begin{proof}
+    Niech urna \(x\) ma co najmniej \(L+4\) kule. Skonstruujemy aktywne drzewo następująco.
+
+    Niech korzeń reprezentuje ostatnio wrzuconą kulę z \(x\). Zauważmy, że każda z \(d\) lokacji tej kuli wskazuje na urnę, gdzie były już \(L+3\) kule.
+    Przypisujemy dzieciom korzenia kule, które znajdowały się najwyżej w tych urnach w momencie wrzucania kuli korzenia. Dalej postępujemy tak samo z dziećmi aż całe drzewo zostanie skonstruowane.
+
+    Można zauważyć, że kula korzenia została wrzucona do swojej urny po co najmniej \(L+3\) innych kulach. Podobnie w momencie wrzucania kul każdego z dzieci korzenia, w ich urnach były już co najmniej \(L+2\) kule itd.
+
+    Zauważmy też, że każda kula reprezentowana przez liść miała już co najmniej 3 inne kule w urnie w momencie jej wrzucania.
+
+    Otrzymaliśmy drzewo świadczące o wszystkich krawędziach i liściach aktywnych, więc jest to drzewo aktywne.
+\end{proof}
+
+Jeśli udałoby się ograniczyć z góry prawdopodobieństwo na istnienie aktywnego drzewa świadczącego rzędu \(L\), to byłoby to także ograniczenie na prawdopodobieństwo, że istnieje urna o co najmniej \(L+4\) kulach. 
+
+Jeśli w drzewie świadczącym jest \(m\) wierzchołków, to możemy przypisać im kule na \(n^m\) sposobów.
+Prawdopodobieństwo, że krawędź \(\pars{u,v}\) jest aktywna jest co najwyżej \(\frac{d}{n}\), ponieważ prawdopodobieństwo, że \(i\)-ta lokacja \(u\) trafi w wybraną z lokacji \(v\) jest co najwyżej \(\frac{1}{n}\).
+Z niezależności prawdopodobieństwo, że wszystkie krawędzie są aktywne jest co najwyżej \(\pars{\frac{d}{n}}^{m-1}\).
+Prawdopodobieństwo aktywacji konkretnego liścia jest co najwyżej \(\frac{1}{3^d}\), ponieważ każda z lokacji kuli liścia musi trafić w urnę o co najmniej \(3\) innych kulach - a takich urn jest co najwyżej \(\frac{n}{3}\).
+Tym samym gdy oznaczymy przez \(q\) liczbę liści w drzewie, to prawdopodobieństwo aktywacji wszystkich liści jest co najwyżej \(3^{-dq}\).
+
+Łącząc to wszystko ze sobą i nakładając union bounda dostajemy ograniczenie na istnienie aktywnego drzewa świadczącego:
+
+\[
+    n^m \cdot \pars{\frac{d}{n}}^{m-1} \cdot 3^{-dq}
+\]
+
+Zachodzą także nastepujące ograniczenia: \(m \leq 2q\) oraz \(2d^2 \leq 3^d\). Gdy podstawimy je wraz z \(q = d^L\) dostaniemy ograniczenie:
+
+\begin{align*}
+    n^m \cdot \pars{\frac{d}{n}}^{m-1} \cdot 3^{-dq} &= n \cdot d^{m-1} \cdot 3^{-dq} \leq n \cdot d^{2q} \cdot 3^{-dq}\\
+    &\leq n \cdot 2^{-q} \cdot 3^{dq} \cdot 3^{-dq} = n \cdot 2^{-d^L}
+\end{align*}
+
+A gdy weźmiemy \(L \geq \log_d \log_2 n + \log_d(1 + \alpha)\) dla \(\alpha > 0\), ograniczymy prawdopodobieństwo istnienia odpowiedniego aktywnego drzewa świadczącego przez \(n^{-\alpha}\).
+
+\subsection*{Konstrukcja pełnych drzew świadczących}
+
+W poprzedniej części dowodu rozważaliśmy tylko prawdopodobieństwo aktywacji drzew świadczących o parami różnych kulach.
+W rzeczywistości jednak ta sama kula może wystąpić w drzewie wielokrotnie - i wtedy zdarzenia konstruujące drzewo nie są już niezależne.
+W tym celu możemy poodcinać niektóre wierzchołki, które nam się nie będą podobać, aby przywrócić niezależność.
+Odcinanie wierzchołków zwiększa jednak prawdopodobieństwo aktywacji takiego drzewa, więc zaczniemy od większej struktury.
+
+\begin{definition}
+    \textbf{Pełne drzewo świadczące} rzędu \(L\) dla pewnej stałej \(\kappa \in \mathbb{N}_2\) ma następującą konstrukcję:
+    Korzeń drzewa ma \(\kappa\) dzieci, każde z których ma dokładnie jedno dziecko - tym samym korzeń ma także \(\kappa\) wnuków.
+    Każdy z wnuków jest korzeniem standardowego drzewa świadczącego rzędu \(L\).
+    W dodatku, w pełnym drzewie świadczącym kule przypisane do dzieci korzenia muszą być parami różne, a korzeń jako jedyny nie ma przypisanej kuli.
+\end{definition}
+
+\begin{lemma}
+    Jeśli któraś z urn posiada więcej niż \(L + 3 + \kappa\) kul, to istnieje aktywne pełne drzewo świadczące.
+\end{lemma}
+\begin{proof}
+    Niech urna \(x\) posiada co najmniej \(L + 4 + \kappa\) kul. Wybieramy z niej \(\kappa\) ostatnio wrzuconych kul i przyporządkowujemy je dzieciom korzenia.
+    Następnie przyporządkujemy kule wnukom. Rozważmy kulę \(b\) przypisaną do \(v\) - dziecka korzenia. Przynajmniej jedna z lokacji \(b\) wskazuje na urnę \(x\) - jeśli jest ich więcej, należy wybrać jedną z nich.
+    Niech \(i\) to indeks tej lokacji. Weźmy następną lokację, czyli \(i+1 \mod d\). W momencie wrzucania \(b\), ta lokacja wskazuje na urnę o co najmniej \(L+3\) kulach. 
+    Ostatnio wrzuconą do tej urny kulę przed wrzuceniem \(b\) przypisujemy do dziecka \(v\), czyli wnuka korzenia.
+\end{proof}
+
+\subsection*{Przycinanie pełnych drzew świadczących}
+
+\begin{definition}
+    Zdefiniujemy \textbf{przycięte pełne drzewo świadczące} konstrukcyjnie. Zaczynając od pełnego drzewa świadczącego, będziemy odcinać jego krawędzie w odpowiedni sposób.
+    Począwszy od korzenia, przeglądamy drzewo w kolejności BFS.
+    Za każdym razem gdy przeglądamy wierzchołek \(v\), który reprezentuje kulę, która była już widziana wcześniej, przecinamy krawędź łączącą \(v\) z jego rodzicem.
+    Odcinamy w ten sposób \(v\) wraz z całym jego poddrzewem. Zauważmy, że procedura ta nie odetnie nigdy dzieci korzenia, gdyż reprezentują kule parami różne.
+    Przecięte w ten sposób krawędzie będziemy dalej nazywać \textit{odciętymi} (\textit{"cutoff edge"}). Kontynuujemy odcinanie do momentu, aż przeglądniemy całe drzewo albo odetniemy \(\kappa\) krawędzi.
+    Do przyciętego drzewa świadczącego trafiają jednak tylko przeglądnięte wierzchołki i krawędzie, wraz z krawędziami odciętymi, jako świadectwo miejsc odcięcia.
+\end{definition}
+
+Wyróżniamy dwa przypadki.
+
+\subsubsection*{Przypadek 1 - mniej niż \(\kappa\) odciętych}
+
+Jeśli odcięliśmy mniej niż \(\kappa\) krawędzi, to znaczy, że jeden z wnuków korzenia wraz z poddrzewem przetrwał przycinanie.
+To oznacza, że mamy aktywne drzewo świadczące o parami różnych kulach, a prawdopodobieństwo na to już ograniczyliśmy przez \(n^{-\alpha}\).
+
+\subsubsection*{Przypadek 2 - \(\kappa\) odciętych}
+
+Pozostaje jedynie ograniczyć prawdopodobieństwo wystąpienia aktywnego przyciętego drzewa świadczącego o \(\kappa\) odciętych krawędziach.
+Ograniczymy to prawdopodobieństwo przy założeniu, że liczba kul reprezentowanych przez pełne drzewo świadczące jest co najwyżej \(M = 2\kappa(\alpha+1)\log_2n\).
+Jest co najwyżej \(M^\kappa\) sposobów na przycięcie pełnego drzewa świadczącego - zamianę pełnego drzewa świadczącego w przycięte.
+Niech \(m\) będzie liczbą kul reprezentowanych przez przycięte drzewo, a \(q\) to liczba liści. Liczba sposobów na dopasowanie kul do wierzchołków to co najwyżej \(n^m\).
+Przyjmijmy, że korzeń przyciętego drzewa (który nie ma przypisanej kuli) zamiast tego ma przypisaną urnę, z której wyjęliśmy kule dla jego dzieci.
+Jest \(n\) sposobów na wybranie tej urny, i mając tę urnę prawdopodobieństwo aktywacji wszystkich krawędzi to co najwyżej \(\pars{\frac{d}{n}}^m\), a prawdopodobieństwo, że wszystkie liście są aktywne jest ograniczone przez \(3^{-dq}\).
+
+Okazuje się, że dostaliśmy niemal to samo ograniczenie. Mimo to, \(q\) i \(m\) mogą być mniejsze niż poprzednio.
+Możemy jednak wciąż wyciągnąć lepsze ograniczenie patrząc na odcięte krawędzie.
+
+Każda odcięta krawędź jest świadkiem, że jakaś kula \(b\) reprezentowana przez nieprzycięty wierzchołek \(u\) dzieli lokację z jakąś kulą \(b'\) innego wierzchołka \(u'\) - jest to powód, dlaczego ta krawędź została odcięta.
+Wierzchołek \(u'\) został przeglądnięty przed \(u\), więc z pewnością jest częścią przyciętego drzewa świadczącego. Przycięta krawędź opisuje, która lokacja kuli \(b\) trafiła w lokację dzieloną z kulą \(b'\).
+Liczba możliwości na wybranie \(u'\) i tym samym \(b'\) jest ograniczona z góry przez \(m \leq M\). Prawdopodobieństwo, że wybrana lokacja \(b\) trafi w tę samą urnę co któraś z lokacji \(b'\) jest co najwyżej \(\frac{d}{n}\).
+Tym samym prawdopodobieństwo posiadania \(\kappa\) odciętych krawędzi ograniczamy przez \(\pars{M\frac{d}{n}}^\kappa\).
+
+Możemy teraz zauważyć, że skoro pozbyliśmy się zbędnych kul, a wszystkie liściozdarzenia, krawędziozdarzenia i odcięciozdarzenia są niezależne, to pozostaje przejść do ostatecznego ograniczenia, co następuje:
+
+\begin{align*}
+    M^k \cdot n^{m+1} \cdot \pars{\frac{d}{n}}^m \cdot 3^{-dq} \cdot \pars{\frac{Md}{n}}^\kappa = n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa\\
+\end{align*}
+
+Stosujemy teraz podobne ograniczenia jak poprzednio: \(m \leq 2q\), \(d^2 \leq 3^d\) oraz \(M \leq 2\kappa(\alpha+1)\log_2n\).
+
+\begin{align*}
+    n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa &\leq n \cdot \pars{\frac{M^2 d}{n}}\\
+    &\leq n\pars{\frac{d\pars{2\kappa(\alpha+1)\log_2n}}{n}}^\kappa = n^{-\kappa+1+o(1)} 
+\end{align*}
+
+To zamyka ograniczenie drugiego przypadku, a tym samym cały dowód.
