@@ -1,9 +1,8 @@
-Dowód ograniczenia górnego przez drzewa świadczące wzorowany \href{https://dl.acm.org/doi/10.1145/792538.792546}{artykułem}.
+Poniższy dowód wzorowany jest artykułem \href{https://dl.acm.org/doi/10.1145/792538.792546}{\textit{How asymmetry helps load balancing}}.
 
 \subsection*{Definicje drzew świadczących}
 
-Jak poprzednio, rzucając kulę losujemy jednostajnie \(d \geq 2\) urn i wrzucamy kulę do najmniejszej.
-Będziemy dalej nazywać \(i\)-tą wylosowaną urnę dla kuli \(b\) \(i\)-tą lokacją kuli \(b\).
+Jak poprzednio, rzucając kulę losujemy jednostajnie \(d \geq 2\) urn i wrzucamy kulę do najmniej wypełnionej. Będziemy dalej nazywać \(i\)-tą wylosowaną urnę dla kuli \(b\) \(i\)-tą lokacją kuli \(b\).
 
 \begin{definition}
     \textbf{Drzewo świadczące} rzędu \(L\) to pełne, ukorzenione drzewo \(d\)-arne wysokości \(L\).
@@ -12,8 +11,8 @@ Będziemy dalej nazywać \(i\)-tą wylosowaną urnę dla kuli \(b\) \(i\)-tą lo
 \end{definition}
 
 Ogólna idea dowodu będzie następująca; rozważmy wszystkie drzewa świadczące.
-Powiemy za moment, co oznacza że jakieś konkretne drzewo świadczące jest \textit{aktywne}, a następnie pokażemy, że jeśli w którejś z urn jest dużo kul, to któreś z drzew świadczących jest \textit{aktywne}.
-Tym samym prawdopodobieństwo, że któraś urna ma dużo kul jest ograniczone przez prawdopodobieństwo, że jest jakieś \textit{aktywne} drzewo świadczące.
+Powiemy za moment, co oznacza, że dla danego rzucenia kul do urn konkretne drzewo świadczące jest \textit{aktywne}, a następnie pokażemy, że jeśli w którejś z urn jest dużo kul, to istnieje \textit{aktywne} drzewo świadczące odpowiedniego rzędu.
+Tym samym prawdopodobieństwo, że któraś urna ma dużo kul jest ograniczone przez prawdopodobieństwo, że istnieje odpowiednie \textit{aktywne} drzewo świadczące.
 
 \begin{definition}
     Dodajmy sobie dodatkową intepretację dla struktury dowolnego drzewa świadczącego.
@@ -65,7 +64,7 @@ Tym samym gdy oznaczymy przez \(q\) liczbę liści w drzewie, to prawdopodobień
     n^m \cdot \pars{\frac{d}{n}}^{m-1} \cdot 3^{-dq}
 \]
 
-Zachodzą także nastepujące ograniczenia: \(m \leq 2q\) oraz \(2d^2 \leq 3^d\). Gdy podstawimy je wraz z \(q = d^L\) dostaniemy ograniczenie:
+Zachodzą także nastepujące ograniczenia: \(m \leq 2q\) (bo w drzewie \(d\)-arnym liście to zawsze ponad połowa wierzchołków drzewa) oraz \(2d^2 \leq 3^d\) (oczywiście prawdziwe dla 2, a więc dla \(d > 2\) tym bardziej). Gdy podstawimy je wraz z \(q = d^L\) dostaniemy ograniczenie:
 
 \begin{align*}
     n^m \cdot \pars{\frac{d}{n}}^{m-1} \cdot 3^{-dq} &= n \cdot d^{m-1} \cdot 3^{-dq} \leq n \cdot d^{2q} \cdot 3^{-dq}\\
@@ -119,11 +118,13 @@ To oznacza, że mamy aktywne drzewo świadczące o parami różnych kulach, a pr
 \subsubsection*{Przypadek 2 - \(\kappa\) odciętych}
 
 Pozostaje jedynie ograniczyć prawdopodobieństwo wystąpienia aktywnego przyciętego drzewa świadczącego o \(\kappa\) odciętych krawędziach.
-Ograniczymy to prawdopodobieństwo przy założeniu, że liczba kul reprezentowanych przez pełne drzewo świadczące jest co najwyżej \(M = 2\kappa(\alpha+1)\log_2n\).
+
+Chcemy teraz dostać ograniczenie górne na liczbę kul reprezentowanych przez pełne drzewo świadczące, które będziemy oznaczać \(M\). Będziemy do tego potrzebować odpowiednio małe \(L\). Aby przypadek 1 działał, musimy mieć \(L \geq \log_d \log_2 n + \log_d(1 + \alpha)\), ale możemy wziąć dowolnie małe \(L\) powyżej tego progu, a więc ustalmy \(L = \ceil{\log_d \log_2 n + \log_d(1 + \alpha)}\). W takim razie mamy liczbę wierzchołków w jednym poddrzewie \(\leq 2 d^L = 2 d^{\ceil{\log_d \log_2 n + \log_d(1 + \alpha)}} \leq 2d^{\log_d \log_2 n + \log_d(1 + \alpha) + 1} = 2 d (1 + \alpha)\log_2 n \). Pełne drzewo składa się z \(\kappa\) poddrzew, a więc \(M \leq 2 \kappa d (1 + \alpha)\log_2 n \)
+
 Jest co najwyżej \(M^\kappa\) sposobów na przycięcie pełnego drzewa świadczącego - zamianę pełnego drzewa świadczącego w przycięte.
 Niech \(m\) będzie liczbą kul reprezentowanych przez przycięte drzewo, a \(q\) to liczba liści. Liczba sposobów na dopasowanie kul do wierzchołków to co najwyżej \(n^m\).
 Przyjmijmy, że korzeń przyciętego drzewa (który nie ma przypisanej kuli) zamiast tego ma przypisaną urnę, z której wyjęliśmy kule dla jego dzieci.
-Jest \(n\) sposobów na wybranie tej urny, i mając tę urnę prawdopodobieństwo aktywacji wszystkich krawędzi to co najwyżej \(\pars{\frac{d}{n}}^m\), a prawdopodobieństwo, że wszystkie liście są aktywne jest ograniczone przez \(3^{-dq}\).
+Jest co najwyżej \(n\) sposobów na wybranie tej urny, i mając tę urnę prawdopodobieństwo aktywacji wszystkich krawędzi to co najwyżej \(\pars{\frac{d}{n}}^m\), a prawdopodobieństwo, że wszystkie liście są aktywne jest ograniczone przez \(3^{-dq}\).
 
 Okazuje się, że dostaliśmy niemal to samo ograniczenie. Mimo to, \(q\) i \(m\) mogą być mniejsze niż poprzednio.
 Możemy jednak wciąż wyciągnąć lepsze ograniczenie patrząc na odcięte krawędzie.
@@ -131,19 +132,26 @@ Możemy jednak wciąż wyciągnąć lepsze ograniczenie patrząc na odcięte kra
 Każda odcięta krawędź jest świadkiem, że jakaś kula \(b\) reprezentowana przez nieprzycięty wierzchołek \(u\) dzieli lokację z jakąś kulą \(b'\) innego wierzchołka \(u'\) - jest to powód, dlaczego ta krawędź została odcięta.
 Wierzchołek \(u'\) został przeglądnięty przed \(u\), więc z pewnością jest częścią przyciętego drzewa świadczącego. Przycięta krawędź opisuje, która lokacja kuli \(b\) trafiła w lokację dzieloną z kulą \(b'\).
 Liczba możliwości na wybranie \(u'\) i tym samym \(b'\) jest ograniczona z góry przez \(m \leq M\). Prawdopodobieństwo, że wybrana lokacja \(b\) trafi w tę samą urnę co któraś z lokacji \(b'\) jest co najwyżej \(\frac{d}{n}\).
-Tym samym prawdopodobieństwo posiadania \(\kappa\) odciętych krawędzi ograniczamy przez \(\pars{M\frac{d}{n}}^\kappa\).
+Tym samym prawdopodobieństwo posiadania \(\kappa\) odciętych krawędzi (jeśli mamy już wybrany sposób przycięcia drzewa, czyli krawędzie które obcinamy) ograniczamy przez \(\pars{M\frac{d}{n}}^\kappa\).
 
 Możemy teraz zauważyć, że skoro pozbyliśmy się zbędnych kul, a wszystkie liściozdarzenia, krawędziozdarzenia i odcięciozdarzenia są niezależne, to pozostaje przejść do ostatecznego ograniczenia, co następuje:
 
 \begin{align*}
-    M^k \cdot n^{m+1} \cdot \pars{\frac{d}{n}}^m \cdot 3^{-dq} \cdot \pars{\frac{Md}{n}}^\kappa = n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa\\
+    M^\kappa \cdot n \cdot n^{m} \cdot \pars{\frac{d}{n}}^m \cdot 3^{-dq} \cdot \pars{\frac{Md}{n}}^\kappa = n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa\\
 \end{align*}
 
-Stosujemy teraz podobne ograniczenia jak poprzednio: \(m \leq 2q\), \(d^2 \leq 3^d\) oraz \(M \leq 2\kappa(\alpha+1)\log_2n\).
+Gdzie kolejne części to odpowiednio: sposoby na przycięcie pełnego drzewa świadczącego, możliwości wyboru urny w korzeniu, dopasowanie kul do wierzchołków, aktywacja krawędzi, aktywacja liści oraz posiadanie \(\kappa\) odciętych krawędzi.
+
+Stosujemy teraz podobne ograniczenia jak poprzednio: \(m \leq 2q\), \(d^2 \leq 3^d\) oraz \(M \leq 2\kappa d(\alpha+1)\log_2n\).
 
 \begin{align*}
-    n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa &\leq n \cdot \pars{\frac{M^2 d}{n}}\\
-    &\leq n\pars{\frac{d\pars{2\kappa(\alpha+1)\log_2n}}{n}}^\kappa = n^{-\kappa+1+o(1)} 
+    n \cdot d^m \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa &\leq n \cdot \pars{d^{2}}^q \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa\\
+	&\leq n \cdot 3^{dq} \cdot 3^{-dq} \cdot \pars{\frac{M^2 d}{n}}^\kappa\\
+    &\leq n\pars{\frac{d\pars{2\kappa(\alpha+1)\log_2n}^2}{n}}^\kappa\\
+	&= n^{-\kappa + 1} \pars{d\pars{2\kappa(\alpha+1)\log_2n}^2}^\kappa\\
+	&= n^{-\kappa+1+o(1)} 
 \end{align*}
+
+\(\pars{d\pars{2\kappa(\alpha+1)\log_2n}^2}^\kappa\) zamienia nam się na \(n^{o(1)}\), bo możemy łatwo zauważyć, że jest to stała razy \(log_2(n)^{2k}\), co rośnie wolniej niż \(n^\varepsilon\) dla dowolnie małego \(\varepsilon\).
 
 To zamyka ograniczenie drugiego przypadku, a tym samym cały dowód.

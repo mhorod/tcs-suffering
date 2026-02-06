@@ -9,7 +9,7 @@ Niech
     \gamma_0 = n 
 \]
 \[
-    \gamma_{i+1} = \frac{n}{2^{i+3}} \cdot \pars{\frac{\gamma_i}{n}}^2
+    \gamma_{i+1} = \frac{n}{2^{i+3}} \cdot \pars{\frac{\gamma_i}{n}}^2 = \frac{\gamma_i^2}{n \cdot 2^{i+3}}
 \]
 \begin{lemma}
 	\label{two-choices-lowerbound-gamma-lemma}
@@ -59,9 +59,7 @@ Pierwsza nierówność wynika z tego, że albo \(\nu_{i+1}(t - 1) \geq \gamma_{i
 \]
 Z lematu \ref{binary-random-variable-binomial-lowerbound} otrzymujemy:
 \begin{align*}
-    \prob\pars{\sum_{t \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i } &\leq \prob\pars{\Bin\pars{\frac{n}{2^{i+1}}, p_i} < \gamma_{i+1}} \\
-    &\leq e^{-\frac{np_i}{2^{i+1}}\frac{1}{8}} \\
-    &< \frac{1}{n^2}
+    \prob\pars{\sum_{t \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i } &\leq \prob\pars{\Bin\pars{\frac{n}{2^{i+1}}, p_i} < \gamma_{i+1}} \leq e^{-\frac{np_i}{2^{i+1}}\frac{1}{8}} < \frac{1}{n^2}
 \end{align*}
 Gdzie druga nierówność wynika z \ref{chernow-for-power-of-two}, a trzecia działa dla \( \frac{np_i}{2^{i+1}} \geq 17\ln n \).
 
@@ -119,16 +117,16 @@ oraz:
 \[
     \prob\pars{\mathcal{F}_{i^*}} \geq \pars{1 - \frac{1}{n^2}}^{i^*}
 \]
-Pozostało teraz tylko dowieźć \(\pars{1 - \frac{1}{n^2}}^{i^*} \geq 1 - \frac{1}{n}\) dla odpowiednio dużego \(n\), z czego będziemy już mieli \(\prob\pars{\mathcal{F}_{i^*}} \geq 1 - \frac{1}{n}\), a więc z wysokim prawdopodobieństwem istnieje urna z przynajmniej \(i^*\) kulami, co kończy dowód. Przejdźmy więc do tej ostatniej części
+Pozostało teraz tylko dowieść \(\pars{1 - \frac{1}{n^2}}^{i^*} \geq 1 - \frac{1}{n}\) dla odpowiednio dużego \(n\), z czego będziemy już mieli \(\prob\pars{\mathcal{F}_{i^*}} \geq 1 - \frac{1}{n}\), a więc z wysokim prawdopodobieństwem istnieje urna z przynajmniej \(i^*\) kulami, co kończy dowód. Przejdźmy więc do tej ostatniej części
 \[
     \pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2} - c} \geq \pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2}} = \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
 \]
-\( \pars{1 - \frac{1}{n^2}}^{-n^2} \) dąży do \( e \) z góry, zatem:
+\( \pars{1 - \frac{1}{n^2}}^{-n^2} \) dąży do \( e \), zatem dla odpowiednio dużego \(n\) mamy
 \[
-    e^2 > \pars{4/3}^4 \geq \pars{1 - \frac{1}{n^2}}^{-n^2} \geq e
+    e^2 > \pars{1 - \frac{1}{n^2}}^{-n^2}
 \]
 \[
-    e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}} \leq e^{\frac{- \ln \ln n}{n^2 \ln 2}}
+    e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
 \]
 Teraz skorzystamy z rozwinięcia \( e^x \) w szereg Taylora
 \[
@@ -136,10 +134,10 @@ Teraz skorzystamy z rozwinięcia \( e^x \) w szereg Taylora
 \]
 możemy zauważyć, że dla \( x \in (-\varepsilon, 0) \)
 \[
-    1 + x + x^2 \geq e^x \geq 1 + x - x^2
+    e^x \geq 1 + x - x^2
 \]
 zatem:
 \[
-    1 - \frac{1}{n} \leq 1 - \frac{2 \ln \ln n}{n^2 \ln 2} - \pars{\frac{2 \ln \ln n}{n^2 \ln 2}}^2 \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \frac{- \ln \ln n}{n^2 \ln 2}}
+    1 - \frac{1}{n} \leq 1 - \frac{2 \ln \ln n}{n^2 \ln 2} - \pars{\frac{2 \ln \ln n}{n^2 \ln 2}}^2 \leq e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \frac{- \ln \ln n}{n^2 \ln 2}}
 \]
 gdzie pierwsza nierówność zachodzi dla wystarczająco dużego \( n \) a druga wynika z dolnego ograniczenia na \( e^x \).

@@ -108,6 +108,15 @@
 		\end{cases}
 	\]
 \end{theorem}
+\begin{proof}
+    \begin{align*}
+        M_X(t) &= \int_{a}^{b} e^{tx} \cdot \frac{1}{b-a} \, dx \\
+        &= \frac{1}{b-a} \int_{a}^{b} e^{tx} \, dx \\
+        &= \frac{1}{b-a} \left[ \frac{e^{tx}}{t} \right]_{a}^{b} \\
+        &= \frac{1}{b-a} \left( \frac{e^{tb}}{t} - \frac{e^{ta}}{t} \right) \\
+        &= \frac{e^{tb} - e^{ta}}{t(b-a)}
+    \end{align*}
+\end{proof}
 
 %<*probabil-2025-11-28-rozklad-jednostajny-2>
 \begin{theorem}
@@ -118,7 +127,7 @@
 \end{theorem}
 \begin{proof}
 	\begin{align*}
-		\frac{P\left( X\le c \cap X\le d  \right) }{P\left( X\le d  \right) } = \frac{P\left( X\le c  \right) }{P\left( X\le d  \right) } = \frac{c-a}{b-a} \cdot \frac{b-a}{d-a} = \frac{c-a}{d-a}.
+		P(X \leq c \mid X \leq d) = \frac{P\left( X\le c \cap X\le d  \right) }{P\left( X\le d  \right) } = \frac{P\left( X\le c  \right) }{P\left( X\le d  \right) } = \frac{c-a}{b-a} \cdot \frac{b-a}{d-a} = \frac{c-a}{d-a}.
 	\end{align*}
 \end{proof}
 
@@ -130,8 +139,8 @@
 	\]
 \end{theorem}
 \begin{proof}
-	Modyfikujemy lekko problem i zamiast wybierać \( n \) punktów z odcinka będziemy wybierać \( n + 1 \) punktów z łuku \(P_0, \dots, P_n\).
-	W ten sposób \( X_i \) jest odległością zgodnie ze wskazówkami zegara punktów \( P_0, P_i \),
+	Modyfikujemy lekko problem i zamiast wybierać \( n \) punktów z odcinka będziemy wybierać \( n + 1 \) punktów z okręgu o obwodzie 1. Nazywamy je \(P_0, \dots, P_n\).
+	W ten sposób \( X_i \) jest odległością zgodnie ze wskazówkami zegara między punktami \( P_0, P_i \),
 	natomiast \( Y_k \) jest odległością od \( P_0 \) do \(k\)-tego punktu zgodnie ze wskazówkami zegara.
 
 	Mamy \( n + 1 \) łuków między punktami i, ze względu na symetrię, oczekiwana długość łuku między dwoma sąsiednimi punktami wynosi \( \frac{1}{n + 1} \).
