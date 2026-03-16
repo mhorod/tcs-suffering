@@ -1,10 +1,6 @@
-%<*probabil-2025-12-19-centralne-twierdzenie-graniczne-1>
-%<*probabil-egzamin-23-ctg-1>
 \subsection{Podstawowa wersja}
 Intuicyjnie: Centralne Twierdzenie Graniczne mówi, że jak mamy niezależne zmienne losowe o takim samym rozkładzie, to dla liczby prób zbiegającej do nieskończoności rozkład średniej arytmetycznej tych wylosowanych wartości będzie zbiegać do rozkładu normalnego.
 Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
-%</probabil-egzamin-23-ctg-1>
-%</probabil-2025-12-19-centralne-twierdzenie-graniczne-1>
 \begin{definition}
 	Ciąg dystrybuant \( F_1, F_2, ... \) zbiega w dystrybuancie do dystrybuanty \( F\), co oznaczamy jako \(F_n \to F \), jeśli dla każdego \(a \in \mathbb{R} \) w którym \( F \) jest ciągła zachodzi:
 	\[
@@ -12,8 +8,6 @@ Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
 	\]
 \end{definition}
 
-%<*probabil-egzamin-23-ctg-2>
-%<*probabil-2025-12-19-centralne-twierdzenie-graniczne-2>
 \begin{theorem}[Centralne Twierdzenie Graniczne]
 	Niech \(\set{X_i}_{i \in \natural}\) będą niezależnymi zmiennymi losowymi o takim samym rozkładzie, wartości oczekiwanej \( \mu\) i wariancji \( \sigma^2\). Niech \( \widetilde{X_n} = \frac{1}{n}\sum_{i=1}^n X_i \). Wówczas dla dowolnych \(a, b\)
 	\[
@@ -164,5 +158,3 @@ Za to w drugim wariancie mając dodakową informację o trzecim momencie, możem
 		\left|P\left( \frac{\widetilde{X_n}-\mu}{\frac{\sigma}{\sqrt{n} }} \le a \right) - \Phi\left( a  \right) \right| \le C\cdot \frac{\rho}{\sigma^3 \sqrt{n} }
 	\]
 \end{theorem}
-%</probabil-egzamin-23-ctg-2>
-%</probabil-2025-12-19-centralne-twierdzenie-graniczne-2>

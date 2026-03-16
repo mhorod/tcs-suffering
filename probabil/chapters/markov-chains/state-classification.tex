@@ -1,9 +1,7 @@
-%<*probabil-2025-11-19-stany-definicje1>
 \begin{definition}
 	Stan \(i\) jest \textbf{pochłaniający} jeśli \(p_{ii} = 1\).
 \end{definition}
 
-%<*probabil-egzamin-9-nieprzywiedlnosc-1>
 \begin{definition}
 	Stan \(j\) jest \textbf{osiągalny} ze stanu \(i\) jeśli istnieje \(n \geq 0\) takie, że
 	\(p_{ij}(n) > 0\). Zapisujemy \(i \rightarrow j\).
@@ -39,15 +37,11 @@
 \end{proof}
 
 Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow \) tworzą silnie spójne składowe.
-%</probabil-egzamin-9-nieprzywiedlnosc-1>
 
 \begin{definition}
 	Stan \( i \) jest \textbf{nieistotny} jeśli \( \exists_j : i \rightarrow j \land j \nrightarrow i \)
 \end{definition}
-%</probabil-2025-11-19-stany-definicje1>
 
-%<*probabil-2025-11-19-lancuchy-nieprzywiedlne>
-%<*probabil-egzamin-9-nieprzywiedlnosc-2>
 \begin{definition}
 	Łańcuch jest \textbf{nieprzywiedlny (nieredukowalny)} jeśli wszystkie stany są parami skomunikowane. Wtedy jego graf skierowany jest silnie spójny.
 \end{definition}
@@ -57,9 +51,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	Łańcuch jest okresowy jeśli posiada co najmniej jeden stan okresowy.
 	Stan lub łańcuch, który nie jest okresowy nazywamy \textbf{nieokresowym}.
 \end{definition}
-%</probabil-egzamin-9-nieprzywiedlnosc-2>
 
-%<*probabil-egzamin-9-okres-nieprzywiedlnego>
 \begin{lemma}
 	W nieprzywiedlnym łańcuchu Markowa wszystkie stany mają ten sam okres.
 \end{lemma}
@@ -89,9 +81,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	\]
 	Mamy teraz \(o(i) \mid n\), a wiec \(o(i)\) jest dzielnikiem każdego elementu \(\mathcal{T}(j)\), a więc jest \(\leq\) od jego nwd, a więc \(o(i) \leq o(j)\). Analogicznie dowodzimy w drugą stronę, otrzymując równość.
 \end{proof}
-%</probabil-egzamin-9-okres-nieprzywiedlnego>
 
-%<*probabil-egzamin-9-wlasnosc-nieprzywiedlnego-nieokresowego>
 \begin{lemma}
 	Jeśli \( \set{ X_t \mid t \in \natural } \) jest nieokresowym i nieprzywiedlnym łańcuchem Markowa, to:
 	\[
@@ -120,11 +110,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 		\forall_{n \geq n_0} \, p_{ij}(n) \geq p_{ij}(m_1)p_{jj}(n-m_1) > 0
 	\]
 \end{proof}
-%</probabil-2025-11-19-lancuchy-nieprzywiedlne>
-%</probabil-egzamin-9-wlasnosc-nieprzywiedlnego-nieokresowego>
 
-%<*probabil-egzamin-9-stany-powracajace-chwilowe>
-%<*probabil-2025-11-19-stany-definicje2>
 \begin{definition}
 	Definiujemy \textbf{piewszy czas pojawienia się w j} jako:
 	\[
@@ -151,9 +137,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 		f_{ij} = \sum_{n=1}^{\infty} f_{ij}(n) = \prob(T_j^+ < \infty \mid X_0 = i)
 	\]
 \end{definition}
-%</probabil-2025-11-19-stany-definicje2>
 
-%<*probabil-2025-11-19-stany-powracajace>
 \begin{definition}
 	Stan \(i\) jest \textbf{powracający (rekurencyjny)} jeśli \( f_{i, i} = 1 \),
 	a \textbf{chwilowy} jeśli \( f_{i, i} < 1 \). \\
@@ -175,7 +159,6 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	Stan powracający \(i\) jest \textbf{dodatni} jeśli \(\ev{T_{i, i}} < \infty\),
 	w przeciwnym wypadku jest \textbf{zerowy}.
 \end{definition}
-%</probabil-egzamin-9-stany-powracajace-chwilowe>
 
 \begin{example}
 	Niech zbiór stanów \(S = \natural_1\) oraz niech
@@ -214,7 +197,6 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 	Z \(f_{1, 1} = 1\) stan 1 jest powracający, a z \(\ev{T_{1, 1}} \to \infty\) jest zerowy.
 \end{example}
 
-%<*probabil-egzamin-9-wlasnosc-nieprzywiedlnego-skonczonego>
 \begin{theorem}
 	W skończonym, nieprzywiedlnym łańcuchu Markowa zachodzi
 	\[
@@ -251,8 +233,6 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 		&< \infty
     \end{align*}
 \end{proof}
-%</probabil-2025-11-19-stany-powracajace>
-%</probabil-egzamin-9-wlasnosc-nieprzywiedlnego-skonczonego>
 
 \begin{definition}
 	Stan jest \textbf{ergodyczny} jeśli jest nieokresowy i pozytywnie rekurencyjny.

@@ -8,9 +8,10 @@ Currently, this repository contains notes for the following:
 - `mpumy` – Probabilistic Methods in Machine Learning (Metody Probabilistyczne w Uczeniu Maszynowym)
 - `aatl` – Algorithms in Algebra and Number Theory (Algorytmy Algebry i Teorii Liczb)
 - `probabil` – Probabilistic Methods in Computer Science (Metody Probabilistyczne Informatyki)
-- `probabil-2025` - Probabilistic Methods in Computer Science, in the 2025 lecture order
 - `modele` – Models of Computation (Modele Obliczeń); incomplete
 - `licencjat` – Final exam for the licencjat degree; incomplete
+
+Additionally, if you want to access notes specifically tailored to the 2025/26 edition of Probabilistic Methods in Computer Science, you can find them at [MikolajKolek/tcs-suffering](https://github.com/MikolajKolek/tcs-suffering). They only use material already available here in `probabil`, but format it differently: `probabil-2025` only includes the material covered in the 2025/26 lectures in order, and `probabil-egzamin` was made with the goal of preparing for the 2025/26 exam questions.
 
 ## Releases
 You can find the latest generated versions of the documents

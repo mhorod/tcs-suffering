@@ -1,5 +1,3 @@
-%<*probabil-2025-12-18-spacery-losowe>
-%<*probabil-egzamin-14-spacery-losowe>
 \begin{definition}
 	\textbf{Spacerem losowym} na nieskierowanym grafie \( G \) nazywamy łańcuch Markowa, którego stany odpowiadają wierzchołkom grafu. Prawdopodobieństwo przejścia ze stanu \( v \) do stanu \( u \) wynosi \( \frac{1}{\text{deg}(v)} \) gdy \( (v, u) \in E\) i 0 w przeciwnym przypadku.
 \end{definition}
@@ -50,8 +48,6 @@
 	Niech \(T\) będzie drzewem rozpinającym \(G\). Przejdziemy po jego wierzchołkach w kolejności DFSa. Niech \(v_0,v_1,\ldots,v_{2\left|V\right|-2}\) będą kolejnymi wierzchołkami odwiedzonymi przez DFSa. Oczekiwany czas pokrycia grafu jest ograniczony przez oczekiwany czas kolejnego odwiedzania wierzchołków wypisanych w takiej kolejności. Zatem
 	\[ \mathbb{E}\left[ C_G \right] \le \sum_{i=0}^{2\left|V\right|-3} \mathbb{E}\left[ r_{v_iv_{i+1}} \right] = \sum_{xy\in T}^{} \mathbb{E}\left[ r_{xy} \right] + \mathbb{E}\left[ r_{yx} \right] \le 2|E|\cdot \left( \left|V\right|-1 \right)  .\]
 \end{proof}
-%</probabil-2025-12-18-spacery-losowe>
-%</probabil-egzamin-14-spacery-losowe>
 
 \subsection{Ćwiczenia}
 

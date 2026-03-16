@@ -1,5 +1,3 @@
-%<*probabil-egzamin-6-wlasnosci-rozkladu-poissona-1>
-%<*probabil-2025-11-07-poisson-1>
 \begin{definition}
 	Mówimy, że zmienna losowa \( X \) ma rozkład
 	\textbf{Poissona} z parametrem \( \lambda \) jeśli
@@ -55,7 +53,6 @@ Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty
 	Jeśli \( X \) ma rozkład Poissona z parametrem \( \lambda_X \) a \( Y \) rozkład Poissona z parametrem \( \lambda_Y \), a ponadto obie zmienne są niezależne to \( X + Y \) ma rozkład Poissona z parametrem \( \lambda_X + \lambda_Y\)
 \end{theorem}
 \begin{proof}
-%</probabil-egzamin-6-wlasnosci-rozkladu-poissona-1>
 	Są dwie ścieżki aby to pokazać -- pierwszy polega na przeliczeniu explicite \( P(X + Y = n) \).
 
 	\begin{align*}
@@ -71,7 +68,6 @@ Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty
 \end{proof}
 \begin{proof}
 	Pokażemy teraz bardziej elegancki dowód korzystający z funkcji tworzących momentów.
-%<*probabil-egzamin-6-wlasnosci-rozkladu-poissona-2>
 	Ponieważ \( X \) i \( Y \) są niezależne to
 	\begin{align*}
 		M_{X + Y}(t)
@@ -82,7 +78,6 @@ Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty
 
 	Skoro rozkład zmiennej \( X + Y \) tworzony jest przez funkcję, która wygląda jak rozkład Poissona, to musi być ona rozkładem Poissona z parametrem \( \lambda_X + \lambda_Y \)
 \end{proof}
-%</probabil-2025-11-07-poisson-1>
 \begin{theorem}
 	\label{poisson-variable-variance}
 	Niech \( X \) ma rozkład Poissona z parametrem \( \lambda \). Wtedy
@@ -93,4 +88,3 @@ Aby upewnić się, że jest to poprawny rozkład policzmy \( \sum_{n = 0}^\infty
 \begin{proof}
 	Liczymy drugą pochodną \( M_X(t) = \exp\pars{\lambda \pars{e^t - 1}} \) i wychodzi.
 \end{proof}
-%</probabil-egzamin-6-wlasnosci-rozkladu-poissona-2>

@@ -1,5 +1,3 @@
-%<*probabil-egzamin-approximation-of-harmonic>
-%<*probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
 \begin{lemma} \label{approximation-of-harmonic} \(H_n = \ln(n) + \Theta(1)\)\\
 	\begin{tikzpicture}
 		\draw[->] (-0.5, 0) -- (8, 0) node[right] {$x$};
@@ -51,11 +49,7 @@
 	\implies \ln(n) \leq H_n \leq \ln(n) + 1 
 	\]
 \end{lemma}
-%</probabil-2025-10-10-aproksymacja-szeregu-harmonicznego>
-%</probabil-egzamin-approximation-of-harmonic>
 
-%<*probabil-egzamin-kolekcjoner-kuponow>
-%<*probabil-2025-10-10-problem-kolekcjonera-kuponow>
 \subsection{Problem kolekcjonera kuponów}
 \label{coupon-collectors-problem}
 Wyobraźmy sobie problem, który jest bliski wielu osobom. Próbujemy przepchać program na satori ale jak na złość mamy ANS. Sfrustrowani zaczynamy pisać własne testy w nadziei że znajdziemy przypadek brzegowy.
@@ -73,11 +67,8 @@ Zauważmy jeszcze, że \( X_i \) ma rozkład geometryczny z parametrem \( p_i \)
 	= n \cdot H_n = n \ln n + \Theta(n)
 \]
 Ostatnia równość wynika z \ref{approximation-of-harmonic}.
-%</probabil-2025-10-10-problem-kolekcjonera-kuponow>
-%</probabil-egzamin-kolekcjoner-kuponow>
 
 \newpage
-%<*probabil-2025-10-10-proces-galaskowy>
 \subsection{Proces gałązkowy}
 
 Zaczynamy od programu A, który \(n\) razy próbuje stworzyć kopię siebie z prawopodobieństwem \(p\). Następnie, każda utworzona kopia powtarza ten sam proces.
@@ -136,10 +127,7 @@ A następnie obliczamy wynik:
     \ev{\sum_{i=0}^{\infty} Y_i} =\footnote{Według Micka można to zrobić, o ile prawa strona równości jest zbieżna} \sum_{i=0}^{\infty} \ev{Y_i} = \sum_{i=0}^{\infty} (np)^i
 \]
 Widzimy, że dla \(np < 1\) wartość oczekiwana wynosi \(\frac{1}{1-np}\), a w przeciwnym przypadku nie ma wartości oczekiwanej, ponieważ liczba programów rośnie do nieskończoności.
-%</probabil-2025-10-10-proces-galaskowy>
 
-%<*probabil-egzamin-quicksort>
-%<*probabil-2025-10-10-oczekiwany-czas-quicksorta>
 \subsection{Oczekiwana liczba porównań Quicksorta}
 Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to pesymistycznie \( \mathcal{O}(n^2) \), ale w losowym przypadku \( \Theta(n \lg n) \).
 
@@ -195,5 +183,3 @@ Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to 
 		 & = 2n \ln n + \Theta(n)
 	\end{align*}
 \end{proof}
-%</probabil-2025-10-10-oczekiwany-czas-quicksorta>
-%</probabil-egzamin-quicksort>

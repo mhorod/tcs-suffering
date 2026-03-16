@@ -1,5 +1,3 @@
-%<*probabil-2025-10-24-nierownosc-chernoffa-1>
-%<*probabil-egzamin-chernoff-1>
 \subsection{Definicja}
 Łączymy ze sobą dwie rzeczy -- funkcje tworzące momenty, oraz nierówność Markowa.
 \begin{theorem}
@@ -35,9 +33,7 @@
 	\]
     Dodatkowo, jeżeli \( \forall_{i,j \in [n]} \, p_i = p_j \), to nazywamy to \textbf{próbami Bernoulliego}.
 \end{definition}
-%</probabil-2025-10-24-nierownosc-chernoffa-1>
 
-%<*probabil-2025-11-14-poisson-trial-chernoff-bound>
 \begin{theorem}
 	\label{poisson-trial-chernoff-bounds}
 	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy
@@ -69,11 +65,7 @@
 
 	\[P \pars{ X \ge \pars{ 1+\delta } \mu } \le \pars{ \frac{e^{\delta}}{ \pars{ 1+\delta } ^{1+\delta}} } ^{\mu} \le \pars{ \frac{e}{1+\delta} } ^{ \pars{ 1+\delta } \mu} \le \pars{ \frac{e}{6} } ^{R} \le \pars{ \frac{1}{2} } ^{R} = 2 ^{-R}.\]
 \end{proof}
-%</probabil-egzamin-chernoff-1>
-%</probabil-2025-11-14-poisson-trial-chernoff-bound>
 
-%<*probabil-egzamin-chernoff-lowerbound>
-%<*probabil-2025-11-14-poisson-trial-chernoff-bound-2>
 \begin{theorem}
 	\label{poisson-trial-chernoff-lowerbounds}
 	Niech \(X_1, \dots, X_n\) to niezależne próby Poissona. Dodatkowo oznaczamy \(X = \sum_{i=1}^n{X_i}\) i \(\mu = \expected{X}\). Wtedy dla każdego \(\delta \in (0,1)\) zachodzi
@@ -85,8 +77,6 @@
 \begin{proof}
 	Dowód identyczny jak w \ref{poisson-trial-chernoff-bounds}, wybieramy \(t = \ln \pars{ 1-\delta } < 0\) i korzystamy z tego, że \(e^{-z}\) jest antymonotoniczne. Drugiego punktu ponownie dowodzimy licząc pochodne i na ich podstawie dowodząc odpowiedniej nierówności.
 \end{proof}
-%</probabil-2025-11-14-poisson-trial-chernoff-bound-2>
-%</probabil-egzamin-chernoff-lowerbound>
 
 \subsection{Przypadki specjalne}
 \begin{theorem}
@@ -118,13 +108,10 @@
 	oraz \[ P \pars{ Y \ge \pars{ 1+\delta } \mu } = P \pars{ X \ge 2\delta\mu } \le e^{- \frac{2\delta^2\mu^2}{n}} = e^{-\delta^2\mu}. \]
 \end{proof}
 
-%<*probabil-egzamin-chernoff-2>
 \subsection{Rzuty monetą}
-%<*probabil-2025-10-24-nierownosc-chernoffa-2>
 \begin{example}
 	\label{chernoff-coin-tosses}
     Chcemy ograniczyć z góry prawdopodobieństwo, że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy.%
-%</probabil-egzamin-chernoff-2>
 
     Niech \( X_1, \ldots, X_n \) - ciąg niezależnych prób Poissona oraz \( \prob(X_i = 1) = p_i \). Niech \( \mu = \expected{X} = \sum_{i=1}^{n} p_i \). Niech \( \delta > 0 \) będzie ustalone.
 
@@ -162,17 +149,14 @@
         \prob\pars{ X \geq \frac{3}{4}n } \leq e^{-\frac{n}{20}}
     \]
 \end{example}
-%</probabil-2025-10-24-nierownosc-chernoffa-2>
 
 \begin{example}
 	Możemy też ograniczyć prawdopodobieństwo że przy \(n\) rzutach monetą wyrzucimy orła więcej niż \( \frac{3}{4} n \) razy w inny sposób, po prostu stosując \ref{poisson-trial-chernoff-bounds}.
-%<*probabil-egzamin-chernoff-3>
 Widzimy, że nasze rzuty to niezależne próby Poissona o \(p = \frac{1}{2}, \mu = \frac{n}{2}, \delta = \frac{1}{2}\), a więc możemy użyć wzoru 2. W takim razie mamy
 	\[
 		\prob\pars{X \geq \frac{3}{4}n} \leq e^{\frac{-\mu\delta^2}{3}} = e^{\frac{-\frac{n}{2} \cdot \frac{1}{4}}{3}} = e^{\frac{-n}{24}}
 	\]
 \end{example}
-%</probabil-egzamin-chernoff-3>
 
 \subsection{Estymacja parametru}
 

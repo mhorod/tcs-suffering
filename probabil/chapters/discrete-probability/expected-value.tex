@@ -1,4 +1,3 @@
-%<*probabil-2025-10-03-wartosc-oczekiwana-1>
 \subsection{Definicja}
 \begin{definition}
 	\textbf{Wartość oczekiwaną} zmiennej losowej \( X \) definiujemy jako
@@ -6,10 +5,7 @@
 		\expected{X} = \sum_{x \in \im X} x \cdot \prob(X = x)
 	\]
 \end{definition}
-%</probabil-2025-10-03-wartosc-oczekiwana-1>
 
-%<*probabil-egzamin-expected-value-of-natural-random-variable>
-%<*probabil-2025-10-10-rozklad-geometryczny-2>
 \begin{theorem}[Lemat 2.9 P\&C]
 	\label{expected-value-of-natural-random-variable}
 	Niech \( X \) będzie zmienną losową przyjmującą jedynie wartości w liczbach naturalnych. Wtedy
@@ -26,11 +22,7 @@
 		 & = \expected{X}
 	\end{align*}
 \end{proof}
-%</probabil-2025-10-10-rozklad-geometryczny-2>
-%</probabil-egzamin-expected-value-of-natural-random-variable>
 
-%<*probabil-egzamin-ev-of-independent-variable-product>
-%<*probabil-2025-10-10-wariancja-5>
 \begin{theorem} Dla dowolnych niezależnych zmiennych losowych \(X\) i \(Y\):
 	\label{ev-of-independent-variable-product}
 	\[
@@ -45,11 +37,8 @@
 		&= \ev{X} \cdot \ev{Y}
 	\end{align*}
 \end{proof}
-%</probabil-2025-10-10-wariancja-5>
-%</probabil-egzamin-ev-of-independent-variable-product>
 
 
-%<*probabil-2025-10-03-wartosc-oczekiwana-2>
 \subsection{Liniowość wartości oczekiwanej}
 \begin{theorem} \textbf{Liniowość wartości oczekiwanej} (wariant z sumą)\\
 	Dla dowolnych \(X_1, ..., X_n\) z ograniczonymi wartościami oczekiwanymi
@@ -131,9 +120,7 @@
 		E(X) = \expected{\sum_{1 \leq i < j \leq 25} X_{i,j}} = \sum_{1 \leq i < j \leq 25} \expected{X_{i,j}} = \sum_{1 \leq i < j \leq 25} \prob(X_{i,j} = 1) = \sum_{1 \leq i < j \leq 25} \frac{1}{4} = \binom{25}{2} \frac{1}{4}.
 	\]
 \end{example}
-%</probabil-2025-10-03-wartosc-oczekiwana-2>
 
-%<*probabil-2025-10-10-zlozenie-wartosci-oczekiwanej>
 \subsection{Złożenie wartości oczekiwanej}
 
 \begin{theorem} Dla dowolnej zmiennej losowej \(X\) zachodzi
@@ -187,9 +174,7 @@
         &= f(\ev{X})
     \end{align*}
 \end{proof}
-%</probabil-2025-10-10-zlozenie-wartosci-oczekiwanej>
 
-%<*probabil-2025-10-10-warunkowa-wartosc-oczekiwana>
 \subsection{Warunkowa wartość oczekiwana}
 \begin{definition}
 	\textbf{Warunkową wartość oczekiwaną} \( \expected{X \mid Y = y} \) definiujemy jako
@@ -265,4 +250,3 @@ Czyli liniowość zachodzi też dla warunkowej wartości oczekiwanej
 		= \sum_{y \in \im Y} \expected{X \mid Y = y} \cdot P(Y = y) = \expected{X}
 	\end{equation*}
 \end{proof}
-%</probabil-2025-10-10-warunkowa-wartosc-oczekiwana>
