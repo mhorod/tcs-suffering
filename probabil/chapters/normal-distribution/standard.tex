@@ -78,36 +78,42 @@ nie jesteśmy w stanie ładnie rozwiązać, więc posłużymy się takim trikiem
     &= \int_0^{2\pi} 1 \diff \theta = 2\pi
     \end{align*}
 Gdzie kolejno druga i trzecia równość to przejście na współrzędne biegunowe, oraz podstawienie \( u = \frac{r^2}{2} \) (dlatego przyjęliśmy akurat \( c = -\frac{1}{2} \) ).
-Dalej mamy:
+Dalej mamy
     \[
     \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \diff z = \sqrt{2\pi} \implies a = \frac{1}{\sqrt{2\pi}}
     \]
+z czego dostajemy już kompletny wzór na gęstość.	
 
-\begin{minipage}[c]{0.5\linewidth}
-	\[
-		f(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}
-	\]
-\end{minipage}
-\quad
-\begin{minipage}[c]{0.4\linewidth}
-	\centering
-	\begin{tikzpicture}
-	\draw[->] (-3.5, 0) -- (3.5, 0) node[right] {$x$};
-	\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
-	\draw[domain=-3.5:3.5, samples=100, yscale=5, smooth, variable=\x, blue, thick] plot ({\x}, {1/sqrt(2*pi) * exp(-0.5*\x*\x)});
-	\draw (-0.2,0.5) -- (0.2,0.5);
-	\node[scale=0.66] at (-0.45,0.5) {\(0.1\)};
-	\draw (-0.2,1) -- (0.2,1);
-	\node[scale=0.66] at (-0.45,1) {\(0.2\)};
-	\draw (-0.2,1.5) -- (0.2,1.5);
-	\node[scale=0.66] at (-0.45,1.5) {\(0.3\)};
-\end{tikzpicture}
-\end{minipage}
-
+%<*licencjat-standardowy-rozklad-normalny-1>
+\begin{theorem}
+	Standardowym rozkładem normalnym nazywamy rozkład zadany gęstością
+	
+	\begin{minipage}[c]{0.5\linewidth}
+		\[
+			f(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}}
+		\]
+	\end{minipage}
+	\quad
+	\begin{minipage}[c]{0.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+		\draw[->] (-3.5, 0) -- (3.5, 0) node[right] {$x$};
+		\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+		\draw[domain=-3.5:3.5, samples=100, yscale=5, smooth, variable=\x, blue, thick] plot ({\x}, {1/sqrt(2*pi) * exp(-0.5*\x*\x)});
+		\draw (-0.2,0.5) -- (0.2,0.5);
+		\node[scale=0.66] at (-0.45,0.5) {\(0.1\)};
+		\draw (-0.2,1) -- (0.2,1);
+		\node[scale=0.66] at (-0.45,1) {\(0.2\)};
+		\draw (-0.2,1.5) -- (0.2,1.5);
+		\node[scale=0.66] at (-0.45,1.5) {\(0.3\)};
+	\end{tikzpicture}
+	\end{minipage}
+\end{theorem}
 Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wygląda jak \sout{dzban} dzwon.
-
+%</licencjat-standardowy-rozklad-normalny-1>
 
 \subsection{Właściwości}
+%<*licencjat-standardowy-rozklad-normalny-2>
 \begin{theorem}
 	Wartość oczekiwana standardowego rozkładu normalnego wynosi 0, wariancja wynosi 1.
 \end{theorem}
@@ -142,3 +148,4 @@ Funkcja gęstości prawdopodobieństwa standardowego rozkładu normalnego wyglą
 	\]
 	Ta całka generalnie nie jest do policzenia, jeżeli trzeba skorzystać z dystrybuanty to są do tego specjalne tabele wartości
 \end{definition}
+%</licencjat-standardowy-rozklad-normalny-2>
