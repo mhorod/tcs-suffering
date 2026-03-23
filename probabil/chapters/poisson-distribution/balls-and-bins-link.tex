@@ -36,7 +36,7 @@ Podobnie postąpimy szacując prawdopodobieństwo, że w konkretnej urnie jest \
 
 \begin{theorem}
     \begin{align*}
-        \prob\pars{\text{W danej urnie jest \(r\) kul}} \approx \frac{e^{-\frac{m}{n}}\pars{\frac{m}{n}}^r}{r!}
+        \prob\pars{\text{w danej urnie jest \(r\) kul}} \approx \frac{e^{-\frac{m}{n}}\pars{\frac{m}{n}}^r}{r!}
     \end{align*}
 \end{theorem}
 \begin{proof}
@@ -47,3 +47,5 @@ Podobnie postąpimy szacując prawdopodobieństwo, że w konkretnej urnie jest \
         &\approx \frac{\pars{\frac{m}{n}}^r e^{-\frac{m}{n}}}{r!}
     \end{align*}
 \end{proof}
+
+Widzimy więc, że przy założeniu, że rzucamy \(m\) do \(n\) urn, liczba kul w konkretnej urnie ma w przybliżeniu rozkład Poissona z parametrem \(\frac{m}{n}\).

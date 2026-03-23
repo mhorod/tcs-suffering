@@ -1,0 +1,107 @@
+
+\begin{definition}
+	\textbf{Rozkładem stacjonarnym} nazywamy wektor \( \pi \) taki, że \( \pi = \pi P \) oraz \( \sum_{i \in S} \pi_i = 1 \)
+\end{definition}
+Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy każdy ze stanów niezależnie od tego skąd zaczęliśmy. Rozkład stacjonarny nie zawsze istnieje - np. łańcuch na liczbach naturalnych, taki, że \( p_{n, n + 1} = 1\) w oczywisty sposób nie ma rozkładu stacjonarnego.
+
+\begin{theorem} Istnienie rozkładu stacjonarnego\\
+	\label{stationary-distribution-existance}
+	Niech \(z \in S, \overline{\pi_z} = (\overline{\pi_{z, y}})_{y \in S}\). Dodatkowo niech
+	\[
+		\mathbb{E}_z[A] \coloneq \ev{A \mid X_0 = z}
+	\]
+	\[
+		\prob_z(A) \coloneq \prob(A \mid X_0 = z)
+	\]
+	\[
+		\overline{\pi_{z, y}} \coloneq \mathbb{E}_z[\text{liczba wizyt w \(y\) przed pierwszym powrotem do \(z\)}] = \sum_{t=0}^{\infty} \prob_z(X_t = y \land T_z^+ > t)
+	\]
+	Dla \(z \in S, \mathbb{E}_z[T_z^+] < \infty\) zachodzi:
+	\begin{itemize}
+		\item \(\overline{\pi_z} = \overline{\pi_z} P\)
+		\item \(\pi = \frac{\overline{\pi_z}}{\mathbb{E}_z[T_z^+]}\) jest rozkładem stacjonarnym
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	Druga część prosto wynika z pierwszej, ponieważ oczywiście z definicji \(\overline{\pi_{z, y}}\) mamy
+	\[
+		\sum_{y \in S} \overline{\pi_{z, y}} = \mathbb{E}_z[T_z^+]
+	\]
+	
+	Pozostaje nam więc tylko udowodnić część pierwszą
+	\begin{align*}
+		\sum_{x \in S} \overline{\pi_{z, x}} p_{x, y} &= \sum_{x \in S} \sum_{t=0}^{\infty} \prob_z(X_t = x \land T_z^+ > t) p_{x, y}\\
+		&= \sum_{t=0}^\infty \prob_z(X_{t+1} = y \land T_z^+ \geq t + 1)\\
+		&= \sum_{t=1}^\infty \prob_z(X_{t} = y \land T_z^+ \geq t)\\
+		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t)\\
+		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)\\
+		&= \overline{\pi_{z, y}}
+	\end{align*}
+	\(\prob_z(X_0 = y) = \prob_z(X_{T_z^+} = y)\) ponieważ oba są indykatorami \(y = z\).
+\end{proof}
+\begin{theorem}
+	Skończony, nieprzywiedlny łańcuch Markowa ma unikalny rozkład stacjonarny
+\end{theorem}
+\begin{proof}
+	Weźmy rozkłady stacjonarne \(\pi, \phi\). Ustalmy \(x \in S\) taki, że \(\frac{\pi_x}{\phi_x}\) jest najmniejsze (możemy to zrobić, ponieważ łańcuch jest skończony). Z definicji rozkładu stacjonarnego
+	\[
+		\pi_x = \sum_{y \in S} \pi_y p_{y, x} = \sum_{y \in S} \frac{\pi_y}{\phi_y} \phi_y p_{y, x} \geq \sum_{y \in S} \frac{\pi_x}{\phi_x} \phi_y p_{y, x} = \frac{\pi_x}{\phi_x} \sum_{y \in S} \phi_y p_{y, x} = \frac{\pi_x}{\phi_x} \phi_x = \pi_x
+	\]
+	To, że po obu stronach mamy to samo mówi nam, że powyższa nierówność to tak naprawdę równość. W takim razie wiemy, że
+	\[
+		\forall_{y, p_{y, x} > 0} \quad \frac{\pi_y}{\phi_y} = \frac{\pi_x}{\phi_x}
+	\]
+	Widzimy więc, że wszystkie stany z których da się bezpośrednio dojść do \(x\) mają taki sam iloraz \(\pi\) do \(\phi\). Możemy następnie analogicznie pokazać, że wszystkie stany z którch da się dojść w \(2, 3, \dots\) krokach do \(x\) mają taki sam iloraz. Ponieważ łańcuch jest nieprzywiedlny i skończony, z każdego stanu da się dojść w skończonej liczbie kroków do \(x\). W takim razie wszystkie stany mają taki sam iloraz, a więc
+	\[
+		\pi = \frac{\pi_x}{\phi_x} \phi
+	\]
+	A więc \(\pi = \phi\), bo \(\sum_{i \in S} \pi_i = \sum_{i \in S} \phi_i = 1\)
+\end{proof}
+\begin{theorem}
+	Każdy skończony, nieprzywiedlny łańcuch Markowa
+	\begin{enumerate}
+		\item Ma unikalny rozkład stacjonarny \(\pi = (\pi_i)_{i \in S}\)
+		\item \(\forall_{i \in S} \quad \pi_i = \frac{1}{\ev{T_i^+ \mid X_0 = i}}\)
+	\end{enumerate}
+	Dodatkowo, jeśli łańcuch jest nieokresowy
+	\begin{enumerate}
+		\setcounter{enumi}{2}
+		\item \(\forall_{i, j \in S} \lim_{t \to \infty} p_{j, i}(t) = \pi_i\) 
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Punkt 1. udowodniliśmy przed chwilą. Po chwili zastanowienia, punkt 2. prosto z niego wynika. Dla danego \(i\), z twierdzenia \ref{stationary-distribution-existance} wiemy, że istnieje rozkład stacjonarny \(\pi\) w którym
+	\[
+		\pi_i = \frac{\sum_{t=0}^{\infty} \prob(X_t = i \land T_i^+ > t \mid X_0 = i)}{\ev{T_i^+ \mid X_0 = i}} = \frac{1}{\ev{T_i^+ \mid X_0 = i}}
+	\]
+	Ponieważ rozkład stacjonarny jest unikalny, to jest to prawdziwe dla każdego \(i\).\\
+	Za to do dowodu punktu 3. będziemy potrzebowali więcej narzędzi i można go znaleźć w \ref{geometric-convergence}.
+\end{proof}
+
+\begin{exercise}
+	Niech dana będzie macierz \( Q \) wymiaru \( n \times n \), taka, że suma wartości w każdym wierszu wynosi 1.
+	Rozważmy łańcuch Markowa na \( n \) stanach zadany tą macierzą.
+
+	\begin{enumerate}
+		\item Czy ma on rozkład stacjonarny?
+		\item Co jeśli wszystkie wartości macierzy są dodatnie?
+		\item Co jeśli dodatkowo suma wartości w każdej kolumnie wynosi 1?
+	\end{enumerate}
+\end{exercise}
+\begin{proof}
+	\begin{enumerate}
+		\item Nie.
+		      Łańcuch zadany macierzą
+		      \[
+			      \begin{bmatrix}
+				      1 & 0 \\
+				      0 & 1
+			      \end{bmatrix}
+		      \]
+		      nie ma jednoznacznego rozkładu stacjonarnego.
+
+		\item Tak
+
+		\item Tak, a ponadto \( \bar \pi = \brackets{\frac{1}{n}, \dots, \frac{1}{n}} \)
+	\end{enumerate}
+\end{proof}

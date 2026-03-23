@@ -47,6 +47,19 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 \end{definition}
 
 \begin{definition}
+	Dla \( i \in S \) definiujemy \(\mathcal{T}(i) = \set{t \geq 1 \mid p_{ii}(t) > 0}\). Jest to zbiór takich \( t \), że jesteśmy w stanie dojść z \( i \) do \( i \) w t krokach.
+\end{definition}
+\begin{definition} 
+	\textbf{Okres stanu} dla \(i \in S\) definiujemy jako \(o(i) = \gcd\pars{\mathcal{T}(i)}\)
+\end{definition}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics{img/markov-chains/periodic-states-example.png}
+	\caption{Stan z ma okres 1}
+\end{figure}
+
+\begin{definition}
 	Stan \(i\) jest \textbf{okresowy} jeśli \( o(i) > 1 \), czyli jego okres jest większy od 1.
 	Łańcuch jest okresowy jeśli posiada co najmniej jeden stan okresowy.
 	Stan lub łańcuch, który nie jest okresowy nazywamy \textbf{nieokresowym}.
