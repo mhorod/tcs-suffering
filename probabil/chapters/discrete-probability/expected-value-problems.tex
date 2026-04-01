@@ -129,7 +129,7 @@ A następnie obliczamy wynik:
 Widzimy, że dla \(np < 1\) wartość oczekiwana wynosi \(\frac{1}{1-np}\), a w przeciwnym przypadku nie ma wartości oczekiwanej, ponieważ liczba programów rośnie do nieskończoności.
 
 \subsection{Oczekiwana liczba porównań Quicksorta}
-%<*licencjat-quicksort>
+%<*licencjat-quicksort-1>
 Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to pesymistycznie \( \mathcal{O}(n^2) \), ale w losowym przypadku \( \Theta(n \lg n) \).
 
 \begin{theorem}[2.11 P\&C]
@@ -176,7 +176,9 @@ Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to 
 		 & = 2\pars{(n+1)\sum_{k=2}^n \frac{1}{k}} - 2(n-1)                \\
 		 & = 2\pars{(n+1)\pars{\sum_{k=1}^n \frac{1}{k}} - (n+1)} - 2(n-1)
 	\end{align*}
+%</licencjat-quicksort-1>
 	Teraz korzystamy z \ref{approximation-of-harmonic} i dostajemy
+%<*licencjat-quicksort-2>
 	\begin{align*}
 		\expected{X}
 		 & = 2(n+1)\cdot H_n - \Theta(n)                     \\
@@ -184,4 +186,4 @@ Quicksort jaki jest każdy widzi -- pamiętamy z ASD, że jego złożoność to 
 		 & = 2n \ln n + \Theta(n)
 	\end{align*}
 \end{proof}
-%</licencjat-quicksort>
+%</licencjat-quicksort-2>
