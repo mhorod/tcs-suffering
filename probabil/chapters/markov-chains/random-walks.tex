@@ -108,7 +108,7 @@
 		\item niedwudzielny? --- trójkąty, aż miło patrzeć
 	\end{itemize}
 	\begin{enumerate}[label=(\roman*)]
-		\item Wiemy, że z~własności rozkładu w~skończonym, nieredukowalnym i~ergodycznym łańcuchu Markowa
+		\item Wiemy, że z~własności rozkładu w~skończonym, nieprzywiedlnym i~ergodycznym łańcuchu Markowa
 		      \begin{equation*}
 			      \pi_v = \lim_{t \to \infty} P_{Av}^t = \lim_{t \to \infty} \prob\pars{X_t = v}
 		      \end{equation*}
@@ -133,6 +133,6 @@
 
 		      Zauważmy najpierw, że, będąc w \(B\)~lub \(C\), możemy dojść do \(A\) tylko na jeden sposób --- przechodząc bezpośrednio odpowiednią krawędzią (z~prawdopodobieństwem \(\frac{1}{4}\)). Jest to cenna obserwacja, ponieważ gwarantuje nam, że nie przejdziemy do \(A\) jakąś okrężną drogą. Możemy też być pewni, że natychmiast po wyjściu z~\(A\) znajdziemy się w~\(B\) lub~\(C\) i~dzięki temu pracować pod założeniem, że będziemy w~którymś z~nich przynajmniej raz przed powrotem.
 
-		      Ponieważ graf jest skończony i~spójny, to wszystkie stany są rekurencyjne. Możemy więc powiedzieć, że mamy rozkład geometryczny z~parametrem \(\frac{1}{4}\): za każdym razem, gdy jesteśmy w~\(B\) lub \(C\) mamy prawdopodobieństwo sukcesu --- powrotu do \(A\) --- równe \(\frac{1}{4}\), a~porażka, ze względu na rekurencyjność, ostatecznie zaprowadzi nas z~powrotem do stanu ,,\(B\) lub \(C\)'' (być może długą drogą, ale w~łańcuchu Markowa trasa, którą obraliśmy, nie ma znaczenia) i~postawi przed takim samym eksperymentem. Zatem tak naprawdę oczekujemy po prostu na sukces, który wypada z~szansą \(\frac{1}{4}\). Oczekiwana liczba prób wynosi zatem \(4\), a~odpowiedź do naszego zadania \(2\).
+		      Ponieważ graf jest skończony i~spójny, to wszystkie stany są powracające. Możemy więc powiedzieć, że mamy rozkład geometryczny z~parametrem \(\frac{1}{4}\): za każdym razem, gdy jesteśmy w~\(B\) lub \(C\) mamy prawdopodobieństwo sukcesu --- powrotu do \(A\) --- równe \(\frac{1}{4}\), a~porażka, ze względu na to że stan jest powracający, ostatecznie zaprowadzi nas z~powrotem do stanu ,,\(B\) lub \(C\)'' (być może długą drogą, ale w~łańcuchu Markowa trasa, którą obraliśmy, nie ma znaczenia) i~postawi przed takim samym eksperymentem. Zatem tak naprawdę oczekujemy po prostu na sukces, który wypada z~szansą \(\frac{1}{4}\). Oczekiwana liczba prób wynosi zatem \(4\), a~odpowiedź do naszego zadania \(2\).
 	\end{enumerate}
 \end{proof}

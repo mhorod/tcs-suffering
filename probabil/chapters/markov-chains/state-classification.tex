@@ -24,11 +24,11 @@
 		      Koniunkcja jest przemienna, możemy zatem zamienić kolejność warunków w definicji.
 
 		\item \( i \leftrightarrow j \land j \leftrightarrow k \implies i \leftrightarrow k \) \\
-		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(\p_{ij}(n) > 0\).
+		      Skoro \( i \leftrightarrow j \) to mamy \( n \) dla którego \(p_{ij}(n) > 0\).
 
-		      Podobnie mamy \( m \) dla którego \( \p_{jk}(m) > 0 \).
+		      Podobnie mamy \( m \) dla którego \( p_{jk}(m) > 0 \).
 
-		      W takim razie \( p_{ik}(n+m) \geq p_{ij}(n) \cdot \p_{jk}(m) > 0 \)
+		      W takim razie \( p_{ik}(n+m) \geq p_{ij}(n) \cdot p_{jk}(m) > 0 \)
 		      zatem \( k \) jest osiągalne z \( i \).
 
 		      Analogicznie pokazujemy, że \( i \) jest osiągalne z \( k \), czyli stany te są skomunikowane.
@@ -153,8 +153,7 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 
 \begin{definition}
 	Stan \(i\) jest \textbf{powracający (rekurencyjny)} jeśli \( f_{i, i} = 1 \),
-	a \textbf{chwilowy} jeśli \( f_{i, i} < 1 \). \\
-	Mówimy, że łańcuch jest rekurencyjny jeśli każdy jego stan jest rekurencyjny.
+	a \textbf{chwilowy} jeśli \( f_{i, i} < 1 \). Mówimy, że łańcuch jest powracający jeśli każdy jego stan jest powracający.
 \end{definition}
 
 \begin{definition}
@@ -248,15 +247,14 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 \end{proof}
 
 \begin{definition}
-	Stan jest \textbf{ergodyczny} jeśli jest nieokresowy i pozytywnie rekurencyjny.
-	Łańcuch jest ergodyczny jeśli każdy jego stan jest ergodyczny.
+	Stan jest \textbf{ergodyczny} jeśli jest nieokresowy i dodatnio powracający. Łańcuch jest ergodyczny jeśli każdy jego stan jest ergodyczny.
 \end{definition}
 
 \begin{lemma}
 	W skończonym procesie Markowa:
 	\begin{enumerate}
-		\item istnieje co najmniej jeden stan rekurencyjny
-		\item każdy stan rekurencyjny jest pozytywnie rekurencyjny
+		\item istnieje co najmniej jeden stan powracający
+		\item każdy stan powracający jest dodatnio powracający
 	\end{enumerate}
 
 \end{lemma}
@@ -287,16 +285,16 @@ Dodatkowo w grafie skierowanym klasy równoważności relacji \( \leftrightarrow
 
 Z lematu tego wysuwamy poniższy wniosek:
 \begin{lemma}
-	Skończony, nieredukowalny, nieokresowy łańcuch Markowa jest ergodyczny
+	Skończony, nieprzywiedlny, nieokresowy łańcuch Markowa jest ergodyczny
 \end{lemma}
 
 \begin{lemma}
-	Jeśli stan \(x\) jest rekurencyjny to
-	wszystkie stany w tej samej klasie skomunikowania również są rekurencyjne.
+	Jeśli stan \(x\) jest powracający to
+	wszystkie stany w tej samej klasie skomunikowania również są powracające.
 \end{lemma}
 \begin{proof}
 	Wybierzmy dowolny stan \( y \) w tej samej klasie skomunikowania co \( x \).
-	Pokażemy, że jest on rekurencyjny.
+	Pokażemy, że jest on powracający.
 
 	Rozważmy zachowanie naszego łańcucha na stanach \( x \) oraz \( y \).
 	Możliwe jest kilka zdarzeń:
@@ -304,7 +302,7 @@ Z lematu tego wysuwamy poniższy wniosek:
 		\item Wychodząc ze stanu \( x \) wracamy do \( x \) zanim napotkamy \( y \) -- z prawdopodobieństwem \( p \)
 
 		\item Wychodząc ze stanu \( x \) zanim wrócimy do \( x \) to napotykamy \( y \) \\
-		      Ponieważ \( x \) jest rekurencyjny to to zdarzenie ma szansę \( 1 - p \)
+		      Ponieważ \( x \) jest powracający to to zdarzenie ma szansę \( 1 - p \)
 
 		\item Wychodząc ze stanu \( y \) wracamy do \( y \) zanim napotkamy \( x \) -- z prawdopodobieństwem \( q \)
 		\item Wychodząc ze stanu \( y \) napotkamy \( x \) zanim wrócimy do \( y \) -- z prawdopodobieństwem \( r \)
@@ -318,12 +316,12 @@ Z lematu tego wysuwamy poniższy wniosek:
 	\begin{figure}[H]
 		\centering
 		\includegraphics{img/markov-chains/recurrent-communicated-a-priori.png}
-		\caption{Ilustracja przejść między możliwymi sytuacjami}
+		\caption{Ilustracja przejść między możliwymi sytuacjami}
 	\end{figure}
 
 	Jak się dobrze przyjrzymy to dojdziemy do wniosku, że \( s = 0 \). Dlaczego ?
 	Bo inaczej z prawdopodobieństwem co najmniej \( (1-p) \cdot s \) wychodząc z \( x \)
-	nigdy już do niego nie wrócimy, co jest sprzeczne z założeniem że jest on rekurencyjny.
+	nigdy już do niego nie wrócimy, co jest sprzeczne z założeniem że jest on powracający.
 
 	W takim razie \(s = 0\), a co za tym idzie \(r = 1 - q\), możemy zatem uprościć nieco nasz rysunek:
 
@@ -333,7 +331,7 @@ Z lematu tego wysuwamy poniższy wniosek:
 		\caption{Ilustracja przejść między możliwymi sytuacjami po uproszczeniu}
 	\end{figure}
 
-	Aby pokazać, że \( y \) jest rekurencyjny pokażemy, że prawdopodobieństwo na to, że wychodząc z \(y \) od pewnego momentu nigdy już nie wrócimy do \( y \) jest zerowe.
+	Aby pokazać, że \( y \) jest powracający pokażemy, że prawdopodobieństwo na to, że wychodząc z \(y \) od pewnego momentu nigdy już nie wrócimy do \( y \) jest zerowe.
 	Do \( y \) nigdy nie wracamy, jeśli po skończonej liczbie kroków trafiamy do \( x \) a następnie
 	nigdy już nie wracamy do \( y \).
 
