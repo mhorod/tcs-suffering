@@ -1,12 +1,12 @@
 \subsection{Właściwości}
 \begin{definition}
 	\textbf{Rozkładem wykładniczym} z parametrem \( \lambda \) nazywamy rozkład zadany gęstością
-	
+
 	\begin{minipage}[c]{0.5\linewidth}
 		\[
 			f(x) = \begin{cases}
 				\lambda e^{-\lambda x} & \text{ dla } x \geq 0 \\
-				0 					   & \text{wpp.} \\
+				0                      & \text{wpp.}           \\
 			\end{cases}
 		\]
 	\end{minipage}
@@ -14,11 +14,11 @@
 	\begin{minipage}[c]{0.4\linewidth}
 		\centering
 		\begin{tikzpicture}
-		\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
-		\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
-		\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
-		\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {e^(-\x)});
-	\end{tikzpicture}
+			\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
+			\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+			\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
+			\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {e^(-\x)});
+		\end{tikzpicture}
 	\end{minipage}
 \end{definition}
 
@@ -29,8 +29,8 @@ Dystrybuanta takiej zmiennej wynosi
 \begin{minipage}[c]{0.5\linewidth}
 	\[
 		F(x) = \begin{cases}
-			1 - e^{-\lambda x}  & \text{ dla } x \geq 0           \\
-			0 					& \text{ wpp. }
+			1 - e^{-\lambda x} & \text{ dla } x \geq 0 \\
+			0                  & \text{ wpp. }
 		\end{cases}
 	\]
 \end{minipage}
@@ -38,18 +38,18 @@ Dystrybuanta takiej zmiennej wynosi
 \begin{minipage}[c]{0.4\linewidth}
 	\centering
 	\begin{tikzpicture}
-	\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
-	\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
-	\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
-	\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {1 - e^(-\x)});
-\end{tikzpicture}
+		\draw[->] (-0.5, 0) -- (5, 0) node[right] {$x$};
+		\draw[->] (0, -0.25) -- (0, 2.2) node[above] {$y$};
+		\draw[yscale=3, domain=-0.4:0, smooth, variable=\x, blue] plot ({\x}, {0});
+		\draw[yscale=3, domain=0:5, smooth, variable=\x, blue] plot ({\x}, {1 - e^(-\x)});
+	\end{tikzpicture}
 \end{minipage}
 
 dodatkowo definiujemy
 \[
 	G(x) = P(X > x) = 1 - F(x) = \begin{cases}
-		e^{-\lambda x}  & \text{ dla } x \geq 0           \\
-		0 					& \text{ wpp. }
+		e^{-\lambda x} & \text{ dla } x \geq 0 \\
+		0              & \text{ wpp. }
 	\end{cases}
 \]
 
@@ -80,23 +80,23 @@ dodatkowo definiujemy
 \end{theorem}
 \begin{proof}
 	\begin{align*}
-		\ev{X} &= \int_{-\infty}^\infty t f(t) \diff t\\
-		&= \int_0^\infty t \lambda e^{-\lambda t} \diff t\\
-		&= -\int_0^\infty t \pars{-\lambda e^{-\lambda t}} \diff t\\
-		&= -\brackets{t e^{-\lambda t}}_0^\infty + \int_0^\infty e^{-\lambda t} \diff t\\
-		&= 0 + \brackets{-\frac{1}{\lambda} e^{-\lambda t}}_0^\infty\\
-		&= \frac{1}{\lambda}
+		\ev{X} & = \int_{-\infty}^\infty t f(t) \diff t                                         \\
+		       & = \int_0^\infty t \lambda e^{-\lambda t} \diff t                               \\
+		       & = -\int_0^\infty t \pars{-\lambda e^{-\lambda t}} \diff t                      \\
+		       & = -\brackets{t e^{-\lambda t}}_0^\infty + \int_0^\infty e^{-\lambda t} \diff t \\
+		       & = 0 + \brackets{-\frac{1}{\lambda} e^{-\lambda t}}_0^\infty                    \\
+		       & = \frac{1}{\lambda}
 	\end{align*}
-	
+
 	\begin{align*}
-		\ev{X^2} &= \int_0^\infty t^2 \lambda e^{-\lambda t} \diff t\\
-		&= -\int_0^\infty t^2 \pars{-\lambda e^{-\lambda t}} \diff t\\
-		&= -\brackets{t^2 e^{-\lambda t}}_0^\infty + \int_0^\infty 2t e^{-\lambda t} \diff t\\
-		&= 0 + \frac{2}{\lambda} \int_0^\infty t \lambda e^{-\lambda t} \diff t\\
-		&= 0 + \frac{2}{\lambda} \cdot \frac{1}{\lambda}\\
-		&= \frac{2}{\lambda^2}
+		\ev{X^2} & = \int_0^\infty t^2 \lambda e^{-\lambda t} \diff t                                  \\
+		         & = -\int_0^\infty t^2 \pars{-\lambda e^{-\lambda t}} \diff t                         \\
+		         & = -\brackets{t^2 e^{-\lambda t}}_0^\infty + \int_0^\infty 2t e^{-\lambda t} \diff t \\
+		         & = 0 + \frac{2}{\lambda} \int_0^\infty t \lambda e^{-\lambda t} \diff t              \\
+		         & = 0 + \frac{2}{\lambda} \cdot \frac{1}{\lambda}                                     \\
+		         & = \frac{2}{\lambda^2}
 	\end{align*}
-	
+
 	\[
 		\variance{X} = \expected{X^2} - \expected{X}^2 = \frac{1}{\lambda^2}
 	\]
@@ -154,7 +154,7 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 
 \begin{theorem}[Lemat 8.5 P\&C]
 	\label{lemat8.5}
-	Jeśli \(X_1, \dots, X_n\) są \textbf{niezależnymi} zmiennymi losowymi spełniającymi \(X_i \sim \Exp(\lambda_i)\), to 
+	Jeśli \(X_1, \dots, X_n\) są \textbf{niezależnymi} zmiennymi losowymi spełniającymi \(X_i \sim \Exp(\lambda_i)\), to
 	\[
 		\min(X_1, \dots, X_n) \sim \Exp\pars{\sum_{i=1}^n \lambda_i}
 	\]
@@ -166,12 +166,12 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 
 \begin{proof}
 	Przeprowadzimy dowód dla \(n = 2\), który później prostą indukcją można rozszerzyć na \(n > 2\).
-	
+
 	\begin{align*}
-		\prob(\min(X_1, X_2) > x) &= \prob(X_1 > x \land X_2 > x)\\
-		&= \prob(X_1 > x) \cdot \prob(X_2 > x)\\
-		&= e^{-\lambda_1 x} \cdot e^{-\lambda_2 x}\\
-		&= e^{-(\lambda_1 + \lambda_2)x}
+		\prob(\min(X_1, X_2) > x) & = \prob(X_1 > x \land X_2 > x)            \\
+		                          & = \prob(X_1 > x) \cdot \prob(X_2 > x)     \\
+		                          & = e^{-\lambda_1 x} \cdot e^{-\lambda_2 x} \\
+		                          & = e^{-(\lambda_1 + \lambda_2)x}
 	\end{align*}
 
 	a więc \(\min(X_1, X_2) \sim \Exp(\lambda_1 + \lambda_2)\). Teraz pozostaje pokazać, że:
@@ -187,21 +187,21 @@ Jest to bardzo przydatna własność, bowiem sprawia, że możemy ,,resetować''
 	% bo ten align jest ogromny i inaczej formatowanie poprzedniej strony robi się dziwne
 	\allowdisplaybreaks
 	\begin{align*}
-		\mathrm{P}(X_1 \leq X_2) &= \int_{x_2 = -\infty}^{\infty} \int_{x_1 = -\infty}^{x_2} f_{X_{1}X_{2}}(x_1, x_2) \; \diff x_{1} \diff x_{2} & \\
-		&= \int_{x_2 = -\infty}^{\infty} f_{X_{2}}(x_2) \int_{x_1 = -\infty}^{x_2} f_{X_1}(x_1) \; \diff x_{1} \diff x_{2} \\
-		&= \int_{x_2 = 0}^{\infty} \lambda_2 e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} \lambda_1 e^{-\lambda_1 x_1} \; \diff x_{1} \diff x_{2} \\
-		&= \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} e^{-\lambda_1 x_1} \; \diff x_{1} \diff x_{2} \\
-		&= \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \brackets{\frac{-e^{-\lambda_1 x_1}}{\lambda_1} }_{0}^{x_2} \; \diff x_{2} \\
-		&= \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \pars{\frac{-1}{\lambda_1} e^{-\lambda_1 x_2} - \frac{-1}{\lambda_1} e^0} \; \diff x_2 \\
-		&= \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_2 x_2} \frac{-1}{\lambda_1} \pars{e^{-\lambda_1 x_2} - 1} \; \diff x_2 \\
-		&= -\lambda_2 \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \pars{e^{-\lambda_1 x_2} - 1} \; \diff x_2 \\
-		&= -\lambda_2 \int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} - e^{-\lambda_2 x_2} \; \diff x_2 \\
-		&= -\lambda_2 \pars{\int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} \; \diff x_2 - \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \; \diff x_2} \\
-		&= -\lambda_2 \pars{\brackets{\frac{-1}{\lambda_1 + \lambda_2} e^{-x_2(\lambda_1 + \lambda_2)}}_{0}^{\infty} - \brackets{\frac{-1}{\lambda_2} e^{-\lambda_2 x_2}}_{0}^{\infty}} \\
-		&= -\lambda_2 \pars{\frac{1}{\lambda_1 + \lambda_2} - \frac{1}{\lambda_2}} \\
-		&= -\lambda_2 \pars{\frac{\lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}} - \frac{\lambda_1 + \lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}}} \\
-		&= (-\lambda_2)\cdot \frac{-\lambda_1}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}} \\
-		&= \frac{\lambda_1}{\lambda_1 + \lambda_2}
+		\mathrm{P}(X_1 \leq X_2) & = \int_{x_2 = -\infty}^{\infty} \int_{x_1 = -\infty}^{x_2} f_{X_{1}X_{2}}(x_1, x_2) \; \diff x_{1} \diff x_{2}                                                                 & \\
+		                         & = \int_{x_2 = -\infty}^{\infty} f_{X_{2}}(x_2) \int_{x_1 = -\infty}^{x_2} f_{X_1}(x_1) \; \diff x_{1} \diff x_{2}                                                                \\
+		                         & = \int_{x_2 = 0}^{\infty} \lambda_2 e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} \lambda_1 e^{-\lambda_1 x_1} \; \diff x_{1} \diff x_{2}                                             \\
+		                         & = \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \int_{x_1 = 0}^{x_2} e^{-\lambda_1 x_1} \; \diff x_{1} \diff x_{2}                                             \\
+		                         & = \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \brackets{\frac{-e^{-\lambda_1 x_1}}{\lambda_1} }_{0}^{x_2} \; \diff x_{2}                                     \\
+		                         & = \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_{2}x_2} \pars{\frac{-1}{\lambda_1} e^{-\lambda_1 x_2} - \frac{-1}{\lambda_1} e^0} \; \diff x_2                         \\
+		                         & = \lambda_1 \lambda_2 \int_{x_2 = 0}^{\infty} e^{-\lambda_2 x_2} \frac{-1}{\lambda_1} \pars{e^{-\lambda_1 x_2} - 1} \; \diff x_2                                                 \\
+		                         & = -\lambda_2 \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \pars{e^{-\lambda_1 x_2} - 1} \; \diff x_2                                                                                 \\
+		                         & = -\lambda_2 \int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} - e^{-\lambda_2 x_2} \; \diff x_2                                                                        \\
+		                         & = -\lambda_2 \pars{\int_{x_2=0}^{\infty} e^{-x_2\pars{\lambda_2 + \lambda_1}} \; \diff x_2 - \int_{x_2=0}^{\infty} e^{-\lambda_2 x_2} \; \diff x_2}                              \\
+		                         & = -\lambda_2 \pars{\brackets{\frac{-1}{\lambda_1 + \lambda_2} e^{-x_2(\lambda_1 + \lambda_2)}}_{0}^{\infty} - \brackets{\frac{-1}{\lambda_2} e^{-\lambda_2 x_2}}_{0}^{\infty}}   \\
+		                         & = -\lambda_2 \pars{\frac{1}{\lambda_1 + \lambda_2} - \frac{1}{\lambda_2}}                                                                                                        \\
+		                         & = -\lambda_2 \pars{\frac{\lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}} - \frac{\lambda_1 + \lambda_2}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}}}                  \\
+		                         & = (-\lambda_2)\cdot \frac{-\lambda_1}{\lambda_2 \cdot \pars{\lambda_1 + \lambda_2}}                                                                                              \\
+		                         & = \frac{\lambda_1}{\lambda_1 + \lambda_2}
 	\end{align*}
 	}
 \end{proof}

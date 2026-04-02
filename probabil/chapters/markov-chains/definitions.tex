@@ -18,17 +18,17 @@
 
 \begin{definition}
 	\textbf{Łańcuchem Markowa} nazywamy proces stochastyczny z czasem dyskretnym \(\set{X_t}_{t \in \natural}\) dla którego
-	
+
 	\begin{enumerate}
 		\item dla każdego \(t \geq 0\) oraz \((a_0, \dots, a_t)\) takiego, że \(\prob(\bigcap_{i=0}^t X_i = a_i) > 0\) zachodzi
-		\[
-			\prob\pars{X_{t + 1} = y \mid \bigcap_{i=0}^t X_i = a_i} = \prob\pars{X_{t + 1} = y \mid X_t = a_t}
-		\]
+		      \[
+			      \prob\pars{X_{t + 1} = y \mid \bigcap_{i=0}^t X_i = a_i} = \prob\pars{X_{t + 1} = y \mid X_t = a_t}
+		      \]
 		\item dla każdego \(t \geq 0\) i \(x, y \in S\) zachodzi
-		\[
-			\prob(X_{t+1} = x \mid X_t = y) = \prob(X_t = x \mid X_{t-1} = y)
-		\]
-	\end{enumerate} 
+		      \[
+			      \prob(X_{t+1} = x \mid X_t = y) = \prob(X_t = x \mid X_{t-1} = y)
+		      \]
+	\end{enumerate}
 \end{definition}
 
 Właściwość 1. mówi nam, że aby dostać rozkład zmiennej \(X_t\) wystarczy, że znamy rozkład zmiennej \(X_{t-1}\) tzn. łańcuch Markowa jest bez pamięci. Warto zauważyć, że \textbf{nie oznacza to}, że \(X_t\) jest niezależne od \(X_{t-2}, X_{t-3}, \dots\) -- jest, ale cała ta zależność jest zawarta w zależności od stanu \(X_{t-1}\).

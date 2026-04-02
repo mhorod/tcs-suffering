@@ -1,29 +1,29 @@
 \begin{definition} \label{reversible-markov-chain}
-    Niech \(\pars{X_t}_{t \in \N}\) to łańcuch Markowa z macierzą \(p\).
-    Do tego niech \(S\) - zbiór stanów oraz \(\pi\) - rozkład na stanach tego łańcucha.
-    Definiujemy własność, która będzie nam potrzebna wkrótce:
+	Niech \(\pars{X_t}_{t \in \N}\) to łańcuch Markowa z macierzą \(p\).
+	Do tego niech \(S\) - zbiór stanów oraz \(\pi\) - rozkład na stanach tego łańcucha.
+	Definiujemy własność, która będzie nam potrzebna wkrótce:
 
-    \[
-        \forall_{x,y \in S}\pi_xp_{xy} = \pi_yp_{yx}
-    \]
+	\[
+		\forall_{x,y \in S}\pi_xp_{xy} = \pi_yp_{yx}
+	\]
 \end{definition}
 
 \begin{lemma}
-    Każdy rozkład \(\pi\), który spełnia \ref{reversible-markov-chain} jest rozkładem stacjonarnym.
+	Każdy rozkład \(\pi\), który spełnia \ref{reversible-markov-chain} jest rozkładem stacjonarnym.
 \end{lemma}
 \begin{proof}
-    \begin{align*}
-        \sum_{y \in S}\pi_yp_{yx} = \sum_{y \in S}\pi_xp_{xy} = \pi_x\sum_{y \in S}p_{xy} = \pi_x
-    \end{align*}
+	\begin{align*}
+		\sum_{y \in S}\pi_yp_{yx} = \sum_{y \in S}\pi_xp_{xy} = \pi_x\sum_{y \in S}p_{xy} = \pi_x
+	\end{align*}
 \end{proof}
 
 \begin{definition}
-    Łańcuch Markowa jest odwracalny, jeśli ma rozkład (stacjonarny) spełniający \ref{reversible-markov-chain}.
+	Łańcuch Markowa jest odwracalny, jeśli ma rozkład (stacjonarny) spełniający \ref{reversible-markov-chain}.
 \end{definition}
 
 Zauważmy, że w takim łańcuchu prawdopodobieństwo przejścia kolejno po stanach \(x_0, x_1, \dots, x_n\) jest takie samo niezależnie od której strony zaczniemy.
 \[
-    \pi_{x_0}p_{x_0x_1}p_{x_1x_2}\dots p_{x_{n-1}x_n} = \pi_{x_n}p_{x_n x_{n-1}}\dots p_{x_2x_1}p_{x_1x_0}
+	\pi_{x_0}p_{x_0x_1}p_{x_1x_2}\dots p_{x_{n-1}x_n} = \pi_{x_n}p_{x_n x_{n-1}}\dots p_{x_2x_1}p_{x_1x_0}
 \]
 
 \begin{example} \label{markov-chain-example}
@@ -38,43 +38,43 @@ Zauważmy, że w takim łańcuchu prawdopodobieństwo przejścia kolejno po stan
 			\node [fixed_size_circle,draw] (1) at (2, 0) {1};
 			\node (x) at (4, 0) {\(\dots\dots\dots\)};
 			\node [fixed_size_circle,draw] (n-1) at (6, 0) {n-1};
-			\node [fixed_size_circle,draw] (n) at (8, 0) {n};		
-			\draw [->, thick] (n) edge [bend left=45] 
-				node [midway, above] {\(q_n\)}
-				(n-1);
-			\draw [->, thick] (n-1) edge [bend left=45] 
-				node [midway, above] {\(p_{n-1}\)}
-				(n);
-			\draw [->, thick] (1) edge [bend left=45] 
-				node [midway, above] {\(q_1\)}
-				(0);
-			\draw [->, thick] (0) edge [bend left=45] 
-				node [midway, above] {\(p_0\)}
-				(1);
-			\draw [->, thick] (1) edge [bend left=45] 
-				node [midway, above] {\(p_1\)}
-				(x);
-			\draw [->, thick] (x) edge [bend left=45] 
-				node [midway, above] {\(q_2\)}
-				(1);
-			\draw [->, thick] (x) edge [bend left=45] 
-				node [midway, above] {\(p_{n-2}\)}
-				(n-1);
-			\draw [->, thick] (n-1) edge [bend left=45] 
-				node [midway, above] {\(q_{n-1}\)}
-				(x);
-			\draw [->, thick] (0) edge [loop above] 
-				node [midway, above] {\(r_0\)}
-				(0);
-			\draw [->, thick] (1) edge [loop above] 
-				node [midway, above] {\(r_1\)}
-				(1);
-			\draw [->, thick] (n-1) edge [loop above] 
-				node [midway, above] {\(r_{n-1}\)}
-				(n-1);
-			\draw [->, thick] (n) edge [loop above] 
-				node [midway, above] {\(r_n\)}
-				(n);
+			\node [fixed_size_circle,draw] (n) at (8, 0) {n};
+			\draw [->, thick] (n) edge [bend left=45]
+			node [midway, above] {\(q_n\)}
+			(n-1);
+			\draw [->, thick] (n-1) edge [bend left=45]
+			node [midway, above] {\(p_{n-1}\)}
+			(n);
+			\draw [->, thick] (1) edge [bend left=45]
+			node [midway, above] {\(q_1\)}
+			(0);
+			\draw [->, thick] (0) edge [bend left=45]
+			node [midway, above] {\(p_0\)}
+			(1);
+			\draw [->, thick] (1) edge [bend left=45]
+			node [midway, above] {\(p_1\)}
+			(x);
+			\draw [->, thick] (x) edge [bend left=45]
+			node [midway, above] {\(q_2\)}
+			(1);
+			\draw [->, thick] (x) edge [bend left=45]
+			node [midway, above] {\(p_{n-2}\)}
+			(n-1);
+			\draw [->, thick] (n-1) edge [bend left=45]
+			node [midway, above] {\(q_{n-1}\)}
+			(x);
+			\draw [->, thick] (0) edge [loop above]
+			node [midway, above] {\(r_0\)}
+			(0);
+			\draw [->, thick] (1) edge [loop above]
+			node [midway, above] {\(r_1\)}
+			(1);
+			\draw [->, thick] (n-1) edge [loop above]
+			node [midway, above] {\(r_{n-1}\)}
+			(n-1);
+			\draw [->, thick] (n) edge [loop above]
+			node [midway, above] {\(r_n\)}
+			(n);
 		}
 	\end{center}
 \end{example}
@@ -88,14 +88,14 @@ Zauważmy, że w takim łańcuchu prawdopodobieństwo przejścia kolejno po stan
 
 	\begin{enumerate}
 		\item Dla \(k \geq 2\), \(x = k-1\), \(y = k\).
-		\begin{align*}
-			\frac{p_0p_1\dots p_{k-2}}{q_1q_2\dots q_{k-1}}p_{k-1} &= w_{k-1}p_k\\
-			\frac{p_0p_1\dots p_{k-1}}{q_1q_2\dots q_k}q_k &= w_kq_k
-		\end{align*}
+		      \begin{align*}
+			      \frac{p_0p_1\dots p_{k-2}}{q_1q_2\dots q_{k-1}}p_{k-1} & = w_{k-1}p_k \\
+			      \frac{p_0p_1\dots p_{k-1}}{q_1q_2\dots q_k}q_k         & = w_kq_k
+		      \end{align*}
 		\item Dla \(k = 1\):
-		\begin{align*}
-			w_0p_0 = p_0 = \frac{p_0}{q_1}q_1 = w_1q_1
-		\end{align*}
+		      \begin{align*}
+			      w_0p_0 = p_0 = \frac{p_0}{q_1}q_1 = w_1q_1
+		      \end{align*}
 		\item Dla \((x,y) \neq (k-1, k)\) dostajemy \(p_{xy} = p_{yx} = 0\).
 	\end{enumerate}
 
@@ -122,8 +122,8 @@ Zauważmy, że w takim łańcuchu prawdopodobieństwo przejścia kolejno po stan
 \begin{example}
 	Po rozwikłaniu bardziej ogólnego przypadku możemy przyjrzeć się nieco konkretniejszym. Na przykład, jeśli \((p_k, q_k, r_k) = (p, q, r)\), gdzie \(p \neq q\):
 	\begin{align*}
-		\expected{T_\ell \mid X_0 = \ell - 1} &= \frac{1}{q\pars{\frac{p}{q}}^\ell}\sum_{j=0}^{\ell-1}\pars{\frac{p}{q}}^j =\\
-		&= \frac{\pars{\frac{p}{q}}^\ell - 1}{q\pars{\frac{p}{q}}^\ell \pars{\frac{p}{q}-1}} = \frac{1}{p-q}\pars{1 - \frac{q}{p}}^\ell
+		\expected{T_\ell \mid X_0 = \ell - 1} & = \frac{1}{q\pars{\frac{p}{q}}^\ell}\sum_{j=0}^{\ell-1}\pars{\frac{p}{q}}^j =                                                  \\
+		                                      & = \frac{\pars{\frac{p}{q}}^\ell - 1}{q\pars{\frac{p}{q}}^\ell \pars{\frac{p}{q}-1}} = \frac{1}{p-q}\pars{1 - \frac{q}{p}}^\ell
 	\end{align*}
 	Natomiast gdy \(p=q\):
 	\begin{align*}

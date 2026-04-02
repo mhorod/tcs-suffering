@@ -1,37 +1,37 @@
 Teraz będziemy dowodzić, że:
 \[
-    \prob\pars{\log_2\ln n - \mathcal{O}(1) \leq \max(X_1, \ldots, X_n)} \geq 1 - \frac{1}{n}
+	\prob\pars{\log_2\ln n - \mathcal{O}(1) \leq \max(X_1, \ldots, X_n)} \geq 1 - \frac{1}{n}
 \]
 Czyli dowodzimy ograniczenie dolne twierdzenia \ref{power-of-two-choices-theorem}. Co ważne, nie robimy tego w pełnym wariancie tego twierdzenia, czyli dla \(n^\alpha\) dla dowolnego \(\alpha\), a wyłącznie dla \(\alpha = 1\). Tak samo jest jednak w książce oraz w materiałach które otrzymaliśmy i na egzaminie wystarczy znajomość poniższego dowodu. Sam dowód przebiega bardzo podobnie do iteracyjnego ograniczenia górnego.
 
-Niech 
+Niech
 \[
-    \gamma_0 = n 
+	\gamma_0 = n
 \]
 \[
-    \gamma_{i+1} = \frac{n}{2^{i+3}} \cdot \pars{\frac{\gamma_i}{n}}^2 = \frac{\gamma_i^2}{n \cdot 2^{i+3}}
+	\gamma_{i+1} = \frac{n}{2^{i+3}} \cdot \pars{\frac{\gamma_i}{n}}^2 = \frac{\gamma_i^2}{n \cdot 2^{i+3}}
 \]
 \begin{lemma}
 	\label{two-choices-lowerbound-gamma-lemma}
-    \[
-        \gamma_i = \frac{n}{2^{\sum_{k = 0}^{i-1}(i + 2 - k)2^k}}
-    \]
-    W szczególności:
-    \[
-        \gamma_i \geq \frac{n}{2^{4 \cdot 2^i}}
-    \]
+	\[
+		\gamma_i = \frac{n}{2^{\sum_{k = 0}^{i-1}(i + 2 - k)2^k}}
+	\]
+	W szczególności:
+	\[
+		\gamma_i \geq \frac{n}{2^{4 \cdot 2^i}}
+	\]
 \end{lemma}
 \begin{proof}
-    Można to pokazać indukcyjnie. Zauważmy, że dla \( i = 0 \) suma w potędze mianownika wyniesie 0, zatem faktycznie \( \gamma_0 = n \).
-    Zakładamy, że powyższy wzór jest prawdziwy dla \( \gamma_i \). Pokazujemy prawdziwość dla \( \gamma_{i+1} \):
-    \begin{align*}
-        \gamma_{i+1} &= \frac{n}{2^{i+3}} \pars{\frac{\gamma_i}{n}}^2 \\
-        &= \frac{n}{2^{i+3}} \cdot \pars{\frac{1}{2^{\sum_{k = 0}^{i - 1}(- + 2 - k)2^k}}}^2 \\
-        &= \frac{n}{2^{i+3} \cdot 2^{2 \cdot \sum_{k = 0}^{i - 1}(i + 2 - k)2^k}} \\
-        &= \frac{n}{2^{i+3} \cdot 2^{\sum_{k = 0}^{i - 1}(i + 2 - k)2^{k+1}}} \\
-        &= \frac{n}{2^{i+3} \cdot 2^{\sum_{k = 1}^{i}(i + 3 - k)2^k}} \\
-        &= \frac{n}{2^{\sum_{k = 0}^i(i + 3 - k)2^k}}
-    \end{align*}
+	Można to pokazać indukcyjnie. Zauważmy, że dla \( i = 0 \) suma w potędze mianownika wyniesie 0, zatem faktycznie \( \gamma_0 = n \).
+	Zakładamy, że powyższy wzór jest prawdziwy dla \( \gamma_i \). Pokazujemy prawdziwość dla \( \gamma_{i+1} \):
+	\begin{align*}
+		\gamma_{i+1} & = \frac{n}{2^{i+3}} \pars{\frac{\gamma_i}{n}}^2                                     \\
+		             & = \frac{n}{2^{i+3}} \cdot \pars{\frac{1}{2^{\sum_{k = 0}^{i - 1}(i + 2 - k)2^k}}}^2 \\
+		             & = \frac{n}{2^{i+3} \cdot 2^{2 \cdot \sum_{k = 0}^{i - 1}(i + 2 - k)2^k}}            \\
+		             & = \frac{n}{2^{i+3} \cdot 2^{\sum_{k = 0}^{i - 1}(i + 2 - k)2^{k+1}}}                \\
+		             & = \frac{n}{2^{i+3} \cdot 2^{\sum_{k = 1}^{i}(i + 3 - k)2^k}}                        \\
+		             & = \frac{n}{2^{\sum_{k = 0}^i(i + 3 - k)2^k}}
+	\end{align*}
 \end{proof}
 
 Zdefiniujmy teraz \( \mathcal{F}_i \) jako zdarzenie zachodzące jeśli \( \nu_i\pars{n\pars{1 - \frac{1}{2^i}}} \geq \gamma_i \). Widzimy, że \( \prob\pars{\mathcal{F}_0} = 1 \).
@@ -40,104 +40,104 @@ Będziemy wykazywać, że \( \prob\pars{\neg\mathcal{F}_{i+1} \mid \mathcal{F}_i
 Ustalmy \(i \) oraz \( t \in R = [n\pars{1 - \frac{1}{2^i}}, n\pars{1 - \frac{1}{2^{i+1}}}] \).
 Zdefiniujmy zmienną losową \( Z_t \):
 \[
-    Z_t = 1 \Leftrightarrow h(t) = i + 1 \lor \nu_{i+1}(t - 1) \geq \gamma_{i+1}
+	Z_t = 1 \Leftrightarrow h(t) = i + 1 \lor \nu_{i+1}(t - 1) \geq \gamma_{i+1}
 \]
 Dodatkowo:
 \[
-    \prob\pars{h(t) = i + 1} = \pars{\frac{\nu_i(t-1)}{n}}^2 - \pars{\frac{\nu_{i+1}(t-1)}{n}}^2
+	\prob\pars{h(t) = i + 1} = \pars{\frac{\nu_i(t-1)}{n}}^2 - \pars{\frac{\nu_{i+1}(t-1)}{n}}^2
 \]
 Ponieważ aby \(t\)-ta kula była na (\(i+1\))-szym poziomie, to musimy dwukrotnie wylosować urnę mającą przynajmniej \(i\) kul (lecz nie wylosować dwa razy urny mającej przynajmniej \(i + 1\) kul).
 Ograniczamy z dołu \( \prob\pars{Z_t = 1} \), znając wyniki poprzednich rzutów:
 \begin{align*}
-    \prob\pars{Z_t = 1 \mid (K_1, \ldots K_{t - 1}) = (\omega_1, \ldots, \omega_{t-1}), \mathcal{F}_i} &\geq \pars{\frac{\gamma_i}{n}}^2 - \pars{\frac{\gamma_{i+1}}{n}}^2 \\
-    &\geq \pars{\frac{\gamma_i}{n}}^2 - \pars{\frac{\frac{n}{2^{i+3}} \pars{\frac{\gamma_i}{n}}^2}{n}}^2 \\
-    &\geq \frac{1}{2} \pars{\frac{\gamma_i}{n}}^2
+	\prob\pars{Z_t = 1 \mid (K_1, \ldots K_{t - 1}) = (\omega_1, \ldots, \omega_{t-1}), \mathcal{F}_i} & \geq \pars{\frac{\gamma_i}{n}}^2 - \pars{\frac{\gamma_{i+1}}{n}}^2                                  \\
+	                                                                                                   & \geq \pars{\frac{\gamma_i}{n}}^2 - \pars{\frac{\frac{n}{2^{i+3}} \pars{\frac{\gamma_i}{n}}^2}{n}}^2 \\
+	                                                                                                   & \geq \frac{1}{2} \pars{\frac{\gamma_i}{n}}^2
 \end{align*}
 Pierwsza nierówność wynika z tego, że albo \(\nu_{i+1}(t - 1) \geq \gamma_{i+1}\), co samo daje nam \(Z_t = 1\), albo \(\nu_{i+1}(t - 1) < \gamma_{i+1}\) oraz \( \nu_i(t - 1) \geq \gamma_i \) (z warunkowania po \( \mathcal{F}_i \))
 \[
-    \prob\pars{Z_t = 1 \mid (K_1, \ldots K_{t - 1}) = (\omega_1, \ldots, \omega_{t-1}), \mathcal{F}_i} \geq p_i \coloneq \frac{1}{2}\pars{\frac{\gamma_i}{n}}^2
+	\prob\pars{Z_t = 1 \mid (K_1, \ldots K_{t - 1}) = (\omega_1, \ldots, \omega_{t-1}), \mathcal{F}_i} \geq p_i \coloneq \frac{1}{2}\pars{\frac{\gamma_i}{n}}^2
 \]
 Z lematu \ref{binary-random-variable-binomial-lowerbound} otrzymujemy:
 \begin{align*}
-    \prob\pars{\sum_{t \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i } &\leq \prob\pars{\Bin\pars{\frac{n}{2^{i+1}}, p_i} < \gamma_{i+1}} \leq e^{-\frac{np_i}{2^{i+1}}\frac{1}{8}} < \frac{1}{n^2}
+	\prob\pars{\sum_{t \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i } & \leq \prob\pars{\Bin\pars{\frac{n}{2^{i+1}}, p_i} < \gamma_{i+1}} \leq e^{-\frac{np_i}{2^{i+1}}\frac{1}{8}} < \frac{1}{n^2}
 \end{align*}
 Gdzie druga nierówność wynika z \ref{chernow-for-power-of-two}, a trzecia działa dla \( \frac{np_i}{2^{i+1}} \geq 17\ln n \).
 
 Jeżeli zaszło \( \neg\mathcal{F}_{i+1} \) to bezpośrednio z definicji \( \mathcal{F}_i\) mamy
 \[
-    \forall_{t \in R} \, \nu_{i+1}(t - 1) \leq \nu_{i+1}\pars{n\pars{1 - \frac{1}{2^{i+1}}}} < \gamma_{i+1} 
+	\forall_{t \in R} \, \nu_{i+1}(t - 1) \leq \nu_{i+1}\pars{n\pars{1 - \frac{1}{2^{i+1}}}} < \gamma_{i+1}
 \]
 
 W takim razie, dalej dla \( \neg\mathcal{F}_{i+1} \), otrzymujemy
 \begin{align*}
-    \sum_{t \in R} Z_t &= \sum_{t \in R}[h(t) = i + 1] \\
-    &\leq \nu_{i+1}\pars{n\pars{1 - \frac{1}{2^{i+1}}}} \\
-    &< \gamma_{i+1}
+	\sum_{t \in R} Z_t & = \sum_{t \in R}[h(t) = i + 1]                     \\
+	                   & \leq \nu_{i+1}\pars{n\pars{1 - \frac{1}{2^{i+1}}}} \\
+	                   & < \gamma_{i+1}
 \end{align*}
 Skoro \( \neg\mathcal{F}_{i+1} \implies \sum_{t \in R} Z_t < \gamma_{i+1}\) to
 \[
-    \prob\pars{\neg\mathcal{F}_{i+1} \mid \mathcal{F}_i} \leq \prob\pars{\sum_{i \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i} < \frac{1}{n^2}    
+	\prob\pars{\neg\mathcal{F}_{i+1} \mid \mathcal{F}_i} \leq \prob\pars{\sum_{i \in R} Z_t < \gamma_{i+1} \mid \mathcal{F}_i} < \frac{1}{n^2}
 \]
 Gdzie ostatnia nierówność ponownie jest prawdziwa dla takich \( i \), że \( \frac{np_i}{2^{i+1}} \geq 17\ln n\). Niech \( i^* \) będzie największym \( i \) spełniającym tą nierówność. Wtedy:
 \[
-    \prob\pars{\mathcal{F}_{i^*}} \geq \prob\pars{\mathcal{F}_{i^*} \mid \mathcal{F}_{i^* - 1}} \ldots \prob\pars{\mathcal{F}_1 \mid \mathcal{F}_0}\prob\pars{\mathcal{F}_0} \geq \pars{1 - \frac{1}{n^2}}^{i^*}
+	\prob\pars{\mathcal{F}_{i^*}} \geq \prob\pars{\mathcal{F}_{i^*} \mid \mathcal{F}_{i^* - 1}} \ldots \prob\pars{\mathcal{F}_1 \mid \mathcal{F}_0}\prob\pars{\mathcal{F}_0} \geq \pars{1 - \frac{1}{n^2}}^{i^*}
 \]
 Teraz chcielibyśmy poznać \( i^* \). Podobnie jak dla poprzedniego dowodu, tworzymy sobie ciąg coraz mocniejszych nierówności. Przypomnijmy, że \( p_i = \frac{1}{2}\pars{\frac{\gamma_i}{n}}^2 \) oraz \(\gamma_{i+1} = \frac{n}{2^{i+3}} \cdot \pars{\frac{\gamma_i}{n}}^2\)
 \[
 	\frac{np_i}{2^{i+1}} = \frac{n}{2^{i+2}} \pars{\frac{\gamma_i}{n}}^2 = 2\gamma_{i+1}
 \]
 \[
-    2\gamma_{i+1} \geq 17\ln n
+	2\gamma_{i+1} \geq 17\ln n
 \]
 Ponieważ \( \gamma_i \geq \frac{n}{2^{4\cdot 2 ^i}} \) (z \ref{two-choices-lowerbound-gamma-lemma}):
 \[
-    2 \cdot \frac{n}{2^{4 \cdot 2^{i+1}}} \geq 17\ln n
+	2 \cdot \frac{n}{2^{4 \cdot 2^{i+1}}} \geq 17\ln n
 \]
 \[
-    2^{4 \cdot 2 ^{i+1}}  \leq \frac{2n}{17\ln n}
+	2^{4 \cdot 2 ^{i+1}}  \leq \frac{2n}{17\ln n}
 \]
 \[
-    4 \cdot 2^{i+1} \leq \log_2 2 + \log_2 n - \log_2(17 \ln n)
+	4 \cdot 2^{i+1} \leq \log_2 2 + \log_2 n - \log_2(17 \ln n)
 \]
 Dla wystarczająco dużego \(n\), to jest mocniejsza nierówność:
 \[
-    4 \cdot 2^{i+1} \leq \frac{1}{2\ln 2} \ln n
+	4 \cdot 2^{i+1} \leq \frac{1}{2\ln 2} \ln n
 \]
 \[
-    2 + i + 1 \leq \log_2 \ln n + \log_2\pars{\frac{1}{2 \ln 2}}
+	2 + i + 1 \leq \log_2 \ln n + \log_2\pars{\frac{1}{2 \ln 2}}
 \]
 \[
-    i \leq \log_2 \ln n - \mathcal{O}(1)
+	i \leq \log_2 \ln n - \mathcal{O}(1)
 \]
 Zatem
 \[
-    i^* \geq \log_2 \ln n - \mathcal{O}(1) = \frac{\ln \ln n}{\ln 2} - \mathcal{O}(1)
+	i^* \geq \log_2 \ln n - \mathcal{O}(1) = \frac{\ln \ln n}{\ln 2} - \mathcal{O}(1)
 \]
 oraz:
 \[
-    \prob\pars{\mathcal{F}_{i^*}} \geq \pars{1 - \frac{1}{n^2}}^{i^*}
+	\prob\pars{\mathcal{F}_{i^*}} \geq \pars{1 - \frac{1}{n^2}}^{i^*}
 \]
 Pozostało teraz tylko dowieść \(\pars{1 - \frac{1}{n^2}}^{i^*} \geq 1 - \frac{1}{n}\) dla odpowiednio dużego \(n\), z czego będziemy już mieli \(\prob\pars{\mathcal{F}_{i^*}} \geq 1 - \frac{1}{n}\), a więc z wysokim prawdopodobieństwem istnieje urna z przynajmniej \(i^*\) kulami, co kończy dowód. Przejdźmy więc do tej ostatniej części
 \[
-    \pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2} - c} \geq \pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2}} = \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
+	\pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2} - c} \geq \pars{1 - \frac{1}{n^2}}^{\frac{\ln \ln n}{\ln 2}} = \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
 \]
 \( \pars{1 - \frac{1}{n^2}}^{-n^2} \) dąży do \( e \), zatem dla odpowiednio dużego \(n\) mamy
 \[
-    e^2 > \pars{1 - \frac{1}{n^2}}^{-n^2}
+	e^2 > \pars{1 - \frac{1}{n^2}}^{-n^2}
 \]
 \[
-    e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
+	e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \cdot \frac{-\ln \ln n}{n^2 \ln 2}}
 \]
 Teraz skorzystamy z rozwinięcia \( e^x \) w szereg Taylora
 \[
-    e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots
+	e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots
 \]
 możemy zauważyć, że dla \( x \in (-\varepsilon, 0) \)
 \[
-    e^x \geq 1 + x - x^2
+	e^x \geq 1 + x - x^2
 \]
 zatem:
 \[
-    1 - \frac{1}{n} \leq 1 - \frac{2 \ln \ln n}{n^2 \ln 2} - \pars{\frac{2 \ln \ln n}{n^2 \ln 2}}^2 \leq e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \frac{- \ln \ln n}{n^2 \ln 2}}
+	1 - \frac{1}{n} \leq 1 - \frac{2 \ln \ln n}{n^2 \ln 2} - \pars{\frac{2 \ln \ln n}{n^2 \ln 2}}^2 \leq e^{\frac{-2 \ln \ln n}{n^2 \ln 2}} \leq \pars{1 - \frac{1}{n^2}}^{-n^2 \frac{- \ln \ln n}{n^2 \ln 2}}
 \]
 gdzie pierwsza nierówność zachodzi dla wystarczająco dużego \( n \) a druga wynika z dolnego ograniczenia na \( e^x \).

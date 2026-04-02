@@ -3,14 +3,14 @@
 	\begin{itemize}
 		\item \(\Omega\) to zbiór zdarzeń elementarnych
 		\item \(\mathcal{F} \subseteq 2^{\Omega}\) to rodzina zdarzeń mierzalnych\\
-		W przypadku dyskretnym \(\mathcal{F} = 2^{\Omega}\)\\
-		W przypadku ogólnym, \(\mathcal{F}\) musi być \(\sigma\)-algebrą (definicja \(\sigma\)-algebry: \ref{sigma-algebra-definition})
+		      W przypadku dyskretnym \(\mathcal{F} = 2^{\Omega}\)\\
+		      W przypadku ogólnym, \(\mathcal{F}\) musi być \(\sigma\)-algebrą (definicja \(\sigma\)-algebry: \ref{sigma-algebra-definition})
 		\item \(\prob : \mathcal{F} \to \mathbb{R}\) taka, że
-		\begin{itemize}
-			\item \(\forall_{E \in \mathcal{F}} \; 0 \leq \prob(E) \leq 1\)
-			\item \(\prob(\Omega) = 1\)
-			\item \(\forall_{\substack{\set{E_i}_{i \in \natural} \\ \forall_{i \in \natural} E_i \in \mathcal{F} \\ \forall_{i, j, i \not= j} E_i \cap E_j = \emptyset}} \; \prob(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty \; \prob(E_i)\)
-		\end{itemize}
+		      \begin{itemize}
+			      \item \(\forall_{E \in \mathcal{F}} \; 0 \leq \prob(E) \leq 1\)
+			      \item \(\prob(\Omega) = 1\)
+			      \item \(\forall_{\substack{\set{E_i}_{i \in \natural} \\ \forall_{i \in \natural} E_i \in \mathcal{F} \\ \forall_{i, j, i \not= j} E_i \cap E_j = \emptyset}} \; \prob(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty \; \prob(E_i)\)
+		      \end{itemize}
 	\end{itemize}
 \end{definition}
 
@@ -19,9 +19,9 @@
 	\[
 		\prob(E_1 \cup E_2) = \prob(E_1) + \prob(E_2) - \prob(E_1 \cap E_2)
 	\]
-\end{lemma} 
+\end{lemma}
 
-\begin{lemma} Prawdopodobieństwo sumy / union bound \\
+\begin{lemma} Prawdopodobieństwo sumy / union bound\\
 	\label{union-bound}
 	Dla dowolnej skończonej lub przeliczalnej rodziny zdarzeń \(E_1, E_2, ...\) zachodzi
 	\[
@@ -31,7 +31,7 @@
 
 \begin{lemma} Zasada włączeń i wyłączeń \\
 	Dla dowolnych zdarzeń \(E_1, ..., E_n\)
-	
+
 	\[
 		\prob\pars{\bigcup_{i=1}^n E_i} = \sum_{i=1}^n \prob(E_i) - \sum_{\{i,j\} \in \binom{[n]}{2}} \prob(E_i \cap E_j) \; + \; \sum_{\{i,j,k\} \in \binom{[n]}{3}} \prob(E_i \cap E_j \cap E_k) \; - ...
 	\]

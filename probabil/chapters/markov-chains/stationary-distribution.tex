@@ -27,15 +27,15 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 	\[
 		\sum_{y \in S} \overline{\pi_{z, y}} = \mathbb{E}_z[T_z^+]
 	\]
-	
+
 	Pozostaje nam więc tylko udowodnić część pierwszą
 	\begin{align*}
-		\sum_{x \in S} \overline{\pi_{z, x}} p_{x, y} &= \sum_{x \in S} \sum_{t=0}^{\infty} \prob_z(X_t = x \land T_z^+ > t) p_{x, y}\\
-		&= \sum_{t=0}^\infty \prob_z(X_{t+1} = y \land T_z^+ \geq t + 1)\\
-		&= \sum_{t=1}^\infty \prob_z(X_{t} = y \land T_z^+ \geq t)\\
-		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t)\\
-		&= \overline{\pi_{z, y}} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)\\
-		&= \overline{\pi_{z, y}}
+		\sum_{x \in S} \overline{\pi_{z, x}} p_{x, y} & = \sum_{x \in S} \sum_{t=0}^{\infty} \prob_z(X_t = x \land T_z^+ > t) p_{x, y}                                  \\
+		                                              & = \sum_{t=0}^\infty \prob_z(X_{t+1} = y \land T_z^+ \geq t + 1)                                                 \\
+		                                              & = \sum_{t=1}^\infty \prob_z(X_{t} = y \land T_z^+ \geq t)                                                       \\
+		                                              & = \overline{\pi_{z, y}} - \prob_z(X_0 = y \land T_z^+ > 0) + \sum_{t=1}^\infty \prob_z(X_t = y \land T_z^+ = t) \\
+		                                              & = \overline{\pi_{z, y}} - \prob_z(X_0 = y) + \prob_z(X_{T_z^+} = y)                                             \\
+		                                              & = \overline{\pi_{z, y}}
 	\end{align*}
 	\(\prob_z(X_0 = y) = \prob_z(X_{T_z^+} = y)\) ponieważ oba są indykatorami \(y = z\).
 \end{proof}
@@ -66,7 +66,7 @@ Intuicyjnie rozkład stacjonarny opisuje jak często asymptotycznie odwiedzamy k
 	Dodatkowo, jeśli łańcuch jest nieokresowy
 	\begin{enumerate}
 		\setcounter{enumi}{2}
-		\item \(\forall_{i, j \in S} \lim_{t \to \infty} p_{j, i}(t) = \pi_i\) 
+		\item \(\forall_{i, j \in S} \lim_{t \to \infty} p_{j, i}(t) = \pi_i\)
 	\end{enumerate}
 \end{theorem}
 \begin{proof}

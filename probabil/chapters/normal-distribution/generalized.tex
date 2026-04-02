@@ -40,15 +40,15 @@
 \end{theorem}
 \begin{proof}
 	\begin{align*}
-		\mathcal{M}_X(t) &= \mathbb{E}[e^{tX}] \\
-		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} e^{tx} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx \\
-		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2\mu x + \mu^2 - 2\sigma^2 tx}{2\sigma^2} \right) dx \\
-		&= \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2(\mu + \sigma^2 t)x + (\mu + \sigma^2 t)^2 - (\mu + \sigma^2 t)^2 + \mu^2}{2\sigma^2} \right) dx \\
-		&= \exp\left( \frac{(\mu + \sigma^2 t)^2 - \mu^2}{2\sigma^2} \right) \underbrace{\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x - (\mu + \sigma^2 t))^2}{2\sigma^2}} dx}_{1} \\
-		&= \exp\left( \frac{\mu^2 + 2\mu\sigma^2 t + \sigma^4 t^2 - \mu^2}{2\sigma^2} \right) \\
-		&= e^{\mu t + \frac{t^2\sigma^2}{2}}
+		\mathcal{M}_X(t) & = \mathbb{E}[e^{tX}]                                                                                                                                                                          \\
+		                 & = \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} e^{tx} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx                                                                                               \\
+		                 & = \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2\mu x + \mu^2 - 2\sigma^2 tx}{2\sigma^2} \right) dx                                                             \\
+		                 & = \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty} \exp\left( -\frac{x^2 - 2(\mu + \sigma^2 t)x + (\mu + \sigma^2 t)^2 - (\mu + \sigma^2 t)^2 + \mu^2}{2\sigma^2} \right) dx                \\
+		                 & = \exp\left( \frac{(\mu + \sigma^2 t)^2 - \mu^2}{2\sigma^2} \right) \underbrace{\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x - (\mu + \sigma^2 t))^2}{2\sigma^2}} dx}_{1} \\
+		                 & = \exp\left( \frac{\mu^2 + 2\mu\sigma^2 t + \sigma^4 t^2 - \mu^2}{2\sigma^2} \right)                                                                                                          \\
+		                 & = e^{\mu t + \frac{t^2\sigma^2}{2}}
 	\end{align*}
-	
+
 	Całka w 3 linii od dołu jest równa 1, bo jest to całka po gęstości rozkładu \(N(\mu + \sigma^2 t, \sigma^2)\).
 \end{proof}
 
@@ -57,7 +57,7 @@
 \end{theorem}
 \begin{proof}
 	\begin{align*}
-		\mathcal{M}_{X+Y}(t) = \pars{\mathcal{M}_X(t)}\pars{\mathcal{M}_Y(t)} = \pars{e^{\frac{t^2\sigma_1^2}{2}+\mu_1 t}}\pars{e^{\frac{t^2\sigma_2^2}{2}+\mu_2 t}} =\\
+		\mathcal{M}_{X+Y}(t) = \pars{\mathcal{M}_X(t)}\pars{\mathcal{M}_Y(t)} = \pars{e^{\frac{t^2\sigma_1^2}{2}+\mu_1 t}}\pars{e^{\frac{t^2\sigma_2^2}{2}+\mu_2 t}} = \\
 		= e^{\frac{t^2(\sigma_1^2+\sigma_2^2)}{2} + t(\mu_1 + \mu_2)}
 	\end{align*}
 \end{proof}

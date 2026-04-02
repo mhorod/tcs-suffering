@@ -1,5 +1,5 @@
 \begin{definition}
-	Mówimy, że procesy Poissona \(\set{N_1(t) \mid t \geq 0}, \set{N_2(t) \mid t \geq 0}\) są \textbf{niezależne} jeśli \(\forall_{x, y} \, N_1(x)\) i \(N_2(y)\) są niezależne. 
+	Mówimy, że procesy Poissona \(\set{N_1(t) \mid t \geq 0}, \set{N_2(t) \mid t \geq 0}\) są \textbf{niezależne} jeśli \(\forall_{x, y} \, N_1(x)\) i \(N_2(y)\) są niezależne.
 \end{definition}
 
 \subsection{Scalanie}
@@ -41,9 +41,9 @@ Ta smutniejsza część.
 	\begin{align*}
 		P(N_1(t) = k)
 		 & = \sum_{j=k}^\infty P(N_1(t) = k \mid N(t) = j) \cdot P(N(t) = j)                                             \\
-		 & = \sum_{j=k}^\infty \binom{j}{k} p^k \cdot (1-p)^{j-k} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^j}{j!}                 \\
+		 & = \sum_{j=k}^\infty \binom{j}{k} p^k \cdot (1-p)^{j-k} \cdot e^{-\lambda t} \cdot \frac{(\lambda t)^j}{j!}    \\
 		 & = e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!} \cdot e^{-\lambda (1 - p) t} \cdot
-		\sum_{j=k}^\infty \frac{(\lambda t (1 - p))^{j-k}}{(j-k)!}                                                               \\
+		\sum_{j=k}^\infty \frac{(\lambda t (1 - p))^{j-k}}{(j-k)!}                                                       \\
 		 & = e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!} \cdot e^{-\lambda (1 - p) t}  \cdot e^{\lambda (1 - p) t} \\
 		 & = e^{-\lambda p t} \cdot \frac{(\lambda p t)^k}{k!}
 	\end{align*}
@@ -67,5 +67,4 @@ Ta smutniejsza część.
 	Pokazaliśmy już, że \( N_1(t) \) oraz \( N_2(t) \) są niezależne, więc wystarczy pokazać, że
 	\( N_1(t) \) oraz \(N_2(u) - N_2(t)\) też są niezależne.
 	A tak jest, dlatego, że oryginalny \( N \) był procesem Poissona i rozdzielanie robiliśmy niezależnie, więc to ile zdarzeń z przedziału \( \pars{t, u} \) wpadło do \( N_2 \) jest niezależne od \( N_1(t) \).
-	%TODO: faktycznie to obliczyc (bylo na cwiczeniach)
 \end{proof}

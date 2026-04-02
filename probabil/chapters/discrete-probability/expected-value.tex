@@ -31,10 +31,10 @@
 \end{theorem}
 \begin{proof}
 	\begin{align*}
-		\ev{X \cdot Y} &= \sum_i \sum_j (ij) \cdot \prob(X = i \cap Y = j) \\
-		&= \sum_i \sum_j ij \cdot \prob(X = i) \cdot \prob(Y = j) \\
-		&= \sum_i i \cdot \prob(X = i) \cdot \sum_j j \cdot \prob(Y = j) \\
-		&= \ev{X} \cdot \ev{Y}
+		\ev{X \cdot Y} & = \sum_i \sum_j (ij) \cdot \prob(X = i \cap Y = j)              \\
+		               & = \sum_i \sum_j ij \cdot \prob(X = i) \cdot \prob(Y = j)        \\
+		               & = \sum_i i \cdot \prob(X = i) \cdot \sum_j j \cdot \prob(Y = j) \\
+		               & = \ev{X} \cdot \ev{Y}
 	\end{align*}
 \end{proof}
 
@@ -42,17 +42,17 @@
 \subsection{Liniowość wartości oczekiwanej}
 \begin{theorem} \textbf{Liniowość wartości oczekiwanej} (wariant z sumą)\\
 	Dla dowolnych \(X_1, ..., X_n\) z ograniczonymi wartościami oczekiwanymi
-    \[
-        \expected{\sum_{i = 1}^n X_i} = \sum_{i=1}^n \; \expected{X_i}
-    \]
+	\[
+		\expected{\sum_{i = 1}^n X_i} = \sum_{i=1}^n \; \expected{X_i}
+	\]
 \end{theorem}
 \begin{proof} (\(n = 2\))
-	\begin{align*}
-		\expected{X + Y} =& \sum_k k \cdot \prob(X + Y = k) \quad &=& \sum_{i, j} (i + j) \cdot \prob((X = i) \land (Y = j)) \\
-		=& \sum_i \; i \; \colorbox{BurntOrange}{\(\sum_j \cdot \prob((X = i) \land (Y = j))\)} \quad &+& \sum_j \; j \; \colorbox{cyan}{\(\sum_i \prob((X = i) \land (Y = j))\)} \\
-		=& \sum_i \; i \; \colorbox{BurntOrange}{\(\prob(X = i)\)} \quad &+& \sum_j \; j \; \colorbox{cyan}{\(\prob(Y = j)\)} \\
-		=& \expected{X} + \expected{Y}
-	\end{align*}
+	\begin{alignat*}{2}
+		\expected{X + Y} & = \sum_k k \cdot \prob(X + Y = k) \qquad                 &  & = \sum_{i, j} (i + j) \cdot \prob((X = i) \land (Y = j)) \\
+		                 & = \sum_i \; i \sum_j \prob((X = i) \land (Y = j)) \qquad &  & + \sum_j \; j \sum_i \prob((X = i) \land (Y = j))        \\
+		                 & = \sum_i \; i \; \prob(X = i) \qquad                     &  & + \sum_j \; j \; \prob(Y = j)                            \\
+		                 & = \expected{X} + \expected{Y}
+	\end{alignat*}
 \end{proof}
 
 \begin{theorem} \textbf{Liniowość wartości oczekiwanej} (wariant ze współczynnikiem)\\
@@ -64,10 +64,10 @@
 \begin{proof}
 	Dla \(c = 0\) oczywiste. Zakładamy, że \(c \ne 0\).
 	\begin{align*}
-		\expected{cX} &= \sum_j j \cdot \prob(cX = j) \\
-		&= c \cdot \sum_j \frac{j}{c} \cdot \prob(X = \frac{j}{c}) \\
-		&= c \cdot \sum_k k \cdot \prob(X = k) \\
-		&= c \cdot \expected{X}.
+		\expected{cX} & = \sum_j j \cdot \prob(cX = j)                            \\
+		              & = c \cdot \sum_j \frac{j}{c} \cdot \prob(X = \frac{j}{c}) \\
+		              & = c \cdot \sum_k k \cdot \prob(X = k)                     \\
+		              & = c \cdot \expected{X}.
 	\end{align*}
 \end{proof}
 
@@ -75,20 +75,20 @@
 	\[
 		\expected{X} = 2\cdot\frac{1}{36} + 3 \cdot \frac{2}{36} + ... + 12 \cdot \frac{1}{36} = 7.
 	\]
-	Z tw. o liniowości wynik dostajemy natychmiast. Niech \(X_1\) i \(X_2\) to odpowiednio wartość rzutu pierwszej i drugiej kostki. Wtedy \(X = X_1 + X_2\).
+	Za to z liniowości wynik dostajemy natychmiast. Niech \(X_1\) i \(X_2\) to odpowiednio wartość rzutu pierwszej i drugiej kostki. Wtedy \(X = X_1 + X_2\).
 	\[
 		\expected{X} = \expected{X_1 + X_2} = \expected{X_1} + \expected{X_2} = 3.5 + 3.5 = 7.
 	\]
 \end{example}
 
 \begin{example} Urna ma w sobie 4 kulki, każda z których jest innego koloru. 4 razy wyjmujemy kulę, obserwujemy kolor i wrzucamy kulę z powrotem. Jaka jest oczekiwana liczba zaobserwowanych kolorów?\\
-	Niech \(X\) to liczba zaobserwowanych kolorów oraz 
+	Niech \(X\) to liczba zaobserwowanych kolorów oraz
 	\(
-		X_i =:
-		\begin{cases}
-			1, \text{ jeśli } i \text{-ty kolor zaobserwowany}\\
-			0
-		\end{cases}
+	X_i =:
+	\begin{cases}
+		1, \text{ jeśli } i \text{-ty kolor zaobserwowany} \\
+		0
+	\end{cases}
 	\)\\
 	Wtedy
 	\[
@@ -96,22 +96,22 @@
 	\]
 	\(X_i\) to indykatory, a więc \(\expected{X_i} = \prob(X_i)\). Zastanówmy się więc jakie jest prawdopodobieństwo \(\prob(X_i = 1)\). Aby to zrobić, łatwiej będzie policzyć prawdopodobieństwo, że kolor \(i\)-ty \textit{nie} wystąpi, a więc 4 razy dostaniemy jeden z pozostałych 3 kolorów: \(\prob(X_i = 1) = 1 - \pars{\frac{3}{4}}^4\). Dostajemy zatem
 	\begin{align*}
-		\expected{X} = \expected{X_1 + X_2 + X_3 + X_4} &= \sum_{i=1}^4 \expected{X_i} \\
-		&= \sum_{i=1}^4 \prob(X_i = 1) \\
-		&= 4 \cdot \pars{ 1 - \pars{\frac{3}{4}}^4 }.
+		\expected{X} = \expected{X_1 + X_2 + X_3 + X_4} & = \sum_{i=1}^4 \expected{X_i}                \\
+		                                                & = \sum_{i=1}^4 \prob(X_i = 1)                \\
+		                                                & = 4 \cdot \pars{ 1 - \pars{\frac{3}{4}}^4 }.
 	\end{align*}
 \end{example}
 
 \begin{example} Mrówki chodzące po kiju\\
 	Zacznijmy od zagadki:
 	\begin{quote}
-		Rozważamy kij o długości 1m. Losowo kładziemy na niego 25 mrówek i losowo ustalamy zwrot w lewo lub w prawo. Każda mrówka porusza się z szybkością 1cm/s. Gdy mrówki się spotkają, odbijają się od siebie, a więc zmienia się ich zwrot. Ilu sekund potrzebujemy, aby mieć pewność, że każda mrówka spadnie z kija.
+		Rozważamy kij o długości 1m. Losowo kładziemy na niego 25 mrówek i losowo ustalamy zwrot w lewo lub w prawo. Każda mrówka porusza się z szybkością 1cm/s. Gdy mrówki się spotkają, odbijają się od siebie, a więc zmienia się ich zwrot. Ilu sekund potrzebujemy, aby mieć pewność, że każda mrówka spadnie z kija?
 	\end{quote}
 	Można zauważyć, że mrówki są nierozróżnialne, a więc gdy dwie mrówki się spotykają, możemy pryjąć, iż się nie odbijają, a po prostu przenikają się wzajemnie i idą dalej. Zatem odpowiedź to 100s.
-	
+
 	W modelu takim jak w zagadce zastanawiamy się, jaka jest wartość oczekiwana wszystkich odbić. Problematyczne w zadaniu może okazać się, że jest continuum możliwych pozycji dla każdej mrówki. W rozwiązaniu jednak nie będzie nam potrzebna ta informacja.
-	
-	Niech \(X\) to liczba odbić, lub równoważnie liczba przeniknięć. Ponadto niech \(X_{i,j}\) to liczba przeniknięć \(i\)-tej i \(j\)-tej mrówki \(X_{i, j} \in \{0, 1\}\). Zakładamy, że mrówki są posortowane i dla \(i < j\) mrówka \(i\)-ta jest przed \(j\)-tą. Zauważmy, że 
+
+	Niech \(X\) to liczba odbić, lub równoważnie liczba przeniknięć. Ponadto niech \(X_{i,j}\) to liczba przeniknięć \(i\)-tej i \(j\)-tej mrówki \(X_{i, j} \in \{0, 1\}\). Zakładamy, że mrówki są posortowane i dla \(i < j\) mrówka \(i\)-ta jest przed \(j\)-tą. Zauważmy, że
 	\[
 		\expected{X_{i,j}} = \prob(X_{i,j} = 1) = \frac{1}{4}
 	\]
@@ -129,19 +129,19 @@
 	\]
 \end{theorem}
 \begin{proof}
-    \begin{align*}
-        0 \leq \ev{(X - E(X))^2} &= \ev{X^2 - 2 \cdot \ev{X} \cdot X + \ev{X}^2} \\
-        &= \ev{X^2} - 2 \cdot \ev{X} \cdot \ev{X} + \ev{X}^2 \\
-        &= \ev{X^2} - \ev{X}^2
-    \end{align*}
+	\begin{align*}
+		0 \leq \ev{(X - E(X))^2} & = \ev{X^2 - 2 \cdot \ev{X} \cdot X + \ev{X}^2}      \\
+		                         & = \ev{X^2} - 2 \cdot \ev{X} \cdot \ev{X} + \ev{X}^2 \\
+		                         & = \ev{X^2} - \ev{X}^2
+	\end{align*}
 \end{proof}
 \begin{example} Niech \(X\) to zmienna losowa, \(\prob(X = n) = \frac{1}{99}, n \in \{1,...,99\}\)
-    \[
-        \ev{X}^2 = \pars{\sum_{n = 1}^{99} \frac{1}{99} \cdot n}^2 = \pars{\frac{1}{99} \cdot \frac{99 \cdot 100}{2}}^2 = 50^2 = 2500
-    \]
-    \[
-        \ev{X^2} = \sum_{n = 1}^{99} \frac{1}{99} \cdot n^2 = \frac{1}{99} \cdot \frac{99 \cdot 100 \cdot 199}{6} = \frac{9950}{3} > 2500
-    \]
+	\[
+		\ev{X}^2 = \pars{\sum_{n = 1}^{99} \frac{1}{99} \cdot n}^2 = \pars{\frac{1}{99} \cdot \frac{99 \cdot 100}{2}}^2 = 50^2 = 2500
+	\]
+	\[
+		\ev{X^2} = \sum_{n = 1}^{99} \frac{1}{99} \cdot n^2 = \frac{1}{99} \cdot \frac{99 \cdot 100 \cdot 199}{6} = \frac{9950}{3} > 2500
+	\]
 \end{example}
 
 \begin{fact}
@@ -157,22 +157,22 @@
 \end{definition}
 
 \begin{theorem} \textbf{Nierówność Jensena}\\
-	Jeśli funkcja \(f\) jest wypukła i \(\ev{X} < \infty\) to 
+	Jeśli funkcja \(f\) jest wypukła i \(\ev{X} < \infty\) to
 	\[
 		\ev{f(X)}) \geq f(\ev{X})
 	\]
 \end{theorem}
 \begin{proof} Zakładamy, że \(f\) ma rozwinięcie Taylora. Niech \(\mu = \ev{X}\). Z Taylora wiemy, że
 	\begin{align*}
-        \exists_{c \in \mathbb{R}} f(x) &= f(\mu) + f'(\mu) \cdot (x - \mu) + \frac{f''(c) \cdot (x - \mu)^2}{2} \\
-        &\geq f(\mu) + f'(\mu) \cdot (x - \mu)
-    \end{align*}
-    \begin{align*}
-        \ev{f(X)} &\geq \ev{f(\mu) + f'(\mu) \cdot (X - \mu)} \\
-        &= f(\mu) + f'(\mu) \cdot \ev{X - \mu} \\
-        &= f(\ev{X}) + f'(\ev{X}) \cdot (\ev{X} - \ev{X}) \\
-        &= f(\ev{X})
-    \end{align*}
+		\exists_{c \in \mathbb{R}} f(x) & = f(\mu) + f'(\mu) \cdot (x - \mu) + \frac{f''(c) \cdot (x - \mu)^2}{2} \\
+		                                & \geq f(\mu) + f'(\mu) \cdot (x - \mu)
+	\end{align*}
+	\begin{align*}
+		\ev{f(X)} & \geq \ev{f(\mu) + f'(\mu) \cdot (X - \mu)}       \\
+		          & = f(\mu) + f'(\mu) \cdot \ev{X - \mu}            \\
+		          & = f(\ev{X}) + f'(\ev{X}) \cdot (\ev{X} - \ev{X}) \\
+		          & = f(\ev{X})
+	\end{align*}
 \end{proof}
 
 \subsection{Warunkowa wartość oczekiwana}
@@ -189,30 +189,30 @@
 \end{definition}
 
 \begin{example}
-    \(X_1\), \(X_2\) - wyniki niezależnych rzutów kostką 6-ścienną, \(X = X_1 + X_2\)
-    \begin{align*}
-        \ev{X|X_1 = 2} &= \sum_{x \in [12]} x \cdot \prob(X = x|X_1 = 2) \\
-        &= \sum_{x=3}^{8} x \cdot \frac{1}{6} \\
-        &= 5,5
-    \end{align*}
-    \begin{align*}
-        \ev{X_1|X = 5} &= \sum_{x=1}^{4} x \cdot \prob(X_1 = x | X = 5) \\
-        &= \sum_{x=1}^{4} x \cdot \frac{\prob(X_1 = x \cap X = 5)}{\prob(X = 5)} \\
-        &= \sum_{x=1}^{4} x \cdot \frac{\frac{1}{36}}{\frac{4}{36}} \\
-        &= 2,5
-    \end{align*}
+	\(X_1\), \(X_2\) - wyniki niezależnych rzutów kostką 6-ścienną, \(X = X_1 + X_2\)
+	\begin{align*}
+		\ev{X|X_1 = 2} & = \sum_{x \in [12]} x \cdot \prob(X = x|X_1 = 2) \\
+		               & = \sum_{x=3}^{8} x \cdot \frac{1}{6}             \\
+		               & = 5,5
+	\end{align*}
+	\begin{align*}
+		\ev{X_1|X = 5} & = \sum_{x=1}^{4} x \cdot \prob(X_1 = x | X = 5)                         \\
+		               & = \sum_{x=1}^{4} x \cdot \frac{\prob(X_1 = x \cap X = 5)}{\prob(X = 5)} \\
+		               & = \sum_{x=1}^{4} x \cdot \frac{\frac{1}{36}}{\frac{4}{36}}              \\
+		               & = 2,5
+	\end{align*}
 \end{example}
 
 \begin{example}
-    \(X_1, X_2\) - wyniki niezależnych rzutów kostką 6-ścienną, \(X = X_1 + X_2\)
-    \begin{align*}
-        \ev{X | X_1}(\omega) &= \ev{X | X_1 = X_1(\omega)} \\
-        &= \sum_{y = X_1(\omega)+1}^{X_1(\omega)+6} y \prob(X = y | X_1 = X_1(\omega)) \\
-        &= \sum_{y = X_1(\omega)+1}^{X_1(\omega)+6} y \frac{1}{6} \\
-        &= X_1(\omega) + 3,5
-    \end{align*}
+	\(X_1, X_2\) - wyniki niezależnych rzutów kostką 6-ścienną, \(X = X_1 + X_2\)
+	\begin{align*}
+		\ev{X | X_1}(\omega) & = \ev{X | X_1 = X_1(\omega)}                                                  \\
+		                     & = \sum_{y = X_1(\omega)+1}^{X_1(\omega)+6} y \prob(X = y | X_1 = X_1(\omega)) \\
+		                     & = \sum_{y = X_1(\omega)+1}^{X_1(\omega)+6} y \frac{1}{6}                      \\
+		                     & = X_1(\omega) + 3,5
+	\end{align*}
 
-    A więc \(\ev{X | X_1} = X_1 + 3,5\)
+	A więc \(\ev{X | X_1} = X_1 + 3,5\)
 \end{example}
 
 \begin{lemma}
@@ -224,18 +224,18 @@
 \begin{proof}
 	\begin{align*}
 		\sum_{y \in \im Y} \expected{X \mid Y = y} \cdot \prob(Y = y)
-		 & = \sum_{y \in \im Y} \pars{P(Y = y) \sum_{x \in \im X} x \cdot \prob(X = x \mid Y = y)}       \\
+		 & = \sum_{y \in \im Y} \pars{P(Y = y) \sum_{x \in \im X} x \cdot \prob(X = x \mid Y = y)}           \\
 		 & = \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}\prob(Y = y)  \cdot \prob(X = x \mid Y = y)} \\
 		 & = \sum_{x \in \im X} \pars{x \cdot \sum_{y \in \im Y}\prob(Y = y)  \cdot
 		\frac{\prob(X = x \land Y = y)}{\prob(Y = y)}}                                                       \\
-		 & = \sum_{x \in \im X} x \cdot \prob(X = x)                                                     \\
+		 & = \sum_{x \in \im X} x \cdot \prob(X = x)                                                         \\
 		 & = \expected{X}
 	\end{align*}
 \end{proof}
 
 \textbf{Fakt.}
 \[
-    \ev{\sum_i X_i | Y = y} = \sum_i \ev{X_i | Y = y}
+	\ev{\sum_i X_i | Y = y} = \sum_i \ev{X_i | Y = y}
 \]
 Czyli liniowość zachodzi też dla warunkowej wartości oczekiwanej
 

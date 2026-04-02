@@ -1,7 +1,7 @@
 Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skończony, nieprzywiedlny, nieokresowy) o macierzy przejścia \(P\), zbiorze stanów \(S\) i rozkładzie stacjonarnym \(\left( \pi_x \right) _{x \in S}\). Przez \(P^{t}\left( x, \cdot \right) \) oznaczamy rozkład \(X_t\) przy założeniu \(X_0 = x \).
 
 \begin{definition}
-	Definiujemy 
+	Definiujemy
 	\[\Delta_x\left( t  \right) = \left\|P^{t}\left( x, \cdot  \right) - \pi\right\|_{TV}\]
 	\[\tau_x\left( \varepsilon  \right) = \min \left\{ t : \Delta_x\left( t  \right) \le \varepsilon  \right\} \]
 	Mamy też maksima tych wartości:
@@ -61,21 +61,20 @@ Będziemy rozważać łańcuch Markowa \(\left( X_t \right) _{t \in \N}\) (skoń
 
 	Niech \(m_y = \min_{x \in S} P^{r}\left( x,y \right)\) dla \(y \in S\). Jest to najmniejsze z prawdopodobieństw, z jakimi da się przejść do \(y\) krokiem macierzy \(P^{r}\). Niech \(m = \sum_{y \in S}^{} m_y \le 1\) (ta suma ogranicza z dołu dowolny wiersz, a wiersz sumuje się do \(1\)).
 
-	Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in  \N}\) będzie sprzęganiem łańcuchów o macierzy przejścia \(P^{r}\) zadanym w następujący sposób:
-	Niech (\(X_t, Y_t \)) = (\(x_1, x_2\)). Zakładamy, że jeżeli łańcuchy się zeszły, to już się nie rozchodzą (czyli jeżeli \(X_t\) oraz \(Y_t\) są równe, to \(X_{t+1}\) i \(Y_{t+1}\) również będą równe).
+	Niech \(\left( \left( X_t,Y_t \right)  \right) _{t \in  \N}\) będzie sprzęganiem łańcuchów o macierzy przejścia \(P^{r}\) zadanym w następujący sposób: dla (\(X_t, Y_t \)) = (\(x_1, x_2\)) zakładamy, że jeżeli łańcuchy się zeszły, to już się nie rozchodzą (czyli jeżeli \(X_t\) oraz \(Y_t\) są równe, to \(X_{t+1}\) i \(Y_{t+1}\) również będą równe).
 	W przeciwnym przypadku rzucamy monetą, na której orzeł wypada z prawdopodobieństem \(m\):
 	\begin{itemize}
 		\item Jeżeli wypadnie orzeł, to \(X_{t+1} = Y_{t+1} = x\), gdzie \(x\) wybieramy losowo z rozkładem:
-			\[
-				\pars{\frac{1}{m} m_y \mid y \in S}
-			\]
+		      \[
+			      \pars{\frac{1}{m} m_y \mid y \in S}
+		      \]
 		\item Jeżeli wypadnie reszka, to \(X_{t+1} = x_1'\), \(Y_{t+1} = x_2'\), gdzie \(x_1'\) i \(x_2'\) wybieramy kolejno z rozkładami:
-			\[
-				\pars{\frac{1}{1-m} \pars{P^r(x_1, y) - m_y} \mid y \in S}
-			\]
-			\[
-				\pars{\frac{1}{1-m} \pars{P^r(x_2, y) - m_y} \mid y \in S}
-			\]
+		      \[
+			      \pars{\frac{1}{1-m} \pars{P^r(x_1, y) - m_y} \mid y \in S}
+		      \]
+		      \[
+			      \pars{\frac{1}{1-m} \pars{P^r(x_2, y) - m_y} \mid y \in S}
+		      \]
 	\end{itemize}
 
 	W ten sposób skonstruowaliśmy sprzęganie, dla którego zachodzi:

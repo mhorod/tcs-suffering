@@ -1,4 +1,4 @@
-Przejdźmy wreszcie do pierwszego dowodu ograniczenia górnego twierdzenia \ref{power-of-two-choices-theorem}. Tak naprawdę będziemy dowodzić że 
+Przejdźmy wreszcie do pierwszego dowodu ograniczenia górnego twierdzenia \ref{power-of-two-choices-theorem}. Tak naprawdę będziemy dowodzić że
 \[
 	\prob\pars{\max(X_1, \dots, X_n) \geq \log_2 \ln n + \mathcal{O}(1)} < \frac{1}{n^{\alpha - 1}}
 \]
@@ -29,8 +29,8 @@ Niech
 	\]
 	Jeśli lemat zachodzi dla \(i\) to
 	\[
-		\beta_{i+5} = 2\frac{\beta_{i+4}^2}{n} 
-		= 2\frac{\pars{\frac{n}{2^{2^i + 1}}}^2}{n} 
+		\beta_{i+5} = 2\frac{\beta_{i+4}^2}{n}
+		= 2\frac{\pars{\frac{n}{2^{2^i + 1}}}^2}{n}
 		= 2\frac{n}{2^{2(2^i + 1)}}
 		= 2\frac{n}{2^{2^{i + 1} + 2}}
 		= \frac{n}{2^{2^{i + 1} + 1}}
@@ -65,20 +65,20 @@ Niech \(p_i \coloneq \pars{\frac{\beta_i}{n}}^2\). Z lematu \ref{binary-random-v
 Teraz przy użyciu tego pokażemy, że \( \prob\pars{\neg\mathcal{E}_{i+1}} \) jest małe, jeżeli \( \mathcal{E}_i \) zaszło.
 Najpierw policzymy prawdopodobieństwo warunkowe:
 \begin{align*}
-	\prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i} &= \prob\pars{\nu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i} \\
-	&\leq \prob\pars{\mu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i} \\
-	&= \prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i} \\
+	\prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i} & = \prob\pars{\nu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i}    \\
+	                                                     & \leq \prob\pars{\mu_{i+1}\pars{n} > \beta_{i+1} \mid \mathcal{E}_i} \\
+	                                                     & = \prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i}       \\
 \end{align*}
-Tutaj w ostatniej równości robimy dwie rzeczy: korzystamy z faku, że jeżeli \( \mathcal{E}_i \) zaszło, to \(\mu_{i+1} = \sum_{t \in [n]} Y_t \), oraz 
+Tutaj w ostatniej równości robimy dwie rzeczy: korzystamy z faktu, że jeżeli \( \mathcal{E}_i \) zaszło, to \(\mu_{i+1} = \sum_{t \in [n]} Y_t \), oraz
 z definicji \( \beta_{i+1} \) i \( p_i \) podstawiamy \( \beta_{i+1} = 2np_i \)
 \begin{align*}
-	\prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i} &\leq \frac{\prob\pars{\sum_{t \in [n]} Y_t > 2np_i}}{\prob\pars{\mathcal{E}_i}} \\
-	&\leq \frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}} \\
+	\prob\pars{\sum_{t \in [n]} Y_t > 2np_i \mid \mathcal{E}_i} & \leq \frac{\prob\pars{\sum_{t \in [n]} Y_t > 2np_i}}{\prob\pars{\mathcal{E}_i}} \\
+	                                                            & \leq \frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}}          \\
 \end{align*}
 W drugiej nierówności korzystamy z faktu z lematu \ref{binary-random-variable-binomial-upperbound}. Przekształacając dalej:
 \begin{align*}
-	\frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}} &\leq \frac{1}{e^{\frac{np_i}{3}}\prob\pars{\mathcal{E}_i}} \\
-	&\leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_i}}
+	\frac{\prob\pars{\Bin(n,p_i) > 2np_i}}{\prob\pars{\mathcal{E}_i}} & \leq \frac{1}{e^{\frac{np_i}{3}}\prob\pars{\mathcal{E}_i}} \\
+	                                                                  & \leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_i}}
 \end{align*}
 Na koniec korzystamy z nierówności Czernowa (lemat \ref{chernow-for-power-of-two}), oraz zakładamy, że \( np_i \geq 3\alpha\ln(n) \).
 Ostatecznie otrzymujemy:
@@ -88,9 +88,9 @@ Ostatecznie otrzymujemy:
 
 Teraz możemy ograniczyć \( \prob\pars{\neg\mathcal{E}_{i+1}} \):
 \begin{align*}
-	\prob\pars{\neg\mathcal{E}_{i+1}} &= \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_{i+1} \mid \neg\mathcal{E}_i}\prob\pars{\neg\mathcal{E}_i} \\
-	&\leq \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_i} \\
-	&\leq \frac{1}{n^{\alpha}} + \prob\pars{\neg\mathcal{E}_i}
+	\prob\pars{\neg\mathcal{E}_{i+1}} & = \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_{i+1} \mid \neg\mathcal{E}_i}\prob\pars{\neg\mathcal{E}_i} \\
+	                                  & \leq \prob\pars{\neg\mathcal{E}_{i+1} \mid \mathcal{E}_i}\prob\pars{\mathcal{E}_i} + \prob\pars{\neg\mathcal{E}_i}                                                      \\
+	                                  & \leq \frac{1}{n^{\alpha}} + \prob\pars{\neg\mathcal{E}_i}
 \end{align*}
 Gdzie na końcu ponownie korzystamy z założenia, że \( np_i \geq 3\alpha\ln(n) \).
 Pokazujemy przez indukcję:
@@ -135,11 +135,11 @@ Ostatecznie otrzymujemy
 \]
 Znając \( i^* \) możemy dalej ograniczać prawdopodobieństwo, że \( \nu_i(n) \) będzie duże dla \( i \geq i^* \)
 \begin{align*}
-	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} &\leq \prob\pars{\mu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} \\
-	&= \prob\pars{\sum_{t \in [n]} Y_t > 9\alpha\ln n \mid \mathcal{E}_{i^*}} \\
-	&\leq \frac{\prob\pars{\Bin(n, p_i) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}} \\
-	&\leq \frac{\prob\pars{\Bin(n, \frac{3\alpha\ln n}{n}) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}} \\
-	&\leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_{i^*}}}
+	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} & \leq \prob\pars{\mu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}}                                 \\
+	                                                                 & = \prob\pars{\sum_{t \in [n]} Y_t > 9\alpha\ln n \mid \mathcal{E}_{i^*}}                              \\
+	                                                                 & \leq \frac{\prob\pars{\Bin(n, p_i) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}}                    \\
+	                                                                 & \leq \frac{\prob\pars{\Bin(n, \frac{3\alpha\ln n}{n}) > 9\alpha\ln n}}{\prob\pars{\mathcal{E}_{i^*}}} \\
+	                                                                 & \leq \frac{1}{n^{\alpha}\prob\pars{\mathcal{E}_{i^*}}}
 \end{align*}
 Pierwsze przekształcenia robimy tak samo jak wyżej i korzystając z \( np_i < 3\alpha\ln n \). Ostatnia nierówność wynika z Czernowa:
 \[
@@ -147,25 +147,25 @@ Pierwsze przekształcenia robimy tak samo jak wyżej i korzystając z \( np_i < 
 \]
 Z tego otrzymujemy:
 \begin{align*}
-	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n} &\leq \prob\pars{\neg\mathcal{E}_{i^*}} \prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \neg\mathcal{E}_{i^*}} + \prob\pars{\mathcal{E}_{i^*}} \prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}}\\
-	&\leq \prob\pars{\neg\mathcal{E}_{i^*}} + \frac{1}{n^{\alpha}}\\
-	&\leq \frac{i^* + 1}{n^{\alpha}}
+	\prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n} & \leq \prob\pars{\neg\mathcal{E}_{i^*}} \prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \neg\mathcal{E}_{i^*}} + \prob\pars{\mathcal{E}_{i^*}} \prob\pars{\nu_{i^*+1}(n) > 9\alpha\ln n \mid \mathcal{E}_{i^*}} \\
+	                                          & \leq \prob\pars{\neg\mathcal{E}_{i^*}} + \frac{1}{n^{\alpha}}                                                                                                                                                \\
+	                                          & \leq \frac{i^* + 1}{n^{\alpha}}
 \end{align*}
 Zostało nam ostatnie warunkowe ograniczenie:
 \begin{align*}
-	\prob\pars{\mu_{i^* + 2}(n) \geq \beta \mid \nu_{i^* + 1}(n) \leq 9\alpha\ln n} &\leq \frac{\prob\pars{\Bin(n, \pars{\frac{9\alpha\ln n}{n}}^2) \geq \beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}} \\
-	&\leq \frac{n^{\beta}\pars{\frac{9\alpha\ln n}{n}}^{2\beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}} \\
-	&\leq \frac{\pars{9\alpha\ln n}^{2 \beta}}{n^{\beta}\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}}
+	\prob\pars{\mu_{i^* + 2}(n) \geq \beta \mid \nu_{i^* + 1}(n) \leq 9\alpha\ln n} & \leq \frac{\prob\pars{\Bin(n, \pars{\frac{9\alpha\ln n}{n}}^2) \geq \beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}} \\
+	                                                                                & \leq \frac{n^{\beta}\pars{\frac{9\alpha\ln n}{n}}^{2\beta}}{\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}}                 \\
+	                                                                                & \leq \frac{\pars{9\alpha\ln n}^{2 \beta}}{n^{\beta}\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n}}
 \end{align*}
 Gdzie w pierwszej nierówności jako \( p \) dla w rozkładzie dwumianowym podstawiamy prawdopodobieństwo, że dwukrotnie trafimy do wystarczająco wypełnionych urn. Druga nierówność to union bound.
 
 Teraz mamy wszystko, żeby pokazać górne ograniczenie.
 \begin{align*}
-	\prob\pars{\nu_{i^* + 2 + 2\alpha}(n) \geq 1} &\leq \prob\pars{\mu_{i^* + 2 + 2\alpha}(n) \geq 1} \\
-	&\leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha} \\
-	&\leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha \mid \nu_{i^* + 1}(n) \leq 9\alpha\ln n}\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n} \\
-	&\quad + \prob\pars{\nu_{i^* + 1}(n) > 9\alpha\ln n} \\
-	&\leq \frac{\pars{9\alpha\ln n}^{4 \alpha}}{n^{2\alpha}} + \frac{i^* + 1}{n^{\alpha}} \\
-	&< \frac{1}{n^{\alpha - 1}}
+	\prob\pars{\nu_{i^* + 2 + 2\alpha}(n) \geq 1} & \leq \prob\pars{\mu_{i^* + 2 + 2\alpha}(n) \geq 1}                                                                                   \\
+	                                              & \leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha}                                                                                       \\
+	                                              & \leq \prob\pars{\mu_{i^* + 2}(n) \geq 2\alpha \mid \nu_{i^* + 1}(n) \leq 9\alpha\ln n}\prob\pars{\nu_{i^* + 1}(n) \leq 9\alpha\ln n} \\
+	                                              & \quad + \prob\pars{\nu_{i^* + 1}(n) > 9\alpha\ln n}                                                                                  \\
+	                                              & \leq \frac{\pars{9\alpha\ln n}^{4 \alpha}}{n^{2\alpha}} + \frac{i^* + 1}{n^{\alpha}}                                                 \\
+	                                              & < \frac{1}{n^{\alpha - 1}}
 \end{align*}
 Gdzie ostatnia nierówność zachodzi dla odpowiednio dużego \( n \).

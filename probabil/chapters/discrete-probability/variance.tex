@@ -1,5 +1,5 @@
 \begin{definition}
-	\(n\)-tym \textbf{momentem} (\(n \geq 1\)) zmiennej losowej \( X \) nazywamy 
+	\(n\)-tym \textbf{momentem} (\(n \geq 1\)) zmiennej losowej \( X \) nazywamy
 	\[
 		\expected{X^n}
 	\]
@@ -74,7 +74,7 @@
 	\begin{align*}
 		\covariance{X}{Y}
 		 & = \expected{\pars{X - \expected{X}} \cdot \pars{Y - \expected{Y}}}            \\
-		 & =\footnotemark \expected{X - \expected{X}} \cdot \expected{Y - \expected{Y}}               \\
+		 & =\footnotemark \expected{X - \expected{X}} \cdot \expected{Y - \expected{Y}}  \\
 		 & = \pars{\expected{X} - \expected{X}} \cdot \pars{\expected{Y} - \expected{Y}} \\
 		 & = 0
 	\end{align*}
@@ -102,30 +102,30 @@
 
 \begin{example}
 	Niech \(X\) - stała, \(X = c\) (z prawopodobieństwem 1 przyjmuje wartość \(c\)). \\
-    Wartość oczekiwana X:
-    \[
-        \ev{X} = c \cdot \prob(X = c) = c \cdot 1 = c
-    \]
-    Wariancja:
-    \[
-        \variance{X} = \ev{(X - \ev{X})^2} = \ev{(c - c)^2} = 0
-    \]
-    Wariancja wynosi 0 i rzeczywiście, dla stałej nie spodziewamy się żadnego odchylenia od wartości oczekiwanej.
+	Wartość oczekiwana X:
+	\[
+		\ev{X} = c \cdot \prob(X = c) = c \cdot 1 = c
+	\]
+	Wariancja:
+	\[
+		\variance{X} = \ev{(X - \ev{X})^2} = \ev{(c - c)^2} = 0
+	\]
+	Wariancja wynosi 0 i rzeczywiście, dla stałej nie spodziewamy się żadnego odchylenia od wartości oczekiwanej.
 
 
-    Niech \(Y = \begin{cases}
-        k \cdot c, \text{ z prawdopodobieństwem } \frac{1}{k} \\
-        0, \text{ z prawdopodobieństwem } \frac{k - 1}{k}
-    \end{cases}\)
+	Niech \(Y = \begin{cases}
+		k \cdot c, \text{ z prawdopodobieństwem } \frac{1}{k} \\
+		0, \text{ z prawdopodobieństwem } \frac{k - 1}{k}
+	\end{cases}\)
 
-    Wartość oczekiwana Y:
-    \[
-        \ev{Y} = 0 \cdot \frac{k-1}{k} + k \cdot c \cdot \frac{1}{k} = c
-    \]
-    Wariancja Y:
-    \[
-        \variance{Y} = \ev{Y^2} - \ev{Y}^2 = (kc)^2 \cdot \frac{1}{k} - c^2 = kc^2 - c^2 = c^2 \cdot (k - 1)
-    \]
+	Wartość oczekiwana Y:
+	\[
+		\ev{Y} = 0 \cdot \frac{k-1}{k} + k \cdot c \cdot \frac{1}{k} = c
+	\]
+	Wariancja Y:
+	\[
+		\variance{Y} = \ev{Y^2} - \ev{Y}^2 = (kc)^2 \cdot \frac{1}{k} - c^2 = kc^2 - c^2 = c^2 \cdot (k - 1)
+	\]
 
-    Więc dwie zmienne mające tą samą wartość oczekiwaną mogą mieć różne wariancje.
+	Więc dwie zmienne mające tą samą wartość oczekiwaną mogą mieć różne wariancje.
 \end{example}

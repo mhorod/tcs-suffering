@@ -61,21 +61,21 @@ Dla demonstracji tego, o ile lepsze jest losowanie z dwoma symulacjami od standa
 \end{lemma}
 \begin{proof} (dla \(n = 3\), dla wyższych \(n\) analogicznie)
 	\begin{align*}
-		\prob(Y_1 + Y_2 + Y_3 > k) &\leq \prob(Z_1 + Y_2 + Y_3 > k) \\
-		&= \sum\nolimits_{x_1} \prob(Z_1 + Y_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
-		&\leq \sum\nolimits_{x_1} \prob(Z_1 + Z_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
-		&= \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Y_3 > k \mid (X_1, X_2) = (x_1, x_2)) \\
-		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
-		&\leq \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k \mid (X_1, X_2) = (x_1, x_2)) \\
-		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
-		&= \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k) \\
-		&\qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1) \\
-		&= \prob(Z_1 + Z_2 + Z_3 > k) \cdot \sum\nolimits_{(x_1, x_2)} \prob(X_2 = x_2 \mid X_1 = x_1) \prob(X_1 = x_1) \\
-		&= \prob(Z_1 + Z_2 + Z_3 > k)
+		\prob(Y_1 + Y_2 + Y_3 > k) & \leq \prob(Z_1 + Y_2 + Y_3 > k)                                                                                \\
+		                           & = \sum\nolimits_{x_1} \prob(Z_1 + Y_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1)                         \\
+		                           & \leq \sum\nolimits_{x_1} \prob(Z_1 + Z_2 + Y_3 > k \mid X_1 = x_1) \cdot \prob(X_1 = x_1)                      \\
+		                           & = \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Y_3 > k \mid (X_1, X_2) = (x_1, x_2))                           \\
+		                           & \qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1)                                 \\
+		                           & \leq \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k \mid (X_1, X_2) = (x_1, x_2))                        \\
+		                           & \qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1)                                 \\
+		                           & = \sum\nolimits_{(x_1, x_2)} \prob(Z_1 + Z_2 + Z_3 > k)                                                        \\
+		                           & \qquad\qquad\quad \cdot \prob(X_2 = x_2 \mid X_1 = x_1) \cdot \prob(X_1 = x_1)                                 \\
+		                           & = \prob(Z_1 + Z_2 + Z_3 > k) \cdot \sum\nolimits_{(x_1, x_2)} \prob(X_2 = x_2 \mid X_1 = x_1) \prob(X_1 = x_1) \\
+		                           & = \prob(Z_1 + Z_2 + Z_3 > k)
 	\end{align*}
 \end{proof}
 
-\begin{lemma} (Lemat dualny dla \ref{binary-random-variable-binomial-upperbound}) 
+\begin{lemma} (Lemat dualny dla \ref{binary-random-variable-binomial-upperbound})
 	\label{binary-random-variable-binomial-lowerbound}
 	Niech \(X_1, \dots, X_n\) to zmienne losowe, \(Y_1, \dots, Y_n\) to binarne zmienne losowe, \(Y_i = f_i(X_1, \dots, X_i)\) (jest wyznaczona przez \(X_1, \dots, X_i\)) oraz \(Z \sim \Bin(n, p)\) jest niezależna od poprzednich zmiennych. Jeśli dla każdego \(i \in [n]\) oraz \((x_1, \dots, x_{i - 1})\) takiego, że \(\prob((X_1, \dots, X_{i - 1}) = (x_1, \dots, x_{i - 1})) > 0\) zachodzi
 	\[
@@ -102,8 +102,8 @@ Do dowodów ograniczenia górnego przez iterację ograniczeń oraz ograniczenia 
 	\item \(\mu_i(t)\) to liczba kul o wysokości \(\geq i\) zaraz po wrzuceniu \(t\)-tej kuli
 \end{itemize}
 
-Prosto widzimy, że 
+Prosto widzimy, że
 \[
 	\forall_{i \in [n], \, t \in [n]} \,\, \nu_i(t) \leq \mu_i(t)
 \]
-bo w każdej urnie zawierającej \(\geq i\) kul jest przynajmniej jedna kula wysokości \(\geq i\). 
+bo w każdej urnie zawierającej \(\geq i\) kul jest przynajmniej jedna kula wysokości \(\geq i\).

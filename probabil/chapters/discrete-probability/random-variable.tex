@@ -6,19 +6,18 @@
 \end{definition}
 
 \begin{definition}
-	\textbf{Dyskretna zmienna losowa}\\
-	Dyskretna zmienna losowa to zmienna losowa, która przyjmuje w swoim obrazie przeliczalnie wiele wartości.
+	\textbf{Dyskretna zmienna losowa} to zmienna losowa, która przyjmuje w swoim obrazie przeliczalnie wiele wartości.
 \end{definition}
 
 \begin{example} Rzut dwa razy symetryczną kostką\\
 	Rozważmy równie prawdopodobne zdarzenia elementarne \(\Omega = \{ (1, 1), ..., (6, 6)\}\) oraz zmienną losową
-    \(X((i, j)) := i + j\) (suma oczek w dwóch rzutach).
+	\(X((i, j)) := i + j\) (suma oczek w dwóch rzutach).
 
-    Naturalnie możemy chcieć policzyć prawdopodobieństwo, że dostaniemy sumę oczek równą $a$
-    \[
-        \prob(X = a) = \sum_{\substack{s \in \Omega \\ X(s) = a}} \prob(\set{s})
-    \]
-    Na przykład $\prob(X = 4) = \prob(\set{1, 3}) + \prob(\set{2, 2}) + \prob(\set{3, 1}) = \frac{3}{36}$
+	Naturalnie możemy chcieć policzyć prawdopodobieństwo, że dostaniemy sumę oczek równą $a$
+	\[
+		\prob(X = a) = \sum_{\substack{s \in \Omega \\ X(s) = a}} \prob(\set{s})
+	\]
+	Na przykład $\prob(X = 4) = \prob(\set{1, 3}) + \prob(\set{2, 2}) + \prob(\set{3, 1}) = \frac{3}{36}$
 \end{example}
 
 \begin{definition}
@@ -36,11 +35,11 @@
 \end{definition}
 
 \begin{definition}
-	\textbf{Indykator} zdarzenia \(A\) to zmienna losowa \(Y\) spełniająca 
+	\textbf{Indykator} zdarzenia \(A\) to zmienna losowa \(Y\) spełniająca
 	\[
 		Y = \left\{ \begin{array}{lr} 1 & \text{ gdy } A \text{ zaszło} \\ 0 & \text{wpp.} \end{array} \right.
 	\]
-	Mamy 
+	Mamy
 	\[
 		\ev{Y} = 0 \cdot \prob\pars{Y=0} + 1\cdot \prob\pars{Y=1} = \prob\pars{Y=1} = \prob\pars{A}
 	\]

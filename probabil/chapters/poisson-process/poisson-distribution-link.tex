@@ -11,22 +11,22 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 
 \begin{proof}
 	Zaczynamy od policzenia \( \prob_0(t) \); dowód będzie indukcyjny.
-	
+
 	Zauważmy, że z niezależności przyrostów mamy
 	\begin{align*}
-		\prob_0(t+h) &= \prob(N(t+h) = 0)\\
-		&= \prob(N(t) = 0 \land N(t + h) - N(t) = 0)\\
-		&= \prob(N(t) = 0)\prob(N(t + h) - N(t) = 0)\\
-		&= \prob(N(t) = 0) \prob(N(h) = 0)\\
-		&= \prob_0(t) \prob_0(h)
+		\prob_0(t+h) & = \prob(N(t+h) = 0)                         \\
+		             & = \prob(N(t) = 0 \land N(t + h) - N(t) = 0) \\
+		             & = \prob(N(t) = 0)\prob(N(t + h) - N(t) = 0) \\
+		             & = \prob(N(t) = 0) \prob(N(h) = 0)           \\
+		             & = \prob_0(t) \prob_0(h)
 	\end{align*}
-	
+
 	Robimy więc pierwszą rzecz, która nam przychodzi do głowy tj. liczymy pochodną \( P_0(t) \), a co.
 	\begin{align*}
 		P_0'(t)
 		 & = \lim_{h \rightarrow 0} \frac{P_0(t + h) - P_0(t)}{h}                                                             \\
 		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{P_0(h) - 1}{h}                                                         \\
-		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{(1 - P(N(h) = 1) - P(N(h)  > 1)) - 1}{h}                                 \\
+		 & = \lim_{h \rightarrow 0} P_0(t) \cdot \frac{(1 - P(N(h) = 1) - P(N(h)  > 1)) - 1}{h}                               \\
 		 & = \lim_{h \rightarrow 0} \pars{ P_0(t) \cdot \pars{ \frac{- P(N(h) = 1)}{h} - \frac{P(N(h) > 1)}{h}}}              \\
 		 & = P_0(t) \cdot \pars{-\lim_{h \rightarrow 0} \frac{P(N(h) = 1)}{h} - \lim_{h \rightarrow 0} \frac{P(N(h) > 1)}{h}} \\
 		 & = P_0(t) \cdot \pars{-\lambda - 0}                                                                                 \\
@@ -81,7 +81,7 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 			+ \frac{P_{n-1}(t)\cdot P(N(h) = 1)}{h}
 		+ \sum_{k=2}^n P_{n-k}(t) \cdot \frac{P(N(h) = k)}{h}}                                                                                                                                                            \\
 		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{P_0(h) - 1}{h}} + P_{n-1}(t) \lim_{h \rightarrow 0} \pars{\frac{P(N(h)=1)}{h}} + \sum_{k=2}^n P_{n-k}(t) \cdot \lim_{h \rightarrow 0} \pars{\frac{P(N(h) = k)}{h}} \\
-		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{(1 - \mathrm{P}(N(h) = 1) - \mathrm{P}(N(h) > 1)) - 1}{h}} + P_{n-1}(t) \cdot \lambda + \sum_{k=2}^n P_{n-k}(t) \cdot 0                                              \\
+		 & = P_n(t) \lim_{h \rightarrow 0} \pars{\frac{(1 - \mathrm{P}(N(h) = 1) - \mathrm{P}(N(h) > 1)) - 1}{h}} + P_{n-1}(t) \cdot \lambda + \sum_{k=2}^n P_{n-k}(t) \cdot 0                                            \\
 		 & = P_n(t) \pars{-\lim_{h \rightarrow 0}\frac{\mathrm{P}(N(h)=1)}{h} - \lim_{h \rightarrow 0} \frac{\mathrm{P}(N(h)>1)}{h}} + \lambda P_{n-1}(t)                                                                 \\
 		 & = -\lambda P_n(t) + \lambda P_{n-1}(t)
 	\end{align*}
@@ -142,17 +142,17 @@ Pokażemy teraz dwa lematy, które dadzą nam równoważność między dwoma def
 		\item \( N(0) = 0 \) z założeń
 		\item Niezależność i stacjonarność przyrostów również bezpośrednio z założeń
 		\item
-			\[
-				\lim_{t \to 0}\frac{\prob\pars{N(t) = 1}}{t} = \lim_{t \to 0}\frac{e^{-\lambda s}\frac{\lambda t}{1!}}{t} =
-					\lim_{t \to 0}\lambda e^{-\lambda t} = \lambda
-			\]
-			
+		      \[
+			      \lim_{t \to 0}\frac{\prob\pars{N(t) = 1}}{t} = \lim_{t \to 0}\frac{e^{-\lambda s}\frac{\lambda t}{1!}}{t} =
+			      \lim_{t \to 0}\lambda e^{-\lambda t} = \lambda
+		      \]
+
 		\item
-			\begin{align*}
-				\lim_{t \to 0}\frac{\prob\pars{N(t) \geq 2}}{t} &= \lim_{t \to 0}\frac{1 - \prob\pars{N(t) = 0} - \prob\pars{N(t) = 1}}{t}\\
-				&= \lim_{t \to 0}\frac{1-e^{-\lambda t}-e^{-\lambda t}\frac{\lambda t}{1!}}{t}\\
-				&= \lim_{t \to 0}\frac{1-e^{-\lambda t}}{t} - \lim_{t \to 0} \lambda e^{-\lambda t}\\
-				&= \lim_{t \to 0}\frac{\lambda e^{-\lambda t}}{1} - \lambda = \lambda - \lambda = 0
-			\end{align*}
+		      \begin{align*}
+			      \lim_{t \to 0}\frac{\prob\pars{N(t) \geq 2}}{t} & = \lim_{t \to 0}\frac{1 - \prob\pars{N(t) = 0} - \prob\pars{N(t) = 1}}{t}          \\
+			                                                      & = \lim_{t \to 0}\frac{1-e^{-\lambda t}-e^{-\lambda t}\frac{\lambda t}{1!}}{t}      \\
+			                                                      & = \lim_{t \to 0}\frac{1-e^{-\lambda t}}{t} - \lim_{t \to 0} \lambda e^{-\lambda t} \\
+			                                                      & = \lim_{t \to 0}\frac{\lambda e^{-\lambda t}}{1} - \lambda = \lambda - \lambda = 0
+		      \end{align*}
 	\end{enumerate}
 \end{proof}

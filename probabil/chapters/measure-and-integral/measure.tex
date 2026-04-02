@@ -6,7 +6,7 @@
 	\textbf{Miara} dla danej przestrzeni mierzalnej \((\Omega, \Sigma)\) to funkcja \(\mu: \Sigma \to [0, +\infty]\) spełniająca
 	\begin{itemize}
 		\item \(\mu(\emptyset) = 0\)
-		\item \(E_1, E_2, \dots \in \Sigma \text{ parami rozłaczne} \implies \mu(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^{\infty} \mu(E_i)\)
+		\item \(E_1, E_2, \dots \in \Sigma \text{ parami rozłączne} \implies \mu(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^{\infty} \mu(E_i)\)
 	\end{itemize}
 \end{definition}
 
@@ -15,7 +15,7 @@
 \end{definition}
 
 \begin{definition}
-	Funkcja \(f: \Omega_1 \to \Omega_2\) jest \textbf{mierzalna} dla przestrzeni probabilistycznych \((\Omega_1, \Sigma_1), (\Omega_2, \Sigma_2)\) gdy
+	Funkcja \(f: \Omega_1 \to \Omega_2\) jest \textbf{mierzalna} dla przestrzeni mierzalnych \((\Omega_1, \Sigma_1), (\Omega_2, \Sigma_2)\) gdy
 	\[
 		\forall_{B \in \Sigma_2} f^{-1}(B) \in \Sigma_1
 	\]
@@ -28,7 +28,7 @@
 \begin{lemma}
 	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \subseteq A_{i+1}\). Wtedy
 	\[
-		\mu\pars{\bigcup_{i=1}^\infty A_i} = \lim_{x \to \infty} \mu(A_i)
+		\mu\pars{\bigcup_{i=1}^\infty A_i} = \lim_{i \to \infty} \mu(A_i)
 	\]
 \end{lemma}
 % TODO: dowód (nie był podany na wykładzie)
@@ -36,21 +36,17 @@
 \begin{lemma}
 	Niech \(A_1, A_2, \dots, \in \Sigma, \forall_{i \in \natural_+} A_i \supseteq A_{i+1}\) oraz \(\mu(A_1) < \infty\). Wtedy
 	\[
-		\mu\pars{\bigcap_{i=1}^\infty A_i} = \lim_{x \to \infty} \mu(A_i)
+		\mu\pars{\bigcap_{i=1}^\infty A_i} = \lim_{i \to \infty} \mu(A_i)
 	\]
 \end{lemma}
 % TODO: dowód (nie był podany na wykładzie)
 
 \begin{example}
-	Miara licząca
-	
-	Miara licząca dla \(\Omega < \infty\) to \(\mu(A) = |A|\)
+	\textbf{Miara licząca} dla \(|\Omega| < \infty\) to \(\mu(A) = |A|\)
 \end{example}
 
-\begin{example} 
-	Miara Lebesgue'a
-	
-	Miara Lebesgue'a to uogólnienie pojęcia długości, pola powierzchni i objętości na większą liczbę wymiarów. Przykładowo, w jednym wymiarze:
+\begin{example}
+	\textbf{Miara Lebesgue'a} to uogólnienie pojęcia długości, pola powierzchni i objętości na większą liczbę wymiarów. Przykładowo, w jednym wymiarze:
 	\[
 		\mu([a, b]) = b - a
 	\]

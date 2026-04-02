@@ -16,10 +16,10 @@
 \begin{proof}
 	\begin{align*}
 		\prob(X = n + k \mid X > k)
-		 & = \frac{\prob(X = n + k \land X > k)}{\prob(X > k)}                             \\
-		 & = \frac{\prob(X = n + k)}{\prob(X > k)}                                         \\
-		 & = \frac{(1 - p)^{n + k - 1} \cdot p}{(1-p)^k} \\
-		 & = (1 - p)^{n - 1} \cdot p\\
+		 & = \frac{\prob(X = n + k \land X > k)}{\prob(X > k)} \\
+		 & = \frac{\prob(X = n + k)}{\prob(X > k)}             \\
+		 & = \frac{(1 - p)^{n + k - 1} \cdot p}{(1-p)^k}       \\
+		 & = (1 - p)^{n - 1} \cdot p                           \\
 		 & = \prob(X = n)
 	\end{align*}
 \end{proof}
@@ -35,23 +35,25 @@
 	Skorzystamy z twierdzenia \ref{expected-value-of-natural-random-variable}
 	\begin{align*}
 		\expected{X}
-		 & = \sum_{n=1}^\infty \prob(X \geq n)                           \\
+		 & = \sum_{n=1}^\infty \prob(X \geq n)                       \\
 		 & = \sum_{n=1}^\infty \sum_{i=n}^\infty (1-p)^{i-1} \cdot p \\
 		 & = \sum_{n=1}^\infty (1-p)^n                               \\
 		 & = \frac{1}{1 - (1-p)}                                     \\
 		 & = \frac{1}{p}
 	\end{align*}
-	
+
 	Alternatywna metoda:
 
-	\(Y = \begin{cases}
-		1 & \text{sukces w pierwszym rzucie} \\
-		0 & \text{wpp.}
-	\end{cases}\)
+	\[
+		Y = \begin{cases}
+			1 & \text{sukces w pierwszym rzucie} \\
+			0 & \text{wpp.}
+		\end{cases}
+	\]
 	\begin{align*}
-		\ev{X} &= \ev{X|Y=0}\prob(Y=0) + \ev{X|Y=1}\prob(Y=1) \\
-		&= (1+\ev{X})(1-p) + 1 \cdot p \\
-		&= 1 + \ev{X} - p \ev{X}
+		\ev{X} & = \ev{X|Y=0}\prob(Y=0) + \ev{X|Y=1}\prob(Y=1) \\
+		       & = (1+\ev{X})(1-p) + 1 \cdot p                 \\
+		       & = 1 + \ev{X} - p \ev{X}
 	\end{align*}
 	\[
 		p \ev{X} = 1 \implies \ev{X} = \frac{1}{p}
@@ -106,18 +108,18 @@
 	\[
 		\variance{X} = \expected{X^2} - \expected{X}^2 = \frac{2-p}{p^2} - \frac{1}{p^2} = \frac{1-p}{p^2}
 	\]
-\end{proof}
-Alternatywny dowód
-\begin{proof} Niech \(Y\) ma rozkład geometryczny z parametrem \(p\)\\
-	Niech \(X = \begin{cases}
-		1 & \text{w pierwszym rzucie orzeł} \\
-		0 & \text{w pierwszym rzucie reszka}
-	\end{cases}\)\\
+	Alternatywna metoda: niech \(Y\) ma rozkład geometryczny z parametrem \(p\)
+	\[
+		X = \begin{cases}
+			1 & \text{w pierwszym rzucie orzeł}  \\
+			0 & \text{w pierwszym rzucie reszka}
+		\end{cases}
+	\]
 	Z \ref{ev-equal-to-sum-of-conditional-ev} mamy:
 	\begin{align*}
 		\ev{Y^2}
-			& = \prob(X = 0) \ev{Y^2 \mid X = 0} + \prob(X = 1) \ev{Y^2 \mid X = 1}\\
-			& = (1-p)\ev{Y^2 \mid X = 0} + p\ev{Y^2 \mid X = 1}\\
+		 & = \prob(X = 0) \ev{Y^2 \mid X = 0} + \prob(X = 1) \ev{Y^2 \mid X = 1} \\
+		 & = (1-p)\ev{Y^2 \mid X = 0} + p\ev{Y^2 \mid X = 1}                     \\
 	\end{align*}
 	Wiemy, że
 	\begin{itemize}
@@ -168,25 +170,25 @@ Alternatywny dowód
 
 \begin{corollary}
 	\label{variance-of-geometric-by-mgf}
-    Wcześniej obliczyliśmy już \( \expected{X} \) oraz \( \expected{X^2} \). Możemy to też zrobić z funkcji tworzącej momentów.
-	
-    Wiemy, że \( M_X^{(n)}(0) = \expected{X^n} \). Obliczamy więc \( M_X^{(1)}(t) \) oraz \( M_X^{(2)}(t) \). Otrzymujemy:
+	Wcześniej obliczyliśmy już \( \expected{X} \) oraz \( \expected{X^2} \). Możemy to też zrobić z funkcji tworzącej momentów.
 
-    \[
-        M_X^{(1)}(t) = p(1-(1-p)e^t)^{-2}
-    \]
+	Wiemy, że \( M_X^{(n)}(0) = \expected{X^n} \). Obliczamy więc \( M_X^{(1)}(t) \) oraz \( M_X^{(2)}(t) \). Otrzymujemy:
 
-    \[
-        M_X^{(2)}(t) = 2p(1-p)(1-(1-p)e^t)^{-3}e^{2t} + p(1-(1-p)e^t)^{-2}e^t
-    \]
+	\[
+		M_X^{(1)}(t) = p(1-(1-p)e^t)^{-2}
+	\]
 
-    Po podstawieniu \( t = 0 \) otrzymujemy znane już wartości:
+	\[
+		M_X^{(2)}(t) = 2p(1-p)(1-(1-p)e^t)^{-3}e^{2t} + p(1-(1-p)e^t)^{-2}e^t
+	\]
 
-    \[
-        M_X^{(1)}(0) = \expected{X} = \frac{1}{p}
-    \]
+	Po podstawieniu \( t = 0 \) otrzymujemy znane już wartości:
 
-    \[
-        M_X^{(2)}(0) = \expected{X^2} = \frac{2-p}{p^2} \implies \variance{X} = \frac{1-p}{p^2}
-    \]
+	\[
+		M_X^{(1)}(0) = \expected{X} = \frac{1}{p}
+	\]
+
+	\[
+		M_X^{(2)}(0) = \expected{X^2} = \frac{2-p}{p^2} \implies \variance{X} = \frac{1-p}{p^2}
+	\]
 \end{corollary}

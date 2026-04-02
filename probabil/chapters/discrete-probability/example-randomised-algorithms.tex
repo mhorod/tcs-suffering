@@ -8,10 +8,10 @@ Dla stopnia wielomianu \(d\), złożoność to \(O(d^2)\) (wymnażamy wszystko i
 
 Nasz algorytm:
 \begin{itemize}
-    \item Wybierz \(r\) losowo (każdy z równym prawdopodobieństwem - \textit{rozkład jednostajny} / \textit{uniform distribution}) ze zbioru \(\{1,...,100d\}\)
+	\item Wybierz \(r\) losowo (każdy z równym prawdopodobieństwem - \textit{rozkład jednostajny} / \textit{uniform distribution}) ze zbioru \(\{1,...,100d\}\)
 	\item Oblicz \(F(r)\) i \(G(r)\)
-    \item Jeśli \(F(r) \neq G(r)\), to zwróć \texttt{false}
-    \item Jeśli \(F(r) = G(r)\), to zwróć \texttt{true}
+	\item Jeśli \(F(r) \neq G(r)\), to zwróć \texttt{false}
+	\item Jeśli \(F(r) = G(r)\), to zwróć \texttt{true}
 \end{itemize}
 
 Jeżeli algorytm zwróci \texttt{false}, to na pewno \(F\) i \(G\) są różne. Jeżeli zwróci \texttt{true}, to pomyli się tylko wtedy, gdy \(r\) jest pierwiastkiem \(F(x) - G(x)\), a tych jest co najwyżej d. Możemy się więc spodziewać, że prawdopodobieństwo, że algorytm się pomyli jest równe
@@ -22,9 +22,9 @@ Jeżeli algorytm zwróci \texttt{false}, to na pewno \(F\) i \(G\) są różne. 
 \begin{proof}
 	\(\Omega = \{1,...,100d\}\), \(E\) - zdarzenie takie, że algorytm się pomylił
 	\begin{align*}
-		\prob(E) &= \prob(\textit{Algorytm wylosował pierwiastek $F(x) - G(x) \in \{1, ..., 100d\}$}) \\
-		&\leq \frac{\#\text{pierwiastków } F(x) - G(x)}{100d} \\
-		&\leq \frac{d}{100d} = \frac{1}{100}
+		\prob(E) & = \prob(\textit{Algorytm wylosował pierwiastek $F(x) - G(x) \in \{1, ..., 100d\}$}) \\
+		         & \leq \frac{\#\text{pierwiastków } F(x) - G(x)}{100d}                                \\
+		         & \leq \frac{d}{100d} = \frac{1}{100}
 	\end{align*}
 \end{proof}
 
@@ -40,17 +40,17 @@ Mamy trzy macierze \(A, B, C\) o rozmiarze \(n \times n\) nad zbiorem \(\{0,1\}\
 \[
 	AB \overset{?}{=} C
 \]
-Normalne mnożenie działa w \(O(n^3)\) 
+Normalne mnożenie działa w \(O(n^3)\)
 
 Nasz algorytm:
 \begin{itemize}
-    \item \(\overline{r} = (r_1, ..., r_n) \in \{0,1\}^n\), wybrane losowo jednostajnie
-    \item oblicz \(A(B\overline{r})\) i \(C\overline{r}\) (w \(O(n^2)\))
-    \item jeżeli wyniki są różne, to zwróć \texttt{false}
-    \item jeżeli są równe, to zwróć \texttt{true}
+	\item \(\overline{r} = (r_1, ..., r_n) \in \{0,1\}^n\), wybrane losowo jednostajnie
+	\item oblicz \(A(B\overline{r})\) i \(C\overline{r}\) (w \(O(n^2)\))
+	\item jeżeli wyniki są różne, to zwróć \texttt{false}
+	\item jeżeli są równe, to zwróć \texttt{true}
 \end{itemize}
 
-Jeżeli \(AB \neq C\) i \(\overline{r}\) jest wybrane losowo i jednostajnie, to 
+Jeżeli \(AB \neq C\) i \(\overline{r}\) jest wybrane losowo i jednostajnie, to
 \[
 	\prob(A(B\overline{r}) = C\overline{r}) \leq \frac{1}{2}
 \]

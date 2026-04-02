@@ -26,10 +26,10 @@ Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
 	\[
 		\lim_{n \to \infty} \prob \pars{a \leq \frac{ \widetilde{X_n} - \ev{\widetilde{X_n}}}{\sqrt{\variance{\widetilde{X_n}}}} \leq b} = \lim_{n \to \infty} \prob \pars{a \leq \frac{ \widetilde{X_n} - \mu}{\sigma} \cdot \sqrt{n} \leq b}
 	\]
-	
+
 	Dalej, aby dowieść CTG, będziemy musieli przytoczyć \textit{pomocne twierdzonko}, którego (mamy nadzieję) nikt nie będzie musiał dowodzić:
 
-	\begin{theorem}[Lévy-Cramér] 
+	\begin{theorem}[Lévy-Cramér]
 		Niech \(\set{Y_i}_{i \in \natural}\) będzie sekwencją zmiennych losowych, gdzie \(Y_i\) ma dystrybuantę \(F_i\) i funkcję tworzącą momenty \( M_i\). Niech \(Y\) będzie zmienną losową o dystrybuancie \(F\) i funkcji tworzącej momenty \(M\). Jeżeli dla każdego \(t\) zachodzi:
 		\[
 			\lim_{n \to \infty}M_n(t) = M(t)
@@ -60,10 +60,10 @@ Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
 
 	Ponadto mamy, że:
 	\[
-		\frac{\widetilde{X_n} - \mu}{\sigma} \cdot \sqrt{n} 
-		= \frac{\sum_{i=1}^n \frac{X_i}{n} - \mu}{\sigma} \cdot \sqrt{n} 
-		= \frac{\sum_{i=1}^n \frac{X_i - \mu}{n}}{\sigma} \cdot \sqrt{n} 
-		= \frac{\sqrt{n}}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma} 
+		\frac{\widetilde{X_n} - \mu}{\sigma} \cdot \sqrt{n}
+		= \frac{\sum_{i=1}^n \frac{X_i}{n} - \mu}{\sigma} \cdot \sqrt{n}
+		= \frac{\sum_{i=1}^n \frac{X_i - \mu}{n}}{\sigma} \cdot \sqrt{n}
+		= \frac{\sqrt{n}}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma}
 		= \frac{\sum_{i=1}^nZ_i}{\sqrt{n}}
 	\]
 	Żeby zastosować teraz przywołane przez nas twierdzenie Levy'ego i tego drugiego musimy pokazać, że funkcja tworząca momenty zmiennych losowych postaci
@@ -107,7 +107,7 @@ Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
 	\[
 		\lim_{n\to\infty}M_{Y_n}\pars{t} = \lim_{n \to \infty } \pars{M_{Z_i}\pars{\frac{t}{\sqrt{n}}}}^n = e^{\frac{t^2}{2}}
 	\]
-	
+
 	po zlogarytmowaniu stronami
 	\[
 		\lim_{n \to \infty} nL\pars{\frac{t}{\sqrt{n}}} = \frac{t^2}{2}
@@ -122,13 +122,13 @@ Twierdzenie to uzasadnia występowanie w naturze rozkładu normalnego.
 
 	No i lecimy z pochodnymi!
 	\begin{align*}
-		\lim_{n \to \infty}\frac{L \pars{\frac{t}{\sqrt{n}}}}{n^{-1}} &= \brackets{\frac{0}{0}}\\
-		&= \lim_{n \to \infty}\frac{-\frac{1}{2}L'\pars{\frac{t}{\sqrt{n}}}tn^{-\frac{3}{2}}}{-n^{-2}}               \\
-		& = \lim_{n \to \infty}\frac{L'\pars{\frac{t}{\sqrt{n}}}t}{2n^{-\frac{1}{2}}}                       \\
-		&= \brackets{\frac{0}{0}}\\
-		& = \lim_{n \to \infty}\frac{-\frac{1}{2}L''\pars{\frac{t}{\sqrt{n}}}t^2 n^{-\frac{3}{2}}}{-\frac{1}{2}2n^{-\frac{3}{2}}} \\
-		& = \lim_{n \to \infty} \frac{t^2 \cdot L''\pars{\frac{t}{\sqrt{n}}}}{2}                            \\
-		& = \frac{t^2}{2}
+		\lim_{n \to \infty}\frac{L \pars{\frac{t}{\sqrt{n}}}}{n^{-1}} & = \brackets{\frac{0}{0}}                                                                                                \\
+		                                                              & = \lim_{n \to \infty}\frac{-\frac{1}{2}L'\pars{\frac{t}{\sqrt{n}}}tn^{-\frac{3}{2}}}{-n^{-2}}                           \\
+		                                                              & = \lim_{n \to \infty}\frac{L'\pars{\frac{t}{\sqrt{n}}}t}{2n^{-\frac{1}{2}}}                                             \\
+		                                                              & = \brackets{\frac{0}{0}}                                                                                                \\
+		                                                              & = \lim_{n \to \infty}\frac{-\frac{1}{2}L''\pars{\frac{t}{\sqrt{n}}}t^2 n^{-\frac{3}{2}}}{-\frac{1}{2}2n^{-\frac{3}{2}}} \\
+		                                                              & = \lim_{n \to \infty} \frac{t^2 \cdot L''\pars{\frac{t}{\sqrt{n}}}}{2}                                                  \\
+		                                                              & = \frac{t^2}{2}
 	\end{align*}
 
 	Ostatnie przejście wynika z \(L''(0) = 1\). I w sumie to mieliśmy dowieść. Ale fajnie.
@@ -145,7 +145,7 @@ W pierwszym wariancie usuwamy warunek na to, że wszystkie zmienne \(X_i\) musz�
 		\item \( \lim_{n \to \infty} \sum_{i=1}^{n} \sigma_i^2 = +\infty\).
 	\end{enumerate}
 	Wówczas dla dowolnych \(a, b\) zachodzi
-	\[ 
+	\[
 		\lim_{n \to \infty} P\left( a \le \frac{ \sum_{i=1}^{n} \left( X_i - \mu_i \right) }{\sqrt{ \sum_{i=1}^{n} \sigma_i^2} } \le  b  \right) = \Phi\pars{b} - \Phi\pars{a}
 	\]
 \end{theorem}
@@ -153,8 +153,8 @@ W pierwszym wariancie usuwamy warunek na to, że wszystkie zmienne \(X_i\) musz�
 Za to w drugim wariancie mając dodakową informację o trzecim momencie, możemy wyznaczyć prędkość zbiegania do rozkładu normalnego
 \begin{theorem}[Berry-Ess\'een]
 	Istnieje taka stała \(C\), że dla każdego ciągu niezależnych zmiennych losowych \(\set{X_i}_{i \in \natural}\) o tym samym rozkładzie ze skończoną wartością oczekiwaną \(\mu\) i wariancją \(\sigma^2\) oraz dla \(\rho = \mathbb{E}\left[ \left|X_i-\mu\right|^3 \right] < \infty \) i \(\widetilde{X_n} = \frac{1}{n} \sum_{i=1}^{n} X_i\) zachodzi
-	
-	\[ 
+
+	\[
 		\left|P\left( \frac{\widetilde{X_n}-\mu}{\frac{\sigma}{\sqrt{n} }} \le a \right) - \Phi\left( a  \right) \right| \le C\cdot \frac{\rho}{\sigma^3 \sqrt{n} }
 	\]
 \end{theorem}

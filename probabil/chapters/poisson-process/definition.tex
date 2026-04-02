@@ -1,7 +1,7 @@
 \begin{definition}
-	\textbf{Stochastycznym procesem liczącym} nazywamy \hyperref[stochastic-process-definition]{proces stochastyczny} 
-	\[\set{N(t) \mid t \geq 0}\] 
-	
+	\textbf{Stochastycznym procesem liczącym} nazywamy \hyperref[stochastic-process-definition]{proces stochastyczny}
+	\[\set{N(t) \mid t \geq 0}\]
+
 	spełniający
 	\begin{enumerate}
 		\item \(N(t) \in \natural_0\)
@@ -17,13 +17,13 @@ Intuicyjnie: \(N(t)\) mówi ile \textit{jakichś} zdarzeń zaszło od momentu ro
 
 	\begin{enumerate}
 		\item \( N(0) = 0 \)
-		
+
 		\item Proces ma stacjonarne i niezależne przyrosty, tzn.
-		\begin{enumerate}[label=\arabic{enumi}\alph*.]
-			\item Stacjonarność: \(\forall_{s, t \geq 0}\) zmienne \(N(s)\) oraz \(N(s+t) - N(t)\) mają taki sam rozkład
-			\item Niezależność: \(\forall_{t_1 < t_2 \leq t_3 < t_4}\) zmienne \( N(t_2) - N(t_1) \) oraz \( N(t_4) - N(t_3) \) są niezależne
-		\end{enumerate}
-		
+		      \begin{enumerate}[label=\arabic{enumi}\alph*.]
+			      \item Stacjonarność: \(\forall_{s, t \geq 0}\) zmienne \(N(s)\) oraz \(N(s+t) - N(t)\) mają taki sam rozkład
+			      \item Niezależność: \(\forall_{t_1 < t_2 \leq t_3 < t_4}\) zmienne \( N(t_2) - N(t_1) \) oraz \( N(t_4) - N(t_3) \) są niezależne
+		      \end{enumerate}
+
 		\item Prawdopodobieństwo jednego zdarzenia w małym przedziale długości \( t \) zbiega do \( \lambda  \) \\
 		      \[ \lim_{t \rightarrow 0} \frac{\prob(N(t) = 1)}{t} = \lambda \]
 

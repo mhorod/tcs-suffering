@@ -16,7 +16,7 @@
 \end{definition}
 
 \begin{example}
-	Proste przykłady algebr i \(\sigma-algebr\)
+	Proste przykłady algebr i \(\sigma\)-algebr
 	\begin{itemize}
 		\item \(\Sigma = 2^{\Omega}\) - \(\sigma\)-algebra
 		\item \(\Sigma = \set{\emptyset, \Omega}\) - \(\sigma\)-algebra
@@ -37,7 +37,7 @@
 	\[
 		\sigma(F) = \bigcap \set{\Sigma \subseteq 2^\Omega : F \subseteq \Sigma \text{ i } \Sigma \text{ jest } \sigma \text{-algebrą}}
 	\]
-	
+
 	Intuicyjnie, jest to najmniejsza możliwa \(\sigma\)-algebra zawierająca w sobie \(F\).
 \end{definition}
 
@@ -45,12 +45,12 @@
 	\label{borel-set}
 	Przykład \(\sigma\)-algebry generowanej
 	\[
-		\sigma(\set{[a, b] \mid a, b \in \real, a \leq b}) =: B(\real)
+		\sigma(\set{[a, b] \mid a, b \in \real, a \leq b}) \eqcolon B(\real)
 	\]
 	\[
-		\sigma(d\text{-wymiarowe kostki}) =: B(\real^d)
+		\sigma(d\text{-wymiarowe kostki}) \eqcolon B(\real^d)
 	\]
 	\(B\) to oznaczenie na zbiory borelowskie, które są przykładem zbiorów mierzalnych, nie mając problemów takich jak Banach-Tarski.
-	
-	\textbf{Uwaga. } Od teraz, gdy będziemy mówić o \(\real, \mathbb{C}\) w kontekscie miary, mamy na myśli przestrzenie mierzalne \((\real, B(\real)), (\mathbb{C}, B(\mathbb{C}))\), o ile nie jest powiedziane inaczej.
+
+	\textbf{Uwaga. } Od teraz, gdy będziemy mówić o \(\real, \mathbb{C}\) w kontekście miary, mamy na myśli przestrzenie mierzalne \((\real, B(\real)), (\mathbb{C}, B(\mathbb{C}))\), o ile nie jest powiedziane inaczej.
 \end{example}

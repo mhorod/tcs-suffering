@@ -9,7 +9,7 @@
 
 \begin{fact} Rozkład dwumianowy jest poprawnie zdefiniowany
 	\[
-    	\sum_{j = 0}^{n} \prob(X = j) = (p + (1 - p))^n = 1
+		\sum_{j = 0}^{n} \prob(X = j) = (p + (1 - p))^n = 1
 	\]
 \end{fact}
 
@@ -31,15 +31,15 @@
 		 & = np
 	\end{align*}
 	Można to też zrobić prościej:
-    \[
-        X = \sum_{i = 1}^{n} X_i, \; X_i = \begin{cases}
-            1, \text{ sukces w } i \text{-tej próbie} \\
-            0 \text{ wpp}
-        \end{cases}
-    \]
-    \[
-        \ev{X} = \ev{\sum_{i = 1}^{n} X_i} = \sum_{i = 1}^{n} \ev{X_i} = \sum_{i = 1}^{n} \prob(X_i = 1) = \sum_{i = 1}^{n} p = np
-    \]
+	\[
+		X = \sum_{i = 1}^{n} X_i, \; X_i = \begin{cases}
+			1, \text{ sukces w } i \text{-tej próbie} \\
+			0 \text{ wpp}
+		\end{cases}
+	\]
+	\[
+		\ev{X} = \ev{\sum_{i = 1}^{n} X_i} = \sum_{i = 1}^{n} \ev{X_i} = \sum_{i = 1}^{n} \prob(X_i = 1) = \sum_{i = 1}^{n} p = np
+	\]
 \end{proof}
 
 \begin{theorem}
@@ -67,26 +67,26 @@
 
 	W takim razie
 	\[ \variance{X} = n(n-1)p^2 + np - (np)^2 = np - np^2 = np(1-p) \]
-	
-	Ponieważ kolejne próby sa niezależne, można obliczyć to prościej:
-    \[
-        \variance{X} = \variance{\sum_{i=1}^n X_i} = \sum_{i=1}^n \variance{X_i}
-    \]
 
-    Gdzie \(X_i\) to indykatory dla kolejnych zdarzeń.
-    Wariancja dla jednego indykatora:
+	Ponieważ kolejne próby sa niezależne, można obliczyć to prościej:
+	\[
+		\variance{X} = \variance{\sum_{i=1}^n X_i} = \sum_{i=1}^n \variance{X_i}
+	\]
+
+	Gdzie \(X_i\) to indykatory dla kolejnych zdarzeń.
+	Wariancja dla jednego indykatora:
 	\begin{align*}
 		\variance{X_i}
-		 & = \ev{[(X_i - \ev{X_i})^2}\\
-		 & = \prob(X_i = 0) \cdot (0 - p)^2 + \prob(X_i = 1) \cdot (1-p)^2\\
-		 & = (1-p)p^2 + p(1-p)^2 \\
+		 & = \ev{[(X_i - \ev{X_i})^2}                                      \\
+		 & = \prob(X_i = 0) \cdot (0 - p)^2 + \prob(X_i = 1) \cdot (1-p)^2 \\
+		 & = (1-p)p^2 + p(1-p)^2                                           \\
 		 & = (1-p)p
 	\end{align*}
 
-    Sumując po \(i\) dostajemy:
-    \[
-        \sum_{i=1}^n \variance{X_i} = \sum_{i=1}^n (1-p)p = np(1-p)
-    \]
+	Sumując po \(i\) dostajemy:
+	\[
+		\sum_{i=1}^n \variance{X_i} = \sum_{i=1}^n (1-p)p = np(1-p)
+	\]
 \end{proof}
 
 \begin{theorem}
@@ -96,10 +96,10 @@
 
 \begin{proof}
 	\begin{align*}
-		M_X(t) &= \expected{e^{tX}} \\
-		&= \sum_{j=0}^n \binom{n}{j}p^j(1-p)^{n-j}e^{tj}\\
-		&=  \sum_{j=0}^n \binom{n}{j}(pe^t)^j(1-p)^{n-j}\\
-		&= ((1-p) + pe^t)^n
+		M_X(t) & = \expected{e^{tX}}                             \\
+		       & = \sum_{j=0}^n \binom{n}{j}p^j(1-p)^{n-j}e^{tj} \\
+		       & =  \sum_{j=0}^n \binom{n}{j}(pe^t)^j(1-p)^{n-j} \\
+		       & = ((1-p) + pe^t)^n
 	\end{align*}
 \end{proof}
 
