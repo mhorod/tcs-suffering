@@ -1,4 +1,4 @@
-Każda liczba pierwsza \( p \) spełnia Małe Twierdzenie Fermata: \[ a^{p-1} = 1 \pmod{p} \] Byłby to dobry test pierwszości, gdyby nie to, że liczba złożona też może go zdać dla szczególnych \( a \). Algorytm Millera-Rabina rozwiązuje, a przynajmniej minimalizuje ten problem.
+Każda liczba pierwsza \( p \) spełnia Małe Twierdzenie Fermata: \[ a^{p-1} = 1 \pmod{p} \] Byłby to dobry test pierwszości, gdyby nie to, że specyficzne liczby złożone \(p\) też mogą go zdać (dla wszystkich \( a \)). Algorytm Millera-Rabina rozwiązuje, a przynajmniej minimalizuje ten problem.
 
 W grupie \( \integer_p^{*} \) równanie \( x^2 = 1 \pmod{p} \) ma dokładnie dwa rozwiązania: \( 1 \) i \( p - 1 = -1 \).
 Mając \( a \) takie, że \( a^{n-1} = 1 \pmod{n} \):
@@ -13,9 +13,9 @@ Składając powyższe przypadki w całość, otrzymujemy algorytm.
 	\begin{enumerate}
 		\item Znajdź \( s \) i nieparzyste \( k \), dla których \( n-1 = k \cdot 2^s \).
 		\item Wylosuj \( a \in \set{2, \dots, p - 1} \).
-		\item Oblicz \( (r_1, \dots, r_s ) = (a^k, a^{2k}, \dots, a^{2^{s-1}k}, a^{n-1}) \).
-		\item Jeśli \( (r_1, \dots, r_s) = (1, \dots, 1) \), zwróć PIERWSZA.
-		\item Jeśli \( (r_1, \dots, r_s) = (\dots, -1, 1, \dots, 1) \), zwróć PIERWSZA.
+		\item Oblicz \( (r_1, \dots, r_{s+1} ) = (a^k, a^{2k}, \dots, a^{2^{s-1}k}, a^{n-1}) \).
+		\item Jeśli \( (r_1, \dots, r_{s+1}) = (1, \dots, 1) \), zwróć PIERWSZA.
+		\item Jeśli \( (r_1, \dots, r_{s+1}) = (\dots, -1, 1, \dots, 1) \), zwróć PIERWSZA.
 		\item Zwróć ZŁOŻONA.
 	\end{enumerate}
 \end{greyframe}
@@ -61,7 +61,7 @@ Jeśli algorytm orzeka złożoność, na pewno tak jest. W przeciwnym przypadku 
 		      ponieważ \( p^2 \) dzieli wszystkie składniki oprócz \( 1 \).
 
 		      Skoro \( n = p^k \) dla \( k > 1 \), to \( \beta^n = 1 \pmod{p^2} \).
-		      Gdyby było tak, że \( \beta^{n-1} = 1 \pmod{n} \), to również \( \beta^{n-1} = 1 \pmod{p^2} \), czyli \( \beta^n = b = p + 1 \pmod{p^2} \), co daje sprzeczność. Zatem \( \beta^{n-1} \neq 1 \pmod{n} \).
+		      Gdyby było tak, że \( \beta^{n-1} = 1 \pmod{n} \), to również \( \beta^{n-1} = 1 \pmod{p^2} \), czyli \( \beta^n = \beta = p + 1 \pmod{p^2} \), co daje sprzeczność. Zatem \( \beta^{n-1} \neq 1 \pmod{n} \).
 
 		      To wystarcza, żeby zamknąć dowód analogicznie jak w pierwszym przypadku.
 	\end{itemize}

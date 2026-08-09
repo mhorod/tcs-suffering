@@ -14,15 +14,18 @@ Dla danych \( a, b > 0 \) algorytm zwraca \( d = \gcd(a,b) \) oraz liczby całko
 \vspace{1em}\noindent
 \textit{Algorytm zwraca poprawne \( d = \gcd(a, b) \).}
 \begin{proof}
-	Wystarczy pokazać, że \( \gcd(a, b) = \gcd(b, r) \), jeśli \( a = q \cdot b + r \). Niech \( d = \gcd(a, b) \).
+	Wystarczy pokazać, że \( \gcd(a, b) = \gcd(b, r) \), jeśli \( a = q \cdot b + r \).
 	\[
-		a = 0 \pmod{d}
+		a = b = 0 \pmod{\gcd(a, b)}
 	\]
 	\[
-		b = 0 \pmod{d}
+		r = a - q \cdot b = 0 \pmod{\gcd(a, b)} \implies \gcd(a, b) \mid \gcd(b, r)
 	\]
 	\[
-		r = a - q \cdot b = 0 \pmod{d}
+		b = r = 0 \pmod{\gcd(b, r)}
+	\]
+	\[
+		a = q \cdot b + r = 0 \pmod{\gcd(b, r)} \implies \gcd(b, r) \mid \gcd(a, b)
 	\]
 \end{proof}
 \textit{Algorytm zwraca poprawne \( (s, t) \).}
@@ -30,10 +33,10 @@ Dla danych \( a, b > 0 \) algorytm zwraca \( d = \gcd(a,b) \) oraz liczby całko
 	Jako krok bazowy indukcji po \( a, b \) sprawdzamy przypadek \( b = 0 \), rzeczywiście \( a \cdot 1 + 0 = \gcd(a, 0) \). \\
 	Niech \( a = q \cdot b + r \). Korzystając z tego, że \( \gcd(a, b) = \gcd(b, r) = d \), otrzymujemy:
 	\[
-		b \cdot s' + r \cdot t' = d,
+		b \cdot s' + r \cdot t' = d
 	\]
 	\[
-		b \cdot s' + (a - q \cdot b) \cdot t' = d,
+		b \cdot s' + (a - q \cdot b) \cdot t' = d
 	\]
 	czyli \( s = t', \ t = s' - q \cdot t' \), co było do pokazania.
 \end{proof}

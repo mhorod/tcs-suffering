@@ -23,11 +23,11 @@ Znając wszystkie \( \beta_i \) oraz \( k \), chcemy rozwiązać układ równań
 \[
 	k^{(r)} = \beta_1^{(r)} \cdot \log q_1 + \ldots + \beta_r^{(r)} \cdot \log q_r
 \]
-z niewiadomymi \( \log q_i \). Możemy wykorzystać do tego metody algebry liniowej z dokładnością do jednej trudności -- operacje są modulo \( p-1 \), które nie jest pierwsze, więc niekoniecznie da się policzyć odwrotność względem mnożenia.
+z niewiadomymi \( \log q_i \). Możemy wykorzystać do tego metody algebry liniowej z dokładnością do jednej trudności -- operacje są modulo \( p-1 \), które nie jest pierwsze, więc niekoniecznie da się policzyć odwrotność względem mnożenia. Możemy jednak wygenerować więcej równań niż \(r\) i jeśli zdarzy nam się problematyczne równanie, to po prostu je odrzucamy.
 Jako wynik otrzymujemy logarytmy dyskretny liczb \( q_1, \dots, q_r \).
 
 \textbf{Faza III:} \\
-Żeby znaleźć \( \log b \), próbujemy wygenerować jakąkolwiek liczbę postaci \( b^u \cdot g^v \), która jest gładka modulo \( p \). Wystarczy przyjąć \( u = 1 \) i losować \( v \) do skutku. Z równości
+Żeby znaleźć \( \log b \), próbujemy wygenerować jakąkolwiek liczbę postaci \( b^u \cdot g^v \), która jest rozkładalna na czynniki pierwsze z \(Q\) (tzw. gładka). Wystarczy przyjąć \( u = 1 \) i losować \( v \) do skutku. Z równości
 \[ b^u \cdot g^v = q_1^{\gamma_1} \cdot \ldots \cdot q_r^{\gamma_r} \]
 ostatecznie wynika:
 \[ x = \log b = u^{-1} \cdot (\gamma_1 \cdot \log q_1 + \ldots + \gamma_r \cdot \log q_r - v) \]
@@ -35,5 +35,4 @@ ostatecznie wynika:
 Oczekiwana złożoność algorytmu to \( e^{(\sqrt{2}+\bigO(1))\sqrt{\ln n \ln\ln n}} \), czyli podwykładnicza. Metoda rachunku indeksów daje się uogólnić na ciała skończone \( \integer_p[X]/(w) \), gdzie \( w \) jest pewnym wielomianem. Wtedy baza czynników, zamiast liczb pierwszych, zawiera nierozkładalne wielomiany małych stopni.
 
 \subsection{Atak Logjam}
-Rachunek indeksów, jeśli stosowany w sposób leniwy, ma słaby punkt -- fazy I i II są niezależne od wejściowego elementu \( b \), co gorsza można je łatwo zrównoleglić.
-Żeby rozszyfrować ciąg informacji, dla których zawsze używana była ta sama liczba pierwsza \( p \), wystarczy wykonać fazy I i~II tylko raz, a faza III jest już bardzo szybka.
+Rachunek indeksów pokazuje słaby punkt w leniwie implementowanej kryptografii opartej na logarytmie dyskretnym -- fazy I i II są niezależne od wejściowego elementu \( b \), co gorsza można je łatwo zrównoleglić. Żeby rozszyfrować ciąg informacji, dla których zawsze używana była ta sama liczba pierwsza \( p \), wystarczy wykonać fazy I i~II tylko raz, a faza III jest już bardzo szybka.

@@ -16,7 +16,6 @@ Jeśli otrzymamy od wyroczni \( g \), generator \( \integer_p^* \) i rozkład \(
 \end{itemize}
 Jeżeli wszystkie z powyższych warunków są spełnione, to odpowiedzią jest TAK.
 
-\newpage
 Primes \( \in \) BPP: \\
 Dowodem jest algorytm Millera-Rabina, który myli się przy odpowiedzi TAK z prawdopodobieństwem nie większym niż \( \frac{1}{2} \).
 
@@ -35,3 +34,53 @@ Factoring \( \in \) coNP: \\
 Otrzymujemy od wyroczni rozkład liczby \( n \) na czynniki pierwsze \( n = p_1^{\alpha_1} \cdots p_s^{\alpha_s} \). Po sprawdzeniu poprawności rozkładu odpowiadamy \( (p_1 \leq k) \) ? TAK : NIE, gdzie \( p_1 \) to najmniejszy z~dzielników.
 
 Na ten moment nie wiadomo nic więcej.
+
+\subsection{Algorytm RSA}
+Algorytm RSA jest asymetryczny, czyli wykorzystuje jawną funkcję szyfrującą \( E \) (klucz publiczny) i tajną funkcję deszyfrującą \( D \) (klucz prywatny).
+Najważniejszym założeniem jest, że nie potrafimy efektywnie odtworzyć klucza prywatnego z publicznego. Dodatkowo zakładamy, że problem Factoring nie jest w klasie BPP.
+
+\begin{greyframe}
+	Algorytm RSA:
+	\begin{enumerate}
+		\item Oblicz \( N = p \cdot q \) dla wybranych liczb pierwszych \( p \), \( q \). \\
+		      Wtedy \( \varphi(N) = (p-1) \cdot (q-1) \).
+		\item Wybierz \( e \) względnie pierwsze z \( \varphi(N) \). Oblicz \( d \) takie, że  \( e\cdot d = 1 \pmod{\varphi(N)} \).
+		\item Ustal klucz publiczny \( (e, N) \).
+		\item Zaszyfruj wiadomość \( x \): \( E(x) = x^e \pmod{N} \)
+		\item Odszyfruj wiadomość: \( D(x) = x^d \pmod{N} \)
+	\end{enumerate}
+\end{greyframe}
+
+Ad 1. Zamiast \( \varphi(N) \) można użyć (rozwiązanie często stosowane) funkcji Carmichaela
+\[
+	\lambda(N) = \lcm(p - 1, q - 1)
+\]
+Funkcja \( \lambda \) znajduje najmniejszą liczbę całkowitą \( x \) taką, że \( x^{\lambda(N)} = 1 \pmod{N} \) dla każdego \( x \) względnie pierwszego z \( N \).
+Wybór \( \lambda(N) \) zamiast \( \varphi(N) \) nie zmniejsza bezpieczeństwa, a daje zazwyczaj mniejszy wykładnik. \\
+Ad 2. Do znalezienia liczby \( d \) można użyć rozszerzonego algorytmu Euklidesa:
+\[
+	e \cdot s + \varphi(N) \cdot t = 1 \implies e \cdot s = 1 \pmod{\varphi(N)}
+\]
+Dlaczego deszyfrowanie działa? \\
+Rząd grupy multiplikatywnej modulo \( N \) jest równy \( \varphi(N) \), więc dla każdego \( x \) względnie pierwszego z \( N \) zachodzi
+\[
+	(x^{e})^d = x^{ed} = x^{k \cdot \varphi(N) + 1} = x,
+\]
+ponieważ \( e \cdot d = 1 \pmod{\varphi(N)} \), a na mocy twierdzenia Lagrange'a \( x^{\varphi(N)} = 1 \).
+
+Szyfrowanie RSA można złamać, jeśli wyznaczy się liczby \( p \) i \( q \), czyli pozna się rozkład \( N \) na czynniki pierwsze.
+Można wtedy obliczyć \( \varphi(N) \) i \( d \) algorytmem Euklidesa. Dlatego tak ważne jest założenie o dużej trudności problemu Factoring.
+W tym dniu (20.06.2026), nie ma ani dowodu na to, że wielomianowy algorytm rozkładu na czynniki pierwsze nie istnieje, ani dowodu NP-zupełności problemu Factoring.
+
+\subsection{Efektywna metoda znalezienia dużej liczby pierwszej}
+Dla zadanej liczby \( k \) chcemy znaleźć liczbę pierwszą \( p \in \brackets{2^k, 2^{k+1}-1} \).
+
+Liczby pierwsze są dość gęsto upakowane -- w przedziale od 1 do \( n \) jest około \( \frac{n}{\log n} \) liczb pierwszych.
+Zatem w przedziale \( \brackets{2^k, 2^{k+1}-1} \) jest ich około
+\[
+	\frac{2^{k+1} - 1}{k+1} - \frac{2^{k} - 1}{k} = \frac{2^k\pars{1-\frac{1}{k}} + \frac{1}{k}}{k+1} = \Theta\pars{\frac{2^k}{k}}
+\]
+
+Możemy więc po prostu losować liczbę całkowitą \( p \) z przedziału \( \brackets{2^k, 2^{k+1}-1} \), dopóki nie trafi się liczba pierwsza.
+Skoro w przedziale jest \( \Theta\pars{2^k} \) liczb całkowitych, z których \( \Theta\pars{\frac{2^k}{k}} \) jest liczbami pierwszymi, to w oczekiwaniu po \( \bigO(k) \) losowaniach trafimy na liczbę pierwszą.
+Sprawdzanie, czy liczba jest pierwsza, wykonuje się w czasie \( \bigO\pars{k^3} \) (Millerem-Rabinem), więc oczekiwana złożoność algorytmu losowania liczby pierwszej to \( \bigO\pars{k^4} \).

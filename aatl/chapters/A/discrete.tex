@@ -1,22 +1,35 @@
 Niech \( G = \langle g \rangle \) będzie pewną grupą cykliczną.
 
 \subsection{Discrete-Log}
-\textbf{Wejście:} \( a \in G \) \\
+\textbf{Wejście:} \( a, g \in G \) \\
 \textbf{Wyjście:} \( x \) takie, że \( g^x = a \)
 
-Discrete-Log \( \in \) NP: \\
+Discrete-Log \( \in \np \cap \conp\): \\
 Jeśli otrzymamy od wyroczni \( x \), możemy sprawdzić, czy \( g^x = a \).
 
-W kryptografi zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
+W kryptografii zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
 
-\subsection{Diffie-Helman}
+\subsection{Diffie-Hellman}
 \textbf{Wejście:} \( g^x,\; g^y \) \\
 \textbf{Wyjście:} \( g^{xy} \)
 
-Diffie-Helman \( \in \) NP: \\
+Diffie-Hellman \( \in \np \cap \conp \): \\
 Jeśli otrzymamy od wyroczni \( x \), po sprawdzeniu z \( g^x \), możemy obliczyć \( (g^{y})^x = g^{xy} \).
 
-Tak jak w poprzednim przypadku, nie ma dowodu, że Diffie-Helman \( \notin \) P. Za pomocą Discrete-Log możemy rozwiązać problem Diffiego-Helmana.
+Tak jak w poprzednim przypadku, nie ma dowodu, że Diffie-Hellman \( \notin \) P. Za pomocą Discrete-Log możemy rozwiązać problem Diffiego-Hellmana.
 
-\textbf{Protokół Diffiego-Helmana:} \\
+\textbf{Protokół Diffiego-Hellmana:} \\
 Korespondenci uzgadniają klucz symetryczny -- jeden z nich ustala swój klucz prywatny \( x \), drugi \( y \), po czym publicznym kanałem razem z wiadomością przesyłają \( g^x \) i \( g^y \). Kluczem deszyfrującym wiadomość jest \( g^{xy} \).
+
+\subsection{Algorytm Elgamal}
+\begin{greyframe}
+	Algorytm Elgamal:
+	\begin{enumerate}
+		\item Wybierz jakąś grupę \( G \) (np. grupę multiplikatywną ciała \( \mathbb{F}_q \)) i element \( g \in G \) \\ (najlepiej generator).
+		\item Wylosuj liczbę \( x \in \set{1, \ldots, \abs{G}-1} \).
+		\item Ustal klucz publiczny \( (g,g^x) \) i klucz prywatny \( (g,x) \).
+		\item Zaszyfruj wiadomość \( M \): wylosuj liczbę \( y \), wyślij \( (g^y, M \cdot g^{xy}) \).
+	\end{enumerate}
+\end{greyframe}
+Otrzymawszy \( (g^y, \ M \cdot g^{xy}) \) i znając klucz prywatny \( x \), można łatwo obliczyć \( g^{xy} \), czyli też odtworzyć \( M = \pars{M \cdot g^{xy}} \cdot g^{-xy} \).
+Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a obecnie ludzkość nie potrafi go rozwiązać na konwencjonalnych komputerach. Problem Discrete-Log jest jednak podatny na kwantowy algorytm Shora, a Diffie-Hellman jest od niego łatwiejszy, a więc powoli zaczyna się od niego odchodzić.

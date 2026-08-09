@@ -1,0 +1,24 @@
+Algorytm Newtona-Raphsona pozwala nam obliczyć odwrotność liczby \(a\) wzorem rekurencyjnym
+\[
+	x_{n+1} = x_n(2 - a x_n)
+\]
+
+Metoda ta ma zbieżność kwadratową (liczba dobrych cyfr podwaja się za każdą iteracją)
+\[
+	e_n = x_n - \frac{1}{a}
+\]
+\[
+	e_{n+1} = x_{n+1} - \frac{1}{a} = x_n\pars{2 - a x_n} - \frac{1}{a} = -a\pars{x_n^2 - \frac{2 x_n}{a} + \frac{1}{a^2}} = -a\pars{x_n - \frac{1}{a}}^2 = -a e_n^2
+\]
+Zastanówmy się jeszcze nad tym, kiedy metoda ta jest zbieżna
+\[
+	\abs{e_n} > \abs{e_{n+1}} \iff \abs{e_n} > \abs{-a e_n^2} \iff 1 > \abs{-a e_n} = \abs{1 - a x_n} \iff a x_n \in (0, 2)
+\]
+Jeśli \(a x_0 \in (0, 2)\), to wszystkie następne \(a x_n\) też takie będą, a więc do zbieżności wystarczy, że \(x_0\) spełnia ten warunek.
+
+Aby obliczyć \(\frac{b}{a}\), zapisujemy \(a\) jako \(2^k \cdot a'\), gdzie \(a' \in [1, 2)\), obliczamy \(\frac{1}{a'}\) metodą Newtona-Raphsona (dzięki \(a' \in [1, 2)\) możemy łatwo dobrać np. \(x_0 = 1\)), a następnie wykonujemy mnożenie
+\[
+	b \cdot 2^{-k} \cdot \frac{1}{a'} = b \cdot 2^{-k} \cdot \frac{1}{a \cdot 2^{-k}} = \frac{b}{a}
+\]
+
+Złożoność wynosi \(\bigO(M(n) \log n)\), gdzie \(M(n)\) to złożoność mnożenia.

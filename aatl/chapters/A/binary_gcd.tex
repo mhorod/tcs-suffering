@@ -18,15 +18,18 @@ Dla danych \( a,b > 0 \) algorytm zwraca \( \gcd(a,b) \), wykonując tylko odejm
 	Jeśli któryś z argumentów jest nieparzysty (przypadki 3 i 4), to \( 2 \nmid \gcd(a, b) \), dlatego możemy podzielić parzysty argument przez 2. \\
 	Jeśli oba argumenty są parzyste (przypadek 5), to \( d = \gcd(a, b) \) też jest parzyste, ponieważ inaczej \( 2 \cdot d \) dzieliłoby obie liczby, co byłoby sprzeczne z tym, że \( d \) jest największym dzielnikiem.
 	Dlatego możemy wydzielić 2 i obliczyć \( 2 \cdot \gcd\pars{\frac{a}{2}, \frac{b}{2}} \). \\
-	Jeśli obie liczby są nieparzyste, to obliczamy \( d = \gcd(b, a - b) = \gcd(a, b) \), ponieważ:
+	Jeśli obie liczby są nieparzyste, to obliczamy \( \gcd(a, b) = \gcd(b, a - b) \), ponieważ:
 	\[
-		a \equiv 0 \ \mod \ d
+		a = b = 0 \pmod{\gcd(a, b)}
 	\]
 	\[
-		b \equiv 0 \ \mod \ d
+		a - b = 0 \pmod{\gcd(a, b)} \implies \gcd(a, b) \mid \gcd(b, a - b)
 	\]
 	\[
-		a - b \equiv 0 \ \mod \ d
+		b = a - b = 0 \pmod{\gcd(b, a - b)}
+	\]
+	\[
+		a = (a - b) + b = 0 \pmod{\gcd(b, a - b)} \implies \gcd(b, a - b) \mid \gcd(a, b)
 	\]
 \end{proof}
 

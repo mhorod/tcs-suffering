@@ -1,0 +1,10 @@
+\begin{theorem}
+	Dla każdego \(k\) naturalnego, wielomian \(X^{p^k} - X\) jest iloczynem wszystkich unormowanych wielomianów nierozkładalnych, których stopnie dzielą \(k\).
+\end{theorem}
+\begin{proof}
+	Dowodu tego nie było na wykładzie, a więc na egzaminie też nie jest wymagany.
+\end{proof}
+
+Widzimy w takim razie, że korzystając z tego twierdzenia, jeśli wielomian \(h\) stopnia \(d\) jest rozkładalny, to ma wspólny dzielnik z \(X^{p^k} - X\) dla pewnego \(k < d\). W takim razie, jeśli policzymy wszystkie \(\gcd(h, X^{p^k} - X)\) dla \(k \in \set{1,\dots,d-1}\) (algorytmem Euklidesa) i wszystkie z nich będą równe 1, to \(h\) jest nierozkładalny, a w przeciwnym przypadku jest rozkładalny.
+
+Wielomian \(X^{p^k}\) jest za duży, aby wyznaczyć go w całości. Możemy jednak zauważyć, że po pierwszym kroku algorytmu Euklidesa oba argumenty będą miały już małe stopnie (mniejsze lub równe \(d\)). W takim razie, wystarczy zrobić pierwszy krok algorytmu Euklidesa (obliczamy \(X^{p^k} \pmod{h}\) szybkim potęgowaniem w modulo \(h\) oraz odejmujemy \(X\)), a następnie kontynuujemy normalnym Euklidesem.
