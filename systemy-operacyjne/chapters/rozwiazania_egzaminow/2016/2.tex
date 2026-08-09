@@ -1,0 +1,2 @@
+Odpowiedź: jeśli plik jest odpowiednio duży, to cat zapełni cały pipe i dziecko zawiesi się na blokującym write. W tym samym czasie rodzic czeka na jego zakończenie i będą czekać w nieskończoność. Jeśli plik jest mały, to dziecko nie zablokuje się przy pisaniu i zakończy, więc rodzic będzie mógł odnotować to i przejść do dalszej pracy
+

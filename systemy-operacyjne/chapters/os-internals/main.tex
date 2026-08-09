@@ -1,0 +1,179 @@
+\section{Scheduler}
+Scheduler zarządza dostępem procesów do czasu procesora, zatrzymując niektóre i wznawiając inne.
+\subsection{Schedulery czasu rzeczywistego}
+Procesy mają przypisane priorytety i pierwszy wykona się ten o najmniejszym priorytecie spośród gotowych.
+\subsubsection{Round Robin}
+Każdy proces dostaje kwant czasu i jest ustawiony w kolejce. Proces może działać tak na jak długo wystarczy mu kwantu, a kiedy go zużyje trafia na koniec kolejki i otrzymuje nowy. Jeśli proces zablokuje się w oczekiwaniu na zasoby przed zużyciem kwantu, to po odblokowaniu trafia na początek kolejki z czasem, jaki mu pozostał.
+
+Bardzo istotny jest dobór wielkości kwantu, za duży powoduje, że system ma zbyt długi czas reakcji, zbyt mały powoduje dużo zmarnowanej pracy na zmiany kontekstu. Zwykle używa się między 20-50ms.
+\subsubsection{Priority Scheduling}
+Bazuje na round robin, kwanty czasu zależą od priorytetu, procesy o niższym priorytecie mają pierwszeństwo.
+\subsubsection{Guaranteed Scheduling / Fair share scheduling}
+Każdy proces ma zagwarantowane x\% procesora, scheduler dobiera procesy tak, aby dopełnić zobowiązania.
+\subsubsection{Lottery Scheduling}
+Każdy proces dostaje kilka żetonów z puli. Scheduler losowo dobiera żeton i przydziela procesor jego właścicielowi. Współpracujące procesy mogą sobie przekazywać żetony.
+\subsubsection{A jak to jest w Minixie?}
+W Minixie używany jest priority scheduling z dodatkową degracją (zwiększeniem) priorytetu. Procesy użytkownika zwiększają swój priorytet, jeśli zużyły cały kwant i dwa razy z rzędu dostały procesor, zmniejszają w przeciwnym przypadku.
+\subsection{Przerwania}
+Scheduler pracuje podczas przerwań, w tym w szczególności przerwań zegarowych. Im więcej przerwań zegarowych, tym efektywniej można zarządzać pracą procesów, ale z drugiej strony tym więcej czasu procesora jest wykorzystane przez scheduler i na zmianę kontekstu. W Minixie jest 60 przerwań na sekundę.
+\subsection{Wątki}
+Każdy proces posiada przynajmniej jeden wątek. Procesy mają oddzielne przestrzenie adresowe, a wątki mogą je współdzielić. Wątki jednego procesu mają wspólne między innymi:
+\begin{itemize}
+	\item Wskaźnik do segmentu tekstowego (PM)
+	\item Wskaźnik do segmentu danych (PM)
+	\item Wskaźnik do segmentu bss (PM)
+	\item Wskaźnik do stosu (K)
+	\item Stan procesu (K)
+	\item Licznik programu (K)
+\end{itemize}
+K - kernel, PM - process management
+\subsection{Zachowanie Procesów}
+Dzielimy procesy na kategorie i każda z nich jest traktowana inaczej. Scheduler dba o to, żeby podobne procesy były podobnie traktowane i utrzymuje równe obciążenie wszystkich części systemu.
+\begin{itemize}
+	\item \textbf{Interaktywne} - Mają najwyższy priorytet. Scheduler stara się, aby szybko reagowały na input. W zależności od czasu trwania zadania scheduler pozwala sobie na opóźnienie reakcji (nie zrobi nikomu różnicy, jeśli ls wypisze coś w 0.05 sekundy zamiast 0.01).
+	\item \textbf{Wsadowe} - wykonywanie serii zadań (programów) przez komputer. Zazwyczaj kolejne zadania są ze sobą powiązane: dane wyjściowe jednego programu przekazywane są kolejnemu programowi, któremu służą jako dane wejściowe itd. Scheduler stara się maksymalizować zadania na jednostkę czasu (throughput), minimalizować czas między zakolejkowaniem a zakończeniem zadania i maksymalizować obciążenie procesora.
+	\item \textbf{Czasu rzeczywistego} - są ograniczone przez CPU. Mają najniższy priorytet, a scheduler stara się w nie nie wtryniać i jeśli to możliwe, szczególnie w systemach wielowątkowych, oddaje im wątek na wyłączność.
+\end{itemize}
+\section{Komunikacja pomiędzy procesami}
+\subsection{Sekcje krytyczne}
+To fragmenty programu z odwołaniami do współdzielonej pamięci. Ważne jest, żeby
+\begin{itemize}
+	\item maksymalnie jeden proces/wątek naraz znajdował się w sekcji krytycznej
+	\item żaden proces poza sekcją krytyczną nie blokował innego procesu
+	\item żaden proces nie czekał w nieskończoność na wejście do sekcji krytycznej
+	\item wszystko działało niezależnie od szybkości i liczby procesorów
+\end{itemize}
+\subsection{Spin Lock}
+Spin Lock to aktywne czekanie, w kółko sprawdzamy czy już możemy dalej pracować. Zużywa dużo czasu procesora, zwykle nieefektywne.
+\subsection{Rozwiązanie Peterson'a}
+Rozwiązanie gwarantuje, że dwa procesy nigdy nie będą w sekcji krytycznej naraz, każdy proces kiedyś doczeka się na zasoby i czas oczekiwania nie będzie nieskończony. Jeśli tylko wątki nie robią podejrzanych rzeczy. W ogólności nie można liczyć na jego poprawność.
+\begin{verbatim}
+  int turn, interested[2]; // shared
+  void enter_region(int process){
+    int other = 1 - process;
+    interested[process] = TRUE;
+    turn = process;
+    while ((turn==process) && (interested[other]==TRUE));
+  }
+  void leave_region(int process){
+    interested[process] = FALSE;
+  }
+\end{verbatim}
+\subsection{Priority Inversion Problem}
+Spin-locki mogą mieć uzasadnienie, kiedy czas oczekiwania jest krótki, więc usypianie i budzenie wątku miałoby stosunkowo duży narzut. W systemach czasu rzeczywistego może to jednak być problematyczne, ponieważ proces o wysokim priorytecie (i bliskim deadlinie) będzie pracował, zapętlając się w oczekiwaniu na zasób, który jest zablokowany przez proces o niskim priorytecie.
+\subsection{Semafory}
+To chroniona zmienna służąca do kontroli dostępu przez wiele procesów do wspólnego zasobu. Zlicza ona, ile elementów ma dostęp do zasobu. Przykładem semafora jest mutex, jest to semafor binarny (zajęte / niezajęte).
+\subsection{Monitory}
+To obiekty, które mogą być bezpiecznie używane przez kilka wątków. Metody monitora chronione są przez mutexy, dzięki czemu w dowolnym momencie czasu z dowolnej metody może korzystać tylko jeden wątek.
+\subsection{Przesyłanie komunikatów}
+Innym pomysłem jest message passing -- procesy przesyłają sobie wiadomości, które mogą odbierać. W momencie, gdy zapełni się bufor wiadomości wysyłanie staje się blokujące. Analogicznie dla pustego bufora. W innym wariancie wysyłanie i odbieranie jest blokujące, następuje przekazanie danych, gdy oba procesy będą gotowe do komunikacji. Dzięki temu nie ma buforów.
+\section{Architektura}
+\subsection{Monolithic Kernel}
+Procesy użytkownika pracują w dwóch trybach: \textbf{trybie użytkownika} i \textbf{trybie jądra}. Przechodzimy z trybu użytkownika do trybu jądra poprzez przerwania systemowe i syscalle. Wiele procesów może pracować równocześnie w trybie jądra.
+\subsection{Micro Kernel}
+Mikrokernele minimalizują ilość kodu pracującego w trybie uprzywilejowanym. Funkcjonalności systemu są zaimplementowane jako serwery, z którymi komunikujemy się przez wiadomości.
+
+Jądro jest odpowiedzialne za multiprogramming, przesyłanie wiadomości oraz obsługę urządzeń. Procesy użytkownika nigdy nie pracują w trybie jądra.
+\section{Kernel w Minixie}
+\subsection{Message Passing}
+W Minixie jest system wymiany wiadomości między procesami poprzez:
+\begin{itemize}
+	\item SEND -- wysyła wiadomość i blokuje się, dopóki nie zostanie dostarczona (block on full buffer)
+	\item RECEIVE -- blokuje proces, póki nie dostanie wiadomości (block on empty buffer)
+	\item SENDREC -- wysyła wiadomość i blokuje się, póki nie dostanie odpowiedzi
+	\item NOTIFY -- wysyła powiadomienie (wiadomość bez danych), które jest buforowane i nieblokujące
+\end{itemize}
+\textbf{Wiadomości mogą być wysyłane przez użytkownika do zadań jądra tylko i wyłącznie poprzez SENDREC.}
+
+Każdy proces ma maskę operacji wiadomościowych, z których może korzystać. Procesy użytkownika mogą używać wyłącznie SENDREC.
+Wskaźnik do pamięci musi znajdować się w pamięci procesu wołającego.
+Wiadomości mogą być buforowane jak notify i wtedy można wysyłać / oczekiwać wiadomości od wielu procesów - wiadomości od któregokolwiek z potencjalnych odbiorców / nadawców. Mogą też nie być buforowane (rendezvous message-passing) jak w send i receive. Wtedy procesy blokują się w oczekiwaniu na wysłanie / odbiór, więc jest ryzyko zakleszczenia.
+\subsection{Zegar}
+\textbf{clock handler()} - obsługa przerwań zegara - aktualizacja czasu, ,,księgowość”, sprawdzanie alarmów i potrzeby wywłaszczenia.
+
+\textbf{clock task()} - wywłaszczanie procesów, których czas się wyczerpał, uruchamianie alarmów.
+\subsection{Kernel Calle}
+Każdemu syscallowi odpowiada adekwatny kernel call, funkcja działająca wewnątrz jądra. Ich nazwy tworzymy dodając sys\_ przed nazwą syscalla np. sys\_read().
+\subsection{Serwery}
+Serwery w minixie realizują kernel calle. Wchodzą w ich skład
+\begin{itemize}
+	\item \textbf{PM (process manager)} – zarządza procesami, obsługuje funkcje takie jak: fork(), exec(), exit(), kill()
+	\item \textbf{SCHED (scheduler server)} – bierze udział w szeregowaniu procesów
+	\item \textbf{VFS (virtual file system)} – obsługuje funkcje związane z systemem plików, na przykład: chdir(), open(), read(), select(), write()
+	\item \textbf{VM (virtual memory manager)} – zarządza pamięcią wirtualną
+	\item \textbf{RS (reincarnation server)} – przechowuje i udostępnia informacje o endpointach serwerów, uruchamia serwery i sterowniki, które nie są uruchamiane w tym samym czasie co jądro, ale w kolejnej fazie uruchamiania systemu, nadzoruje ich działanie i w przypadków błędów uruchamia je ponownie. Jest to możliwe dzięki temu, że proces rs jest rodzicem uruchamianych przez siebie procesów serwerów i sterowników.
+	\item \textbf{IS (information server)} – pomocniczy, dostarcza informacji na temat działania sterowników i serwerów
+	\item \textbf{DS (data store server)} – pomocniczy, informuje procesy o zmianie konfiguracji po wznowieniu działania serwera, spełnia rolę małej bazy danych
+\end{itemize}
+
+\section{Organizacja pamięci}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|c}
+		Rodzaj Pamięci & czas dostępu            \\
+		\hline
+		Rejestry       & 1-3 ns                  \\
+		Level 1 Cache  & 2-8 ns                  \\
+		Level 2 Cache  & 5-12 ns                 \\
+		Memory         & 10-60 ns                \\
+		Hard Disk      & 3 000 000-10 000 000 ns
+	\end{tabular}
+	\caption{Hierarchia pamięci}
+\end{table}
+\subsection{Strategie alokacji}
+Alokacja w większości systemów jest lazy, tzn. możemy sobie zażądać, ile chcemy pamięci, nawet więcej niż jest fizycznie dostępne, ale system de facto jej nam nie przydziela, dopóki jej nie dotkniemy. Programy w pamięci są ułożone w ciągłych blokach. Istnieje kilka strategii alokacji pamięci:
+\begin{itemize}
+	\item First Fit - ani zły, ani dobry; ładujemy program w pierwszą lukę w pamięci, do której się zmieści
+	\item Next Fit - podobnie jak first fit, tylko nie zaczynamy od początku
+	\item Best Fit - wrzuca do najmniejszego w jakim się zmieści, niby brzmi fajnie, ale zostawia małe dziury, przez co potem ciężko coś wcisnąć
+	\item Worst Fit - wrzuca na początku największego dostępnego fragmentu wolnego, fajny, bo zostawia duże dziury
+\end{itemize}
+\subsection{Pamięć wirtualna}
+Można tak gospodarować pamięcią RAM, żeby przydzielać procesom więcej pamięci niż jest fizycznej pamięci w komputerze. Nieużywane akurat dane przenosi się w inne miejsce (np. na dysk), a jeśli są potrzebne, to przywraca się je w jakimś dostępnym miejscu. Jeśli go zabraknie, to inne dane przenosi się na dysk. W UNIXowych systemach jest na to specjalnie wydzielona partycja na dysku (partycja ,,swap'').
+\subsection{Stronicowanie}
+Obraz procesu i pamięć fizyczna dzielone są na strony, wszystkie o tym samym rozmiarze. Dla odróżnienia stron z obrazem procesu od stron pamięci fizycznej te drugie nazywamy ramkami. Strony mają rozmiar od kilku do kilkudziesięciu kilobajtów (zwykle 4kB w systemie 32-bitowym). Procesowi można przydzielić ramki w różnych miejscach, niekoniecznie obok siebie. Żeby odczytać zawartość strony, trzeba przetłumaczyć adres logiczny (numer strony, przesunięcie) na adres fizyczny. \\
+Stronicowanie może być wielopoziomowe. W takim przypadku adres logiczny to pozycja tablicy w tablicy tablic, pozycja strony w tablicy stron, przesunięcie na stronie.
+\subsubsection{Strategie ładowania stron}
+\begin{itemize}
+	\item Utopijna \textbf{strategia optymalna} - zastąp stronę, która będzie najpóźniej ładowana. Nie do zrealizowania online.
+	\item \textbf{FIFO} - Wybierz ostatnio nieużywaną, mamy dodatkowe bity w tabeli stron, accessed i dirty. Bierzemy w kolejności (not referenced, not modified) \(\rightarrow\) (not referenced, modified) \(\rightarrow\) (referenced, not modified) \(\rightarrow\) (referenced, modified), w ramach klasy losowo.
+	\item \textbf{Second Chance / Clock PRA} - modyfikacja FIFO, usuwamy tylko, jeśli referenced = 0, wpp czyścimy referenced i przesuwamy na koniec kolejki. Zamiast kolejki lepiej używać bufora cyklicznego (clock).
+	\item \textbf{Least recently used PRA} - zastąp stronę, która była używana najdawniej. Implementacja wymaga wsparcia od hardware'u.
+	\item \textbf{Not frequently used PRA} - po każdym przerwaniu kasuj bit referenced i zwiększaj licznik stronom, które mają ten bit ustawiony. Usuwaj te z najmniejszą wartością licznika.
+	\item \textbf{Aging PRA} - po każdym przerwaniu dla każdej strony przesuń bity licznika o 1 w prawo, uzupełniając bitem referenced, po czym skasuj bit referenced. Usuwaj te z najmniejszą wartością licznika.
+	      \subsubsection{Rozmiar strony}
+	      Przyjęło się używać wzoru:
+	      \begin{equation*}
+		      p = \sqrt{2se}
+	      \end{equation*}
+	      Gdzie:
+	      \begin{itemize}
+		      \item s -- średni rozmiar procesu
+		      \item e -- rozmiar wiersza w tabeli stron
+		      \item p -- rozmiar strony
+	      \end{itemize}
+	      W większości systemów pracujących w 32 bitowej architekturze przyjmuje się s = 1MB, e = 8, z czego wynika p = 4KB.
+\end{itemize}
+\subsection{Segmentacja}
+Przy 32-bitowej przestrzeni adresowej procesowi może braknąć dostępnych adresów dla posiadanej pamięci, rozwiązuje się to poprzez segmentację -- mamy kilka przestrzeni adresowych dla jednego procesu. Mamy zazwyczaj segment kodu, danych i stosu, mogą być jakieś inne. Adresy najpierw wskazują na segment, a potem na miejsce w nim (w tym momencie dzieje się stronicowanie). W ten sposób przekształcamy adres logiczny (z segmentem) na adres liniowy (w RAMie). Przy 64-bitowych przestrzeniach nie ma sensu tego stosować.
+
+Segmenty mogą mieć różne długości, dlatego adres logiczny to numer segmentu (mapowany na adres bazowy, czyli adres początku segmentu) i długość danych do przeczytania. Podział na segmenty jest mniej więcej podziałem na logiczne części programu, więc niektóre z nich mogą być całkiem długie.
+\subsection{W połączeniu}
+Może być trudno znaleźć spójny fragment pamięci dla długiego segmentu, dlatego łączy się stronicowanie i segmentację i mamy segmenty składające się z ramek. Przesunięcie wewnątrz segmentu traktowane jest jako adres w pamięci stronicowanej (numer strony, przesunięcia na stronie). Zamiast adresu bazowego segmentu używany jest adres tablicy stron tego segmentu, w której można znaleźć numer ramki.
+\subsection{Jak to działa w Linuxie?}
+Jest tam więcej stronicowania, ponieważ łatwiej sobie z tym radzić, ale nie tylko stronicowanie.
+\subsection{A w Minixie?}
+Wersje Minixa starsze niż 3.1 nie miały stronicowania ani wirtualnej pamięci i cały proces musiał być załadowany do RAMu. Mogła się pojawić fragmentacja. Nowsze mają coś ze stronicowania i serwer VM, który jest oddzielony od PMa. Procesy były podzielone na segmenty.
+\section{Drivery}
+Drivery służą do interakcji z innymi urządzeniami.
+Dzielą się na:
+
+\textbf{Urządzenia blokowe} - mają swobodny dostęp do danych, czas dostępu do każdego fragmentu zbliżony, Dane zorganizowane w bloki, (np. CD/DVD-ROM)
+
+\textbf{Urządzenia znakowe} - operują na ciągach znaków, dostęp sekwencyjny (np. klawiatura, mysz, modem)
+\subsubsection{I/O port}
+W architekturze x86 procesor ma do dyspozycji 216 8-bitowych portów. Porty mogą być grupowane dla zwiększenia transferu. Urządzenia mają oddzielną przestrzeń adresową.
+\subsubsection{Memory mapped I/O}
+Można też zmapować rejestry urządzeń do przestrzeni adresowej pamięci procesora. Dostęp jak do pamięci.
+\subsubsection{Spooling}
+Tryb realizowania operacji wejścia-wyjścia w odniesieniu do urządzeń o dostępie wyłącznym. Cała zawartość strumienia jest buforowana zanim zostanie przesłana w miejsce docelowe.

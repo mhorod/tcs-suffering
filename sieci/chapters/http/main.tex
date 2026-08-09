@@ -1,0 +1,98 @@
+HTTP (z ang. Hypertext Transfer Protocol) to protokół do komunikacji w sieci WWW, służy do komunikacji między użytkownikiem a serwerem, oparty na TCP. Domyślnie działa na porcie 80 (HTTPS na 443).
+
+\section{Metody HTTP}
+\begin{multicols}{2}
+	\begin{itemize}
+		\item \textbf{GET}
+		\item \textbf{HEAD}
+		\item \textbf{PUT}
+		\item \textbf{POST}
+		\item \textbf{DELETE}
+		\item \textbf{OPTIONS}
+		\item \textbf{TRACE}
+		\item \textbf{PATCH}
+	\end{itemize}
+\end{multicols}
+
+\section{Nagłówki}
+W nagłówkach zawieramy dodatkowe informacje, takie jak data, język, typ danych czy informacje o hoście, aktualnie typów nagłówków jest bardzo dużo, w HTTP/1.0 tylko 14.
+
+\textbf{Nagłówki w HTTP/1.0}:
+\begin{itemize}
+	\item \textbf{Date}
+	\item \textbf{Pragma} - zależne od implementacji.
+	\item \textbf{Authorization} - hasło uwierzytelniające.
+	\item \textbf{From} - adres email proszącego o dane (archaizm).
+	\item \textbf{If-Modified-Since} - prosi o przesłanie danych tylko jeśli były zmodyfikowane od podanej daty, używany do cache'owania.
+	\item \textbf{Referer} - adres strony, z której było przekierowanie.
+	\item \textbf{Server} - identyfikuje serwer i użyte w nim oprogramowanie.
+	\item \textbf{WWW-Authenticate} - określa sposób w jaki ma zostać przeprowadzone uwierzytelnienie użytkownika.
+	\item \textbf{Allow} - określa metody http obsługiwane przez serwer.
+	\item \textbf{Content-Encoding} - podaje format kompresji treści.
+	\item \textbf{Content-Length} - długość w bajtach przesyłanej wiadomości, dla danych przesyłanych z serwera obowiązkowy.
+	\item \textbf{Content-Type} - w jakim formacie jest dokument (html, pdf itd.).
+	\item \textbf{Expires} - data, po której dokument jest nieaktualny, używany do cache'owania.
+	\item \textbf{Last-Modified} - data ostatniej modyfikacji, używany do cache'owania.
+\end{itemize}
+
+\section{Statusy}
+Na zapytanie dostajemy od serwera odpowiedź z kodem statusu i opcjonalnie z jakimś plikiem (jeśli się wszystko powiodło).
+\begin{itemize}
+	\item \textbf{1xx} oznaczają, że serwer otrzymał poprawny request, i jeszcze go nie przeprocesował.
+	\item \textbf{2xx} Sukces, robię to, co mi kazano.
+	\item \textbf{3xx} Przekierowania.
+	\item \textbf{4xx} Błąd po stronie klienta.
+	\item \textbf{5xx} Błąd po stronie serwera.
+\end{itemize}
+
+\textbf{Przykładowe, i najczęściej używane statusy}:
+\begin{multicols}{2}
+	\begin{itemize}
+		\item 200 OK
+		\item 201 Created
+		\item 202 Accepted
+		\item 204 No Content
+		\item 301 Moved Permanently
+		\item 302 Moved Temporarily
+		\item 304 Not Modified
+		\item 400 Bad Request
+		\item 401 Unauthorized
+		\item 403 Forbidden
+		\item 404 Not Found
+		\item 418 I am a teapot
+		\item 500 Internal Server Error
+		\item 501 Not implemented
+		\item 502 Bad Gateway
+		\item 503 Service Unavailable
+	\end{itemize}
+\end{multicols}
+
+\section{Porównanie protokołów}
+UDP jest szybszy niż TCP. TFTP (UDP) i HTTP (TCP) -- różnie bywa, ponieważ TFTP zyskuje na tym, że UDP jest szybszy, ale same TFTP i HTTP są protokołami wyższej warstwy i zależą od warunków w sieci (przeciążenia, ilość danych do przesłania, itp.) Potencjalne czynniki spowalniające:
+\begin{itemize}
+	\item UDP -- pakiety mogą się gubić.
+	\item TCP -- wykorzystuje mechanizm sliding widow, co może ograniczać maksymalny rozmiar przesyłanych na raz danych. Wymaga mechanizmu potrójnego uścisku dłoni do nawiązania połączenia.
+	\item HTTP -- nagłówki do przesyłanych danych mogą być całkiem spore (informacje o cookies, itp.). Wymaga dodatkowego nakładu czasu (pewnie niewielkiego) przy nawiązywaniu połączenia związanego z wymogami protokołu TCP.
+	\item TFTP -- maksymalny rozmiar pakietu do wysłania na raz to 512B. Po każdym pakiecie trzeba poczekać na ACK, zanim zostanie wysłany kolejny.
+\end{itemize}
+
+\section{Serwery wirtualne}
+Można hostować więcej niż jedną domenę na jednym serwerze. Trzeba wtedy dla każdej wiadomości przychodzącej/wychodzącej z serwera ustawić stosowny nagłówek \textbf{HOST}, jest on tak czy siak wymagany od HTTP/1.1.
+
+\section{Ciasteczka (cookies)}
+Pliki cookie są zapisywane na maszynie klienta i przy niektórych requestach wysyłane z powrotem do hosta aby dostać jakieś spersonalizowane dane. Używane często do implementacji systemu logowania i utrzymywania sesji. Żeby je zapisać, serwer wysyła request z nagłówkiem \textbf{Set-Cookie}, a żeby je wysłać z powrotem, do requesta dołączamy odpowiedni nagłówek \textbf{Cookie}.
+
+\section{Utrzymywanie połączenia}
+W wersjach HTTP/1.1 i nowszych może być utrzymywane stałe połączenie TCP, które zamykane jest kiedy, któraś ze stron wyśle request z nagłówkiem 'Connection: close', włączamy tę opcję dodając do wiadomości nagłówek 'Connection: keep-alive', przydatne jeśli planujemy robić dużo requestów w krótkim czasie.
+
+\section{Wysyłanie tylko części pliku}
+\subsection{range}
+Przy pomocy nagłówka \textbf{range} możemy poprosić serwer o dosłanie tylko części pliku, przydatne kiedy plik jest duży i chcemy usprawnić ładowanie, można poprosić o wiele części naraz. Serwer odsyła nam częściowy plik wraz ze statusem 206 -- Partial Content, jeśli wyszliśmy poza zakres dostaniemy status 416 -- Range not satisfiable.
+
+\subsection{chunk}
+Możemy także przy pomocy nagłówka \textbf{Transfer-Encoding: chunked} wysłać plik w chunkach, przydatne jeśli plik jest generowany dynamicznie. Pomijamy wtedy nagłówek 'Content-Length'.
+
+\section{Negocjacja zawartości}
+Mamy np. nagłówki \textbf{Accept-Language} (preferowany język pliku, który ma zwrócić serwer) i \textbf{Accept} -- to samo z typem pliku.
+
+Metoda \textbf{options} to prośba o przesłanie informacji na temat dostępnych metod komunikacji.

@@ -1,0 +1,51 @@
+\section{Model ISO-OSI}
+Open System Interconnection Reference Model - jest traktowany jako wzorzec dla większości rodzin protokołów komunikacyjnych, jego podstawowym założeniem jest podział systemów sieciowych na 7 warstw:
+\begin{enumerate}
+	\item Warstwa fizyczna -- transmisja danych pomiędzy węzłami sieci, połączenia mechaniczne, przewody elektryczne, karty sieciowe, koncentratory.
+	\item Warstwa łącza danych -- kontrola błędów podczas przesyłania, kompresja danych, mosty, przełączniki, sterowniki kart sieciowych.
+	\item Warstwa sieci -- ustanawianie, utrzymywanie i rozłączanie połączenia, wyznaczanie optymalnej trasy dla połączenia (trasowanie), rutery.
+	\item Warstwa transportowa -- dbanie o kolejność pakietów otrzymywanych przez odbiorcę, zapewnianie retransmisji w przypadku problemów.
+	\item Warstwa sesji -- nawiązywanie i zrywanie połączenia przez aplikację, realizacja zapytania o usługę (coś jak obsługa API).
+	\item Warstwa prezentacji -- tłumaczenie danych, definiowanie formatu i odpowiedniej składni, przekształcanie danych na postać standardową, rozwiązywanie problemów z niezgodnymi reprezentacjami.
+	\item Warstwa aplikacji -- zapewnianie aplikacjom metod dostępu do środowiska OSI.
+\end{enumerate}
+
+\section{Model TCP/IP}
+Uproszczony, 4 warstwowy model ISO-OSI
+\begin{enumerate}
+	\item Warstwa dostępu do sieci -- umieszczanie pakietów TCP/IP w nośniku sieciowym i ich odbiór z nośnika.
+	\item Warstwa internetu -- adresowanie, pakowanie i funkcje routowania.
+	\item Warstwa transportowa -- dostarczanie warstwie aplikacji usług sesji i data-gramowych (TCP i UDP).
+	\item Warstwa aplikacji -- umożliwienie aplikacjom korzystania z usług innych warstw.
+\end{enumerate}
+
+\section{Nadawanie większych komunikatów}
+\subsection{Sposoby synchronizacji zegara}
+Synchronizacja zegara: chcemy wiedzieć, kiedy kończy się jeden komunikat i zaczyna drugi. Komunikujemy się ciągami 0 i 1, więc chcemy zrobić tak, żeby poprawna wiadomość nie miała za długiego ciągu takich samych znaków pod rząd -- jeśli odbierany sygnał często się zmienia, to w miarę łatwo jest dostosować się do interwałów, w jakich kolejne sygnały są wysyłane, a gdy jest podtrzymywany ten sam sygnał to nie wiemy, ile razy go liczyć.
+
+\textbf{Manchester} -- każdy bit kodujemy jako 2 znaki (1 jako 10, 0 jako 01). Jest odporny na zmiany szybkości transmisji i dobrze radzi sobie z długimi ciągami jednakowych bitów, wadą jest, to że trzeba używać dwukrotnie szerszego pasma przez to, że wysyłamy dwa razy więcej bitów.
+
+\textbf{NRZI (Non-Return to Zero Invert)} -- zaczynamy od wysyłania sygnału (czyli przekazywania 1), na wystąpieniu jedynki zmieniamy sygnał (z 1 na 0, z 0 na 1), a 0 nie zmienia sygnału. W takiej sytuacji złe stają się tylko długie ciągi 0, bo 1 zawsze oznacza zmianę. Zwykle używa się go łącznie z inną metodą synchronizacji, która zapewnia, że takie ciągi nie wystąpią, np.
+\begin{itemize}
+	\item \textbf{4B/5B} -- zamienia każdy 4 bitowy segment informacji w 5 bitowy segment według odpowiedniego klucza, zapewniając, że w każdym 5 bitowym segmencie znajdą się przynajmniej 2 jedynki.
+	\item \textbf{8B/10B} -- analogiczne do 4B/5B, ale dodatkowo ilość 1 i 0 jest bardziej równomierna, różnica max 1 na segment, gdzie dla 4B/5B jest to 3 na segment. Rozwiązuje to problem DC-bias -- jeśli odbiornik otrzyma za dużo jedynek (sygnałów z energią) naraz, to może to zmienić stan jego odczytu.
+	\item \textbf{64B/66B} -- analogicznie do poprzednich, ale rośnie pokrycie łącza, używamy 97\% łącza do komunikacji, zamiast 80\%.
+	\item \textbf{Random Scrambling} -- xorowanie wiadomości z pseudolosową liczbą i nadanie tego, odbierający xoruje z tym samym i odczytuje, równoważy to liczbę 0 i 1.
+\end{itemize}
+
+\subsection{Niwelowanie błędów komunikacji}
+\textbf{Parity bit} -- dodajemy na koniec bit mówiący, czy liczba jedynek jest nieparzysta (wiec ostatecznie w całej wiadomości jest parzyście wiele jedynek), daje około połowy szans na stwierdzenie, czy wiadomość jest z błędem.
+
+\textbf{CRC (Cyclic Redundancy Check)} -- traktujemy ciąg bitów jak wielomian nad \(\mathbb{Z}_2\), np. \(11010 \rightarrow x^4 + x^3 + x\). Dzielimy taki ciąg bitów przez ustalony wielomian i dostajemy resztę z dzielenia. Ona jest naszym kodem i dopisujemy ją na koniec ciągu. W Ethernecie używany był wielomian \(x^{32}+x^{26}+x^{23}+x^{22}+x^{16}+x^{12}+x^{11}+x^{10}+x^{8}+x^{7}+x^{5}+x^{4}+x^{2}+x+1\) -- kod CRC32 nazwany od stopnia wielomianu.
+
+\textbf{Kody korygujące} -- dla dwóch ciągów bitów tej samej długości ich odległość Hamminga to liczba różniących się bitów. W celu wykrywania błędów będziemy przekształcać ciągi bitów długości \(n\) na \(m\), gdzie \(m > n\). Szukamy takiego przekształcenia \(2^n \to 2^m\), w którym odległość Hamminga między wartością każdego argumentu to co najmniej \(k+1\) -- wtedy wykrywamy błąd na \(k\) bitach. Jeśli odległość między każdymi dwoma to co najmniej \(2k+1\), to można odtworzyć nadany ciąg bez błędów -- istnieje tylko jedna poprawna wiadomość, dla której mogła powstać taka wartość.
+
+\textbf{Haszowanie} -- haszujemy komunikat i doklejamy na koniec. Wykrywamy błąd porównując hash odebrany i wyliczony dla odebranych danych. Do korygowania możemy sprawdzać wszystkie możliwości (czy ich hash się zgadza z odebranym -- jest to bardzo niepraktyczne, dlatego hashe zwykle służą tylko do wykrycia błędu).
+
+\subsection{Strategie współdzielenia kanału komunikacji}
+\begin{itemize}
+	\item ALOHA -- wyślij, poczekaj, jeśli nie ma potwierdzenia, wyślij jeszcze raz.
+	\item slotted ALOHA -- dodatkowo kanał jest podzielony na krótkie odcinki czasu i można zacząć nadawanie tylko na początku odcinka.
+	\item CSMA/CD (Carrier Sense Multiple Access with Collision Detection) -- nasłuchuj, jeśli nikt nie nadaje, to wyślij dane, jeśli była kolizja, wyślij sygnał o kolizji.
+	\item Exponential Backoff -- czas oczekiwania pomiędzy ponownym nadaniem tej samej wiadomości jest losowany z coraz większego przedziału.
+\end{itemize}

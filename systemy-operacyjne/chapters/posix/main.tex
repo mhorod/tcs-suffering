@@ -1,0 +1,217 @@
+\section{Główne zadania systemu operacyjnego}
+\begin{itemize}
+	\item obsługa plików
+	\item poziom abstrakcji nad hardware'em, tak aby nie dawać użytkownikowi bezpośredniego dostępu do hardware'u
+\end{itemize}
+\section{Cechy POSIXa}
+\begin{itemize}
+	\item Jest tylko specyfikacją, a nie konkretną implementacją
+	\item Oparty na C
+	\item Nie ma superużytkownika ani administracji systemu
+	\item Łatwy w implementacji (relatywnie)
+	\item Historycznie jedynie niewielkie znaczące zmiany
+\end{itemize}
+\section{Procesy}
+\textbf{Proces} -- program w trakcie wykonywania.
+\section{Wywołania systemowe}
+Wywołania systemowe stanowią interfejs między wykonywanym programem a (posiadającym zwykle wyższe uprawnienia) jądrem systemu operacyjnego.\\
+\textbf{Przykłady wywołań systemowych (syscalli)}
+\begin{itemize}
+	\item \texttt{exit} -- kończy proces i opróżnia wszystkie bufory oraz sprząta to, czego wymaga biblioteka standardowa, \texttt{\_exit} po prostu zakańcza proces
+	\item \texttt{fork} -- tworzy nowy proces równoległy z aktualnym, wykonujący ten sam kod, ma on jednak unikalny pid, inny ppid, i własną kopię deskryptorów rodzica oraz zablokowane te same sygnały
+	\item \texttt{exec*} rodzinka syscalli -- \ref{execve}
+	\item \texttt{wait} -- blokuje proces, póki wszystkie dzieci żyją albo otrzymano sygnał
+	\item \texttt{kill} -- \ref{kill}
+	\item \texttt{waitpid} -- blokuje proces, dopóki proces o podanym pidzie się nie skończy. Dozwolone jest czekanie tylko na swoje dzieci.
+\end{itemize}
+\subsection{Syscall execve}
+\label{execve}
+Podmienia wykonywany przez proces program, np. po zforkowaniu, aby dziecko wykonywało inny kod. Podajemy mu ścieżkę do binarki lub, jeśli coś jest dodane do kontekstu, nazwę. \\
+\textbf{Efekty uboczne:}
+\begin{itemize}
+	\item \textbf{domyślnie deskryptory plików pozostają otwarte!}
+	\item przekierowania sygnałów do handlerów są zresetowane
+	\item mapowania pamięci nie są zachowywane, są odmapowywane
+	\item deskryptory do POSIXowych wiadomości systemowych są zamykane.
+	\item zamykane są wszystkie POSIXowe semafory
+	\item wszystkie pozostałe wątki procesu są zamykane
+\end{itemize}
+
+\section{Deskryptory plików}
+Deskryptory plików to unikalne dla procesów dodatnie inty używane do identyfikacji otwartych plików. Przyjmują wartości od 0 do OPEN\_MAX, w POSIXie standardowo jest to max 16 otwartych plików. Co ciekawe, plik może być wskazywany przez dwa różne deskryptory, ale jeden deskryptor zawsze wskazuje na tylko jeden plik, czyli pomiędzy deskryptorami a open file description jest relacja many-to-one. Jedyną znaną nam flagą deskryptora pliku jest FD\_CLOEXEC.
+
+Domyślnie otwarte są deskryptory: 0 - stdin, 1 - stdout, 2 - stderr.
+\subsection{Otwieranie nowych deskryptorów}
+Nowe deskryptory otwieramy przy pomocy syscalla \texttt{open}, który przyjmuje ścieżkę do pliku oraz flagi:
+\begin{itemize}
+	\item O\_RDONLY, otwarcie tylko do czytania
+	\item O\_WRONLY, otwarcie tylko do pisania
+	\item O\_RDWR, otwarcie do czytania i pisania
+	\item O\_NONBLOCK, wyłącza domyślne blokowanie
+	\item O\_APPEND, każdy write pisze na końcu pliku
+	\item O\_CREAT, stwórz plik, jeśli nie istnieje
+	\item O\_EXCL, wyrzuca błąd kiedy plik już istniał
+\end{itemize}
+Aby połączyć dwie flagi używamy logicznego lub \( \mid \), np. \(\mathrm{O\_CREAT} \mid \mathrm{O\_EXCL}\)
+
+Funkcja open tworzy nowy \textbf{open file description}, w którym przechowywane są flagi.
+\subsection{Czytanie z pliku}
+Czytamy przy pomocy syscalla \texttt{read}, który przyjmuje deskryptor, wskaźnik gdzie zapisać dane i liczbę byte'ów do przeczytania. Zwraca liczbę byte'ów, które udało mu się przeczytać lub 0, jeśli przytrafi się EOF.
+\subsection{Pisanie do pliku}
+Piszemy do pliku przy pomocy syscalla \texttt{write}, który przyjmuje deskryptor, wskaźnik na dane do zapisania i liczbę byte'ów do zapisania. Zwraca liczbę byte'ów, które udało mu się zapisać.
+
+Domyślnie read i write są blokujące. Jeśli zostaną przerwanę przez jakiś sygnał zanim przeczytają / zapiszą cokolwiek to zwrócą -1 i ustawią errno na EINTR. Jeśli przeczytają trochę danych, ale niekoniecznie tyle, o ile prosiliśmy, to zwrócą rozmiar opracowanych danych i się przerwą.
+\subsection{Seek}
+Możemy zmienić aktualną pozycje w pliku bez czytania za pomocą \texttt{lseek}, który przyjmuje deskryptor, \(d\) -- liczbę byte'ów o którą mamy się przesunąć i flagę, która ustala, odkąd liczymy przesunięcie: \texttt{SEEK\_SET} przesuwa na odległość \(d\) względem początku pliku, \texttt{SEEK\_CUR} względem aktualnej pozycji, a \texttt{SEEK\_END} względem końca pliku.
+
+Przykład
+\begin{verbatim}
+   int fd = open("foo", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+   lseek(fd, 10000000000L , SEEK_CUR ); // 10GB
+   write(fd, "a", 1);
+   close(fd);
+\end{verbatim}
+Mimo, że plik będzie miał rozmiar 1000000001, to będzie wyświetlane tylko "a".
+\section{Pipe'y}
+Pipe'y to kanały komunikacji, które pozwalają przesyłać informacje pomiędzy procesami.
+\begin{verbatim}
+  int pipe(int fildes[2])
+\end{verbatim}
+Pipe'a tworzymy, podając syscallowi \texttt{pipe} dwuelementową tablicę intów. Syscall stworzy pipe i ustawi \verb|fildes[0]| na koniec do czytania (read descriptor) i \verb|fildes[1]| na koniec do pisania (write descriptor). Dane zapisane do write końca są buforowane przez kernel, póki nie zostaną przeczytane z read końca. Pipe ma maksymalny rozmiar, jeśli jest dużo nieprzeczytanych danych, to write się zablokuje.
+\subsection{FIFO - named pipe'y}
+Nazwane pipe'y działają trochę jak pipe'y, trochę jak pliki. Tworzymy je syscallami \texttt{mknod} lub \texttt{mkfifo}, przy czym \texttt{mknod} jest zarezerwowany tylko dla superużytkownika. Tworząc je, musimy podać ścieżkę, pod którą będą się znajdować, tak aby procesy bez wcześniejszego porozumiewania się mogły je znaleźć, zwykle najlepiej je tworzyć w folderze \textit{/tmp/}. Potem otwieramy je jak pliki i czytamy z nich lub piszemy do nich jak do zwyczajnych pipe'ów.
+\begin{verbatim}
+  int mknod(const char *path, mode_t mode, dev_t dev)
+  int mkfifo(const char *path, mode_t mode)
+\end{verbatim}
+Otwieranie nazwanego pipe'a do pisania (O\_WRONLY), w przeciwieństwie do otwierania go do czytania (O\_RDONLY), które jest blokujące, nie powiedzie się, jeśli po drugiej stronie nie ma czytelnika (przynajmniej na linuxie) i zwróci -1.
+\subsection{Uwagi co do równoległego czytania}
+Równoległe odczyty z pipe'ów, fifo i terminala to działania niezdefiniowane. Może zadziała, a może nie.
+
+Operacje I/O powinny być atomowe, czyli wszystkie bajty z danej operacji powinny być obok siebie, nieprzeplecione bajtami z innych operacji. Dla pipe'ów, FIFO i plików to zwykle działa, ale terminale są prawie zawsze wyłączone od tej zasady, tam nie można na tym polegać.
+
+Write'y o rozmiarze mniejszym niż bufor pipe'a nie powinny być przeplecione write'ami z innych pipe'ów, ale jeśli są większe nie ma takiej gwarancji.
+\subsection{fcntl}
+\texttt{fcntl} pozwala wykonać komendę podaną w argumencie \texttt{cmd} na deskryptorze pliku
+\begin{verbatim}
+  int fcntl(int fd, int cmd, [data])
+\end{verbatim}
+\section{Sygnały}
+Sygnały informują o asynchronicznym zdarzeniu, często o błędzie.
+\subsection{Źródła sygnałów}
+\begin{enumerate}
+	\item Ctrl-C wysyła \textbf{SIGINT} do wszystkich procesów z foregroundu
+	\item Ctrl-\(\backslash\) wysyła \textbf{SIQUIT} do wszystkich procesów z foregroundu
+	\item Dzielenie przez 0 powoduje wysłanie sygnału \textbf{SIGFPE} do procesu
+	\item Procesy mogą wysyłać sygnały poprzez syscall \texttt{kill} \ref{kill}
+\end{enumerate}
+Do adresata nie docierają sygnały SIGKILL i SIGSTOP, odbiera je kernel i odpowiednio zabija / pauzuje proces.
+\subsection{Ważne sygnały}
+\begin{itemize}
+	\item \textbf{SIGINT} - żądanie przerwania od użytkownika
+	\item \textbf{SIGKILL} - absolutne zakończenie procesu bez sprzątania
+	\item \textbf{SIGTERM} - domyślny sygnał wysyłany przez funkcję \texttt{kill}
+	\item \textbf{SIGSTOP}
+	\item \textbf{SIGILL}
+	\item \textbf{SIGALRM} - sygnał wykorzystywany w syscallu \texttt{alarm}
+	\item \textbf{SIGCHLD}
+\end{itemize}
+Sygnały SIGSTOP i SIGKILL nie mogą być ignorowane ani blokowane.
+SIGTERM, SIGINT i SIGQUIT mają jako domyślną obsługę zakończenie procesu, przy czym SIGTERM być może trochę posprząta, zanim całkowicie zakończy proces, a SIGQUIT zrobi core dump. \\
+Prośba o wysłanie SIGALRM anuluje wszystkie poprzednie alarmy. Podanie 0 jako argument do funkcji \texttt{alarm} anuluje wszystkie alarmy. Alarmy przenoszą się przez \texttt{execve}, ale nie są dziedziczone przez procesy stworzone przez fork.
+
+\subsection{Syscall kill}
+\label{kill}
+Wysyła sygnał do danego procesu o tym samym ID użytkownika.
+\begin{verbatim}
+  int kill(pid_t pid, int sig);
+\end{verbatim}
+\textbf{Adresaci}:
+\begin{itemize}
+	\item pid$>$0 proces, którego id jest równe pid
+	\item pid=0 procesy z tej samej grupy co wysyłający
+	\item pid=-1 wszystkie procesy (do których można wysyłać)
+	\item pid$<$ -1 wszystkie procesy z grupy o ID równym $|$pid$|$
+\end{itemize}
+Syscall \texttt{raise} pozwala wysłać sygnał do samego siebie
+\begin{verbatim}
+  int raise(int sig);
+\end{verbatim}
+\subsection{Przekierowywanie sygnałów}
+\subsubsection{Signal - ISO C}
+\texttt{signal} pozwala nam zmienić domyślne działanie sygnału. Nie jest częścią POSIXa, jest częścią standardu C.
+\begin{verbatim}
+  void (*signal(int signo, void (*func)(int)))(int);
+\end{verbatim}
+Jako drugi argument możemy podać wskaźnik do funkcji, która ma obsługiwać sygnał albo ustawić flagę na \textbf{SIG\_IGN}, co pozwala na całkowite zignorowanie sygnału. Możemy też przywrócić domyślną obsługę poprzez ustawienie flagi na \textbf{SIG\_DFL}. Funkcja signal ustawia obsługę sygnału tylko na jeden raz, a później przywracana jest domyślna.
+\subsubsection{Sigaction - POSIX}
+\texttt{sigaction} także pozwala nam zmienić domyślne działanie sygnału, jest zdefiniowany w POSIXie.
+\begin{verbatim}
+  int sigaction(int sig, const struct sigaction *restrict act,
+          struct sigaction *restrict oact);
+\end{verbatim}
+Struktura sigaction jest zdefiniowana jako
+\begin{verbatim}
+  struct sigaction {
+    void    (*sa_handler)(int); // wskaźnik do funckji, która
+          będzie obsługiwać sygnał lub SIG_IGN / SIG_DFL
+    void    (*sa_sigaction)(int, siginfo_t *, void *); 
+    sigset_t  sa_mask; // zbiór sygnałów, które chcemy zablokować
+    int    sa_flags; // flagi
+    void    (*sa_restorer)(void);
+  };
+\end{verbatim}
+
+\textbf{Flagi:}
+\begin{itemize}
+	\item \textbf{SA\_SIGINFO} w sigaction pozwala nam na uzyskanie dodatkowych informacji o procesie.\\
+	      Jeśli flaga SA\_SIGINFO jest ustawiona, to musimy zdefiniować funkcję obsługującą sygnały jako:
+	      \begin{verbatim}
+  void func(int signo, siginfo_t *info, void *context);
+  \end{verbatim}
+	\item \textbf{SA\_RESTART}, po jej ustawieniu, jeśli odebranie sygnału przerwało jakąś funkcje blokującą, to wznowi ona działanie po obsłudze procesu, zamiast się zakończyć z błędem. Przydatne np. do reada i write'a.
+	\item \textbf{SA\_NOCLDSTOP} wyłącza generowanie sygnałów SIGCHLD, kiedy proces dziecko się zakończy. Przydatne, gdyż ustawienie wprost obsługi SIGCHLD na SIG\_IGN jest niezdefiniowane w POSIXie i mogą się dziać złe rzeczy. W Linuxie jednak można ignorować SIGCHLD, aby zapobiec powstawaniu procesów zombie.
+\end{itemize}
+\textbf{UWAGA!} takie same sygnały w POSIXie nie są kolejkowane, to znaczy kiedy dostaniemy wiele takich samych sygnałów naraz to nie ma gwarancji, że handler wywoła się tyle razy, ile sygnałów dostaliśmy. Jeśli jednak dostaliśmy wiele różnych sygnałów, to mamy gwarancję, że handler dla każdego typu sygnału wykona się co najmniej raz.
+\subsection{sigprocmask}
+\texttt{sigprocmask} pozwala nam zablokowywać/odblokowywać procesy zgodnie z podaną maską.
+\begin{verbatim}
+  int sigprocmask(int mode, const sigset_t *restrict set,
+    sigset_t *restrict oset);
+\end{verbatim}
+\textbf{Dostępne tryby}
+\begin{itemize}
+	\item SIG\_BLOCK zablokuj podane sygnały
+	\item SIG\_SETMASK zbiór zablokowanych sygnałów ma być podanym zbiorem (wcześniejsze ustawienia są zapominane)
+	\item SIG\_UNBLOCK odblokuj podane sygnały (nawet jeśli były zablokowane przed zmianami, nie przywraca poprzedniego stanu)
+\end{itemize}
+\subsection{sigsuspend}
+Zmienia maskę na podaną, po czym zawiesza się aż do otrzymania niezablokowanego sygnału, po czym przywraca poprzednią maskę.
+\begin{verbatim}
+  int sigsuspend(const sigset_t *sigmask);
+\end{verbatim}
+\subsection{sigpending}
+\texttt{sigpending} zapisuje w podanym sigsecie wszystkie sygnały, które zostały zablokowane i oczekują na wywołanie, przydatne gdy chwilowo musieliśmy zablokować sygnały podczas wykonywania krytycznych operacji
+\begin{verbatim}
+  int sigpending(sigset_t *set);
+\end{verbatim}
+\subsection{Czekanie na wiele deskryptorów naraz}
+\subsubsection{select}
+\texttt{select} pozwala nam na czekanie na wiele deskryptorów naraz, aż będzie można do nich pisać / czytać. Podajemy tablicę deskryptorów do readfs / writedfs / errordfs w zależności od rodzaju. Później możemy sprawdzić, czy konkretny deskryptor jest gotowy przez FD\_ISSET. Gotowość niestety może czasami okazać się sytuacją, kiedy po drugiej stronie nie ma nikogo. Jeśli działa, to trzeba go resetować przez FD\_CLEAR w każdym wywołaniu, bo zmienia on readfs.
+\begin{verbatim}
+int select(int nfds, fd_set *restrict readfds,
+  fd_set *restrict writefds, fd_set *restrict errorfds,
+  struct timeval *restrict timeout);
+  void FD_CLR(int fd, fd_set *fdset);
+  int FD_ISSET(int fd, fd_set *fdset);
+  void FD_SET(int fd, fd_set *fdset);
+  void FD_ZERO(fd_set *fdset);
+\end{verbatim}
+\subsubsection{pselect}
+to samo co \texttt{select}, ale ma mniej ograniczeń i można mu podać dodatkowo maskę sygnałów, które chcemy zablokować podczas czekania i nie trzeba go resetować.
+\begin{verbatim}
+  int pselect(int nfds, fd_set *restrict readfds,
+    fd_set *restrict writefds, fd_set *restrict errorfds,
+    const struct timespec *restrict timeout,
+    const sigset_t *restrict sigmask);
+\end{verbatim}

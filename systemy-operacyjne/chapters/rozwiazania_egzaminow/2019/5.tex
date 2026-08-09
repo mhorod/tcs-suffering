@@ -1,1 +1,1 @@
-Nie robi się \texttt{printf} ani \texttt{exit} w handlerze.
+Nie robi się \texttt{printf} ani \texttt{exit} w handlerze, bo korzystają one z globalnych struktur, które w trakcie obsługi sygnału mogą być w niespójnym stanie.

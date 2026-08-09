@@ -3,7 +3,7 @@ Mamy na celu stworzyć serwer na Minixie, który implementuje mechanizm barier.
 
 Bariera to taki cosiek, na którym procesy mogą czekać w oczekiwaniu na inne procesy.
 Konkretniej -- bariera ma ustaloną szerokość \( w \). Jeśli na barierze czeka co najmniej \( w \) procesów
-to wszystkie zostają wznowione. W przeciwym razie procesy nadal czekają.
+to wszystkie zostają wznowione. W przeciwnym razie procesy nadal czekają.
 
 \section{Podstawa dzialania}
 
@@ -11,7 +11,7 @@ Sama implementacja syscalli jest generalnie prosta i bazuje na jednej, fundament
 
 Można się zapytać, jak powinniśmy trzymać informacje o tym, które procesy są w jakiej barierze. Nasuwa się tu zwykła lista linkowana, ale po stronie systemu staramy się unikać wywołań funkcji \textit{malloc}. Wynika to z faktu, że to generuje potencjał na deadlock, bo wymaga zadzwonienia do jakiegoś serwera i zablokowania się (a jednocześnie sami jesteśmy serwerem i szybko może stać się głupia sytuacja). Korzystamy więc z istnienia makra \texttt{NR\_PROCS}, które jest ustalone na jakąś małą liczbę (presumably, 256). To oznacza, że możemy zaimplementować listę kursorowo, dowalając sobie ordynarnie tablicą na \texttt{NR\_PROCS} elementów. Fajnie.
 
-Do dokladniejszej implementacji przejdziemy w kolejnych sekcjach.
+Do dokładniejszej implementacji przejdziemy w kolejnych sekcjach.
 
 \section{Strona użytkownika}
 
@@ -21,7 +21,7 @@ Od strony użytkownika implementacja wygląda tak, jak to robiliśmy w przypadku
 	\item Aktualizujemy \texttt{/usr/src/include/Makefile} o tenże nagłówek
 	\item W pliku \texttt{/usr/src/lib/libc/sys-minix/barriers.c} piszemy implementację tych funkcji.
 
-	      Ponieważ nie znamy adresu naszego serwera to będziemy potrzebowali wywołać \texttt{minix\_rs\_lookup} z nagłówka \texttt{<minix/rs.h>}.
+	      Ponieważ nie znamy adresu naszego serwera to będziemy potrzebowali wywołać funkcję \texttt{minix\_rs\_lookup} z nagłówka \texttt{<minix/rs.h>}.
 
 	      Wykonujemy \texttt{\_syscall}\footnote{Dla fanów sportów ekstremalnych informujemy, że można po prostu użyć również gołego \textit{sendrec}-a. Nie powiemy kto tak zrobił, ale jego imię zaczyna się na ,,D'', a kończy na ,,ominik''. } i mapujemy errno z \texttt{EDEADSRCDST} na \texttt{EDEADEPT} żeby zgadzało się z opisem zadania.
 	\item Aktualizujemy \texttt{/usr/src/lib/libc/sys-minix/Makefile.inc}

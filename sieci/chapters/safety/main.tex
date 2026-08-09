@@ -1,0 +1,93 @@
+\section{Bezpieczeństwo i poufność}
+
+\subsection{Rodzaje zagrożeń}
+\begin{itemize}
+	\item Podglądanie.
+	\item Modyfikacja, usuwanie komunikatów.
+	\item Blokowanie komunikacji.
+\end{itemize}
+
+\subsection{Hasze kryptograficzne}
+\begin{itemize}
+	\item \textbf{MD4} -- została złamana i można wygenerować kolizję w czasie rzędu sekund, przez to wyparta przez MD5, która jest jej następnikiem.
+	\item \textbf{MD5} -- z ciągu danych o dowolnej długości generuje 128 bitowy hasz, znaleziono sposób na generowanie kolizji, jednak i tak jest użyteczna w niektórych zastosowaniach.
+	\item \textbf{SHA1} -- tworzy 160 bitowy hasz z wiadomości o rozmiarze maksymalnym \(2^{64}\) bitów, ciężki do złamania, jednak powoli się z tym pracuje więc w nowych aplikacjach lepiej używać SHA2.
+	\item \textbf{SHA2} -- następnik SHA1, składa się z zestawu czterech funkcji generujących odpowiednio 224, 256, 384 lub nawet 512 bitowe hasze, ma podobną implementacje co SHA1.
+	\item \textbf{SHA3} -- wyłoniony w 2012 w konkursie następnik SHA2, działa na bazie algorytmu Keccak. Ma zupełnie inną budowę niż SHA2 dzięki czemu jest znacznie wydajniejszy zachowując zbliżone parametry bezpieczeństwa.
+\end{itemize}
+
+\subsection{Szyfrowanie symetryczne}
+Algorytmy symetryczne do szyfrowania i deszyfrowania informacji używają tego samego klucza, lub takich dwu kluczy, z których mając jeden można jednoznacznie wyznaczyć drugi. Szyfrując wiadomość wynikowy szyfr jest równy na długość wiadomości. Dzielą się na \textbf{szyfry strumieniowe}, gdzie przetwarzamy informacje bit po bicie i \textbf{blokowe}, gdzie szyfrujemy na raz bloki danych i potem je sklejamy.
+
+\begin{itemize}
+	\item \textbf{XOR} -- xorujemy z kluczem. Często używany w połączeniu z innych szyfrem. Jest ekstra bo jest idealnie zbalansowany, każdy bit ma statystycznie równe szanse stać się 0 jak i 1. Jak ktoś zgadnie wiadomość, to odzyska z tego klucz. Ale jest to dobry pomysł, gdy wiadomości są nieprzewidywalne.
+	\item \textbf{AES} -- Szyfr blokowy, o rozmiarze bloku 128 bitów, bardzo bezpieczny, zoptymalizowany pod szybkość działania i niskie zużycie pamięci, standard do szyfrowania tajnych informacji przez agencje wywiadowcze.
+	\item \textbf{CBC} -- (z ang. Cipher Block Chaining) tryb pracy szyfrów blokowych, gdzie każdy blok jest przed zaszyfrowaniem jest xorowany z szyfrem poprzedniego bloku.
+	\item \textbf{CTR} --  mając losowe bity \(v\) szyfrujemy je i xorujemy przez wiadomość, potem inkrementujemy \(v\). Jest to o tyle dobre, że da się to zrównoleglić.
+	\item \textbf{Diffie-Hellman} -- jedna strona chce przesłać drugiej \(a\), druga pierwszej \(b\). Mamy ustalone liczby pierwsze \(g, p \). Teraz \(g^{a}, g^{b} \pmod p\) są nieodwracalne, obie strony mogą policzyć \(g^{ab}\), ale nikt nie zna obu \(a\) i \(b\) -- tak ustalamy klucz. To działa, o ile nikt nie zmienia przesyłanych komunikatów. Wtedy ktoś inny może zrobić to samo z liczbą \(c\) i przesłać \(g^{c}\) obu stronom -- wtedy one stworzą klucz korzystający z \(c\) i pośrednik będzie mógł zmieniać komunikację. Takiej sytuacji (Man in the Middle Attack) ciężko uniknąć. Dlatego ważne są certyfikaty SSL -- wiemy dokładnie z kim rozmawiamy.
+	\item \textbf{Needham-Schroeder} -- istnieje centralne \(S\), z którym \(A\) i \(B\) mają już wspólny klucz. Wtedy \(A\) prosi \(S\) o nawiązanie komunikacji. \(S\) tworzy klucz \(K_{AB}\), wysyła go \(A\) i zakodowane bity \(\mathrm{enc}_{K_{BS}}\left( K_{AB}, A \right) \). Wtedy \(A\) może przesłać je \(B\) i \(B\) będzie wiedzieć, że ta wiadomość to poprawny klucz komunikacji z \(A\). Na koniec \(B\) wysyła \(A\) jakąś liczbę, a \(A\) odsyła ją zdekrementowaną -- dzięki temu potwierdzamy, że klucz jest taki sam po obu stronach.
+	\item \textbf{Needham-Schroeder (Kerberos style)} -- poprzedni protokół ma taką wadę, że jeśli ktoś podsłucha \(\mathrm{enc}_{K_{BS}}\left( K_{AB},A \right) \), to może przekonać \(B\), żeby znów korzystać z tego klucza, co jest problemem, jeśli \(K_{AB}\) wycieknie. Dlatego dodatkowo przesyła się czas, klucz działa tylko przez chwilę. Wtedy trzeba pamiętać o synchronizacji czasu. Takie coś działa np. w Kerberosie.
+\end{itemize}
+
+\subsection{Szyfrowanie kluczem publicznym -- RSA}
+RSA to najpopularniejszy asymetryczny algorytm kryptograficzny. Może być stosowany zarówno do szyfrowania jak i do podpisów cyfrowych. Jego bezpieczeństwo opiera się na trudności faktoryzacji dużych liczb. Na terenie USA opatentowany, więc można go tam używać tylko do celów niekomercyjnych.
+
+\subsubsection{Generowanie kluczy}
+\begin{enumerate}
+	\item Wybieramy losowo dwie duże liczby \(p\) i \(q\).
+	\item obliczamy \(n=p\cdot q\).
+	\item obliczamy \(\lambda = \mathrm{NWW}(p-1, q-1)\).
+	\item wybieramy liczbę \(e\) względnie pierwszą z \(\lambda\), z przedziału \((1,\lambda)\).
+	\item znajdujemy liczbę \(d\), dla której \(d\cdot e \equiv 1 \pmod \lambda\).
+\end{enumerate}
+
+\subsubsection{Szyfrowanie i deszyfrowanie}
+Dzielimy wiadomość na bloki a następnie szyfrujemy i deszyfrujemy każdy blok używając wzorów:
+\begin{multicols}{2}
+	\begin{center}
+		\[c \equiv m^e \pmod{n}\]
+		(szyfrowanie)
+	\end{center}
+	\begin{center}
+		\[m \equiv c^d \pmod{n}\]
+		(deszyfrowanie)
+	\end{center}
+\end{multicols}
+
+\subsubsection{Bezpieczeństwo}
+Im większe liczby wybierzemy tym trudniejszy jest do złamania. W 2020r. największy złamany klucz miał 829 bitów. Potencjalnym zagrożeniem dla RSA jest skonstruowanie stabilnego komputera kwantowego, gdyż w teorii mogą one z łatwością poradzić sobie z problemem faktoryzacji, jednak na razie ze względu na niestabilność największa zfaktoryzowana przez nie liczba ma zaledwie 72 bity.
+
+\subsection{Podpis cyfrowy}
+Cyfrowy podpis służy do stwierdzenia czy wiadomość pochodzi od właściwego nadawcy i nie została zmieniona podczas transmisji. Sprawdzamy czy szyfr wiadomości jest równy oczekiwanemu.
+
+PGP (z ang. Pretty Good Privacy) jest jednym z najczęściej używanych programów do elektronicznego podpisywania i szyfrowania plików. Używa RSA oraz DSA.
+
+\subsection{SSL}
+Protokół, który umożliwia bezpieczną komunikację w Internecie w ramach HTTPS, chroni dane w warstwie transportowej poprzez ich zaszyfrowanie, pozwala na weryfikacje tożsamości i zapewnia integralność danych. Zapobiega atakom Man-in-the-Middle. Używa do tego podpisów cyfrowych i haszowania SHA2.
+
+\subsubsection{Wystawianie certyfikatów}
+Certyfikaty SSL strony uzyskują od urzędów certyfikacji na pewien okres, po tym jak sprawdzą one w jakiś sposób (np. przez to, że uruchomimy jakiś skrypt je pingujący z serwera, do którego jest podpięta domena) naszą tożsamość. Wystawiają także specjalne certyfikaty prywatnym instytucjom, które umożliwiają im podpisywanie kolejnych domen, tworzy się w ten sposób łańcuch certyfikatów, gdyż każdy certyfikat, aby móc potwierdzić jego autentyczność, musi także podać certyfikat wystawiającego.
+
+\subsubsection{Inicjacja połączenia}
+\begin{enumerate}
+	\item W trakcie handshake'u serwer wysyła swój certyfikat SSL (albo ich łańcuch) i użytkownik decyduje czy im ufać czy nie. Wysyła także informacje o metodzie szyfrowania, czasem też prosi klienta o jego certyfikat.
+	\item Klient generuje klucz sesji, wysyła go serwerowi szyfrując go kluczem publicznym serwera, dzięki temu tylko serwer z jego unikalnym kluczem prywatnym może odszyfrować klucz sesji.
+	\item Wysyłane są komunikaty potwierdzające pomyślne wymianę kluczami od teraz całość interakcji jest szyfrowana tajnym kluczem sesji.
+\end{enumerate}
+
+\section{Bezpieczne Sieci}
+\subsection{IPsec}
+Zbiór protokołów służących do implementacji bezpiecznych połączeń oraz wymiany kluczy szyfrowania. Polega na szyfrowaniu całego ruchu IP. Może być wykorzystany do tworzenia VPNów.
+
+Potrzebujemy systemu podobnego do certyfikatów, tylko dla adresów IP. Można ręcznie wgrywać certyfikaty w system. Można też stosować do tego DNS, ale on nie jest wiarygodny -- nie jest szyfrowany. Dlatego wprowadzamy pomysł podpisywania rekordów DNS, mamy root servery, więc naturalną hierarchię dziedziczenia zaufania.
+
+\textbf{IKE} (z ang. Internet Key exchange) polega na:
+\begin{itemize}
+	\item Uwierzytelnieniu obu stron przez hasło, RSA lub certyfikaty
+	\item nawiązaniu bezpiecznego kanału IKE
+	\item uzgodnienie bezpiecznych kluczy kryptograficznych oraz kanału do komunikacji.
+\end{itemize}
+Główną zaletą jest fakt, że nie trzeba ręcznie ustawiać kluczy tylko ustalić wspólne hasło i samo się zrobi.
+
+\subsection{VPN}
+Możemy używać serwerów VPN -- proxy, do którego idzie nasz ruch. On jest szyfrowany, potem idzie dalej. Jesteśmy bezpieczniejsi, bo komunikujemy się bezpośrednio z jednym serwerem po zabezpieczonym połączeniu. VPN może działać na różnych poziomach -- zazwyczaj na TCP, ale możemy stworzyć połączenie na niższych poziomach (np. w Ethernecie, tworząc sztuczną kartę sieciową).
