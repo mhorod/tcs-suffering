@@ -7,7 +7,7 @@ Niech \( G = \langle g \rangle \) będzie pewną grupą cykliczną.
 Discrete-Log \( \in \np \cap \conp\): \\
 Jeśli otrzymamy od wyroczni \( x \), możemy sprawdzić, czy \( g^x = a \).
 
-W kryptografi zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
+W kryptografii zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
 
 \subsection{Diffie-Hellman}
 \textbf{Wejście:} \( g^x,\; g^y \) \\
@@ -32,4 +32,4 @@ Korespondenci uzgadniają klucz symetryczny -- jeden z nich ustala swój klucz p
 	\end{enumerate}
 \end{greyframe}
 Otrzymawszy \( (g^y, \ M \cdot g^{xy}) \) i znając klucz prywatny \( x \), można łatwo obliczyć \( g^{xy} \), czyli też odtworzyć \( M = \pars{M \cdot g^{xy}} \cdot g^{-xy} \).
-Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a obecnie ludzkość nie potrafi go rozwiązać.
+Gdyby odszyfrowanie \( M \) było łatwe, to również problem Diffiego-Hellmana byłby rozwiązywalny, a obecnie ludzkość nie potrafi go rozwiązać na konwencjonalnych komputerach. Problem Discrete-Log jest jednak podatny na kwantowy algorytm Shora, a Diffie-Hellman jest od niego łatwiejszy, a więc powoli zaczyna się od niego odchodzić.
