@@ -11,7 +11,7 @@ Algorytm jest heurystyką, korzystającą z faktu, że rząd grupy często jest 
 			            \]
 			      \item Na podstawie równania:
 			            \[
-				            \pars{g^x}^{p^{k-1}} = \pars{g^{x_0}}^{p^{k-1}} = b^{p^{k-1}},
+				            b = g^x \implies b^{p^{k-1}} = \pars{g^x}^{p^{k-1}} = \pars{g^{x_0}}^{p^{k-1}},
 			            \]
 			            zdefiniuj \( h = g^{p^{k-1}} \) o rzędzie \( p \).
 			      \item Rozwiąż równanie postaci \( h^{x_0} = b^{p^{k-1}} \) dla \( x_0 \), czyli oblicz logarytm dyskretny w~grupie \( \set{1, h, h^2, \ldots, h^{p-1}} \) \( \rightarrow \bigO(\sqrt{p}) \) (przypadek 1).
@@ -30,11 +30,11 @@ Algorytm jest heurystyką, korzystającą z faktu, że rząd grupy często jest 
 				            g^{u_1n + r_1q_2} = b^{q_2}
 			            \]
 			            Przy \( g^n = 1 \) daje to \( g^{r_1 q_2} = b^{q_2} \), czyli \( h = g^{q_2} \) ma rząd \( q_1 \).
-			      \item Oblicz \( r_1 \) takie, że \( x = r_1 \pmod{q_1} \), rekurencyjnie na grupie \( H = \langle h \rangle \).
+			      \item Oblicz \( r_1 \) takie, że \(x = r_1 \pmod{q_1}\) rekurencyjnie rozwiązując równanie \( h^{r_1} = b^{q_2} \) na grupie \( H = \langle h \rangle \) rzędu \(q_1\).
 			      \item Analogicznie, oblicz \( r_2 \) takie, że \( x = r_2 \pmod{q_2} \).
-			      \item Z CRT wyznacz \( x \), rozwiązanie układu kongruencji \( x = u_i \cdot q_i + r_i \).
+			      \item Z CRT wyznacz \( x \), rozwiązanie układu kongruencji \( x = r_i \pmod{q_i} \).
 		      \end{enumerate}
-		      Jeżeli \( n = p_1^{\alpha_1} \cdot \ldots \cdot p_s^{\alpha^s} \), to rekurencyjnie wywołaj przypadek 2 dla każdego \( p_i^{\alpha_i} \) \( \rightarrow \bigO(\sum_i \alpha_i \sqrt{p_i}) \leq \bigO(\log n \cdot \sqrt{\max{p_i}}) \), bo \( \alpha_i \leq \log n \).
+		      Jeżeli \( n = p_1^{\alpha_1} \cdot \ldots \cdot p_s^{\alpha^s} \), to rekurencyjnie wywołamy przypadek 2 dla każdego \( p_i^{\alpha_i} \) \( \rightarrow \bigO(\sum_i \alpha_i \sqrt{p_i}) \leq \bigO(\log n \cdot \sqrt{\max{p_i}}) \), bo \( \alpha_i \leq \log n \).
 	\end{enumerate}
 \end{greyframe}
 

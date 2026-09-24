@@ -43,15 +43,17 @@ Trzeba rozłożyć liczby \( Y[i] \) na czynniki -- najlepiej wszystkie na raz, 
 \begin{greyframe}
 	Algorytm sita kwadratowego:
 	\begin{enumerate}
-		\item Dla każdego \( p < B \):
+		\item Dla każdego \( \mathbb{P} \ni p < B \):
 		      \begin{enumerate}
-			      \item Usuń ze zbioru \( \set{p_1, \dots, p_s} \) te liczby, dla których \( X[j]^2 \neq N \pmod{p} \), \\ czyli \( N \) nie jest resztą kwadratową modulo \( p \).
-			      \item Algorytmem Tonellego-Shanksa znajdź rozwiązanie \( x = \pm k \) równania \\ \( x = N \pmod{p} \).
-			      \item Podziel przez \( p \) wszystkie \( Y[i] \), dla których \( X[j] = \pm k \pmod{p} \).
+			      \item Jeśli \( N \) nie jest resztą kwadratową modulo \( p \), to pomiń to \(p\).
+			      \item W przeciwnym przypadku, algorytmem Tonellego-Shanksa znajdź rozwiązanie \( x = \pm k \) równania \( x^2 = N \pmod{p} \).
+			      \item Podziel przez \( p \) wszystkie \( Y[i] \), dla których \( X[i] = \pm k \pmod{p} \).
 		      \end{enumerate}
 		\item Jeśli \( Y[i] \) zmaleje do 1, to początkowo musiało być liczbą \( B \)-gładką.
 	\end{enumerate}
 \end{greyframe}
+W kroku 1. (a) odrzucamy \(p\), ponieważ w takim przypadku \(X[i]^2 - N \pmod{p}\) nigdy nie może być równe 0, a więc \(p\) nie może dzielić żadnego \(Y[i]\).
+
 W ramach dodatkowego usprawnienie algorytmu, możemy uniknąć dzielenia dużych liczb. Zamiast wartości \( Y[i] \) przechowujemy \( Z[i] = \log Y[i] \).
 Wtedy operację \( \frac{Y[i]}{p} \) zastępujemy działaniem \( Z[i] - \log p \). Warunkiem \( B \)-gładkości jest (prawie) wyzerowanie się \( Z[i] \).
 Problemem może być występowanie czynników \( Y[i] \) z potęgą \( \alpha > 1 \). Należy wykryć od razu liczby \( Y[i] \) podzielne przez \( p^{\alpha} \) dla każdego możliwego \( \alpha \), stosując tę samą metodę.
