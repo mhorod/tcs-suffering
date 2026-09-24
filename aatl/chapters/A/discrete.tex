@@ -4,8 +4,10 @@ Niech \( G = \langle g \rangle \) będzie pewną grupą cykliczną.
 \textbf{Wejście:} \( a, g \in G \) \\
 \textbf{Wyjście:} \( x \) takie, że \( g^x = a \)
 
-Discrete-Log \( \in \np \cap \conp\): \\
-Jeśli otrzymamy od wyroczni \( x \), możemy sprawdzić, czy \( g^x = a \).
+\textit{Będziemy mówić o P, BPP, \(\np\), \(\conp\), które są klasami złożoności problemów decyzyjnych, a Discrete-Log jest problemem funkcyjnym. Rozważamy więc wersję decyzyjną: czy dla \((g, a, t), t < |G|\), istnieje \(x \in \set{0, \ldots, t}\) takie, że \(g^x = a\)? Mając algorytm dla wersji decyzyjnej wyszukiwaniem binarnym po \(t\) możemy znaleźć \(x\), mając algorytm dla wersji funkcyjnej oczywiście możemy znaleźć \(x\) a więc też odpowiadać na zapytania wersji decyzyjnej.}
+
+Discrete-Log (decyzyjny) \( \in \np \cap \conp \):\\
+Jeśli otrzymamy od wyroczni \( x \) i zweryfikujemy \( g^x = a \), odpowiedzią jest \( x \bmod |G| \leq t \).
 
 W kryptografii zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \notin \) BPP, ale nie jest to udowodnione. Nie wiadomo też, czy ten problem jest NP-trudny.
 
@@ -13,10 +15,7 @@ W kryptografii zakładamy, że Discrete-Log \( \notin \) P i Discrete-Log \( \no
 \textbf{Wejście:} \( g^x,\; g^y \) \\
 \textbf{Wyjście:} \( g^{xy} \)
 
-Diffie-Hellman \( \in \np \cap \conp \): \\
-Jeśli otrzymamy od wyroczni \( x \), po sprawdzeniu z \( g^x \), możemy obliczyć \( (g^{y})^x = g^{xy} \).
-
-Tak jak w poprzednim przypadku, nie ma dowodu, że Diffie-Hellman \( \notin \) P. Za pomocą Discrete-Log możemy rozwiązać problem Diffiego-Hellmana.
+Za pomocą Discrete-Log możemy rozwiązać problem Diffiego-Hellmana. Nie wiadomo jednak, czy istnieje redukcja w drugą stronę, pozwalająca za pomocą Diffiego-Hellmana rozwiązywać Discrete-Log.
 
 \textbf{Protokół Diffiego-Hellmana:} \\
 Korespondenci uzgadniają klucz symetryczny -- jeden z nich ustala swój klucz prywatny \( x \), drugi \( y \), po czym publicznym kanałem razem z wiadomością przesyłają \( g^x \) i \( g^y \). Kluczem deszyfrującym wiadomość jest \( g^{xy} \).
