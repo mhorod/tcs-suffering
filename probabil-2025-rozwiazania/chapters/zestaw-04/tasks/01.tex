@@ -1,4 +1,5 @@
-\section{Zadanie 1 (Mateusz Wojaczek)}
+\section{Zadanie 1}
+\autor{Mateusz Wojaczek}
 Wiewiórka chodzi po skończonej kracie jak na rysunku poniżej w sposób losowy. 
 Rozpoczyna swoją trasę w wierzchołku $(0,0)$ i w każdym kroku wybiera w sposób losowy, jednostajny i niezależny jeden z sąsiednich wierzchołków aktualnego wierzchołka.
 W wierzchołku $(1,1)$ znajduje się żołądź. 
@@ -27,7 +28,7 @@ Ze względu na symetrię wystarczy rozważyć połowę kwadratu:
 
     % Draw dots at each coordinate
     \foreach \point in {A,B,C,D,E,F,G,H,I} {
-        \fill \point circle (2pt);
+        \fill (\point) circle (2pt);
     }
 
     % Label the corners (0,0) and (1,1) as in the original image

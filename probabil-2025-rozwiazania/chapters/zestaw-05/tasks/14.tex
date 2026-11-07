@@ -1,4 +1,5 @@
-\section{Zadanie 14 (Oskar Prusik)}
+\section{Zadanie 14}
+\autor{Oskar Prusik}
 (Randomizowany QuickSort) Spójrzmy na QuickSorta z innej strony. Każdy element $x$ należący do sortowanej tablicy jest wybierany na pivota dokładnie raz podczas działania algorytmu. Zaczynamy od nieposortowanej $n$-elementowej tablicy. Losujemy element $x$, który będzie pełnił rolę pivota podziału. Niech ten element $x$ stanie się korzeniem drzewa binarnego budowanego 'na boku'. Jego lewym poddrzewem będzie drzewo binarne wytworzone rekurencyjnie z elementów mniejszych od $x$ w podziale, zaś prawym poddrzewem będzie analogiczne drzewo powstałe z elementów większych od $x$ w podziale.
 
 Tak więc konkretnemu wykonaniu algorytmu QuickSort odpowiada dobrze określone drzewo binarne kodujące historię wyborów elementów na pivoty. Mówimy, że element $x$ jest zły, jeśli w momencie wyboru na pivota dzieli tablicę na dwie części, z których jedna jest co najmniej dwa razy większa od drugiej. W języku drzewa przekłada się to na fakt, że jedno z poddrzew jest co najmniej 2 razy większe na liczność od drugiego. Dopełniając opisu, $x$ jest dobry, jeśli nie jest zły.

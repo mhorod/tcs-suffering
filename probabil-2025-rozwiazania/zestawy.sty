@@ -1,32 +1,16 @@
-% Packages and commands from the Probabil template (include/template.tex), used by the copied solutions
+% Packages and commands used by the solutions copied from Probabil
 \ProvidesPackage{zestawy}
 
-\usepackage{array}
-\usepackage{wrapfig}
-\usepackage{centernot}
 \usepackage{needspace}
-\usepackage{tabularx}
-\usetikzlibrary{fit,backgrounds,babel,quotes}
 
-\newcommand{\tab}{\hspace{1cm}}
-
-\newcommand{\stirlingi}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
-\newcommand{\stirlingii}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}}
-\newcommand{\multibinom}[2]{\left(\!\! \binom{#1}{#2} \!\!\right)}
-\newcommand{\euler}[2]{\genfrac{\langle}{\rangle}{0pt}{}{#1}{#2}}
-
-% \gfsum{A}{m}{a}{k} = \gffrac{A}{m}{a}{k}
-\newcommand{\gfsum}[4]{
-  \sum_{n=0}^{\infty}
-    \mathit{ \color{Red} #1}
-    \binom{n+\mathit{\color{Green} #2}-1}{\mathit{\color{Green} #2} - 1}
-    \mathit{\color{Blue} #3}^n
-    x^{\mathit{\color{Magenta} #4}n}
+% Solution author, placed right below the task's \section
+\newcommand{\autor}[1]{%
+  \par\vspace{-0.6\baselineskip}%
+  {\small\itshape\color{black!75}#1}\par
 }
-\newcommand{\gffrac}[4]{
-  \frac{\mathit{\color{Red}{#1}}}
-  {
-    \left( 1 - \mathit{\color{Blue} #3}x^\mathit{\color{Magenta} #4 } \right)
-    ^{\mathit{\color{Green} #2}
-  }}
+
+% Unsolved task: \section[\nierozwiazane{Zadanie N}]{Zadanie N}, then \brakrozwiazania
+\newcommand{\nierozwiazane}[1]{%
+  \texorpdfstring{\textcolor{gray}{#1 (nierozwiązane)}}{#1 (nierozwiązane)}%
 }
+\newcommand{\brakrozwiazania}{\textit{Brak rozwiązania.}}

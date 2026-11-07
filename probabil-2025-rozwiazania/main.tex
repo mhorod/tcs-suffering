@@ -12,6 +12,9 @@
 % Packages and commands used by the solutions copied from Probabil
 \usepackage{zestawy}
 
+% Only zestawy and tasks in the table of contents, some tasks have subsections and some don't
+\setcounter{tocdepth}{1}
+
 \begin{document}
 % Front page and table of contents
 \frontmatter
@@ -25,8 +28,8 @@
 \titleformat{\chapter}[display]{\normalfont\Huge\bfseries}{}{0pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{0pt}{20pt}
 
-% The solutions name their sections "Zadanie N", so don't number them
-\setcounter{secnumdepth}{0}
+% Chapters are titled "Zestaw N" and sections "Zadanie N", so don't number either of them
+\setcounter{secnumdepth}{-1}
 
 % Actual content
 \mainmatter
