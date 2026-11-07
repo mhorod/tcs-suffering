@@ -1,0 +1,39 @@
+\section{Zadanie 8 (Oskar Prusik)}
+Udowodnij, że jeżeli x jest stanem istotnym i y jest osiągalny z x, to y jest stanem istotnym.
+
+\subsection*{Rozwiązanie}
+\paragraph{Definicje.} 
+
+Z definicji nieistotności mamy:
+\[
+\text{nieistotny}(i) \;:=\; \exists j : (i \to j) \land (j \not\to i),
+\]
+zatem:
+\[
+\text{istotny}(i) \;\equiv\; \forall j : \big[ (i \not\to j) \;\lor\; (j \to i) \big].
+\]
+
+\paragraph{Założenia.} 
+\begin{itemize}
+	\item $x$ istotny: $\forall z \; \big[ (x \not\to z) \;\lor\; (z \to x) \big]$
+	\item $x \to y$
+\end{itemize}
+
+\paragraph{Teza.}
+$y$ istotny: $\forall w \; \big[ (y \not\to w) \;\lor\; (w \to y) \big]$.
+
+\paragraph{Dowód.}
+Weźmy dowolny stan $w$.
+
+\underline{Przypadek 1:} $y \not\to w$. \\
+Wtedy $ (y \not\to w) \lor (w \to y) $ jest prawdziwe.
+
+\underline{Przypadek 2:} $y \to w$. \\
+Z $x \to y$ i $y \to w$ wynika $x \to w$. \\
+Z istotności $x$ dla $w$ mamy: $(x \not\to w) \lor (w \to x)$. \\
+Skoro $x \to w$, to $(x \not\to w)$ jest fałszem, więc musi zachodzić $w \to x$.
+
+Mamy $w \to x$ oraz $x \to y$, stąd $w \to y$. \\
+Zatem $(w \to y)$ jest prawdą, więc alternatywa $(y \not\to w) \lor (w \to y)$ również.
+
+W obu przypadkach formuła jest spełniona dla każdego $w$, co oznacza, że $y$ jest istotny. $\square$

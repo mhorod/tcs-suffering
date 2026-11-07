@@ -1,0 +1,19 @@
+\section{Zadanie 15 (Filip Manijak)}
+tutaj wpisz treść zadania
+
+\subsection*{Rozwiązanie}
+\subsection{i}
+Rozważmy taki eksperyment: Jednemu z procesorów P1, P2 zostało przydzielone nowe zadanie. Jakie jest prawdopodobieństwo, że P1 skończy pierwszy? Korzystamy z faktu z wykładu:
+$$P(P1 < P2) = \frac{\lambda_1}{\lambda_1+\lambda_2} = \frac{2025}{2026}$$
+Teraz zauważmy, że prawdopodobieństwo tego, że P2 zrobi tylko jedno, to prawdopobieństwo tego że P1 wygra każdy z 2023 eksperymentów, czyli nasza odpowiedź to:
+$$1-\left( \frac{2025}{2026} \right)^{2023}$$
+\subsection{ii}
+Możemy rozbić wartość oczekiwaną, na indykatory czy dane zadanie zostało wykonane na P2. Z eksperymentu powyżej, każdy indykator ma wartość oczekwianą $\frac{1}{2026}$, czyli $E[X] = 1+\frac{2023}{2026}$
+\subsection{iii}
+Zauważmy, że po prostu wykonujemy ten sam eksperyment co w (i). Szansa to: $\frac{2025}{2026}$.
+\subsection{iv}
+Zauważmy, że pytamy tutaj o prawdopodobieństwo, zajścia 2 zadań niezależnie: P2 wygrał eksperyment o zadanie 1000 i przegrał każdy kolejny (niezależne, bo rozkład bez pamięci):
+$$P(T_{1000} \mbox{ na P2 } \wedge T_{1001}-T_{2025} \mbox{ na P1}) = \frac{1}{2026} * \left( \frac{2025}{2026} \right)^{1025} $$
+\subsection{v}
+Wiemy, że P2 wykonał dokładnie 3 zadania, czyli P1 wykonał wszystkie inne. Możemy to policzyć z prostego kombi:
+$$P(zdarzenia) = \frac{\binom{2023}{2}-\binom{1999}{2}}{\binom{2023}{2}} =1 - \frac{1999*1998}{2023*2022} = 0.02359219 $$

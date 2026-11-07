@@ -1,0 +1,14 @@
+\section{Zadanie 16}
+Inwersja w permutacji $\pi$ to para indeksów $i < j$ taka że $\pi(i) > \pi(j)$.
+Wyznacz oczekiwaną liczbę inwersji losowej permutacji $\pi$ zbioru $[n]$.
+
+\subsection*{Rozwiązanie}
+Rozbijemy zmienną losową $X$ na sumę po $X_{i, j, x, y}$ takich że $\pi(i) = x, \pi(j) = y, i < j, x > y$. Wtedy:
+$$\mathbb{E}[X] = \mathbb{E}[\sum_{i < j}\sum_{x > y}X_{i, j, x, y}] = \sum_{i < j}\sum_{x > y}\mathbb{E}[X_{i, j, x, y}] = \sum_{i < j}\sum_{x > y}\frac{1}{n(n-1)} =$$
+$$= \frac{n(n-1)}{2}\cdot\frac{n(n-1)}{2}\cdot\frac{1}{n(n-1)} = \frac{n(n-1)}{4}$$
+Bo:
+$$\mathbb{E}[X_{i, j, x, y}] = P(\pi(i) = x \cap \pi(j) = y) = P(\pi(i) = x)P(\pi(j) = y | \pi(i) = x) = \frac{1}{n}\cdot\frac{1}{n-1}$$
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{$\frac{n(n-1)}{4}$}}
+\]

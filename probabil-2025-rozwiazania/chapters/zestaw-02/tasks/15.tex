@@ -1,0 +1,33 @@
+\section{Zadanie 15 (Filip Manijak)}
+Udowodnij, że każdy graf dwudzielny z $m$ krawędziami zawiera podgraf na
+co najmniej $\frac{3}{4} m^{\frac{2}{3}}$ krawędziach, który nie zawiera cyklu na czterech
+wierzchołkach $C_4$ jako podgrafu.
+
+\vspace{0.5em}
+
+\textbf{Uwaga:} Wystarczy pokazać ograniczenie $\frac{1}{2} m^{\frac{2}{3}}$.
+
+\vspace{0.5em}
+
+\textbf{Wskazówka:} Grafy można losować. Jednym ze sposobów jest ustalenie
+pewnego parametru $p$ i dla każdej pary wierzchołków niezależne wylosowanie
+tego, czy łączy je krawędź, czy nie, z prawdopodobieństwem $p$. Jeśli
+losowany graf nie działa, to może należy go zmodyfikować po wylosowaniu?
+
+
+\subsection*{Rozwiązanie}
+Najpierw pokażę lemat:
+\subsection{Lemat: Liczba cykli w grafie dwudzielnym to max $\frac{|E|^2}{4}$}
+Dlaczego? Bo par rozłącznych krawędzi jest $\frac{|E||E-1|}{2}$. Zauważmy, że każda para rozłącznych krawędzi występuje razem w max. 1 $C_4$. Oszacowanie jeszcze musimy podzielić na 2, bo każdy cykl zliczamy 2 razy. 
+\subsection{Główny pomysł}
+Będziemy losować graf (każdą krawędź z pwdp. $p$) i zauważymy że liczba cykli jest całkiem mała. W podgrafie naszego grafu dwudzielnego, powstałym w taki sposób że każda krawędź występuje w nim z prawdopodobieństwem $p$ jest w wartości oczekiwanej:
+\begin{itemize}
+    \item $pm$ krawędzi (liniowość wartości oczekiwanej)
+    \item $p^4num\_C_4$ $C_4$ (wszystkie 4 krawędzie muszą zostać przeniesione)
+\end{itemize}
+Zauważmy, że wystarczy usunąć tyle krawędzi co cykli, żeby żadnych cykli nie było. Czyli, stwórzmy nowy sposób losowania grafu: Losujemy każdą krawędź z prawdopodobieństwem $p$, ale jeśli krawędź ta tworzy $C_4$ to jej nie bierzemy. Teraz policzmy wartość oczekiwaną:
+$$E[E(H)] = pm - p^4\frac{m^2}{4}$$
+Co po podstawieniu $p = m^{-1/3}$ daje:
+$$E[E(H)] = \frac{3}{4} m^\frac{2}{3}$$
+Z trywialnej obserwacji$^{TM}$ koniec dowodu.
+

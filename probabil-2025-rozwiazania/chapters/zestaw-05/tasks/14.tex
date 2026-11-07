@@ -1,0 +1,139 @@
+\section{Zadanie 14 (Oskar Prusik)}
+(Randomizowany QuickSort) Spójrzmy na QuickSorta z innej strony. Każdy element $x$ należący do sortowanej tablicy jest wybierany na pivota dokładnie raz podczas działania algorytmu. Zaczynamy od nieposortowanej $n$-elementowej tablicy. Losujemy element $x$, który będzie pełnił rolę pivota podziału. Niech ten element $x$ stanie się korzeniem drzewa binarnego budowanego 'na boku'. Jego lewym poddrzewem będzie drzewo binarne wytworzone rekurencyjnie z elementów mniejszych od $x$ w podziale, zaś prawym poddrzewem będzie analogiczne drzewo powstałe z elementów większych od $x$ w podziale.
+
+Tak więc konkretnemu wykonaniu algorytmu QuickSort odpowiada dobrze określone drzewo binarne kodujące historię wyborów elementów na pivoty. Mówimy, że element $x$ jest zły, jeśli w momencie wyboru na pivota dzieli tablicę na dwie części, z których jedna jest co najmniej dwa razy większa od drugiej. W języku drzewa przekłada się to na fakt, że jedno z poddrzew jest co najmniej 2 razy większe na liczność od drugiego. Dopełniając opisu, $x$ jest dobry, jeśli nie jest zły.
+
+\bigskip
+
+\begin{enumerate}
+	\item Pokaż, że na konkretnej ścieżce z korzenia do liścia drzewa, liczba dobrych węzłów jest nie większa niż $c \log_2 n$ dla pewnego $c > 0$.
+	\item Pokaż, że z prawdopodobieństwem co najmniej $1 - \frac{1}{n^2}$ liczba węzłów na konkretnej ścieżce od korzenia do liścia jest nie większa niż $c' \log_2 n$ dla pewnego $c' > 0$.
+	\item Pokaż, że z prawdopodobieństwem co najmniej $1 - \frac{1}{n}$ liczba węzłów na najdłuższej ścieżce od korzenia do liścia jest nie większa niż $c' \log_2 n$.
+	\item Uzasadnij, że z prawdopodobieństwem co najmniej $1 - \frac{1}{n}$ czas działania QuickSorta to $O(n \log n)$.
+\end{enumerate}
+
+\subsection*{Rozwiązanie}
+Zauważmy, że dla dobrego pivota oba dzieci mają rozmiar co najwyżej $\frac{2}{3}m$, a zatem rozmiar większego dziecka jest ograniczony przez $\frac{2}{3}m$.
+
+Dowód nie wprost:
+
+Przypuśćmy, że na pewnej ścieżce od korzenia do liścia istnieje więcej niż $c \log_2 n$ dobrych węzłów, gdzie $c = \frac{1}{\log_2 (3/2)}$. Oznaczmy tę liczbę przez $k$, gdzie:
+\[
+k > c \log_2 n = \log_{3/2} n
+\]
+
+Rozważmy ciąg rozmiarów podproblemów $m_0, m_1, \dots, m_t$ wzdłuż tej ścieżki, gdzie $m_0 = n$.
+
+Każdy dobry pivot zmniejsza rozmiar podproblemu o współczynnik co najwyżej $\frac{2}{3}$. Oznacza to, że po napotkaniu dobrego pivota mamy:
+\[
+m_{i+1} \le \frac{2}{3} m_i
+\]
+
+Ponieważ na ścieżce jest $k$ dobrych pivotów, to po $k$ dobrych pivotach rozmiar podproblemu spełnia:
+\[
+m_{\text{po } k \text{ dobrych}} \le n \cdot \left(\frac{2}{3}\right)^k
+\]
+
+Z założenia $k > \log_{3/2} n$, więc:
+\[
+\left(\frac{2}{3}\right)^k < \left(\frac{2}{3}\right)^{\log_{3/2} n} = \frac{1}{n}
+\]
+gdyż $\left(\frac{2}{3}\right)^{\log_{3/2} n} = n^{\log_{3/2}(2/3)} = n^{-1}$.
+
+Stąd otrzymujemy:
+\[
+m_{\text{po } k \text{ dobrych}} < n \cdot \frac{1}{n} = 1
+\]
+
+To oznacza, że rozmiar podproblemu stał się mniejszy niż 1, co jest sprzeczne z faktem, że ścieżka prowadzi do liścia (gdzie rozmiar wynosi dokładnie 1).
+
+Zatem nasze założenie musi być fałszywe. Stąd liczba dobrych węzłów na dowolnej ścieżce spełnia:
+\[
+k \le c \log_2 n
+\]
+dla $c = \frac{1}{\log_2 (3/2)} \approx 2.71$.
+\section*{(ii)}
+
+
+\begin{itemize}
+	\item  $X$ to zmienna losowa oznaczająca całkowitą liczbę węzłów (pivotów) na konkretnej ścieżce od korzenia do liścia w drzewie rekursji QuickSorta. 
+	\item  $Y_i$ to zmienna losowa oznaczająca liczbę prób (pivotów) wymaganych do uzyskania $i$-tego sukcesu (dobrego pivota) po uzyskaniu $(i-1)$-szego sukcesu (sukces to wybranie dobrego pivotu).
+	\item  $Y_i$ ma rozkład geometryczny, gdzie $p = 1/3$.
+	\item Całkowita ścieżka $X$ jest sumą $R$ niezależnych segmentów postępu $Y_i$, gdzie $R = \lceil \log_{3/2} n \rceil$. Wiemy z (i), że możemy mieć conajwyżej R dobrych pivotów na scieżce:
+	$$X = Y_1 + Y_2 + \dots + Y_R$$
+\end{itemize}
+
+
+
+MGF jest z definicji wartości oczekiwanej:
+$$ \mathbb{E}[e^{tY_i}] \le \sum_{k=1}^{n} e^{tk} P(Y_i = k) \le  \sum_{k=1}^{\infty} e^{tk} P(Y_i = k) =  \sum_{k=1}^{\infty} e^{tk} (1-p)^{k-1} p$$
+
+Zatem
+
+$$\mathbb{E}[e^{tY_i}]  \le  \frac{p e^t}{1 - e^t(1-p)}$$
+
+
+$$
+	\mathbb{E}[e^{tX}] = \mathbb{E}[e^{t(Y_1 + Y_2 + \dots + Y_R)}] = \mathbb{E}[e^{tY_1} \cdot e^{tY_2} \cdot \dots \cdot e^{tY_R}] \quad \\
+	= \mathbb{E}[e^{tY_1}] \cdot \mathbb{E}[e^{tY_2}] \cdot \dots \cdot \mathbb{E}[e^{tY_R}]  \le (E[e^{tY_i}])^R
+$$
+
+Korzystamy tu z tego, że zmienne $Y_{i}$ są niezależne, więc możemy je rozbić na iloczyn. Zatem:
+$$\mathbb{E}[e^{tX}] \le \left(\frac{p e^t}{1 - e^t(1-p)}\right)^R =  \left(\frac{(1/3) e^t}{1 - (2/3)e^t}\right)^R = \left(\frac{e^t}{3 - 2e^t}\right)^R$$
+Używając $R = \log_{3/2} n $:
+$$\mathbb{E}[e^{tX}] \le \left(\frac{e^t}{3 - 2e^t}\right)^{\log_{3/2} n}$$
+
+Stosujemy ograniczenia Czernowa:
+
+Chcemy pokazać, że $P(X > c' \log_2 n) \le \frac{1}{n^2}$.
+Używając: $P(X > a) \le \frac{\mathbb{E}[e^{tX}]}{e^{ta}}$.
+$$P(X > c' \log_2 n) \le \frac{\left(\frac{e^t}{3 - 2e^t}\right)^{\log_{3/2} n}}{e^{t c' \log_2 n}} = n^{\log_{3/2}\left(\frac{e^t}{3 - 2e^t}\right) - \frac{t c'}{\ln 2}}$$
+
+Aby to ograniczenie było $\le n^{-2}$, wymagamy, aby wykładnik przy $n$ wynosił $-2$:
+$$\log_{3/2}\left(\frac{e^t}{3 - 2e^t}\right) - \frac{t c'}{\ln 2} = -2$$
+
+Wybieramy parametr $\mathbf{t = \ln(4/3)}$ (wtedy $e^t = 4/3$):
+$$\log_{3/2}\left(\frac{4/3}{3 - 8/3}\right) - \frac{\ln(4/3)}{\ln 2} \cdot c' = -2$$
+$$\log_{3/2}(4) - \frac{\ln(4/3)}{\ln 2} \cdot c' = -2$$
+
+Używając przybliżeń $\log_{3/2}(4) \approx 3.4188$ oraz $\frac{\ln(4/3)}{\ln 2} \approx 0.4151$:
+$$3.4188 - 0.4151 \cdot c' = -2$$
+$$5.4188 = 0.4151 \cdot c'$$
+$$c' \approx \mathbf{13.06}$$
+
+
+Wybierając stałą $\mathbf{c' \approx 13.06}$, udowodniliśmy, że dla konkretnej ścieżki $X$:
+$$P(X > c' \log_2 n) \le n^{-2} = \frac{1}{n^2}$$
+
+Zatem prawdopodobieństwo, że liczba węzłów na konkretnej ścieżce jest nie większa niż $c' \log_2 n$, jest ograniczone od dołu przez:
+$$P(X \le c' \log_2 n) = 1 - P(X > c' \log_2 n) \ge 1 - \frac{1}{n^2}$$
+\section*{(iii)}
+
+
+Naszym celem jest pokazanie, że wysokość drzewa $H$ jest niska z bardzo wysokim prawdopodobieństwem:
+$$P(H \le c' \log_2 n) \ge 1 - \frac{1}{n}$$
+	 $D_x$ oznacza długość konkretnej ścieżki dla elementu $x$. 
+	 
+	 $H = \max_{x} D_x$ oznacza wysokość drzewa.
+
+Z podpunktu (ii):
+$$P(D_x > c' \log_2 n) \le \frac{1}{n^2}$$
+
+
+$$P(H > c' \log_2 n) = P\left(\bigcup_{x=1}^n \{D_x > c' \log_2 n\}\right)$$
+Z Upper Bound'a:
+$$P(H > c' \log_2 n) \le \sum_{x=1}^n P(D_x > c' \log_2 n) = n \cdot \frac{1}{n^2}  = \frac{1}{n}$$
+
+
+
+Zatem:
+$$P(H \le c' \log_2 n) = 1 - P(H > c' \log_2 n) \ge 1 - \frac{1}{n}$$
+
+\section*{(iv)}
+Z podpunktu (iii) wiemy,, że z prawdopodobieństwem co najmniej $1 - \frac{1}{n}$, wysokość drzewa jest $H = O(\log n)$.
+
+
+Podstawiając to ograniczenie probabilistyczne do wzoru na czas działania:
+$$T(n) = O(n \cdot H) = O(n \cdot c' \log_2 n)  = O(n \log n)$$
+Oczywiście ta złożoność zachodzi z prawdopodbieństwem $1 - \frac{1}{n}$
+

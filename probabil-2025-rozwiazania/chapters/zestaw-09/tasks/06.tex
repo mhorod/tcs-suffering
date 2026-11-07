@@ -1,0 +1,66 @@
+\section{Zadanie 6}
+Niech $X,Y$ będą niezależnymi zmiennymi losowymi o rozkładzie wykładniczym
+z parametrem $1$. Obliczyć
+\[
+\lim_{R\to\infty} P\bigl(\min(X,Y)>R \mid X+Y>3R\bigr).
+\]
+
+
+\subsection*{Rozwiązanie}
+\[
+P(\min(X,Y) > R \mid X+Y > 3R)
+=
+\frac{P(\min(X,Y)>R \cap X+Y > 3R)}{P(X+Y>3R)}
+\]
+
+Policzmy prawdopodobieństwo z licznika:\\
+
+\[
+\begin{aligned}
+P(\min(X,Y)>R \cap X+Y>3R)
+&= \int_{R}^\infty f_X(x)
+\int_{\max(3R-x,\,R)}^\infty f_Y(y)\,dy\,dx \\
+&= \int_R^{2R} e^{-x}
+\int_{3R-x}^\infty e^{-y}\,dy\,dx
++ \int_{2R}^\infty e^{-x}
+\int_R^\infty e^{-y}\,dy\,dx \\
+&= R e^{-3R} + e^{-3R}
+\end{aligned}
+\]
+
+Policzmy prawdopodobieństwo z mianownika:\\
+
+Zmienna $X+Y$ ma rozkład $\Gamma(2,1)$ (twierdzenie z wykładu) zatem:\\
+
+\[
+f_{X+Y}(x) =
+\begin{cases} 
+x e^{-x} & \text{dla } x \geq 0,\\
+0 & \text{wpp.}
+\end{cases}
+\]
+
+\[
+\begin{aligned}
+P(X+Y > 3R)
+&= 1 - P(X+Y \leq 3R)
+= 1 - \int_0^{3R} x e^{-x}\,dx \\
+&= 1 - (-3R e^{-3R} - e^{-3R} + 1)
+= e^{-3R} + 3R e^{-3R}
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+\lim_{R\to \infty} P(\min(X,Y) > R \mid X+Y > 3R)
+&= \lim_{R\to \infty}
+\frac{e^{-3R}(1 + R)}{e^{-3R}(1 + 3R)}
+= \frac{1}{3}
+\end{aligned}
+\]
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\frac{1}{3}}
+\]

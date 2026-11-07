@@ -1,0 +1,33 @@
+\section{Zadanie 6}
+Niech $X,Y$ będą niezależnymi zmiennymi z rozkładu $N(0,1)$. Oblicz 
+\[
+E(X+Y| X > 0, Y>0).
+\]
+
+\subsection*{Rozwiązanie}
+Z liniowości wartości oczekiwanej i niezależności $X,Y$:\\
+$E(X+Y|X>0, Y>0) = E(X|X>0, Y>0) + E(Y|X>0, Y>0) = E(X|X>0) + E(Y|Y>0)$\\
+$X$ i $Y$ mają ten sam rozkład zatem:\\
+\[
+E(X+Y|X>0, Y>0) = 2E(X|X>0)
+\]
+\[
+E(X|X>0) = \frac{1}{P(X>0)}\int_0^{\infty}{xf(x)dx} 
+\]
+Obliczymy teraz całkę\\
+\[
+\int{\frac{1}{\sqrt{2\pi}}xe^{-\frac{1}{2}x^2}dx} = -\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
+\]
+\[
+\int_0^{\infty}{\frac{1}{\sqrt{2\pi}}xe^{-\frac{1}{2}x^2}dx} = \frac{1}{\sqrt{2\pi}}
+\]
+Z symetrii rozkładu normalnego $P(X>0) = \frac{1}{2}$\\
+Podsumowując:\\
+\[
+E(X+Y|X>0, Y>0) = 2 \cdot \frac{1}{\frac{1}{2}}\cdot\frac{1}{\sqrt{2\pi}} = 2\sqrt{\frac{2}{\pi}}
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{$2\sqrt{\frac{2}{\pi}}$}}
+\]

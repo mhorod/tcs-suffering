@@ -1,0 +1,17 @@
+\section{Zadanie 4}
+
+Cyklem długości $k$ w permutacji $\pi$ nazywamy ciąg indeksów $a_{1},\dots,a_{k},a_{k+1} = a_{1}$
+taki że $\pi(a_{i})$ = $a_{i+1}$. Każdą permutację $\pi$ moźna jednoznacznie rozłożyć na rozłączne
+cykle. Wyznacz oczekiwaną liczbę cykli w losowej permutacji $\pi$.
+
+\subsection*{Rozwiązanie}
+Z definicij mamy że:
+$$\mathbb{E}[X] = \sum_{i=1}^{n}i\frac{{ n\brack i}}{n!} = \frac{1}{n!}\sum_{i=1}^{n}i{ n\brack i} = \frac{n!H_{n}}{n!} = H_{n}$$
+
+${n\brack i}$ - liczba Stirlinga pierwszego rodzaju, liczba permutacji zbioru $n$-elementowego złożonych z $i$ cykli.
+Z drugiego zestawu dyskretnej z zadania 4 wiemy że $\sum_{i=1}^{n}i{ n\brack i} = n!H_{n}$.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{$H_{n}$}}
+\]

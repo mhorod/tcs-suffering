@@ -1,0 +1,47 @@
+\section{Zadanie 8 (Oskar Prusik)}
+Niech \( a, b \) będą liczbami rzeczywistymi. Jakie warunki muszą spełniać \( a \) i \( b \), żeby istniała zmienna losowa, która ma wartość oczekiwaną równą \( a \) i wariancję równą \( b \)?  
+W przypadku, gdy taka zmienna losowa istnieje, podaj ją.
+
+\subsection*{Rozwiązanie}
+Oczywistym jest, że wariancja jest nieujemna, co nakłada nam juz warunek: \[b \geq 0\]
+
+Teraz znajdujemy przykład zmiennej losowej dla tylko tego jednego warunku. Niech zmienna losowa \(X\) ma rozkład:
+\[
+P(X = a + \sqrt{b}) = \frac{1}{2}, \quad P(X = a - \sqrt{b}) = \frac{1}{2}
+\]
+gdzie \(a \in \mathbb{R}\), \(b \geq 0\).
+
+
+Korzystając z definicji wartości oczekiwanej dla zmiennej dyskretnej:
+\[
+E[X] = \sum x_i \cdot p_i = \frac{1}{2} \cdot (a + \sqrt{b}) + \frac{1}{2} \cdot (a - \sqrt{b})
+\]
+\[
+= \frac{1}{2}a + \frac{1}{2}\sqrt{b} + \frac{1}{2}a - \frac{1}{2}\sqrt{b} = a
+\]
+
+
+\[
+E[X^2] = \frac{1}{2} \cdot (a + \sqrt{b})^2 + \frac{1}{2} \cdot (a - \sqrt{b})^2
+\]
+\[
+= \frac{1}{2} \cdot (a^2 + 2a\sqrt{b} + b) + \frac{1}{2} \cdot (a^2 - 2a\sqrt{b} + b)
+\]
+\[
+= \frac{1}{2}a^2 + a\sqrt{b} + \frac{1}{2}b + \frac{1}{2}a^2 - a\sqrt{b} + \frac{1}{2}b
+\]
+\[
+= a^2 + b
+\]
+
+
+Korzystając ze wzoru \(\mathrm{Var}(X) = E[X^2] - (E[X])^2\):
+\[
+\mathrm{Var}(X) = (a^2 + b) - a^2 = b
+\]
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Dla dowolnych \(a \in \mathbb{R}\) i \(b \geq 0\) istnieje zmienna losowa o podanej wartości oczekiwanej i wariancji.}}
+\]

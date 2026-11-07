@@ -1,0 +1,34 @@
+\section{Zadanie 8}
+Niech $G$ będzie $n$-wierzchołkowym grafem takim, że stopień każdego wierzchołka to dokładnie $\frac{2}{3} n$ (można założyć, że $ n \leq 3$ i $n$ jest podzielne przez $3$). Rozważmy klasyczny spacer losowy po $G$, gdzie w kroku wybieramy jednostajnie jednego ze swoich sąsaidów. 
+
+(I) Udowodnij, że istnieje rozkład stacjonarny.
+
+(II) Ogranicz, najlepiej jak umiesz czas mieszania $\tau_{\text{mix}}
+ $
+\subsection*{Rozwiązanie}
+(I) Graf jest spójny. Zaużmy, że tak nie jest. Weźmy wierzchołki $u$ i $v$ z dwóch spójnych. Każdy z nich ma $\frac{2}{3}n$ sąsiadów. Z bycia w innych spójnych, konkludujemy, że sąsiedzi są różni. Jeśli zsumujemy sąsaidów $u$ i $v$ otrzymujemy $\frac{4}{3}n$ wierzchołków, co jest sprzecznością, bo graf ma $n$ wierzchołków. 
+
+Równie łatwo, można pokazać, że graf jest nieokresowy. (Graf okresowy może mieć maksymalnie $\frac{1}{4}n^2$ krawędzi, a nasz graf ma $\frac{2}{3}n^2$)
+
+Łatwo też pokazać, że rozkład stacjonarny tego grafu to dla każdego $v$ $\frac{1}{n}$
+
+
+(II) Wiemy, że $\tau_{\text{mix}}$ = max($\tau_x(\frac{1}{4})$). Gdzie
+$\tau_x(\epsilon)$ to minimalny czas $t$, że różnica wektorowa między wektorem w czas $t$, a rozkładem stacjonarnym, znana jako $\Delta_x(t)$.  
+
+Teraz zobaczmy co się dzieje z przy ruchu $t$. Niech zbiór $A$, to zbiór, gdzie wartość jest większa niż rozkład stacjonarny w czasie $t+1$, a $B$ to zbiór, gdzie jest mniejsza. Teraz patrzymy co się wydarzy z wartością wyeksportowaną z wierzchołka $v$. Zaużmy, że w momencie $t$, $v$ miało wartość większą niż w rozkładzie stacjonarmy. Popatrzmy co się dzieję, jeśli połączymy z jamimś wierzchołkiem z $A$, nadwyżka zostanie przekazana. Jeśli natomiast przekażemy do $B$, to zostania zaprzepaszczona. W drugą stronę to działa podobnie. Zeby pokazać, ile zostanie zaprzepaszczone, można wywnioskować następujące równania:
+\[
+    \frac{\frac{2}{3}n - |A|}{ \frac{2}{3}n}  + \frac{\frac{2}{3}n - |B|}{ \frac{2}{3}n} = \frac{\frac{4}{3}n - |A| - |B|}{\frac{2}{3}n} = \frac{\frac{4}{3}n - n}{\frac{2}{3}n} = \frac{\frac{1}{3}n}{\frac{2}{3}n} = \frac{1}{2}.
+\]
+Oznacza to, że z każdym minięciem sekundy różnica wektorowa maleje $\frac{1}{2}$ raza. 
+
+W $t = 0$, wszystko znajduję się w jakimś wierzkołku $v$. W $t = 1$, jest w $\frac{2}{3}n$ wartość $\frac{1}{\frac{2}{3}n}$, a w pozostałych $0$. Licząc różnice wektorą mamy:
+\[
+    \frac{2}{3}n \cdot (\frac{3}{2n} - \frac{1}{n}) + \frac{1}{3}n \cdot (\frac{1}{n} - 0) = \frac{2}{3} \cdot \frac{1}{2} + \frac{1}{3} = \frac{1}{3} + \frac{1}{3} = \frac{2}{3}
+\]
+W $t = 2$ mamy więc wartość $\leq \frac{1}{3}$, a w $t = 3$ wartość $\leq \frac{1}{6}$, co jest mniejsze niż wymagana $\frac{1}{4}$, z wykładu.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{3}}
+\]

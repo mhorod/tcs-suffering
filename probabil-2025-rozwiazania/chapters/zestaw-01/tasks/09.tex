@@ -1,0 +1,25 @@
+\section{Zadanie 9}
+Niech \(q \in \{0, 1\}^{19}\) będzie arbitralnie wybranym \(19\)-elementowym ciągiem zer i jedynek. Rzucamy wielokrotnie symetryczną monetą (tj. taką, że orzeł i reszka wypadają z jednakowym prawdopodobieństwem) i notujemy rezultaty tworząc w ten sposób ciąg. Jeśli wypadł orzeł notujemy 0, jeśli reszka 1. Jakie jest prawdopodobieństwo, że ciąg \(q\) wystąpi (być może po wielu rzutach) jako spójny podciąg notowanego ciągu?
+
+\subsection*{Rozwiązanie}
+
+Intuicja podpowiada, że prawdopodobieństwo to będzie wynosić 1, ale nie jest raczej tak prosto dotrzeć do tego bezpośrednio. Zamiast liczyć prawdopodobieństwo wystąpienia ciągu \(q\) przy rzucaniu pojedynczymi monetami, znacznie łatwiej będzie liczyć prawdopodobieństwo, jeśli będziemy rzucać blokami po 19. A konkretniej:
+
+\(B\) - zdarzenie polegające na tym, że w ciągu wystąpił ciąg \(q\) po pewnej liczbie rzutów.
+
+\(B_i\) - zdarzenie polegające na tym, że w ciągu pierwszych \(i\) lub mniej serii rzutów po 19 monet, któraś z serii była ciągiem \(q\).
+
+Zauważmy, że \(\{B_i\}_{i\in\mathbb{N}}\) jest wstępującą rodziną zdarzeń (patrz zad. 2) oraz suma po tej rodzinie implikuje zdarzenie B. Wyliczamy także prawdopodobieństwo zdarzenia \(B_i\) poprzez zdarzenie przeciwne. Wystarczy połączyć to wszystko następująco:
+
+\begin{align*}
+P(B_n) &= 1 - \left[1 - \left(\frac 1 2\right)^{19}\right]^n\\
+P(\bigcup_{n=1}^\infty B_n) &= \lim_{n \to \infty}\left(1 - \left[1 - \left(\frac 1 2\right)^{19}\right]^n\right) = 1\\
+(\bigcup_{n=1}^\infty B_n \implies B) &\implies P(\bigcup_{n=1}^\infty B_n) \leq P(B)\\
+1 \leq P(B) &\leq 1\\
+P(B) &= 1
+\end{align*}
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{P(B) = 1}}
+\]

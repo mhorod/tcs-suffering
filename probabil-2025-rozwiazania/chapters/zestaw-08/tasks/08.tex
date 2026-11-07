@@ -1,0 +1,127 @@
+\section{Zadanie 8 (Oskar Prusik)}
+Łamiemy kij długości \(1\) w jednostajnie losowo wybranym punkcie.
+Niech \(X\) oznacza punkt złamania.
+
+
+(i) Jaka jest oczekiwana długość krótszej części?  
+
+(ii) Jaki jest oczekiwany stosunek długości części krótszej do części dłuższej?  
+
+(iii) Jaki jest oczekiwany stosunek długości części dłuższej do części krótszej?
+
+
+\subsection*{Rozwiązanie}
+ Ponieważ wybór jest jednostajny na odcinku \([0,1]\), zmienna losowa \(X\) ma rozkład jednostajny na tym przedziale. Gęstość prawdopodobieństwa dana jest wzorem:
+
+\[
+f_X(x) = 
+\begin{cases}
+	1 & \text{dla } x \in [0,1] \\
+	0 & \text{w pozostałych przypadkach}
+\end{cases}
+\]
+
+Wprowadzamy oznaczenia:
+\[
+L = \min(X, 1-X), \quad D = \max(X, 1-X)
+\]
+gdzie \(L\) to długość krótszej części, a \(D\) to długość dłuższej części.
+
+\subsection*{(i)}
+\[
+\mathbb{E}[L] = \int_{0}^{1} \min(x, 1-x) \cdot f_X(x) \, dx = \int_{0}^{1} \min(x, 1-x) \, dx
+\]
+Punkt \(x = 0.5\) jest punktem podziału:
+\[
+\mathbb{E}[L] = \int_{0}^{0.5} x \, dx + \int_{0.5}^{1} (1-x) \, dx
+\]
+Obliczamy:
+\[
+\int_{0}^{0.5} x \, dx = \left[ \frac{x^2}{2} \right]_{0}^{0.5} = \frac{0.25}{2} = 0.125
+\]
+\[
+\int_{0.5}^{1} (1-x) \, dx = \left[ x - \frac{x^2}{2} \right]_{0.5}^{1} = (1-0.5) - (0.5 - 0.125) = 0.5 - 0.375 = 0.125
+\]
+\[
+\mathbb{E}[L] = 0.125 + 0.125 = 0.25 = \frac14
+\]
+
+\subsection*{(ii)}
+\[
+R_1 = \frac{L}{D} = \frac{\min(x, 1-x)}{\max(x, 1-x)}
+\]
+\[
+\mathbb{E}[R_1] = \int_{0}^{1} \frac{\min(x, 1-x)}{\max(x, 1-x)} \cdot f_X(x) \, dx = \int_{0}^{1} \frac{\min(x, 1-x)}{\max(x, 1-x)} \, dx
+\]
+Całkujemy po dwóch przedziałach:
+\[
+\mathbb{E}[R_1] = \int_{0}^{0.5} \frac{x}{1-x} \, dx + \int_{0.5}^{1} \frac{1-x}{x} \, dx
+\]
+
+Pierwsza całka:
+\[
+\int_{0}^{0.5} \frac{x}{1-x} \, dx = \int_{0}^{0.5} \left( \frac{1}{1-x} - 1 \right) dx
+\]
+\[
+= \left[ -\ln(1-x) - x \right]_{0}^{0.5} = \left( -\ln 0.5 - 0.5 \right) - \left( -\ln 1 - 0 \right) = \ln 2 - 0.5
+\]
+
+Druga całka:
+\[
+\int_{0.5}^{1} \frac{1-x}{x} \, dx = \int_{0.5}^{1} \left( \frac{1}{x} - 1 \right) dx
+\]
+\[
+= \left[ \ln x - x \right]_{0.5}^{1} = (\ln 1 - 1) - (\ln 0.5 - 0.5) = (-1) - (-\ln 2 - 0.5) = \ln 2 - 0.5
+\]
+
+Sumując:
+\[
+\mathbb{E}[R_1] = (\ln 2 - 0.5) + (\ln 2 - 0.5) = 2\ln 2 - 1
+\]
+
+\subsection*{(iii)}
+\[
+R_2 = \frac{D}{L} = \frac{\max(x, 1-x)}{\min(x, 1-x)}
+\]
+\[
+\mathbb{E}[R_2] = \int_{0}^{1} \frac{\max(x, 1-x)}{\min(x, 1-x)} \cdot f_X(x) \, dx = \int_{0}^{1} \frac{\max(x, 1-x)}{\min(x, 1-x)} \, dx
+\]
+\[
+\mathbb{E}[R_2] = \int_{0}^{0.5} \frac{1-x}{x} \, dx + \int_{0.5}^{1} \frac{x}{1-x} \, dx
+\]
+
+\noindent\textbf{Obliczenie pierwszej całki:}
+\[
+\int_{0}^{0.5} \frac{1-x}{x} \, dx = \int_{0}^{0.5} \left( \frac{1}{x} - 1 \right) dx
+\]
+Całka \(\int_{0}^{0.5} \frac{1}{x} \, dx\) jest rozbieżna, co pokazujemy przez granicę:
+\[
+\lim_{\varepsilon \to 0^+} \int_{\varepsilon}^{0.5} \frac{1}{x} \, dx = \lim_{\varepsilon \to 0^+} \left[ \ln x \right]_{\varepsilon}^{0.5} = \ln 0.5 - \lim_{\varepsilon \to 0^+} \ln \varepsilon = +\infty
+\]
+Nawet po odjęciu skończonej całki \(\int_{0}^{0.5} 1 \, dx = 0.5\), pierwsza całka dąży do nieskończoności.
+
+\noindent\textbf{Obliczenie drugiej całki:}
+\[
+\int_{0.5}^{1} \frac{x}{1-x} \, dx = \int_{0.5}^{1} \left( \frac{1}{1-x} - 1 \right) dx
+\]
+\[
+= \left[ -\ln(1-x) - x \right]_{0.5}^{1}
+\]
+W \(x=1\): \(-\ln(0) - 1\) - tutaj \(\ln 0 = -\infty\), ale liczymy granicę:
+\[
+\lim_{t \to 1^-} \left[ -\ln(1-t) - t \right]_{0.5}^{t} = \lim_{t \to 1^-} \left[ (-\ln(1-t) - t) - (-\ln 0.5 - 0.5) \right]
+\]
+\[
+= \lim_{t \to 1^-} \left[ -\ln(1-t) - t + \ln 0.5 + 0.5 \right]
+\]
+Człon \(-\ln(1-t) \to +\infty\), więc całka od \(0.5\) do \(1\) też jest rozbieżna!
+
+Zatem obie całki w \(\mathbb{E}[R_2]\) są rozbieżne do \(+\infty\), co potwierdza:
+\[
+\mathbb{E}[R_2] = \infty
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{(i) } \frac14} \quad \boxed{\text{(ii) } 2\ln 2 - 1} \quad \boxed{\text{(iii) } \infty}
+\]

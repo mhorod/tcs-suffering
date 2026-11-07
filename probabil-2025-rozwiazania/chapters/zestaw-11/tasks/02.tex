@@ -1,0 +1,53 @@
+\section{Zadanie 2 (Hubert Jastrzębski)}
+Rozważmy łańcuch Markowa $(X_t)_{t \in \mathbb{N}}$ na zbiorze $\{0, \ldots, k-1\}$ zdefiniowany następująco. Dla każdego $t \geq 0$, $X_{t+1}$ otrzymujemy z $X_t$ poprzez dodanie wyniku z rzutu sześcienną sprawiedliwą kostką i wzięcie reszty z dzielenia przez $k$. Udowodnij, że dla $k = 10$, $\tau_{\text{mix}} < 100$.
+
+\subsection*{Rozwiązanie}
+
+Dla przypomnienia: \(\tau_{\text{mix}} = \tau_{\text{mix}}(\frac{1}{4})\)
+
+\textbf{Skorzystamy z lematu 10.3.2:}
+
+Niech \(((X_t, Y_t))_{t \in \mathbb{N}}\) to sprzęganie łańcuchów Markowa (skończonych, nieprzywiedlnych, nieokresowych)
+z macierzą przejścia \(P\) i zbiorem stanów \(S\).
+Niech \(T \in \mathbb{N}\) i \(\epsilon > 0\) będą takie, że dla każdego \(x, y \in S\)
+\[\mathbb{P}(X_T \neq Y_T | X_0 = x, Y_0 = y) \leq \epsilon.\]
+Wtedy dla każdego \(x \in S\)
+\[\tau_{\text{mix}} (\epsilon) \leq T\]
+
+Podstawiając \(T = 99\) i \(\epsilon = \frac{1}{4}\), wystarczy skonstruować sprzęganie takie, że dla każdego \(x, y \in S\)
+\[\mathbb{P}(X_{99} \neq Y_{99} | X_0 = x, Y_0 = y) \leq \frac{1}{4}\]
+
+Wtedy dostaniemy, że: 
+\(\tau_{\text{mix}} \leq 99\),
+co kończy dowód.
+
+\textbf{Aby móc zastosować lemat, zawuażmy, że:}
+\begin{enumerate}
+    \item Łańcuch Markowa z zadania jest oczywiście skończony (ma 10 stanów)
+    \item Łańcuch jest nieprzywiedlny (z każdego stanu można przejść do każdego innego w skończonej liczbie kroków)
+    \item Łańcuch jest nieokresowy (z $x$ do $x$ można przejść w 10 krokach (10 $\times$ 1) lub 9 krokach (8 $\times$ 1 + 1 $\times$ 2), a $\gcd(9, 10) = 1$)
+\end{enumerate}
+
+\textbf{Konstrukcja sprzęgania:}
+
+Dla dowolnego \(x, y \in \{0, \ldots, 9\}\) definiujemy sprzęganie \(((X_t, Y_t))_{t \in \mathbb{N}}\) łańcucha z zadania, startujące z \((x, y)\):
+\begin{enumerate}
+    \item Dopóki \(X_t \neq Y_t\), łańcuchy poruszają się niezależnie.
+    \item Gdy \(X_t = Y_t\), to łańcuchy poruszają się razem (tzn. \(X_{t+1} = Y_{t+1}\)).
+\end{enumerate}
+
+Zauważmy, że dla dowolnego $t$, jeśli \(X_t \neq Y_t\), to prawdopodobieństwo, że \(X_{t+1} = Y_{t+1}\) wynosi co najmniej \(\frac{1}{36}\).
+
+\textbf{Można to prosto udowodnić:}
+\begin{enumerate}
+    \item Mamy spotkanie, gdy \(X_t + a \equiv Y_t + b \mod 10\), gdzie \(a, b\) to wyniki rzutów kostką.
+    \item Jest to równoważne z \(a - b \equiv Y_t - X_t \mod 10\).
+    \item Różnica \(Y_t - X_t\) może przyjmować wartości od 1 do 9 (bo \(X_t \neq Y_t\)).
+    \item Zbiór możliwych wartości \(a - b\) to \(\{-5, -4, \ldots, 4, 5\} \equiv (\{ 0, 1, \ldots, 9 \})\) (bo \(a, b \in \{1, 2, \ldots, 6\}\)).
+    \item Tak więc dla każdej wartości \(Y_t - X_t\) istnieje para \((a, b)\), która spełnia powyższe równanie.
+\end{enumerate}
+
+\textbf{Zatem, dla dowolnego} \((x, y)\) startowego, mamy, że prawdopodobieństwo, że łańcuchy się nie spotkają po 99 krokach jest ograniczone przez:
+\[\mathbb{P}(X_{99} \neq Y_{99} | X_0 = x, Y_0 = y) \leq (1 - \frac{1}{36})^{99} < \frac{1}{4}\]
+
+Czyli mamy spełnione warunki lematu, a więc \(\tau_{\text{mix}} < 100\).

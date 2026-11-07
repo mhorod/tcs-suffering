@@ -1,0 +1,55 @@
+\section{Zadanie 1 (Mateusz Wojaczek)}
+Niech $P$ będzie macierzą przejścia łańcucha Markowa na skończonej przestrzeni stanów $S$.
+Dla $y \in S$ niech $m_y = \min_{x \in S} P(x,y)$.
+Skonstruować sprzęganie $\bigl( (X_t, Y_t) \bigr)_{t \in \mathbb{N}}$ dwóch łańcuchów Markowa
+z macierzą przejścia $P$ takie, że dla każdego $t \ge 0$ oraz $z \in S$ zachodzi
+\[
+\mathbb{P}(X_t = Y_t = z) \ge m_z.
+\]
+\subsection*{Rozwiązanie}
+Definiujemy
+\[
+m = \sum_{y \in S} m_y.
+\]
+
+Niech $(X_t, Y_t) = (x,y)$.
+Zakładamy, że jeśli łańcuchy się zeszły, to już się nie rozchodzą, tzn.
+\[
+X_t = Y_t \;\Rightarrow\; X_{t+1} = Y_{t+1}.
+\]
+
+W kroku $t \to t+1$ wykonujemy następującą konstrukcję.
+
+Rzucamy monetą. Z prawdopodobieństwem $m$ wypada orzeł. Wtedy
+\[
+X_{t+1} = Y_{t+1} = x',
+\]
+gdzie $x'$ wybieramy losowo z rozkładu
+\[
+\left( \frac{m_i}{m} \right)_{i \in S}.
+\]
+
+Z prawdopodobieństwem $1-m$ wypada reszka. Wtedy:
+\[
+X_{t+1} = x' \quad \text{z rozkładem} \quad
+\left( \frac{P(x,i) - m_i}{1-m} \right)_{i \in S},
+\]
+oraz
+\[
+Y_{t+1} = y' \quad \text{z rozkładem} \quad
+\left( \frac{P(y,i) - m_i}{1-m} \right)_{i \in S}.
+\]
+
+Wówczas dla każdego $z \in S$ mamy
+\[
+\mathbb{P}(X_{t+1} = Y_{t+1} = z)
+\;\ge\;
+m \cdot \frac{m_z}{m}
+=
+m_z.
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{ckd}}
+\]

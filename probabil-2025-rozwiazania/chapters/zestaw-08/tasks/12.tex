@@ -1,0 +1,71 @@
+\section{Zadanie 12 (Aleksander Wieczorek)}
+(krzyżyk Buffona) Na płaszczyznę przeciętą równoległymi liniami o odstępie
+1 rzucono dwie jednostkowe igły sklejone prostopadle środkami. Niech Z będzie liczbą
+przecięć tak utworzonego krzyżyka z liniami. Policz E(Z) i Var(Z).
+
+\subsection*{Rozwiązanie}
+Rozbijmy Z na indykatory:
+$$Z=X_1+X_2$$
+Gdzie $X_1=1$ gdy 1. igła przecina deskę i 0 w p.p. Analogicznie dla $X_2$\\
+Teraz już łatwo policzyć E(Z), bo:
+$$E(Z) = E(X_1)+E(X_2)=P(X_1=1)+P(X_1=1) = 2\cdot \frac{2}{\pi} = \frac{4}{\pi}$$\footnote{Dowód tego, że P(igła przecina deskę)=$\frac{2}{\pi}$ jest poprzednim zadaniem, więc go pominę}
+Wariancję też liczymy wzorem:
+$$Var(Z) = Var(X_1)+Var(X_2)+2Cov(X_1,X_2)$$
+Z własności indykatorów mamy:
+$$Var(X_1)=Var(X_2)=p(1-p)=\frac{2}{\pi}\left(1-\frac{2}{\pi}\right)=\frac{2\pi-4}{\pi^2}$$
+$$Cov(X_1,X_2)=E(X_1X_2)-E(X_1)E(X_2)=P(X_1=1 \cap X_2=1)-\frac{4}{\pi^2}$$
+Teraz niestety musimy rozpatrzeć przypadek gdy obie igły przecinaj deskę jednocześnie. Do tego przyda się rysunek:
+\begin{center}
+
+    \begin{tikzpicture}[scale=1]
+
+        \draw[thick] (-3,-1) -- (-3,7);
+        \draw[thick] (7,-1) -- (7,7);
+
+        \draw[thick] (7,6) -- (3,3) -- (7,3);
+        \draw[thick] (3,3) -- (7,0);
+        \tkzDefPoints{3/3/O,7/6/A,7/3/B,7/0/C};
+        \tkzMarkAngle[size = 2.5, arc=ll](B,O,A);
+        \tkzMarkAngle[size = 2.5, arc=ll](C,O,B);
+        \tkzLabelAngle[dist=1.5](B,O,A){\(\theta\)};
+        \tkzLabelAngle[dist=1.5](C,O,B){\(90-\theta\)};
+        \tkzDefPoint(6,3){X};
+        \tkzLabelPoint[above, black](X){\(x\)};
+
+        \tkzDefPoint(5,4.5){Y};
+        \tkzLabelPoint[above, black](Y){\(y\)};
+
+        \tkzDefPoint(5,1.5){Z};
+        \tkzLabelPoint[below, black](Z){\(z\)};
+        
+        \draw[red,thick,dashed, <->] (-3,6.5) -- (7, 6.5);
+
+        \tkzDefPoint(2,6.5){D};
+        \tkzLabelPoint[above, black](D){\(1\)};
+    \end{tikzpicture}
+\end{center}
+Igły przetną deskę wtw. $y\le\frac{1}{2} \wedge z\le\frac{1}{2}$\\
+Mamy również: $\cos(\theta)=\frac{x}{y}$ oraz $sin(\theta)=\cos(90-\theta)=\frac{x}{z}$
+Po prostym przekształceniu i podstawieniu mamy:
+$$x\le\frac{\cos(\theta)}{2} \wedge x\le\frac{sin(\theta)}{2}$$
+Wystarczy policzyć prawdopodobieństwo, że zmienna X (odległość od deski) jest nie większa niż $\frac{min(sin(\theta),\cos(\theta))}{2}$
+Zauważmy, że to minimum to $sin(\theta)$ dla $0\le \theta\le \frac{\pi}{4}$ oraz $\cos(\theta)$ dla $\frac{\pi}{4}\le \theta\le \frac{\pi}{2}$
+Teraz zapiszmy gęstości X,$\theta$ i ich splotu.\\
+$$f_X(x)=2\text{ dla $x\in (0,\frac{1}{2})$ }\footnote{Dla uproszczenia zapisu poza podanym przedziałem gęstość to 0. Tak samo dla innych gęstości}$$
+$$f_\theta(x)=\frac{2}{\pi}\text{ dla $\theta\in (0,\frac{\pi}{2})$ }$$
+Ponieważ X i $\theta$ niezależne to gęstość ich splot to iloczyn ich gęstości
+$$f_{X\theta}(x)=\frac{4}{\pi}\text{ dla $\theta\in (0,\frac{\pi}{2})$ $x\in (0,\frac{1}{2})$ }$$
+Teraz niestety trzeba policzyć całkę:
+$$E(X_1X_2)=P\left(X\le \frac{min(sin(\theta),\cos(\theta))}{2}\right)=\int_0^\frac{\pi}{4}\int_0^{\frac{sin(\theta)}{2}} f_{X\theta}(x) dxd\theta + \int_\frac{\pi}{4}^\frac{\pi}{2}\int_0^{\frac{\cos(\theta)}{2}} f_{X\theta}(x) dxd\theta=$$
+$$\frac{4}{\pi}\left(\int_0^\frac{\pi}{4}\int_0^{\frac{sin(\theta)}{2}}1 dxd\theta + \int_\frac{\pi}{4}^\frac{\pi}{2}\int_0^{\frac{\cos(\theta)}{2}} 1 dxd\theta \right)=$$
+$$\frac{2}{\pi}\left(\int_0^\frac{\pi}{4}sin(\theta)d\theta + \int_\frac{\pi}{4}^\frac{\pi}{2} \cos(\theta)d\theta \right)=\frac{2}{\pi}(\left[-\cos(\theta)\right]_0^{\pi/4} + \left[sin(\theta)\right]_{\pi/4}^{\pi/2})=$$
+$$\frac{2}{\pi}\left(\frac{-\sqrt{2}}{2}+1 +1 - \frac{-\sqrt{2}}{2}\right)=\frac{4-2\sqrt{2}}{\pi}$$
+Teraz nareszcie możemy wstawić wszystko z powrotem do wzoru:
+$$Cov(X_1,X_2)=\frac{4-2\sqrt{2}}{\pi}-\frac{4}{\pi^2}=\frac{4\pi-2\pi\sqrt{2}-4}{\pi^2}$$
+$$Var(Z)=2\cdot \frac{2\pi-4}{\pi^2} + 2 \cdot\frac{4\pi-2\pi\sqrt{2}-4}{\pi^2}=\frac{12\pi-4\pi\sqrt{2}-16}{\pi^2}$$
+\subsection*{Odpowiedź}
+\[
+\boxed{E(Z) = \frac{4}{\pi} \quad
+Var(Z)=\frac{12\pi-4\pi\sqrt{2}-16}{\pi^2}
+}
+\]

@@ -1,0 +1,41 @@
+\section{Zadanie 5 (Kacper Orszulak)}
+Z kwadratu o boku 1 losujemy jednostajnie punkt $P$. Punkt $P$ wraz z bokami kwadratu tworzy 4 trójkąty. Wyznacz oczekiwane pole największego trójkąta.
+
+\subsection*{Rozwiązanie}
+Niech $P = (X, Y)$, gdzie $X$ i $Y$ są niezależnymi zmiennymi losowymi z rozkładem jednostajnym na przedziale $[0, 1]$.
+\begin{align*}
+\mathbb{E}[A_{max}] &= \mathbb{E}[max(A_1, A_2, A_3, A_4)] \\
+&= \mathbb{E}\left[max\left(\frac{X}{2}, \frac{1-X}{2}, \frac{Y}{2}, \frac{1-Y}{2}\right)\right] \\
+&= \frac{1}{2} \mathbb{E}\left[max\left(X, 1-X, Y, 1-Y\right)\right] \\
+&= \frac{1}{2} \mathbb{E}[\underbrace{max(max(X, 1-X), max(Y, 1-Y))}_Z] \\
+&= \frac{1}{2} \int_{-\infty}^{\infty} t \cdot f_Z(t)dt \\
+&= \frac{1}{2} \int_{\frac{1}{2}}^{1} t \cdot f_Z(t)dt
+    \stepcounter{equation}\tag{\theequation}\label{myeq1}
+\end{align*}
+\begin{align*}
+F_Z(z) &= \mathcal{P}(Z \le z) \\
+&= \mathcal{P}(\underset{\nwarrow \text{ Zmienne niezależne } \nearrow}{\underbrace{max(X, 1-X)} \le z \; \land \; \underbrace{max(Y, 1-Y)}} \le z) \\
+&= \mathcal{P}(max(X, 1-X) \le z) \cdot \mathcal{P}(max(Y, 1-Y) \le z) \\
+&= F_{max(X, 1-X)}(z) \cdot F_{max(Y, 1-Y)}(z)
+    \stepcounter{equation}\tag{\theequation}\label{myeq2}
+\end{align*}
+\begin{align*}
+F_{max(X, 1-X)}(z) &= F_{\frac{1}{2} + \left| X - \frac{1}{2} \right|}(z) = F_{\left| X - \frac{1}{2} \right|}\left(z - \frac{1}{2}\right)\\
+F_{\left| X - \frac{1}{2} \right|}(z) &= \mathcal{P}\left(\left|X-\frac{1}{2}\right| \le z\right) \\
+&= \mathcal{P}\left(\frac{1}{2} - z \le X \le \frac{1}{2} + z\right) \\
+&= \int_{\frac{1}{2} - z}^{\frac{1}{2} + z}f_X(t)dt = 2z
+\end{align*}
+Oczywiście zmienne $X$ oraz $Y$ mają ten sam rozkład, więc podstawiamy wynik pod ~\eqref{myeq2}.
+\begin{align*}
+    F_Z(z) &= \left(2z-1\right)^2 \\
+    f_Z(z) &= F_Z'(z) = 2(2z-1)(2z-1)' = 4(2z-1) = 8z-4
+\end{align*}
+Podstawiamy teraz pod ~\eqref{myeq1}.
+\begin{align*}
+    \mathbb{E}[A_{max}] = \frac{1}{2} \int_{\frac{1}{2}}^{1} t \cdot f_Z(t)dt = \frac{1}{2}  \int_{\frac{1}{2}}^1 t \cdot (8t-4)dt = \frac{1}{2} \int_{\frac{1}{2}}^1 (8t^2-4t) dt = \frac{5}{12}
+\end{align*}
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\frac{5}{12}}
+\]

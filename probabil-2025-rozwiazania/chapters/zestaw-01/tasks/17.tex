@@ -1,0 +1,29 @@
+\section{Zadanie 17}
+n osób $(n \geq 4)$ usiadło formując okrąg. Każda osoba w sposób losowy
+wybrała sąsiada. Jaka jest oczekiwana liczba osób niewybranych przez nikogo? A jaka jest
+odpowiedź jeśli te osoby siedzą w linii (czyli skrajne osoby mają tylko jednego sąsiada)?
+
+\subsection*{Rozwiązanie}
+Najpierw pierwsza część. Niech X - zmienna losowa oznaczająca ilość osób niewybranych przez nikogo. Ponumerujmy osoby na okręgu numerami od 1 do n. Zauważmy, że możemy zapisać:
+\[
+X = \sum\limits_{i=1}^{n} X_i,
+\]
+gdzie $X_i$ przyjmuje wartość 0, jeśli osoba o numerze i została wybrana przez jednego ze swoich sąsiadów, a wartość 1 w przypadku gdy przez żadnego nie została wybrana. Z liniowości wartości oczekiwanej mamy, że:
+\[
+E[X] = E[\sum\limits_{i=1}^{n} X_i] = \sum\limits_{i=1}^{n} E[X_i] = n \cdot \frac{1}{4} = \frac{n}{4}.
+\]
+ponieważ prawdopodobieństwo że dana osoba nie zostanie wybrana wynosi $\frac{1}{4}$ - obaj sąsiedzi musieliby wybrać swoich drugich sąsiadów, a to następuje z prawdopodobieństwem $(\frac{1}{2})^2$.
+
+Druga część analogicznie, z tym że numerując sąsiadów od lewej do prawej zauważmy, że $E[X_1] = E[X_n] = \frac{1}{2}$ oraz $E[X_2] = E[X_{n-1}] = 0$(bo zawsze zostaną wybrani przez osoby skrajne) a poza tym, jak wyżej, dla pozostałych indeksów $E[X_i] = \frac{1}{4}$. Wobec tego:
+\[
+E[X] = E[\sum\limits_{i=3}^{n-2} X_i] + E[X_1] + E[X_n] + E[X_2] + E[X_{n-1}] = \sum\limits_{i=3}^{n-2} E[X_i] + 2E[X_n] + 2E[X_{n-1}]
+\]
+Czyli:
+\[
+E[X] = (n-4) \cdot \frac{1}{4} + 2 \cdot \frac{1}{2} + 2 \cdot 0 = \frac{n}{4}
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Gdy siedzą w kółku } \frac{n}{4}, \text{gdy w linii } \frac{n}{4} }
+\]

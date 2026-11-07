@@ -1,0 +1,41 @@
+\section{Zadanie 4}
+Niech $\Sigma_{\aleph_{0}}$ będzie rodziną wszystkich podzbiorów $\Omega$,
+które albo są co najwyżej przeliczalne, albo ich dopełnienia są co najwyżej przeliczalne. Udowodnij,
+że $\Sigma_{\aleph_{0}}$ jest $\sigma$-algebrą.
+
+\subsection*{Rozwiązanie}
+Sprawdzamy warunki:
+\begin{enumerate}
+    \item $\emptyset, \Omega \in \Sigma_{\aleph_{0}}$
+        \begin{quote}
+            $\emptyset$ - jest co najwyżej przeliczalny, z tego mamy $\emptyset \in \Sigma_{\aleph_{0}}$.
+
+            Dla $\Omega$ mamy, że $\Omega / \Omega = \emptyset$ który jest przeliczalny, stąd $\Omega \in \Sigma_{\aleph_{0}}$.
+        \end{quote}
+    \item Jeśli $E \in \Sigma_{\aleph_{0}}$ to $\Omega/E \in \Sigma_{\aleph_{0}}$
+        \begin{quote}
+            Z tego, że $E \in \Sigma_{\aleph_{0}}$ mamy, $E$ - co najwyżej przeliczalny lub $\Omega/E$ - co najwyżej przeliczalny.
+            \begin{itemize}
+                \item $E$ - co najwyżej przeliczalny, wtedy $\Omega/E \in \Sigma_{\aleph_{0}}$, bo $\Omega/(\Omega/E) = E$ - co najwyżej przeliczalny.
+                \item $\Omega/E$ - co najwyżej przeliczalny, to $\Omega/E \in \Sigma_{\aleph_{0}}$, bo $\Omega/E$ - co najwyżej przeliczalny.
+            \end{itemize}
+        \end{quote}
+    \item Jeśli $E_{1},\dots,E_{n} \in \Sigma_{\aleph_{0}}$, to $\bigcup^{n}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$
+        \begin{quote}
+            \begin{itemize}
+                \item Jeśli $\forall_{i}E_{i}$ - co najwyżej przeliczalny, to $\bigcup^{n}_{i=1}E_{i}$ też co najwyżej przeliczalna, co znaczy, że $\bigcup^{n}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$.
+                \item Niech $E_{x}$ nie będzie co najwyżej przeliczalny, to $\Omega/E_{x}$ jest co najwyżej przeliczalny. $\Omega/\bigcup^{n}_{i=1}E_{i} = \bigcap^{n}_{i=1}\Omega/E_{i} \subset \Omega/E_{x} \implies \bigcap^{n}_{i=1}\Omega/E_{i}$ co najwyżej przeliczalny, stąd $\bigcup^{n}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$.
+            \end{itemize}
+        \end{quote}
+    \item Jeśli $E_{1},\dots,E_{\infty} \in \Sigma_{\aleph_{0}}$, to $\bigcup^{\infty}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$
+        \begin{quote}
+            \begin{itemize}
+                \item Jeśli $\forall_{i}E_{i}$ - co najwyżej przeliczalny, to $\bigcup^{\infty}_{i=1}E_{i}$ też co najwyżej przeliczalna, co znaczy, że $\bigcup^{\infty}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$.
+                \item Niech $E_{x}$ nie będzie co najwyżej przeliczalny, to $\Omega/E_{x}$ jest co najwyżej przeliczalny. $\Omega/\bigcup^{\infty}_{i=1}E_{i} = \bigcap^{\infty}_{i=1}\Omega/E_{i} \subset \Omega/E_{x} \implies \bigcap^{\infty}_{i=1}\Omega/E_{i}$ co najwyżej przeliczalny, stąd $\bigcup^{\infty}_{i=1}E_{i}\in\Sigma_{\aleph_{0}}$.
+            \end{itemize}
+        \end{quote}
+\end{enumerate}
+
+$
+\boxed{\text{}}
+$

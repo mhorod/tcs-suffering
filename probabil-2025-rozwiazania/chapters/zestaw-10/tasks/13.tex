@@ -1,0 +1,106 @@
+\section{Zadanie 13 (Oskar Prusik)}
+Niech \( Y \) będzie zmienną z rozkładu dwumianowego z parametrami \( n = 20 \) oraz \( p = \frac{1}{2} \). 
+Wyznacz \( P(8 \leq Y \leq 10) \) dokładnie. 
+Następnie rozpisz \( Y \) jako sumę indykatorów i wyznacz to samo prawdopodobieństwo 
+za pomocą Centralnego Twierdzenia Granicznego. 
+Różnica pomiędzy tymi dwoma wynikami wynika z faktu, iż przybliżamy rozkład dyskretny 
+z małym \( n \) za pomocą rozkładu ciągłego. 
+Sytuację można poprawić zauważając, że dla \( Y \) zachodzi 
+\( P(8 \leq Y \leq 10) = P(7.5 \leq Y \leq 10.5) \). 
+Wyznacz szukane prawdopodobieństwo po zastosowaniu tej poprawki oraz porównaj otrzymane wyniki numerycznie.
+
+\subsection*{Rozwiązanie}
+	
+	Niech \( Y \sim \mathrm{Bin}\left(n=20, p=\frac12\right) \). Wyznaczamy \( P(8 \le Y \le 10) \).
+	
+	\subsection*{1. Obliczenie dokładne}
+	\[
+	P(Y=k) = \binom{20}{k} \left(\frac12\right)^{20}, \quad k=0,\dots,20
+	\]
+	\[
+	P(8 \le Y \le 10) = \sum_{k=8}^{10} \binom{20}{k} \cdot \frac{1}{2^{20}}
+	\]
+	\[
+	\binom{20}{8}=125970,\ \binom{20}{9}=167960,\ \binom{20}{10}=184756
+	\]
+	\[
+	P_{\text{exact}} = \frac{125970+167960+184756}{2^{20}} = \frac{478686}{1048576} \approx 0.4565
+	\]
+	
+	\subsection*{2. Przybliżenie CTG bez poprawki ciągłości}
+	
+	Niech \( X_1,\dots,X_{20} \) i.i.d., \( X_i \sim \mathrm{Bernoulli}(1/2) \).  
+	Wtedy:
+	\[
+	\mathbb{E}[X_i] = \mu = \frac12,\quad
+	\mathrm{Var}(X_i) = \sigma^2 = \frac14,\quad
+	\sigma = \frac12.
+	\]
+	
+	\[
+	\bar{X}_{20} = \frac{1}{20}\sum_{i=1}^{20} X_i = \frac{Y}{20}
+	\]
+	
+	Z Twierdzenia 15.3.1:
+	\[
+	\lim_{n\to\infty} P\!\left( a \le \frac{\bar{X}_n-\mu}{\sigma/\sqrt{n}} \le b \right) = \Phi(b)-\Phi(a)
+	\]
+	Dla \( n=20 \) stosujemy przybliżenie.
+	
+	Zdarzenie \( \{8 \le Y \le 10\} \) równoważne jest \( \{0.4 \le \bar{X}_{20} \le 0.5\} \).
+	
+	Podstawiamy do wzoru CTG:
+	\[
+	a = \frac{0.4 - \mu}{\sigma/\sqrt{20}} = \frac{0.4 - 0.5}{0.5/\sqrt{20}}
+	\]
+	\[
+	b = \frac{0.5 - \mu}{\sigma/\sqrt{20}} = \frac{0.5 - 0.5}{0.5/\sqrt{20}}
+	\]
+	
+	Obliczamy liczbowo:
+	\[
+	\sigma/\sqrt{20} = 0.5/\sqrt{20} \approx 0.5/4.472136 = 0.1118034
+	\]
+	\[
+	a = \frac{-0.1}{0.1118034} = -0.8944272 \approx -0.8944
+	\]
+	\[
+	b = 0
+	\]
+	
+	Zatem:
+	\[
+	P(8 \le Y \le 10) \approx P(-0.8944 \le Z \le 0),\quad Z\sim N(0,1)
+	\]
+	\[
+	= \Phi(0) - \Phi(-0.8944) \approx 0.5 - 0.1856 = 0.3144
+	\]
+	
+	\subsection*{3. CTG z poprawką ciągłości}
+	
+	Poprawka: \( P(8 \le Y \le 10) = P(7.5 \le Y \le 10.5) \), czyli:
+	\[
+	\left\{ \frac{7.5}{20} \le \bar{X}_{20} \le \frac{10.5}{20} \right\} = \{0.375 \le \bar{X}_{20} \le 0.525\}
+	\]
+	
+	Podstawiamy do wzoru CTG:
+	\[
+	a' = \frac{0.375 - 0.5}{0.5/\sqrt{20}} = \frac{-0.125}{0.1118034} = -1.118034 \approx -1.1180
+	\]
+	\[
+	b' = \frac{0.525 - 0.5}{0.5/\sqrt{20}} = \frac{0.025}{0.1118034} = 0.2236068 \approx 0.2236
+	\]
+	
+	Zatem:
+	\[
+	P(8 \le Y \le 10) \approx P(-1.1180 \le Z \le 0.2236)
+	\]
+	\[
+	= \Phi(0.2236) - \Phi(-1.1180) \approx 0.5885 - 0.1318 = 0.4567
+	\]
+	\subsection*{5. Porównanie}
+	Dokładna wartość: \( 0.4564 \).  
+	CTG bez poprawki: \( 0.3144 \) (błąd \( \approx 0.1420 \)).  
+	CTG z poprawką: \( 0.4567 \) (błąd \( \approx 0.0003 \)).
+	
+	Przybliżenie CTG z poprawką ciągłości daje wynik bardzo bliski dokładnemu.

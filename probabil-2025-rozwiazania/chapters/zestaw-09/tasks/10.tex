@@ -1,0 +1,12 @@
+\section{Zadanie 10 (Kacper Orszulak)}
+Niech X będzie zmienną losową z rozkładu jednostajnego na przedziale $[0, 1]$. Wykaż, że zmienna losowa $-ln\;X$ ma rozkład wykładniczy z parametrem 1.
+
+\subsection*{Rozwiązanie}
+Niech $Y := -ln \; X \iff X = e^{-Y}$. Wtedy
+$$
+F_Y(y) = \mathcal{P}(Y \le y) = \mathcal{P}(-ln\;X \le y) = \mathcal{P}(X \ge e^{-y}) = 1 - \mathcal{P}(X \le e^{-y}) = 1 - F_X(e^{-y}) = 1 - e^{-y}.
+$$
+
+Dla przypomnienia: $Z \sim Exp(\lambda)$ wtw. $F_Z(z) = \begin{cases} 1-e^{-\lambda z},\;x \ge 0 \\ 0, \text{ wpp.}\end{cases}$
+
+Skoro $img\;X = [0, 1]$, to $img\;Y = [0, +\infty)$, a zatem rzeczywiście $Y \sim Exp(1)$. $\hfill \square$

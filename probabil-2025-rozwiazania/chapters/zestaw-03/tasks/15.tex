@@ -1,0 +1,153 @@
+\section{Zadanie 15}
+
+Udowodnij, że jeśli $f, g : \Omega \to \mathbb{C}$ są mierzalne, to
+\[
+\int_E (f + g) \, d\mu = \int_E f \, d\mu + \int_E g \, d\mu.
+\]
+
+\textbf{Wskazówka:}  
+
+Najpierw udowodnij równość dla $f$ i $g$ będących funkcjami schodkowymi.  
+Następnie skorzystaj z twierdzenia o aproksymacji funkcji mierzalnej funkcjami schodkowymi.  
+Przejście od funkcji nieujemnych do funkcji rzeczywistych i zespolonych jest bardzo proste.
+
+\subsection*{Rozwiązanie}
+\textbf{Etap 1: Liniowość całki dla funkcji schodkowych}
+\\
+
+Niech $f, g : \Omega \to \mathbb{C}$ będą funkcjami schodkowymi, tzn.
+\[
+f = \sum_{i=1}^{n} a_i \chi_{A_i}, \qquad
+g = \sum_{j=1}^{m} b_j \chi_{B_j},
+\]
+gdzie $A_i, B_j \subseteq \Omega$ są mierzalnymi i rozłącznymi zbiorami w obrębie $\Omega$, a $a_i, b_j \in \mathbb{C}$.
+
+Wiemy, że
+\[
+(f+g)(x) = f(x) + g(x).
+\]
+Ponieważ $f(x) = a_i$ dla $x \in A_i$, a $g(x) = b_j$ dla $x \in B_j$, otrzymujemy:
+\[
+(f+g)(x) = a_i + b_j \quad \text{dla } x \in A_i \cap B_j.
+\]
+
+Zatem funkcja $f+g$ jest również schodkowa i można ją zapisać jako
+\[
+f + g = \sum_{i=1}^{n} \sum_{j=1}^{m} (a_i + b_j) \chi_{A_i \cap B_j}.
+\]
+
+Z definicji całki dla funkcji schodkowej mamy:
+\[
+\int_E (f+g)\, d\mu = \sum_{i=1}^{n} \sum_{j=1}^{m} (a_i + b_j) \, \mu(E \cap A_i \cap B_j).
+\]
+
+Rozdzielając sumę i korzystając z własności sum:
+\[
+\int_E (f+g)\, d\mu
+= \sum_{i=1}^{n} \sum_{j=1}^{m} a_i \, \mu(E \cap A_i \cap B_j)
++ \sum_{i=1}^{n} \sum_{j=1}^{m} b_j \, \mu(E \cap A_i \cap B_j).
+\]
+
+Korzystając z rozłączności zbiorów $B_j$ i $A_i$, otrzymujemy:
+\[
+\sum_{j=1}^{m} \mu(E \cap A_i \cap B_j) = \mu(E \cap A_i), \qquad
+\sum_{i=1}^{n} \mu(E \cap A_i \cap B_j) = \mu(E \cap B_j),
+\]
+czyli
+\[
+\int_E (f+g)\, d\mu = \sum_{i=1}^{n} a_i \, \mu(E \cap A_i) + \sum_{j=1}^{m} b_j \, \mu(E \cap B_j).
+\]
+
+Z definicji całki funkcji schodkowej mamy wprost:
+\[
+\int_E f \, d\mu = \sum_{i=1}^{n} a_i \, \mu(E \cap A_i), \qquad
+\int_E g \, d\mu = \sum_{j=1}^{m} b_j \, \mu(E \cap B_j),
+\]
+więc wreszcie:
+\[
+\int_E (f+g)\, d\mu = \int_E f\, d\mu + \int_E g\, d\mu.
+\]
+
+\vspace{1em}
+
+\textbf{Etap 2: Liniowość całki dla funkcji mierzalnych nieujemnych}
+\\
+
+Z twierdzenia o aproksymacji funkcji mierzalnej funkcjami schodkowymi, weźmy $S_1, \dots, S_n$ i $T_1, \dots, T_n$ takie, żeby
+\[
+\lim_{n \to \infty} S_n = f, \qquad \lim_{n \to \infty} T_n = g.
+\]
+
+Wtedy
+\[
+\lim_{n \to \infty} (S_n + T_n) = f+g.
+\]
+
+Z liniowości całki dla funkcji schodkowych otrzymujemy dla funkcji nieujemnych mierzalnych:
+\[
+\int_E (f+g) \, d\mu = \lim_{n \to \infty} \int_E (S_n + T_n) \, d\mu 
+= \lim_{n \to \infty} \int_E S_n \, d\mu + \lim_{n \to \infty} \int_E T_n \, d\mu 
+= \int_E f \, d\mu + \int_E g \, d\mu.
+\]
+
+\vspace{1em}
+
+\textbf{Etap 3: Liniowość całki dla funkcji rzeczywistych}
+\\
+
+Rozbijmy
+\[
+f = f_+ - f_-, \qquad g = g_+ - g_-,
+\]
+gdzie
+\[
+f_+ = \max\{0,f\}, \quad f_- = -\min\{0,f\},
+\]
+analogicznie dla funkcji $g$.
+
+Jako że $f_+, f_-, g_+, g_-$ są funkcjami mierzalnymi, nieujemnymi, zastosujemy w dowodzie wynik z Etapu 2:
+\[
+\begin{aligned}
+\int_E (f+g) \, d\mu 
+&= \int_E (f_+ - f_-) + (g_+ - g_-) \, d\mu \\
+&= \int_E (f_+ + g_+) - (f_- + g_-) \, d\mu \\
+&= \int_E (f_+ + g_+) \, d\mu - \int_E (f_- + g_-) \, d\mu \\
+&= \int_E f_+ \, d\mu + \int_E g_+ \, d\mu - \int_E f_- \, d\mu - \int_E g_- \, d\mu \\
+&= \int_E f \, d\mu + \int_E g \, d\mu.
+\end{aligned}
+\]
+
+\vspace{1em}
+
+\textbf{Etap 4: Liniowość całki dla funkcji zespolonych}
+\\
+
+Niech $f, g : \Omega \to \mathbb{C}$ będą funkcjami mierzalnymi.  
+Rozbijamy je na części rzeczywistą i urojoną:
+\[
+f = \Re(f) + i \Im(f), \qquad g = \Re(g) + i \Im(g),
+\]
+gdzie $\Re(f), \Im(f), \Re(g), \Im(g)$ są funkcjami rzeczywistymi mierzalnymi.
+
+Zastosowując liniowość całki dla funkcji rzeczywistych (Etap 3), mamy:
+\[
+\int_E (f+g) \, d\mu = \int_E \big( (\Re(f)+\Re(g)) + i (\Im(f)+\Im(g)) \big) \, d\mu.
+\]
+
+Rozdzielamy całkę na część rzeczywistą i urojoną:
+\[
+\int_E (f+g) \, d\mu = \int_E (\Re(f)+\Re(g)) \, d\mu + i \int_E (\Im(f)+\Im(g)) \, d\mu.
+\]
+
+Korzystając z liniowości całki dla funkcji rzeczywistych:
+\[
+\int_E (\Re(f)+\Re(g)) \, d\mu = \int_E \Re(f) \, d\mu + \int_E \Re(g) \, d\mu, \quad
+\int_E (\Im(f)+\Im(g)) \, d\mu = \int_E \Im(f) \, d\mu + \int_E \Im(g) \, d\mu.
+\]
+
+Łącząc części rzeczywistą i urojoną, otrzymujemy:
+\[
+\int_E (f+g) \, d\mu = (\int_E \Re(f) \, d\mu + i \int_E \Im(f) \, d\mu) + (\int_E \Re(g) \, d\mu + i \int_E \Im(g) \, d\mu) = \int_E f \, d\mu + \int_E g \, d\mu.
+\]
+
+Zatem liniowość całki zachodzi również dla funkcji zespolonych.

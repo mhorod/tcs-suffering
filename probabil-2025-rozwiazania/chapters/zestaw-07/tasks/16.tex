@@ -1,0 +1,85 @@
+\section{Zadanie 16}
+
+Mysz i kot niezależnie od siebie przemieszczają się w sposób losowy po
+spójnym, nieskierowanym i niedwudzielnym grafie G.
+Niech \(n\) = \( |V(G)|, m = |E(G)| \). Pokaż, że \(O(m^2n)\) jest
+ograniczeniem górnym na oczekiwaną liczbę kroków, po której dojdzie do
+spotkania.
+
+\textit{Wskazówka: rozważ łańcuch Markowa na parach indeksów
+\((a, b)\)}
+
+\subsection*{Rozwiązanie}
+
+Oznaczmy wierzchołki i krawędzie naszego grafu \(V\) i \(E\)
+(czyli \(G = (V, E)\)).
+
+Zbudujemy graf \(H = (V_H, E_H)\), gdzie
+\begin{itemize}
+\item \(V_H = V \times V\) - wierzchołek nowego grafu będzie parą
+wierzchołków w oryginalnym grafie
+\item \(E_H = \big\{\{(u, v), (w, t)\} \in \binom{V_H}{2} \colon
+\{u, w\} \in E \land \{v, t\} \in E
+\big\}\)
+\\- krawędź nowego grafu będzie oznaczała, że w grafie \(G\) były takie
+dwie krawędzie, którymi można było przejść z jednej pary wierzchołków
+do drugiej.
+\end{itemize}
+Zauważmy, że spacer losowy w grafie \(H\) jest tym samym co operacja
+z treści zadania.
+Załóżmy, że mysz i kot byli w wierzchołkach \(a\) i \(b\), a po
+ruchu są w \(c\) i \(d\). Szansa na to w oryginalnym grafie to
+\(\frac{1}{d(a)}\cdot\frac{1}{d(b)}\) (z definicji spaceru losowego).
+\\W grafie
+H oznacza to przejście z wierzchołka \((a, b)\) do \((c, d)\),
+czyli szansa była \(\frac{1}{d_H((a,b))}\).\\
+\(d_H((a, b))\) jest liczbą par wierzchołków, do których można się
+dostać z pary \((a, b)\), czyli dokładnie \(d(a)\cdot d(b)\).\\
+Prawdopodobieństwo tych dwóch zdarzeń jest identyczne.
+
+Łatwo zauważyć, że \(|V_H| = |V| \cdot |V| = n^2\)\\
+Trudniej \(|E_H| = \frac{1}{2} \sum_{a, b \in V} d(a)d(b)
+= \frac{1}{2} \sum_{a \in V} d(a) \sum_{b \in V} d(b)
+= \frac{1}{2} \cdot 2m \cdot 2m = 2m^2
+\)
+
+Znajdźmy w grafie \(G\) nieparzysty cykl \(c\)
+(graf nie jest dwudzielny).
+
+Załóżmy, że mysz zaczęła w wierzchołku \(x\), a kot w \(y\).
+
+Niech \(p_1\) oznacza spacer (ścieżkę z możliwymi powtórzeniami)
+długości \(n\) zaczynający się w \(x\) i kończący się w \(c\).
+Taki spacer oczywiście istnieje. W grafie spójnym w co najwyżej
+\(n-1\) krokach można się dostać do dowolnego wierzchołka,
+a następnie można krążyć wokół cyklu.
+
+Analogicznie niech \(p_2\) oznacza spacer z \(x\) do dowolnego
+punktu na \(c\), długości dokładnie \(n\).
+
+Teraz kontynuujmy spacery \(p_1\) i \(p_2\) równocześnie w
+przeciwnych kierunkach wokół cyklu. Po co najwyżej
+\( |c| \leq n \) krokach spacery spotkają się
+(bo \(c\) miał nieparzystą długość)
+
+Znaleźliśmy dwa spacery o równej długości, nie większej niż \(2n\),
+które kończą się w tym samym punkcie.
+Te dwa spacery w grafie \(G\) możemy potraktować jako jeden spacer w
+grafie \(H\), zaczynający się w wierzchołku \((x, y) \in V_H\), a
+kończący się w jakimś \((z, z)\). Oznaczmy go \(p\).
+
+Skorzystamy z lematu z ćwiczeń (\texttt{Lemma 7.14}):
+Dla krawędzi \((u, v)\) mamy \(h_{u, v} + h_{v, u} \leq 2|E|\),
+gdzie \(h_{u, v}\) to oczekiwany czas osiągnięcia wierzchołka \(v\)
+zaczynając w \(u\).\\
+Nam wystarczy \(h_{u, v} \leq 2|E|\).
+
+Będziemy iterować się po krawędziach na ścieżce \(p\) w grafie \(H\).
+Oczekiwany czas przejścia jedną krawędzią jest z lematu
+co najwyżej \(2|E_H|\), a krawędzi jest co najwyżej \(2n\).
+
+\[
+    \mathbb{E}(\texttt{liczba kroków}) \leq |p| \cdot 2|E_H|
+    \leq 2n \cdot 2 \cdot 2m^2 = 8m^2n = O(m^2n)
+    \quad \square
+\]

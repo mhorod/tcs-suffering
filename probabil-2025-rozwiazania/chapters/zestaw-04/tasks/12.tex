@@ -1,0 +1,27 @@
+\section{Zadanie 12}
+Niech $X_1, X_2, \ldots, X_n$ będą niezależnymi zmiennymi losowymi z tego samego rozkładu o skończonej wartości oczekiwanej $\mu$ 
+oraz skonczonym odchyleniu standardowym $\sigma$. Na bazie nierówności Czebyszewa pokaż, że dla kazdego $\epsilon > 0$
+
+$$\lim_{n \to \infty} P\left(\left|\frac{X_1 + X_2 + \ldots + X_n}{n} - \mu\right| > \epsilon\right) = 0$$
+
+\subsection*{Rozwiązanie}
+Zauważmy, że $\frac{X_1 + X_2 + \ldots + X_n}{n}$ jest średnią arytmetyczną zmiennych losowych $X_i$. Zastosujmy nierówność Czebyszewa:
+
+$$P\left(\left|\frac{X_1 + X_2 + \ldots + X_n}{n} - \mu\right| > \epsilon\right) \leq \frac{\text{Var}\left(\frac{X_1 + X_2 + \ldots + X_n}{n}\right)}{\epsilon^2}$$
+
+Obliczmy wariancję średniej:
+
+$$\text{Var}\left(\frac{X_1 + X_2 + \ldots + X_n}{n}\right) = \frac{1}{n^2} \sum_{i=1}^n \text{Var}(X_i) = \frac{\sigma^2}{n}$$
+
+Podstawiając to do nierówności Czebyszewa, otrzymujemy:
+
+$$P\left(\left|\frac{X_1 + X_2 + \ldots + X_n}{n} - \mu\right| > \epsilon\right) \leq \frac{\sigma^2/n}{\epsilon^2} = \frac{\sigma^2}{n\epsilon^2}$$
+
+Zauważmy, że gdy $n \to \infty$, to $\frac{\sigma^2}{n\epsilon^2} \to 0$. Zatem:
+
+$$\lim_{n \to \infty} P\left(\left|\frac{X_1 + X_2 + \ldots + X_n}{n} - \mu\right| > \epsilon\right) = 0$$
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Tak to prawda}}
+\]

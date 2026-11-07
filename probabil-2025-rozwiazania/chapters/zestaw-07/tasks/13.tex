@@ -1,0 +1,83 @@
+\section{Zadanie 13 (Dominik Korsa)}
+Niech \(G\) będzie skończonym grafem z co najmniej jedną krawędzią.
+Rozważmy łańcuch Markowa, gdzie przestrzeń stanów \(\Omega(G)\) jest rodziną
+wszystkich zbiorów niezależnych w \(G\).
+Krok ze stanu \(M_t\) do następnego stanu działa następująco.
+Losujemy jednostajnie \(v \in V(G)\).
+Jeśli \(v \in M_t\) to \(M_{t+1} = M_t \setminus \{v\}\).
+Jeśli \(v \notin M_t\) to próbujemy dodać \(v\) do \(M_t\).
+To znaczy, jeśli \(M_t \cup \{v\}\) jest zbiorem niezależnym w \(G\)
+to \(M_{t+1} = M_t \cup \{v\}\), a w przeciwnym przypadku \(M_{t+1} = M_t\).
+Udowodnij, że ten łańcuch jest nieprzywiedlny, nieokresowy i jego rozkład
+stacjonarny jest jednostajny.
+
+\subsection*{Rozwiązanie}
+Niech \(n = |V(G)|\).
+
+\subsubsection*{Nieprzywiedlność}
+Aby udowodnić nieprzywiedlność tego łańcucha musimy udowodnić, że wszystkie
+pary stanów (zbiorów niezależnych w \(G\)) się wzajemnie komunikują,
+czyli dla każdej pary zbiorów niezależnych \(A, B \subseteq V(G)\)
+istnieje takie \(k\), że \(P_{A,\,B}(k) > 0\).
+
+Niech \(A = \{a_1, a_2, \dots, a_l\}\) i \(B = \{b_1, b_2, \dots, b_m\}\)
+to pewnie zbiory niezależne. Następujący skończony ciąg kroków przechodzi ze
+stanu \(A\) do \(\emptyset\), a następnie do \(B\):
+\begin{itemize}
+  \item Usuń \(a_1\) ze zbioru \(A\). Taki krok jest możliwy, bo zbiór
+  niezależny po usunięciu wierzchołka pozostaje niezależny, i ma
+  prawdopodobieństwo \(n^{-1}\).
+  \item Podobnie usuwaj wierzchołki \(a_2\) do \(a_l\). Po tych krokach jesteśmy
+  w stanie \(\emptyset\).
+  \item Dodaj \(b_1\) do stanu \(\emptyset\). Ten krok ma prawdopodobieństwo
+  \(n^{-1}\)
+  \item Podobnie dodawaj wierzchołki \(b_2, \dots, b_m\). Każdy z takich kroków
+  jest możliwy, bo wszystkie stany są podzbiorami zbioru niezależnego \(B\),
+  więc również są zbiorami niezależnymi.
+\end{itemize}
+Zatem te \(k+l\) kroków, każde o prawdopodobieństwie \(\frac{1}{n}\) wystarcza,
+aby przejść ze stanu \(A\) do \(B\), więc \(P_{A,\,B}(l+m) \geq n^{-(l+m)} > 0\).
+
+\subsubsection*{Nieokresowość}
+Niech \(A\) to maksymalny ze względu na inkluzję zbiór niezależny w \(G\).
+Z treści zadania w \(G\) istnieje przynajmniej jedna krawędź, a skoro \(A\)
+jest zbiorem niezależnym, to któryś z końców tej krawędzi, nazwijmy go \(v\),
+nie należy do \(A\).
+
+Będąc w stanie \(A\) wylosowanie wierzchołka \(v\) spowoduje pozostanie w
+stanie \(A\) (z maksymalności \(A\)), więc: \(P_{A,\,A} \geq n^{-1} > 0\).
+
+Definicja okresu stanu to
+\(\operatorname{o}(v) = \gcd \mathcal{T}(v)\), gdzie
+\(
+  \mathcal{T}(v) = \{ t \in \mathbb{N}_1 \mid P_{v,\,v}(t) > 0 \}
+\).\\
+\(P_{A,\,A} = P_{A,\,A}(1) > 0\), więc \(1 \in \mathcal{T}(v)\), więc
+\(\operatorname{o}(v) = 1\). Z lematu z wykładu:
+\begin{quote}
+  W nieprzywiedlnym łańcuchu Markowa wszystkie stany mają ten sam okres.
+\end{quote}
+W takim razie wszystkie stany mają okres \(1\), zatem łańcuch jest
+\textbf{nieokresowy}.
+
+\subsubsection*{Jednostajność rozkładu stacjonarnego}
+Udowodnijmy, że macierz przejścia \(P\) łańcucha Markowa z zadania jest
+symetryczna, czyli dla każdego \(A, B \in \Omega(G)\) zachodzi
+\(P_{A,\,B} = P_{B,\,A}\).
+
+\begin{itemize}
+  \item Jeżeli \(A = B\) to \textbf{tr.}
+
+  \item Jeżeli \(A\) różni się od \(B\) dokładnie jednym wierzchołkiem,
+  powiedzmy \(B = A \cup \{v\}\), to jedynie wylosowanie \(v\)
+  (z prawdopodobieństwem \(n^{-1}\)) przechodzi między tymi stanami.
+  Skoro \(A\) i \(B\) są zbiorami niezależnymi, to ten krok się udaje.
+  Zachodzi \(P_{A,\,B} = P_{B,\,A} = n^{-1}\).
+
+  \item Jeżeli \(A\) różni się od \(B\) więcej niż jednym wierzchołkiem,
+  to \(P_{A,\,B} = P_{B,\,A} = 0\), bo każdy krok dodaje lub usuwa co najwyżej
+  jeden wierzchołek.
+\end{itemize}
+
+Z \hyperref[set07.task11]{zadania 11} wiemy, że skoro macierz przejścia
+\(P\) jest symetryczna, to rozkład stacjonarny jest rozkładem jednostajnym.

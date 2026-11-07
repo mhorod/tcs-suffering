@@ -1,0 +1,31 @@
+\section{Zadanie 4}
+Załóżmy, że mamy do dyspozycji generator liczb z rozkładu jednostajnego z przedziału $[-1, 1]$.
+Naszym celem będzie wygenerowanie liczb z rozkładu normalnego $N(0,1)$.
+Niech $U,V$ będą wygenerowanymi niezależnie wartościami na $[-1, 1]$.
+Procedura wygląda następująco. Jeśli $U^2+V^2 > 1$, to odrzucamy wynik i próbujemy jeszcze raz.
+W przeciwnym przypadku niech $S = U^2 + V^2$ i niech
+$$X = U\sqrt{\frac{-2 \text{ln}S} {S}}, Y = V\sqrt{\frac{-2 \text{ln}S} {S}}.$$
+Udowodnij, że $X,Y$ są niezależnymi zmiennymi losowymi z rozkładu $N(0,1)$.
+Pamiętaj o wstępnym warunkowaniu! Wskazówka: przeczytaj sekcję $9.5$ w podręczniku.
+
+\subsection*{Rozwiązanie}
+Warunek $U^2+V^2 \le 1$, oznacza że losujemy punktu z koła z równym prawdopodobieństwem.
+Wtedy niech $\frac{U}{\sqrt{S}} = $cos$\alpha$, $\frac{V}{\sqrt{S}} = $sin$\alpha$, z tego mamy:
+$$X = \text{cos}\alpha\sqrt{-2\text{ln}S}, Y = \text{sin}\alpha\sqrt{-2\text{ln}S}$$
+Z tego że losujemy punkty z koła, mamy że $\alpha$ jest niezależna od $S$ oraz ma rozkład jednostajny w $[0, 2\pi]$.
+$$P(S < s) = P(U^2 + V^2 < s) = \frac{\pi s}{\pi} = s$$
+Z tego wynika że $S$ ma rozkład jednostajny w $[0, 1]$.
+
+Niech $X^{\prime}, Y^{\prime}$ - będą niezależnymi zmiennymi z rozkładem $N(0,1)$, wtedy:
+$$F(x^\prime, y^\prime) = \int_{-\infty}^{y^\prime}\int_{-infty}^{x^\prime}\frac{1}{2\pi}e^{-(x^2 + y^2)/2}dxdy$$
+
+Zauważymy że wybieramy punkt na płaszczyźnie, to przejdziemy na współrzędne biegunowe z $R^2 = {X^{\prime}}^2 + {Y^{\prime}}^2$, a $\theta = \tan^{-1}\frac{X^\prime}{Y^\prime}$.
+Wtedy:
+$$ X^\prime = R\cos\theta, Y^\prime = R\sin\theta$$.
+Za pomocom Jacobiana otrzymujemy:
+$$F(r^\prime, \theta^\prime) = \int_{0}^{\theta^\prime}\int_{0}^{r^\prime}\frac{1}{2\pi}e^{-r^2/2}rdrd\theta = \frac{\theta^\prime}{2\pi}(1 - e^{-{r^\prime}^2/2})$$
+Zauważymy że $F(r^\prime, \theta^\prime) = G(r^\prime)H(\theta^\prime)$, gdzie $G(r^\prime) = 1 - e^{-{r^\prime}^2/2}$, $H(\theta^\prime) = \frac{\theta^\prime}{2\pi}$, to oznacza że $R$ oraz $\theta$ są niezależne.
+$$ P(R \ge r^\prime) = e^{-{r^\prime}^2/2}, P(S \ge s) = 1 - s$$
+Podstawimy $\theta = \alpha, R = \sqrt{-2\text{ln}S}$, wtedy:
+$$X^\prime = \text{cos}\alpha\sqrt{-2\text{ln}S}, Y^\prime = \text{sin}\alpha\sqrt{-2\text{ln}S} \implies X^\prime = X, Y^\prime = Y$$
+

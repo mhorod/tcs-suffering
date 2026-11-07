@@ -1,0 +1,227 @@
+\newcommand{\B}{\mathcolor{gray}{B}}
+\newcommand{\C}{\mathcolor{Red}{C}}
+\newcommand{\D}{\mathcolor{Blue}{D}}
+\newcommand{\E}{\mathcolor{YellowOrange}{E}}
+\newcommand{\F}{\mathcolor{Magenta}{F}}
+
+\section{Zadanie 8 (Dominik Korsa)}
+Dostaliśmy od Świętego Mikołaja \(\B\) białych kul, gdzie \(\B\) jest zmienną
+o rozkładzie Poissona z parametrem \(\mu = 2023\).
+
+Każda kula z prawdopodobieństwem \(p\) (\(0 < p < 1\)) jest
+\textcolor{Red}{pomalowana na czerwono} niezależnie od innych kul.
+Niech \(\C\) będzie zmienną losową oznaczającą liczbę czerwonych kul w tym
+momencie.
+
+
+Każda \textcolor{Red}{czerwona kula} z prawdopodobieństwem \(p\) jest
+\textcolor{Blue}{pomalowana na niebiesko}
+niezależnie od innych kul. Niech \(\D\) będzie zmienną losową oznaczającą liczbę
+niebieskich kul w tym momencie.
+
+Każda \textcolor{Blue}{niebieska kula} z prawdopodobieństwem \(p\) jest
+\textcolor{YellowOrange}{pomalowana na żółto}
+niezależnie od innych kul. Niech \(\E\) będzie zmienną losową oznaczającą liczbę
+żółtych kul w tym momencie.
+
+\begin{enumerate}
+  \item\label{set06.task08.1}
+  Dla \(p = \sqrt[3]{1 - \frac{\ln 3}{2023}}\) sprawdź, czy wartość
+  \(P(\B > \E)\) jest większa, mniejsza, czy równa \(\frac{2}{3}\).
+
+  \item\label{set06.task08.2}
+  Dla jakiego \(p\) wartość oczekiwana \(\E\) jest równa \(1\)?
+
+  \item\label{set06.task08.3}
+  Znajdź \(\mathbb{E}[\E \mid \B]\) i \(\mathbb{E}[\B \mid \E]\).
+\end{enumerate}
+
+\subsection*{Rozwiązanie podpunktu \eqref{set06.task08.1}}
+\(P(\B > \E)\) to prawdopodobieństwo zdarzenia, że \textbf{nie wszystkie} kule
+zostały \textcolor{YellowOrange}{pomalowane na żółto} (a więc wcześniej też
+\textcolor{Red}{na czerwono} i \textcolor{Blue}{na niebiesko}).
+
+Policzmy prawdopodobieństwo zdarzenia przeciwnego, czyli \(P(\B = \E)\).
+
+\begin{align*}
+  P(\B = \E)
+  &= \sum_{i = 0}^\infty P(\B = \E \cap \B = i)\\
+  &= \sum_{i = 0}^\infty P(\B = \E \mid \B = i) \cdot P(\B = i)\\
+\end{align*}
+
+W sumowanym wyrażeniu \(P(\B = \E \mid \B = i)\) to prawdopodobieństwo zdarzenia,
+że wszystkie z \(i\) wylosowanych kul zostały pokolorowane
+\textcolor{Red}{na czerwono}, \textcolor{Blue}{na niebiesko}
+i \textcolor{YellowOrange}{na żółto}, więc:
+\[ P(\B = \E \mid \B = i) = p^{3i}. \]
+
+\(B\) ma rozkład Poissona, więc
+\(\displaystyle P(\B = i) = \frac{e^{-\mu} \cdot \mu^i}{i!}\).
+
+\needspace{10ex}
+Podstawmy te wartości w powyższej równości i przekształćmy ją tak, aby po prawej
+stronie znaleźć prawdopodobieństwo wartości w rozkładzie Poissona z parametrem
+\(p^3 \cdot \mu\):
+\begin{align*}
+P(\B = \E)
+  &= \sum_{i = 0}^\infty p^{3i} \cdot \frac{e^{-\mu} \cdot \mu^i}{i!}\\
+  &= \sum_{i = 0}^\infty \frac{e^{-\mu} \cdot (p^3 \cdot \mu)^i}{i!}\\
+  &= \sum_{i = 0}^\infty \frac{e^{-\mu} \cdot e^{(p^3 \cdot \mu)} \cdot e^{-(p^3 \cdot \mu)} \cdot (p^3 \cdot \mu)^i}{i!}\\
+  &= e^{(p^3 - 1)\mu} \cdot \sum_{i = 0}^\infty \frac{e^{-(p^3 \cdot \mu)} \cdot (p^3 \cdot \mu)^i}{i!}\\
+\end{align*}
+
+Powiedzmy, że \(X\) to zmienna losowa o rozkładzie Poissona z parametrem
+\(p^3 \cdot \mu\). Wtedy:
+\[
+  \sum_{i = 0}^\infty \frac{e^{-(p^3 \cdot \mu)} \cdot (p^3 \cdot \mu)^i}{i!}
+  = \sum_{i = 0}^\infty P(X = i) = 1.
+\]
+Mamy więc, że \(P(\B = \E) = e^{(p^3-1)\mu}\).
+Podstawiając wartości z zadania, czyli \(p = \sqrt[3]{1 - \frac{\ln 3}{2023}}\)
+i \(\mu = 2023\), mamy:
+\[
+  P(\B = \E)
+  = e^{\Big(\left(\sqrt[3]{1 - \frac{\ln 3}{2023}}\right)^3-1\Big) \cdot 2023}
+  = e^{-\frac{\ln 3}{2023} \cdot 2023}
+  = e^{- \ln 3}
+  = \frac{1}{3},
+\]
+zatem \(\displaystyle
+P(\B > \E) = 1 - P(\B = \E) = \frac{2}{3}
+\).
+
+\subsection*{Rozwiązanie podpunktu \eqref{set06.task08.2}}
+Intuicyjnym jest, że oczekiwana liczba kul pokolorowanych
+\textcolor{YellowOrange}{na żółto}
+będzie iloczynem oczekiwanej liczby wszystkich kul i prawdopodobieństwa tego,
+że dana kula zostanie pokolorowana na żółto, czyli:
+\(\mathbb{E}[\E] = p^3 \cdot \mathbb{E}[\B]\).
+Poniższy fragment jedynie formalizuje tę intuicję:
+
+\begin{quote}
+  Niech \(\E_j\) to indykator zdarzenia, że \(j\)-ta kula została pomalowana
+  \textcolor{YellowOrange}{na żółto}:
+  \[
+  E[\E_j] = P(\E_j = 1) = p^3.
+  \]
+  W zależności od wartości zmiennej losowej \(\B\):
+  \[
+  \E = \sum_{j = 1}^{\B} \E_j.
+  \]
+
+  Wartość oczekiwana \(E\) to
+  \(\displaystyle
+    \mathbb{E}[\E] = \sum_{i = 0}^{\infty}
+    \Big( \mathbb{E}[\E \mid \B = i] \cdot P(\B = i) \Big)
+  \).\\
+  Obliczmy \(\mathbb{E}[\E \mid \B = i]\):
+  \[
+    \mathbb{E}[\E \mid \B = i]
+    = \mathbb{E}\left[\sum_{j = 1}^{\B} \E_j \mid \B = i\right]
+    % &= \mathbb{E}\left[\sum_{j = 0}^{i} \E_j\right]\\
+    = \sum_{j = 1}^{i} \mathbb{E}\left[\E_j\right]
+    = i \cdot p^3
+  \]
+
+  Podstawiając tę wartość do \(\mathbb{E}[\E]\):
+  \begin{align*}
+    \mathbb{E}[\E]
+    &= \sum_{i = 0}^{\infty}
+    \Big( \mathbb{E}[\E \mid \B = i] \cdot P(\B = i) \Big)\\
+    &= \sum_{i = 0}^{\infty} \Big( i \cdot p^3 \cdot P(\B = i) \Big)\\
+    % &= p^3 \cdot \sum_{i = 0}^{\infty} \Big( i \cdot P(\B = i) \Big)\\
+    &= p^3 \cdot \mathbb{E}[\B]\\
+  \end{align*}
+\end{quote}
+
+\(\B\) jest zmienną losową z rozkładem Poissona, więc jej wartość oczekiwana to
+\(\mathbb{E}[\B] = \mu = 2023\).
+
+Aby \(\mathbb{E}[\E] = 1\):
+\(\displaystyle
+  p^3 = \frac{\mathbb{E}[\E]}{\mathbb{E}[\B]}
+  = \frac{1}{2023}
+\),
+czyli \(\displaystyle
+  p = \frac{1}{\sqrt[3]{2023}}
+\).
+
+\subsection*{Rozwiązanie podpunktu \eqref{set06.task08.3}}
+\subsubsection*{Część pierwsza: \(\mathbb{E}[\E \mid \B]\)}
+\(\mathbb{E}[\E \mid \B]\) jest funkcją
+\(\mathbb{E}[\E \mid \B]\colon \mathbb{R} \to \mathbb{R}\) zdefiniowaną jako:
+\[
+  \mathbb{E}[\E \mid \B](i) := \mathbb{E}[\E \mid \B = i].
+\]
+Wartość \(\mathbb{E}[\E \mid \B = i]\) policzyliśmy już w podpunkcie \eqref{set06.task08.2}.\\
+Dla \(i \in \mathbb{N}\): \(\mathbb{E}[\E \mid \B](i) = i \cdot p^3\),
+dla pozostałych \(i\) \(\mathbb{E}[\E \mid \B](i) = 0\), bo \(P(\B = i) = 0\).
+
+\subsubsection*{Część druga: \(\mathbb{E}[\B \mid \E]\)}
+\(\mathbb{E}[\B \mid \E = i]\) to oczekiwana liczba wszystkich kul zakładając,
+że \(i\) spośród tych kul zostało pokolorowanych \textcolor{YellowOrange}{na żółto}.
+
+Mogłoby się wydawać, że \(\mathbb{E}[\B \mid \E = i] = i \cdot p^{-3}\),
+ale tak nie jest, bo \(\mathbb{E}[\B \mid \E = 0] > 0\).
+
+Przeprowadźmy inne doświadczenie losowe.
+Losujemy niezależnie:
+\begin{itemize}
+  \item Pewną liczbę \(\E\) żółtych kul, gdzie \(\E\) ma rozkład Poissona z
+  parametrem \(\mu_{\E} = \mu \cdot p^3\).
+  \item Pewną liczbę \(\F\) kul w innych kolorach, gdzie \(\F\) ma rozkład
+  Poissona z parametrem \(\mu_{\F} = \mu \cdot (1-p^3)\).
+\end{itemize}
+Zmienna losowa \(\B\) to liczba wszystkich kul, więc \(\B = \E + \F\).
+
+\textbf{Lematu z wykładu}: Suma zmiennych o rozkładzie Poissona z parametrami \(\mu_1\)
+i \(\mu_2\) jest zmienną o rozkładzie Poissona z parametrem \(\mu_1 + \mu_2\).
+
+\textbf{Blef alert}: ,,Utożsamianie zmiennych'' poniżej wymaga lepszego dowodu.
+Używamy tutaj związku zmiennych o rozkładzie Poissona ze zmiennymi o rozkładzie
+dwumianowym, ale ja ten związek niezbyt rozumiem.
+
+Na mocy tego lematu \(\B\) jest zmienną o rozkładzie Poissona z parametrem
+\(\mu_{\E} + \mu_{\F} = \mu\), co zgadza się z \(\B\) z treści zadania
+--- utożsammy te zmienne ze sobą.
+
+Dla ustalonego \(\B\) zmienna \(\E\) ma rozkład dwumianowy z parametrem \(p^3\),
+co również jest zgodne z rozkładem \(\E\) z treści zadania, więc je także możemy
+utożsamić.
+
+\begin{align*}
+  \mathbb{E}[\B \mid \E = i]
+  &= \mathbb{E}[(\E + \F) \mid \E = i]\\
+  &= \mathbb{E}[\E \mid \E = i] + \mathbb{E}[\F \mid \E = i]\\
+  &= i + \mathbb{E}[\F \mid \E = i]\\
+\end{align*}
+Zmienne \(\E\) i \(\F\) są niezależne, więc
+\(\mathbb{E}[\F \mid \E = i] = \mathbb{E}[\F] = \mu_{\F} = \mu \cdot (1 - p^3)\).
+
+\[
+\mathbb{E}[\B \mid \E = i] = i + \mu (1-p^3)
+= i + 2023 \cdot (1-p^3).
+\]
+Ponownie z definicji \(\mathbb{E}[\B \mid \E](i) = \mathbb{E}[\B \mid \E = i]\)
+dostajemy odpowiedź.
+
+\subsection*{Odpowiedź}
+Podpunkt \eqref{set06.task08.1}: \(\boxed{P(\B > \E) = \frac{2}{3}}\).\\
+Podpunkt \eqref{set06.task08.2}: \(\boxed{p = \frac{1}{\sqrt[3]{2023}}}\)\\
+Podpunkt \eqref{set06.task08.3}: \(\boxed{
+  \mathbb{E}[\E \mid \B](\B) = \begin{cases}
+    \B \cdot p^3 &\text{gdy } \B \in \mathbb{N},\\
+    0 & \text{wpp.}
+  \end{cases}
+}\)\\
+oraz \(\boxed{
+  \mathbb{E}[\B \mid \E](\E) = \begin{cases}
+    \E + 2023 \cdot (1-p^3) &\text{gdy } \E \in \mathbb{N},\\
+    0 & \text{wpp.}
+  \end{cases}
+}\)
+
+\undef\B
+\undef\C
+\undef\D
+\undef\E

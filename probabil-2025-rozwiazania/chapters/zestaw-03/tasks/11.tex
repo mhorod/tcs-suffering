@@ -1,0 +1,16 @@
+\section{Zadanie 11}
+Czy złożenie dwóch funkcji mierzalnych jest mierzalne?
+
+\subsection*{Rozwiązanie}
+Niech dane będą \((\Omega_1, \Sigma_1)\), \((\Omega_2, \Sigma_2)\), \((\Omega_3, \Sigma_3)\) oraz funkcje \(f: (\Omega_1, \Sigma_1) \xrightarrow{} (\Omega_2, \Sigma_2)\), \(g: (\Omega_2, \Sigma_2) \xrightarrow{} (\Omega_3, \Sigma_3)\), które są mierzalne.
+
+Dla przypomnienia, funkcja \(h: (\Omega, \Sigma) \xrightarrow{} (\Omega', \Sigma')\) jest mierzalna wtw. gdy \(\forall_{E\in\Sigma'}  h^{-1}(E) \in \Sigma\).
+
+Niech więc \(E \in \Sigma_3\). Z mierzalności \(g\) wiadomo, że \(g^{-1}(E) \in \Sigma_2\). Z tego i z mierzalności \(f\) wiadomo też, że \(f^{-1}(g^{-1}(E)) \in \Sigma_1\).
+
+Pokazaliśmy, że dla każdego \(E \in \Sigma_3\) zachodzi \((g \circ f)^{-1}(E) \in \Sigma_1\), przez co \((g \circ f)\) jest mierzalna.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Tak, złożenie dwóch funkcji mierzalnych jest mierzalne.}}
+\]

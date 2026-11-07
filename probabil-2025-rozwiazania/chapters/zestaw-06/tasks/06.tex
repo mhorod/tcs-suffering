@@ -1,0 +1,154 @@
+\section{Zadanie 6}
+
+Rzucamy \(m\) kul w sposób jednostajny i niezależny do \(n\) urn,
+ponumerowanych \(0, \ldots, n-1\).
+Mówimy, że w indeksie \(i\) jest \(k\)-luka,
+jeśli wszystkie urny o indeksach \(i, i+1, \ldots, i+k-1\) są puste.
+
+\begin{enumerate}[label=(\roman*)]
+  \item Wyznacz wartość oczekiwaną liczby \(k\)-luk.
+  \item Wyznacz nierówność Czernowa dla liczby \(k\)-luk.
+\end{enumerate}
+
+\subsection*{Rozwiązanie (i)}
+Niech indykator \(X_i\) oznacza, czy w miejscu \(i\) mamy \(k\)-lukę,
+czyli \(X_i = 1\) iff wszystkie urny \(i, \ldots, i+k-1\) są puste.
+
+\( E(X_i) = P(X_i = 1) = \left(\frac{n-k}{n}\right)^{m} \)
+- każda z \(m\) kul musiała trafić w inne miejsce
+
+Mamy \((n-k+1)\) możliwych indeksów w których będzie \(k\)-luka -
+\(0, 1, \ldots, n-k\)
+
+Z liniowości wartości oczekiwanej
+\[
+    E\left(\sum_{i=0}^{n-k}X_i\right)
+    = \sum_{i=0}^{n-k}E(X_i)
+    = (n-k+1) E(X_0)
+    = (n-k+1)\left(\frac{n-k}{n}\right)^{m}
+\]
+
+\subsection*{Rozwiązanie (ii)}
+Przyjmijmy kilka oznaczeń.
+
+\(X = \sum_{i=0}^{n-k}X_i\) - liczba \(k\)-luk
+
+\(\mu = E(X) = (n-k+1)\left(\frac{n-k}{n}\right)^{m}\)
+
+\(B = (x_0, x_1, \ldots, x_{n-1})\) - losowa tupla z
+modelu \(n\) urn i \(m\) kul
+
+\(p = (y_0, y_1, \ldots, y_{n-1})\) - niezależne zmienne o rozkładzie
+Poissona z współczynnikiem \(\frac m n\)
+
+Niech \(Z_i^{(a_0, \ldots, a_{n-1})}\) będzie liczbą \(k\)-luk na indeksach
+\(\equiv i\ (\text{mod}\ k)\).
+
+\(Z_i^B\) oraz \(Z_i^p\) będą zmiennymi losowymi, oznaczającymi liczbę
+\(k\)-luk dla tupli z modelu z kulami i z modelu Poissona.
+
+Nasze ograniczenie nie będzie szczególnie dokładne, więc możemy zignorować
+podłogi i sufity i działać bezpośrednio na ułamkach.
+
+Zgodnie z naszymi oznaczeniami:
+
+\[
+Z_i^B = Z_i^{(x_0, \ldots, x_{n-1})}
+= \sum_{j=0}^{\frac{n}{k}} x_{i+jk}
+\]
+\[
+Z_i^p = Z_i^{(y_0, \ldots, y_{n-1})}
+= \sum_{j=0}^{\frac{n}{k}} y_{i+jk}
+\]
+\[
+    E(Z_i^B) = \frac{\mu}{k}
+\]
+
+Ustalmy funkcję g - czy na konkretnym modulo (0 mod k) mamy więcej niż oczekiwane
+\(k\)-luk
+
+\[
+    g((a_0, \ldots, a_{n-1})) = 
+    \begin{cases}
+        1 & Z_0^{((a_0, \ldots, a_{n-1}))} \geqslant (1+\delta)\frac{\mu}k\\
+        0 & \text{wpp}
+    \end{cases}
+\]
+
+Zauważmy, że \(g\) jest monotoniczne - zmniejszając liczbę kul możemy
+jedynie zwiększyć liczbę \(k\)-luk. Z twierdzenia z wykładu dla funkcji
+monotonicznych (\texttt{Theorem 5.10} w P\&C) mamy:
+
+\[
+P\left(Z_0^{B} \geqslant (1+\delta)\frac{\mu}k\right)
+= E(g(x_0, \ldots, x_{n-1}))
+\leqslant E(g(y_0, \ldots, y_{n-1})) \cdot 2
+\]
+
+\(Z_i^{p}\) jest tak skonstruowane, że te \(k\)-luki
+są od siebie niezależne
+ - rozważamy \(k\)-luki na pozycjach modulo \(k\), więc są rozłączne.
+Można traktować \(Z_i^{p}\) jako \(\frac{n}k\) niezależnych
+prób Bernoulliego, a wtedy skorzystać z lematu sprzed kilku zajęć
+(\texttt{Theorem 4.4} w P\&C)
+
+\[
+E(g(y_0, \ldots, y_{n-1}))
+= P\left(Z_0^{p} \geqslant (1+\delta)\frac{\mu}k\right)
+\leqslant e^{\frac{\frac{-\mu}{k}\delta^2}{3}}
+= \exp\left(\frac{\frac{-\mu}{k}\delta^2}{3}\right)
+\]
+
+(od tego miejsca dla czytelności będę pisał \(\exp(t)\) zamiast \(e^t\))
+
+Aby ograniczyć \(X\) (liczbę wszystkich \(k\)-luk) użyjemy upper bounda
+
+\[
+P(X \geqslant (1+\delta)E(X))
+\leqslant P\left(\bigcup_{i=0}^{k-1}
+\left\{Z_i^B \geqslant (1+\delta)\frac{\mu}k \right\}\right)
+\leqslant^{\text{UB}}
+k P\left(Z_0^{B} \geqslant (1+\delta)\frac{\mu}k\right)
+\]
+\[
+\leqslant 2k\cdot P\left(Z_0^{p} \geqslant (1+\delta)\frac{\mu}k\right)
+\leqslant 2k\cdot \exp\left(\frac{\frac{-\mu}{k}\delta^2}{3}\right)
+\]
+
+Licząc lewe ograniczenie postępujemy analogicznie. Warto zwrócić uwagę,
+że w \texttt{Theorem 4.5} mamy inny mianownik w wykładniku
+
+\[
+P(X \leqslant (1-\delta)E(X))
+\leqslant P\left(\bigcup_{i=0}^{k-1}
+\left\{Z_i^B \leqslant (1-\delta)\frac{\mu}k \right\}\right)
+\leqslant^{\text{UB}}
+k P\left(Z_0^{B} \leqslant (1-\delta)\frac{\mu}k\right)
+\]
+\[
+\leqslant 2k\cdot P\left(Z_0^{p} \leqslant (1-\delta)\frac{\mu}k\right)
+\leqslant 2k\cdot \exp\left(\frac{\frac{-\mu}{k}\delta^2}{2}\right)
+\]
+
+{\tiny Notatka od autora:
+Iterowanie się po ułamkach w tym zadaniu jest całkowicie nieformalne.
+Taka jednak metoda została zaprezentowana w czasie zajęć
+i taka będzie oczekiwana, gdyby podobne zadanie ewentualnie pojawiło
+się w czasie kolokwium.}
+
+\subsection*{Odpowiedź}
+\[
+\text{(i)}\quad \boxed{(n-k+1)\left(\frac{n-k}{n}\right)^{m}}
+\]
+\[
+\text{(ii)}\quad \boxed{
+P(X \geqslant (1+\delta)E(X))
+\leqslant 2k\cdot \exp\left(\frac{\frac{-\mu}{k}\delta^2}{3}\right)
+}
+\]
+\[
+\text{(ii)}\quad \boxed{
+P(X \leqslant (1-\delta)E(X))
+\leqslant 2k\cdot \exp\left(\frac{\frac{-\mu}{k}\delta^2}{2}\right)
+}
+\]

@@ -1,0 +1,60 @@
+\section{Zadanie 16}
+Wskaż, jak można wykorzystać eksperyment, w którym rzucamy \(n\)
+razy igłą długości 1 na płaszczyznę z równoległymi liniami narysowanymi
+o odstępach jeden,
+do oszacowania wartości \(\frac{1}{\pi}\). Jak duże powinno być \(n\),
+aby z prawdopodobieństwem \(0.95\) nasze oszacowanie było z~dokładnością
+do \(0.01\)? Skorzystaj z CTG.
+
+\subsection*{Rozwiązanie}
+Nasze zdarzenie to standardowa igła Buffona,
+czyli każdy rzut jest próbą Bernoulliego o prawdopobieństwie
+sukcesu \(\frac{2}{\pi}\).
+
+Wartość oczekiwana sumy tych indykatorów po n próbach jest
+\(E(\sum_{i=1}^n X_i) = \frac{2}{\pi}n\),\\
+a wariancja wyniesie 
+\(Var(\sum_{i=1}^n X_i) = n \cdot \frac{2}{\pi} \cdot
+\left(1-\frac{2}{\pi}\right)\)
+
+Dla średniej mamy: \(E(S) = \frac{2}{\pi}\),
+\(Var(S) = \frac{1}{n} \cdot \frac{2}{\pi} \cdot
+\left(1-\frac{2}{\pi}\right)\)
+
+Zamiast obliczać \(\frac{1}{\pi}\) z dokładnością \(0.01\)
+obliczymy \(\frac{2}{\pi}\) z dokładnością \(0.02\).
+
+Przyjmiemy \(p=\frac{2}{\pi}\), \(\varepsilon = 0.02\)
+
+\[
+    P(p-\varepsilon \leqslant S \leqslant p+\varepsilon)
+    = P(-\varepsilon \leqslant S-p \leqslant \varepsilon)
+\]
+\[G
+    = P\left(
+    -\varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+    \leqslant (S-p) \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+    \leqslant \varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+    \right)
+\]
+
+Kopiując z zadania wyżej (lub sprawdzając w tablicach),\\ widzimy że
+$\Phi(x) \geq 0.975$ dla $x \geq 1.959964$. Czyli 
+\[
+0.02 \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+\geqslant 1.959964 \implies n \geqslant 2222
+\]
+
+Moglibyśmy założyć, że mamy jakąś ograniczoną wiedzę na
+temat \(\pi\) (gdybyśmy znali dokładną wartość \(\pi\), obliczenie
+\(\frac{1}{\pi}\) mogłoby być wykonane prościej).
+
+Wiedząc jedynie, że \(\pi > 2\), dostalibyśmy \(n \geqslant 2401\)
+(pesymistycznym przypadkiem jest tutaj \(\pi = 4\))
+
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{2222}}
+\]

@@ -1,0 +1,26 @@
+\section{Zadanie 4}
+Niech $G$ będzie $n$-wierzchołkowym grafem i niech $k$ będzie dodatnią liczbą całkowitą taką, że
+$$k < \frac{n+2}{\Delta(G)+1}$$
+Rozważa,y łańcuch Markowa, gdzie przestrzeń stanów $\Omega_{k}(G)$ jest rodziną wszystkich $k$-elementowych zbiorów niezależnych w $G$.
+Krok ze stanu $M_{t}$ do następnego stanu działa następująco.
+Losujemy jednostajnie i niezależnie: $v \in M_{t}, w \in V(G)$. Wtedy $M_{t+1}=m(v, w, M_{t})$ czyli:
+jeśli $M_{t}\textbackslash\{v\}\cup\{w\}\in\Omega_{k}(G)$, to $M_{t+1} = M_{t}\\\{v\}\cup\{w\}$; wpp. $M_{t+1} = M_{t}$.
+Udowodnij, że ten łańcuch jest nieprzywiedlny, nieokresowy i jego rozkład stacjonarny jest jednostajny.
+
+\subsection*{Rozwiązanie}
+Do nieprzywiedlność wystarczy pokazać że z $a$ dasię dojść do dowolnego $b$.
+Pokażemy że z $a$ dasię dojść do wierzchołka $c$, który ma więcej wspólnych wierzchołków z $b$.
+Niech $\{x\} \in b$ oraz $\{x\} \notin a$ wtedy dopóki ilość krawędzi od $x$ do wierzchołków z $a$ większa od 1 to zamieniamy dowolny połączony z $x$ na niepołączony$^{*}$.
+Jeśli $\{x\}$ ma dokładnie 1 krawędź do $a$ to zamieniamy po tej krawędzi, jeśli zero to zamieniamy $x$ z dowolnym wierzchołkiem z $a$ którego niema w $b$.
+To zawsze dasię zrobić jeśli $y$ możemy zamienić na dowolny wierzchołek niepołączony z $a\textbackslash{y}\cup{x}$,
+ilość wszystkich wierzchołków w $a\textbackslash{y}\cup{x}$ oraz ich sąsiadów będzie co najwyżej $(\Delta(G)+1)k - 2$, bo będzie co najmniej jedna krawędź w środku.
+$$(\Delta(G)+1)k - 2 < (\Delta(G)+1)\frac{n+2}{\Delta(G)+1} - 2 = n + 2 - 2 = n$$
+Co oznacza że istnieje co najmie jeden taki wierzchołek na który możemy zamienić $y$.
+
+Nieokresowość mamy z tego że da każdego z $a$ mamy pętelkę do $a$ kiedy $v = w$.
+
+Jeśli $a, b \in \Omega_{k}(G)$ i istnieje krawędź z $a$ do $b$, to istnieje krawędź z $b$ do $a$.
+Z tego że istnieje krawędź z $a$ do $b$, mamy że istnieją $v \in a$ oraz $w \in b$, $v, w \in V(G)$, $a\textbackslash\{v\}\cup\{w\} = b$.
+Wtedy zamieniamy $v$ z $w$ miejscami i otrzymujemy krawędź z $b$ do $a$.
+Także każda krawędź która nie jest pętlą ma to same prawdopodobieństwo i ono jest równe $\frac{1}{k}\frac{1}{n}$.
+Z dwóch powyższych faktów dostajemy że jeśli rozkład będzie jednostajny to on przejdzie sam na siębie, co oznacza że on będzie stacjonarnym.

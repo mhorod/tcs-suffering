@@ -1,0 +1,26 @@
+\section{Zadanie 4}
+Niech zmienna losowa $X_{i}^{(m)}$ oznacza liczbę kul w $i$-tym kubełku, przy założeniu, że rzucamy
+$m$ kul do $n$ kubełków w sposób jednostajny i niezależny. Niech zmienne $Y_{1}^{(m)},\dots,Y_{n}^{(m)}$
+będą niezależnymi zmiennymi z rozkładu Poissona o średniej $\frac{m}{n}$. Podczas wykładu widzieliśmy,
+że dla każdej nieujemnej funkcji $f$ zachodzi
+$$E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right) \geqslant E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=m\right).$$
+\begin{enumerate}[label=(\roman*)]
+    \item Pokaż, że jeśli $E(f(X_{1}^{(m)},\dots,X_{n}^{(m)}))$ jest rosnąca względem $m$, to przy założeniu nieujemności $f$ zachodzi:
+$$E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right) \geqslant E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}\geqslant m\right).$$
+    \item Wykaż, że jeśli $E(f(X_{1}^{(m)},\dots,X_{n}^{(m)}))$ jest malejąca względem $m$, t
+$$E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right) \leqslant 2\cdot E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right).$$
+\end{enumerate}
+\subsection*{Rozwiązanie}
+\begin{enumerate}[label=(\roman*)]
+    \item
+$$E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right) = \sum_{k=0}E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)|\sum_{i=1}^{n}Y_{i}=k\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=k\right) =$$
+$$= \sum_{k=0}E\left(f\left(X_{1}^{(k)},\dots,X_{n}^{(k)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=k\right) \geqslant \sum_{k=m}E\left(f\left(X_{1}^{(k)},\dots,X_{n}^{(k)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=k\right)$$
+Z tego że funkcja jest rosnąca mamy że:
+$$\sum_{k=m}E\left(f\left(X_{1}^{(k)},\dots,X_{n}^{(k)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=k\right) \geqslant \sum_{k=m}E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}=k\right) = $$
+$$ = E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}\geqslant m\right)$$
+    \item Tak samo jak w poprzednim możemy udowodnić że
+$$E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right) \geqslant E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right)P\left(\sum_{i=1}^{n}Y_{i}^{(m)}\leqslant m\right)$$
+$$E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right) \leqslant \frac{E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right)}{P\left(\sum_{i=1}^{n}Y_{i}^{(m)}\leqslant m\right)}$$
+$$P\left(\sum_{i=1}^{n}Y_{i}^{(m)}\leqslant m\right) \geqslant \frac{1}{2}$$.
+$$E\left(f\left(X_{1}^{(m)},\dots,X_{n}^{(m)}\right)\right) \leqslant 2E\left(f\left(Y_{1}^{(m)},\dots,Y_{n}^{(m)}\right)\right)$$
+\end{enumerate}

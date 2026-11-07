@@ -1,0 +1,7 @@
+\section{Zadanie 9}
+Udowodnij, że w każdym skończonym łańcuchu Markowa istnieje przynajmniej jedna klasa komunikacji, w której wszystkie stany są istotne.
+
+\subsection*{Rozwiązanie}
+
+Popatrzmy sobie na skierowany graf przejść między stanami. Wiemy, że klasy komunikacji są silie spójnymi składowymi tego grafu. Rozważmy graf po skompresowaniu silnie spójnych składowych. Wiemy, że jest on DAGiem więc możemy go posortować topologicznie. Popatrzmy na ostatnią spójną składową po tym sortowaniu. Nie ma z niej żadnej krawędzi wychodzącej więc z każdego stanu który w niej jest możemy dojść tylko do wierzchołków z tej klasy i z każdego z nich możemy wrócić więc wszystkie stany w tej klasie są istotne.
+

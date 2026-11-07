@@ -1,0 +1,39 @@
+\section{Zadanie 10}
+Rzucamy $n$ razy sprawiedliwą sześciościenną kostką. Podaj jak najmniejszą
+asymptotycznie funkcję $g(n)$ taką, że
+\[
+P\!\left(
+  \text{wypadło w sumie co najmniej } \tfrac{7}{2}\,n + g(n) \text{ oczek}
+\right)
+\le
+\frac{c}{n}
+\]
+dla pewnej stałej $c$.
+
+
+\subsection*{Rozwiązanie}
+$X$ - zmienna losowa ile wypadło oczek \\
+Zauważmy, że\\
+$\mathbb{E}(X) = \frac{7}{2}n$ \\
+Wynika z tego, że \\
+$P(X \geq \frac{7}{2}n + g(n) ) \le \frac{c}{n} \iff P(X - E(X) \geq g(n) ) \leq \frac{c}{n}$ 
+Do tej durgiej formy możemy zastosować nierównoć Hoeffdinga która daje nam, że \\
+$P(X - E(X) \geq g(n) ) \leq exp \left(-\frac{g(n)^2}{n(6 - 1)^5} \right)$
+
+Nierównoś $ \leq \frac{c}{n}$ oznacza, że  exp $\left(-\frac{g(n)^2}{n(6 - 1)^5} \right) $ musi być asymptotycznie mniejszy lub równy $\frac{1}{n}$ by zachodziła. Do tego  $exp \left(-\frac{g(n)^2}{n(6 - 1)^5} \right)$ jest malejący od g(n) więc najmniejsza asymptotycznie funkja $g(n)$ to taka dla której  $exp \left(-\frac{g(n)^2}{n(6 - 1)^5} \right)$ jest największy. Dlatego sprawdzamy dla jakiej funkcji jest on asymptotycznie równy $\frac{1}{n}$.\\
+
+$exp \left(-\frac{g(n)^2}{n(6 - 1)^5} \right) \approx \frac{1}{n}$, bierzemy logarytm stronami\\ 
+
+$\frac{-g(n)^2}{n} \approx -ln(n)$\\
+
+$g(n)^2 \approx n \ ln(n)$
+
+$g(n) \approx \sqrt{n \ ln(n)}$
+
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{$g(n) \approx \sqrt{n \ ln(n)}$
+}}
+\]

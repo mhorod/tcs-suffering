@@ -1,0 +1,149 @@
+\section{Zadanie 5}\label{set09.task05}
+Niech \( X \) oraz \( Y \) będą niezależnymi zmiennymi losowymi z rozkładem wykładniczym z parametrem \( 1 \). Znajdź gęstość i dystrybuantę zmiennej \( Z = X + Y \).
+
+Dalej, niech \( X_1, \dots, X_k \) będą niezależnymi zmiennymi losowymi z rozkładem wykładniczym z parametrem \( \lambda \). Udowodnij, że zmienna losowa \( X_1 + \dots + X_k \) ma rozkład \( \Gamma(k, \lambda) \).
+
+Wykaż to na dwa sposoby:
+\begin{enumerate}
+    \item Dowodząc przez indukcję po \( k \) i licząc wprost gęstość sumy przez konwolucję,
+    \item Porównując funkcje tworzące momenty.
+\end{enumerate}
+
+\subsection*{Rozwiązanie - część 1}
+
+Niech \( X \) i \( Y \) będą niezależnymi zmiennymi losowymi o rozkładzie wykładniczym z parametrem \( 1 \). Ich funkcja gęstości prawdopodobieństwa jest dana wzorem:
+
+\[
+f_X(x) = e^{-x} \quad \text{dla} \quad x \geq 0
+\]
+
+Ponieważ \( X \) i \( Y \) są niezależne, gęstość sumy \( Z = X + Y \) jest konwolucją gęstości \( X \) i \( Y \), czyli:
+
+\[
+f_Z(z) = (f_X * f_Y)(z) = \int_{0}^{z} f_X(x) f_Y(z-x) \, dx
+\]
+
+Ponieważ \( f_X(x) = f_Y(x) = e^{-x} \), mamy:
+
+\[
+f_Z(z) = \int_0^z e^{-x} e^{-(z-x)} \, dx
+\]
+
+Po uproszczeniu:
+
+\[
+f_Z(z) = e^{-z} \int_0^z 1 \, dx = e^{-z} z
+\]
+
+Zatem gęstość prawdopodobieństwa zmiennej \( Z \) wynosi:
+
+\[
+f_Z(z) = z e^{-z} \quad \text{dla} \quad z \geq 0
+\]
+
+Aby znaleźć dystrybuantę \( F_Z(z) \), musimy obliczyć całkę z gęstości:
+
+\[
+F_Z(z) = \int_0^z f_Z(t) \, dt = \int_0^z t e^{-t} \, dt
+\]
+
+Całkę tę obliczamy metodą przez części. Niech:
+
+\[
+u = t \quad \text{oraz} \quad dv = e^{-t} dt
+\]
+
+Wtedy:
+
+\[
+du = dt \quad \text{oraz} \quad v = -e^{-t}
+\]
+
+Zatem:
+
+\[
+\int_0^z t e^{-t} \, dt = \left[ -t e^{-t} \right]_0^z + \int_0^z e^{-t} \, dt
+\]
+
+Po obliczeniu:
+
+\[
+= -z e^{-z} + \left[ -e^{-t} \right]_0^z = -z e^{-z} + (1 - e^{-z})
+\]
+
+Stąd dystrybuanta \( F_Z(z) \) wynosi:
+
+\[
+F_Z(z) = 1 - (z + 1)e^{-z} \quad \text{dla} \quad z \geq 0
+\]
+
+\subsection*{Rozwiązanie - część 2}
+Rozważmy teraz \( k \) niezależnych zmiennych losowych \( X_1, X_2, \dots, X_k \), które mają rozkład wykładniczy z parametrem \( \lambda \), tzn. dla każdej zmiennej \( X_i \):
+
+\[
+f_{X_i}(x) = \lambda e^{-\lambda x} \quad \text{dla} \quad x \geq 0
+\]
+
+Chcemy udowodnić, że suma tych zmiennych, czyli \( S_k = X_1 + X_2 + \dots + X_k \), ma rozkład gamma \( \Gamma(k, \lambda) \). Rozkład gamma ma funkcję gęstości:
+
+\[
+f_S(s) = \frac{\lambda^k s^{k-1} e^{-\lambda s}}{(k-1)!} \quad \text{dla} \quad s \geq 0
+\]
+
+\subsubsection*{Dowód przez indukcję}
+
+\textbf{Krok 1: Podstawowy przypadek \( k = 1 \):}
+
+Jeśli mamy jedną zmienną \( X_1 \) o rozkładzie wykładniczym z parametrem \( \lambda \), to jej gęstość wynosi:
+
+\[
+f_{X_1}(x) = \lambda e^{-\lambda x} \quad \text{dla} \quad x \geq 0
+\]
+
+Jest to dokładnie gęstość rozkładu gamma \( \Gamma(1, \lambda) \).
+
+\textbf{Krok 2: Indukcja:}
+
+Załóżmy, że suma \( S_{k-1} = X_1 + X_2 + \dots + X_{k-1} \) ma rozkład gamma \( \Gamma(k-1, \lambda) \). To oznacza, że:
+
+\[
+f_{S_{k-1}}(s) = \frac{\lambda^{k-1} s^{k-2} e^{-\lambda s}}{(k-2)!} \quad \text{dla} \quad s \geq 0
+\]
+
+Chcemy pokazać, że \( S_k = S_{k-1} + X_k \) ma rozkład gamma \( \Gamma(k, \lambda) \). Ponieważ \( S_{k-1} \) i \( X_k \) są niezależne, gęstość sumy \( S_k \) jest konwolucją gęstości \( f_{S_{k-1}}(s) \) i \( f_{X_k}(x) \):
+
+\[
+f_{S_k}(s) = \int_0^s f_{S_{k-1}}(s - x) f_{X_k}(x) \, dx
+\]
+
+Podstawiając gęstości:
+
+\[
+f_{S_k}(s) = \int_0^s \frac{\lambda^{k-1} (s-x)^{k-2} e^{-\lambda (s-x)}}{(k-2)!} \lambda e^{-\lambda x} \, dx
+\]
+
+
+\[
+f_{S_k}(s) = \frac{\lambda^k e^{-\lambda s}}{(k-2)!} \int_0^s (s-x)^{k-2} \, dx = \frac{\lambda^k e^{-\lambda s}}{(k-2)!} \int_0^s x^{k-2} \, dx
+ = \frac{\lambda^k e^{-\lambda s}}{(k-2)!}\frac{s^{k-1}}{k-1}
+\]
+
+Zatem:
+
+\[
+f_{S_k}(s) = \frac{\lambda^k s^{k-1} e^{-\lambda s}}{(k-1)!}
+\]
+
+Co jest gęstością rozkładu gamma \( \Gamma(k, \lambda) \).
+
+\subsubsection*{Dowód przez funkcję tworząca}
+
+Było na wykładzie i jest już spisane.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{f_Z(z) = z e^{-z}}
+\]
+\[
+\boxed{F_Z(z) = 1 - (z + 1)e^{-z}}
+\]

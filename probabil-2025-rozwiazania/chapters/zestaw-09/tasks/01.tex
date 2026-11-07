@@ -1,0 +1,40 @@
+\textit{Przypominam: Zajęcia grupy 2. 17.12.2025 zaczynają się wyjątkowo o 12:00}
+
+\section{Zadanie 1}
+Udowodnij, że rozkład wykładniczy ma uogólnioną własność
+bez pamięci. To znaczy, jeśli \(X\) jest zmienną o rozkładzie wykładniczym,
+\(Y\) i \(Z\) są zmiennymi o rozkładach ciągłych przyjmującymi
+wartości nieujemne, i \(X, Y, Z\) są niezależne to mamy
+\[ P(X>Y+Z \mid X>Y) = P(X>Z) \]
+
+\subsection*{Rozwiązanie}
+
+Załóżmy, że paramatrem rozkładu \(X\) jest \(\lambda\)
+(\( X \sim \text{Exp}(\lambda)\))
+
+\[
+    P(X>Z) = \int_0^{\infty} f_Z(z) \cdot (1-F_X(z))~dz
+    = \int_0^{\infty} f_Z(z) e^{-\lambda z}~dz
+\]
+--- dla każdego nieujemnego \(z\) rozważamy zdarzenie, że \(X\) jest od niego
+większy.
+
+Rozpisując prawdopodobieństwo warunkowe:
+
+\[
+    P(X>Y+Z \mid X>Y) = \frac{P(X>Y+Z~\land~X>Y)}{P(X>Y)}
+    = \frac{P(X>Y+Z)}{P(X>Y)}
+\]
+\[
+    P(X > Y+Z)
+    = \int_0^{\infty} \int_0^{\infty} f_Y(y) f_Z(z) 
+    \cdot (1-F_X(y+z))~dy~dz
+    = \int_0^{\infty} \int_0^{\infty} f_Y(y) f_Z(z) 
+    e^{-\lambda(y+z)}~dy~dz
+\]
+\[
+    = \int_0^{\infty} f_Y(y) e^{-\lambda y}~dy
+    \int_0^{\infty} f_Z(z) e^{-\lambda z}~dz
+    = P(X>Y) \cdot P(X>Z)
+    \quad \square
+\]

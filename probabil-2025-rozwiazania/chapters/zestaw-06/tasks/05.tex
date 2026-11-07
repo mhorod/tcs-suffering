@@ -1,0 +1,35 @@
+\section{Zadanie 5 (Filip Manijak)}
+Niech $X$ będzie zmienną losową z rozkładu Poissona o wartości oczekiwanej
+$E(X) = \mu$. Zmienna $X$ reprezentuje liczbę błędów w pewnej książce. Każdy błąd jest
+niezależnie od pozostałych błędem gramatycznym z prawdopodobieństwem $p$ albo leksykalnym z prawdopodobieństwem $1-p$. Niech $Y$ określa liczbę błędów gramatycznych, zaś
+$Z$ liczbę błędów leksykalnych ($X = Y + Z$). Pokaż, że $Y$ jest zmienną losową z rozkładu
+Poissona o wartości oczekiwanej $p \mu$, zaś $Z$ jest zmienną losową z rozkładu Poissona o
+wartości oczekiwanej $(1 - p) \mu$. Dodatkowo pokaż, że zmienne $Y$ oraz $Z$ są niezależne.
+
+\subsection*{Rozwiązanie}
+Okej, no to policzmy te rozkłady (policzę $P(Y=k)$, drugi jest anal).
+$$P(Y =k) = \sum_{i=k}^\infty \frac{\mu^i e^{-\mu}}{i!}\binom{i}{k}p^k(1-p)^{i-k}$$
+Czyli, liczymy prawdopdobieństwo że $X = i$ a potem, liczymy jakie jest prawdopodobieństwo że dokładnie $k$ z tych $i$ błedów są naszymi błędami. 
+$$P(Y =k) =\sum_{i=k}^\infty \frac{\mu^i e^{-\mu}}{i!}\binom{i}{k}p^k(1-p)^{i-k} = \frac{e^{-\mu}p^k\mu^k}{k!} \sum_{i=k}^\infty\frac{\mu^{i-k}(1-p)^{i-k}}{(i-k)!} = $$ 
+$$=\frac{e^{-\mu}p^k\mu^k}{k!}  \sum_{n=0}^\infty\frac{(\mu(1-p))^{n}}{(n)!} = \frac{e^{-\mu p} (\mu p)^k}{k!}$$
+Ostatnie przejście, to po prostu zastosowanie wzoru na e. Czyli istotnie $Y$ i analogicznie $Z$ to zmienne z rozkładu Poissona. Zostało jeszcze wykazać że są niezależne. Aby $Y = k$ i $Z = m$, musi być $X = k + m$, zatem:
+$$
+P(Y = k, Z = m) 
+= P(X = k+m) \binom{k+m}{k} p^k (1-p)^m $$$$
+= \frac{e^{-\mu} \mu^{k+m}}{(k+m)!} \binom{k+m}{k} p^k (1-p)^m.
+$$
+Ponieważ $\binom{k+m}{k} = \frac{(k+m)!}{k!\,m!}$, mamy:
+$$
+P(Y = k, Z = m) = e^{-\mu} \frac{\mu^{k+m}}{k!\,m!} p^k (1-p)^m.
+$$
+
+Teraz rozbijmy to na iloczyn dwóch składników:
+$$
+\begin{aligned}
+P(Y = k, Z = m) 
+&= \left( e^{-\mu p} \frac{(\mu p)^k}{k!} \right)
+   \left( e^{-\mu (1-p)} \frac{(\mu (1-p))^m}{m!} \right) \\
+&= P(Y = k) \, P(Z = m).
+\end{aligned}
+$$
+Czyli zmienne są niezależne.

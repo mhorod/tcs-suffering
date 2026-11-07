@@ -1,0 +1,31 @@
+\section{Zadanie 3 (Dominik Korsa)}
+
+Udowodnij, że dla dowolnego ciągu $A_0, A_1$, ... zachodzi:
+
+\[
+    P(\bigcup_{n = 0}^{\infty} A_n) \leq \sum_{n = 0}^{\infty} P(A_n)
+\]
+
+\subsection*{Rozwiązanie}
+Definiujemy nowy ciąg \textbf{rozłącznych zdarzeń}:
+\(\displaystyle
+B_n = A_n \setminus \bigcup_{i = 0}^{n-1} A_i
+\).
+
+Można pokazać, że:
+\(\displaystyle
+\bigcup_{n \in \mathbb{N}} B_n = \bigcup_{n \in \mathbb{N}} A_n
+\).
+
+\begin{align*}
+    P\left(\bigcup_{n \in \mathbb{N}} A_n\right)
+    &= P\left(\bigcup_{n \in \mathbb{N}} B_n\right)\\
+    &= \sum_{n \in \mathbb{N}} P(B_n)\\
+    &\leq \sum_{n \in \mathbb{N}} P(A_n)
+\end{align*}
+Pierwsze przejście mamy z definicji miary probabilistycznej, dzięki temu że
+zdarzenia w rodzinie \(\{B_n\}\) są parami rozłączne.
+
+Nierówność mamy, bo dla każdego $n \in \mathbb{N}$ mamy $B_n \subseteq A_n$, więc $P(B_n) \leq P(A_n)$.
+
+Otrzymana nierówność kończy dowód.

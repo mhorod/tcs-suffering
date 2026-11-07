@@ -1,0 +1,49 @@
+\section{Zadanie 12}
+Dla jakiego $p \in [0,1]$ oczekiwana liczba kopii podgrafu indukowanego $K_{3,3}$
+w grafie $G$ wylosowanym z modelu $G_{n,p}$ (definicja w książce) jest największa?
+Możesz założyć, że $n$ jest wystarczająco duże, wynik może zależeć od $n$.
+
+\subsection*{Rozwiązanie}
+Niech $G \sim G_{n,p}$ będzie grafem losowym w modelu Erdősa–Rényiego, tzn. grafem prostym o $n$ wierzchołkach, w którym każda z $\binom{n}{2}$ możliwych krawędzi jest niezależnie obecna z prawdopodobieństwem $p \in [0,1]$.
+
+Oznaczmy przez $X$ liczbę kopii podgrafu indukowanego izomorficznego z $K_{3,3}$ w $G$. Dla ustalonego zbioru 6 wierzchołków, prawdopodobieństwo, że podgraf indukowany na nich jest dokładnie $K_{3,3}$, wynosi
+\[
+p^9 (1-p)^6,
+\]
+ponieważ $K_{3,3}$ ma 9 krawędzi (między częściami dwudzielnymi) i 6 niekrawędzi (wewnątrz części).
+
+Liczba różnych uporządkowanych podziałów 6 wierzchołków na dwie trójki wynosi
+\[
+\binom{n}{3}\binom{n-3}{3},
+\]
+ale każda nieuporządkowana kopia $K_{3,3}$ jest liczona dwa razy (zamiana części), więc
+\[
+\mathbb{E}X = \frac{1}{2} \binom{n}{3}\binom{n-3}{3} \, p^9 (1-p)^6
+= 10 \binom{n}{6} \, p^9 (1-p)^6.
+\]
+
+Dla ustalonego $n$ maksymalizujemy funkcję
+\[
+f(p) = p^9 (1-p)^6.
+\]
+Licząc pochodną logarytmu:
+\[
+\frac{d}{dp} \ln f(p) = \frac{9}{p} - \frac{6}{1-p} = 0
+\quad \Longrightarrow \quad 9(1-p) = 6p \quad \Longrightarrow \quad p = \frac{3}{5}.
+\]
+
+Zatem oczekiwana liczba kopii indukowanego $K_{3,3}$ w grafie $G_{n,p}$ jest największa dla
+\[
+p = \frac{3}{5}.
+\]
+
+Wartość maksymalna to
+\[
+\mathbb{E}X_{\max} = 10 \binom{n}{6} \left(\frac{3}{5}\right)^9 \left(\frac{2}{5}\right)^6.
+\]
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{p = \frac{3}{5}}
+\]

@@ -1,0 +1,18 @@
+\section{Zadanie 4}
+Zmienna losowa $X$ jest skoncentrowana na zbiorze $D$, jeśli $P(X \in D) = 1$. Mówimy, że zmienna losowa $X$ skoncentrowana na $\mathbb{N}$ jest bez pamięci jeśli dla każdego $m, n \in N$ mamy 
+
+\[
+    P(X > n) > 0 \text{ oraz } P(X = m + n |  X > n).
+\]
+Wykaż, że jeśli X jest bez pamięci to $X$ ma rozkład geometycznych.
+
+\subsection*{Rozwiązanie}
+Naszym celem, jest pokazanie, że $X$ ma rozkład geomentryczny. Dowiedziemy to, przez sprawdzenie ilorazu $\frac{P(N+1)}{P(N)}$.
+
+\[
+    \frac{P(x=N+1)}{x=P(N)} = \frac{P(x=N+1)}{P(x=N+1 | x > 1)} =  \frac{P(x=N+1) \cdot P(x > 1)}{P(x = N+1 \wedge x > 1)} =
+\]
+\[
+    \frac{P(x=N+1) \cdot P(x > 1)}{P(x=N+1)} = P(x > 1) = 1 - P(x = 1)
+\]
+Z tego wyszło, że kolejny element jest poprzednim przemonożonym przez $1 - P(x = 1)$. Także z tego można wywniskować, że $P(X = n) = (1-P(X=1))^{n-1} \cdot P(X = 1)$. Co jest definicją rozkładu geometrycznego.  

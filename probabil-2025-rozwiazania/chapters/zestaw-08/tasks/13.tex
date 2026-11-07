@@ -1,0 +1,52 @@
+\section{Zadanie 13}
+
+Wybierz punkt $X$ w sposób losowy i jednostajny z okręgu $O$ o średnicy 1 i o środku w punkcie (0, 10). Rozważ średnicę $O$ o końcu w punkcie $X$. Jaka jest oczekiwana długość projekcji tej średnicy na oś $OX$.
+
+\subsection*{Rozwiązanie}
+
+Fakt 1:
+
+Położenie środka nie ma znaczenia, ponieważ długość projekcji, zależy tylko do średnicy i jest one relatywne względem środka.
+
+Fakt 2
+
+Jeśli $X$ jest na dolnej połówce, to można go zmainić, na symetryczny $X$ na górnej połówce, co pokazuję, że wystarczy obliczyć dla X w górnej połówce razy 2.
+
+Fakt 3:
+
+Z pozostałych ćwiartek, wystarczy wziąść lewą ćwiartkę i ze względu na symetryzm da nam to dobry wynik.
+
+
+Teraz obliczemy Dystrybuante zmiennej $X$. dla danego $x$. PRzypomniejmy, że $F(x) = P(X < x)$. W sumie bardziej będzie nas intersowało obliczyć dopełnienie $F(X)$ (bo jest łatwiej policzyć, a 1 zniknie i tak przy pochodnej). 
+
+Żeby policzyć $1 - F(x)$ patrzymy trygonometrycznie, na kąt $\alpha$, między średnicą $O$, a jej projekcją. 
+
+\[
+    cos(\alpha) = \frac{x}{\frac{1}{2}} = 2 \cdot x
+\]
+\[
+    \alpha = arccos(2x)
+\]
+Możemy zauważyć, że prawdopodobieńwo, że $X$ jest większe niż $x$ jest równe ułamkowii $\frac{\alpha}{\frac{2}{\pi}}$
+
+\[
+    1 - F(X) =  \frac{\alpha}{\frac{\pi}{2}} = \frac{\alpha \cdot 2}{\pi} = \frac{arccos(2x) \cdot 2}{\pi}
+\]
+\[
+    F(X) = 1 - \frac{arccos(2x) \cdot 2}{\pi}
+\]
+\[
+    f(X) = F(X)' = \frac{4}{\pi} \cdot \frac{1}{\sqrt{1 - 4 x^2}}
+\]
+\[
+    E[X] = \int_{0}^{\frac{1}{2}} x \cdot f(x)\,dx = \frac{4}{\pi} \int_{0}^{\frac{1}{2}} x \cdot \frac{1}{\sqrt{1 - 4x^2}} = [t = 1 - 4x^2, dt = -8x\,dt] = 
+\]
+\[
+    E[X] = \frac{4}{\pi} \cdot \int_{1}^{0} \frac{1}{\sqrt{t}} \cdot \frac{-1}{8}\,dt = \frac{1}{2 \pi} \cdot \int_{0}^{1} \frac{1}{\sqrt{t}}\,dt = \frac{1}{2 \pi} \cdot (2 \cdot 1 - 2 \cdot 0) = \frac{1}{2 \pi} \cdot 2 = \frac{1}{\pi}
+\]
+
+Pamiętajmy, jeszcze, że musimy $E(x)$ pomnożyć razy $2$, więc:
+\[
+    E(X) = 2 \cdot \frac{1}{\pi} = \frac{2}{\pi}
+\]
+

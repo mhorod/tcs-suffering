@@ -1,0 +1,27 @@
+\section{Zadanie 18}
+Graf $L_n$ nazywamy lizakiem i zdefiniowany jest następująco (niech $n$ będzie parzyste). Wierzchołki $\{1, ... , n/2\}$ tworzą klikę $K_{n/2}$, niech $u$ będzie jednym z wierzhołków tej kliki. Pozostałe $n/2$ w połączeniu z $u$ tworzą ściężkę indukowaną na $n/2+1$ wierzchołkach. Niech $v$ będzie najbardziej odległym od kliki wierzchołkiem należącym do ścieżki (jedyny wierzchołek w lizaku o stopniu 1). Pokaż, że oczekiwany czas odwiedzenia wszystkich wierzcołków lizaka podczas spaceru wynosi:
+
+(I) $\theta (n^2)$, przy założeniu, że startujemy w $v$.
+
+(II) $\theta (n^3)$, przy założeniu, że startujemy w $u$.
+
+\subsection*{Rozwiązanie}
+
+Info na start, w dalszych rozważań, nie będę uwzględniał stałych prz n, więc na przykład, pomimo, że klika ma rozmiar $\frac{n}{2}$, to bedę mówił, że ma rozmiar $n$. Ponieważ, intersuję nas tylko $\theta$, to można tak zrobić.
+
+(I) Podzielmy sobie problem, na przejście z $v$ do $u$, a potem zrobienie pozostałych wierzchołków z kliki zaczynając z $u$.
+
+Przejście z $v$ do $u$, możemy traktować jako jako spacer losowy z dwoma barierami. Najpierw idziemy do sąsiada $v$, a potem z prawdopodobieństwiem $\frac{1}{n}$, pójścia do $u$. Oznacza, to, że oczekujemy, że $n$ razy wrócimy do $v$, zanim dojdziemy do $u$. Ponieważ każdy spacer ma oczekiwaną liczbę ruchów równą $n$, to oczekiwana liczba ruchów z dojścia z $v$ do $u$ to $n * n = n^2$.
+
+Teraz zauważamy, że chodzenie po klice, by zaliczyć wszystkie wierzchołki, jest izomorficzne z problemem kolekcjonera kuponów. (Tutaj z gwazdką, ponieważ, nie ma szansy na powrót do tego samego kuponu, ale to tylko polepsza złożoność, a pesymistyczną $n^2$, dostaliśmy już wcześniej). Wiemy, że potrzbujemy w oczekiwaniu $n log n$ ruchów, by zaliczyć wszystkie wierzchołki.
+
+Tutaj warto dodać jeszcze jedną stało. Za każdym razme, kiedy robimy coś coś w kolekcjonerze kuponów, jest szansa, że będąc w $u$ przejdziemy na ścieżkę. Będąc w $u$ ta szansa, żeby przejść na ścieżkę to $\frac{1}{n}$, natomiast, łatwo zauważyć, że po pewnym szansie szansa, że w kuponach będziemy w $u$ to też $\frac{1}{n}$. Wiec możemy powiedzieć, że prawdopodobieństwo wejścia na ścieżkę  jest równe $\frac{1}{n^2}$, co daje nam oczekiwaną liczbę pójść na ścieżkę jako stałą, o na lepszej expected wartości niż przejście z $v$ do $u$.
+
+Suma kosztów wychodzi $\theta(n^2)$
+
+(II) Teraz zobaczmy co się dzieje jeśli zaczynamy od $u$. W klicę to nadal oczekiwana wartośc ruchów to $n*log(n)$.
+
+Natomiast ciekawsze jest jaka jest szansa na dojście do $v$. Wejście na ścieżkę ma prawdopodobieństwo $\frac{1}{n^2}$ (wyżej opisane). Żeby dojść do $v$ szansa jest $\frac{1}{n}$ (symetryczność z przypadkiem $v->u$). Więc potrzebujemy $n^3$ ruchów w klice i $n$ razy pójścia po ścieżce(gdzie każde przejście kosztuje $n$ ruchów). 
+
+$n^3$ ruchów w klidze majoryzuje wsyztskie pozostałe wydatki ruchów, więc koszt ruchów, przed oczekianych odwiedzeniem wszystkch wierzchołków to $n^3$.
+

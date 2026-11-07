@@ -1,0 +1,12 @@
+\section{Zadanie 5 (Filip Manijak)}
+Podaj przykład zdarzeń $X, Y, Z$, takich że każde dwa są niezależne, ale cała trójka nie jest niezależna. Podaj przykład $n+1$ zdarzeń takich, że każde $n$ z nich są niezależne, ale wszystkie $n+1$ są zależne.
+
+\subsection*{Rozwiązanie}
+Przykład dla 3: 
+Mamy zdarzenia elementarne (równie prawdopodobne i niezależne) $A_1, A_2, A_3, A_4$. Wtedy: 
+$$X = A_1 \cup A_2; Y = A_1 \cup A_3; Z = A_1 \cup A_3$$
+Widzimy, że prawdopodobieństwo $P(X)=P(Y)=P(Z) = 0.5$, oraz prawdopodobieństwa $P(X \cap Y) = P(Z \cap X)= P(Y \cap Z) = 0.25 = P(X) \cdot P(Y)$, czyli działa. Jednak $P(X\cap Y \cap Z) = 0.25 \neq (0.5)^3$.
+
+Przykład dla $n+1$
+Jako przestrzeń zdarzeń elementarnych bierzemy punkty kostki $\{0,1\}^n$. Teraz definiujemy zdarzenia:
+$X_1, ... X_n$ jako zdarzenia zachodzące, gdy punkt ma $i$-tą współrzędną równą 1, oraz $Y$ jako zachodzące jeżeli suma współrzędnych jest parzysta. Łatwo zauważyć że $P(X_1 \cap ...\cap X_n) = P(X_1) \cdot ... \cdot P(X_n)$ oraz że prawdopodobieństwo każdego podzbioru $n-1$ $X$-ów ($Z$) i $Y$ też spełnia: $P(Z \cap Y) = P(Z)\cdot P(Y)$. Jednak prawdopodobieństwo wszystkiego razem: $P(X_1 \cap ...\cap X_n \cap Y) \neq (0.5)^{n+1}$ ponieważ w świecie zawierającym $2^n$ elementów (równieprawdopodobnych!!!) żadne zdarzenie nie może mieć takie prawdopodobieństwa (gdyby miało, to $P(\Omega) \leq P(X_1 \cap ...\cap X_n \cap Y)*2^n = 0.5 \neq 1$ (z prawdopodobieństwa sumy).

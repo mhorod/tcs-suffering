@@ -1,0 +1,89 @@
+\section{Zadanie 10 (Kacper Orszulak)}
+Algorytm bąbelkowy sortowania przegląda podaną na wejściu permutację i odwraca sąsiadujące elementy bądace w inwersji. Przejścia wzdłuż permutacji są powtarzane tak długo, aż permutacja jest posortowana. Załóż, że podajemy temu algorytmowi losowo wybraną permutację zbioru $[n]$. Jaka jest oczekiwana liczba inwersji, którą odwróci algorytm podczas swojego działania. Jaka jest wariancja? Za pomocą nierówności Czebyszewa pokaż, że algorytm sortowania bąbelkowego wykonuje prawie zawsze liczbę kroków rzędu $\Omega(n^2)$.
+
+\subsection*{Rozwiązanie}
+
+\subsubsection*{Wstęp}
+Zamiana miejscami dwóch sąsiednich elementów będących w inwersji zmniejsza ogólną liczbę inwersji dokładnie o jeden. Z tego powodu liczba zamian w algorytmie jest równa liczbie inwersji w wejściowej permutacji. W zadaniu będziemy zatem analizować własności zmiennej losowej $X$ będącą liczbą inwersji wylosowanej permutacji.
+
+Niech $X_{ij}$ to indykator tego, czy dla $i < j$ zachodzi $\sigma(i) > \sigma(j)$. Oczywiście $X = \sum_{1 \le i < j \le n} X_{ij}$.
+
+Zachodzi $\mathcal{P}(X_{ij} = 1) = \frac{n(n-1)/2}{n(n-1)} = \frac{1}{2}$.
+
+Ponadto dla indykatorów zachodzi $\mathbb{E}(X_{ij}^2) = \mathbb{E}(X_{ij}) = \mathcal{P}(X_{ij} = 1)$. Zatem $Var(X_{ij}) = \frac{1}{4}$.
+
+\subsubsection*{Wartość oczekiwana liczby zamian}
+\[
+    \mathbb{E}(X) = \sum_{1 \le i < j \le n} \mathbb{E}(X_{ij}) = \sum_{1 \le i < j \le n} \mathcal{P}(X_{ij} = 1) = \binom{n}{2} \cdot \frac{1}{2} = \frac{n(n-1)}{4}
+\]
+
+\subsubsection*{Wariancja liczby zamian}
+
+\textbf{Lemat.} \textit{Wariancja sumy $n$ zmiennych losowych.}
+\[
+    Var\left(\sum_{i \in [n]} X_{i}\right) = \sum_{i \in [n]} Var(X_i) + 2 \sum_{\{i, j\} \in \binom{[n]}{2}} Cov(X_i, X_j)
+\]
+\textbf{Dowód.} \textit{Pozostawiam jako ćwiczenie dla czytelnika ;).}
+
+Wracając do zadania:
+
+\[
+    Var(X) = Var\left(\sum_{\{i,j\} \in \binom{[n]}{2}} X_{ij}\right) = \sum_{\{i,j\} \in \binom{[n]}{2}} Var(X_{ij}) + 2 \sum_{\{\{i,j\}, \{k,l\}\} \in \binom{\binom{[n]}{2}}{2}} Cov(X_{ij}, X_{kl})
+\]
+
+Zastanówmy się teraz jak obliczyć sumę kowariancji.
+
+Jeżeli rozważymy składnik taki, że $i, j, k, l$ są parami różne, to dostaniemy zmienne $X_{ij}, X_{kl}$, które na pewno są niezależne, ponieważ nierówność $\sigma(i) \substack{<\\ >} \sigma(j)$ nie wpływa na nierówność $\sigma(k) \substack{<\\ >} \sigma(l)$. Oznacza to, że $Cov(X_{ij}, X_{kl}) = 0$.
+
+Nie może się zdarzyć, że $i = j = k = l$, ponieważ $\{i, i\} = \{i\} \not \in \binom{[n]}{2}$.
+
+Analogicznie nie może zajść, że $i = j \; \lor \; k = l$. Nie może też zajść $i = k \; \land \; j = l$.
+
+Pozostaje nam zatem rozważyć tylko przypadek, że $|\{i, j, k, l\}| = 3$.
+
+Niech zatem $\{p, q, r\} \in \binom{[n]}{3}$ takie że $p < q < r$. BSO załóżmy, że $i < j \; \land \; k < l$ oraz $(i, j) \overset{\text{leksykograficznie}}{<} (k, l)$.
+
+Oto składniki, których jeszcze nie rozważyliśmy:
+\[
+    Cov(X_{pq}, X_{pr}) + Cov(X_{pr}, X_{qr}) + Cov(X_{pq}, X_{qr})
+\]
+
+Wiemy, że $Cov(X, Y) = \mathbb{E}(XY) - \mathbb{E}(X)\mathbb{E}(Y)$ \footnote{Na wykładzie i w P\&C chyba nie ma tego wzoru, ale jest powszechnie znany.}. Jedyne czego jeszcze nie wiemy zatem, to wartości oczekiwane iloczynów zmiennych losowych. Każdy iloczyn indykatorów, to też indykator, a więc wystarczy policzyć tylko prawdopodobieństwa postaci $\mathcal{P}(X_{ij}X_{kl} = 1) = \mathcal{P}(X_{ij} = 1 \land X_{kl} = 1)$.
+
+$\mathcal{P}(X_{pq} = 1 \land X_{pr} = 1) = P\left(\left\{\substack{\sigma_p > \sigma_q\\ \sigma_p > \sigma_r} \right. \right) = \frac{1}{3}$, ponieważ jest $\frac{2!}{3!}$ permutacji, w których $\sigma_p$ jest największe. Zatem $Cov(X_{pq}, X_{qr}) = \frac{1}{3} - \frac{1}{4} = \frac{1}{12}$.
+
+$\mathcal{P}(X_{pr} = 1 \land X_{qr} = 1) = P\left(\left\{\substack{\sigma_p > \sigma_r\\ \sigma_q > \sigma_r} \right. \right) = \frac{1}{3}$, ponieważ jest $\frac{2!}{3!}$ permutacji, w których $\sigma_r$ jest najmniejsze. Zatem $Cov(X_{pr}, X_{qr}) = \frac{1}{3} - \frac{1}{4} = \frac{1}{12}$.
+
+$\mathcal{P}(X_{pq} = 1 \land X_{qr} = 1) = P\left(\sigma_p > \sigma_q > \sigma_r \right) = \frac{1}{6} = \frac{1}{3!}$, ponieważ nie mamy żadnej swobody w permutacji trzyelementowej. Zatem $Cov(X_{pq}, X_{qr}) = \frac{1}{6} - \frac{1}{4} = -\frac{1}{12}$.
+
+Dokończymy obliczenia:
+\[
+    Var(X) = \binom{n}{2} \cdot \frac{1}{4} + 2 \cdot \binom{n}{3} \cdot \left(\frac{1}{12} + \frac{1}{12} - \frac{1}{12}\right) = \frac{n(n-1)(2n+5)}{72}
+\]
+
+\subsubsection*{Prawdopodobieństwo odchyłu}
+\textbf{Twierdzenie.} \textit{Nierówność Czebyszewa} Dla dowolnego $a > 0$
+\[
+    \mathcal{P}(|X - \mathbb{E}[X]| \ge a) \le \frac{Var[X]}{a^2}
+\]
+
+Niech $\mu := \mathbb{E}[X]$, $\alpha \in (0; 1)$ oraz $a := (1 - \alpha)\mu$.
+
+Policzmy prawdopodobieństwo, że liczba inwersji jest co najwyżej $O(n^2)$.
+\begin{align*}
+    \mathcal{P}(X = O(n^2)) &= \mathcal{P}(X \le \alpha \mu) = \mathcal{P}(\mu - X \ge (1 - \alpha) \mu) = \\
+    &= \mathcal{P}(\mu - X \ge a) \le \mathcal{P}(\left|X - \mu\right| \ge a) \\
+    &\le \frac{Var[X]}{(1-\alpha)^2\mu^2} = \frac{8}{9} \frac{2n+5}{n(n-1)} \frac{1}{(1-\alpha)^2} \\
+    &\xrightarrow[n\to\infty]{} 0
+\end{align*}
+
+Zatem
+\[
+    \mathcal{P}(X = \Omega(n^2)) = 1 - \mathcal{P}(X = O(n^2)) \xrightarrow[n\to\infty]{} 1 - 0 = 1
+\]
+Dostajemy więc szukaną tożsamość. $\square$
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\mathbb{E}(X) = \frac{n(n-1)}{4}, \; Var[X] = \frac{n(n-1)(2n+5)}{72}}
+\]

@@ -1,0 +1,35 @@
+\section{Zadanie 17}
+Rozważmy cykl na $n$ wierzchołkach. Startujemy w dowolnym wierzchołku. W każdym kroku z równym prawdopodobieństwem przechodzimy do jednego z sąsiadów. Jaka jest(asymptotycznie względem $n$) wartość oczekiwana liczby kroków do odwiedzenia wszystkich wierzchołków cyklu? \\
+\\
+(i) Ograniczenie górne\\
+(ii) Ograniczenie dolne\\
+(iii) A co jeżeli w każdym kroku z równym prawdopodobieństwem, czyli $\frac{1}{3}$, zostajemy lub przechodzimy do jednego z sąsiadów?
+
+\subsection*{Rozwiązanie}
+Skorzystamy z następujących lematów z książki dla spacerów losowych w grafie $G$:\\
+\\
+\textbf{Lemat 7.14.}
+Dla $u,v \in E(G)$ oczekiwany czas przejścia z $u$ do $v$ i z powrotem do $u$ wynosi $h_{u,v} + h_{v,u} \leq 2|E(G)|$
+\\
+\textbf{Lemat 7.15.}
+Czas pokrycia w grafie $G$ jest ograniczony z góry przez $2|E|(|V|-1)$.
+\\
+
+Przez $X$ będziemy oznaczać liczbę kroków potrzebną do odwiedzenia wszystkich wierzchołków.
+
+\textbf{(i)} Z lematu 7.15. mamy oszacowanie z góry: $E(X) \leq 2|E|(|V|-1) = 2\cdot 2n\cdot (n-1) = O(n^2)$
+
+
+\textbf{(ii)}
+Możemy skorzystać z faktu, że w spacerze z dwoma barierami pochłaniającymi, 0 i $n$, oczekiwana liczba kroków do uderzenia w barierę startując z $k$ wynosi $k(n-k)$(można to pokazać indukcyjnie po wyprowadzeniu wzoru)
+
+Oznaczmy $X_i$ - oczekiwana liczba kroków od momentu odwiedzenia po raz pierwszy $(i-1)$-ego z kolei wierzchołka do odwiedzenia po raz pierwszy $i$-tego wierzchołka. Oczywiście $X_1$ = 0, i zauważmy, że $X = X_1 + ... + X_n$. Jednak $X_i$ możemy rozpatrywać jako właśnie oczekiwaną liczbę kroków w spacerze losowym o barierach w 0 oraz $i$, ponieważ wszystkie odwiedzone dotychczas wierzchołki sąsiadują ze sobą, tworząc ścieżkę długości $i-1$, a ostatni odwiedzony jest jednym z jej końców(wynika ze sposobu w jaki spacerujemy po grafie) - czyli stoimy na polu 1 albo $i-1$ na tej ścieżce z barierami. Wobec tego $E(X_i) = (i-1)\cdot 1 = i-1$.
+
+$E(X) = E(X_1 + ... + X_n) = E(X_1) + ...+E(X_n) = \sum_{i = 1}^n (i-1) = O(n^2)$
+
+
+\textbf{(iii)} Oznaczmy oczekiwaną liczbę kroków z takim rozkładem prawdopodobieństwa jako $E(X')$ Zauważmy że $E(X') = \frac{3}{2}E(X)$, a skoro $E(X) = O(n^2)$ to $E(X') = O(n^2)$
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{W każdym z podpunktów } O(n^2)}
+\]

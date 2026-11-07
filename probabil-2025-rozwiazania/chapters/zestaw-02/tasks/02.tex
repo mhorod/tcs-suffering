@@ -1,0 +1,38 @@
+\section{Zadanie 2 (Hubert Jastrzębski)}
+(Spacer losowy z jedną barierą)
+Startujemy doświadczenie z liczbą \(0\). Dopóki aktualna liczba jest mniejsza od \(n\),
+dodajemy do niej \(1\) lub \(-1\) z równym prawdopodobieństwem.
+Jakie jest prawdopodobieństwo, że dotrzemy do \(n\)?
+
+\subsection*{Rozwiązanie}
+Niech \(A_i\) to zdarzenie polegające na tym,
+że doszliśmy do \(n\) przed dojściem do \(-i\).
+
+Zauważmy, że \(\forall _{i\in\mathbb{N_+}} A_i \subset A_{i+1}\) \\
+(ponieważ jeśli doszliśmy do \(n\) przed \(-i\), to na pewno doszliśmy do \(n\) przed \(-(i+1)\)).
+
+Zatem z [Zestaw 1 Zadanie 2] mamy, że: 
+\[
+P\left(\bigcup_{i=1}^{\infty} A_i\right) = \lim_{i\to\infty} P(A_i)
+\]
+
+Chcemy teraz policzyć \(P(A_i)\).
+Zauważmy, że możemy to przedstawić jako spacer losowy z dwoma barierami na pozycjach
+\(0\) oraz \(n + i\), który zaczyna się na pozycji \(i\) 
+(ponieważ przesuwamy wszystkie pozycje o \(+i\), więc jest to równoważne \(A_i\),
+gdzie mamy bariery na \(-i\) oraz \(n\) i startujemy w \(0\)).
+Natomiast z [Zestaw 1 Zadanie 10] wiemy, że coś takiego wynosi \(\frac{i}{n+i}\).
+
+Tak więc:
+\[
+P\left(\bigcup_{i=1}^{\infty} A_i\right) = \lim_{i\to\infty} P(A_i) = \lim_{i\to\infty} \frac{i}{n+i} = 1
+\]
+
+Zostaje nam zastanowienie się czym jest \(\bigcup_{i=1}^{\infty} A_i\).
+Jest to zbiór wszystkich trajektorii spaceru losowego, które w pewnym momencie osiągną poziom \(n\).
+Jeśli więc prawdopodobieństwo na wystąpienie jakiegoś zdarzenia z tego zbioru wynosi \(1\),
+to znaczy, że z prawdopodobieństwem \(1\) w pewnym momencie osiągniemy poziom \(n\).
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{1}}
+\]

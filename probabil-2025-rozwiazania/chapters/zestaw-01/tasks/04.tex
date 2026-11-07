@@ -1,0 +1,24 @@
+\section{Zadanie 4}
+Niech $A_0, A_1, \dots$ będzie nieskończonym ciągiem zdarzeń i 
+niech $P(A_n) = 1$ dla każdego $n$.
+Udowodnij, że $P(\bigcap_{n=0}^{\infty}A_n) = 1$
+
+\subsection*{Rozwiązanie}
+Dla każdego n mamy $P(A_n) = 1$, więc dla każdego dopełnienia zdarzenia $A'_n = \Omega - A_n$ mamy: 
+$P(A'_n) = 1 - P(A_n) = 0$.
+
+Zauważmy, że dopełnienie przecięcia jest równe sumie dopełnień
+\[
+(\bigcap_{n=0}^{\infty}A_n)' = \bigcup_{n=0}^{\infty}A_n'
+\]
+Teraz korzystamy z nierówności pomiędzy prawdopodobieństwem sumy a sumą prawdopodobieństw (Zadanie 3),
+z czego ładnie nam wychodzi teza
+\[
+P(\bigcup_{n=0}^{\infty}A_n') \leq \Sigma_{n=0}^{\infty}P(A'_n) = \Sigma_{n=0}^{\infty}0 = 0
+\]
+\[
+P(\bigcup_{n=0}^{\infty}A_n') = 0
+\]
+\[
+P(\bigcap_{n=0}^{\infty}A_n) = 1 - 0 = 1
+\]

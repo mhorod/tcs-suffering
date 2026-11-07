@@ -1,0 +1,41 @@
+\section{Zadanie 13 (Oskar Prusik)}
+Wyznacz postać jawną funkcji tworzącej momenty dla rozkładu jednostajnego na zbiorze [n].
+
+\subsection*{Rozwiązanie}
+Zmienna $X$ ma rozkład jednostajny dyskretny na zbiorze $\{1, 2, \dots, n\}$:
+\[
+P(X = k) = \frac{1}{n} \quad \text{dla } k = 1, 2, \dots, n
+\]
+
+Definicja funkcji tworzącej momentów (MGF)
+\[
+M_X(t) = E(e^{tX}) = \sum_{k=1}^n e^{tk} \cdot P(X = k)
+\]
+
+
+\[
+M_X(t) = \sum_{k=1}^n e^{tk} \cdot \frac{1}{n} = \frac{1}{n} \sum_{k=1}^n (e^t)^k
+\]
+
+
+\[
+\sum_{k=1}^n (e^t)^k = e^t \cdot \frac{1 - (e^t)^n}{1 - e^t} = e^t \cdot \frac{1 - e^{nt}}{1 - e^t}
+\]
+
+\[
+M_X(t) = \frac{1}{n} \cdot e^t \cdot \frac{1 - e^{nt}}{1 - e^t}
+\]
+
+Dla $t = 0$ otrzymujemy nieoznaczoność, ale z definicji:
+\[
+M_X(0) = E(e^{0 \cdot X}) = E(1) = 1
+\]
+
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{M_X(t) = \frac{e^t (1 - e^{nt})}{n(1 - e^t)}
+		
+		dla $t \neq 0$, oraz $M_X(0) = 1$.}}
+\]

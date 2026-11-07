@@ -1,0 +1,38 @@
+\section{Zadanie 1}
+
+Niech \(T\) będzie dowolnym drzewem z dwoma wyróżnionymi wierzchołkami: startowym i końcowym. Pionek w sposób losowy porusza się po drzewie rozpoczynając w wierzchołku startowym. W każdym kroku pionek przemieszcza się na losowo wybranego sąsiada aktualnego wierzchołka. Czy dla dowolnego drzewa pionek dojdzie, z prawdopodobieństwem 1, do wierzchołka końcowego?
+
+\subsection*{Rozwiązanie}
+Być może da się to zrobić jakoś bardziej elegancko, ale wystarczy tu wykonać trochę szacowania i wyjdzie. Niech \(T\) - drzewo z zadania o wierzchołku końcowym \(t\). Dodatkowo:
+
+\begin{align*}
+max\_dist(G) &= max_{v \in V(G)}dist(v, t)\\
+\Delta(G) &= max_{v \in V(G)}deg(v)
+\end{align*}
+
+...Albo po prostu maksymalna odległość od końcowego i maksymalny stopień w grafie.
+
+Dla naszego grafu, dla każdego wierzchołka innego niż \(t\) przypisujemy liczby do każdej wychodzącej z niego krawędzi, zaczynając od \(1\) dla tej krawędzi, która prowadzi do \(t\). Każdy wierzchołek ma maksymalnie \(\Delta(G)\) krawędzi wychodzących oraz jest o maksymalnie \(max\_dist(G)\) krawędzi oddalony od \(t\).
+
+Oznacza to, że losując kolejno krawędzie, którymi się poruszamy, wylosowanie ciągu \(max\_dist(G)\) jedynek doprowadzi nas do \(t\) niezależnie od wierzchołka, z którego rozpoczęliśmy losowanie.
+
+Losujemy więc liczby ze zbioru \([\Delta(G)]\) w blokach po \(max\_dist(G)\) i poruszamy się wylosowanymi krawędziami, aż nie dotrzemy do \(t\) (jeśli wylosujemy liczbę większą niż liczba dostępnych krawędzi, ignorujemy rzut, tak jakby rzucamy ponownie).
+
+Prawdopodobieństwo nie wystąpienia bloku \(max\_dist(G)\) jedynek po wyrzuceniu \(k\) kolejnych bloków prezentuje się następująco:
+
+\begin{align*}
+1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k
+\end{align*}
+
+Niech \(B_k\) to zdarzenie polegające odniesieniu sukcesu nie później niż \(k\)-ty rzut. Ograniczamy zdarzenie z zadania przez zdarzenie \(\bigcup_{k=0}^\infty B_k\) i przez \(B_i \subseteq B_{i+1}\) dostajemy:
+
+\[
+P(\bigcup_{k=0}^\infty B_k) = \lim_{k \to \infty}P(B_k) = \lim_{k \to \infty}\left[1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k\right] = 1
+\]
+
+Stąd mamy prawdopodobieństwo dotarcia pionka do wierzchołka końcowego równe 1.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Tak, dla dowolnego drzewa pionek dojdzie do wierzchołka końcowego.}}
+\]

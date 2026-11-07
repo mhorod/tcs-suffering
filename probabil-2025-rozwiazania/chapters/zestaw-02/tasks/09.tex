@@ -1,0 +1,32 @@
+\section{Zadanie 9}
+Podaj przykład zmiennej losowej, która ma skończoną wartość oczekiwaną, 
+i nieograniczoną wariancję.
+
+\subsection*{Rozwiązanie}
+W tym zadaniu chcemy znaleźć zbieżny szereg, który podniesiony do kwadratu jest rozbieżny. \\
+Rozważmy następujący eksperyment: Losujemy liczbę ze zbioru liczb naturalnych.
+Prawdopodobieństwo wylosowania liczby $k$ jest równe $\frac{C}{k^3}$.
+\[ P(X=k) = \frac{C}{k^3} \]
+$C$ to tak dobrana stała żeby suma prawdopodobieństw wynosiła $1$, 
+dokładniej $C \approx 0,83$, ale to nas nie interesuje.
+
+Zdefiniujmy zmienną losową $X$ przyjmującą wartość wylosowanej liczby.
+
+Z definicji wartości oczekiwanej: \\
+$E[X] = (1 \cdot P(X=1)) + (2 \cdot P(X=2)) + (3 \cdot P(X=3)) + \cdots$ \\
+$E[X] = (1 \cdot \frac{C}{1^3}) + (2 \cdot \frac{C}{2^3}) + (3 \cdot \frac{C}{3^3}) + \cdots$ \\
+$E[X] = C \cdot (\frac{1}{1^2} + \frac{1}{2^2} + \frac{1}{3^2} + \frac{1}{4^2} + \cdots)$\\
+a to z wielce znanego faktu jest skończone. OK.
+
+To teraz wariancja:
+z definicji $Var(X) = E[X^2] - E[X]^2$. policzmy na początku $E[x^2]$\\
+$E[X^2] = (1^2 \cdot P(X=1)) + (2^2 \cdot P(X=2)) + (3^2 \cdot P(X=3)) + \cdots$ \\
+$E[X^2] = (1^2 \cdot \frac{C}{1^3}) + (2^2 \cdot \frac{C}{2^3}) + (3^2 \cdot \frac{C}{3^3}) + \cdots$ \\
+$E[X^2] = C \cdot (\frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \cdots)$\\
+co ciekawe znowu otrzymaliśmy znany szereg, tym razem nieskończony. 
+Skoro $E[X^2]$ jest nieskończone, a $E[X]$ skończone, to $E[X^2] - E[X]^2$ (czyli wariancja) jest nieskończona.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{Jest taki przykład, jak najbardziej, pokazany w rozwiązaniu}}
+\]

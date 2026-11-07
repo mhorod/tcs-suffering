@@ -1,0 +1,13 @@
+\section{Zadanie 8}
+Niech $A_{\infty} = \{(-\infty, a]: a \in R\}$ i niech $U \in A_0$. Udowodnij, że ażda $\sigma$-algebra zawierająca $A_{\infty}$ zawiera $U$. Innymi słowy pokazujemy, że $A_0 \subseteq \sigma (A_{\infty})$, a co za tym idzie $\sigma (A_0) \subseteq \sigma (A_{\infty})$. Podobnie pokaż, że $\sigma (A_0) \supseteq \sigma (A_{\infty})$
+
+\subsection*{Rozwiązanie}
+Pokażemy, że element zbiór otwarty(element $A_0$), może być generowany przez elementy z $A_{\infty}$.
+
+Zaczneimy od obserwacji, że poniważ każdy zbiór otwarty jest sumą przeliczalnej liczby przedziałów otwartych, wieć wystarczy nam pokazać, że dowolny przedział $(a, b)$ może być generowany przez $A_{\infty}$.
+
+Weźmy nieskończoną rodzinę $B$, gdzie $B_n$ to $(-\infty, b - \frac{1}{n}]$. Nieskończoną sumą tej rodziny. $U_B = (-\infty, b)$. Teraz weźmy dopełnienie i otrzymamy: $[b, +\infty)$. Następnie możemy to szumować z $(-\infty, a]$ i na koniec wziąść dopełnienie tego. Otrzymany wynik to $(a, b)$. To natomiast oznacza, że $A_{\infty}$, generuję każdy przedział. 
+
+Żeby pokazać zawieranie w drugą stronę wystarczy wziąść dopełnienie od przedziału otwartego $(a, +\infty)$, co daje $(-\infty, b]$.
+
+Z tych faktu wychodzi, ze $\sigma (A_0) = \sigma (A_{\infty})$.

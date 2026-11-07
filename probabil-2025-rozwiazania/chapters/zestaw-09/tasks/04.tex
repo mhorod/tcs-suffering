@@ -1,0 +1,25 @@
+\section{Zadanie 4}
+Niech $\lambda, \mu, \nu > 0$ i niech $X,Y,Z$ będą niezależnymi zmiennymi losowymi z
+rozkładu wykładniczego o parametrach $\lambda, \mu, \nu$. Niech $t > 0$.
+\begin{enumerate}[label=(\roman*)]
+    \item Znajdź $P(X < Y < Z)$.
+    \item Znajdź $P(X < Y|X > t)$.
+\end{enumerate}
+
+\subsection*{Rozwiązanie}
+(i)$$P(X < Y < Z) = \int_{-\infty}^{\infty}\int_{-\infty}^{y}\int_{y}^{\infty}f_{X,Y,Z}(x,y,z)dzdxdy = \int_{-\infty}^{\infty}f_{Y}(y)\int_{-\infty}^{y}f_{X}(x)\int_{y}^{\infty}f_{Z}(z)dzdxdy = $$
+$$ = \int_{-\infty}^{\infty}f_{Y}(y)\int_{-\infty}^{y}f_{X}(x)dx\int_{y}^{\infty}f_{Z}(z)dzdy$$
+$$\int_{-\infty}^{y}f_{X}(x)dx = \int_{0}^{y}\lambda e^{-\lambda x}dx = \left|{-e^{-\lambda x}}\right|_{0}^{y} = -e^{-\lambda x} - (-e^{0}) = 1 - e^{-\lambda y}$$
+$$\int_{y}^{\infty}f_{Z}(z)dz = \int_{y}^{\infty}\nu e^{-\nu z}dz = \left|{-e^{\nu z}}\right|_{y}^{\infty} = -e^{\nu\infty} - (-e^{-\nu y}) = e^{-\nu y}$$
+$$P(X < Y < Z) = \int_{0}^{\infty}\mu e^{-\mu y}(1 - e^{-\lambda y})e^{\nu y}dy = \mu\int_{0}^{\infty}(e^{-\mu y - \nu y} - e^{-\lambda y - \mu y - \nu y})dy =$$
+$$= \mu\int_{0}^{\infty}e^{-y(\mu+\nu)}dy - \mu\int_{0}^{\infty}e^{-y(\lambda + \mu + \nu)}dy = \mu\left(\left|\frac{-e^{-y(\mu + \nu)}}{\mu + \nu}\right|_{0}^{\infty} - \left|\frac{-e^{-y(\lambda + \mu + \nu)}}{\lambda + \mu + \nu}\right|_{0}^{\infty}\right) = $$
+$$= \mu\left(\frac{1}{\mu + \nu} - \frac{1}{\lambda + \mu + \nu}\right) = \frac{\mu\lambda}{(\mu + \nu)(\lambda + \mu + \nu)}$$
+Rozwiązanie z ćwiczeń
+$$P(X < Y < Z) = P(X = min(X,Y,Z), Y = min(Y, Z)) = \frac{\mu\lambda}{(\mu + \nu)(\lambda + \mu + \nu)}$$
+(ii)
+$$P(X < Y|X > t) = P(X < Y \cap t < Y|X > t) = P(Y > t)P(X < Y|X > t, Y > t) =$$
+$$ = P(Y > t)P(X < Y) = e^{-\mu t}\frac{\lambda}{\lambda + \mu}$$
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{(i)}\frac{\mu\lambda}{(\mu + \nu)(\lambda + \mu + \nu)}, \text{(ii)}e^{-\mu t}\frac{\lambda}{\lambda + \mu}}
+\]

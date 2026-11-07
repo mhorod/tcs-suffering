@@ -1,0 +1,84 @@
+% Żeby nie było syfu to kolejne sekcje dodajemy do chapters/
+% A potem includujemy za pomocą \input{chapters/...}
+
+% Używamy \( \) i \[ \] zamiast dolarów -- tak jak się robi w LaTeXu
+
+\documentclass[12pt, a4paper, polish, openany]{book}
+
+% Please, let's familiarize ourselves with notatki.sty and tcs.sty so that we don't reinvent the wheel
+\usepackage{notatki}
+\fancyhead[L]{\textbf{\textit{MPI}}}
+
+% Packages and commands used by the solutions copied from Probabil
+\usepackage{zestawy}
+
+\begin{document}
+% Front page and table of contents
+\frontmatter
+
+\input{titlepage}
+
+\tableofcontents
+\input{license}
+
+% Remove the "Rozdział x" chapter headings, as we already number our chapters
+\titleformat{\chapter}[display]{\normalfont\Huge\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{20pt}
+
+% The solutions name their sections "Zadanie N", so don't number them
+\setcounter{secnumdepth}{0}
+
+% Actual content
+\mainmatter
+
+\chapter{Zestaw 1 -- Aksjomaty, niezależność, wartość oczekiwana}
+\graphicspath{{chapters/zestaw-01/}}
+\input{chapters/zestaw-01/main}
+
+\chapter{Zestaw 2 -- Liniowość wartości oczekiwanej, wariancja, metoda probabilistyczna}
+\graphicspath{{chapters/zestaw-02/}}
+\input{chapters/zestaw-02/main}
+
+\chapter{Zestaw 3 -- Miara i całka}
+\graphicspath{{chapters/zestaw-03/}}
+\input{chapters/zestaw-03/main}
+
+\chapter{Zestaw 4 -- Wariancja i nierówność Czebyszewa}
+\graphicspath{{chapters/zestaw-04/}}
+\input{chapters/zestaw-04/main}
+
+\chapter{Zestaw 5 -- Nierówność Czernowa}
+\graphicspath{{chapters/zestaw-05/}}
+\input{chapters/zestaw-05/main}
+
+\chapter{Zestaw 6 -- Kule i urny}
+\graphicspath{{chapters/zestaw-06/}}
+% Zadanie 8 defines its own \C, \E, \F, which clash with the ones from notatki.sty
+\begingroup
+\let\C\relax
+\let\E\relax
+\let\F\relax
+\input{chapters/zestaw-06/main}
+\endgroup
+
+\chapter{Zestaw 7 -- Łańcuchy Markowa}
+\graphicspath{{chapters/zestaw-07/}}
+\input{chapters/zestaw-07/main}
+
+\chapter{Zestaw 8 -- Rozkład jednostajny, Igła Bułona}
+\graphicspath{{chapters/zestaw-08/}}
+\input{chapters/zestaw-08/main}
+
+\chapter{Zestaw 9 -- Rozkład wykładniczy i proces Poissona}
+\graphicspath{{chapters/zestaw-09/}}
+\input{chapters/zestaw-09/main}
+
+\chapter{Zestaw 10 -- Rozkład normalny, rozkład Cauchy'ego i CTG}
+\graphicspath{{chapters/zestaw-10/}}
+\input{chapters/zestaw-10/main}
+
+\chapter{Zestaw 11 -- Sprzęganie łańcuchów Markowa oraz Siła dwu wyborów}
+\graphicspath{{chapters/zestaw-11/}}
+\input{chapters/zestaw-11/main}
+
+\end{document}

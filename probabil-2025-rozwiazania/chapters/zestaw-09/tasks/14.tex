@@ -1,0 +1,72 @@
+\section{Zadanie 14}
+
+Niech $\{N(t)\mid t \ge 0\}$ będzie procesem Poissona z parametrem $\lambda = 2023$.
+
+\begin{enumerate}
+\item Jeżeli $N(2023)=2023$, to z jakim prawdopodobieństwem $N(2022)=2022$?
+
+\item 
+ Z jakim prawdopodobieństwem nie zajdzie żadne zdarzenie w przedziale czasowym
+$[2023,2024]$?
+Z jakim prawdopodobieństwem nie zajdzie żadne zdarzenie w przedziale czasowym
+$[2023,2024]$, jeżeli wiemy, że $N(2023)=2023$?
+
+\item Dla $n>1$ niech $X_n$ będzie czasem pomiędzy $(n-1)$-szym i $n$-tym zdarzeniem
+w procesie, a niech $X_1$ będzie czasem pierwszego zdarzenia.
+Oblicz
+\[
+\mathbb{P}(X_1 > X_2)
+\quad \text{oraz} \quad
+\mathbb{P}(X_1 + X_2 > X_3).
+\]
+\end{enumerate}
+
+\subsection*{Rozwiązanie}
+
+\begin{enumerate}
+    \item 
+    Ze wzoru na prawdopodobieństwo warunkowe mamy
+    \[
+    \mathbb{P}\bigl(N(2022)=2022 \mid N(2023)=2023\bigr)
+    =
+    \frac{
+    \mathbb{P}\bigl(N(2022)=2022 \cap N(2023)=2023\bigr)
+    }{
+    \mathbb{P}\bigl(N(2023)=2023\bigr)
+    }.
+    \]
+    
+    Ze stacjonarności i niezależość przyrostów
+    
+    $
+    \mathbb{P}\bigl(N(2022)=2022 \cap N(2023)=2023\bigr) = \mathbb{P} \bigl(N(2022)=2022 \cap N(1) = 1 \bigr) = \mathbb{P}\left(N(2022) = 2022\right) * \mathbb{P}\left(N(1) = 1\right)
+    $
+    
+    Po podstawieniu w 3 miesjcach wzoru $\mathbb{P}(N(t)=k)=e^{-\lambda t}\frac{(\lambda t)^k}{k!}
+    $ i skroceniu dostajemy wynik $\left( \frac{2022}{2023} \right) ^ {2022}$
+
+    \item 
+    Prawdopodobieństwo, że nie zajdzie żadne zdarzenie w przedziale czasowym $[2023, 2024]$ jest równe z stacjonarności prawwdopodobieństu temu, że nie zajdzie zdarzenie w przedziale $[0, 1]$ czyli $ \mathbb{P} \bigl(N(1) = 0) = e ^{-2023}$. Dodatkowo z niezależności wiemy, że to drugie prawdopodobieństwo jest takie samo.
+
+    \item 
+    Wiemy, że zmienne $X_i$ są niezależnymi zmiennymi losowymi o rozkładzie wykładniczym. $P(X_1 > X_2) = \frac{1}{2}$ bo mamy dwie zmienne niezależne o tej samej gęstośći.
+
+    Dla drugiego prawdopodobieństwa wiemy, że $Y = X_1 + X_2 \sim Gamma(2,\lambda)$ więc
+    
+    $f_Y(y) = \lambda^2 y e^{-\lambda y}, \quad y>0$
+
+    $\mathbb{P}(X_3 < y) = 1 - e^{-\lambda y}$
+
+    
+\begin{align*}
+\mathbb{P}(X_1+X_2>X_3)
+&= \int_0^\infty \mathbb{P}(X_3<y)\, f_Y(y)\, dy \\
+&= \int_0^\infty (1-e^{-\lambda y}) \, \lambda^2 y e^{-\lambda y} \, dy \\
+&= \lambda^2 \int_0^\infty y e^{-\lambda y} \, dy 
+   - \lambda^2 \int_0^\infty y e^{-2\lambda y} \, dy \\
+&= \lambda^2 \left( \frac{1}{\lambda^2} - \frac{1}{4\lambda^2} \right) \\
+&= \frac{3}{4}.
+\end{align*}
+
+
+\end{enumerate}

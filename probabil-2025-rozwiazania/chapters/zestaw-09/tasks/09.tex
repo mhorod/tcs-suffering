@@ -1,0 +1,77 @@
+\section{Zadanie 9}
+Niech $(X_n)^{\infty}_{n=1}$ będą niezależnymi zmiennymi losowymi z rozkładu wykładniczego z parametrem 1.
+Dla danego $k$ niech $N(k) = min\{ n : \sum_{i=1}^{n} X_i > k\}$.
+Wyznacz $E(N(k))$ na dwa sposoby:
+\begin{enumerate}[label=(\roman*)]
+    \item\label{set09.task09.01} bezpośrednio korzystając z gęstości wyliczonych w jednym z poprzednich zadań 
+    i wzoru $E(N(k)) = \sum_{j=1}^{\infty} P(N(k) \geq j)$;
+    \item\label{set09.task09.02} nie licząc ani jednej całki 
+    i korzystając ze wzoru $E(\sum_{i=1}^{N(k)}X_i) = E(N(k))$ (wcześniej go dowodząc).
+\end{enumerate}
+
+\subsection*{Rozwiązanie podpunktu \ref{set09.task09.01}}
+Zauważmy, że $N(k)$ to indeks pierwszego sumowania, które przekracza $k$. 
+Niech $S_n = \sum_{i=1}^{n} X_i$, wtedy
+\[
+    N(k) \geq j \Leftrightarrow S_{j-1} \leq k
+\]
+Z treści zadania 5, dla $\lambda = 1$ mamy, że suma $k$ niezależnych zmiennych o rozkładzie wykładniczym z parametrem $\lambda$ 
+ma rozkład $\Gamma(k, 1)$. \\
+Więc gęstość zmiennej $S_m$ (dla $m \geq 1$) wynosi(fakt 3, zestaw 9):
+\[
+    f_{S_m}(x) = \frac{1}{(m-1)!} x ^ {m-1} e^{-x}  \qquad \text{dla } x > 0
+\]
+
+Policzmy wartość oczekiwaną:
+$$    E(N(k)) = \sum_{j=1}^{\infty} P(N(k) \geq j)$$
+$$    E(N(k)) = \sum_{j=1}^{\infty} P(S_{j-1} \leq k)$$
+$$    E(N(k)) = P(S_0 \leq k) + \sum_{j=2}^{\infty} P(S_{j-1} \leq k)$$
+Pierwszy składnik jest równy 1 (bo $S_0 = 0 \leq k$). Dla $j \geq 2$ podstawiamy $m = j-1$
+$$    E(N(k)) = 1 + \sum_{m=1}^{\infty} \int_{0}^{k} \frac{x^{m-1}}{(m-1)!} e^{-x} dx $$
+Teraz robimy sztuczkę i zamieniamy całkę z sumą:
+$$    E(N(k)) = 1 + \int_{0}^{k} \sum_{m=1}^{\infty} \left( \frac{x^{m-1}}{(m-1)!} \right) e^{-x} dx $$
+O to w nawiasie to szereg Taylora:
+$$    E(N(k)) = 1 + \int_{0}^{k} e^x e^{-x} dx = 1 + \int_{0}^{k}dx = k + 1 $$
+
+\subsection*{Rozwiązanie podpunktu \ref{set09.task09.02}}
+\subsubsection*{Dowód tożsamości $E(\sum_{i=1}^{N(k)}X_i) = E(N(k))$}
+Czyli korzystając ze zdefiniowanego $S_n$ z podpunktu \ref{set09.task09.01} chcemy pokazać, że:
+$$    E(S_{N(k)}) = E(N(k)) $$
+
+Możemy zapisać sumę przy użyciu indykatorów:
+$$ I_j = \begin{cases}
+    1 \qquad N(k) \ge j \\
+    0 \qquad \text{wpp}
+\end{cases}$$
+$$ \sum_{i=1}^{N(k)} X_i = \sum_{j=1}^\infty X_j \cdot I_j $$
+Korzystając z liniowości:
+$$ E\left(\sum_{i=1}^{N(k)} X_i\right) = \sum_{j=1}^\infty E\left(X_j \cdot I_j\right) $$
+Zauważmy, że zdarzenie $N(k) \ge j$ oznacza, że proces nie zatrzymał się przed krokiem $j$, czyli $S_{j-1} \le k$. 
+Zdarzenie to zależy wyłącznie od zmiennych $X_1, \dots, X_{j-1}$, a zatem jest niezależne od $X_j$. 
+Możemy więc rozdzielić wartość oczekiwaną z prawej strony:
+$$ E\left(X_j \cdot I_j\right) = E(X_j) \cdot P(N(k) \ge j) $$
+Ponieważ $X_j \sim \text{Exp}(1)$, to $E(X_j) = 1$. 
+Więc:
+$$ E\left(\sum_{i=1}^{N(k)} X_i\right) = 1 \cdot \sum_{j=1}^\infty P(N(k) \ge j) $$
+Prawa strona to dokładnie $E(N(k))$. Udowodniliśmy więc, że:
+$$ E(S_{N(k)}) = E(N(k)) $$
+
+\subsubsection*{Wyznaczenie wartości oczekiwanej}
+
+Rozważmy lewą stronę równości, czyli $E(S_{N(k)})$. 
+Zmienna $S_{N(k)}$ oznacza wartość sumy w momencie pierwszego przekroczenia progu $k$. 
+Możemy ją zapisać jako sumę progu $k$ i nadwyżkę:
+$$ S_{N(k)} = k + (S_{N(k)} - k) $$
+Z własności braku pamięci rozkładu wykładniczego wynika, że wielkość, 
+o którą suma przekroczy poziom $k$, ma ten sam rozkład co pojedynczy składnik sumy. 
+Zatem zmienna losowa $(S_{N(k)} - k)$ ma rozkład $\text{Exp}(1)$, a wartość oczekiwana nadwyżki wynosi 1:
+$$ E(S_{N(k)} - k) = 1 $$
+Stąd otrzymujemy:
+$$ E(S_{N(k)}) = k + 1 $$
+Podstawiając ten wynik do udowodnionej tożsamości:
+$$ E(N(k)) = E(S_{N(k)}) = k + 1  $$
+
+\subsection*{Odpowiedź}
+\[
+\boxed{E(N(k)) = k + 1}
+\]

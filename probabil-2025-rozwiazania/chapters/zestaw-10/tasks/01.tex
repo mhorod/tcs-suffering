@@ -1,0 +1,108 @@
+\section{Zadanie 1 (Mateusz Wojaczek)}
+Niech $X$ będzie zmienną losową o rozkładzie normalnym $N(\mu,\sigma^2)$.
+Wyznaczyć wszystkie momenty centralne zmiennej $X$, tj.
+\[
+\mathbb{E}[(X-\mu)^k] \quad \text{dla } k \in \mathbb{N}.
+\]
+
+\subsection*{Rozwiązanie}
+Niech
+\[
+Y \sim N(0,1).
+\]
+Wtedy
+\[
+X = \mu + \sigma Y.
+\]
+
+Zatem
+\[
+\mathbb{E}[(X-\mu)^k] = \mathbb{E}[(\sigma Y)^k] = \sigma^k \mathbb{E}[Y^k].
+\]
+
+Obliczamy więc momenty zmiennej $Y$.
+
+\subsubsection*{Obliczenie $\mathbb{E}(Y^k)$}
+
+Z definicji:
+\[
+\mathbb{E}[Y^k]
+= \frac{1}{\sqrt{2\pi}}
+\int_{0}^{\infty} y^k e^{-\frac{y^2}{2}} \, dy.
+\]
+
+Oznaczmy:
+\[
+I_k = \int_{0}^{\infty} y^k e^{-\frac{y^2}{2}} \, dy.
+\]
+
+Obliczamy całkę $I_k$ przez całkowanie przez części:
+\[
+I_k
+= \int_{0}^{\infty} y^{k-1} \cdot y e^{-\frac{y^2}{2}} \, dy
+\]
+
+\[
+= \left[ y^{k-1} \left( -e^{-\frac{y^2}{2}} \right) \right]_{0}^{\infty}
++ \int_{0}^{\infty} (k-1) y^{k-2} e^{-\frac{y^2}{2}} \, dy.
+\]
+
+Wyraz brzegowy znika, zatem otrzymujemy rekurencję:
+\[
+I_k = (k-1) I_{k-2}.
+\]
+
+\subsubsection*{Wartości początkowe}
+
+\[
+I_0 = \int_{0}^{\infty} e^{-\frac{y^2}{2}} \, dy = \sqrt{2\pi},
+\]
+
+\[
+I_1 = 0,
+\]
+ponieważ jest to wartość oczekiwana zmiennej $Y \sim N(0,1)$.
+
+\subsubsection*{Postać ogólna}
+
+Dla $k$ parzystego:
+\[
+I_{2k} = \prod_{i=1}^{k} (2i-1)\,\sqrt{2\pi}.
+\]
+
+Dla $k$ nieparzystego:
+\[
+I_{2k+1} = 0.
+\]
+
+Stąd:
+\[
+\mathbb{E}[Y^k] =
+\begin{cases}
+0, & \text{gdy $k$ jest nieparzyste}, \\
+\displaystyle \prod_{i=1}^{k-1} (k-2i), & \text{gdy $k$ jest parzyste}.
+\end{cases}
+\]
+
+\subsubsection*{Wniosek końcowy}
+
+\[
+\mathbb{E}[(X-\mu)^k] = \sigma^k \mathbb{E}[Y^k],
+\]
+czyli:
+\[
+\mathbb{E}[(X-\mu)^k] =
+\begin{cases}
+0, & \text{gdy $k$ jest nieparzyste}, \\
+\sigma^k \displaystyle \prod_{i=1}^{\frac{k}{2}-1} (k-2i), & \text{gdy $k$ jest parzyste}.
+\end{cases}
+\]
+
+\subsection*{Odpowiedź}
+\[
+\mathbb{E}[(X-\mu)^k] =
+\begin{cases}
+0, & \text{gdy $k$ jest nieparzyste}, \\
+\sigma^k \displaystyle \prod_{i=1}^{\frac{k}{2}-1} (k-2i), & \text{gdy $k$ jest parzyste}.
+\end{cases}
+\]

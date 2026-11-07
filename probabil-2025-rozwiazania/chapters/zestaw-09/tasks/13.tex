@@ -1,0 +1,113 @@
+\section{Zadanie 13}
+Niech \(\{N(t)\}_{t\ge 0}\) będzie procesem Poissona z parametrem \(\lambda>0\), a
+\(T_1,T_2,\dots\) – czasy kolejnych zdarzeń.
+\subsection*{Rozwiązanie}
+\begin{enumerate}
+\item[(i)]
+Zmienna losowa \(N(3)\) ma rozkład Poissona z parametrem \(3\lambda\), zatem
+\[
+P(N(3)=5)=\frac{(3\lambda)^5}{5!}e^{-3\lambda}.
+\]
+
+\item[(ii)]
+Przyrost procesu na przedziale \((1,3]\) ma rozkład Poissona z parametrem
+\(2\lambda\). Stąd
+\[
+P(N(3)-N(1)=4)=\frac{(2\lambda)^4}{4!}e^{-2\lambda}.
+\]
+
+\item[(iii)]
+Rozbijamy proces na dwa niezależne odcinki czasowe:
+\begin{itemize}
+    \item $X = N(1)$, liczba zdarzeń w przedziale $[0, 1]$. \\$X \sim \mathrm{Poisson}(\lambda)$.
+    \item $Y = N(3)-N(1)$, liczba zdarzeń w przedziale $(1, 3]$. \\$Y \sim \mathrm{Poisson}(2\lambda)$.
+\end{itemize}
+Zdarzenie to jest równoważne warunkom na niezależne zmienne $X$ i $Y$:
+$$X\ge 1 \quad \text{oraz} \quad X+Y\le 2.$$
+
+Ponieważ $X$ i $Y$ są liczbami całkowitymi nieujemnymi, wszystkie możliwe pary $(X, Y)$, które spełniają oba warunki, to:
+\begin{enumerate}
+    \item $X=1 \quad \text{i} \quad Y=0 \quad (\text{suma}=1)$
+    \item $X=1 \quad \text{i} \quad Y=1 \quad (\text{suma}=2)$
+    \item $X=2 \quad \text{i} \quad Y=0 \quad (\text{suma}=2)$
+\end{enumerate}
+
+Korzystamy z niezależności $X$ i $Y$: $P(X=k, Y=l) = P(X=k)P(Y=l)$.
+\begin{align*}
+P\bigl(N(1)\ge 1 \cap N(3)\le 2\bigr) &= P(X=1, Y=0) + P(X=1, Y=1) + P(X=2, Y=0) \\
+&= P(X=1)P(Y=0) + P(X=1)P(Y=1) + P(X=2)P(Y=0) \\
+&= \left(\lambda e^{-\lambda}\right) \cdot \left(e^{-2\lambda}\right) \\
+& \quad + \left(\lambda e^{-\lambda}\right) \cdot \left(2\lambda e^{-2\lambda}\right) \\
+& \quad + \left(\frac{\lambda^2}{2} e^{-\lambda}\right) \cdot \left(e^{-2\lambda}\right) \\
+&= \lambda e^{-3\lambda} + 2\lambda^2 e^{-3\lambda} + \frac{1}{2}\lambda^2 e^{-3\lambda} \\
+&= e^{-3\lambda} \left( \lambda + 2\lambda^2 + \frac{1}{2}\lambda^2 \right) \\
+&= \lambda e^{-3\lambda} \left( 1 + \frac{5}{2}\lambda \right)
+\end{align*}
+
+\item[(iv)]
+Czas \(T_1\) ma rozkład wykładniczy z parametrem \(\lambda\), więc
+\[
+P\!\left(T_1>\tfrac12\right)=e^{-\lambda/2}.
+\]
+
+\item[(v)]
+\begin{itemize}
+    \item Zdarzenie $T_1 > \tfrac12$ (pierwsze zdarzenie nastąpiło po czasie $\tfrac12$) jest równoważne:
+    $$N\!\left(\tfrac12\right) = 0$$
+    \item Zdarzenie $T_3 \le \tfrac32$ (trzecie zdarzenie nastąpiło przed czasem $\tfrac32$) jest równoważne:
+    $$N\!\left(\tfrac32\right) \ge 3$$
+\end{itemize}
+
+Niech $N_A$ będzie liczbą zdarzeń w przedziale $[0, \tfrac12]$, a $N_B$ liczbą zdarzeń w przedziale $(\tfrac12, \tfrac32]$. Zmienne $N_A$ i $N_B$ są niezależne:
+\begin{itemize}
+    \item $N_A \sim \mathrm{Poisson}(\lambda/2)$
+    \item $N_B \sim \mathrm{Poisson}(\lambda)$ (długość przedziału to $1$)
+\end{itemize}
+Warunki na $N_A$ i $N_B$ to:
+$$N_A = 0 \quad \text{oraz} \quad N_A + N_B \ge 3.$$
+Ponieważ $N_A=0$, warunki upraszczają się do:
+$$N_A = 0 \quad \text{oraz} \quad N_B \ge 3.$$
+
+Korzystamy z niezależności $N_A$ i $N_B$: $P = P(N_A=0) \cdot P(N_B \ge 3)$.
+
+\begin{itemize}
+    \item $P(N_A=0)$:
+    $$P(N_A=0) = e^{-\lambda/2}$$
+
+    \item $P(N_B \ge 3)$:
+    $$P(N_B \ge 3) = 1 - P(N_B \le 2) = 1 - \left[ P(N_B=0) + P(N_B=1) + P(N_B=2) \right]$$
+    $$P(N_B \ge 3) = 1 - \left[ e^{-\lambda} \frac{\lambda^0}{0!} + e^{-\lambda} \frac{\lambda^1}{1!} + e^{-\lambda} \frac{\lambda^2}{2!} \right]$$
+    $$P(N_B \ge 3) = 1 - e^{-\lambda} \left( 1 + \lambda + \frac{\lambda^2}{2} \right)$$
+\end{itemize}
+
+Ostateczny wynik:
+\begin{align*}
+P\left(T_1>\tfrac12 \cap T_3\le \tfrac32\right) &= e^{-\lambda/2} \left[ 1 - e^{-\lambda} \left( 1 + \lambda + \frac{\lambda^2}{2} \right) \right] \\
+&= e^{-\lambda/2} - e^{-(\lambda/2 + \lambda)} \left( 1 + \lambda + \frac{\lambda^2}{2} \right) \\
+&= e^{-\lambda/2} - e^{-3\lambda/2} \left( 1 + \lambda + \frac{\lambda^2}{2} \right)
+\end{align*}
+
+\item[(vi)]
+Zmienna \(T_1\) ma rozkład wykładniczy z parametrem \(\lambda\), a czas pomiędzy
+pierwszym a drugim zdarzeniem \(T_2-T_1\) również ma rozkład wykładniczy z
+parametrem \(\lambda\). Zmiennie te są niezależne. Wobec tego
+\[
+P\!\left(T_1>1 \cap T_2-T_1\le \tfrac12\right)
+= P(T_1>1)\,P\!\left(T_2-T_1\le \tfrac12\right).
+\]
+Ponieważ
+\[
+P(T_1>1)=e^{-\lambda},
+\qquad
+P\!\left(T_2-T_1\le \tfrac12\right)=1-e^{-\lambda/2},
+\]
+ostatecznie otrzymujemy
+\[
+P\!\left(T_1>1 \cap T_2-T_1\le \tfrac12\right)
+= e^{-\lambda}\bigl(1-e^{-\lambda/2}\bigr).
+\]
+\end{enumerate}
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{tutaj daj odpowiedz}}
+\]

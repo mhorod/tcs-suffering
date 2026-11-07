@@ -1,0 +1,122 @@
+\section{Zadanie 11 (Mateusz Wojaczek)}
+Przeczytaj Sekcję 5.6.1 \textit{Random Graph Models} (modele losowych grafów,
+podobieństwo do modelu kul i urn). Wypowiedz i udowodnij Lemat 5.14 dla
+malejących własności grafów.
+
+\subsection*{Rozwiązanie}
+Graf jest \textbf{monotonicznie malejący}, 
+dla dowolnych właściwości, gdy zachodzi dla 
+$$
+G = (V, E),
+$$
+to zachodzi też dla 
+$$
+G' = (V, E'),
+$$
+gdzie $E' \subset E$.
+
+\medskip
+
+Niech:
+\[
+P(n, N) \text{ -- prawdopodobieństwo, że własność zachodzi dla grafu } G_{n, N},
+\]
+\[
+P(n, p) \text{ -- prawdopodobieństwo, że własność zachodzi dla grafu } G_{n, p}.
+\]
+
+\medskip
+
+Niech
+\[
+p^{+} = \frac{(1+\epsilon)N}{\binom{n}{2}}, 
+\qquad 
+p^{-} = \frac{(1-\epsilon)N}{\binom{n}{2}},
+\]
+dla $0 < \epsilon < 1$.
+
+\medskip
+
+\textbf{Lemat.}
+\text{Dla monotonicznie malejących grafów właściwości zachodzi:}
+\[
+P(n, p^{+}) - e^{-O(N)} \le P(n, N) \le P(n, p^{-}) + e^{-O(N)}.
+\]
+
+\medskip
+
+\textbf{(i) Dowód:} $P(n, p^{+}) - e^{-O(N)} \le P(n, N)$
+
+\medskip
+
+Niech $X$ będzie zmienną losową oznaczającą liczbę krawędzi w grafie $G_{n, p^{+}}$.
+
+\[
+P(n, p^{+}) = \sum_{k=0}^{\binom{n}{2}} P(n, k) \cdot \Pr(X = k).
+\]
+
+Rozbijamy sumę:
+\[
+P(n, p^{+}) = \sum_{k<N} P(n, k)\Pr(X=k) + \sum_{k \ge N} P(n, k)\Pr(X=k).
+\]
+
+Dla monotonicznie malejących własności mamy, że $P(n, k) \le P(n, N)$ dla $k \ge N$, zatem
+\[
+P(n, p^{+}) \le \Pr(X < N) + P(n, N)\Pr(X \ge N) \le \Pr(X < N) + P(n, N).
+\]
+
+Ponadto:
+\[
+\Pr(X < N) = \Pr\left(X < \frac{1}{1+\epsilon} \mathbb{E}[X]\right)
+\le \Pr\left(X < (1 +\frac{\epsilon}{2}) \mathbb{E}[X]\right)
+\le e^{-\frac{(1+\epsilon)\epsilon^2 N}{8}} = e^{-O(N)}.
+\]
+
+Zatem:
+\[
+P(n, p^{+}) \le P(n, N) + e^{-O(N)},
+\]
+czyli
+\[
+P(n, p^{+}) - e^{-O(N)} \le P(n, N).
+\]
+\[
+\boxed{\text{ckd}}
+\]
+
+\bigskip
+
+\textbf{(ii) Dowód:} $P(n, N) \le P(n, p^{-}) + e^{-O(N)}$
+
+\medskip
+
+Niech $X$ będzie zmienną losową liczby krawędzi w grafie $G_{n, p^{-}}$.
+
+\[
+P(n, p^{-}) = \sum_{k=0}^{\binom{n}{2}} P(n, k)\Pr(X=k)
+= \sum_{k \le N} P(n, k)\Pr(X=k) + \sum_{k > N} P(n, k)\Pr(X=k).
+\]
+
+Z monotoniczności mamy:
+\[
+P(n, p^{-}) \ge P(n, N)\Pr(X \le N) \ge P(n, N) - \Pr(X > N).
+\]
+
+Z kolei:
+\[
+\Pr(X > N) = \Pr\left(X > \frac{1}{1-\epsilon}\mathbb{E}[X]\right) 
+\le \Pr\left(X > (1+\epsilon)\mathbb{E}[X]\right)
+\le e^{-\frac{(1-\epsilon)\epsilon^2 N}{3}} = e^{-O(N)}.
+\]
+
+Zatem:
+\[
+P(n, p^{-}) \ge P(n, N) - e^{-O(N)},
+\]
+czyli
+\[
+P(n, N) \le P(n, p^{-}) + e^{-O(N)}.
+\]
+\[
+\boxed{\text{ckd}}
+\]

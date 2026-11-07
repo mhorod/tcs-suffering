@@ -1,0 +1,19 @@
+\section{Zadanie 14}
+
+Każdy z $n$ graczy rzuca niezależnie od pozostałych kostki.
+
+(i) Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje 1 punkt. Znajdść wartość oczekiwaną.
+
+(ii) Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje tyle punktów ile wyrzucili. Znajdź wartość oczekiwaną.
+
+\subsection*{Rozwiązanie}
+
+(i) Z liniowości watrtości oczekiwanej możemy rozbić zmienną losową na sumę $\binom{n}{2}$ wartości oczekiwanych, w której każdy element sumy oznacza wartość oczekiwaną punktów zdobytych przez daną parę graczy. Dla jednej pary graczy prawdopodobieństwo na wyrzucenie tej samej liczby oczek wynosi $\frac{6}{36} = \frac{1}{6}$ co daje nam wartość oczekiwana zdobytych punktów przez jedną parę $\frac{1}{6}$ i ostateczna odpowiedź $\binom{n}{2} * \frac{1}{6}$.
+
+(ii) Rozbijamy problem jak w punkcie i). Jedyne co się zmienia to wartość oczekiwana zdobytej liczby punktów przez parę graczy. Liczymy ją z definicji i mamy $\frac{1}{36}*1 + \frac{1}{36}*2 + \frac{1}{36}*3 + \frac{1}{36}*4 + \frac{1}{36}*5 + \frac{1}{36}*6 = \frac{7}{12} $ Ostateczny wynik wynosi więc $\binom{n}{2} * \frac{7}{12}$.
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{i) $\binom{n}{2} * \frac{1}{6}$ ii) $\binom{n}{2} * \frac{7}{12}$}}
+\]

@@ -1,0 +1,7 @@
+\section{Zadanie 5 (Filip Manijak)}
+Rozważmy dowolny (skończony lub nieskończony) łańcuch Markowa $(X_n)_{n \geq 0}$ w którym wszystkie stany są w tej samej klasie skomunikowania. Udowodnij, że jeżeli jeden ze stanów jest powracający dodatni, to wszystkie stany są powracające dodatnie.
+
+\subsection*{Rozwiązanie}
+Oznaczmy $x$ jako stan, który jest powracający dodatni. Wtedy zauważmy, że dla każdego innego stanu $y$:
+$$E[T_{y,y}] \leq E[T_{y,x}]+ \sum T_{x,x}*k*(1-p_{y,x})^{k-1}p_{y,x}+E[x\xrightarrow{}y] =  E[T_{y,x}]+T_{x,x}(1/p_{x,y})+E[x\xrightarrow{} y]$$
+Ten wzór to wartość oczekiwana rozkładu geometrycznego. $C$ to taka liczba, żeby $p_{x,y} >0$. Czyli twierdzę, że wartość oczekiwana kroków do powrotu jest mniejsza niż suma wartości oczekiwanych: Dojścia do stanu powracającego (to musi byś skończone, bo prawdopodobieństwo przejścia od x do y jest niezerowe), Wracania do stanu powracającego, tak długo aż nie wylosujemy powrotu do naszego punktu i powrotu do tego punktu. Jak widac prawa strona jest skończona.

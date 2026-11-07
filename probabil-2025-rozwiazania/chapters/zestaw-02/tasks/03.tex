@@ -1,0 +1,87 @@
+\section{Zadanie 3 (Dominik Korsa)}
+Dana jest moneta symetryczna. Zaproponuj algorytm, który będzie symulował
+zachowanie monety asymetrycznej o ustalonym wymiernym \(p \in (0, 1)\).
+Jaka jest oczekiwana liczba rzutów (symetryczną monetą) przed zwróceniem wyniku
+(symulowanej asymetrycznej monety)? Im mniejsza oczekiwana liczba rzutów, tym lepiej.
+
+\subsection*{Wprowadzenie do rozwiązania}
+Niech \(p\) oznacza prawdopodobieństwo, że wynikiem rzutu symulowaną asymetryczną
+monetą będzie orzeł.
+
+Niech \(\frac{a}{b} = p\), gdzie \(a, b \in \mathbb{N}_1\), \(a < b\)
+oraz \(a\) i \(b\) są względnie pierwsze.
+Niech \(N = \lceil \log_2 b \rceil\).
+
+Zakładam, że w kroku algorytmu mogę zwrócić jedynie ostatnio wyrzuconą wartość.
+Jeżeli mogę zwrócić dowolną, to \(N+1\) rzut w zaproponowanym algorytmie nie
+jest konieczny.
+
+\subsection*{Algorytm}
+W \(i\)-tym kroku (\(i \in \mathbb{N}_1\)):
+\begin{itemize}
+  \item Rzuć monetą \(N+1\) razy.
+  \item Potraktuj pierwsze \(N\) wyrzuconych monet jako zapis binarny liczby \(x\)
+  (traktując orła jako 1 i reszkę jako 0). \(x\) będzie z przedziału
+  \(x \in [0, 2^N) \supseteq [0, b)\).
+  Każda wartość z tego przedziału jest równie prawdopodobna.
+  \item W zależności od \(x\):
+  \begin{itemize}
+    \item Zdarzenie \(A_i\) -- \(x \in [0, a)\) i ostatni rzut to orzeł: zwróć orła.
+    \item Zdarzenie \(B_i\) -- \(x \in [a, b)\) i ostatni rzut to reszka: zwróć reszkę.
+    \item Jeżeli nie zaszło $A_i$ ani $B_i$: powtórz rzuty (przejdź do kolejnego kroku).
+  \end{itemize}
+\end{itemize}
+
+\subsection*{Analiza prawdopodobieństwa}
+Niech \(C_i = A_i \cup B_i\).
+
+Niech \(X\) to zmienna losowa oznaczająca numer (\(i\)) pierwszego kroku w którym zaszło
+zdarzenie \(C_i\).
+
+Zauważmy, że te losowania są \textbf{bez pamięci} -- wynik losowania \(i\)
+nie zależy od wyników poprzednich losowań. Mamy więc:
+\begin{itemize}
+  \item \(
+    P(A_i \mid X \geq i)
+    = \underbrace{\frac{a}{2^N}}_{x \in [0, a)}
+    \cdot \underbrace{\frac{1}{2}}_{\text{ostatni rzut to orzeł}}
+    = \frac{a}{2^{N+1}}
+  \)
+  \item \(
+    P(B_i \mid X \geq i)
+    = \underbrace{\frac{b-a}{2^N}}_{x \in [a, b)}
+    \cdot \underbrace{\frac{1}{2}}_{\text{ostatni rzut to reszka}}
+    = \frac{b-a}{2^{N+1}}
+  \)
+  \item \(A_i\) i \(B_i\) są rozłączne więc \(
+    P(C_i \mid X \geq i)
+    = P(A_i \mid X \geq i) + P(B_i \mid X \geq i)
+    = \frac{b}{2^{N+1}}
+  \)
+\end{itemize}
+
+\(X\) ma rozkład geometryczny o parametrze \(q = \frac{b}{2^{N+1}}\):
+\[
+  P(X = n) = P\Bigg( (\Omega \setminus C_1) \cap \cdots \cap (\Omega \setminus C_{n-1}) \cap C_n \Bigg)
+  = (1-q)^{n-1} \cdot q
+\]
+Z wykładu wiemy, że wartość oczekiwana \(X\) w tym przypadku to \(E[X] = \frac{1}{q} = \frac{2^{N+1}}{b}\).
+
+Niech \(Y\) oznacza oczekiwaną liczbę rzutów monetą.
+W każdym kroku rzucaliśmy monetą $N+1$ razy, więc:
+\[
+E[Y] = (N+1) \cdot E[X] = (N+1) \cdot \frac{2^{N+1}}{b}
+\]
+
+\subsection*{Odpowiedź}
+Jeżeli \(p = \frac{a}{b}\) oraz \(N = \lceil \log_2 b \rceil\) to wynikiem jest:
+\[
+\boxed{(N+1) \cdot \frac{2^{N+1}}{b}}
+\]
+
+W wersji zadania w której w kroku algorytmu mogę zwrócić dowolną wartość,
+nie tylko ostatnio wyrzucona, wynikiem jest:
+\[
+\boxed{N \cdot \frac{2^N}{b}}
+\]
+Dla tej wersji nie ma dowodu powyżej, ale można go łatwo uprościć.

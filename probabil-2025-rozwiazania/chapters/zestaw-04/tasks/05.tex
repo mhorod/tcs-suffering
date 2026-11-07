@@ -1,0 +1,157 @@
+\section{Zadanie 5 (Filip Manijak)}
+W urnie znajduje się $b$ białych kul i $c$ czarnych kul. Wyciągamy kolejno wszystkie kule.  
+
+Wyciągnięta kula daje \emph{zmianę}, jeżeli jej kolor jest różny od koloru kuli wyciągniętej bezpośrednio przed nią.  
+
+Wyciągnięta biała kula daje \emph{dobrą zmianę}, jeżeli bezpośrednio przed nią została wyciągnięta czarna kula.  
+
+\bigskip
+
+Oblicz:  
+\begin{enumerate}
+    \item oczekiwaną liczbę i wariancję \emph{zmian},  
+    \item oczekiwaną liczbę i wariancję \emph{dobrych zmian}.
+\end{enumerate}
+
+
+\subsection*{Rozwiązanie}
+\section*{Oczekiwana liczba zmian i wariancja}
+
+Niech w urnie jest $b$ białych kul i $c$ czarnych kul, $N=b+c$. Losujemy wszystkie kule kolejno bez zwracania.  
+
+Dla $i=2,\dots,N$ definiujemy wskaźniki:
+\[
+X_i = 
+\begin{cases}
+1, & \text{jeśli } i\text{-ta kula ma inny kolor niż }(i-1)\text{-ta},\\
+0, & \text{w przeciwnym razie},
+\end{cases}
+\]
+\\
+\[
+Y_i = 
+\begin{cases}
+1, & \text{jeśli } i\text{-ta kula jest biała i poprzednia czarna (dobra zmiana)},\\
+0, & \text{w przeciwnym razie}.
+\end{cases}
+\]
+
+\subsection*{I) Zmiany koloru}
+
+Całkowita liczba zmian koloru:
+\[
+C = \sum_{i=2}^N X_i.
+\]
+
+\subsubsection*{Oczekiwana liczba zmian}
+
+Dla dowolnego $i$:
+\[
+\Pr(X_i=1) = \Pr(\text{B→W}) + \Pr(\text{W→B}) = \frac{b c}{N(N-1)} + \frac{b c}{N(N-1)} = \frac{2 b c}{N(N-1)}.
+\]
+
+Zatem:
+\[
+\mathbb{E}[C] = (N-1) \cdot \frac{2 b c}{N(N-1)} = \frac{2 b c}{N}.
+\]
+
+\subsubsection*{Wariancja — pełna}
+
+Każdy wskaźnik $X_i$ to zmienna Bernoulliego:
+\[
+\operatorname{Var}(X_i) = p(1-p).
+\]
+
+Ogólna formuła wariancji sumy:
+\[
+\operatorname{Var}(C) = \sum_{i=2}^N \operatorname{Var}(X_i) + 2 \sum_{2 \le i < j \le N} \operatorname{Cov}(X_i, X_j).
+\]
+
+\paragraph{1. Kowariancje sąsiadujące (\(|i-j|=1\))}
+
+Niech $X_i$ i $X_{i+1}$ mają wspólną kulę w pozycji $i$. Wtedy:
+\[ E[X_iX_{i+1}] = 
+\Pr(X_i=1, X_{i+1}=1) = \frac{b c (b-1) + b c (c-1)}{N(N-1)(N-2)} = \frac{bc}{N(N-1)},
+\]
+więc
+\[
+\operatorname{Cov}(X_i,X_{i+1}) = \frac{bc}{N(N-1)} - p^2 = \frac{bc}{N(N-1)} - \left(\frac{2bc}{N(N-1)}\right)^2.
+\]
+
+Liczba takich par: $(N-2)$.
+
+\paragraph{2. Kowariancje niesąsiadujące (\(|i-j|>1\))}
+
+Niech $X_i$ i $X_j$ nie sąsiadują. Wtedy mamy 4 różne kule w pozycjach $i-1,i,j-1,j$. Zatem:
+\[ E[X_iX_{j}] =
+\Pr(X_i=1, X_j=1) = \frac{2bc}{N(N-1)} \cdot \frac{2(b-1)(c-1)}{(N-2)(N-3)}.
+\]
+
+Liczba takich par: \(\binom{N-1}{2} - (N-2) = \frac{(N-1)(N-2)}{2} - (N-2) = \frac{(N-2)(N-3)}{2}.\)  
+
+Zatem kowariancja dla każdej pary niesąsiadującej:
+\[
+\operatorname{Cov}(X_i,X_j) = \frac{4bc(b-1)(c-1)}{N(N-1)(N-2)(N-3)} - p^2.
+\]
+
+\paragraph{3. Wariancja całkowita}
+
+Sumując:
+\[
+\operatorname{Var}(C) = (N-1)p(1-p) + 2 (N-2)\Big(\frac{bc}{N(N-1)} - p^2\Big) + 2\cdot \frac{(N-2)(N-3)}{2}\Big(\frac{4bc(b-1)(c-1)}{N(N-1)(N-2)(N-3)} - p^2\Big).
+\]
+
+Po uproszczeniu otrzymujemy:
+\[
+\operatorname{Var}(C) = \frac{2bc(2bc-N)}{N^2(N-1)}.
+\]
+
+\subsection*{II) Dobre zmiany}
+
+Dla $i=2,\dots,N$ definiujemy:
+\[
+Y_i = 
+\begin{cases}
+1, & \text{jeśli } i\text{-ta kula jest biała i poprzednia czarna (dobra zmiana)},\\
+0, & \text{w przeciwnym razie}.
+\end{cases}
+\]
+
+Całkowita liczba dobrych zmian:
+\[
+G = \sum_{i=2}^N Y_i.
+\]
+
+\subsubsection*{Oczekiwana liczba}
+
+\[
+\Pr(Y_i=1) = \frac{bc}{N(N-1)}, \quad \mathbb{E}[G] = (N-1)\frac{bc}{N(N-1)} = \frac{bc}{N}.
+\]
+
+\subsubsection*{Wariancja}
+
+Każdy wskaźnik $Y_i$ to zmienna Bernoulliego:
+\[
+\operatorname{Var}(Y_i) = p(1-p), \quad p = \frac{bc}{N(N-1)}.
+\]
+
+Dla sąsiadujących wskaźników $Y_i$ i $Y_{i+1}$:
+\[
+\operatorname{Cov}(Y_i, Y_{i+1}) = \mathbb{E}[Y_i Y_{i+1}] - \mathbb{E}[Y_i]\mathbb{E}[Y_{i+1}] = 0 - p^2 = -p^2,
+\]
+ponieważ zdarzenia są rozłączne (kula $i$ nie może jednocześnie być biała i czarna).
+
+Dla niesąsiadujących wskaźników $Y_i, Y_j$ (\(|i-j|>1\)) kowariancja wynosi:
+\[
+\operatorname{Cov}(Y_i, Y_j) = \Pr(Y_i=1 \text{ i } Y_j=1) - p^2.
+\]
+
+Wariancja całkowitej liczby dobrych zmian:
+\[
+\operatorname{Var}(G) = \sum_{i=2}^N \operatorname{Var}(Y_i) + 2\sum_{2\le i<j\le N} \operatorname{Cov}(Y_i,Y_j).
+\]
+
+Po uwzględnieniu wszystkich kowariancji (sąsiadujących i niesąsiadujących) otrzymujemy:
+\[
+\operatorname{Var}(G) = \frac{b^2 c^2}{N^2 (N-1)}.
+\]

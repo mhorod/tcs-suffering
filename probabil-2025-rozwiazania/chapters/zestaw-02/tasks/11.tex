@@ -1,0 +1,35 @@
+\section{Zadanie 11}
+Udowodnij, że jeśli \(\operatorname{Var} X = 0\), to istnieje \(a\)
+takie, że \(P(X=a)=1\)
+
+\subsection*{Rozwiązanie}
+Skorzystamy z zadania 4. z pierwszego zestawu - dla ciągu zdarzeń
+\(\{A_n\}\), jeśli \(\forall_{i\in\mathbb{N}} P(A_i) = 1\), to
+\(P(\bigcap_{i\in\mathbb{N}} A_i) = 1\)
+
+Niech \(a = E[X]\) (wartość oczekiwana istnieje, bo wariancja istnieje)
+
+\subsubsection*{Lemat}
+\[\forall \varepsilon > 0: P(|X-a| > \varepsilon) = 0\]
+
+Zauważmy:
+\[\operatorname{Var} X \geqslant
+\varepsilon^2 \cdot P(|X-a| > \varepsilon)\]
+Wariancja jest sumą (całką) kwadratów odchyleń przyjmowanych wartości
+od wartości oczekiwanej. Uwzględniając tylko te elementy, które nie
+należą do zbioru \([a-\varepsilon, a+\varepsilon]\), dostajemy dolne
+ograniczenie na wariancję.
+
+Wiedząc że wariancja wynosi 0, to prawdopodobieństwo także musi być
+zerowe. \(\quad\square\)
+
+Przekształcając:
+\[\forall \varepsilon > 0: P(|X-a| \leqslant \varepsilon) = 1\]
+\[\forall \varepsilon > 0: P(X \in [a-\varepsilon, a+\varepsilon]) = 1\]
+
+Podstawiając dla
+\(\varepsilon = 1, \frac1{2}, \frac1{3}, \frac1{4}, \ldots\)
+\[\forall_{n\in\mathbb{N_+}}
+P\left(X\in\left[a-\frac1{n}, a+\frac1{n}\right]\right) = 1\]
+Teraz korzystając z zadania 1/4:
+\[P(X\in\{a\}) = 1\quad\square\]

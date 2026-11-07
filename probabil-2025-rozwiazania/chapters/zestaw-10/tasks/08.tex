@@ -1,0 +1,64 @@
+\section{Zadanie 8}
+Rozważmy następujący eksperyment. Stojąc na przeciwko bardzo długiej ściany wprawiają latarkę w ruch obrotowy i obserwujemy losowy punkt na ścianie na którym zatrzyma się światło latarki. Dla ustalenie uwagi, powiedzmy, że stoimi w punkcie $(0, 1)$ a ścianą jest oś $OX$. Niech $X$ będzie współrzędną w punkcie na osi $OX$ w który zwrócone jest światło latarki. Jeśli światło nie jest zwrócone na ścianę. to możemy powtórzyć eksperyment do skutku.
+
+(I) Udowodnij, że dystrubuanta i gęstość zmiennej $X$ zadane są przez:
+
+\[
+    P(X < x) = \frac{1}{2} + \frac{1}{\pi} arctg(x), f(x) = \frac{1}{\pi(1+x^2)}
+\]
+
+(II) Jaka jest $E(X)$? A jaka jest $E(X | X > 0)$?
+
+(III) Jeśli zmienna $X$ jest zdefiniowana w anologiczny sposób jak powyżesz, ale zamiast punkctu (0, 1), bierzemy punkt $(x_0, \gamma)$ to mówimy, że $X$ ma rozkład Cauchy'ego z paramatrem $(x_0, \gamma)$. Rozkład Cauchy'ego z parametrem (0, 1) nazywamy standardowym rozkładem Cauchy'ego.  Wyznacz dystrybuante, gestość, wartość oczekiwaną i warianjcę dla rozkłady Cauchy'ego.  
+
+\subsection*{Rozwiązanie}
+
+(I) Podzielimy, sobie problem, na dwa podproblemy. Jeśli $x > 0$ i $x < 0$. Jeśli $x>0$. To z prawdopodobieńwstem $\frac{1}{2}$, $X < 0$, Ciekawsza jest dla fragmetny między $0, a x$. Zdefiniujmy, trójkąt o wierzchołkach w (0, 0), (0, 1) i (x, 0). Zdefiniujmy kont $\alpha$ jako kąt w trójkącie przy wierzchołku (0, 1). Bazując na podstawowej trygonometri, wiemy, że $tg(\alpha) = x/1$, czyli $\alpha = arctg(x)$. Można również, zauważyć, że prawdopodobieństwo wejście między $0$, a $x$, jest równe $\frac{1}{2} * \frac{\alpha}{\frac{\pi}{2}} = \frac{\alpha}{\pi} = \frac{arctg(x)}{\pi}$. Także suma, $P(X < x) = \frac{1}{2} +  \frac{arctg(x)}{\pi}$, czyli dokładnie to co potrzebowaliśmy. 
+
+Jeśli natomiast mamy $x < 0$, to robimy podobny patent, tylko $argctg$ trzeba odjąć od $\frac{1}{2}$ oraz zmienić znak $x$. Po przeliczenie jeszcze raz wychodzi: $\frac{1}{2} - \frac{arctg(-x)}{\pi}$, z analizy możemy, wyciągnąć minusa i otryzmujemy $\frac{1}{2} + \frac{arctg(x)}{\pi}$, co ostatecznie udowadnia dystrybuante. 
+
+By pokazać gęstość, wystarczy zrobić pochodną dystrybuanty, czyli  $\frac{d}{dx}\frac{1}{2} + \frac{arctg(x)}{\pi} = \frac{1}{\pi \cdot (1+x^2)}$, co należało pokazać.
+
+(II) 
+
+\[
+    E(X) = \int_{-\infty}^{\infty} x * f(X) = \int_{-\infty}^{\infty} x * f(X) = \int_{-\infty}^{\infty} x * \frac{1}{\pi \cdot (1+x^2)} = [t = 1+x^2, dt = 2x] = 
+\]
+\[
+    \int_{1}^{\infty} \frac{1}{2} \frac{1}{\pi \cdot t} + \int_{\infty}^{1} \frac{1}{2} \frac{1}{\pi \cdot t} = \int_{1}^{\infty} \frac{1}{2} \frac{1}{\pi \cdot t} - \int_{1}^{\infty} \frac{1}{2} \frac{1}{\pi \cdot t} = 0
+\]
+Haha, mały błąd $\infty - \infty$, jest znakiem niezdefiniowanym. Niestety nie jestem w stanie udowodnić, że nie da się tego zdefiniować, ale według zewnętrzych źródeł tak jest. Przykro mi za niedogodność. 
+\[
+    E(X | X > 0) = ...
+\]
+\[
+    P(X < x | X > 0) = \frac{2}{\pi} arctg(x) 
+\]
+\[
+    f(X | X > 0) =  \frac{2}{\pi \cdot (1+x^2)}
+\]
+\[
+    E(X | X > 0) = \int_{0}^{\infty} x * f(X | X > 0) = \int_{0}^{\infty} x \cdot \frac{2}{\pi \cdot (1+x^2)} = [t = x^2+1, dt = 2x dx] = \int_{1}^{\infty} \frac{1}{\pi \cdot t} = 
+\]
+\[
+    \frac{1}{\pi} \cdot \int_{1}^{\infty} \frac{1}{t} = \infty
+\]
+
+(III) Dystrybuanta:
+Z prostych przesunięć geometrycznych (jak popatrzy się na rysunku), to można zapisać jako:
+
+\[
+    P(X < x) = \frac{1}{2} + \frac{1}{\pi} arctg(\frac{x - x_0}{\gamma})
+\]
+
+Gęstość: (pochodna dystrybuanty)
+
+\[
+    f(x) =  \frac{1}{\pi \cdot (1+(\frac{x-x_0}{\gamma})^2)}
+\]
+$E(X)$, podobnie jak $Var(X)$, z przyczyn z (II) też są niezdefinowane.
+
+% \subsection*{Odpowiedź}
+% \[
+% \boxed{\text{tutaj daj odpowiedz}}
+% \]

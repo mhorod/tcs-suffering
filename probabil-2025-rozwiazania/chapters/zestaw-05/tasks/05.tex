@@ -1,0 +1,19 @@
+\section{Zadanie 5}
+Niech $X_{1},\dots,X_{m}$ będą ciągiem zmiennych losowych indykatorowych o tym samym rozkładzie i niech $\mu = E(X_{i})$.
+Jeśli $m \geqslant (3ln(2/\delta)/(\varepsilon^{2}\mu)$.
+$$P\left(\left|\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\right|\geqslant\varepsilon\mu\right) \leqslant \delta$$
+
+\subsection*{Rozwiązanie}
+$$P\left(\left|\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\right|\geqslant\varepsilon\mu\right) = P\left(\left(\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\geqslant\varepsilon\mu\right)\cup\left(-\frac{1}{m}\sum_{i=1}^{m}X_{i}+\mu\geqslant\varepsilon\mu\right)\right) = $$
+$$= P\left(\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\geqslant\varepsilon\mu\right) + P\left(\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\leqslant-\varepsilon\mu\right)$$
+
+Z twierdzenia 4.4 i 4.5 mamy:
+dla $0 < \varepsilon \leqslant 1$
+$$ P\left(\sum_{i=1}^{m}X_{i}-m\mu\geqslant m\varepsilon\mu\right) \leqslant e^{-\mu\varepsilon^2m/3}$$
+dla $0 < \varepsilon < 1$
+$$ P\left(\sum_{i=1}^{m}X_{i}-m\mu\leqslant-m\varepsilon\mu\right) \leqslant e^{-\mu\varepsilon^2m/3}$$
+z tego że $X_{i}$ indykator i oszacowania $m$, mamy że $0 < \mu \leqslant 1$, dla tego druga nierówność może być
+rozszerzona na $0 < \varepsilon$.
+
+Wtedy dla $0 < \varepsilon \leqslant 1$:
+$$P\left(\left|\frac{1}{m}\sum_{i=1}^{m}X_{i}-\mu\right|\geqslant\varepsilon\mu\right) \leqslant 2e^{-\mu\varepsilon^2m/3} \leqslant 2e^{-\mu\varepsilon^2 3ln(2/\delta)/3\varepsilon^{2}\mu} = 2e^{ln(2/\delta)} = \delta$$

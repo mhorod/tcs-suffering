@@ -1,0 +1,37 @@
+\section{Zadanie 8}
+Niech $X$ będzie zmienną losową mówiącą, ile razy spśród $n$ niezależnych rzutów
+kostką wypadła 6-tka. Ogranicz $P(X \geq n/4)$ za pomocą nierówności Markowa,
+Czebyszewa i Czernowa. Podaj wartości numeryczne dla $n = 1000$.
+
+\subsection*{Rozwiązanie}
+Mamy $X \sim \text{Bin}(n, p)$ gdzie $p = 1/6$. Stąd $E[X] = n/6$ i $\text{Var}(X) = np(1-p) = 5n/36$.
+
+\textbf{Nierówność Markowa:}
+Dla $X \geq 0$ mamy $P(X \geq a) \leq \frac{E[X]}{a}$. Więc:
+\[
+P(X \geq n/4) \leq \frac{n/6}{n/4} = \frac{4}{6} = \frac{2}{3}
+\]
+
+\textbf{Nierówność Czebyszewa:}
+Dla dowolnej zmiennej losowej $P(|X - E[X]| \geq t) \leq \frac{\text{Var}(X)}{t^2}$. 
+Zauważmy, że $X \geq n/4$ implikuje $X - n/6 \geq n/4 - n/6 = n/12$, więc:
+\[
+P(X \geq n/4) \leq P(|X - n/6| \geq n/12) \leq \frac{5n/36}{(n/12)^2} = \frac{5n/36}{n^2/144} = \frac{20}{n}
+\]
+
+\textbf{Nierówność Czernowa:}
+Dla $X \sim \text{Bin}(n,p)$ i $\delta > 0$ mamy $P(X \geq (1+\delta)np) \leq e^{-\frac{\delta^2 np}{2+\delta}}$.
+Tu $(1+\delta)np = n/4$, więc $(1+\delta) \cdot n/6 = n/4$, czyli $\delta = 1/2$. Stąd:
+\[
+P(X \geq n/4) \leq e^{-\frac{(1/2)^2 \cdot n/6}{2 + 1/2}} = e^{-\frac{n/24}{5/2}} = e^{-\frac{n}{60}}
+\]
+
+\subsection*{Odpowiedź dla $n=1000$}
+\begin{align*}
+\text{Markov:} &\quad P(X \geq 250) \leq \frac{2}{3} \approx 0.6667 \\
+\text{Czebyszew:} &\quad P(X \geq 250) \leq \frac{20}{1000} = 0.02 \\
+\text{Czernow:} &\quad P(X \geq 250) \leq e^{-1000/60} = e^{-50/3} \approx 5.7 \times 10^{-8}
+\end{align*}
+\[
+\boxed{\text{Markov: } 2/3, \quad \text{Czebyszew: } 0.02, \quad \text{Czernow: } e^{-50/3} \approx 5.7 \times 10^{-8}}
+\]

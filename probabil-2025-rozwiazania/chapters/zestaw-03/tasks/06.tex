@@ -1,0 +1,46 @@
+\section{Zadanie 6 (Mateusz Wojaczek)}
+Udowodnij, że każdy zbiór otwarty $B \subseteq \mathbb{R}$ jest co najwyżej przeliczalną sumą przedziałów otwartych. Dodatkowo pokaż, że $\mathcal{A}_0$ jest zamknięty na branie dowolnych sum (także nieskończonych).
+
+\subsection*{Rozwiązanie}
+Niech $B \subseteq \mathbb{R}$ będzie zbiorem otwartym. Z definicji zbioru otwartego:
+
+\[
+\forall x \in B \;\; \exists \varepsilon > 0 \text{ takie, że } (x-\varepsilon, x+\varepsilon) \subseteq B.
+\]
+
+Z MFI wiadomo, że w każdym przedziale otwartym $(x-\varepsilon, x+\varepsilon)$ istnieje liczba wymierna. \\
+Liczb wymiernych jest przeliczalne wiele. 
+$\mathbb{Q}$ jest przeliczalne.
+
+Dla każdej liczby wymiernej $q \in \mathbb{Q}$ zdefiniujmy:
+
+\[
+B_q = \{ x \in B \mid q \in (x-\varepsilon_x, x+\varepsilon_x) \text{ dla pewnego } \varepsilon_x > 0 \}.
+\]
+
+Wtedy każdy punkt $x \in B$ należy do jakiegoś $B_q$, ponieważ w przedziale $(x-\varepsilon_x, x+\varepsilon_x) \subseteq B$ znajduje się liczba wymierna $q$. Zatem:
+
+\[
+B = \bigcup_{q \in \mathbb{Q}} B_q.
+\]
+
+Każdy $B_q$ jest sumą przedziałów otwartych zawierających $q$, a ponieważ $\mathbb{Q}$ jest przeliczalne, $B$ jest sumą przeliczalną przedziałów otwartych.
+
+\medskip
+\textbf{Dowód zamknięcia $\mathcal{A}_0$ na dowolne sumy:}
+
+Niech $\{U_i\}_{i \in I} \subseteq \mathcal{A}_0$ będzie dowolną rodziną zbiorów otwartych.
+Rozważmy sumę:
+
+\[
+U = \bigcup_{i \in I} U_i.
+\]
+
+Niech $x \in U$. Wówczas istnieje $i_0 \in I$ takie, że $x \in U_{i_0}$. Ponieważ $U_{i_0}$ jest otwarty, istnieje $\varepsilon > 0$ takie, że $(x-\varepsilon, x+\varepsilon) \subseteq U_{i_0} \subseteq U$. Zatem każdy punkt $x \in U$ należy do pewnego przedziału zawartego w $U$, co pokazuje, że $U$ jest otwarty.  
+
+Zatem $U \in \mathcal{A}_0$, co dowodzi, że $\mathcal{A}_0$ jest zamknięty na dowolne sumy (w tym nieskończone).
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{CKD}}
+\]

@@ -1,0 +1,41 @@
+\section{Zadanie 1}
+Rozważ dwa następujące procesy losowe:\\
+(i) wylosuj jednostajnie i niezależnie dwie wartości z [0,1] i zwróć maksimum;\\
+(ii) wylosuj jednostajnie wartość z [0,1] i zwróć pierwiastek wylosowanej wartości.\\
+Prównaj rozkłady zmiennych losowych opisujących wyjście tych procesów.
+
+\subsection*{Rozwiązanie}
+Niech $X_1, X_2, X_3$ - niezależne zmienne o rozkładzie jednostajnym na przedziale [0,1],\\
+Niech $Y_1= max(X_1,X_2)$, $Y_2 = \sqrt{X_3} $, wtedy:\\
+dla $y \in [0,1]$\\
+\[
+F_{Y_1}(y) = P(Y_1 \le y) = P(X_1 \le y \cap X_2 \le y) = P(X_1 \le y) P(X_2 \le y) = y^2
+\]
+\[
+F_{Y_2}(y) = P(Y_2 \le y) = P(\sqrt{X_3} \le y) = P(X_3 \le y^2) = y^2
+\]
+
+\[
+F_{Y_1}(x) =
+\begin{cases} 
+0 & \text{dla } x < 0 \\
+x^2 & \text{dla } x \in [0,1]\\
+1 & \text{dla } x > 1
+\end{cases}
+\]
+
+\[
+F_{Y_2}(x) =
+\begin{cases} 
+0 & \text{dla } x < 0 \\
+x^2 & \text{dla } x \in [0,1]\\
+1 & \text{dla } x > 1
+\end{cases}
+\]
+
+Zatem $Y_1, Y_2$ mają taki sam rozkład.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{tutaj daj odpowiedz}}
+\]

@@ -1,0 +1,130 @@
+\section{Zadanie 16 (Mateusz Wojaczek)}
+Niech $X$ i $Y$ mają łączną gęstość $f(x, y) = cx(y - x)e^{-y}$ dla $0 \le x \le y < \infty$.
+
+\begin{enumerate}
+    \item Wyznacz wartość $c$.
+    \item Udowodnij, że
+    \begin{align*}
+        f_{X|Y}(x | y) &= 6x(y - x)y^{-3} \quad \text{dla } 0 \le x \le y,\\
+        f_{Y|X}(y | x) &= (y - x)e^{x - y} \quad \text{dla } 0 \le x \le y < \infty.
+    \end{align*}
+    \item Wynioskuj, że $\text{E}(X | Y) = \frac{1}{2}Y$ oraz $\text{E}(Y | X) = X + 2$.
+\end{enumerate}
+
+\subsection*{Rozwiązanie}
+\subsection*{(i) Wyznaczenie stałej $c$}
+
+Aby $f_{X,Y}(x,y)$ była gęstością, całka podwójna musi wynosić 1:
+\[
+\int_0^\infty \int_0^y c x (y-x) e^{-y} \, dx \, dy = 1.
+\]
+
+Najpierw całkujemy względem $x$:
+\[
+\int_0^y x(y-x) dx = \int_0^y (xy - x^2) dx = \frac{1}{2}y^3 - \frac{1}{3}y^3 = \frac{1}{6}y^3.
+\]
+
+Zatem:
+\[
+\int_0^\infty c \cdot \frac{1}{6} y^3 e^{-y} dy = 1 \implies \frac{c}{6} \int_0^\infty y^3 e^{-y} dy = 1.
+\]
+
+\(\int_0^\infty y^3 e^{-y} dy = 6\), więc:
+\[
+\frac{c}{6} \cdot 6 = c = 1.
+\]
+
+\textbf{Odpowiedź:} \(c = 1\).
+
+\subsection*{(ii) Wyznaczenie gęstości warunkowych}
+
+\paragraph{Gęstość warunkowa $X$ przy $Y=y$}:
+
+\[
+f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}.
+\]
+
+Najpierw obliczamy $f_Y(y)$:
+\[
+f_Y(y) = \int_0^y f_{X,Y}(x,y) dx = \int_0^y 6 x (y-x) e^{-y} dx = 6 e^{-y} \cdot \frac{1}{6} y^3 = y^3 e^{-y}.
+\]
+
+Zatem:
+\[
+f_{X|Y}(x|y) = \frac{6 x (y-x) e^{-y}}{y^3 e^{-y}} = \frac{6 x (y-x)}{y^3}, \quad 0 \le x \le y.
+\]
+
+\paragraph{Gęstość warunkowa $Y$ przy $X=x$}:
+
+\[
+f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}.
+\]
+
+Najpierw obliczamy $f_X(x)$:
+\[
+f_X(x) = \int_x^\infty 6 x (y-x) e^{-y} dy = 6x \int_x^\infty (y-x) e^{-y} dy.
+\]
+
+Podstawiamy $u = y-x \implies dy = du, y-x = u, y = u+x$:
+\[
+\int_x^\infty (y-x) e^{-y} dy = \int_0^\infty u e^{-(u+x)} du = e^{-x} \int_0^\infty u e^{-u} du = e^{-x} \cdot 1! = e^{-x}.
+\]
+
+Zatem $f_X(x) = 6 x e^{-x}$. Wobec tego:
+\[
+f_{Y|X}(y|x) = \frac{6 x (y-x) e^{-y}}{6 x e^{-x}} = (y-x) e^{-(y-x)}, \quad y \ge x.
+\]
+
+\subsection*{(iii) Wartości oczekiwane warunkowe}
+
+\paragraph{Dla $E(X|Y)$}:
+
+\[
+E(X|Y=y) = \int_0^y x f_{X|Y}(x|y) dx = \int_0^y x \cdot \frac{6x(y-x)}{y^3} dx = \frac{6}{y^3} \int_0^y (x^2 y - x^3) dx.
+\]
+
+\[
+\int_0^y (x^2 y - x^3) dx = y \cdot \frac{y^3}{3} - \frac{y^4}{4} = \frac{y^4}{3} - \frac{y^4}{4} = \frac{y^4}{12}.
+\]
+
+\[
+E(X|Y=y) = \frac{6}{y^3} \cdot \frac{y^4}{12} = \frac{y}{2}.
+\]
+
+\paragraph{Dla $E(Y|X)$}:
+
+\[
+E(Y|X=x) = \int_x^\infty y f_{Y|X}(y|x) dy = \int_x^\infty y (y-x) e^{-(y-x)} dy.
+\]
+
+Podstawiamy $u = y-x \implies y = u+x, dy = du$:
+\[
+E(Y|X=x) = \int_0^\infty (u+x) u e^{-u} du = \int_0^\infty u^2 e^{-u} du + x \int_0^\infty u e^{-u} du = 2 + x \cdot 1 = x + 2.
+\]
+
+
+\[
+E(X|Y) = \frac{1}{2}Y, \quad E(Y|X) = X+2.
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{\item \textbf{Wartość $c$:}
+    $$
+    \mathbf{c = 1}
+    $$
+    \item \textbf{Gęstości warunkowe:}
+    $$
+    f_{X|Y}(x | y) = \mathbf{6x(y - x)y^{-3}}, \quad \text{dla } 0 \le x \le y
+    $$
+    $$
+    f_{Y|X}(y | x) = \mathbf{(y - x)e^{x - y}}, \quad \text{dla } 0 \le x \le y < \infty
+    $$
+    \item \textbf{Wartości oczekiwane warunkowe:}
+    $$
+    \mathbf{E(X | Y) = \frac{1}{2}Y}
+    $$
+    $$
+    \mathbf{E(Y | X) = X + 2}
+    $$}}
+\]

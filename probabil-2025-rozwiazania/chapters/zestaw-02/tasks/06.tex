@@ -1,0 +1,27 @@
+\section{Zadanie 6}
+POLECENIE\\
+W tali $2n$ kart mamy $n$ czerwonych i $n$ czarnych kart. Talia jest potasowana i kolejno wszytskie karty są wykładane na stół. Dla każdej wyciągniętej czerwonej karty, jeżeli po jej wyciągnięciu na stole jest więcej czerwonych niż czarnych kart, to zdobywamy jeden punkt. Jaka jest oczekiwana liczba zdobytych punktów?\\
+
+\subsection*{Rozwiązanie}
+Niech $X$ - liczba zdobytych punktów\\
+$X = \sum_{i=1}^n X_i$, gdzie \\
+\[
+X_i = \left\{
+\begin{array}{ll}
+1 & \text{jeżeli i-ta czerwona karta zdobywa punkt}\\
+0 & \text{w przeciwnym przypadku}
+\end{array}
+\right.
+\]
+
+$\forall_{i\in[n]} P(X_i) = \frac{1}{2}$\\
+ponieważ możemy bijektywnie przekształcić każdą konfigurację, w której i-ta czerwona karta zdobywa punkt w konfigurację, w której i-ta czerwona karta nie zdobywa punktu (wystarczy odwrócić kolory kart)\\
+Zatem 
+\[
+E[X] = E\left[\sum_{i=1}^{n}X_{i}\right] = \sum_{i=1}^{n}E[X_{i}] = \sum_{i=1}^{n}P(X_{i} = 1) = \frac{n}{2}
+\]
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{$\frac{n}{2}$}}
+\]

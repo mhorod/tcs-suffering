@@ -1,0 +1,97 @@
+\section{Zadanie 3 (Dominik Korsa)}
+Ze standardowej talii 52 kart wyciągamy 13 (ręka brydżowa). Niech \(X\) to
+liczba wyciągniętych asów, a \(Y\) to liczba wyciągniętych trefli.
+
+\begin{enumerate}[label=(\roman*)]
+  \item\label{set04.task03.1} Czy \(X\) i \(Y\) są niezależne?
+  \item\label{set04.task03.2} Czy \(X\) i \(Y\) są nieskorelowane?
+\end{enumerate}
+
+\subsection*{Przypomnienie}
+Zmienne losowe \(X\) i \(Y\) są \textbf{niezależne}, gdy dla każdego
+\(x, y \in \mathbb{R}\):
+\[
+  P(X=x \land Y=y) = P(X=x) \cdot P(Y=y)
+\]
+
+Zmienne losowe \(X\) i \(Y\) są \textbf{nieskorelowane}, gdy:
+\[
+  E[X \cdot Y] = E[X] \cdot E[Y]
+\]
+
+\subsection*{Rozwiązanie podpunktu \ref{set04.task03.1}}
+Nie są niezależne, pokażę kontrprzykład.
+
+\begin{itemize}
+  \item \(P(X=4)\) to prawdopodobieństwo, że wyciągniemy 4 asy, oczywiście
+  \(P(X=4) > 0\).
+
+  \item \(P(Y=13)\) to prawdopodobieństwo, że wyciągniemy tylko trefle, podobnie
+  \(P(Y=13) > 0\).
+
+  \item \(P(X=4 \land Y=13)\) to prawdopodobieństwo, że wyciągniemy tylko trefle,
+  w tym cztery asy. Takie zdarzenie jest niemożliwe, więc
+  \(P(X=4 \land = Y=13) = 0\).
+\end{itemize}
+Czyli nie jest prawdą, że dla każdego \(x, y \in \mathbb{R}\) zachodzi
+\[P(X=x \land Y=y) = P(X=x) \cdot P(Y=y),\]
+więc zmienne losowe \(X\) i \(Y\) nie są niezależne.
+
+\subsection*{Rozwiązanie podpunktu \ref{set04.task03.2}}
+Niech $X_i$ to indykator zdarzenia, że $i$-ta wylosowana karta to as:
+\[
+  E[X_i=1] = \frac{4}{52} = \frac{1}{13} \quad\text{(dla \(i \in [13]\))}
+\]
+Z liniowości wartości oczekiwanej:
+\[
+  E[X]
+  = E[X_1 + \cdots + E_{13}]
+  = E[X_1] + \cdots + E[X_{13}]
+  = 13 \cdot \frac{1}{13} = 1
+\]
+
+Analogicznie niech $Y_i$ to indykator zdarzenia, że $i$-ta karta to trefl:
+\[
+  E[Y] = \cdots = 13 \cdot \frac{1}{4} = \frac{13}{4}
+\]
+
+% Spróbujmy policzyć lub oszacować \(E[XY]\). Skorzystajmy z warunkowej wartości
+% oczekiwanej:
+% \begin{align*}
+%   E[XY]
+%   &= \sum_{x=0}^{4} E[XY | X=x] \cdot P(X=x)\\
+%   &= \sum_{x=0}^{4} x \cdot E[Y | X=x] \cdot P(X=x)\\
+% \end{align*}
+
+% \(P(X=x) = \frac{\binom{4}{x} \cdot \binom{48}{13-x}}{\binom{52}{13}}\)
+\(X_iY_i\) to indykator zdarzenia, że \(i\)-ta wylosowana karta to as trefl:
+\(E[X_iY_i] = \frac{1}{52}\).
+
+Dla \(i \neq j\) \(X_iY_j\) to indykator zdarzenia, że \(i\)-ta wylosowana karta
+jest asem, a \(j\)-ta to trefl. Te zdarzenia są niezależne, więc:
+\[
+  E[X_iY_j] = P(X_i = 1 \land Y_j = 1)
+  = P(X_i = 1) \cdot P(Y_j = 1)
+  = \frac{1}{4} \cdot \frac{1}{13} = \frac{1}{52}
+\]
+
+Czyli dla każdej pary \((i, j) \in [13] \times [13]\) zachodzi \(E[X_iY_i] = \frac{1}{52}\).
+
+Z liniowości wartości oczekiwanej:
+\[
+  E[XY]
+  = E\left[ \sum_{(i,j) \in [13] \times [13]} X_iY_j \right]
+  = \sum_{(i,j) \in [13] \times [13]} E[X_iY_j]
+  = 13^2 \cdot \frac{1}{52}
+  = \frac{13}{4},
+\]
+Wiemy też, że:
+\[
+  E[X] \cdot E[Y] = 1 \cdot \frac{13}{4} = \frac{13}{4},
+\]
+więc warunek na \textbf{nieskorelowanie} zmiennych losowych \(X\) i \(Y\) zachodzi.
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\text{\(X\) i \(Y\) \textb{nie są niezależne}, ale \textbf{są nieskorelowane}}}
+\]

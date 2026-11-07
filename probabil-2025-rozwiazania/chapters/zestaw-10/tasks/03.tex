@@ -1,0 +1,96 @@
+\section{Zadanie 3 (Dominik Korsa)}
+Niech \(X\) będzie zmienną losową z rozkładu normalnego
+\(N(0, \sigma^2)\), zaś \(Z\) zmienną przyjmującą wartości ze zbioru
+\(\{-1, +1\}\) z rozkładem jednostajnym. Niech \(Y = XZ\).
+
+\begin{enumerate}[label=(\roman*)]
+  \item\label{set10.task03.1} Pokaż, że zmienna \(Y\) ma rozkład \(N(0, \sigma^2)\).
+  \item\label{set10.task03.2} Wyjaśnij, dlaczego zmienne \(X, Y\) nie są niezależne.
+  \item\label{set10.task03.3} Pokaż, że zmienne \(X\), \(Y\) są nieskorelowane (czyli \(Cov(X, Y) = 0\)).
+\end{enumerate}
+
+\subsection*{Rozwiązanie podpunktu \ref{set10.task03.1}}
+Dystrybuanta zmiennej \(X\) to z własności rozkładu normalnego
+\[
+  F_X(x)
+  = P(X \leq x)
+  = P\left( \frac{X}{\sigma} \leq \frac{x}{\sigma} \right)
+  = \Phi\left(\frac{x}{\sigma}\right).
+\]
+\(\frac{X}{\sigma}\) jest zmienną o standardowym rozkładzie normalnym,
+a \(\Phi\) oznacza dystrybuantę standardowego rozkładu normalnego.
+
+Pokażmy, że \(XZ\) ma taką samą dystrybuantę, a więc też taki sam rozkład, co \(X\).
+\begin{align*}
+  F_{XZ}(x)
+  &= P(XZ \leq x)\\
+  &= P\Big((Z = 1 \land X \leq x)\; \lor \; (Z = -1 \land -X \leq x) \Big)
+\end{align*}
+Z rozłączności zdarzeń oraz niezależności \(X\) i \(Z\):
+\begin{align*}
+  F_{XZ}(x)
+  &= P(Z = 1)P(X \leq x) + P(Z=-1)P(-X \leq x)\\
+  &= \frac{1}{2} P(X \leq x) + \frac{1}{2} P(-X \leq x)
+\end{align*}
+
+\(P(X \leq x)\) przekształciliśmy już powyżej, zróbmy to samo z \(P(-X \leq x)\).
+Ostatnią równość mamy z wykładu:
+\[
+  P(-X \leq x)
+  = P\left( \frac{X}{\sigma} \geq \frac{-x}{\sigma} \right)
+  = 1-P\left( \frac{X}{\sigma} \leq \frac{-x}{\sigma} \right)
+  = 1 - \Phi\left( \frac{-x}{\sigma} \right)
+  = \Phi\left( \frac{x}{\sigma} \right)
+\]
+
+Zatem:
+\[
+  F_{XZ}(x) = \frac{1}{2} \Phi\left( \frac{x}{\sigma} \right)
+  + \frac{1}{2} \Phi\left( \frac{x}{\sigma} \right)
+  = \Phi\left( \frac{x}{\sigma} \right).
+\]
+\(X\) i \(Y = XZ\) mają taką samą dystrybuantę, więc też taki sam rozkład. 
+
+\subsection*{Rozwiązanie podpunktu \ref{set10.task03.2}}
+Załóżmy \textbf{nie wprost}, że \(X\) i \(Y\) są niezależne.
+W takim razie:
+\[
+  P\big(X \in [-1, 1] \land Y \in [-1, 1]\big)
+  = P\big(X \in [-1, 1]\big) \cdot P\big(Y \in [-1, 1]\big).
+\]
+Ale \(X \in [-1, 1]\) jest tym samym zdarzeniem, co \(Y \in [-1, 1]\), zatem
+\[
+  P\big(X \in [-1, 1] \land Y \in [-1, 1]\big)
+  = P\big(X \in [-1, 1]\big)
+  = P\big(Y \in [-1, 1]\big).
+\]
+
+Z poprzedniego równania otrzymujemy oczywiście fałszywy wniosek,
+że \(P(X \in [-1, 1]) = 1\), zatem założenie jest sprzeczne.
+
+\subsection*{Rozwiązanie podpunktu \ref{set10.task03.3}}
+Rozpiszmy \(Cov(X, Y)\) z definicji:
+\begin{align*}
+  Cov(X, Y)
+  &= E[X Y] - \underbrace{E[X]}_{=0} \cdot E[Y]\\
+  &= E[X Y]\\
+  &= P(Z = -1) E[XY \mid Z = -1] + P(Z = +1) E[XY \mid Z = +1]
+\end{align*}
+Rozpiszmy wiedząc, że \(Y = ZX\) i korzystając z niezależności \(X\) i \(Z\):
+\begin{itemize}
+  \item \(E[XY \mid Z = -1]
+    = E[X (-X) \mid Z = -1]
+    = E[-X^2]
+    = -E[X^2]
+  \)
+  \item \(E[XY \mid Z = +1]
+    = E[X \cdot X \mid Z = +1]
+    = E[X^2]
+  \)
+\end{itemize}
+Zatem
+\[
+  Cov(X, Y)
+  = -\frac{1}{2} E[X^2] + \frac{1}{2} E[X^2]
+  = 0.
+\]

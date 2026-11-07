@@ -1,0 +1,50 @@
+\section{Zadanie 8 (Dominik Korsa)}
+Rzucamy monetą, gdzie orzeł wypada z prawdopodobieństwem \(p\). Każdy rzut trwa
+czas będący zmienną losową z rozkładu wykładniczego z parametrem 1.
+Pokaż, że łączny czas oczekiwania na orła jest zmienną losową z rozkładu
+wykładniczego o parametrze \(p\).
+
+\subsection*{Rozwiązanie}
+Niech \(X\) to zmienna losowa określająca liczbę rzutów do wypadnięcia orła.
+\(X\) ma rozkład geometryczny z parametrem \(p\).
+
+Niech \(Y_i\) to czas trwania \(i\)-tego rzutu.
+Wtedy \(Y = Y_1 + \dots + Y_X\) to czas oczekiwania na orła.
+
+Rozważmy gęstość w zależności od wartości \(X\):
+\begin{align*}
+  f_Y(y)
+  &= \sum_{x = 1}^{\infty} f_{Y \mid X = x}(y) \cdot P(X = x)\\
+\end{align*}
+
+Pod warunkiem \(X=x\) jest tak, że \(Y = Y_1 + \cdots + Y_x\).
+\(Y\) jest sumą \(x\) niezależnych zmiennych o rozkładzie wykładniczym z parametrem
+\(1\), więc z \hyperref[set09.task05]{zadania 5} \(Y\) ma rozkład
+\(\Gamma(x, 1)\). Ze wstępu do zestawu znamy gęstość zmiennej o takim rozkładzie:
+\[
+f_{Y \mid X = x}(y) = \frac{1}{\Gamma(x)} y^{x-1} e^{-y}
+\]
+A dodatkowo wiemy, że \(X\) ma rozkład geometryczny, więc
+\(P(X = x) = (1-p)^{x-1} p\).
+Mamy:
+\begin{align*}
+  f_Y(y)
+  &= \sum_{x = 1}^{\infty} \frac{1}{\Gamma(x)} y^{x-1} e^{-y} \cdot (1-p)^{x-1} p\\
+\end{align*}
+Wyciągnijmy stałe czynniki przed sumę i uprośćmy.
+Wykorzystajmy dodatkowo fakt, że skoro \(x \in \mathbb{N}_+\),
+to \(\Gamma(x) = (x-1)!\).
+W drugiej linijce przesuwamy iterator w sumie:
+\begin{align*}
+  f_Y(y)
+  &= p e^{-y} \sum_{x = 1}^{\infty} \frac{1}{(x-1)!} y^{x-1} \cdot (1-p)^{x-1}\\
+  &= p e^{-y} \sum_{x = 0}^{\infty} \frac{(y-yp)^x}{x!}
+\end{align*}
+W tym momencie udajemy, że mieliśmy porządną analizę, rozpoznajemy tutaj wzór
+\[e^z = \sum_{k=0}^{\infty} \frac{z^k}{k!}\]
+i otrzymujemy:
+\[
+  f_Y(y) = p e^{-y} e^{y-yp} = p e^{-py}.
+\]
+To jest dokładnie gęstość zmiennej losowej z rozkładu wykładniczego z parametrem
+\(p\), więc \(Y\) jest taką zmienną losową, co kończy dowód.

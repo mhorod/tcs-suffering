@@ -1,0 +1,23 @@
+\section{Zadanie 12 (Aleksander Wieczorek)}
+Czas obsługi i-tego klienta dany jest zmienn¡ losową o wartości oczekiwanej wynoszącej 2 minuty oraz wariancji równej 1 minucie. Zmienne opisujące każdego z
+klientów są niezależne. Niech Y oznacza sumaryczny czas obsługi 50 klientów. Wyznacz $P(90 \le Y \le 110)$.
+\subsection*{Rozwiązanie}
+W tym zadaniu trzeba skorzystać z CTG. Ogranicza się to do tego, że po prostu musimy tak zmodyfikować 
+daną nierówność, żeby wyszedł nam wzór z CTG. Wtedy aplikujemy twierdzenie i mamy wynik.\\
+Policzmy potrzebne rzeczy:\\
+$$Y_i - \text{czas obsługi i-tego klienta}$$
+$$Y=\sum_{i=1}^{50} Y_i \qquad \bar{Y} = \frac{Y}{50}$$
+$$E(\bar{Y})=\frac{1}{50}E(Y)=\frac{1}{50} \cdot \sum_{i=1}^{50}E(Y_i)=\frac{1}{50} \cdot 50 \cdot 2=2$$
+$$Var(\bar{Y})=\frac{1}{50^2}\cdot \sum_{i=1}^{50} Var(Y_i) =\frac{1}{50^2}\cdot 50 \cdot 1 = \frac{1}{50}$$
+$$\frac{1}{\sqrt{Var(\bar Y)}}= \sqrt{50}=5\sqrt{2}$$
+I teraz wystarczy odpowiednio przekształcić nierówność z treści:
+$$P(90 \le Y \le 110) = P\left(\frac{9}{5}\le \bar{Y} \le \frac{11}{5}\right)= P\left(-\frac{1}{5}\le \bar{Y}-E(\bar{Y})\le \frac{1}{5} \right)$$
+$$= P\left(-\sqrt{2} \le \frac{\bar{Y}-E(\bar{Y})}{\sqrt{Var(\bar Y )}}\le \sqrt{2} \right)=\Phi(\sqrt{2}) - \Phi(-\sqrt{2})=2\cdot\Phi(\sqrt{2})-1$$
+Przedostatnia równość to CTG, a ostatnia wynika z symetrii rozkładu normalnego ($\Phi(-x)=1-\Phi(x)$).\\
+Teraz możemy jedynie odczytać dystrybuantę z tabelki.
+$$2\cdot\Phi(\sqrt{2})-1 \approx 2\cdot \Phi (1.41) - 1 \approx 0.84 $$
+
+\subsection*{Odpowiedź}
+\[
+\boxed{\Phi(\sqrt{2}) - \Phi(-\sqrt{2}) \approx 0.84 }
+\]

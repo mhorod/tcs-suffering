@@ -1,0 +1,41 @@
+\section{Zadanie 4}
+Udowodnij, że wskończonym łańcuchu Markova każdu stan powracający jest dodatni.
+
+\subsection*{Dowód}
+Niech $S$ będzie przestrzenią stanów łańcucha Markowa, przy czym $|S| < \infty$ (przestrzeń jest skończona).
+Rozważmy stan powracający $i \in S$. Niech $C$ będzie klasą komunikacji, do której należy stan $i$.
+
+Z własności łańcuchów Markowa wiemy, że:
+\begin{enumerate}
+    \item Klasa $C$ jest zamknięta (prawdopodobieństwo wyjścia z niej wynosi 0).
+    \item Wszystkie stany w klasie $C$ są powracające.
+    \item Ponieważ cała przestrzeń $S$ jest skończona, to $C \subseteq S$ również jest zbiorem skończonym.
+\end{enumerate}
+
+Przeprowadzimy dowód nie wprost. \\
+Załóżmy przeciwnie, że stan $i$ (a zatem i wszystkie stany w klasie $C$) jest powracający zerowy.
+
+Z definicji stanu powracającego zerowego wynika, 
+że granica prawdopodobieństw przejścia dąży do zera, czyli dla każdego $j \in C$:
+\[
+    \lim_{n \to \infty} P_{ij}^{(n)} = 0
+\]
+gdzie $P_{ij}^{(n)}$ oznacza prawdopodobieństwo przejścia ze stanu $i$ do stanu $j$ w $n$ krokach.
+
+Ponieważ klasa $C$ jest zamknięta, w każdym kroku $n$ suma prawdopodobieństw przejścia ze stanu $i$ do wszystkich stanów tej klasy musi wynosić 1:
+\[
+    \sum_{j \in C} P_{ij}^{(n)} = 1
+\]
+
+Obłóżmy to granicą:
+$$ \lim_{n \to \infty} \sum_{j \in C} P_{ij}^{(n)} = 1 $$
+
+Ponieważ zbiór $C$ jest skończony, 
+możemy zamienić kolejność sumowania i granicy (kluczowe)
+$$ \sum_{j \in C} \left( \lim_{n \to \infty} P_{ij}^{(n)} \right) = 1 $$
+
+Korzystając z naszego założenia podstawiamy $0$ w miejsce granicy:
+$$ \sum_{j \in C} 0 = 1 $$
+
+Otrzymaliśmy sprzeczność
+Zatem, stan $i$ musi być powracający dodatni. \ \  $\square$

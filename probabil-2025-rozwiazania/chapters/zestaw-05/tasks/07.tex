@@ -1,0 +1,55 @@
+\section{Zadanie 7 (Mateusz Wojaczek)}
+Dana jest moneta asymetryczna z nieznanym Ci \( p \in (0, 1) \).
+Jak wiele rzutów musisz wykonać, aby z prawdopodobieństwem co najmniej \( 0.9 \) poznać wartość \( p \) z dokładnością do \( 0.1 \)?
+
+\subsection*{Rozwiązanie}
+\[
+\text{Niech:}
+\]
+\[
+\text{orzeł } \rightarrow p, \quad \text{reszka } \rightarrow 1 - p
+\]
+
+\[
+X - \text{ liczba wyrzuconych orłów w } n \text{ rzutów}
+\]
+
+\[
+E[X] = np
+\]
+
+\[
+P((p+0{,}1)n \geq X \geq (p-0{,}1)n) \geq 0{,}9 
+\]
+\[
+\Leftrightarrow P(|X - pn| \geq 0{,}1n) \leq 0{,}1
+\]
+
+\[
+\mathrm{Var}(X) = \sum_{i=1}^{n} \mathrm{Var}(X_i) = n \big(E[X_i^2] - E[X_i]^2\big) = n(p - p^2) = np(1 - p)
+\]
+
+\[
+P(|X - pn| \geq 0{,}1n) = P(|X - E[X]| \geq 0{,}1n) \leq \frac{\mathrm{Var}(X)}{(0{,}1n)^2}
+\]
+\[
+= \frac{np(1 - p)}{n^2} \cdot 100 = \frac{p(1 - p)}{n} \cdot 100
+\]
+
+\[
+\frac{p(1 - p)}{n} \cdot 100 \leq 0{,}1
+\]
+\[
+p(1 - p) \cdot 1000 \leq n
+\]
+
+Dla \( p = \frac{1}{2} \) lewa strona osiąga wartość największą, zatem:
+\[
+\frac{1}{4} \cdot 1000 \leq n
+\]
+
+
+\subsection*{Odpowiedź}
+\[
+\boxed{n \geq 250}
+\]

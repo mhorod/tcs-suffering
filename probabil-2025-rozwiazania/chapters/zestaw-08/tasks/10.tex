@@ -1,0 +1,14 @@
+\section{Zadanie 10}
+Losujemy \(n\) przedziałów \(I_1, \dots, I_n\) w następujący sposób: konstruując \(i\)-ty przedział losujemy niezależnie i jednostajnie jego oba końce z przedziału \([0, 1]\). Jakie jest prawdopodobieństwo tego, że istnieje punkt \(p\) należący do wszystkich wylosowanych przedziałów?
+
+
+\subsection*{Rozwiązanie}
+Sprowadzamy zadanie do dyskretnego problemu. Wylosujmy wszystkie końce \(X_1,\dots,X_n\) oraz \(Y_1,\dots,Y_n\) i posortujmy otrzymując \(Z_1,\dots,Z_{2n}\). Aby istniał punkt \(p\), należący do wszystkich przedziałów, musi się on znajdować w przedziale \((Z_n,Z_{n+1})\) i dla każdego \(I_k\) jeden z jego krańców musi być w \((Z_1,\dots,Z_n)\), a drugi w \((Z_{n+1},\dots,Z_{2n})\). Prawdopodobieństwo takiego zdarzenia wynosi
+\[
+P = \frac{2^n (n!)^2}{(2n)!}
+\]
+Ze względu na \(2^n\) możliwości wyboru części \(Z\)-tów dla krańców każdego przedziału, a \(\frac{(n!)^2}{(2n)!}\) na spermutowanie.
+\subsection*{Odpowiedź}
+\[
+\boxed{{P = \frac{2^n (n!)^2}{(2n)!}}}
+\]
