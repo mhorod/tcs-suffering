@@ -1,21 +1,21 @@
 \section{Zadanie 12}
 \autor{Aleksander Wieczorek}
 Niech P będzie macierzą przejścia spaceru losowego na cyklu długości 2025.
-Znajdź najmniejszą wartość $t$ taką, że $p_{x,y}(t) > 0$ dla wszystkich stanów x i y.
+Znajdź najmniejszą wartość \(t\) taką, że \(p_{x,y}(t) > 0\) dla wszystkich stanów x i y.
 \subsection*{Rozwiązanie}
-Zauważmy od razu, że nasz łańcuch jest nieokresowy. Z wierzchołka i krawędzią nieskierowana możemy się wrócić w 2 krokach,\footnote{zakładam, że między każdą parą sąsiednich wierzchołków da się przejść w obie strony. Gdyby tak nie było dużo ciężej przeanalizować problem, bo takie t mogłoby nie istnieć} albo przejść cały cykl w 2025 krokach, więc $$o(i)=gcd(2,2025)=1$$ Cykl jest spójny, łańcuch jest nieprzywiedlny , więc każdy wierzchołek ma okres 1.\\
-Stąd wynika, że istnieje takie t dla którego $\forall_{x,y} p_{x,y}(t)>0$.\\
+Zauważmy od razu, że nasz łańcuch jest nieokresowy. Z wierzchołka i krawędzią nieskierowana możemy się wrócić w 2 krokach,\footnote{zakładam, że między każdą parą sąsiednich wierzchołków da się przejść w obie strony. Gdyby tak nie było dużo ciężej przeanalizować problem, bo takie t mogłoby nie istnieć} albo przejść cały cykl w 2025 krokach, więc \[o(i)=gcd(2,2025)=1\] Cykl jest spójny, łańcuch jest nieprzywiedlny , więc każdy wierzchołek ma okres 1.\\
+Stąd wynika, że istnieje takie t dla którego \(\forall_{x,y} p_{x,y}(t)>0\).\\
 Dodatkowo zauważmy, że wybór punktu startowego x jest nieistotny - cykl można obrócić.\\
 Jeśli przejdziemy jakąś ścieżkę w k krokach to możemy przejść nią w k+2 krokach dodając przejście krawędzią "tam i z powrotem".\\
-Jedynym problemem przejścia między parą wierzchołko w t krokach jest parzystość t.\\ 
-Dla każdego wierzchołka y $dist(x,y)$ ma inną parzystość niż $2025-dist(x,y)$, więc między każdą parą wierzchołków istnieje najkrótsza ścieżka o każdej parzystości.\\
-Wystarczy ustalić najmniejsze t dla którego wszystkie takie ścieżki mają długość $\le$ t.
+Jedynym problemem przejścia między parą wierzchołko w t krokach jest parzystość t.\\
+Dla każdego wierzchołka y \(dist(x,y)\) ma inną parzystość niż \(2025-dist(x,y)\), więc między każdą parą wierzchołków istnieje najkrótsza ścieżka o każdej parzystości.\\
+Wystarczy ustalić najmniejsze t dla którego wszystkie takie ścieżki mają długość \(\le\) t.
 \begin{itemize}
-    \item Aby przejść z x do x w nieparzystą liczbę kroków musimy obejść cały cykl, który ma długość 2025, więc nieparzyste $t<2025$ odpada
-    \item Aby przejść z x do jego sąsiada w parzystą liczbę kroków musimy obejść prawie cały cykl, więc najkrótsza taka ścieżka ma długość 2024, więc parzyste $t<2024$ również odpadają,
+	\item Aby przejść z x do x w nieparzystą liczbę kroków musimy obejść cały cykl, który ma długość 2025, więc nieparzyste \(t<2025\) odpada
+	\item Aby przejść z x do jego sąsiada w parzystą liczbę kroków musimy obejść prawie cały cykl, więc najkrótsza taka ścieżka ma długość 2024, więc parzyste \(t<2024\) również odpadają,
 \end{itemize}
 Uwzględniając oba warunki najmniejszą niewykluczoną odpowiedzią jest t=2024.
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{2024}}
+	\boxed{\text{2024}}
 \]

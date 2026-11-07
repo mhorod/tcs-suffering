@@ -1,48 +1,48 @@
 \section{Zadanie 7}
 \autor{Hubert Jastrzębski}
-Niech $X_1, \ldots, X_n$ będą niezależnymi zmiennymi losowymi z rozkładu wykładniczego z parametrem $\lambda = 1$.
+Niech \(X_1, \ldots, X_n\) będą niezależnymi zmiennymi losowymi z rozkładu wykładniczego z parametrem \(\lambda = 1\).
 Wyznacz wartość oczekiwaną k-tej wartości w posortowanym ciągu tych zmiennych.
 
 \subsection*{Rozwiązanie}
-\textbf{Lemat:} $\big(X_{(1)} = min(X_1, \ldots, X_n) \big) \sim Exp(n \lambda)$
+\textbf{Lemat:} \(\big(X_{(1)} = min(X_1, \ldots, X_n) \big) \sim Exp(n \lambda)\)
 
 \textbf{Dowód:}
 
-Wiemy, że $X_1, \ldots, X_n \sim Exp(\lambda)$ i są niezależne.
-Dystrybuanta każdej z nich to: $$F_{X_i}(x) = P(X_i \leq x) = 1 - e^{-\lambda x}$$
-W takim razie $P(X_i \geq x) = e^{-\lambda x}$
+Wiemy, że \(X_1, \ldots, X_n \sim Exp(\lambda)\) i są niezależne.
+Dystrybuanta każdej z nich to: \[F_{X_i}(x) = P(X_i \leq x) = 1 - e^{-\lambda x}\]
+W takim razie \(P(X_i \geq x) = e^{-\lambda x}\)
 
-$$P(X_{(1)} \geq x) = P(\min(X_1, \ldots, X_n) \geq x) = P(X_1 \geq x, \ldots, X_n \geq x)$$
+\[P(X_{(1)} \geq x) = P(\min(X_1, \ldots, X_n) \geq x) = P(X_1 \geq x, \ldots, X_n \geq x)\]
 Zmienne są niezależne, więc:
-$$P(X_{(1)} \geq x) = \prod_{i=1}^n P(X_i \geq x) = (e^{-\lambda x})^n = e^{-n \lambda x}$$
-Zatem $X_{(1)} \sim Exp(n \lambda)$, ckd.
+\[P(X_{(1)} \geq x) = \prod_{i=1}^n P(X_i \geq x) = (e^{-\lambda x})^n = e^{-n \lambda x}\]
+Zatem \(X_{(1)} \sim Exp(n \lambda)\), ckd.
 
 \textbf{Nasze zadanie}
 
-Z lematu wiemy, że $X_{(1)} = \min(X_1, \ldots, X_n) \sim Exp(n)$. 
-Zatem $E[X_{(1)}] = \frac{1}{n}$.
+Z lematu wiemy, że \(X_{(1)} = \min(X_1, \ldots, X_n) \sim Exp(n)\).
+Zatem \(E[X_{(1)}] = \frac{1}{n}\).
 
 Zdefiniujmy sobie teraz odstępy między kolejnymi wartościami w posortowanym ciągu:
-$$Y_1 = X_{(1)}, \quad Y_2 = X_{(2)} - X_{(1)}, \quad \ldots, \quad Y_n = X_{(n)} - X_{(n-1)}$$
+\[Y_1 = X_{(1)}, \quad Y_2 = X_{(2)} - X_{(1)}, \quad \ldots, \quad Y_n = X_{(n)} - X_{(n-1)}\]
 
-Ze względu na brak pamięci rozkładu wykładniczego, 
-po wystąpieniu $X_{(1)}$, pozostałe $n-1$ zmiennych losowych 
-``startują od nowa'' i nadal są niezależne 
-i mają rozkład wykładniczy z parametrem $\lambda = 1$.
+Ze względu na brak pamięci rozkładu wykładniczego,
+po wystąpieniu \(X_{(1)}\), pozostałe \(n-1\) zmiennych losowych
+``startują od nowa'' i nadal są niezależne
+i mają rozkład wykładniczy z parametrem \(\lambda = 1\).
 
-Zatem $Y_2$ to czas oczekiwania na drugą najmniejszą wartość po wystąpieniu pierwszej i ``resetowaniu'' pozostałych zmiennych,
-czyli czas oczekiwania na minimum spośród $n-1$ zmiennych losowych z rozkładu wykładniczego z parametrem $\lambda = 1$.
-Z lematu więc $Y_2 \sim Exp(n-1)$ i $E[Y_2] = \frac{1}{n-1}$.
+Zatem \(Y_2\) to czas oczekiwania na drugą najmniejszą wartość po wystąpieniu pierwszej i ``resetowaniu'' pozostałych zmiennych,
+czyli czas oczekiwania na minimum spośród \(n-1\) zmiennych losowych z rozkładu wykładniczego z parametrem \(\lambda = 1\).
+Z lematu więc \(Y_2 \sim Exp(n-1)\) i \(E[Y_2] = \frac{1}{n-1}\).
 
 Analogicznie jest dla pozostałych odstępów:
-$$Y_i \sim Exp(n-i+1) \quad \implies \quad E[Y_i] = \frac{1}{n-i+1}$$
+\[Y_i \sim Exp(n-i+1) \quad \implies \quad E[Y_i] = \frac{1}{n-i+1}\]
 
-Możemy wyrazić $X_{(k)}$ przez sumę odstępów:
-$$X_{(k)} = \sum_{i=1}^k Y_i \implies E[X_{(k)}] = \sum_{i=1}^k E[Y_i] = \sum_{i=1}^k \frac{1}{n-i+1}$$
-$$E[X_{(k)}] = \sum_{i=0}^{k-1} \frac{1}{n-i} = \sum_{i=n-k+1}^{n} \frac{1}{i} = \sum_{i=1}^n \frac{1}{i} - \sum_{i=1}^{n-k} \frac{1}{i} = H_n - H_{n-k}$$
+Możemy wyrazić \(X_{(k)}\) przez sumę odstępów:
+\[X_{(k)} = \sum_{i=1}^k Y_i \implies E[X_{(k)}] = \sum_{i=1}^k E[Y_i] = \sum_{i=1}^k \frac{1}{n-i+1}\]
+\[E[X_{(k)}] = \sum_{i=0}^{k-1} \frac{1}{n-i} = \sum_{i=n-k+1}^{n} \frac{1}{i} = \sum_{i=1}^n \frac{1}{i} - \sum_{i=1}^{n-k} \frac{1}{i} = H_n - H_{n-k}\]
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{E[X_{(k)}] = H_n - H_{n-k}}
+	\boxed{E[X_{(k)}] = H_n - H_{n-k}}
 \]

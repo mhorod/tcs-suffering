@@ -3,73 +3,73 @@ Wyprowadź z aksjomatów kolejne własności przestrzeni probabilistycznej
 
 \subsection*{Aksjomaty miary probabilistycznej}
 \begin{itemize}
-    \item \(P \colon \mathcal F \to [0, \infty)\)
-    \item \(P(\Omega) = 1\)
-    \item jeśli \(\{A_n\}_{n\in\mathbb N}\) jest (przeliczalną!) rodziną
-    zbiorów parami rozłącznych,\\ to
-    \(P(\bigcup_{n\in\mathbb N} A_n) = \sum_{n\in\mathbb N} P(A_n)\)
+	\item \(P \colon \mathcal F \to [0, \infty)\)
+	\item \(P(\Omega) = 1\)
+	\item jeśli \(\{A_n\}_{n\in\mathbb N}\) jest (przeliczalną!) rodziną
+	      zbiorów parami rozłącznych,\\ to
+	      \(P(\bigcup_{n\in\mathbb N} A_n) = \sum_{n\in\mathbb N} P(A_n)\)
 \end{itemize}
 
 \subsection*{Rozwiązanie}
 \begin{enumerate}
-\item[(i)] 
-    \(P(\emptyset) = 0\)\\
-    \(\{\Omega, \emptyset, \emptyset, \emptyset, \emptyset, \ldots\}\)
-    jest przeliczalną rodziną zbiorów parami rozłącznych\\
-    Z aksjomatów:\\
-    \(
-        P(\Omega \cup \emptyset \cup \emptyset \cup \ldots) = 
-        P(\Omega) + P(\emptyset) + P(\emptyset) + \ldots
-    \)\\
-    \(
-        P(\Omega) =
-        P(\Omega) + P(\emptyset) + P(\emptyset) + \ldots
-    \)\\
-    \(
-        1 = 1 + P(\emptyset) + P(\emptyset) + \ldots
-    \)\\
-    \(
-        0 = \sum_{n\in\mathbb N} P(\emptyset)
-    \)\\
-    \(
-        P(\emptyset) = 0
-    \)\\
-    Korzystając z tej tożsamości będziemy od tej pory mogli używać
-    aksjomatu 3. w wersji skończonej - nieskończenie wiele zbiorów
-    pustych nie zmieni wyniku.
+	\item[(i)]
+	      \(P(\emptyset) = 0\)\\
+	      \(\{\Omega, \emptyset, \emptyset, \emptyset, \emptyset, \ldots\}\)
+	      jest przeliczalną rodziną zbiorów parami rozłącznych\\
+	      Z aksjomatów:\\
+	      \(
+	      P(\Omega \cup \emptyset \cup \emptyset \cup \ldots) =
+	      P(\Omega) + P(\emptyset) + P(\emptyset) + \ldots
+	      \)\\
+	      \(
+	      P(\Omega) =
+	      P(\Omega) + P(\emptyset) + P(\emptyset) + \ldots
+	      \)\\
+	      \(
+	      1 = 1 + P(\emptyset) + P(\emptyset) + \ldots
+	      \)\\
+	      \(
+	      0 = \sum_{n\in\mathbb N} P(\emptyset)
+	      \)\\
+	      \(
+	      P(\emptyset) = 0
+	      \)\\
+	      Korzystając z tej tożsamości będziemy od tej pory mogli używać
+	      aksjomatu 3. w wersji skończonej - nieskończenie wiele zbiorów
+	      pustych nie zmieni wyniku.
 
-\item[(ii)] 
-    \(P(\Omega\setminus A) = 1 - P(A)\)\\
-    \(\{(\Omega\setminus A), A\}\) to skończona rodzina zbiorów parami rozłącznych.
-    W zgodzie z aksjomatem powinniśmy w niej uwzględnić jeszcze nieskończenie
-    wiele zbiorów pustych\\
-    \(P((\Omega\setminus A) \cup A) = P(\Omega\setminus A) + P(A)\)\\
-    \(P(\Omega) = P(\Omega\setminus A) + P(A)\)\\
-    \(P(\Omega\setminus A) = P(\Omega) - P(A)\)\\
-    \(P(\Omega\setminus A) = 1 - P(A)\)
+	\item[(ii)]
+	      \(P(\Omega\setminus A) = 1 - P(A)\)\\
+	      \(\{(\Omega\setminus A), A\}\) to skończona rodzina zbiorów parami rozłącznych.
+	      W zgodzie z aksjomatem powinniśmy w niej uwzględnić jeszcze nieskończenie
+	      wiele zbiorów pustych\\
+	      \(P((\Omega\setminus A) \cup A) = P(\Omega\setminus A) + P(A)\)\\
+	      \(P(\Omega) = P(\Omega\setminus A) + P(A)\)\\
+	      \(P(\Omega\setminus A) = P(\Omega) - P(A)\)\\
+	      \(P(\Omega\setminus A) = 1 - P(A)\)
 
-\item[(iii)]
-    jeśli \(A \subseteq B\), to \(P(B\setminus A) = P(B) - P(A)\)\\
-    \((B\setminus A), A\) są rozłączne:\\
-    \(P((B\setminus A)\cup A) = P(B\setminus A) + P(A)\)\\
-    \(P(B) = P(B\setminus A) + P(A)\)\\
-    \(P(B\setminus A) = P(B) - P(A)\)
+	\item[(iii)]
+	      jeśli \(A \subseteq B\), to \(P(B\setminus A) = P(B) - P(A)\)\\
+	      \((B\setminus A), A\) są rozłączne:\\
+	      \(P((B\setminus A)\cup A) = P(B\setminus A) + P(A)\)\\
+	      \(P(B) = P(B\setminus A) + P(A)\)\\
+	      \(P(B\setminus A) = P(B) - P(A)\)
 
-\item[(iv)]
-    jeśli \(A \subseteq B\), to \(P(A) \leqslant P(B)\)\\
-    korzystając z (iii): \(P(B) = P(A) + P(B\setminus A)\)\\
-    z aksjomatu \(P\) przyjmuje wartości nieujemne:
-    \(P(B\setminus A) \geqslant 0\)\\
-    \(P(B) = P(A) + P(B\setminus A) \geqslant P(A)\)
+	\item[(iv)]
+	      jeśli \(A \subseteq B\), to \(P(A) \leqslant P(B)\)\\
+	      korzystając z (iii): \(P(B) = P(A) + P(B\setminus A)\)\\
+	      z aksjomatu \(P\) przyjmuje wartości nieujemne:
+	      \(P(B\setminus A) \geqslant 0\)\\
+	      \(P(B) = P(A) + P(B\setminus A) \geqslant P(A)\)
 
-\item[(v)]
-    \(P(A) \leqslant 1\)\\
-    korzystamy z (ii): \(P(A) = 1 - P(\Omega\setminus A)\)\\
-    \(P\) przyjmuje wartości nieujemne: \(P(\Omega\setminus A) \geqslant 0\)\\
-    \(P(A) = 1 - P(\Omega\setminus A) \leqslant 1\)
+	\item[(v)]
+	      \(P(A) \leqslant 1\)\\
+	      korzystamy z (ii): \(P(A) = 1 - P(\Omega\setminus A)\)\\
+	      \(P\) przyjmuje wartości nieujemne: \(P(\Omega\setminus A) \geqslant 0\)\\
+	      \(P(A) = 1 - P(\Omega\setminus A) \leqslant 1\)
 
-\item[(vi)]
-    \(P(A\cup B) = P(A) + P(B) - P(A\cap B)\)\\
-    Zauważmy \(P(B) = P(B\setminus A) + P(A\cap B)\)\\
-    \(P(A\cup B) = P(A) + P(B\setminus A) = P(A) + P(B) - P(A\cap B)\)
+	\item[(vi)]
+	      \(P(A\cup B) = P(A) + P(B) - P(A\cap B)\)\\
+	      Zauważmy \(P(B) = P(B\setminus A) + P(A\cap B)\)\\
+	      \(P(A\cup B) = P(A) + P(B\setminus A) = P(A) + P(B) - P(A\cap B)\)
 \end{enumerate}

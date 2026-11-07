@@ -1,14 +1,14 @@
 \section{Zadanie 5}
 \autor{Kacper Orszulak}
-Niech $T_n$ będzie pełnym drzewem binarnym o głębokości $n$ (czyli $T_n$ ma $2^n - 1$ wierzchołków). Każda krawędź $T_n$ zostaje usunięta z prawdopodobieństwem $1/2$ i niezależnie od akcji na innych krawędziach. Jaka jest oczekiwana liczba wierzchołków w spójnej składowej z korzeniem w wynikowym lesie?
+Niech \(T_n\) będzie pełnym drzewem binarnym o głębokości \(n\) (czyli \(T_n\) ma \(2^n - 1\) wierzchołków). Każda krawędź \(T_n\) zostaje usunięta z prawdopodobieństwem \(1/2\) i niezależnie od akcji na innych krawędziach. Jaka jest oczekiwana liczba wierzchołków w spójnej składowej z korzeniem w wynikowym lesie?
 
 \subsection*{Rozwiązanie}
-Jakie jest prawdopodobieństwo, że wierzchołek $v$ na głębokości $k$ będzie w spójnej składowej korzenia? $\mathcal{P}(I_v = 1) = \left(\frac{1}{2}\right)^k$, ponieważ jednocześnie wszystkie $k$ krawędzi od korzenia do $v$ muszą być nieusunięte. Zatem $\mathbb{E}(I_k) = 0 \cdot \mathcal{P}(I_v = 0) + 1 \cdot \mathcal{P}(I_v = 1) = \mathcal{P}(I_v = 1)$. Niech $X = \sum_{v \in V} I_v$ to zmienna losowa liczby wierzchołków w spójnej składowej korzenia. Dostajemy
+Jakie jest prawdopodobieństwo, że wierzchołek \(v\) na głębokości \(k\) będzie w spójnej składowej korzenia? \(\mathcal{P}(I_v = 1) = \left(\frac{1}{2}\right)^k\), ponieważ jednocześnie wszystkie \(k\) krawędzi od korzenia do \(v\) muszą być nieusunięte. Zatem \(\ev{I_k} = 0 \cdot \mathcal{P}(I_v = 0) + 1 \cdot \mathcal{P}(I_v = 1) = \mathcal{P}(I_v = 1)\). Niech \(X = \sum_{v \in V} I_v\) to zmienna losowa liczby wierzchołków w spójnej składowej korzenia. Dostajemy
 \[
-    \mathbb{E}(X) = \mathbb{E}\left(\sum_{v \in V} I_v\right) = \sum_{v \in V} \mathbb{E}(I_v) = \sum_{v \in V} \mathcal{P}(I_v = 1) = \sum_{v \in V} \left(\frac{1}{2}\right)^k = \sum_{k=0}^{n-1} 2^k \cdot \left(\frac{1}{2}\right)^k = n.
+	\ev{X} = \ev{\sum_{v \in V} I_v} = \sum_{v \in V} \ev{I_v} = \sum_{v \in V} \mathcal{P}(I_v = 1) = \sum_{v \in V} \left(\frac{1}{2}\right)^k = \sum_{k=0}^{n-1} 2^k \cdot \left(\frac{1}{2}\right)^k = n.
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{n}
+	\boxed{n}
 \]

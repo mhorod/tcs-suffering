@@ -1,11 +1,11 @@
 \section{Zadanie 13}
 \autor{Hubert Jastrzębski}
-Rzucamy $n$ kul w sposób jednostajny i niezależny do $n$ urn. Niech $X_i$ będzie indykatorem na zdarzenie: $i$-ta urna jest pusta. Niech $Y_1, \dots, Y_n$ będą niezależnymi zmiennymi wskaźnikowymi z prawdopodobieństwem sukcesu $p = \left(1 - \frac{1}{n}\right)^n$. Niech $X = \sum_{i=1}^n X_i$ oraz $Y = \sum_{i=1}^n Y_i$.
+Rzucamy \(n\) kul w sposób jednostajny i niezależny do \(n\) urn. Niech \(X_i\) będzie indykatorem na zdarzenie: \(i\)-ta urna jest pusta. Niech \(Y_1, \dots, Y_n\) będą niezależnymi zmiennymi wskaźnikowymi z prawdopodobieństwem sukcesu \(p = \left(1 - \frac{1}{n}\right)^n\). Niech \(X = \sum_{i=1}^n X_i\) oraz \(Y = \sum_{i=1}^n Y_i\).
 
 \begin{enumerate}
-    \item[(i)] Pokaż, że dla każdego $k \in \mathbb{N}_1$, zachodzi $E(X_1 X_2 \dots X_k) \le E(Y_1 Y_2 \dots Y_k)$.
-    \item[(ii)] Pokaż, że dla każdego $t \in \mathbb{N}$, zachodzi $E(e^{tX}) \le E(e^{tY})$.
-    \item[(iii)] Wyznacz ograniczenie Czernowa dla $P(X \ge (1 + \delta) E(X))$.
+	\item[(i)] Pokaż, że dla każdego \(k \in \mathbb{N}_1\), zachodzi \(E(X_1 X_2 \dots X_k) \le E(Y_1 Y_2 \dots Y_k)\).
+	\item[(ii)] Pokaż, że dla każdego \(t \in \mathbb{N}\), zachodzi \(E(e^{tX}) \le E(e^{tY})\).
+	\item[(iii)] Wyznacz ograniczenie Czernowa dla \(P(X \ge (1 + \delta) E(X))\).
 \end{enumerate}
 
 \subsection*{Rozwiązanie}
@@ -14,10 +14,10 @@ Rzucamy $n$ kul w sposób jednostajny i niezależny do $n$ urn. Niech $X_i$ będ
 
 Po prostu liczymy obydwie strony:
 \begin{enumerate}
-    \item $E(X_1 X_2 \dots X_k) = \left(\frac{n-k}{n}\right)^n = \left(1 - \frac{k}{n}\right)^n$, ponieważ aby wszystkie z $k$ urn były puste, każda z $n$ kul musi trafić do jednej z pozostałych $n-k$ urn.
-    \item $E(Y_1 Y_2 \dots Y_k) = p^k =  \left(1 - \frac{1}{n}\right)^{nk}$, ponieważ $Y_i$ są niezależne i no tak jest.
+	\item \(E(X_1 X_2 \dots X_k) = \left(\frac{n-k}{n}\right)^n = \left(1 - \frac{k}{n}\right)^n\), ponieważ aby wszystkie z \(k\) urn były puste, każda z \(n\) kul musi trafić do jednej z pozostałych \(n-k\) urn.
+	\item \(E(Y_1 Y_2 \dots Y_k) = p^k =  \left(1 - \frac{1}{n}\right)^{nk}\), ponieważ \(Y_i\) są niezależne i no tak jest.
 \end{enumerate}
-Każda strona jest dodatnia, więc sobie podnosimy do potęgi $\frac{1}{n}$:
+Każda strona jest dodatnia, więc sobie podnosimy do potęgi \(\frac{1}{n}\):
 \[1-\frac{k}{n} \le \left(1 - \frac{1}{n}\right)^{k}\]
 
 Nierówność Bernoulliego mówi, że \(1 + kx \le (1+x)^k, \text{ dla } x \ge -1 \land k \in \mathbb{N}\).
@@ -28,30 +28,30 @@ czyli dokładnie to co chcieliśmy udowodnić.
 
 \textbf{(ii)}
 \[
-e^{t X_i} = \left\{
-\begin{array}{ll}
-e^t, & \text{dla } X_i = 1 \\
-1, & \text{dla } X_i = 0
-\end{array}
-\right. = e^t X_i + (1 - X_i) = 1 + (e^t - 1) X_i
+	e^{t X_i} = \left\{
+	\begin{array}{ll}
+		e^t, & \text{dla } X_i = 1 \\
+		1,   & \text{dla } X_i = 0
+	\end{array}
+	\right. = e^t X_i + (1 - X_i) = 1 + (e^t - 1) X_i
 \]
 
 Zatem:
 \[
-e^{tX} = \prod_{i=1}^n e^{t X_i} = \prod_{i=1}^n \left[1 + (e^t - 1) X_i\right]
-= \sum_{S \subseteq [n]} (e^t - 1)^{|S|} \prod_{i \in S} X_i
-= \sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} \prod_{i \in S} X_i
+	e^{tX} = \prod_{i=1}^n e^{t X_i} = \prod_{i=1}^n \left[1 + (e^t - 1) X_i\right]
+	= \sum_{S \subseteq [n]} (e^t - 1)^{|S|} \prod_{i \in S} X_i
+	= \sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} \prod_{i \in S} X_i
 \]
 To przejście z sumą to po prostu wymnażanie wielomianów.
 
 Bierzemy teraz wartość oczekiwaną:
 \[
-E(e^{tX}) = \sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} E\left(\prod_{i \in S} X_i\right)
+	E(e^{tX}) = \sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} E\left(\prod_{i \in S} X_i\right)
 \]
 
 Podobnie wyprowadzamy prawą część:
 \[
-E(e^{tY}) = \sum_{k'=0}^n (e^t - 1)^{k'} \sum_{|S'| = k'} E\left(\prod_{i \in S'} Y_i\right)
+	E(e^{tY}) = \sum_{k'=0}^n (e^t - 1)^{k'} \sum_{|S'| = k'} E\left(\prod_{i \in S'} Y_i\right)
 \]
 
 Z (i) wiemy, że dla każdego \(m = |S| = |S'|\) zachodzi:
@@ -59,9 +59,9 @@ Z (i) wiemy, że dla każdego \(m = |S| = |S'|\) zachodzi:
 
 A że wszystko jest nieujemne, to mamy, że dla każdego \(t \in \mathbb{N}\) zachodzi:
 \[
-\sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} E\left(\prod_{i \in S} X_i\right)
-\le
-\sum_{k'=0}^n (e^t - 1)^{k'} \sum_{|S'| = k'} E\left(\prod_{i \in S'} Y_i\right)
+	\sum_{k=0}^n (e^t - 1)^k \sum_{|S| = k} E\left(\prod_{i \in S} X_i\right)
+	\le
+	\sum_{k'=0}^n (e^t - 1)^{k'} \sum_{|S'| = k'} E\left(\prod_{i \in S'} Y_i\right)
 \]
 \[E(e^{tX}) \le E(e^{tY})\]
 
@@ -72,66 +72,66 @@ dla każdego \(t \ge 0\), bo \(\forall_{t \ge 0} \left( e^{t} - 1 \ge 0 \right) 
 
 Na początku jeszcze rozpiszmy sobie dokładniej \(E(e^{tY})\) (korzystając z (ii)):
 \[
-E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} E\left(\prod_{i \in S} Y_i\right)
+	E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} E\left(\prod_{i \in S} Y_i\right)
 \]
 zmienne \(Y_i\) są niezależne, więc:
 \[
-E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} \prod_{i \in S} E(Y_i)
+	E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} \prod_{i \in S} E(Y_i)
 \]
 \[
-E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} p^{k} = \sum_{k=0}^n (e^t - 1)^{k} \binom{n}{k} p^{k}
+	E(e^{tY}) = \sum_{k=0}^n (e^t - 1)^{k} \sum_{|S| = k} p^{k} = \sum_{k=0}^n (e^t - 1)^{k} \binom{n}{k} p^{k}
 \]
 \[
-E(e^{tY}) = \sum_{k=0}^n \binom{n}{k} \cdot \left(p(e^t - 1)\right)^{k} \cdot 1^{n-k} = \left(1 + p(e^t - 1)\right)^{n}
+	E(e^{tY}) = \sum_{k=0}^n \binom{n}{k} \cdot \left(p(e^t - 1)\right)^{k} \cdot 1^{n-k} = \left(1 + p(e^t - 1)\right)^{n}
 \]
 
 Teraz przejdźmy do ograniczenia Czernowa:
 \[
-\forall_{t \ge 0} P(X \ge (1 + \delta) E(X)) \le \frac{E(e^{tX})}{e^{t(1 + \delta) E(X)}} \le \frac{E(e^{tY})}{e^{t(1 + \delta) E(X)}} = \frac{\left(1 + p(e^t - 1)\right)^{n}}{e^{t(1 + \delta) E(X)}}
+	\forall_{t \ge 0} P(X \ge (1 + \delta) E(X)) \le \frac{E(e^{tX})}{e^{t(1 + \delta) E(X)}} \le \frac{E(e^{tY})}{e^{t(1 + \delta) E(X)}} = \frac{\left(1 + p(e^t - 1)\right)^{n}}{e^{t(1 + \delta) E(X)}}
 \]
 Pierwszą nierówność mamy z Czernowa, drugą z (ii), a równość przed chwilą pokazaliśmy.
 
 Pozostaje nam wyliczyć \(E(X)\):
 \[
-E(X) = \sum_{i=1}^n E(X_i) = \sum_{i=1}^n P(X_i = 1) = \sum_{i=1}^n \left(1 - \frac{1}{n}\right)^n = n \left(1 - \frac{1}{n}\right)^n = n p
+	E(X) = \sum_{i=1}^n E(X_i) = \sum_{i=1}^n P(X_i = 1) = \sum_{i=1}^n \left(1 - \frac{1}{n}\right)^n = n \left(1 - \frac{1}{n}\right)^n = n p
 \]
 
 Tak więc ostatecznie mamy:
 \[
-\frac{\left(1 + p(e^t - 1)\right)^{n}}{e^{t(1 + \delta) np}} = \left(\frac{1 + p(e^t - 1)}{e^{tp(1 + \delta)}}\right)^n
+	\frac{\left(1 + p(e^t - 1)\right)^{n}}{e^{t(1 + \delta) np}} = \left(\frac{1 + p(e^t - 1)}{e^{tp(1 + \delta)}}\right)^n
 \]
 
 Ale chyba teraz niestety trzeba jeszcze znaleźć minimum tej funkcji względem \(t\) \dots
 
 Skorzystamy z nierówności \(1 + x \le e^x\) dla \(x = p(e^t - 1)\):
 \[
-\left(\frac{1 + p(e^t - 1)}{e^{tp(1 + \delta)}}\right)^n \le \left(\frac{e^{p(e^t - 1)}}{e^{tp(1 + \delta)}}\right)^n = \left(e^{p(e^t - 1 - t(1 + \delta))}\right)^n = e^{np(e^t - 1 - t(1 + \delta))}
+	\left(\frac{1 + p(e^t - 1)}{e^{tp(1 + \delta)}}\right)^n \le \left(\frac{e^{p(e^t - 1)}}{e^{tp(1 + \delta)}}\right)^n = \left(e^{p(e^t - 1 - t(1 + \delta))}\right)^n = e^{np(e^t - 1 - t(1 + \delta))}
 \]
 
 \[
-f(t) = e^{np(e^t - 1 - t(1 + \delta))}
+	f(t) = e^{np(e^t - 1 - t(1 + \delta))}
 \]
 
 Chcemy znaleźć minimum tej funkcji. Liczymy pochodną:
 \[
-f'(t) = np e^{t} - np(1 + \delta) = 0 \implies e^{t} = 1 + \delta \implies t = \ln(1 + \delta)
+	f'(t) = np e^{t} - np(1 + \delta) = 0 \implies e^{t} = 1 + \delta \implies t = \ln(1 + \delta)
 \]
 
 Druga pochodna:
 \[
-f''(t) = np e^{t} > 0 \quad \forall_{t}
+	f''(t) = np e^{t} > 0 \quad \forall_{t}
 \]
 
 Czyli znaleźliśmy minimum. Podstawiamy z powrotem do \(f(t)\):
 \begin{align*}
-f(\ln(1 + \delta)) &= e^{np((1 + \delta) - 1 - \ln(1 + \delta)(1 + \delta))} \\
-&= e^{np(\delta - (1 + \delta) \ln(1 + \delta))} \\
-&= \left( e^{\delta} \cdot \left(e^{\ln(1+\delta)}\right)^{-(1 + \delta)} \right)^{np} \\
-&= \left( e^{\delta} \cdot \left(1+\delta\right)^{-(1 + \delta)} \right)^{np} \\
-&= \left( \frac{e^{\delta}}{\left(1+\delta\right)^{(1 + \delta)}} \right)^{np}
+	f(\ln(1 + \delta)) & = e^{np((1 + \delta) - 1 - \ln(1 + \delta)(1 + \delta))}                              \\
+	                   & = e^{np(\delta - (1 + \delta) \ln(1 + \delta))}                                       \\
+	                   & = \left( e^{\delta} \cdot \left(e^{\ln(1+\delta)}\right)^{-(1 + \delta)} \right)^{np} \\
+	                   & = \left( e^{\delta} \cdot \left(1+\delta\right)^{-(1 + \delta)} \right)^{np}          \\
+	                   & = \left( \frac{e^{\delta}}{\left(1+\delta\right)^{(1 + \delta)}} \right)^{np}
 \end{align*}
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{(iii) \( \left( \frac{e^{\delta}}{\left(1+\delta\right)^{(1 + \delta)}} \right)^{np} \)}}
+	\boxed{\text{(iii) \( \left( \frac{e^{\delta}}{\left(1+\delta\right)^{(1 + \delta)}} \right)^{np} \)}}
 \]

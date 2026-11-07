@@ -1,52 +1,52 @@
 \section{Zadanie 2}
-Niech $X$ będzie zmienną losową z rozkładu jednostajnego na przedziale $[0,1]$. Jaki rozkład mają zmienne $Y = min(X, 1-X)$ i $Z = max(X,1-X)$. 
+Niech \(X\) będzie zmienną losową z rozkładu jednostajnego na przedziale \([0,1]\). Jaki rozkład mają zmienne \(Y = min(X, 1-X)\) i \(Z = max(X,1-X)\).
 
 \subsection*{Rozwiązanie}
-Interesują nas dystrybuanty $Y$ oraz $Z$.\\
+Interesują nas dystrybuanty \(Y\) oraz \(Z\).\\
 
-    Zauważmy, że skoro $X + (1-X) = 1$, to $Y \in [0,\frac{1}{2}]$ oraz $Z \in [\frac{1}{2}, 1]$.\\
-    Wtedy mamy:
-    \begin{itemize}
-        \item Dla $y < 0: F_Y(y) = P(Y \leq y) = 0$
-        \item Dla $y \in [0,\frac{1}{2}] : F_Y(y) = P(Y \leq y) = P(X \leq y) + P(1-X \leq y) = y + 1 - (1-y) = 2y$
-        \item Dla $y > \frac{1}{2}: F_Y(y) = 1$
-    \end{itemize}
-    Analogicznie dla $Z$:
-    \begin{itemize}
-        \item Dla $z < \frac{1}{2} : F_Z(z) = P(Z \leq z) = 0$
-        \item Dla $z \in [\frac{1}{2}, 1] : F_Z(z) = P(Z \leq z) = P(X\leq z \wedge 1-X \leq z) = P(X \leq z \wedge X \geq 1-z) = P(X \in [1-z,z]) = \frac{z-(1-z)}{1-0} = 2z-1$
-        \item Dla $z>1 :F_Z(z) = 1$
-    \end{itemize}
+Zauważmy, że skoro \(X + (1-X) = 1\), to \(Y \in [0,\frac{1}{2}]\) oraz \(Z \in [\frac{1}{2}, 1]\).\\
+Wtedy mamy:
+\begin{itemize}
+	\item Dla \(y < 0: F_Y(y) = P(Y \leq y) = 0\)
+	\item Dla \(y \in [0,\frac{1}{2}] : F_Y(y) = P(Y \leq y) = P(X \leq y) + P(1-X \leq y) = y + 1 - (1-y) = 2y\)
+	\item Dla \(y > \frac{1}{2}: F_Y(y) = 1\)
+\end{itemize}
+Analogicznie dla \(Z\):
+\begin{itemize}
+	\item Dla \(z < \frac{1}{2} : F_Z(z) = P(Z \leq z) = 0\)
+	\item Dla \(z \in [\frac{1}{2}, 1] : F_Z(z) = P(Z \leq z) = P(X\leq z \wedge 1-X \leq z) = P(X \leq z \wedge X \geq 1-z) = P(X \in [1-z,z]) = \frac{z-(1-z)}{1-0} = 2z-1\)
+	\item Dla \(z>1 :F_Z(z) = 1\)
+\end{itemize}
 
-Funkcję gęstości liczymy ze wzoru $f(x) = F'(x)$.
+Funkcję gęstości liczymy ze wzoru \(f(x) = F'(x)\).
 
 \subsection*{Odpowiedź}
 \[
-\boxed{
-\begin{aligned}
-F_Y(y) = 
-\begin{cases}
-    0, & \text{gdy } y < 0,\\
-    2y, & \text{gdy } y\in [0,\frac{1}{2}],\\
-    1, & \text{gdy } y > \frac{1}{2}
-\end{cases}        
-f_Y(y) = 
-\begin{cases}
-    0, & \text {gdy } y \notin [0,\frac{1}{2}],\\
-    2, & \text {gdy } y \in [0,\frac{1}{2}]\\
-\end{cases}
-\\[5pt]
-F_Z(z) = 
-\begin{cases}
-    0, & \text{gdy } z < \frac{1}{2},\\
-    2z-1, & \text{gdy } z\in [\frac{1}{2},1],\\
-    1, & \text{gdy } z > 1
-\end{cases}
-f_Z(z) = 
-\begin{cases}
-    0, & \text{gdy } z \notin [\frac{1}{2}, 1],\\
-    2, & \text{gdy } z \in [\frac{1}{2}, 1]\\
-\end{cases}
-\end{aligned}
-}
+	\boxed{
+		\begin{aligned}
+			F_Y(y) =
+			\begin{cases}
+				0,  & \text{gdy } y < 0,                \\
+				2y, & \text{gdy } y\in [0,\frac{1}{2}], \\
+				1,  & \text{gdy } y > \frac{1}{2}
+			\end{cases}
+			f_Y(y) =
+			\begin{cases}
+				0, & \text {gdy } y \notin [0,\frac{1}{2}], \\
+				2, & \text {gdy } y \in [0,\frac{1}{2}]     \\
+			\end{cases}
+			\\[5pt]
+			F_Z(z) =
+			\begin{cases}
+				0,    & \text{gdy } z < \frac{1}{2},      \\
+				2z-1, & \text{gdy } z\in [\frac{1}{2},1], \\
+				1,    & \text{gdy } z > 1
+			\end{cases}
+			f_Z(z) =
+			\begin{cases}
+				0, & \text{gdy } z \notin [\frac{1}{2}, 1], \\
+				2, & \text{gdy } z \in [\frac{1}{2}, 1]     \\
+			\end{cases}
+		\end{aligned}
+	}
 \]

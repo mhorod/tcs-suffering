@@ -1,57 +1,57 @@
 \section{Zadanie 3}
 \autor{Oskar Prusik}
-Niech $Z$ będzie zmienną losową o gęstości $f(z) = \frac{1}{2} e^{-|z|}$ dla każdego $z \in \mathbb{R}$.
-Niech $X$ i $Y$ będą niezależnymi zmiennymi losowymi o rozkładzie wykładniczym z parametrem 1.
-Policz funkcje tworzące momenty dla rozkładów $Z$ i $X - Y$.
+Niech \(Z\) będzie zmienną losową o gęstości \(f(z) = \frac{1}{2} e^{-|z|}\) dla każdego \(z \in \mathbb{R}\).
+Niech \(X\) i \(Y\) będą niezależnymi zmiennymi losowymi o rozkładzie wykładniczym z parametrem 1.
+Policz funkcje tworzące momenty dla rozkładów \(Z\) i \(X - Y\).
 Wywnioskuj, że te zmienne mają taki sam rozkład.
 
 \subsection*{Rozwiązanie}
 
-Zmienna $Z$ ma gęstość $f(z)=\frac12 e^{-|z|}$.
+Zmienna \(Z\) ma gęstość \(f(z)=\frac12 e^{-|z|}\).
 \[
-M_Z(t)=\mathbb{E}[e^{tZ}]
-=\int_{-\infty}^{\infty} e^{tz}\cdot\frac12 e^{-|z|}\,dz
-=\frac12\int_{-\infty}^{0} e^{z(t+1)}\,dz
-+\frac12\int_{0}^{\infty} e^{z(t-1)}\,dz.
+	M_Z(t)=\ev{e^{tZ}}
+	=\int_{-\infty}^{\infty} e^{tz}\cdot\frac12 e^{-|z|}\,dz
+	=\frac12\int_{-\infty}^{0} e^{z(t+1)}\,dz
+	+\frac12\int_{0}^{\infty} e^{z(t-1)}\,dz.
 \]
 
-Dla $t\in(-1,1)$ mamy:
+Dla \(t\in(-1,1)\) mamy:
 \[
-\frac12\int_{-\infty}^{0} e^{z(t+1)}\,dz = \frac12\cdot\frac{1}{t+1},\qquad
-\frac12\int_{0}^{\infty} e^{z(t-1)}\,dz = \frac12\cdot\frac{1}{1-t}.
+	\frac12\int_{-\infty}^{0} e^{z(t+1)}\,dz = \frac12\cdot\frac{1}{t+1},\qquad
+	\frac12\int_{0}^{\infty} e^{z(t-1)}\,dz = \frac12\cdot\frac{1}{1-t}.
 \]
 
 Zatem
 \[
-M_Z(t)=\frac12\left(\frac{1}{1+t}+\frac{1}{1-t}\right)
-=\frac{1}{1-t^2},\qquad t\in(-1,1).
+	M_Z(t)=\frac12\left(\frac{1}{1+t}+\frac{1}{1-t}\right)
+	=\frac{1}{1-t^2},\qquad t\in(-1,1).
 \]
 
 \medskip
 
-Niech $X,Y\sim\mathrm{Exp}(1)$ będą niezależne. Wtedy ich MGF obliczamy:
+Niech \(X,Y\sim\mathrm{Exp}(1)\) będą niezależne. Wtedy ich MGF obliczamy:
 
 \[
-M_X(t)=\mathbb{E}[e^{tX}]
-=\int_{0}^{\infty} e^{tx} e^{-x}\,dx
-=\int_{0}^{\infty} e^{-(1-t)x}\,dx.
+	M_X(t)=\ev{e^{tX}}
+	=\int_{0}^{\infty} e^{tx} e^{-x}\,dx
+	=\int_{0}^{\infty} e^{-(1-t)x}\,dx.
 \]
 
-Całka zbieżna dla $1-t>0$, czyli $t<1$:
+Całka zbieżna dla \(1-t>0\), czyli \(t<1\):
 \[
-M_X(t)=\left[ -\frac{e^{-(1-t)x}}{1-t} \right]_{0}^{\infty}
-=0-\left(-\frac{1}{1-t}\right)=\frac{1}{1-t},\qquad t<1.
+	M_X(t)=\left[ -\frac{e^{-(1-t)x}}{1-t} \right]_{0}^{\infty}
+	=0-\left(-\frac{1}{1-t}\right)=\frac{1}{1-t},\qquad t<1.
 \]
 
-Analogicznie $M_Y(t)=\frac{1}{1-t}$ dla $t<1$.
+Analogicznie \(M_Y(t)=\frac{1}{1-t}\) dla \(t<1\).
 
-Dla $X-Y$:
+Dla \(X-Y\):
 \[
-M_{X-Y}(t)=\mathbb{E}[e^{t(X-Y)}]
-=\mathbb{E}[e^{tX}]\mathbb{E}[e^{-tY}]
-=M_X(t)\,M_Y(-t)
-=\frac{1}{1-t}\cdot\frac{1}{1-(-t)}
-=\frac{1}{1-t^2},\qquad t\in(-1,1).
+	M_{X-Y}(t)=\ev{e^{t(X-Y)}}
+	=\ev{e^{tX}}\ev{e^{-tY}}
+	=M_X(t)\,M_Y(-t)
+	=\frac{1}{1-t}\cdot\frac{1}{1-(-t)}
+	=\frac{1}{1-t^2},\qquad t\in(-1,1).
 \]
 
 \medskip

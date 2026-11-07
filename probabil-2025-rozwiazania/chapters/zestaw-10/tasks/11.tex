@@ -12,33 +12,33 @@ Zauważmy, że wylosowanie punktu jednostajnie z półkola jest równoważne
 z wylosowaniem jednostajnie kąta i (już niejednostajnie) odległości
 od \((0, 0)\).
 
-Nazwijmy nasze półkole 
+Nazwijmy nasze półkole
 \(S = \{(x, y) \mid x^2+y^2 \leqslant 1, x > 0\}\)
 
 \[
-    F(z) = \int_{S} [Y/X \leqslant z]~ds
-    = \int_{-\frac{\pi}2}^{\frac{\pi}2}
-    \int_{0}^{1} 2r[Y/X \leqslant z]~dr~d\alpha
+	F(z) = \int_{S} [Y/X \leqslant z]~ds
+	= \int_{-\frac{\pi}2}^{\frac{\pi}2}
+	\int_{0}^{1} 2r[Y/X \leqslant z]~dr~d\alpha
 \]
 
 Zdarzenie \([Y/X \leqslant z]\) jest niezależne od \(r\)
 
 \[
-    F(z)
-    = \int_{-\frac{\pi}2}^{\frac{\pi}2}[Y/X \leqslant z] \int_{0}^{1}
-    \frac{2r}{\pi}~dr~d\alpha
-    = \int_{-\frac{\pi}2}^{\frac{\pi}2}[Y/X \leqslant z]
-    \frac{1}{\pi}~d\alpha
-    = \int_{-\frac{\pi}2}^{\frac{\pi}2}[\tan \alpha \leqslant z]
-    \frac{1}{\pi} ~d\alpha
+	F(z)
+	= \int_{-\frac{\pi}2}^{\frac{\pi}2}[Y/X \leqslant z] \int_{0}^{1}
+	\frac{2r}{\pi}~dr~d\alpha
+	= \int_{-\frac{\pi}2}^{\frac{\pi}2}[Y/X \leqslant z]
+	\frac{1}{\pi}~d\alpha
+	= \int_{-\frac{\pi}2}^{\frac{\pi}2}[\tan \alpha \leqslant z]
+	\frac{1}{\pi} ~d\alpha
 \]
 \[
-    = \int_{-\frac{\pi}2}^{\tan^{-1}z} \frac{d\alpha}{\pi}
-    = \frac{1}{\pi} \left(\tan^{-1} (z) + \frac{\pi}2\right)
+	= \int_{-\frac{\pi}2}^{\tan^{-1}z} \frac{d\alpha}{\pi}
+	= \frac{1}{\pi} \left(\tan^{-1} (z) + \frac{\pi}2\right)
 \]
 Jest to dystrybuanta rozkładu Cauchy'ego
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\frac{Y}{X} \sim Cauchy (0,1)}
+	\boxed{\frac{Y}{X} \sim Cauchy (0,1)}
 \]

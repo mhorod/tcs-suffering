@@ -1,24 +1,24 @@
 \section{Zadanie 11}
-W urnie znajdują się dwie kule: jedna czarna i jedna biała. W każdej z $n-2$ rund losujemy w sposób jednostajny jedną kulę z urny i dokładamy do urny kulę o tym samym kolorze co wylosowana. Pokaż, że liczba białych kul w urnie na końcu jest z jednakowym prawdopodobieństwem jedną z liczb ze zbioru $[n-1].$
+W urnie znajdują się dwie kule: jedna czarna i jedna biała. W każdej z \(n-2\) rund losujemy w sposób jednostajny jedną kulę z urny i dokładamy do urny kulę o tym samym kolorze co wylosowana. Pokaż, że liczba białych kul w urnie na końcu jest z jednakowym prawdopodobieństwem jedną z liczb ze zbioru \([n-1].\)
 
 \subsection*{Rozwiązanie}
-$k$ – końcowa liczba białych kul w urnie.\\[1em]
+\(k\) – końcowa liczba białych kul w urnie.\\[1em]
 
-Wszystkich możliwości losowania mamy $(n-1)!$ (najpierw losujemy z 2 kul, później z 3 itd. aż do $n-1$).\\[1em]
+Wszystkich możliwości losowania mamy \((n-1)!\) (najpierw losujemy z 2 kul, później z 3 itd. aż do \(n-1\)).\\[1em]
 
-Policzymy teraz, ile jest możliwości losowań, aby końcowo liczba białych kul w urnie była równa $k$.\\[0.5em]
+Policzymy teraz, ile jest możliwości losowań, aby końcowo liczba białych kul w urnie była równa \(k\).\\[0.5em]
 
 \begin{itemize}
-    \item $\displaystyle \binom{n-2}{k-1}$ – wybór rund, w których wylosowano białe kule,\\
-    \item $(k-1)!$ – możliwości wylosowania białych kul,\\
-    \item $(n-k-1)!$ – możliwości wylosowania czarnych kul.
+	\item \(\displaystyle \binom{n-2}{k-1}\) – wybór rund, w których wylosowano białe kule,\\
+	\item \((k-1)!\) – możliwości wylosowania białych kul,\\
+	\item \((n-k-1)!\) – możliwości wylosowania czarnych kul.
 \end{itemize}
 
-Zatem prawdopodobieństwo, że na koniec w urnie będzie $k$ białych kul wynosi:
+Zatem prawdopodobieństwo, że na koniec w urnie będzie \(k\) białych kul wynosi:
 \[
-\frac{\binom{n-2}{k-1} (k-1)! (n-k-1)!}{(n-1)!}
-= \frac{(n-2)! (k-1)! (n-k-1)!}{(k-1)! (n-k-1)! (n-1)!}
-= \frac{1}{n-1}.
+	\frac{\binom{n-2}{k-1} (k-1)! (n-k-1)!}{(n-1)!}
+	= \frac{(n-2)! (k-1)! (n-k-1)!}{(k-1)! (n-k-1)! (n-1)!}
+	= \frac{1}{n-1}.
 \]
 
-Niezależnie od wartości $k$, prawdopodobieństwo wynosi $\dfrac{1}{n-1}$.
+Niezależnie od wartości \(k\), prawdopodobieństwo wynosi \(\dfrac{1}{n-1}\).

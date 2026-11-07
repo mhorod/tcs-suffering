@@ -1,36 +1,36 @@
 \section{Zadanie 9}
-Mając do dyspozycji generator liczb losowych z rozkłady jednostajnego na odcinku $[0,1]$
+Mając do dyspozycji generator liczb losowych z rozkłady jednostajnego na odcinku \([0,1]\)
 zaprojektuj generator liczb z rozkładu Cauchy'ego
 
 \subsection*{Rozwiązanie}
 W tym zadaniu skorzystamy z metody odwrotnej dystrybuanty.\\
 Standardowy rozkład Cauchy'ego ma funkcję gęstości prawdopodobieństwa:
-$$ f(x) = \frac{1}{\pi(1+x^2)} $$
+\[ f(x) = \frac{1}{\pi(1+x^2)} \]
 Znajdujemy dystrybuantę:
-$$ F(x) = \int_{-\infty}^{x}f(t)dt = \int_{-\infty}^{x}\frac{1}{\pi(1+t^2)}dt $$
-$$ F(x) = \frac{1}{\pi}\arctan x + \frac{1}{2}, \qquad x \in \mathbb{R} $$
+\[ F(x) = \int_{-\infty}^{x}f(t)dt = \int_{-\infty}^{x}\frac{1}{\pi(1+t^2)}dt \]
+\[ F(x) = \frac{1}{\pi}\arctan x + \frac{1}{2}, \qquad x \in \mathbb{R} \]
 Jest to funkcja ściśle rosnąca, a zatem posiada funkcję odwrotną:
-$$ F^{-1}(u) = \tan\!\left(\pi(u - \tfrac{1}{2})\right), \qquad u \in [0,1] $$
+\[ F^{-1}(u) = \tan\!\left(\pi(u - \tfrac{1}{2})\right), \qquad u \in [0,1] \]
 
-Niech $U$ będzie zmienną losową o rozkładzie jednostajnym na przedziale $[0,1]$.
+Niech \(U\) będzie zmienną losową o rozkładzie jednostajnym na przedziale \([0,1]\).
 Definiujemy zmienną losową
-$$
-    X = F^{-1}(U) = \tan\!\left(\pi(U - \tfrac{1}{2})\right).
-$$
-Sprawdźmy czy genertor działa, rzeczywiście dla dowolnego $x \in \mathbb{R}$ zachodzi
 \[
-\begin{aligned}
-\mathbb{P}(X \le x)
-&= \mathbb{P}\!\left( \tan\!\left(\pi(U - \tfrac{1}{2})\right) \le x \right) \\
-&= \mathbb{P}\!\left( U \le \frac{1}{\pi}\arctan x + \frac{1}{2} \right) \\
-&= \frac{1}{\pi}\arctan x + \frac{1}{2}
-\end{aligned}
+	X = F^{-1}(U) = \tan\!\left(\pi(U - \tfrac{1}{2})\right).
 \]
-co oznacza, że zmienna losowa $X$ ma standardowy rozkład Cauchy'ego. \\
+Sprawdźmy czy genertor działa, rzeczywiście dla dowolnego \(x \in \mathbb{R}\) zachodzi
+\[
+	\begin{aligned}
+		\mathbb{P}(X \le x)
+		 & = \mathbb{P}\!\left( \tan\!\left(\pi(U - \tfrac{1}{2})\right) \le x \right) \\
+		 & = \mathbb{P}\!\left( U \le \frac{1}{\pi}\arctan x + \frac{1}{2} \right)     \\
+		 & = \frac{1}{\pi}\arctan x + \frac{1}{2}
+	\end{aligned}
+\]
+co oznacza, że zmienna losowa \(X\) ma standardowy rozkład Cauchy'ego. \\
 
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{X = \tan\!\left(\pi(U - \tfrac{1}{2})\right).}
+	\boxed{X = \tan\!\left(\pi(U - \tfrac{1}{2})\right).}
 \]

@@ -1,19 +1,19 @@
 \section{Zadanie 10}
 \autor{Filip Manijak}
-Niech $(\Omega, \Sigma)$ i $(\Omega', \Sigma')$ będą przestrzeniami mierzalnymi oraz $\sigma(\mathcal{G}) = \Sigma'$ dla pewnego $\mathcal{G} \subseteq \mathcal{P}(\Omega')$ (innymi słowy $\Sigma'$ jest generowana przez $\mathcal{G}$). Udowodnij, że $f : \Omega \to \Omega'$ jest mierzalna wtedy i tylko wtedy, gdy $f^{-1}(G) \in \Sigma$ dla każdego $G \in \mathcal{G}$.
+Niech \((\Omega, \Sigma)\) i \((\Omega', \Sigma')\) będą przestrzeniami mierzalnymi oraz \(\sigma(\mathcal{G}) = \Sigma'\) dla pewnego \(\mathcal{G} \subseteq \mathcal{P}(\Omega')\) (innymi słowy \(\Sigma'\) jest generowana przez \(\mathcal{G}\)). Udowodnij, że \(f : \Omega \to \Omega'\) jest mierzalna wtedy i tylko wtedy, gdy \(f^{-1}(G) \in \Sigma\) dla każdego \(G \in \mathcal{G}\).
 
 \subsection*{Rozwiązanie}
 Sprawadza się to, do udowodnienia że:
-$$f^{-1}(G) \in \Sigma \iff f^{-1}(\sigma(G)) \in \Sigma$$
-\subsection{$\Leftarrow$}
-Triv, bo $G \subset \sigma(G)$
-\subsection{$\implies$}
-Tu plan jest taki, że pokażemy że wszystkie zbiory o mierzalnym przeciwobrazie są $\sigma$-algebrą (oznaczmy ją $M$ jak mierzalne). Wiemy jednak, że $G$ należy do tej sigma algebry, a to oznacza że $\sigma(G) \subset M$ bo $\sigma(G)$ to przecięcie $M$ z czymś tam (nie interesuje nas czym). No to teraz ta trudniejsza cześć, pokazanie tego
-\subsection{Dowód że $\{X: f^{-1}(X) \in \Sigma\} = M$ jest $\sigma$-algebrą}
+\[f^{-1}(G) \in \Sigma \iff f^{-1}(\sigma(G)) \in \Sigma\]
+\subsection{\(\Leftarrow\)}
+Triv, bo \(G \subset \sigma(G)\)
+\subsection{\(\implies\)}
+Tu plan jest taki, że pokażemy że wszystkie zbiory o mierzalnym przeciwobrazie są \(\sigma\)-algebrą (oznaczmy ją \(M\) jak mierzalne). Wiemy jednak, że \(G\) należy do tej sigma algebry, a to oznacza że \(\sigma(G) \subset M\) bo \(\sigma(G)\) to przecięcie \(M\) z czymś tam (nie interesuje nas czym). No to teraz ta trudniejsza cześć, pokazanie tego
+\subsection{Dowód że \(\{X: f^{-1}(X) \in \Sigma\} = M\) jest \(\sigma\)-algebrą}
 Sprawdzamy własności:
 \begin{itemize}
-    \item $\Omega' \in M$, tak ponieważ $f^{-1}(\Omega') = \Omega \in \Sigma$
-    \item $A \in M \implies \Omega'/A \in M$ też, ponieważ $f^{-1}(\Omega'/A) = f^{-1}(\Omega')/f^{-1}(A)$ co już jest w $M$ bo $\Sigma$ to algebra
-    \item Suma przeciwobrazów podobnie się przenosi, więc ten sam argument.
-    \item Suma przeliczalnej ilości zachowuje się trywialnie tak samo.
+	\item \(\Omega' \in M\), tak ponieważ \(f^{-1}(\Omega') = \Omega \in \Sigma\)
+	\item \(A \in M \implies \Omega'/A \in M\) też, ponieważ \(f^{-1}(\Omega'/A) = f^{-1}(\Omega')/f^{-1}(A)\) co już jest w \(M\) bo \(\Sigma\) to algebra
+	\item Suma przeciwobrazów podobnie się przenosi, więc ten sam argument.
+	\item Suma przeliczalnej ilości zachowuje się trywialnie tak samo.
 \end{itemize}

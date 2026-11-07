@@ -2,19 +2,19 @@
 \section{Zadanie 13}
 Udowonij że każdy graf zawiera podgraf dwudzielny, który ma co najmniej połowę kraedzi oryginalnego grafu. Wskazówka: Pamiętaj, że graf dwudzielny to innymi słowy, graf dwukolorowalny.
 
-W następnyh zadaniach pomocna może się okazać następująca trywialna obserwacja. Jeśli wartość pewnej zmiennej losowej $X$ wynosi $x$, to $P(X \geq x) > 0$ (podobnie $P(X \leq x) > 0$) 
+W następnyh zadaniach pomocna może się okazać następująca trywialna obserwacja. Jeśli wartość pewnej zmiennej losowej \(X\) wynosi \(x\), to \(P(X \geq x) > 0\) (podobnie \(P(X \leq x) > 0\))
 
 \subsection*{Rozwiązanie}
 
 E(X) - oczekiwana liczba krawędzi.
 
-$X_i$ - i-ta krawędź w grafie dwudzielnym.
+\(X_i\) - i-ta krawędź w grafie dwudzielnym.
 
-Zaczynamy od pokolorawnia wierzchołków grafu na 2 kolory z równym prawdopodobieńswem $\frac{1}{2}$. Dla każdej krawędzi, sprawdzamy wierzchołki, na których się kończy. Jeśli są takie samę, to taką krawędź usuwamy z grafu, a jeśli inne to zostawiamy. Prawdopodobieńswo, że zostawiamy, jakąś kradź to $2*\frac{1}{4}$, czyli $\frac{1}{2}$. Łatwo, to zauważyć, bo są 2 przypadki, kiedy zostawiamy: pierwszy kolor + drugi oraz drugi + pierwszy. Pozostałe pierwszy + pierwszy i drugi + drugi są złe zgodnie z wcześniejszą definicją.
+Zaczynamy od pokolorawnia wierzchołków grafu na 2 kolory z równym prawdopodobieńswem \(\frac{1}{2}\). Dla każdej krawędzi, sprawdzamy wierzchołki, na których się kończy. Jeśli są takie samę, to taką krawędź usuwamy z grafu, a jeśli inne to zostawiamy. Prawdopodobieńswo, że zostawiamy, jakąś kradź to \(2*\frac{1}{4}\), czyli \(\frac{1}{2}\). Łatwo, to zauważyć, bo są 2 przypadki, kiedy zostawiamy: pierwszy kolor + drugi oraz drugi + pierwszy. Pozostałe pierwszy + pierwszy i drugi + drugi są złe zgodnie z wcześniejszą definicją.
 
 
 \[
-    E(X) = E(\sum_{i = 1}^{m} E_i) = \sum_{i = 1}^{m} E(X_i) = \sum_{i = 1}^{m} P(X_i) = \sum_{i = 1}^{m} \frac{1}{2} = m * \frac{1}{2} = \frac{m}{2}
+	E(X) = E(\sum_{i = 1}^{m} E_i) = \sum_{i = 1}^{m} E(X_i) = \sum_{i = 1}^{m} P(X_i) = \sum_{i = 1}^{m} \frac{1}{2} = m * \frac{1}{2} = \frac{m}{2}
 \]
 
-Skoro wiemu, że wartość oczekiwana liczby krawędzi to $\frac{m}{2}$ to wiemy, że prawdopodobieńswo istenienia grafu o $\frac{m}{2}$ krawędziach jest większe od zera. To natomaist oznacza, że  graf wyjściowy musi mieć podgraf, któy jest dwudzielny i ma co najmniej $\frac{m}{2}$ krawędzi.
+Skoro wiemu, że wartość oczekiwana liczby krawędzi to \(\frac{m}{2}\) to wiemy, że prawdopodobieńswo istenienia grafu o \(\frac{m}{2}\) krawędziach jest większe od zera. To natomaist oznacza, że  graf wyjściowy musi mieć podgraf, któy jest dwudzielny i ma co najmniej \(\frac{m}{2}\) krawędzi.

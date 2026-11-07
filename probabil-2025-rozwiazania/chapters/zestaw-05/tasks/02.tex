@@ -1,16 +1,16 @@
 \section{Zadanie 2}
-Tasujemy talię rozróżnialnych kart. W talii mamy $B$ białych kart i $C$ czarnych kart. Niech $r$ będzie ustaloną liczbą, taką że $1 \leq r \leq C$. Wykładamy karty dopóki nie odkryjemy $r$ czarnych kart. Niech $X$ będzie liczbą odkrytych białych kart. Jaki rozkład ma $X$?
+Tasujemy talię rozróżnialnych kart. W talii mamy \(B\) białych kart i \(C\) czarnych kart. Niech \(r\) będzie ustaloną liczbą, taką że \(1 \leq r \leq C\). Wykładamy karty dopóki nie odkryjemy \(r\) czarnych kart. Niech \(X\) będzie liczbą odkrytych białych kart. Jaki rozkład ma \(X\)?
 
 \subsection*{Rozwiązanie}
 \[
-P(X=k) = \frac{\binom{k+r-1}{k}\cdot \binom{B+C-k-r}{B-k}}{\binom{B+C}{B}}
+	P(X=k) = \frac{\binom{k+r-1}{k}\cdot \binom{B+C-k-r}{B-k}}{\binom{B+C}{B}}
 \]\\
 Wyjaśnienie: \\
-Rozważamy na ile sposobów mogą być ułożone wszystkie karty (nie przestajemy odkrywać kart po odkryciu $r$-tej czarnej)\\
-Mamy $\binom{B+C}{B}$ możliwości na wybranie miejsc dla białych kart.\\
-Teraz policzymy ułożenia kart, gdzie przez $r$-tą czarną jest $k$ białych. Na $\binom{k+r-1}{k}$ sposobów wybieramy miejsca na białe karty, które mają się znaleźć przed $r$-tą czarną, a na $\binom{B+C-k-r}{B-k}$ sposobów wybieramy miejsca na pozostałe białe karty.
+Rozważamy na ile sposobów mogą być ułożone wszystkie karty (nie przestajemy odkrywać kart po odkryciu \(r\)-tej czarnej)\\
+Mamy \(\binom{B+C}{B}\) możliwości na wybranie miejsc dla białych kart.\\
+Teraz policzymy ułożenia kart, gdzie przez \(r\)-tą czarną jest \(k\) białych. Na \(\binom{k+r-1}{k}\) sposobów wybieramy miejsca na białe karty, które mają się znaleźć przed \(r\)-tą czarną, a na \(\binom{B+C-k-r}{B-k}\) sposobów wybieramy miejsca na pozostałe białe karty.
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{$P(X=k) = \frac{\binom{k+r-1}{k} \cdot \binom{B+C-k-r}{B-k}}{\binom{B+C}{B}}$}}
+	\boxed{\text{\(P(X=k) = \frac{\binom{k+r-1}{k} \cdot \binom{B+C-k-r}{B-k}}{\binom{B+C}{B}}\)}}
 \]

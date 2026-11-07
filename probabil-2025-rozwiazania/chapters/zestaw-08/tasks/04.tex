@@ -1,41 +1,41 @@
 \section{Zadanie 4}
 
-Z kwadratu o boku $1$ losujemy jednostajnie i niezależnie dwa punkty $A$ oraz $B$. Wyznacz oczekiwaną długość odcinka $AB$.
+Z kwadratu o boku \(1\) losujemy jednostajnie i niezależnie dwa punkty \(A\) oraz \(B\). Wyznacz oczekiwaną długość odcinka \(AB\).
 
 \subsection*{Rozwiązanie}
 
-Niech $A = (x_1, y_1), B= (x_2, y_2)$, $x_1, x_2, y_1, y_2$ to niezależne zmienne losowe z rozkładem jednostajnym z przedziału $[0, 1]$. Zaczynamy od policzenia gęstości zmiennych  $X = x_1 - x_2$ i $Y = y_1 - y_2$. Możemy to przedstawić jako sumę zmiennych jendostajnych:
+Niech \(A = (x_1, y_1), B= (x_2, y_2)\), \(x_1, x_2, y_1, y_2\) to niezależne zmienne losowe z rozkładem jednostajnym z przedziału \([0, 1]\). Zaczynamy od policzenia gęstości zmiennych  \(X = x_1 - x_2\) i \(Y = y_1 - y_2\). Możemy to przedstawić jako sumę zmiennych jendostajnych:
 
-$a$ z przedziału $[0,1]$ $f_a(x) =
+\(a\) z przedziału \([0,1]\) \(f_a(x) =
 \begin{cases}
-1, & x \in [0,1],\\
-0, & \text{w przeciwnym razie}.
-\end{cases}$
+	1, & x \in [0,1],               \\
+	0, & \text{w przeciwnym razie}.
+\end{cases}\)
 
-$b$ z przedziału $[-1,0]$ $f_b(x) =
+\(b\) z przedziału \([-1,0]\) \(f_b(x) =
 \begin{cases}
-1, & x \in [-1,0],\\
-0, & \text{w przeciwnym razie}.
-\end{cases}$
+	1, & x \in [-1,0],              \\
+	0, & \text{w przeciwnym razie}.
+\end{cases}\)
 
-Ze splotu funkcji mamy, że $f_{a + b}(z) = \int_{-\infty}^{\infty}f_a(x)f_b(x - z)dx = \int_{0}^1 f_b(x-z)dx$ co jak się przyjżymy przedziałom gdzie $x - z \in [-1, 1]$ to widać że $f_{a + b}(x) =
+Ze splotu funkcji mamy, że \(f_{a + b}(z) = \int_{-\infty}^{\infty}f_a(x)f_b(x - z)dx = \int_{0}^1 f_b(x-z)dx\) co jak się przyjżymy przedziałom gdzie \(x - z \in [-1, 1]\) to widać że \(f_{a + b}(x) =
 \begin{cases}
-1 - |x|, & x \in [-1,1],\\
-0, & \text{w przeciwnym razie}.
+	1 - |x|, & x \in [-1,1],              \\
+	0,       & \text{w przeciwnym razie}.
 \end{cases}
-$
+\)
 
-$X$ i $Y$ są niezależne więc ich wspolna gęstość $F_{X,Y}(x, y) = 
+\(X\) i \(Y\) są niezależne więc ich wspolna gęstość \(F_{X,Y}(x, y) =
 \begin{cases}
-(1 - |x|)(1 - |y|), & x, y \in [-1,1],\\
-0, & \text{w przeciwnym razie}.
-\end{cases}$
- 
-Chcemy teraz policzć $E(\sqrt{X^2 + Y^2}) = \int_{-1}^{1} \int_{-1}^1 \sqrt{x^2 - y^2}(1 - |x|)(1 - |y|)dxdy$.
+	(1 - |x|)(1 - |y|), & x, y \in [-1,1],           \\
+	0,                  & \text{w przeciwnym razie}.
+\end{cases}\)
 
-Jako iż jest to symetryczne dla każdej ćwiartki układu współrzędnych możemy to przekształcić do $4 \int_{0}^{1} \int_{0}^1 \sqrt{x^2 - y^2}(1 - x)(1 - y)dxdy$. Obliczenie tej całki jest paskudne (podobno jedna z najgorszych na całym probabilu) więc zostawiam link gdzie to można zobaczyć \href{https://mindyourdecisions.com/blog/2016/07/03/distance-between-two-random-points-in-a-square-sunday-puzzle/}{ tu}.
+Chcemy teraz policzć \(E(\sqrt{X^2 + Y^2}) = \int_{-1}^{1} \int_{-1}^1 \sqrt{x^2 - y^2}(1 - |x|)(1 - |y|)dxdy\).
 
-Wynik wychodzi wtedy $\frac{2 + \sqrt{2} + 5\ln{(\sqrt{2} + 1})}{15} \approx 0.52140$.
+Jako iż jest to symetryczne dla każdej ćwiartki układu współrzędnych możemy to przekształcić do \(4 \int_{0}^{1} \int_{0}^1 \sqrt{x^2 - y^2}(1 - x)(1 - y)dxdy\). Obliczenie tej całki jest paskudne (podobno jedna z najgorszych na całym probabilu) więc zostawiam link gdzie to można zobaczyć \href{https://mindyourdecisions.com/blog/2016/07/03/distance-between-two-random-points-in-a-square-sunday-puzzle/}{ tu}.
+
+Wynik wychodzi wtedy \(\frac{2 + \sqrt{2} + 5\ln{(\sqrt{2} + 1})}{15} \approx 0.52140\).
 
 
 

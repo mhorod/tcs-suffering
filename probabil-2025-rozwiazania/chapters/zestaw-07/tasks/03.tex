@@ -2,47 +2,47 @@
 Udowodnij, że jeżeli jeden ze stanów w danej klasie relacji skomunikowania
 jest stanem powracającym, to wszystkie stany w tej klasie są powracające.
 \subsection*{Rozwiązanie}
-Tak naprawdę cała intuicja jest taka że, skoro rozpatrujemy daną klasę skomunikowania to zachodzi: $\forall_{i,j} i\leftarrow j \text{ oraz } j\leftarrow i$. Załóżmy że wiemy, że stanem powracającym jest $i$. Teraz skoro to jest klasa skomunikowania to jak weźmiemy jakiś stan $x$ to zachodzi $i\leftarrow x$, ale ze względu na klasę skomunikowania zachodzi również $x\leftarrow i$. Zatem zauważmy że skoro istnieje ścieżka z $i$ do $i$ przez $x$ oraz $i$ jest powracający to $x$ też jest powracający.\\
+Tak naprawdę cała intuicja jest taka że, skoro rozpatrujemy daną klasę skomunikowania to zachodzi: \(\forall_{i,j} i\leftarrow j \text{ oraz } j\leftarrow i\). Załóżmy że wiemy, że stanem powracającym jest \(i\). Teraz skoro to jest klasa skomunikowania to jak weźmiemy jakiś stan \(x\) to zachodzi \(i\leftarrow x\), ale ze względu na klasę skomunikowania zachodzi również \(x\leftarrow i\). Zatem zauważmy że skoro istnieje ścieżka z \(i\) do \(i\) przez \(x\) oraz \(i\) jest powracający to \(x\) też jest powracający.\\
 Bardziej formalnie:\\
 
-Jeśli $i$ i $j$ są w tej samej klasie komunikacji i stan $i$ jest powracający,
-to stan $j$ również jest powracający.
+Jeśli \(i\) i \(j\) są w tej samej klasie komunikacji i stan \(i\) jest powracający,
+to stan \(j\) również jest powracający.
 \par
-Ponieważ $i \leftrightarrow j$, istnieją liczby całkowite $n_0,m_0 \ge 1$
+Ponieważ \(i \leftrightarrow j\), istnieją liczby całkowite \(n_0,m_0 \ge 1\)
 takie, że
 \[
-p_{j i}(n_0) > 0
-\qquad\text{oraz}\qquad
-p_{i j}(m_0) > 0 .
+	p_{j i}(n_0) > 0
+	\qquad\text{oraz}\qquad
+	p_{i j}(m_0) > 0 .
 \]
 
-Założenie, że stan $i$ jest powracający oznacza, że
+Założenie, że stan \(i\) jest powracający oznacza, że
 \[
-\sum_{r=0}^{\infty} p_{ii}(r) = +\infty.
+	\sum_{r=0}^{\infty} p_{ii}(r) = +\infty.
 \]
 
-Dla każdego $r \ge 0$ zachodzi
+Dla każdego \(r \ge 0\) zachodzi
 \[
-p_{j j}(n_0 + r + m_0)
-\;\ge\;
-p_{j i}(n_0) \, p_{i i}(r) \, p_{i j}(m_0).
+	p_{j j}(n_0 + r + m_0)
+	\;\ge\;
+	p_{j i}(n_0) \, p_{i i}(r) \, p_{i j}(m_0).
 \]
 
-Sumując obie strony po wszystkich $r \ge 0$ otrzymujemy
+Sumując obie strony po wszystkich \(r \ge 0\) otrzymujemy
 \[
-\sum_{t = 0}^{\infty} p_{j j}(t)
-\;\ge\;
-p_{j i}(n_0) \, p_{i j}(m_0)
-\sum_{r = 0}^{\infty} p_{i i}(r).
+	\sum_{t = 0}^{\infty} p_{j j}(t)
+	\;\ge\;
+	p_{j i}(n_0) \, p_{i j}(m_0)
+	\sum_{r = 0}^{\infty} p_{i i}(r).
 \]
 
-Ponieważ $p_{ji}(n_0) > 0$, $p_{ij}(m_0) > 0$ oraz
-$\sum_{r=0}^{\infty} p_{ii}(r) = +\infty$, prawa strona sumy jest równa
-$+\infty$. Zatem
+Ponieważ \(p_{ji}(n_0) > 0\), \(p_{ij}(m_0) > 0\) oraz
+\(\sum_{r=0}^{\infty} p_{ii}(r) = +\infty\), prawa strona sumy jest równa
+\(+\infty\). Zatem
 \[
-\sum_{t=0}^{\infty} p_{jj}(t) = +\infty,
+	\sum_{t=0}^{\infty} p_{jj}(t) = +\infty,
 \]
-co oznacza, że stan $j$ jest powracający.
+co oznacza, że stan \(j\) jest powracający.
 
 Wynika stąd, że każdy stan w klasie komunikacji, która zawiera stan powracający,
 również jest powracający.

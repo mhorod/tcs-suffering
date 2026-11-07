@@ -1,31 +1,31 @@
 \section{Zadanie 5}
 \autor{Kacper Orszulak}
-Udowodnij, że jeśli $\left\{ \Sigma_\alpha : \alpha \in I \right\}$ jest rodziną $\sigma$-algebr na jakimś ustalonym zbiorze $\Omega$ (dla dowolnego zbioru indeksów $I$), to $\bigcap_{\alpha \in I} \Sigma_\alpha$ też jest $\sigma$-algebrą.
+Udowodnij, że jeśli \(\left\{ \Sigma_\alpha : \alpha \in I \right\}\) jest rodziną \(\sigma\)-algebr na jakimś ustalonym zbiorze \(\Omega\) (dla dowolnego zbioru indeksów \(I\)), to \(\bigcap_{\alpha \in I} \Sigma_\alpha\) też jest \(\sigma\)-algebrą.
 
 \subsection*{Rozwiązanie}
-Niech $\Sigma := \bigcap_{\alpha \in I} \Sigma_\alpha$. Po kolei sprawdzamy warunki.
+Niech \(\Sigma := \bigcap_{\alpha \in I} \Sigma_\alpha\). Po kolei sprawdzamy warunki.
 \begin{enumerate}
-    \item \textit{$\emptyset, \Omega \in \Sigma$}
-        \begin{quote}
-        $\forall_{\alpha \in I} \; \emptyset, \Omega \in \Sigma_\alpha \implies \emptyset, \Omega \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma$
-        \end{quote}
-    \item \textit{Jeśli $E \in \Sigma$ to $\Omega/E \in \Sigma$}
-        \begin{quote}
-        Niech $E \in \Sigma$. Wtedy $\forall_{\alpha \in I} \; E \in \Sigma_\alpha \iff \Omega / E \in \Sigma_\alpha$.
+	\item \textit{\(\emptyset, \Omega \in \Sigma\)}
+	      \begin{quote}
+		      \(\forall_{\alpha \in I} \; \emptyset, \Omega \in \Sigma_\alpha \implies \emptyset, \Omega \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma\)
+	      \end{quote}
+	\item \textit{Jeśli \(E \in \Sigma\) to \(\Omega/E \in \Sigma\)}
+	      \begin{quote}
+		      Niech \(E \in \Sigma\). Wtedy \(\forall_{\alpha \in I} \; E \in \Sigma_\alpha \iff \Omega / E \in \Sigma_\alpha\).
 
-        Dostajemy zatem $\Omega/E \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma$.
-        \end{quote}
-    \item \textit{Jeśli $E_1, ..., E_n \in \Sigma$, to $\bigcup_{i=1}^n E_i \in \Sigma$}
-        \begin{quote}
-        Niech $E_1, ..., E_n \in \Sigma$. Wtedy $\forall_{\alpha \in I} \; E_1, ..., E_n \in \Sigma_\alpha \implies \bigcup_{i=1}^n E_i \in \Sigma_\alpha$.
+		      Dostajemy zatem \(\Omega/E \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma\).
+	      \end{quote}
+	\item \textit{Jeśli \(E_1, ..., E_n \in \Sigma\), to \(\bigcup_{i=1}^n E_i \in \Sigma\)}
+	      \begin{quote}
+		      Niech \(E_1, ..., E_n \in \Sigma\). Wtedy \(\forall_{\alpha \in I} \; E_1, ..., E_n \in \Sigma_\alpha \implies \bigcup_{i=1}^n E_i \in \Sigma_\alpha\).
 
-        Dostajemy zatem $\bigcup_{i=1}^n E_i \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma$.
-        \end{quote}
-    \item \textit{Jeśli $E_1, E_2, ... \in \Sigma$, to $\bigcup_{i=1}^\infty E_i \in \Sigma$}
-        \begin{quote}
-        Niech $E_1, E_2, ... \in \Sigma$. Wtedy $\forall_{\alpha \in I} \; E_1, E_2, ... \in \Sigma_\alpha \implies \bigcup_{i=1}^\infty E_i \in \Sigma_\alpha$.
+		      Dostajemy zatem \(\bigcup_{i=1}^n E_i \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma\).
+	      \end{quote}
+	\item \textit{Jeśli \(E_1, E_2, ... \in \Sigma\), to \(\bigcup_{i=1}^\infty E_i \in \Sigma\)}
+	      \begin{quote}
+		      Niech \(E_1, E_2, ... \in \Sigma\). Wtedy \(\forall_{\alpha \in I} \; E_1, E_2, ... \in \Sigma_\alpha \implies \bigcup_{i=1}^\infty E_i \in \Sigma_\alpha\).
 
-        Dostajemy zatem $\bigcup_{i=1}^\infty E_i \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma$.
-        \end{quote}
+		      Dostajemy zatem \(\bigcup_{i=1}^\infty E_i \in \bigcap_{\alpha \in I} \Sigma_\alpha = \Sigma\).
+	      \end{quote}
 \end{enumerate}
-$\square$
+\(\square\)

@@ -6,8 +6,8 @@ Niech \(T\) będzie dowolnym drzewem z dwoma wyróżnionymi wierzchołkami: star
 Być może da się to zrobić jakoś bardziej elegancko, ale wystarczy tu wykonać trochę szacowania i wyjdzie. Niech \(T\) - drzewo z zadania o wierzchołku końcowym \(t\). Dodatkowo:
 
 \begin{align*}
-max\_dist(G) &= max_{v \in V(G)}dist(v, t)\\
-\Delta(G) &= max_{v \in V(G)}deg(v)
+	max\_dist(G) & = max_{v \in V(G)}dist(v, t) \\
+	\Delta(G)    & = max_{v \in V(G)}deg(v)
 \end{align*}
 
 ...Albo po prostu maksymalna odległość od końcowego i maksymalny stopień w grafie.
@@ -21,18 +21,18 @@ Losujemy więc liczby ze zbioru \([\Delta(G)]\) w blokach po \(max\_dist(G)\) i 
 Prawdopodobieństwo nie wystąpienia bloku \(max\_dist(G)\) jedynek po wyrzuceniu \(k\) kolejnych bloków prezentuje się następująco:
 
 \begin{align*}
-1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k
+	1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k
 \end{align*}
 
 Niech \(B_k\) to zdarzenie polegające odniesieniu sukcesu nie później niż \(k\)-ty rzut. Ograniczamy zdarzenie z zadania przez zdarzenie \(\bigcup_{k=0}^\infty B_k\) i przez \(B_i \subseteq B_{i+1}\) dostajemy:
 
 \[
-P(\bigcup_{k=0}^\infty B_k) = \lim_{k \to \infty}P(B_k) = \lim_{k \to \infty}\left[1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k\right] = 1
+	P(\bigcup_{k=0}^\infty B_k) = \lim_{k \to \infty}P(B_k) = \lim_{k \to \infty}\left[1 - \left(1 - \frac 1 {\Delta(G)^{max\_dist(G)}}\right)^k\right] = 1
 \]
 
 Stąd mamy prawdopodobieństwo dotarcia pionka do wierzchołka końcowego równe 1.
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{Tak, dla dowolnego drzewa pionek dojdzie do wierzchołka końcowego.}}
+	\boxed{\text{Tak, dla dowolnego drzewa pionek dojdzie do wierzchołka końcowego.}}
 \]

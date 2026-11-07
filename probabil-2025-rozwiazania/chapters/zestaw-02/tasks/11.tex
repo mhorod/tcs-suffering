@@ -1,5 +1,5 @@
 \section{Zadanie 11}
-Udowodnij, że jeśli \(\operatorname{Var} X = 0\), to istnieje \(a\)
+Udowodnij, że jeśli \(\Var X = 0\), to istnieje \(a\)
 takie, że \(P(X=a)=1\)
 
 \subsection*{Rozwiązanie}
@@ -13,8 +13,8 @@ Niech \(a = E[X]\) (wartość oczekiwana istnieje, bo wariancja istnieje)
 \[\forall \varepsilon > 0: P(|X-a| > \varepsilon) = 0\]
 
 Zauważmy:
-\[\operatorname{Var} X \geqslant
-\varepsilon^2 \cdot P(|X-a| > \varepsilon)\]
+\[\Var X \geqslant
+	\varepsilon^2 \cdot P(|X-a| > \varepsilon)\]
 Wariancja jest sumą (całką) kwadratów odchyleń przyjmowanych wartości
 od wartości oczekiwanej. Uwzględniając tylko te elementy, które nie
 należą do zbioru \([a-\varepsilon, a+\varepsilon]\), dostajemy dolne
@@ -30,6 +30,6 @@ Przekształcając:
 Podstawiając dla
 \(\varepsilon = 1, \frac1{2}, \frac1{3}, \frac1{4}, \ldots\)
 \[\forall_{n\in\mathbb{N_+}}
-P\left(X\in\left[a-\frac1{n}, a+\frac1{n}\right]\right) = 1\]
+	P\left(X\in\left[a-\frac1{n}, a+\frac1{n}\right]\right) = 1\]
 Teraz korzystając z zadania 1/4:
 \[P(X\in\{a\}) = 1\quad\square\]

@@ -7,23 +7,23 @@ Kasyno testuje nową maszynę. Aby zagrać gracz płaci \$\(1\), zaś maszyna z 
 Niech \(X\) będzie zmienną losową równą całkowitemu zyskowi graczy po milionie rozgrywek na maszynie, a \(X_i\) to zysk gracza przy \(i\)-tej rozgrywce. Na podstawie nierówności Chernoffa:
 
 \begin{align*}
-    P(X \geq 10000) &\leq \min_{t>0}\frac{E(e^{tX})}{e^{10000t}}\\
-    &= \min_{t>0}\frac{E(e^{t\sum_{i=0}^{100000}X_i})}{e^{10000t}}\\
-    &= \min_{t>0}\frac{E(\Pi_{i=0}^{100000}e^{X_i})}{e^{10000t}}\\
-    &= \min_{t>0}\frac{E(e^{X_i})^{100000}}{e^{10000t}}
+	P(X \geq 10000) & \leq \min_{t>0}\frac{E(e^{tX})}{e^{10000t}}                   \\
+	                & = \min_{t>0}\frac{E(e^{t\sum_{i=0}^{100000}X_i})}{e^{10000t}} \\
+	                & = \min_{t>0}\frac{E(\Pi_{i=0}^{100000}e^{X_i})}{e^{10000t}}   \\
+	                & = \min_{t>0}\frac{E(e^{X_i})^{100000}}{e^{10000t}}
 \end{align*}
 
 Obliczymy najpierw funkcję tworzącą momenty pojedynczej rozgrywki na maszynie.
 
 \[
-E[e^{tX_i}] = \frac{1}{200}e^{99t} + \frac{4}{25}e^{2t} + \frac{167}{200}e^{-t}
+	E[e^{tX_i}] = \frac{1}{200}e^{99t} + \frac{4}{25}e^{2t} + \frac{167}{200}e^{-t}
 \]
 
 Wracając do poprzedniej nierówności:
 
 \begin{align*}
-    P(X \geq 10000) &\leq  \min_{t>0}\frac{E(e^{X_i})^{100000}}{e^{10000t}}\\
-    &= \min_{t>0}\frac{(\frac{1}{200}e^{99t} + \frac{4}{25}e^{2t} + \frac{167}{200}e^{-t})^{100000}}{e^{10000t}}
+	P(X \geq 10000) & \leq  \min_{t>0}\frac{E(e^{X_i})^{100000}}{e^{10000t}}                                                      \\
+	                & = \min_{t>0}\frac{(\frac{1}{200}e^{99t} + \frac{4}{25}e^{2t} + \frac{167}{200}e^{-t})^{100000}}{e^{10000t}}
 \end{align*}
 
 To nam daje pewne ograniczenie na \(t\). Można teraz wyznaczyć minimum numerycznie właściwie dowolną metodą - na przykład wykorzystać algorytm podobny do tego z zadania Cyklon z MP. Alternatywnie, tutaj jest \href{https://www.desmos.com/calculator/owyz2jam2l}{wykres}.
@@ -32,5 +32,5 @@ W ten sposób możemy oszacować minimalne ograniczenie górne dla \(t \sim 0.00
 
 \subsection*{Odpowiedź}
 \[
-\boxed{P(X \geq 10000) \leq 0.00015857 \pm 0.00000001}
+	\boxed{P(X \geq 10000) \leq 0.00015857 \pm 0.00000001}
 \]

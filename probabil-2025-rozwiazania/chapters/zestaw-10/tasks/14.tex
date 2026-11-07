@@ -1,43 +1,43 @@
 \section{Zadanie 14}
 
-Zaprosiłeś na przyjęcie 64 gości. Zakładając, że każdy z nich będzie chciał zjeść niezależnie od pozostałych $0$, $1$ albo $2$ kanapki z prawdopodobieństwami $\frac{1}{4}, \frac{1}{2}$ oraz $\frac{1}{4}$ odpowiednio, ile kanapek musisz przygotować, aby mieć $95\%$ pewności, że ich nie zabraknie?
+Zaprosiłeś na przyjęcie 64 gości. Zakładając, że każdy z nich będzie chciał zjeść niezależnie od pozostałych \(0\), \(1\) albo \(2\) kanapki z prawdopodobieństwami \(\frac{1}{4}, \frac{1}{2}\) oraz \(\frac{1}{4}\) odpowiednio, ile kanapek musisz przygotować, aby mieć \(95\%\) pewności, że ich nie zabraknie?
 
 \subsection*{Rozwiązanie}
 
-Niech $X_i$ oznacza liczbę kanapek zjedzonych przez $i$-tego gościa.
+Niech \(X_i\) oznacza liczbę kanapek zjedzonych przez \(i\)-tego gościa.
 \[
-P(X_i=0)=\tfrac14,\quad P(X_i=1)=\tfrac12,\quad P(X_i=2)=\tfrac14
+	P(X_i=0)=\tfrac14,\quad P(X_i=1)=\tfrac12,\quad P(X_i=2)=\tfrac14
 \]
 
 \[
-\mathbb E[X_i]=1,\qquad \mathrm{Var}(X_i)=\tfrac12
+	\ev{X_i}=1,\qquad \variance{X_i}=\tfrac12
 \]
 
-Niech $S=\sum_{i=1}^{64} X_i$. Wówczas
+Niech \(S=\sum_{i=1}^{64} X_i\). Wówczas
 \[
-\mathbb E[S]=64,\qquad \mathrm{Var}(S)=32,\qquad \sigma_S=\sqrt{32}
+	\ev{S}=64,\qquad \variance{S}=32,\qquad \sigma_S=\sqrt{32}
 \]
 
 Z centralnego twierdzenia granicznego:
 \[
-S \approx \mathcal N(64,32)
+	S \approx \mathcal N(64,32)
 \]
 
-Szukamy $s$ takiego, że $P(S\le s)=0.95$. Mamy
+Szukamy \(s\) takiego, że \(P(S\le s)=0.95\). Mamy
 \[
-P(S\le s)=P\!\left(\frac{S-64}{\sqrt{32}}\le \frac{s-64}{\sqrt{32}}\right)
+	P(S\le s)=P\!\left(\frac{S-64}{\sqrt{32}}\le \frac{s-64}{\sqrt{32}}\right)
 \]
 
-Niech $Z=\frac{S-64}{\sqrt{32}}\sim\mathcal N(0,1)$. Z tablic:
+Niech \(Z=\frac{S-64}{\sqrt{32}}\sim\mathcal N(0,1)\). Z tablic:
 \[
-P(Z\le 1.645)=0.95
+	P(Z\le 1.645)=0.95
 \]
 
 Stąd
 \[
-\frac{s-64}{\sqrt{32}}=1.645
-\quad\Rightarrow\quad
-s=64+1.645\sqrt{32}\approx 73.3
+	\frac{s-64}{\sqrt{32}}=1.645
+	\quad\Rightarrow\quad
+	s=64+1.645\sqrt{32}\approx 73.3
 \]
 
-Zatem należy przygotować co najmniej $\boxed{74}$ kanapki.
+Zatem należy przygotować co najmniej \(\boxed{74}\) kanapki.

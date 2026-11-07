@@ -1,62 +1,62 @@
 \section{Zadanie 2}
-Jeśli ${A_n}_{n\in \mathbb{N}}$ jest występującą rodziną zdarzeń, czyli
-$A_0 \subseteq A_1 \subseteq A_2 \subseteq \ldots$, to:
-$$
-P\left(\bigcup_{n=0}^{\infty} A_n\right) = \lim_{n \to \infty} P(A_n)
-$$
+Jeśli \({A_n}_{n\in \mathbb{N}}\) jest występującą rodziną zdarzeń, czyli
+\(A_0 \subseteq A_1 \subseteq A_2 \subseteq \ldots\), to:
+\[
+	P\left(\bigcup_{n=0}^{\infty} A_n\right) = \lim_{n \to \infty} P(A_n)
+\]
 
-Jeśli ${A_n}_{n\in \mathbb{N}}$ jest zstępującą rodziną zdarzeń, czyli
-$A_0 \supseteq A_1 \supseteq A_2 \supseteq \ldots$, to:
-$$
-P\left(\bigcap_{n=0}^{\infty} A_n\right) = \lim_{n \to \infty} P(A_n)
-$$
+Jeśli \({A_n}_{n\in \mathbb{N}}\) jest zstępującą rodziną zdarzeń, czyli
+\(A_0 \supseteq A_1 \supseteq A_2 \supseteq \ldots\), to:
+\[
+	P\left(\bigcap_{n=0}^{\infty} A_n\right) = \lim_{n \to \infty} P(A_n)
+\]
 
 
 \subsection*{Rozwiązanie}
 Tak to prawda XD;
 
 \subsubsection*{Dowód}
-Poniżej podamy dowody dla obu stwierdzeń. W obu przypadkach skorzystamy z prostych własności miary prawdopodobieństwa oraz definicji granicy ciągu liczb rzeczywistych (epsilon -- delta, tu: epsilon i indeks $N$).
+Poniżej podamy dowody dla obu stwierdzeń. W obu przypadkach skorzystamy z prostych własności miary prawdopodobieństwa oraz definicji granicy ciągu liczb rzeczywistych (epsilon -- delta, tu: epsilon i indeks \(N\)).
 
-\paragraph{1) Rodzina rosnąca: $A_0\subseteq A_1\subseteq\ldots$}
+\paragraph{1) Rodzina rosnąca: \(A_0\subseteq A_1\subseteq\ldots\)}
 
-Niech $A=\bigcup_{n=0}^{\infty}A_n$. Wykazujemy,
+Niech \(A=\bigcup_{n=0}^{\infty}A_n\). Wykazujemy,
 \[P(A)=\lim_{n\to\infty}P(A_n).\]
 
-Ponieważ $A_n\subseteq A_{n+1}$ dla każdego $n$, ciąg $P(A_n)$ jest niemalejący i ograniczony z góry przez $1$, a zatem ma granicę (można to przyjmować jako $L:=\lim_{n\to\infty}P(A_n)$ lub jako $\sup_n P(A_n)$). Pokażemy, że $P(A)=L$.
+Ponieważ \(A_n\subseteq A_{n+1}\) dla każdego \(n\), ciąg \(P(A_n)\) jest niemalejący i ograniczony z góry przez \(1\), a zatem ma granicę (można to przyjmować jako \(L:=\lim_{n\to\infty}P(A_n)\) lub jako \(\sup_n P(A_n)\)). Pokażemy, że \(P(A)=L\).
 
-Zauważmy, że zbior $A$ jest sumą rozłącznych przyrostów:
+Zauważmy, że zbior \(A\) jest sumą rozłącznych przyrostów:
 \[A=\bigcup_{n=0}^{\infty}A_n= A_0\uplus (A_1\setminus A_0)\uplus (A_2\setminus A_1)\uplus\cdots,\]
-gdzie symbolem $\uplus$ oznaczamy rozłączność w sensie rozłożenia na zbiory parami rozłączne.
+gdzie symbolem \(\uplus\) oznaczamy rozłączność w sensie rozłożenia na zbiory parami rozłączne.
 
-Dla dowolnego $m$ mamy
+Dla dowolnego \(m\) mamy
 \[A_m = A_0\uplus (A_1\setminus A_0)\uplus\cdots\uplus (A_m\setminus A_{m-1}).\]
 Korzystając z addytywności prawdopodobieństwa na zbiorach parami rozłącznych dostajemy
 \[P(A_m)=P(A_0)+\sum_{k=1}^m P(A_k\setminus A_{k-1}).\]
-Jeśliśmy dla $m\to\infty$, to z monotoniczności i jednoczesnej nieujemności wyrazów szeregu mamy
+Jeśliśmy dla \(m\to\infty\), to z monotoniczności i jednoczesnej nieujemności wyrazów szeregu mamy
 \[\lim_{m\to\infty}P(A_m)=P(A_0)+\sum_{k=1}^{\infty} P(A_k\setminus A_{k-1}).\]
 Równocześnie
 \[P(A)=P\Big(\biguplus_{k=0}^{\infty} (A_k\setminus A_{k-1})\Big)=P(A_0)+\sum_{k=1}^{\infty} P(A_k\setminus A_{k-1}),\]
-stąd $P(A)=\lim_{n\to\infty}P(A_n)$.
+stąd \(P(A)=\lim_{n\to\infty}P(A_n)\).
 
-Można to również sformalizować bez rozkładu na przyrosty, używając definicji granicy: dla danego $\varepsilon>0$ niech $L=\lim_{n}P(A_n)=\sup_n P(A_n)$. Istnieje indeks $N$ taki, że dla $n\ge N$ mamy $P(A_n)>L-\varepsilon$. Ponieważ $A_n\uparrow A$, to $A\setminus A_n\downarrow\emptyset$ i z podzielności miary $P(A)-P(A_n)=P(A\setminus A_n)\to0$, skąd $P(A)=L$.
+Można to również sformalizować bez rozkładu na przyrosty, używając definicji granicy: dla danego \(\varepsilon>0\) niech \(L=\lim_{n}P(A_n)=\sup_n P(A_n)\). Istnieje indeks \(N\) taki, że dla \(n\ge N\) mamy \(P(A_n)>L-\varepsilon\). Ponieważ \(A_n\uparrow A\), to \(A\setminus A_n\downarrow\emptyset\) i z podzielności miary \(P(A)-P(A_n)=P(A\setminus A_n)\to0\), skąd \(P(A)=L\).
 
-\paragraph{2) Rodzina malejąca: $A_0\supseteq A_1\supseteq A_2\supseteq\ldots$}
+\paragraph{2) Rodzina malejąca: \(A_0\supseteq A_1\supseteq A_2\supseteq\ldots\)}
 
-Niech $A=\bigcap_{n=0}^{\infty}A_n$. Zakładamy dodatkowo, że istnieje $k$ takie, że $P(A_k)<\infty$ (w kontekście probabilistycznym zwykle $P$ jest miarą skończoną i ta hipoteza jest automatycznie spełniona). Chcemy pokazać, że
+Niech \(A=\bigcap_{n=0}^{\infty}A_n\). Zakładamy dodatkowo, że istnieje \(k\) takie, że \(P(A_k)<\infty\) (w kontekście probabilistycznym zwykle \(P\) jest miarą skończoną i ta hipoteza jest automatycznie spełniona). Chcemy pokazać, że
 \[P(A)=\lim_{n\to\infty}P(A_n).\]
 
-Rozważmy zbiory $B_n:=A_0\setminus A_n$. Ponieważ $A_n$ jest malejący, to $B_n$ jest rosnący i
+Rozważmy zbiory \(B_n:=A_0\setminus A_n\). Ponieważ \(A_n\) jest malejący, to \(B_n\) jest rosnący i
 \[\bigcup_{n=0}^{\infty}B_n = A_0\setminus\bigcap_{n=0}^{\infty}A_n = A_0\setminus A.\]
 Z pierwszej części dowodu (ciągi rosnące) mamy
 \[P\Big(\bigcup_{n=0}^{\infty}B_n\Big)=\lim_{n\to\infty}P(B_n).
 \]
-Ale $P(B_n)=P(A_0)-P(A_n)$ dla każdego $n$ (ponieważ $B_n$ i $A_n$ rozdzielają $A_0$), stąd
+Ale \(P(B_n)=P(A_0)-P(A_n)\) dla każdego \(n\) (ponieważ \(B_n\) i \(A_n\) rozdzielają \(A_0\)), stąd
 \[P(A_0)-P(A)=\lim_{n\to\infty}\bigl(P(A_0)-P(A_n)\bigr)=P(A_0)-\lim_{n\to\infty}P(A_n).
 \]
-Po uproszczeniu otrzymujemy $P(A)=\lim_{n\to\infty}P(A_n)$, co kończy dowód.
+Po uproszczeniu otrzymujemy \(P(A)=\lim_{n\to\infty}P(A_n)\), co kończy dowód.
 
-\paragraph{Uwaga o hipotezie skończoności:} Jeśli $P(A_0)=\infty$ (nie jest to sytuacja typowa dla prawdopodobieństwa, ale może wystąpić dla ogólnych miar), to równanie $P(B_n)=P(A_0)-P(A_n)$ nie ma sensu; w teorii miar stosuje się wtedy warunek, że istnieje przynajmniej jeden indeks $k$ z $P(A_k)<\infty$, co umożliwia analogiczny argument na przesunietym ciągu.
+\paragraph{Uwaga o hipotezie skończoności:} Jeśli \(P(A_0)=\infty\) (nie jest to sytuacja typowa dla prawdopodobieństwa, ale może wystąpić dla ogólnych miar), to równanie \(P(B_n)=P(A_0)-P(A_n)\) nie ma sensu; w teorii miar stosuje się wtedy warunek, że istnieje przynajmniej jeden indeks \(k\) z \(P(A_k)<\infty\), co umożliwia analogiczny argument na przesunietym ciągu.
 
 
 

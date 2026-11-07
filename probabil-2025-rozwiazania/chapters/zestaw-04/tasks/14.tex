@@ -1,23 +1,23 @@
 \section{Zadanie 14}
-Wyznacz postać jawną funkcji tworzącej momenty dla rozkładu dwumianowego z parametrami $n$ i $p$ na dwa sposoby:
+Wyznacz postać jawną funkcji tworzącej momenty dla rozkładu dwumianowego z parametrami \(n\) i \(p\) na dwa sposoby:
 
 \begin{enumerate}
-    \item Oblicz $\mathbb{E}[e^{tX}]$ z definicji wartości oczekiwanej.
-    \item Skorzystaj z niezależności zmiennych Bernoulliego.
+	\item Oblicz \(\ev{e^{tX}}\) z definicji wartości oczekiwanej.
+	\item Skorzystaj z niezależności zmiennych Bernoulliego.
 \end{enumerate}
 
 Jak na podstawie funkcji tworzącej dla rozkładu wyznaczyć wartość oczekiwaną i wariancję tego rozkładu?
 
 \subsection*{Rozwiązanie}
 \begin{enumerate}
-    \item $\mathbb{E}[e^{tX}] = \sum_{j = 0}^{n} \binom{n}{j}p^j(1-p)^{n-j}e^{tj} = \sum_{j = 0}^{n} \binom{n}{j}(pe^t)^j(1-p)^{n-j} = (pe^t + (1 - p) )^n = (1 - p + pe^t)^n$
-    \item Jako, iż $X$ jest zmienną losową z rozkładem dwumianowym to  $X = X_1 + ... + X_n$, gdzie $X_i$ jest indykatorem sukcesu w $i$-tej próbie, a zmienne $X_i$ są niezależne. Wtedy $\mathbb{E}[e^{tX}] = \mathbb{E}[e^{t(X_1 + ... + X_n)}] = \mathbb{E}[\prod_{i = 1}^{n} e^{tX_i}] = \prod_{i = 1}^{n} \mathbb{E}[e^{tX_i}] = \prod_{i = 1}^{n} (pe^{t} + (1-p)) = (1 - p + pe^{t})^n $
+	\item \(\ev{e^{tX}} = \sum_{j = 0}^{n} \binom{n}{j}p^j(1-p)^{n-j}e^{tj} = \sum_{j = 0}^{n} \binom{n}{j}(pe^t)^j(1-p)^{n-j} = (pe^t + (1 - p) )^n = (1 - p + pe^t)^n\)
+	\item Jako, iż \(X\) jest zmienną losową z rozkładem dwumianowym to  \(X = X_1 + ... + X_n\), gdzie \(X_i\) jest indykatorem sukcesu w \(i\)-tej próbie, a zmienne \(X_i\) są niezależne. Wtedy \(\ev{e^{tX}} = \ev{e^{t(X_1 + ... + X_n)}} = \ev{\prod_{i = 1}^{n} e^{tX_i}} = \prod_{i = 1}^{n} \ev{e^{tX_i}} = \prod_{i = 1}^{n} (pe^{t} + (1-p)) = (1 - p + pe^{t})^n \)
 \end{enumerate}
 
-$M_X^{(1)}(t) = npe^t(1 - p + pe^t)^{n-1}$
+\(M_X^{(1)}(t) = npe^t(1 - p + pe^t)^{n-1}\)
 
-$\mathbb{E}(X) = M_X^{(1)}(0) = np$
+\(\ev{X} = M_X^{(1)}(0) = np\)
 
-$M_X^{(2)}(t) = npe^t(1 - p + npe^t)(1 - p + pe^t)^{n-2}$
+\(M_X^{(2)}(t) = npe^t(1 - p + npe^t)(1 - p + pe^t)^{n-2}\)
 
-Var$(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2 = M_X^{(2)}(0) - M_X^{(1)}(0)^2 = np(1- p + np) - (np)^2 = np(1-p)$
+Var\((X) = \ev{X^2} - \ev{X}^2 = M_X^{(2)}(0) - M_X^{(1)}(0)^2 = np(1- p + np) - (np)^2 = np(1-p)\)

@@ -1,50 +1,50 @@
 \section{Zadanie 8}
-Jaka jest wartość oczekiwana i wariancja zmiennej losowej $X$ z poprzedniego zadania.
+Jaka jest wartość oczekiwana i wariancja zmiennej losowej \(X\) z poprzedniego zadania.
 
 \subsection*{Rozwiązanie}
-Robimy zdarzenie $X_i$, czyli, że i-ta kula jest zielona. Z liniowości wartości oczekiwanej, wiemy, że $E(X) = \sum_{i = 0}^{n} E(X_i)$.
+Robimy zdarzenie \(X_i\), czyli, że i-ta kula jest zielona. Z liniowości wartości oczekiwanej, wiemy, że \(E(X) = \sum_{i = 0}^{n} E(X_i)\).
 
-$E(X_i) = P(X_i) = \frac{K}{N}$, więc $E(X) = n * \frac{K}{N}$.
+\(E(X_i) = P(X_i) = \frac{K}{N}\), więc \(E(X) = n * \frac{K}{N}\).
 
-Teraz obliczmy $E(X^2)$, możemy to rozpisać, jako $E(X (X-1) + X) = E(X*(X-1)) + E(X)$.
+Teraz obliczmy \(E(X^2)\), możemy to rozpisać, jako \(E(X (X-1) + X) = E(X*(X-1)) + E(X)\).
 
-Teraz powiedzmy, sobie czym jest $E(X*(X-1))$. Bedzie to liczba uporządkowanych par, takich, że obie kule są zielone. 
+Teraz powiedzmy, sobie czym jest \(E(X*(X-1))\). Bedzie to liczba uporządkowanych par, takich, że obie kule są zielone.
 
-Wiemy, że takich par będzie $2 * \binom{K}{2}$, a prawdopodobieństwo, że konkretna para się znajdzie to $\frac{\binom{N-2}{n-2}}{\binom{N}{n}}$. Także korzystając z liniowości, wychodzi nam, że: 
+Wiemy, że takich par będzie \(2 * \binom{K}{2}\), a prawdopodobieństwo, że konkretna para się znajdzie to \(\frac{\binom{N-2}{n-2}}{\binom{N}{n}}\). Także korzystając z liniowości, wychodzi nam, że:
 \[
-E(X*(X-1)) = 2 * \binom{K}{2} * \frac{\binom{N-2}{n-2}}{\binom{N}{n}} = \frac{K*(K-1) * (n) * (n-1)}{(N)*(N-1)}
+	E(X*(X-1)) = 2 * \binom{K}{2} * \frac{\binom{N-2}{n-2}}{\binom{N}{n}} = \frac{K*(K-1) * (n) * (n-1)}{(N)*(N-1)}
 \]
 \[
-    Var(X) = E(X^2)-E(X)^2 = \frac{K*(K-1) * n * (n-1)}{N*(N-1)} + n * \frac{K}{N} - (n*\frac{K}{N})^2
+	Var(X) = E(X^2)-E(X)^2 = \frac{K*(K-1) * n * (n-1)}{N*(N-1)} + n * \frac{K}{N} - (n*\frac{K}{N})^2
 \]
 \[
-    Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1)}{(N-1)} + 1 - (n*\frac{K}{N}))
+	Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1)}{(N-1)} + 1 - (n*\frac{K}{N}))
 \]
 \[
-    Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1)}{(N-1)} + \frac{N-1}{N-1} - (n*\frac{K}{N}))
+	Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1)}{(N-1)} + \frac{N-1}{N-1} - (n*\frac{K}{N}))
 \]
 \[
-    Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1) + (N-1)}{(N-1)} - (n*\frac{K}{N}))
+	Var(X) = \frac{n*K}{N} * (\frac{(K-1) * (n-1) + (N-1)}{(N-1)} - (n*\frac{K}{N}))
 \]
 \[
-    Var(X) = \frac{n*K}{N} * (\frac{K * (n-1) - n + N}{(N-1)} - (n*\frac{K}{N}))
+	Var(X) = \frac{n*K}{N} * (\frac{K * (n-1) - n + N}{(N-1)} - (n*\frac{K}{N}))
 \]
 \[
-    Var(X) = \frac{n*K}{N} * \frac{N*K*(n-1) - n*N + N^2 - n * K * (N-1)}{N * (N-1)}
+	Var(X) = \frac{n*K}{N} * \frac{N*K*(n-1) - n*N + N^2 - n * K * (N-1)}{N * (N-1)}
 \]
 \[
-    Var(X) = \frac{n*K}{N} * \frac{K * (N * (n-1) - n * (N-1)) - n*N + N^2}{N * (N-1)}
+	Var(X) = \frac{n*K}{N} * \frac{K * (N * (n-1) - n * (N-1)) - n*N + N^2}{N * (N-1)}
 \]
 \[
-    Var(X) = \frac{n*K}{N} * \frac{K * ( - N + n ) - n*N + N^2}{N * (N-1)}
+	Var(X) = \frac{n*K}{N} * \frac{K * ( - N + n ) - n*N + N^2}{N * (N-1)}
 \]
 \[
-    Var(X) = \frac{n*K*(N-n)}{N} * \frac{-K + N}{N * (N-1)}
+	Var(X) = \frac{n*K*(N-n)}{N} * \frac{-K + N}{N * (N-1)}
 \]
 \[
-    Var(X) = \frac{n*K*(N-n)}{N*(N-1)} * (1 - \frac{K}{N})
+	Var(X) = \frac{n*K*(N-n)}{N*(N-1)} * (1 - \frac{K}{N})
 \]
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{$E(X) = n * \frac{K}{N}$, $Var(X) = \frac{n*K*(N-n)}{N*(N-1)} * (1 - \frac{K}{N})$}}
+	\boxed{\text{\(E(X) = n * \frac{K}{N}\), \(Var(X) = \frac{n*K*(N-n)}{N*(N-1)} * (1 - \frac{K}{N})\)}}
 \]

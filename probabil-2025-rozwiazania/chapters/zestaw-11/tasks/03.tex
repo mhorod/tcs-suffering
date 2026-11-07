@@ -1,28 +1,28 @@
 \section{Zadanie 3}
-Niech $P$ będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego
-łańcucha Markowa $(M_t)_{t \ge 0}$.
-Załóżmy, że istnieją stałe $c < \tfrac12$ oraz $T \ge 0$ takie, że
+Niech \(P\) będzie macierzą przejścia skończonego, nieprzywiedlnego i nieokresowego
+łańcucha Markowa \((M_t)_{t \ge 0}\).
+Załóżmy, że istnieją stałe \(c < \tfrac12\) oraz \(T \ge 0\) takie, że
 \[
-\tau(c) \le T.
+	\tau(c) \le T.
 \]
-Wówczas dla każdego $\varepsilon > 0$ zachodzi
+Wówczas dla każdego \(\varepsilon > 0\) zachodzi
 \[
-\tau(\varepsilon)
-\le
-\left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil T.
+	\tau(\varepsilon)
+	\le
+	\left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil T.
 \]
 
 \subsection*{Rozwiązanie}
-Rozważmy dwa dowolne stany początkowe $X_0 = x$ oraz $Y_0 = y$.
-Z definicji czasu mieszania $\tau(c)$ otrzymujemy
+Rozważmy dwa dowolne stany początkowe \(X_0 = x\) oraz \(Y_0 = y\).
+Z definicji czasu mieszania \(\tau(c)\) otrzymujemy
 \[
-\|P_x^T - \pi\|_{\mathrm{TV}} \le c
-\quad \text{oraz} \quad
-\|P_y^T - \pi\|_{\mathrm{TV}} \le c.
+	\|P_x^T - \pi\|_{\mathrm{TV}} \le c
+	\quad \text{oraz} \quad
+	\|P_y^T - \pi\|_{\mathrm{TV}} \le c.
 \]
 Stąd, z nierówności trójkąta,
 \[
-\|P_x^T - P_y^T\|_{\mathrm{TV}} \le 2c.
+	\|P_x^T - P_y^T\|_{\mathrm{TV}} \le 2c.
 \]
 
 Na mocy\\
@@ -30,57 +30,57 @@ Na mocy\\
 \noindent
 \textbf{Lematu o sprzęganiu (Lemat 12.3).}
 \emph{
-Niech $\sigma_X$ oraz $\sigma_Y$ będą rozkładami prawdopodobieństwa
-na skończonej przestrzeni stanów $S$.
-Niech $Z=(X,Y)$ będzie dowolną zmienną losową o wartościach w $S\times S$,
-taką że $X$ ma rozkład $\sigma_X$, a $Y$ ma rozkład $\sigma_Y$.
-Wówczas
-\[
-\Pr(X \neq Y) \ge \|\sigma_X - \sigma_Y\|_{\mathrm{TV}}.
-\]
-Ponadto istnieje sprzęgnięcie $Z=(X,Y)$, dla którego zachodzi równość:
-\[
-\Pr(X \neq Y) = \|\sigma_X - \sigma_Y\|_{\mathrm{TV}}.
-\]
+	Niech \(\sigma_X\) oraz \(\sigma_Y\) będą rozkładami prawdopodobieństwa
+	na skończonej przestrzeni stanów \(S\).
+	Niech \(Z=(X,Y)\) będzie dowolną zmienną losową o wartościach w \(S\times S\),
+	taką że \(X\) ma rozkład \(\sigma_X\), a \(Y\) ma rozkład \(\sigma_Y\).
+	Wówczas
+	\[
+		\Pr(X \neq Y) \ge \|\sigma_X - \sigma_Y\|_{\mathrm{TV}}.
+	\]
+	Ponadto istnieje sprzęgnięcie \(Z=(X,Y)\), dla którego zachodzi równość:
+	\[
+		\Pr(X \neq Y) = \|\sigma_X - \sigma_Y\|_{\mathrm{TV}}.
+	\]
 }
 istnieje sprzężenie
 \[
-Z_{T,x,y} = (X_T, Y_T),
+	Z_{T,x,y} = (X_T, Y_T),
 \]
-gdzie $X_T$ ma rozkład $P_x^T$, a $Y_T$ ma rozkład $P_y^T$, takie że
+gdzie \(X_T\) ma rozkład \(P_x^T\), a \(Y_T\) ma rozkład \(P_y^T\), takie że
 \[
-\mathbb{P}(X_T \neq Y_T) \le 2c.
+	\mathbb{P}(X_T \neq Y_T) \le 2c.
 \]
 
-Rozważmy teraz nowy łańcuch Markowa $(M'_t)$ o macierzy przejścia $P^T$.
-Odpowiada on wykonywaniu $T$ kroków łańcucha $(M_t)$ naraz.
+Rozważmy teraz nowy łańcuch Markowa \((M'_t)\) o macierzy przejścia \(P^T\).
+Odpowiada on wykonywaniu \(T\) kroków łańcucha \((M_t)\) naraz.
 Dla tego łańcucha, przy powyższym sprzęganiu, jeśli dwie kopie łańcucha
-$(M'_t)$ startują ze stanu $(x,y)$, to następny stan pary jest zadany
-przez rozkład $Z_{T,x,y}$, co implikuje, że prawdopodobieństwo braku
-sprzęgnięcia w jednym kroku wynosi co najwyżej $2c$.
+\((M'_t)\) startują ze stanu \((x,y)\), to następny stan pary jest zadany
+przez rozkład \(Z_{T,x,y}\), co implikuje, że prawdopodobieństwo braku
+sprzęgnięcia w jednym kroku wynosi co najwyżej \(2c\).
 
 Indukcyjnie otrzymujemy, że prawdopodobieństwo, iż sprzężenie łańcucha
-$(M'_t)$ nie nastąpi w ciągu $k$ kroków, jest co najwyżej
+\((M'_t)\) nie nastąpi w ciągu \(k\) kroków, jest co najwyżej
 \[
-(2c)^k.
+	(2c)^k.
 \]
 
-Z lematu o sprzęganiu wynika zatem, że łańcuch $(M'_t)$ jest w odległości
-wariacyjnej co najwyżej $\varepsilon$ od swojego rozkładu stacjonarnego
-po $k$ krokach, o ile
+Z lematu o sprzęganiu wynika zatem, że łańcuch \((M'_t)\) jest w odległości
+wariacyjnej co najwyżej \(\varepsilon\) od swojego rozkładu stacjonarnego
+po \(k\) krokach, o ile
 \[
-(2c)^k \le \varepsilon.
+	(2c)^k \le \varepsilon.
 \]
 Warunek ten jest spełniony dla
 \[
-k = \left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil.
+	k = \left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil.
 \]
 
-Ponieważ łańcuchy $(M_t)$ oraz $(M'_t)$ mają ten sam rozkład stacjonarny,
-a każdy krok łańcucha $(M'_t)$ odpowiada $T$ krokom łańcucha $(M_t)$,
+Ponieważ łańcuchy \((M_t)\) oraz \((M'_t)\) mają ten sam rozkład stacjonarny,
+a każdy krok łańcucha \((M'_t)\) odpowiada \(T\) krokom łańcucha \((M_t)\),
 otrzymujemy
 \[
-\tau(\varepsilon)
-\le
-\left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil T.
+	\tau(\varepsilon)
+	\le
+	\left\lceil \frac{\ln \varepsilon}{\ln(2c)} \right\rceil T.
 \]

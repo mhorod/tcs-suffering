@@ -1,8 +1,8 @@
 \section{Zadanie 14}
 
-Udowodnij, że dla każdego dodatniego $n$ istnieje turniej (graf skierowany
-pełny) na $n$ wierzchołkach, który ma co najmniej $\frac{n!}{2^{n-1}}$ ścieżek Hamiltona.
+Udowodnij, że dla każdego dodatniego \(n\) istnieje turniej (graf skierowany
+pełny) na \(n\) wierzchołkach, który ma co najmniej \(\frac{n!}{2^{n-1}}\) ścieżek Hamiltona.
 
 \subsection*{Rozwiązanie}
 
-Rozważmy nieskierowany graf pełny na $n$ wierzchołkach. Będziemy kierować wszystkie jego krawędzie z równym prawpodpodobieństwem dla dwóch stron. Policzmy wartość oczekiwaną liczby ścieżek Hamiltona dla naszego grafu. Z liniowośći wartości oczekiwanej możemy rozbić ją na sumę wartości oczekiwanych indykatorów czy dana permutacja wierzchołków jest ścieżką Hamiltona. Permutacji jest $n!$, dla każdej z nich wartość oczekiwana jest równa prawdopodobieństwu i wynosi $\frac{1}{2^{n-1}}$ (mamy $n-1$ krawędzi, tylko jedno ze skierowań daje ścieżkę Hamiltona). Po zsumowaniu dostajemy wartość oczekiwaną ścieżek Hamiltona w grafie $\frac{n!}{2^{n-1}}$, z czego na mocy uwagi z zadania 13 wynika, że prawdopodbieństwo tego, że graf ma conajmniej tyle ścieżek Hamiltona jest większe od zera, czyli musi istnieć takie skierowanie które spełnia warunki zadania. 
+Rozważmy nieskierowany graf pełny na \(n\) wierzchołkach. Będziemy kierować wszystkie jego krawędzie z równym prawpodpodobieństwem dla dwóch stron. Policzmy wartość oczekiwaną liczby ścieżek Hamiltona dla naszego grafu. Z liniowośći wartości oczekiwanej możemy rozbić ją na sumę wartości oczekiwanych indykatorów czy dana permutacja wierzchołków jest ścieżką Hamiltona. Permutacji jest \(n!\), dla każdej z nich wartość oczekiwana jest równa prawdopodobieństwu i wynosi \(\frac{1}{2^{n-1}}\) (mamy \(n-1\) krawędzi, tylko jedno ze skierowań daje ścieżkę Hamiltona). Po zsumowaniu dostajemy wartość oczekiwaną ścieżek Hamiltona w grafie \(\frac{n!}{2^{n-1}}\), z czego na mocy uwagi z zadania 13 wynika, że prawdopodbieństwo tego, że graf ma conajmniej tyle ścieżek Hamiltona jest większe od zera, czyli musi istnieć takie skierowanie które spełnia warunki zadania.

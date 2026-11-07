@@ -1,10 +1,10 @@
 \section{Zadanie 3}
-Niech $B\subseteq\Omega$ i niech $\sum_B = \{ A\subseteq\Omega :B\subseteq A$ lub $B\cap A = \emptyset\}$. Udowodnij, że $\sum_B$  jest $\sigma$-algebrą.
+Niech \(B\subseteq\Omega\) i niech \(\sum_B = \{ A\subseteq\Omega :B\subseteq A\) lub \(B\cap A = \emptyset\}\). Udowodnij, że \(\sum_B\)  jest \(\sigma\)-algebrą.
 \subsection*{Rozwiązanie}
 Przejdźmy kolejno po poszczególnych przypadkach.
 \begin{enumerate}
-\item Zbiór $\emptyset\in \sum_B$ ponieważ $B\cap\emptyset=\emptyset$. Zbiór $\Omega\in \sum_B$ ponieważ $B\subseteq\Omega$.
-\item Weźmy $E\in\sum_B$ i zauważmy że jeśli $E$ spełnia warunek, że $E\cap B = \emptyset$ to $B\subseteq\Omega\setminus E$. Jeśli zaś zachodzi, że $B\subseteq E$ to zachodzi $(\Omega\setminus E)\cap B = \emptyset$.
-\item Jeżeli $\exists_i$ takie że $E_i$ spełnia warunek $B\subseteq E_i$ to wtedy $B\subseteq \bigcup_{i=1}^n E_i$ zatem $\bigcup_{i=1}^n E_i \in \sum_B$. Jeżeli taki zaś nie istnieje to dla każdego $i$ zachodzi $E_i\cap B=\emptyset$ zatem $\bigcup_{i=1}^n E_i \cap B=\emptyset$ czyli $\bigcup_{i=1}^n E_i\in\sum_B$.
-\item analogicznie jak 3 podpunkt bo nie korzystamy tam z tego że suma jest skończona
+	\item Zbiór \(\emptyset\in \sum_B\) ponieważ \(B\cap\emptyset=\emptyset\). Zbiór \(\Omega\in \sum_B\) ponieważ \(B\subseteq\Omega\).
+	\item Weźmy \(E\in\sum_B\) i zauważmy że jeśli \(E\) spełnia warunek, że \(E\cap B = \emptyset\) to \(B\subseteq\Omega\setminus E\). Jeśli zaś zachodzi, że \(B\subseteq E\) to zachodzi \((\Omega\setminus E)\cap B = \emptyset\).
+	\item Jeżeli \(\exists_i\) takie że \(E_i\) spełnia warunek \(B\subseteq E_i\) to wtedy \(B\subseteq \bigcup_{i=1}^n E_i\) zatem \(\bigcup_{i=1}^n E_i \in \sum_B\). Jeżeli taki zaś nie istnieje to dla każdego \(i\) zachodzi \(E_i\cap B=\emptyset\) zatem \(\bigcup_{i=1}^n E_i \cap B=\emptyset\) czyli \(\bigcup_{i=1}^n E_i\in\sum_B\).
+	\item analogicznie jak 3 podpunkt bo nie korzystamy tam z tego że suma jest skończona
 \end{enumerate}

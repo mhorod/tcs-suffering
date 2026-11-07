@@ -1,29 +1,29 @@
 \section{Zadanie 2}
 \autor{Aleksander Wieczorek}
-Policz funkcje tworzące momenty dla rozkładu jednostajnego (na [a, b]), wykładniczego (z parametrem $\lambda$) i Gamma (z parametrami a i $\lambda$).
+Policz funkcje tworzące momenty dla rozkładu jednostajnego (na [a, b]), wykładniczego (z parametrem \(\lambda\)) i Gamma (z parametrami a i \(\lambda\)).
 
 \subsection*{Rozwiązanie}
-W tym zadaniu nie dzieje się absolutnie nic ciekawego, po prostu przepisujemy wzór na gęstość funkcji o danym rozkładzie, a potem wstawiamy $e^{tx}$ do wzoru na $E(x)$.\\
+W tym zadaniu nie dzieje się absolutnie nic ciekawego, po prostu przepisujemy wzór na gęstość funkcji o danym rozkładzie, a potem wstawiamy \(e^{tx}\) do wzoru na \(E(x)\).\\
 \textbf{Rozkład jednostajny}\\
-Dla $X \sim Uni(a,b)$ f. gęstości to $f_X(z)=\frac{1}{b-a}$ dla $z\in (a,b)$
-$$E(e^{tX})=\int_a^b e^{tx} \frac{1}{b-a} dx = \frac{1}{b-a} 
-\int_a^b e^{tx} dx = \frac{1}{b-a} \left[\frac{e^{tx}}{t}\right]_a^b = \frac{e^{tb}-e^{ta}}{t(b-a)}$$
+Dla \(X \sim Uni(a,b)\) f. gęstości to \(f_X(z)=\frac{1}{b-a}\) dla \(z\in (a,b)\)
+\[E(e^{tX})=\int_a^b e^{tx} \frac{1}{b-a} dx = \frac{1}{b-a}
+	\int_a^b e^{tx} dx = \frac{1}{b-a} \left[\frac{e^{tx}}{t}\right]_a^b = \frac{e^{tb}-e^{ta}}{t(b-a)}\]
 \textbf{Rozkład wykładniczy}\\
-Dla $X \sim Exp(\lambda)$ f. gęstości to $f_X(z)=\lambda e^{-\lambda z}$ dla $z>0$ 
-$$E(e^{tX})=\int_0^\infty e^{tx} \lambda e^{\lambda x} dx = \lambda\int_0^\infty e^{(t-\lambda)x} dx = \lambda \left[\frac{e^{(t-\lambda)x} }{t-\lambda }  \right]_0^\infty$$
-Całka musi być skończona, ponieważ w p.p. wartość oczekiwana będzie nieokreślona. Musimy więc mieć $t<\lambda$\footnote{na wykładzie chyba nie było to wprost powiedziane, ale $\lambda > 0$, gdyby tak nie było to gęstość - a co za tym idzie prawdopodobieństwo - mogłyby wyjść ujemne, a tego byśmy \textbf{bardzo} nie chcieli}
-teraz widać, że z takim ograniczeniem $e^{(t-\lambda)x}$ zbiega do 0.
-$$ \lambda \left[\frac{e^{(t-\lambda)x} }{t-\lambda }  \right]_0^\infty= \lambda \left(0 - \frac{1}{t-\lambda}\right) = \frac{\lambda}{\lambda-t}$$
+Dla \(X \sim Exp(\lambda)\) f. gęstości to \(f_X(z)=\lambda e^{-\lambda z}\) dla \(z>0\)
+\[E(e^{tX})=\int_0^\infty e^{tx} \lambda e^{\lambda x} dx = \lambda\int_0^\infty e^{(t-\lambda)x} dx = \lambda \left[\frac{e^{(t-\lambda)x} }{t-\lambda }  \right]_0^\infty\]
+Całka musi być skończona, ponieważ w p.p. wartość oczekiwana będzie nieokreślona. Musimy więc mieć \(t<\lambda\)\footnote{na wykładzie chyba nie było to wprost powiedziane, ale \(\lambda > 0\), gdyby tak nie było to gęstość - a co za tym idzie prawdopodobieństwo - mogłyby wyjść ujemne, a tego byśmy \textbf{bardzo} nie chcieli}
+teraz widać, że z takim ograniczeniem \(e^{(t-\lambda)x}\) zbiega do 0.
+\[ \lambda \left[\frac{e^{(t-\lambda)x} }{t-\lambda }  \right]_0^\infty= \lambda \left(0 - \frac{1}{t-\lambda}\right) = \frac{\lambda}{\lambda-t}\]
 \textbf{Rozkład gamma}\\
-Dla $X \sim Gamma(a,\lambda)$ f. gęstości to $f_X(z)=\frac{1}{\Gamma(a)} \lambda^a z^{a-1} e^{-\lambda z}$ dla $z>0$ \\
-$$E(e^{tX}) = \int_0^\infty e^{tx} \frac{\lambda^a}{\Gamma(a)} x^{a-1} e^{-\lambda x} dx = \frac{\lambda^a}{\Gamma(a)}
-\int_0^\infty e^{(t-\lambda)x} x^{a-1} dx$$
-Funkcja jest trochę podobna do funkcji gamma. Żeby była jescze bardziej podobna wyłączamy $(\lambda-t)^a$ przed całkę.
-$$\frac{\lambda^a}{\Gamma(a)}
-\int_0^\infty e^{(t-\lambda)x} x^{a-1} dx= \frac{\lambda^a}{\Gamma(a)(\lambda-t)^a}
-\int_0^\infty e^{-(\lambda-t)x} ((\lambda - t)x)^{a} \frac{dx}{x}=\frac{\lambda^a \Gamma(a)}{\Gamma(a)(\lambda-t)^a}=\left(\frac{\lambda}{\lambda-t}\right)^a$$
+Dla \(X \sim Gamma(a,\lambda)\) f. gęstości to \(f_X(z)=\frac{1}{\Gamma(a)} \lambda^a z^{a-1} e^{-\lambda z}\) dla \(z>0\) \\
+\[E(e^{tX}) = \int_0^\infty e^{tx} \frac{\lambda^a}{\Gamma(a)} x^{a-1} e^{-\lambda x} dx = \frac{\lambda^a}{\Gamma(a)}
+	\int_0^\infty e^{(t-\lambda)x} x^{a-1} dx\]
+Funkcja jest trochę podobna do funkcji gamma. Żeby była jescze bardziej podobna wyłączamy \((\lambda-t)^a\) przed całkę.
+\[\frac{\lambda^a}{\Gamma(a)}
+	\int_0^\infty e^{(t-\lambda)x} x^{a-1} dx= \frac{\lambda^a}{\Gamma(a)(\lambda-t)^a}
+	\int_0^\infty e^{-(\lambda-t)x} ((\lambda - t)x)^{a} \frac{dx}{x}=\frac{\lambda^a \Gamma(a)}{\Gamma(a)(\lambda-t)^a}=\left(\frac{\lambda}{\lambda-t}\right)^a\]
 
 \subsection*{Odpowiedź}
-Jednostajny: $\frac{e^{tb}-e^{ta}}{t(b-a)}$\\
-Wykładniczy: $\frac{\lambda}{\lambda-t}$\\
-Gamma: $\left(\frac{\lambda}{\lambda-t}\right)^a$
+Jednostajny: \(\frac{e^{tb}-e^{ta}}{t(b-a)}\)\\
+Wykładniczy: \(\frac{\lambda}{\lambda-t}\)\\
+Gamma: \(\left(\frac{\lambda}{\lambda-t}\right)^a\)

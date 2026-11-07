@@ -1,19 +1,19 @@
 \section{Zadanie 2}
-Niech $X, Y, Z$ będą niezależnymi zmiennymi o rozkładzie Poissona. Niech $E(X) = 1, E(Y) = 2, E(Z) = 3$. Oblicz $P(X+Y+Z \leq 2)$.
+Niech \(X, Y, Z\) będą niezależnymi zmiennymi o rozkładzie Poissona. Niech \(E(X) = 1, E(Y) = 2, E(Z) = 3\). Oblicz \(P(X+Y+Z \leq 2)\).
 
 \subsection*{Rozwiązanie}
-Skoro $X,Y,Z$ to niezależne zmienne o rozkładzie Poissona, to ich suma również jest zmienną Poissona z wartością oczekiwaną 6(na podstawie wykładu, jest to również w książce jako Lemat 5.2). A zatem:
+Skoro \(X,Y,Z\) to niezależne zmienne o rozkładzie Poissona, to ich suma również jest zmienną Poissona z wartością oczekiwaną 6(na podstawie wykładu, jest to również w książce jako Lemat 5.2). A zatem:
 
 
 \[
-P(X+Y+Z \leq 2) = P(X+Y+Z = 0) + P(X+Y+Z = 1) + P(X+Y+Z = 2)
+	P(X+Y+Z \leq 2) = P(X+Y+Z = 0) + P(X+Y+Z = 1) + P(X+Y+Z = 2)
 \]
 Wynikiem będzie więc:
 \[
-\frac{e^{-6} \cdot 6^0}{0!} + \frac{e^{-6} \cdot 6^1}{1!} + \frac{e^{-6} \cdot 6^2}{2!} = 25e^{-6}
+	\frac{e^{-6} \cdot 6^0}{0!} + \frac{e^{-6} \cdot 6^1}{1!} + \frac{e^{-6} \cdot 6^2}{2!} = 25e^{-6}
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{25e^{-6}}
+	\boxed{25e^{-6}}
 \]

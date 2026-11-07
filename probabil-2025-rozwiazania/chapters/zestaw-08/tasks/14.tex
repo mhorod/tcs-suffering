@@ -1,98 +1,98 @@
 \section{Zadanie 14}
-Z kwadratu jednostkowego $[0, 1] \times [0, 1]$ losujemy punkt w sposób jednostajny. 
-Później niezależnie wybieramy kąt w sposób jednostajny na $[0, 2\pi]$. 
+Z kwadratu jednostkowego \([0, 1] \times [0, 1]\) losujemy punkt w sposób jednostajny.
+Później niezależnie wybieramy kąt w sposób jednostajny na \([0, 2\pi]\).
 Z jakim prawdopodobieństwem odcinek jednostkowy rozpoczynający się w wylosowanym punkcie
 zmierzający w kierunku wylosowanego kąta wychodzi poza rozważany kwadrat?
 
 \subsection*{Rozwiązanie}
 
 \begin{center}
-\begin{tikzpicture}[scale=3.5]
-    % Kwadrat [0,1]x[0,1]
-    \draw[thick] (0,0) rectangle (1,1);
+	\begin{tikzpicture}[scale=3.5]
+		% Kwadrat [0,1]x[0,1]
+		\draw[thick] (0,0) rectangle (1,1);
 
-    % Punkt Q
-    \filldraw[red] (0.7,0.4) circle (0.02);
-    \node[below left] at (0.7,0.4) {$(x, y)$};
+		% Punkt Q
+		\filldraw[red] (0.7,0.4) circle (0.02);
+		\node[below left] at (0.7,0.4) {$(x, y)$};
 
-    % Długość odcinka
-    \def\L{1}
+		% Długość odcinka
+		\def\L{1}
 
-    % Kąt w stopniach
-    \def\kat{160}
+		% Kąt w stopniach
+		\def\kat{160}
 
-    % Punkt R (koniec odcinka)
-    \coordinate (R) at ($(0.7,0.4) + (160:\L)$);
+		% Punkt R (koniec odcinka)
+		\coordinate (R) at ($(0.7,0.4) + (160:\L)$);
 
-    % Odcinek Q -> R
-    \draw[blue, thick] (0.7,0.4) -- (R);
+		% Odcinek Q -> R
+		\draw[blue, thick] (0.7,0.4) -- (R);
 
-    % Zaznaczenie końcowego punktu R
-    \filldraw[green] (R) circle (0.02);
-    \node[above left] at (R) {$(x+\cos\theta, \; y+\sin\theta)$};
+		% Zaznaczenie końcowego punktu R
+		\filldraw[green] (R) circle (0.02);
+		\node[above left] at (R) {$(x+\cos\theta, \; y+\sin\theta)$};
 
-    % Łuk kąta theta (promień 0.25)
-    \draw[->, thick, orange] 
-        (0.7,0.4) ++(0:0.25) arc (0:\kat:0.25) {};
-    
-    % Podpis kąta
-    \node at ($(0.7,0.4)+(0.02,0.12)$) {$\theta$};
-\end{tikzpicture}
+		% Łuk kąta theta (promień 0.25)
+		\draw[->, thick, orange]
+		(0.7,0.4) ++(0:0.25) arc (0:\kat:0.25) {};
+
+		% Podpis kąta
+		\node at ($(0.7,0.4)+(0.02,0.12)$) {$\theta$};
+	\end{tikzpicture}
 \end{center}
 
-Niech punkt startu to $(x,y)$ i kąt $\theta$. Koniec odcinka jednostkowego ma współrzędne:
+Niech punkt startu to \((x,y)\) i kąt \(\theta\). Koniec odcinka jednostkowego ma współrzędne:
 \[
-(x+\cos\theta, \; y+\sin\theta).
+	(x+\cos\theta, \; y+\sin\theta).
 \]
 
 Odcinek pozostaje w kwadracie wtedy i tylko wtedy gdy punkt końca odcinka jednostkowego jest w kwadracie, czyli:
 \[
-0 \le x + \cos\theta \le 1 \quad \text{oraz} \quad 0 \le y + \sin\theta \le 1.
+	0 \le x + \cos\theta \le 1 \quad \text{oraz} \quad 0 \le y + \sin\theta \le 1.
 \]
 
-Dla ustalonego $\theta$, dopuszczalne wartości $x$ (z pierwszej nierówności) to:
+Dla ustalonego \(\theta\), dopuszczalne wartości \(x\) (z pierwszej nierówności) to:
 \[
-x \in [0,1] \cap [-\cos\theta, 1-\cos\theta],
+	x \in [0,1] \cap [-\cos\theta, 1-\cos\theta],
 \]
-długość tego przedzialu wynosi $1 - |\cos\theta|$. Analogicznie dla $y$: $1 - |\sin\theta|$.  
+długość tego przedzialu wynosi \(1 - |\cos\theta|\). Analogicznie dla \(y\): \(1 - |\sin\theta|\).
 
-Zatem prawdopodobieństwo, że odcinek pozostaje w kwadracie dla ustalonego $\theta$, to:
+Zatem prawdopodobieństwo, że odcinek pozostaje w kwadracie dla ustalonego \(\theta\), to:
 \[
-(1 - |\cos\theta|)(1 - |\sin\theta|).
+	(1 - |\cos\theta|)(1 - |\sin\theta|).
 \]
 Teraz wystarczy uśrednić ten wynik po wylosowanym kącie \\
-Uśredniając po $\theta$, otrzymujemy:
+Uśredniając po \(\theta\), otrzymujemy:
 \[
-P_{\text{wewnątrz}} = \frac{1}{2\pi} \int_0^{2\pi} (1 - |\cos\theta|)(1 - |\sin\theta|) \, d\theta.
+	P_{\text{wewnątrz}} = \frac{1}{2\pi} \int_0^{2\pi} (1 - |\cos\theta|)(1 - |\sin\theta|) \, d\theta.
 \]
 
 Rozwijamy iloczyn pod całką:
 \[
-(1 - |\cos\theta|)(1 - |\sin\theta|) = 1 - |\cos\theta| - |\sin\theta| + |\cos\theta||\sin\theta|.
+	(1 - |\cos\theta|)(1 - |\sin\theta|) = 1 - |\cos\theta| - |\sin\theta| + |\cos\theta||\sin\theta|.
 \]
 
 Zatem:
 \[
-P_{\text{wewnątrz}} = 1 - \frac{1}{2\pi} \int_0^{2\pi} (|\cos\theta| + |\sin\theta|) \, d\theta + \frac{1}{2\pi} \int_0^{2\pi} |\cos\theta||\sin\theta| \, d\theta.
+	P_{\text{wewnątrz}} = 1 - \frac{1}{2\pi} \int_0^{2\pi} (|\cos\theta| + |\sin\theta|) \, d\theta + \frac{1}{2\pi} \int_0^{2\pi} |\cos\theta||\sin\theta| \, d\theta.
 \]
 
 Obliczamy całki:
 \[
-\int_0^{2\pi} |\cos\theta| \, d\theta = 4, \quad \int_0^{2\pi} |\sin\theta| \, d\theta = 4, \quad \int_0^{2\pi} |\cos\theta||\sin\theta| \, d\theta = 2.
+	\int_0^{2\pi} |\cos\theta| \, d\theta = 4, \quad \int_0^{2\pi} |\sin\theta| \, d\theta = 4, \quad \int_0^{2\pi} |\cos\theta||\sin\theta| \, d\theta = 2.
 \]
 
 Finalnie:
 \[
-P_{\text{wewnątrz}} = 1 - \frac{4+4}{2\pi} + \frac{2}{2\pi} = 1 - \frac{6}{2\pi} = 1 - \frac{3}{\pi}.
+	P_{\text{wewnątrz}} = 1 - \frac{4+4}{2\pi} + \frac{2}{2\pi} = 1 - \frac{6}{2\pi} = 1 - \frac{3}{\pi}.
 \]
 
 Zatem prawdopodobieństwo, że odcinek wychodzi poza kwadrat, wynosi:
 \[
-P_{\text{wychodzi}} = \frac{3}{\pi}
+	P_{\text{wychodzi}} = \frac{3}{\pi}
 \]
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\frac{3}{\pi}}
+	\boxed{\frac{3}{\pi}}
 \]

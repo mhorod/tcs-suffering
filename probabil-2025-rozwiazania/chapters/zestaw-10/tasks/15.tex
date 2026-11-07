@@ -1,33 +1,33 @@
 \section{Zadanie 15}
 \autor{Filip Manijak}
-Niech $X_1,\dots,X_n$ będzie ciągiem niezależnych zmiennych losowych
-z rozkładu wykładniczego z parametrem $\lambda=1$.
-Niech $\bar X$ będzie średnią arytmetyczną tego ciągu.
-Jak duże musi być $n$, aby
-$$
-P(0.9 \le \bar X \le 1.1) \ge 0.95 \; ?
-$$
+Niech \(X_1,\dots,X_n\) będzie ciągiem niezależnych zmiennych losowych
+z rozkładu wykładniczego z parametrem \(\lambda=1\).
+Niech \(\bar X\) będzie średnią arytmetyczną tego ciągu.
+Jak duże musi być \(n\), aby
+\[
+	P(0.9 \le \bar X \le 1.1) \ge 0.95 \; ?
+\]
 
 \subsection*{Rozwiązanie}
-Zmienne $X_i$ mają $E[X_i] = 1, Var[X_i] =1$. Wtedy $S = \frac{\sum X_i}{n}$. Skoro $n$ jest wystraczająco duże, to podstawowe CTG daje nam:
-$$
-P \left( a \leq \frac{S-1}{\frac{1}{\sqrt{n}}} \leq b \right) = \Phi(b)-\Phi(a)
-$$
-Ponieważ średnia ma $E[S] = 1, Var[S] = 1/n$.
+Zmienne \(X_i\) mają \(E[X_i] = 1, Var[X_i] =1\). Wtedy \(S = \frac{\sum X_i}{n}\). Skoro \(n\) jest wystraczająco duże, to podstawowe CTG daje nam:
+\[
+	P \left( a \leq \frac{S-1}{\frac{1}{\sqrt{n}}} \leq b \right) = \Phi(b)-\Phi(a)
+\]
+Ponieważ średnia ma \(E[S] = 1, Var[S] = 1/n\).
 Przekształcając:
-$$
-P \left( a \leq \frac{S-1}{\frac{1}{\sqrt{n}}} \leq b \right) = P \left( \frac{a}{\sqrt{n}} +1 \leq S \leq \frac{b}{\sqrt{n}}+1 \right)
-$$
-Czyli $a \geq -0.1 \sqrt{n}$ oraz $b \leq 0.1 \sqrt{n}$. Minimalne $n$ otrzymamy oczywiście dla najmniejszego $a$ i największego $b$, czyli $ - a = b = 0.1 \sqrt{n} $. Czyli chcemy znaleźć minimalne $n$ że:
-$$
-\Phi(b) - \Phi(a) = 2*\Phi(b)-1 = 2 * \Phi(0.1 \sqrt{n}) -1 \geq 0.95
-$$
-Niestety nie da się tego ładnie policzyć, więc sprawdzamy w tablicach. Wychodzi nam, że $\Phi(x) \geq 0.975$ dla $x \geq 1.959964$. Czyli 
-$$
-0.1 \sqrt{n} \geq 1.959964 \implies n \geq 385
-$$
+\[
+	P \left( a \leq \frac{S-1}{\frac{1}{\sqrt{n}}} \leq b \right) = P \left( \frac{a}{\sqrt{n}} +1 \leq S \leq \frac{b}{\sqrt{n}}+1 \right)
+\]
+Czyli \(a \geq -0.1 \sqrt{n}\) oraz \(b \leq 0.1 \sqrt{n}\). Minimalne \(n\) otrzymamy oczywiście dla najmniejszego \(a\) i największego \(b\), czyli \( - a = b = 0.1 \sqrt{n} \). Czyli chcemy znaleźć minimalne \(n\) że:
+\[
+	\Phi(b) - \Phi(a) = 2*\Phi(b)-1 = 2 * \Phi(0.1 \sqrt{n}) -1 \geq 0.95
+\]
+Niestety nie da się tego ładnie policzyć, więc sprawdzamy w tablicach. Wychodzi nam, że \(\Phi(x) \geq 0.975\) dla \(x \geq 1.959964\). Czyli
+\[
+	0.1 \sqrt{n} \geq 1.959964 \implies n \geq 385
+\]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{385}}
+	\boxed{\text{385}}
 \]

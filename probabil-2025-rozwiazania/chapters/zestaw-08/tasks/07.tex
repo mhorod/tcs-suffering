@@ -10,15 +10,15 @@ Niech kij ma długość \(1\) i zostanie złamany w punktach \(X_1\) i \(X_2\), 
 Funkcje gęstości zmiennych losowych \(X_1\) i \(X_2\) są następujące:
 
 \[
-f_1(x_1) = \frac{1}{1 - 0} = 1 \quad \text{dla } x_1 \in [0, 1] \quad \land \quad f_2(x_2) = \frac{1}{1 - 0} = 1 \quad \text{dla } x_2 \in [0, 1]
+	f_1(x_1) = \frac{1}{1 - 0} = 1 \quad \text{dla } x_1 \in [0, 1] \quad \land \quad f_2(x_2) = \frac{1}{1 - 0} = 1 \quad \text{dla } x_2 \in [0, 1]
 \]
 
 Zmienne losowe są niezależne, więc ich funkcja gęstości wspólnej jest iloczynem funkcji gęstości poszczególnych zmiennych:
 \[
-f(x_1, x_2) = f_1(x_1) \cdot f_2(x_2) = 1 \cdot 1 = 1 \quad \text{dla } x_1, x_2 \in [0, 1]
+	f(x_1, x_2) = f_1(x_1) \cdot f_2(x_2) = 1 \cdot 1 = 1 \quad \text{dla } x_1, x_2 \in [0, 1]
 \]
 
-Policzmy zdarzenie odwrotne, czyli prawdopodobieństwo, że z kawałków nie można zbudować trójkąta. 
+Policzmy zdarzenie odwrotne, czyli prawdopodobieństwo, że z kawałków nie można zbudować trójkąta.
 Oznacza to, że jeden z kawałków jest dłuższy niż \(0.5\).
 
 Mamy trzy przypadki:
@@ -31,8 +31,8 @@ Aby był długi (\(\geq 0.5\)), musi zachodzić \(X_1 \geq 0.5 \land X_2 \geq 0.
 
 Prawdopodobieństwo na to wynosi:
 \[
-P(X_1 \geq 0.5 \land X_2 \geq 0.5) = P(X_1 \geq 0.5) \cdot P(X_2 \geq 0.5)
-= \int_{0.5}^{1} f(x_1) \, dx_1 \cdot \int_{0.5}^{1} f(x_2) \, dx_2 = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}
+	P(X_1 \geq 0.5 \land X_2 \geq 0.5) = P(X_1 \geq 0.5) \cdot P(X_2 \geq 0.5)
+	= \int_{0.5}^{1} f(x_1) \, dx_1 \cdot \int_{0.5}^{1} f(x_2) \, dx_2 = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}
 \]
 
 \medbreak
@@ -43,26 +43,26 @@ Analogicznie \(P(X_1 \leq 0.5 \land X_2 \leq 0.5) = \frac{1}{4}\)
 \medbreak
 \textbf{3. Drugi kawałek jest długi:}
 \[
-P(|X_1 - X_2| \geq 0.5) = P(X_1 - X_2 \geq 0.5) + P(X_2 - X_1 \geq 0.5)
+	P(|X_1 - X_2| \geq 0.5) = P(X_1 - X_2 \geq 0.5) + P(X_2 - X_1 \geq 0.5)
 \]
 \[
-= \int \int_{\{x_1 \geq x_2 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2 + \int \int_{\{x_2 \geq x_1 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2
+	= \int \int_{\{x_1 \geq x_2 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2 + \int \int_{\{x_2 \geq x_1 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2
 \]
 
 Rozważmy \(\int \int_{\{x_1 \geq x_2 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2\):
- 
+
 Pamiętajmy, że \(x_1, x_2 \in [0, 1]\), więc \(x_2 + 0.5 \leq 1 \implies x_2 \leq 0.5\).
 
 Natomiast dla ustalonego \(x_2\), \(x_1\) może przyjmować wartości od \(x_2 + 0.5\) do \(1\). Tak więc:
 
 \[
-\int \int_{\{x_1 \geq x_2 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2 = \int_{0}^{0.5} \int_{x_2 + 0.5}^{1} f(x_1, x_2) \, dx_1 \, dx_2
+	\int \int_{\{x_1 \geq x_2 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2 = \int_{0}^{0.5} \int_{x_2 + 0.5}^{1} f(x_1, x_2) \, dx_1 \, dx_2
 \]
 \[
-= \int_{0}^{0.5} \int_{x_2 + 0.5}^{1} 1 \, dx_1 \, dx_2 = \int_{0}^{0.5} (1 - (x_2 + 0.5)) \, dx_2 = \int_{0}^{0.5} (0.5 - x_2) \, dx_2
+	= \int_{0}^{0.5} \int_{x_2 + 0.5}^{1} 1 \, dx_1 \, dx_2 = \int_{0}^{0.5} (1 - (x_2 + 0.5)) \, dx_2 = \int_{0}^{0.5} (0.5 - x_2) \, dx_2
 \]
 \[
-= \left[0.5x_2 - \frac{x_2^2}{2}\right]_{0}^{0.5} = \left(0.5 \cdot 0.5 - \frac{(0.5)^2}{2}\right) - (0) = \frac{1}{4} - \frac{1}{8} = \frac{1}{8}
+	= \left[0.5x_2 - \frac{x_2^2}{2}\right]_{0}^{0.5} = \left(0.5 \cdot 0.5 - \frac{(0.5)^2}{2}\right) - (0) = \frac{1}{4} - \frac{1}{8} = \frac{1}{8}
 \]
 
 Analogicznie \(\int \int_{\{x_2 \geq x_1 + 0.5\}} f(x_1, x_2) \, dx_1 \, dx_2 = \frac{1}{8}\).
@@ -72,13 +72,13 @@ Tak więc \(P(|X_1 - X_2| \geq 0.5) = \frac{1}{8} + \frac{1}{8} = \frac{1}{4}\).
 \medbreak
 Sumując wszystkie przypadki mamy:
 \[
-P(\text{jeden kawałek jest długi}) = \frac{1}{4} + \frac{1}{4} + \frac{1}{4} = \frac{3}{4}
+	P(\text{jeden kawałek jest długi}) = \frac{1}{4} + \frac{1}{4} + \frac{1}{4} = \frac{3}{4}
 \]
 \[
-P(\text{żaden kawałek nie jest długi}) = 1 - \frac{3}{4} = \frac{1}{4}
+	P(\text{żaden kawałek nie jest długi}) = 1 - \frac{3}{4} = \frac{1}{4}
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\frac{1}{4}}
+	\boxed{\frac{1}{4}}
 \]

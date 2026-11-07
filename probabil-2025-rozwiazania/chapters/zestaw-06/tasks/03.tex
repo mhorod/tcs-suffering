@@ -2,64 +2,64 @@
 Niech \( X \) będzie zmienną Poissona z wartością oczekiwaną \( \mu \in \{1,2,\ldots\} \).
 
 \begin{enumerate}
-\item[(i)] Pokaż, że 
-\[
-\Pr(X=\mu+h) \ge \Pr(X=\mu-h-1) \quad \text{dla } 0\le h\le \mu-1.
-\]
+	\item[(i)] Pokaż, że
+	      \[
+		      \Pr(X=\mu+h) \ge \Pr(X=\mu-h-1) \quad \text{dla } 0\le h\le \mu-1.
+	      \]
 
-\item[(ii)] Na tej podstawie wykaż, że 
-\[
-\Pr(X\ge \mu) \ge \tfrac{1}{2}.
-\]
+	\item[(ii)] Na tej podstawie wykaż, że
+	      \[
+		      \Pr(X\ge \mu) \ge \tfrac{1}{2}.
+	      \]
 \end{enumerate}
 \subsection*{Rozwiązanie}
 
 Dla \( X\sim\mathrm{Poisson}(\mu) \) mamy
 \[
-\Pr(X=k)=e^{-\mu}\frac{\mu^k}{k!}.
+	\Pr(X=k)=e^{-\mu}\frac{\mu^k}{k!}.
 \]
 
 \subsubsection*{(i)}
 Dla \(0\le h\le\mu-1\) rozważmy stosunek
 \[
-R:=\frac{\Pr(X=\mu+h)}{\Pr(X=\mu-h-1)}
-=\frac{e^{-\mu}\mu^{\mu+h}/(\mu+h)!}{e^{-\mu}\mu^{\mu-h-1}/(\mu-h-1)!}
-=\frac{\mu^{2h+1}}{(\mu-h)(\mu-h+1)\cdots(\mu+h)}.
+	R:=\frac{\Pr(X=\mu+h)}{\Pr(X=\mu-h-1)}
+	=\frac{e^{-\mu}\mu^{\mu+h}/(\mu+h)!}{e^{-\mu}\mu^{\mu-h-1}/(\mu-h-1)!}
+	=\frac{\mu^{2h+1}}{(\mu-h)(\mu-h+1)\cdots(\mu+h)}.
 \]
 
 Można to zapisać jako
 \[
-R=\prod_{s=-h}^{h}\frac{\mu}{\mu+s}.
+	R=\prod_{s=-h}^{h}\frac{\mu}{\mu+s}.
 \]
 
 Parując czynniki dla \(s\) i \(-s\) (dla \(s=1,\dots,h\)) oraz pozostawiając czynnik \(s=0\), otrzymujemy
 \[
-\frac{\mu}{\mu-s}\cdot\frac{\mu}{\mu+s}=\frac{\mu^2}{\mu^2-s^2}\ge1,
+	\frac{\mu}{\mu-s}\cdot\frac{\mu}{\mu+s}=\frac{\mu^2}{\mu^2-s^2}\ge1,
 \]
 bo \(\mu^2-s^2\le\mu^2\). Każda taka para jest więc nie mniejsza niż 1, a czynnik dla \(s=0\) to 1, zatem \(R\ge1\).
 
 Stąd
 \[
-\Pr(X=\mu+h)\ge\Pr(X=\mu-h-1)
+	\Pr(X=\mu+h)\ge\Pr(X=\mu-h-1)
 \]
 dla każdego \(0\le h\le\mu-1\), co kończy część (i).
 
 \subsubsection*{(ii)}
-Z części (i) dla każdego \(h=0,1,\dots,\mu-1\) mamy 
+Z części (i) dla każdego \(h=0,1,\dots,\mu-1\) mamy
 \(\Pr(X=\mu+h)\ge\Pr(X=\mu-h-1)\). Sumując po \(h=0,\dots,\mu-1\) otrzymujemy
 \[
-\sum_{h=0}^{\mu-1}\Pr(X=\mu+h)\ge\sum_{h=0}^{\mu-1}\Pr(X=\mu-h-1).
+	\sum_{h=0}^{\mu-1}\Pr(X=\mu+h)\ge\sum_{h=0}^{\mu-1}\Pr(X=\mu-h-1).
 \]
 
 Lewa suma to część masy rozkładu od \(\mu\) wzwyż, prawa zaś – od 0 do \(\mu-1\). Zatem
 \[
-\Pr(X\ge\mu)\ge\Pr(X\le\mu-1).
+	\Pr(X\ge\mu)\ge\Pr(X\le\mu-1).
 \]
 Ponieważ
 \[
-1=\Pr(X\ge\mu)+\Pr(X\le\mu-1),
+	1=\Pr(X\ge\mu)+\Pr(X\le\mu-1),
 \]
 otrzymujemy
 \[
-\Pr(X\ge\mu)\ge\frac12.
+	\Pr(X\ge\mu)\ge\frac12.
 \]

@@ -7,7 +7,7 @@ ograniczeniem górnym na oczekiwaną liczbę kroków, po której dojdzie do
 spotkania.
 
 \textit{Wskazówka: rozważ łańcuch Markowa na parach indeksów
-\((a, b)\)}
+	\((a, b)\)}
 
 \subsection*{Rozwiązanie}
 
@@ -16,14 +16,14 @@ Oznaczmy wierzchołki i krawędzie naszego grafu \(V\) i \(E\)
 
 Zbudujemy graf \(H = (V_H, E_H)\), gdzie
 \begin{itemize}
-\item \(V_H = V \times V\) - wierzchołek nowego grafu będzie parą
-wierzchołków w oryginalnym grafie
-\item \(E_H = \big\{\{(u, v), (w, t)\} \in \binom{V_H}{2} \colon
-\{u, w\} \in E \land \{v, t\} \in E
-\big\}\)
-\\- krawędź nowego grafu będzie oznaczała, że w grafie \(G\) były takie
-dwie krawędzie, którymi można było przejść z jednej pary wierzchołków
-do drugiej.
+	\item \(V_H = V \times V\) - wierzchołek nowego grafu będzie parą
+	      wierzchołków w oryginalnym grafie
+	\item \(E_H = \big\{\{(u, v), (w, t)\} \in \binom{V_H}{2} \colon
+	      \{u, w\} \in E \land \{v, t\} \in E
+	      \big\}\)
+	      \\- krawędź nowego grafu będzie oznaczała, że w grafie \(G\) były takie
+	      dwie krawędzie, którymi można było przejść z jednej pary wierzchołków
+	      do drugiej.
 \end{itemize}
 Zauważmy, że spacer losowy w grafie \(H\) jest tym samym co operacja
 z treści zadania.
@@ -79,7 +79,7 @@ Oczekiwany czas przejścia jedną krawędzią jest z lematu
 co najwyżej \(2|E_H|\), a krawędzi jest co najwyżej \(2n\).
 
 \[
-    \mathbb{E}(\texttt{liczba kroków}) \leq |p| \cdot 2|E_H|
-    \leq 2n \cdot 2 \cdot 2m^2 = 8m^2n = O(m^2n)
-    \quad \square
+	\ev{\texttt{liczba kroków}} \leq |p| \cdot 2|E_H|
+	\leq 2n \cdot 2 \cdot 2m^2 = 8m^2n = O(m^2n)
+	\quad \square
 \]

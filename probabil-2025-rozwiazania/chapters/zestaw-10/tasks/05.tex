@@ -1,129 +1,129 @@
 \section{Zadanie 5}
 \autor{Kacper Orszulak}
-Niech $X, Y$ będą niezależnymi zmiennymi o takich samych rozkładach i skończonej wartości oczekiwanej oraz wariancji. Niech $U = X+Y$ i $V = X-Y$.
+Niech \(X, Y\) będą niezależnymi zmiennymi o takich samych rozkładach i skończonej wartości oczekiwanej oraz wariancji. Niech \(U = X+Y\) i \(V = X-Y\).
 
 \begin{enumerate}[label=(\roman*), itemsep=0pt, topsep=0pt, partopsep=0pt, parsep=0pt]
-    \item Wykaż, że $U, V$ są nieskorelowane.
-    \item Podaj przykład $X, Y$ takich, że $U, V$ nie są niezależne.
-    \item Udowodnij, że jeśli $X, Y$ mają rozkład $N(0, 1)$, to $U, V$ są niezależne.
+	\item Wykaż, że \(U, V\) są nieskorelowane.
+	\item Podaj przykład \(X, Y\) takich, że \(U, V\) nie są niezależne.
+	\item Udowodnij, że jeśli \(X, Y\) mają rozkład \(N(0, 1)\), to \(U, V\) są niezależne.
 \end{enumerate}
 
 \subsection*{Rozwiązanie}
 \subsubsection*{(i)}
-Z definicji zmienne $U, V$ są skorelowane wtw. $Cov(U, V) = 0$. Bardziej użyteczny będzie natomiast równoważny warunek: $\mathbb{E}[UV] = \mathbb{E}[U] \mathbb{E}[V]$. Sprawdźmy go zatem:
+Z definicji zmienne \(U, V\) są skorelowane wtw. \(Cov(U, V) = 0\). Bardziej użyteczny będzie natomiast równoważny warunek: \(\ev{UV} = \ev{U} \ev{V}\). Sprawdźmy go zatem:
 \[
-    \mathbb{E}[UV] = \mathbb{E}[(X+Y)(X-Y)] = \mathbb{E}[X^2 - Y^2] = \mathbb{E}[X^2] - \mathbb{E}[Y^2]
+	\ev{UV} = \ev{(X+Y)(X-Y)} = \ev{X^2 - Y^2} = \ev{X^2} - \ev{Y^2}
 \]
 \[
-    \mathbb{E}[U] \mathbb{E}[V] = \mathbb{E}[X+Y] \mathbb{E}[X-Y] = (\mathbb{E}[X] + \mathbb{E}[Y])(\mathbb{E}[X] - \mathbb{E}[Y]) = \mathbb{E}[X]^2 - \mathbb{E}[Y]^2
+	\ev{U} \ev{V} = \ev{X+Y} \ev{X-Y} = (\ev{X} + \ev{Y})(\ev{X} - \ev{Y}) = \ev{X}^2 - \ev{Y}^2
 \]
 Ostatnie porównanie:
 \begin{align*}
-    \mathbb{E}[X^2] - \mathbb{E}[Y^2] &= \mathbb{E}[X]^2 - \mathbb{E}[Y]^2 \\
-    \mathbb{E}[X^2] - \mathbb{E}[X]^2 &= \mathbb{E}[Y^2] - \mathbb{E}[Y]^2 \
+	\ev{X^2} - \ev{Y^2} & = \ev{X}^2 - \ev{Y}^2   \\
+	\ev{X^2} - \ev{X}^2 & = \ev{Y^2} - \ev{Y}^2 \
 \end{align*}
-Oczywiście jest to prawda, ponieważ obie zmienne mają ten sam rozkład. $\hfill \square$
+Oczywiście jest to prawda, ponieważ obie zmienne mają ten sam rozkład. \(\hfill \square\)
 
 \subsubsection*{(ii)}
-Niech $X, Y$ to niezależne zmienne losowe o tym samym rozkładzie t. że
+Niech \(X, Y\) to niezależne zmienne losowe o tym samym rozkładzie t. że
 \[
-    \mathcal{P}(X=-1)=\mathcal{P}(X=+1)=\frac{1}{2}
+	\mathcal{P}(X=-1)=\mathcal{P}(X=+1)=\frac{1}{2}
 \]
 Wtedy oczywiście
 \begin{align*}
-    \mathcal{P}(X+Y=-2) = \mathcal{P}(X-Y=-2) &= \frac{1}{4} \\
-    \mathcal{P}(X+Y=-2 \; \land \; X-Y=-2) = 0 &\not = \frac{1}{4}
+	\mathcal{P}(X+Y=-2) = \mathcal{P}(X-Y=-2)  & = \frac{1}{4}      \\
+	\mathcal{P}(X+Y=-2 \; \land \; X-Y=-2) = 0 & \not = \frac{1}{4}
 \end{align*}
 Znaleźliśmy więc szukany kontrprzykład.
 
 \subsubsection*{(iii)}
-Niech $X,Y \sim N(0, 1)$ będą niezależne. Dowodzimy, że $U, V$ są niezależne.
+Niech \(X,Y \sim N(0, 1)\) będą niezależne. Dowodzimy, że \(U, V\) są niezależne.
 
-Oczywiście z własności rozkładu normalnego $-Y \sim N(0, 1)$. Dla przypomnienia $\substack{U := X+Y \\ V := X - Y}$. Z twierdzenia z wykładu wiemy zatem, że $U, V \sim N(0, 2)$.
+Oczywiście z własności rozkładu normalnego \(-Y \sim N(0, 1)\). Dla przypomnienia \(\substack{U := X+Y \\ V := X - Y}\). Z twierdzenia z wykładu wiemy zatem, że \(U, V \sim N(0, 2)\).
 
-\textbf{Szukamy równości: } $\mathcal{P}(U \le u_0 \land V \le v_0) = \mathcal{P}(U \le u_0)\mathcal{P}(V \le v_0)$
+\textbf{Szukamy równości: } \(\mathcal{P}(U \le u_0 \land V \le v_0) = \mathcal{P}(U \le u_0)\mathcal{P}(V \le v_0)\)
 
 \underline{Prawa strona równości}, to po prostu:
 \[
-    \mathcal{P}(U \le u_0 \land V \le v_0) = \left(\int_{-\infty}^{u_0} f_U(u) du\right)\left(\int_{-\infty}^{v_0} f_V(v) dv\right).
+	\mathcal{P}(U \le u_0 \land V \le v_0) = \left(\int_{-\infty}^{u_0} f_U(u) du\right)\left(\int_{-\infty}^{v_0} f_V(v) dv\right).
 \]
 
 Rozpisujemy \underline{lewą stronę równości}. Aby to zrobić posłużymy się zamianą współrzędnych znaną z analizy. Przypomnijmy ogólną formułę:
 \[
-    \int_A f = |\Phi'| \int_{\Phi^{-1}(A)} (f \circ \Phi)
+	\int_A f = |\Phi'| \int_{\Phi^{-1}(A)} (f \circ \Phi)
 \]
-Jak to rozumieć? Pomysł jest taki, że chcemy policzyć całkę funkcji $f$ na jakimś ``brzydkim'' zbiorze $A$. Okazuje się jednak, że znamy przekształcenie $\Phi$ (intuicyjnie wystarczy by to było coś podobnego do bijekcji - w szczególności bijekcja jest dobra), które zamienia pewien prostokąt (po którym oczywiście łatwo całkować) na tę ``brzydką'' przestrzeń. W tym zapisie $\Phi^{-1}(A)$ oznacza zatem przeciwobraz ``brzydkiego'' zbioru, a więc nasz docelowy prostokąt.
+Jak to rozumieć? Pomysł jest taki, że chcemy policzyć całkę funkcji \(f\) na jakimś ``brzydkim'' zbiorze \(A\). Okazuje się jednak, że znamy przekształcenie \(\Phi\) (intuicyjnie wystarczy by to było coś podobnego do bijekcji - w szczególności bijekcja jest dobra), które zamienia pewien prostokąt (po którym oczywiście łatwo całkować) na tę ``brzydką'' przestrzeń. W tym zapisie \(\Phi^{-1}(A)\) oznacza zatem przeciwobraz ``brzydkiego'' zbioru, a więc nasz docelowy prostokąt.
 
 Niech
 \[
-    \Phi: \; \mathbb{R}^2 \ni (u, v) \to (x, y) = \left(\frac{u+v}{2}, \frac{u-v}{2}\right) \in \mathbb{R}^2.
+	\Phi: \; \mathbb{R}^2 \ni (u, v) \to (x, y) = \left(\frac{u+v}{2}, \frac{u-v}{2}\right) \in \mathbb{R}^2.
 \]
 
 Jacobian takiego przekształcenia liniowego to
 
 \[
-    J_{\Phi} = \Phi' =
-    \begin{bmatrix}
-        \frac{\partial x}{\partial u} &
-        \frac{\partial x}{\partial v} \\[4pt]
-        \frac{\partial y}{\partial u} &
-        \frac{\partial y}{\partial v} \\[4pt]
-    \end{bmatrix} =
-    \begin{bmatrix}
-        \frac{1}{2} &
-        \frac{1}{2} \\[4pt]
-        \frac{1}{2} &
-        -\frac{1}{2} \\[4pt]
-    \end{bmatrix}
+	J_{\Phi} = \Phi' =
+	\begin{bmatrix}
+		\frac{\partial x}{\partial u} &
+		\frac{\partial x}{\partial v}   \\[4pt]
+		\frac{\partial y}{\partial u} &
+		\frac{\partial y}{\partial v}   \\[4pt]
+	\end{bmatrix} =
+	\begin{bmatrix}
+		\frac{1}{2} &
+		\frac{1}{2}   \\[4pt]
+		\frac{1}{2} &
+		-\frac{1}{2}  \\[4pt]
+	\end{bmatrix}
 \]
 \[
-    \det \Phi' = -\frac{1}{4} -\frac{1}{4} = -\frac{1}{2}
+	\det \Phi' = -\frac{1}{4} -\frac{1}{4} = -\frac{1}{2}
 \]
 \[
-    |\Phi'| = |\det \Phi'| = \frac{1}{2}.
+	|\Phi'| = |\det \Phi'| = \frac{1}{2}.
 \]
 
-Definiujemy $A$ jako taki zbiór punktów $(x, y)$, które spełniają nierówność lewej strony:
+Definiujemy \(A\) jako taki zbiór punktów \((x, y)\), które spełniają nierówność lewej strony:
 \[
-    A := \left\lbrace (x, y): \; \begin{cases} x+y \le u_0 \\ x-y \le v_0 \end{cases} \right\rbrace
+	A := \left\lbrace (x, y): \; \begin{cases} x+y \le u_0 \\ x-y \le v_0 \end{cases} \right\rbrace
 \]
 Oczywiście takiemu zbiorowi odpowiada prostokąt
 \[
-    \Phi^{-1}(A) = \left\lbrace (u, v): \; \begin{cases} u \le u_0 \\ v \le v_0 \end{cases} \right\rbrace.
+	\Phi^{-1}(A) = \left\lbrace (u, v): \; \begin{cases} u \le u_0 \\ v \le v_0 \end{cases} \right\rbrace.
 \]
 
 Możemy wreszcie przejść do właściwego rozpisywania lewej strony równości:
 \begin{align*}
-    \mathcal{P}(U \le u_0 \land V \le v_0) &= \mathcal{P}((x, y) \in A) \\
-    &= \iint_A f_{X,Y}(x, y) dy \; dx \\
-    &= |\Phi'| \iint_{\Phi^{-1}(A)} (f_{X,Y} \circ \Phi)(u, v) \; dv \; du \\
-    &= \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \; dv \; du
+	\mathcal{P}(U \le u_0 \land V \le v_0) & = \mathcal{P}((x, y) \in A)                                                                                          \\
+	                                       & = \iint_A f_{X,Y}(x, y) dy \; dx                                                                                     \\
+	                                       & = |\Phi'| \iint_{\Phi^{-1}(A)} (f_{X,Y} \circ \Phi)(u, v) \; dv \; du                                                \\
+	                                       & = \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \; dv \; du
 \end{align*}
 
-Skorzystamy teraz z niezależności $X, Y$ oraz z następujących wzorów:
+Skorzystamy teraz z niezależności \(X, Y\) oraz z następujących wzorów:
 \begin{align*}
-    \phi(x) &= \frac{1}{\sqrt{2\pi}\sigma} exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right) \\
-    f_X(x) = f_Y(x) = \phi(x) &= \frac{1}{\sqrt{2\pi}} exp\left(-\frac{x^2}{2}\right) \\
-    f_U(u) = f_V(u) = \phi\left(\frac{u}{\sqrt{2}}\right) &= \frac{1}{2\sqrt{\pi}} exp\left(-\frac{u^2}{4}\right)
+	\phi(x)                                               & = \frac{1}{\sqrt{2\pi}\sigma} exp\left(-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right) \\
+	f_X(x) = f_Y(x) = \phi(x)                             & = \frac{1}{\sqrt{2\pi}} exp\left(-\frac{x^2}{2}\right)                                        \\
+	f_U(u) = f_V(u) = \phi\left(\frac{u}{\sqrt{2}}\right) & = \frac{1}{2\sqrt{\pi}} exp\left(-\frac{u^2}{4}\right)
 \end{align*}
 
 Rozpisujemy:
 \begin{align*}
-    f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right)
-    &= f_{X}\left(\frac{u+v}{2}\right) f_{Y}\left(\frac{u-v}{2}\right) \\
-    &= \frac{1}{\sqrt{2\pi}} exp\left(-\frac{1}{2} \left(\frac{u+v}{2}\right)^2\right) \frac{1}{\sqrt{2\pi}} exp\left(-\frac{1}{2} \left(\frac{u-v}{2}\right)^2\right) \\
-    &= \frac{1}{2\pi} exp\left( -\frac{1}{2} \left( \left( \frac{u+v}{2}\right)^2 + \left( \frac{u-v}{2}\right)^2 \right) \right) \\
-    &= \frac{1}{2\pi} exp\left( - \frac{u^2 + v^2}{4} \right) \\
-    &= 2 \frac{1}{2\sqrt{\pi}} \frac{1}{2\sqrt{\pi}} exp\left( - \frac{u^2}{4} \right) exp\left( - \frac{v^2}{4} \right) \\
-    &= 2 f_U(u) f_V(v)
+	f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right)
+	 & = f_{X}\left(\frac{u+v}{2}\right) f_{Y}\left(\frac{u-v}{2}\right)                                                                                                 \\
+	 & = \frac{1}{\sqrt{2\pi}} exp\left(-\frac{1}{2} \left(\frac{u+v}{2}\right)^2\right) \frac{1}{\sqrt{2\pi}} exp\left(-\frac{1}{2} \left(\frac{u-v}{2}\right)^2\right) \\
+	 & = \frac{1}{2\pi} exp\left( -\frac{1}{2} \left( \left( \frac{u+v}{2}\right)^2 + \left( \frac{u-v}{2}\right)^2 \right) \right)                                      \\
+	 & = \frac{1}{2\pi} exp\left( - \frac{u^2 + v^2}{4} \right)                                                                                                          \\
+	 & = 2 \frac{1}{2\sqrt{\pi}} \frac{1}{2\sqrt{\pi}} exp\left( - \frac{u^2}{4} \right) exp\left( - \frac{v^2}{4} \right)                                               \\
+	 & = 2 f_U(u) f_V(v)
 \end{align*}
 
 Możemy teraz dopiąć naszą równość:
 \begin{align*}
-    \mathcal{P}(U \le u_0 \land V \le v_0) = \dots &= \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \; dv \; du \\
-    &= \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} 2 f_U(u) f_V(v) \; dv \; du \\
-    &= \int_{-\infty}^{u_0} f_U(u) \left( \int_{-\infty}^{v_0} f_V(v) \; dv \right) du \\
-    &= \left( \int_{-\infty}^{u_0} f_U(u) \; du \right) \; \left( \int_{-\infty}^{v_0} f_V(v) \; dv \right) \\
-    &= \mathcal{P}(U \le u_0 \land V \le v_0)
+	\mathcal{P}(U \le u_0 \land V \le v_0) = \dots & = \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} f_{X,Y}\left(\frac{u+v}{2}, \frac{u-v}{2}\right) \; dv \; du \\
+	                                               & = \frac{1}{2} \int_{-\infty}^{u_0} \int_{-\infty}^{v_0} 2 f_U(u) f_V(v) \; dv \; du                                  \\
+	                                               & = \int_{-\infty}^{u_0} f_U(u) \left( \int_{-\infty}^{v_0} f_V(v) \; dv \right) du                                    \\
+	                                               & = \left( \int_{-\infty}^{u_0} f_U(u) \; du \right) \; \left( \int_{-\infty}^{v_0} f_V(v) \; dv \right)               \\
+	                                               & = \mathcal{P}(U \le u_0 \land V \le v_0)
 \end{align*}
-$\hfill \square$
+\(\hfill \square\)

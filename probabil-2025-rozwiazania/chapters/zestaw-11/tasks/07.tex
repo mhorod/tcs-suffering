@@ -1,43 +1,43 @@
 \section{Zadanie 7}
-Niech $T_n$ będzie pełnym drzewem binarnym na $n$ wierzchołkach. Rozważmy spacer losowy po $T_n$, gdzie z prawdopodobieństwem $\frac{1}{2}$ stoimy w miejscu, a jeśli mamy wykonać ruch to wykonujemy go jednostajnie na jednego z sąsiadów. Zauważ, że rozkład stacjonarny odpowiednio zdefiniowanego łańcucha Markova istnieje. Pokaż, że $\tau_{mix}$ jest liniowy w terminach $n$.\\
+Niech \(T_n\) będzie pełnym drzewem binarnym na \(n\) wierzchołkach. Rozważmy spacer losowy po \(T_n\), gdzie z prawdopodobieństwem \(\frac{1}{2}\) stoimy w miejscu, a jeśli mamy wykonać ruch to wykonujemy go jednostajnie na jednego z sąsiadów. Zauważ, że rozkład stacjonarny odpowiednio zdefiniowanego łańcucha Markova istnieje. Pokaż, że \(\tau_{mix}\) jest liniowy w terminach \(n\).\\
 \\
-\textit{Wskazówka:} Jeśli $p,q,r \in [0,1]$ takie, że $p+q+r=1$, $p \neq q$ i rozważamy spacer na liczbach $[0,n]$ taki, że prawdopodobieństwo pozostania w miejscu to $r$, prawdopodobieństwo przejścia z $i$ do $i-1$ wynosi $p$, a prawdopodobieństwo przejścia z $i$ do $i+1$ wynosi q. Jeśli jesteśmy w punkcie 0 i mamy iść w lewo to zostajemy w miejscu, a jeśli jesteśmy w punkcie $n$ i mamy iść w prawo to również zostajemy w miejscu. Niech $X$ będzie zmienną losową będącą liczbą kroków potrzebnych do przejścia z $n$ do $0$. Wtedy
+\textit{Wskazówka:} Jeśli \(p,q,r \in [0,1]\) takie, że \(p+q+r=1\), \(p \neq q\) i rozważamy spacer na liczbach \([0,n]\) taki, że prawdopodobieństwo pozostania w miejscu to \(r\), prawdopodobieństwo przejścia z \(i\) do \(i-1\) wynosi \(p\), a prawdopodobieństwo przejścia z \(i\) do \(i+1\) wynosi q. Jeśli jesteśmy w punkcie 0 i mamy iść w lewo to zostajemy w miejscu, a jeśli jesteśmy w punkcie \(n\) i mamy iść w prawo to również zostajemy w miejscu. Niech \(X\) będzie zmienną losową będącą liczbą kroków potrzebnych do przejścia z \(n\) do \(0\). Wtedy
 \[
-E(X) \leq \frac{1}{p-q}\left[n-q\left(\frac{1-(q/p)^n}{p-q}\right)\right].
+	E(X) \leq \frac{1}{p-q}\left[n-q\left(\frac{1-(q/p)^n}{p-q}\right)\right].
 \]
 
 \subsection*{Rozwiązanie}
 
 Zacznijmy od rozkładu stacjonarnego. Łańcuch jest skończony i nieprzywiedlny, więc taki rozkład istnieje. \\
 
-Rozważmy teraz sprzęganie łańcuchów Markova $((X_t, Y_t))_{t\in \mathbb{N}}$, których to macierz przejścia jest określona naszym grafem(możemy ponumerować wierzchołki od $0$ do $n-1$). Określamy $X_{t+1}, Y_{t+1}$ na podstawie $X_t, Y_t$ w następujący sposób:
+Rozważmy teraz sprzęganie łańcuchów Markova \(((X_t, Y_t))_{t\in \mathbb{N}}\), których to macierz przejścia jest określona naszym grafem(możemy ponumerować wierzchołki od \(0\) do \(n-1\)). Określamy \(X_{t+1}, Y_{t+1}\) na podstawie \(X_t, Y_t\) w następujący sposób:
 \begin{itemize}
-    \item Jeśli $X_t, Y_t$ były wierzchołkami z różną odległością od korzenia drzewa, to z prawdopodobieństwem $\frac{1}{2} : X_{t+1} = X_t, $ nastomiast $Y_{t+1}$ wybieramy jednostajnie spośród sąsiadów $Y_t$, i z prawdopodobieństwem $\frac{1}{2}:Y_{t+1} = Y_t, $ nastomiast $X_{t+1}$ wybieramy jednostajnie spośród sąsiadów $X_t$.
-    \item Jeśli $X_t, Y_t$ na tym samym poziomie drzewa, to wybieramy ten ruch który wykonujemy na obu tych zmiennych - czyli z prawdopodobieństwem $\frac{1}{2}$ będzie $X_{t+1} = X_t, Y_{t+1}=Y_t$, albo wybieramy jednostajnie z sąsiadów tych wierzchołków do którego idziemy(w obu idziemy do lewego dziecka/w obu do rodzica/w obu do prawego dziecka). To zapewnia, że gdy raz $X_t, Y_t$ będą na jednym poziomie w drzewie, to już zawsze będą na tym samym poziomie.
+	\item Jeśli \(X_t, Y_t\) były wierzchołkami z różną odległością od korzenia drzewa, to z prawdopodobieństwem \(\frac{1}{2} : X_{t+1} = X_t, \) nastomiast \(Y_{t+1}\) wybieramy jednostajnie spośród sąsiadów \(Y_t\), i z prawdopodobieństwem \(\frac{1}{2}:Y_{t+1} = Y_t, \) nastomiast \(X_{t+1}\) wybieramy jednostajnie spośród sąsiadów \(X_t\).
+	\item Jeśli \(X_t, Y_t\) na tym samym poziomie drzewa, to wybieramy ten ruch który wykonujemy na obu tych zmiennych - czyli z prawdopodobieństwem \(\frac{1}{2}\) będzie \(X_{t+1} = X_t, Y_{t+1}=Y_t\), albo wybieramy jednostajnie z sąsiadów tych wierzchołków do którego idziemy(w obu idziemy do lewego dziecka/w obu do rodzica/w obu do prawego dziecka). To zapewnia, że gdy raz \(X_t, Y_t\) będą na jednym poziomie w drzewie, to już zawsze będą na tym samym poziomie.
 \end{itemize}
-Niech $Z = Z_1+Z_2$ - oczekiwana liczba kroków po których $X_t = Y_t$(tu już chodzi nam o konkretnie ten sam wierzchołek, nie tylko poziom). \\
+Niech \(Z = Z_1+Z_2\) - oczekiwana liczba kroków po których \(X_t = Y_t\)(tu już chodzi nam o konkretnie ten sam wierzchołek, nie tylko poziom). \\
 \\
-$Z_1$ to oczekiwana liczba kroków po których $X_t, Y_t$ znajdą się na tym samym poziomie. Zauważmy, że $D_t = |\text{poziom}(X_t)-\text{poziom}(Y_t)|$ możemy sprowadzić do spaceru symetrycznego z dwoma barierami w $0$ i $\log_2n$, bo w każdym kroku różnica między poziomami zmienia się o co najwyżej 1. Z przypomnienia o spacerach losowych oczekiwana liczba kroków do uderzenia w 0 niezależnie od miejsca startu mieści się w $O((\log_2n)^2)$.\\
+\(Z_1\) to oczekiwana liczba kroków po których \(X_t, Y_t\) znajdą się na tym samym poziomie. Zauważmy, że \(D_t = |\text{poziom}(X_t)-\text{poziom}(Y_t)|\) możemy sprowadzić do spaceru symetrycznego z dwoma barierami w \(0\) i \(\log_2n\), bo w każdym kroku różnica między poziomami zmienia się o co najwyżej 1. Z przypomnienia o spacerach losowych oczekiwana liczba kroków do uderzenia w 0 niezależnie od miejsca startu mieści się w \(O((\log_2n)^2)\).\\
 \\
-$Z_2$ to oczekiwana liczba kroków po których $X_t = Y_t$ od momentu gdy znajdą się na tym samym poziomie w drzewie. Zauważmy, że jest ona nie większa niż oczekiwana liczba kroków przejścia $X_t, Y_t$ z liści do korzenia, co znowu możemy zinterpretować przez spacer niesymetryczny z dwoma barierami. Czyli ze wskazówki mamy(u nas $p = \frac{1}{6}, q=\frac{1}{3})$:
+\(Z_2\) to oczekiwana liczba kroków po których \(X_t = Y_t\) od momentu gdy znajdą się na tym samym poziomie w drzewie. Zauważmy, że jest ona nie większa niż oczekiwana liczba kroków przejścia \(X_t, Y_t\) z liści do korzenia, co znowu możemy zinterpretować przez spacer niesymetryczny z dwoma barierami. Czyli ze wskazówki mamy(u nas \(p = \frac{1}{6}, q=\frac{1}{3})\):
 \[
-E[Z_2] \leq \frac{1}{p-q}\left[\log_2n-q\left(\frac{1-(q/p)^{\log_2n}}{p-q}\right)\right] = -6\log_2n - 12 + 12 \cdot 2^{\log_2n} = \theta(n)
+	E[Z_2] \leq \frac{1}{p-q}\left[\log_2n-q\left(\frac{1-(q/p)^{\log_2n}}{p-q}\right)\right] = -6\log_2n - 12 + 12 \cdot 2^{\log_2n} = \theta(n)
 \]
 
-Wyżej zostało zamienione $n$ ze wskazówki na $\log_2n$, bo tutaj jest spacer ograniczony przez 0 i wysokość drzewa, czyli $\log_2n$.
+Wyżej zostało zamienione \(n\) ze wskazówki na \(\log_2n\), bo tutaj jest spacer ograniczony przez 0 i wysokość drzewa, czyli \(\log_2n\).
 
-Mamy więc, że $E[Z] \leq cn$ dla pewnego $c \in \mathbb{R}$.
+Mamy więc, że \(E[Z] \leq cn\) dla pewnego \(c \in \mathbb{R}\).
 
-Korzystamy teraz z lematu $10.3.2$, przytoczonego m.in. w zadaniu 2. Tutaj mamy(po drodze korzystając z nierówności Markova):
+Korzystamy teraz z lematu \(10.3.2\), przytoczonego m.in. w zadaniu 2. Tutaj mamy(po drodze korzystając z nierówności Markova):
 \[
-P(X_t \neq Y_t | X_0 = x, Y_0 = y) = P(Z > t) \leq \frac{E[Z]}{t} \leq \frac{cn}{t}
+	P(X_t \neq Y_t | X_0 = x, Y_0 = y) = P(Z > t) \leq \frac{E[Z]}{t} \leq \frac{cn}{t}
 \]
-Dla $t = 4cn$ mamy:
+Dla \(t = 4cn\) mamy:
 \[
-P(X_t \neq Y_t | X_0 = x, Y_0 = y) \leq \frac{1}{4}
+	P(X_t \neq Y_t | X_0 = x, Y_0 = y) \leq \frac{1}{4}
 \]
 Więc z lematu dostajemy
 \[
-\tau_{mix} = \tau_{mix}(\epsilon) = \tau_{mix}(\frac{1}{4}) \leq 4cn = O(n)
+	\tau_{mix} = \tau_{mix}(\epsilon) = \tau_{mix}(\frac{1}{4}) \leq 4cn = O(n)
 \]
 

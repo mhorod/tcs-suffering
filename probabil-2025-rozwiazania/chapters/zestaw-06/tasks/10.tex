@@ -2,68 +2,68 @@
 \autor{Kacper Orszulak}
 Rozwiąż Zadanie 5.22 z książki.
 
-\textbf{Uwaga:} w podpunkcie (b) powinno być $\lfloor log\;n \rfloor$ zamiast $log\;n$.
+\textbf{Uwaga:} w podpunkcie (b) powinno być \(\lfloor log\;n \rfloor\) zamiast \(log\;n\).
 
 \textbf{Excercise 5.22 (P\&C 2nd Edition):}
-In hashing with open addressing, the hash table is implemented as an array and there are no linked lists or chaining. Each entry in the array either contains one hashed item or is empty. The hash function defines, for each key k, a probe sequence $h(k, 0), h(k, 1), ...$ of table locations. To insert the key $k$, we first examine the sequence of table locations in the order defined by the key’s probe sequence until we find an empty location; then we insert the item at that position. When searching for an item in the hash table, we examine the sequence of table locations in the order defined by the key’s probe sequence until either the item is found or we have found an empty location in the sequence. If an empty location is found, this means the item is not present in the table.
+In hashing with open addressing, the hash table is implemented as an array and there are no linked lists or chaining. Each entry in the array either contains one hashed item or is empty. The hash function defines, for each key k, a probe sequence \(h(k, 0), h(k, 1), ...\) of table locations. To insert the key \(k\), we first examine the sequence of table locations in the order defined by the key’s probe sequence until we find an empty location; then we insert the item at that position. When searching for an item in the hash table, we examine the sequence of table locations in the order defined by the key’s probe sequence until either the item is found or we have found an empty location in the sequence. If an empty location is found, this means the item is not present in the table.
 
-An open-address hash table with $2n$ entries is used to store $n$ items. Assume that the table location $h(k, j)$ is uniform over the $2n$ possible table locations and that all $h(k, j)$ are independent.
+An open-address hash table with \(2n\) entries is used to store \(n\) items. Assume that the table location \(h(k, j)\) is uniform over the \(2n\) possible table locations and that all \(h(k, j)\) are independent.
 
 \begin{enumerate}[label=\textbf{(\alph*)}]
-    \item Show that, under these conditions, the probability of an insertion requiring more than $k$ probes is at most $2^{-k}$.
-    \item Show that, for $i = 1, 2, ..., n$, the probability that the $i$th insertion requires more than $2\;\lfloor log \;n \rfloor$ probes is at most $1/n^2$.
+	\item Show that, under these conditions, the probability of an insertion requiring more than \(k\) probes is at most \(2^{-k}\).
+	\item Show that, for \(i = 1, 2, ..., n\), the probability that the \(i\)th insertion requires more than \(2\;\lfloor log \;n \rfloor\) probes is at most \(1/n^2\).
 \end{enumerate}
 
-Let the random variable $X_i$ denote the number of probes required by the $i$th insertion. You have shown in part (b) that $Pr(X_i > 2\;\lfloor log \; n \rfloor) \le 1/n^2$. Let the random variable $X = max_{1 \le i \le n} X_i$ denote the maximum number of probes required by any of the $n$ insertions.
+Let the random variable \(X_i\) denote the number of probes required by the \(i\)th insertion. You have shown in part (b) that \(Pr(X_i > 2\;\lfloor log \; n \rfloor) \le 1/n^2\). Let the random variable \(X = max_{1 \le i \le n} X_i\) denote the maximum number of probes required by any of the \(n\) insertions.
 
 \begin{enumerate}[label=\textbf{(\alph*)}, start=3]
-    \item Show that $Pr(X > 2\;\lfloor log \; n \rfloor) \le 1/n$.
-    \item Show that the expected length of the longest probe sequence is $\mathbb{E}[X] = O(log\;n)$.
+	\item Show that \(Pr(X > 2\;\lfloor log \; n \rfloor) \le 1/n\).
+	\item Show that the expected length of the longest probe sequence is \(\ev{X} = O(log\;n)\).
 \end{enumerate}
 
 \subsection*{Rozwiązanie}
 \subsubsection*{(a)}
-Załóżmy pesymistycznie, że $n$ komórek tablicy jest już zajęte. Prawdopodobieństwo, że dowolna komórka jest zajęta jest równe zatem $(1-p) = \frac{n}{n/2} = \frac{1}{2}$ (w ogólności oczywiście $(1-p) \le \frac{1}{2}$). Jest tak dlatego, ponieważ każda komórka występuje w ciągu $h(k, *)$ z równym prawdopodobieństwem, a co za tym idzie, jeżeli wstawiamy $i$-ty element do tablicy, to $i-1$ elementów jest zajętych, a skoro wybieramy pierwszą niezajętą komórkę w ciągu $h(k, *)$, to z równym prawdopodobieństwem będzie to dowolna niezajęta komórka.
+Załóżmy pesymistycznie, że \(n\) komórek tablicy jest już zajęte. Prawdopodobieństwo, że dowolna komórka jest zajęta jest równe zatem \((1-p) = \frac{n}{n/2} = \frac{1}{2}\) (w ogólności oczywiście \((1-p) \le \frac{1}{2}\)). Jest tak dlatego, ponieważ każda komórka występuje w ciągu \(h(k, *)\) z równym prawdopodobieństwem, a co za tym idzie, jeżeli wstawiamy \(i\)-ty element do tablicy, to \(i-1\) elementów jest zajętych, a skoro wybieramy pierwszą niezajętą komórkę w ciągu \(h(k, *)\), to z równym prawdopodobieństwem będzie to dowolna niezajęta komórka.
 
-Z tego powodu $X_i$ (definicja wyżej) ma rozkład geometryczny. Dostajemy
+Z tego powodu \(X_i\) (definicja wyżej) ma rozkład geometryczny. Dostajemy
 
-$\mathcal{P}(X_i = k) = (1-p)^{k-1}p \overset{(1-p) \le \frac{1}{2}}{\le} \frac{1}{2^k}$, a co za tym idzie $\mathcal{P}(X_i > k) = (1-p)^k \le \frac{1}{2^k}$. \hfill $\square$
+\(\mathcal{P}(X_i = k) = (1-p)^{k-1}p \overset{(1-p) \le \frac{1}{2}}{\le} \frac{1}{2^k}\), a co za tym idzie \(\mathcal{P}(X_i > k) = (1-p)^k \le \frac{1}{2^k}\). \hfill \(\square\)
 
 \subsubsection*{(b)}
-Korzystamy z podpunktu (a) dla $k := 2 \lfloor log \; n \rfloor$. Dostajemy $\mathcal{P}(X_i > 2 \lfloor log \rfloor n) \le \frac{1}{2^{2 \lfloor log \; n \rfloor }} \le \frac{1}{2^{2 \; log \; n}} = \frac{1}{n^2}$. \hfill $\square$
+Korzystamy z podpunktu (a) dla \(k := 2 \lfloor log \; n \rfloor\). Dostajemy \(\mathcal{P}(X_i > 2 \lfloor log \rfloor n) \le \frac{1}{2^{2 \lfloor log \; n \rfloor }} \le \frac{1}{2^{2 \; log \; n}} = \frac{1}{n^2}\). \hfill \(\square\)
 
 \subsubsection*{(c)}
-\textbf{Obserwacja.} Dla dowolnego $k$
+\textbf{Obserwacja.} Dla dowolnego \(k\)
 \[
-    \mathcal{P}(X \ge k) = \mathcal{P}(\bigcup_{i \in [n]} X_i \ge k) \overset{\text{Union Bound}}{\le} \sum_{i \in [n]} \mathcal{P}(X_i \ge k) \overset{\text{(a)}}{\le} \frac{n}{2^k}.
+	\mathcal{P}(X \ge k) = \mathcal{P}(\bigcup_{i \in [n]} X_i \ge k) \overset{\text{Union Bound}}{\le} \sum_{i \in [n]} \mathcal{P}(X_i \ge k) \overset{\text{(a)}}{\le} \frac{n}{2^k}.
 \]
-W szczególności dla $k := 2 \lfloor log \; n \rfloor$:
+W szczególności dla \(k := 2 \lfloor log \; n \rfloor\):
 \[
-    \mathcal{P}(X \ge 2 \lfloor log \; n \rfloor) \overset{\text{(b)}}{\le} n \cdot \frac{1}{n^2} = 1/n.
+	\mathcal{P}(X \ge 2 \lfloor log \; n \rfloor) \overset{\text{(b)}}{\le} n \cdot \frac{1}{n^2} = 1/n.
 \]
-\hfill $\square$
+\hfill \(\square\)
 
 \subsubsection*{(d)}
-Niech $T := 2 \lfloor log \; n \rfloor$.
+Niech \(T := 2 \lfloor log \; n \rfloor\).
 \begin{align*}
-    \mathbb{E}[X] &= \sum_{k=1}^\infty k \cdot \mathcal{P}(X = k) \overset{\textbf{Lemma 2.9}}{=} \sum_{k = 1}^\infty \mathcal{P}(X \ge k) \\
-    &= \sum_{k=1}^T \mathcal{P}(X \ge k) + \sum_{k=T+1}^\infty \mathcal{P}(X \ge k)
+	\ev{X} & = \sum_{k=1}^\infty k \cdot \mathcal{P}(X = k) \overset{\textbf{Lemma 2.9}}{=} \sum_{k = 1}^\infty \mathcal{P}(X \ge k) \\
+	       & = \sum_{k=1}^T \mathcal{P}(X \ge k) + \sum_{k=T+1}^\infty \mathcal{P}(X \ge k)
 \end{align*}
 
 \begin{align*}
-    \sum_{k=1}^T \mathcal{P}(X \ge k) \le T \cdot \mathcal{P}(X \ge T) \le T \cdot 1 = T = O(log \; n)
+	\sum_{k=1}^T \mathcal{P}(X \ge k) \le T \cdot \mathcal{P}(X \ge T) \le T \cdot 1 = T = O(log \; n)
 \end{align*}
 
 \begin{align*}
-    \sum_{k=T+1}^\infty \mathcal{P}(X \ge k) &\overset{\textbf{Obserwacja}}{\le} \sum_{k=T+1}^\infty \frac{n}{2^k} \\
-    &= n \sum_{k=T+1}^\infty \frac{1}{2^k} \\
-    &= n \cdot \frac{1}{2^{T+1}} \cdot \frac{1}{1 - 1/2} \\
-    &= 2n \cdot \frac{1}{2^{2 \lfloor log \; n \rfloor+1}} \\
-    &\le 2n \cdot \frac{1}{2n^2} = \frac{1}{n}
+	\sum_{k=T+1}^\infty \mathcal{P}(X \ge k) & \overset{\textbf{Obserwacja}}{\le} \sum_{k=T+1}^\infty \frac{n}{2^k} \\
+	                                         & = n \sum_{k=T+1}^\infty \frac{1}{2^k}                                \\
+	                                         & = n \cdot \frac{1}{2^{T+1}} \cdot \frac{1}{1 - 1/2}                  \\
+	                                         & = 2n \cdot \frac{1}{2^{2 \lfloor log \; n \rfloor+1}}                \\
+	                                         & \le 2n \cdot \frac{1}{2n^2} = \frac{1}{n}
 \end{align*}
 
 Sumarycznie dostajemy
 \[
-    \mathbb{E}[X] = O(log \; n) + \frac{1}{n} = O(log \; n).
+	\ev{X} = O(log \; n) + \frac{1}{n} = O(log \; n).
 \]
-\hfill $\square$
+\hfill \(\square\)

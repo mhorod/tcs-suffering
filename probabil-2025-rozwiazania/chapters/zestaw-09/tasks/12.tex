@@ -1,31 +1,31 @@
 \section{Zadanie 12}
-Niech $T_1, T_2$ będą zmiennymi o rozkładzie wykładniczym z parametrem 1 i niech $T=T_1+T_2$. Oblicz $E(T_1|T)$ oraz $E(T|T_1)$. 
+Niech \(T_1, T_2\) będą zmiennymi o rozkładzie wykładniczym z parametrem 1 i niech \(T=T_1+T_2\). Oblicz \(E(T_1|T)\) oraz \(E(T|T_1)\).
 
 \subsection*{Rozwiązanie}
 
-W ogólnym przypadku, gdy nie wiemy nic o zależności $T_1$ oraz $T_2$, możemy jedynie stwierdzić:
+W ogólnym przypadku, gdy nie wiemy nic o zależności \(T_1\) oraz \(T_2\), możemy jedynie stwierdzić:
 \begin{align*}
-E(T_1|T)(t) &= \int_{-\infty}^{\infty} x \cdot f_{T_1| T}(x,t)dx = \int_{-\infty}^{\infty} x \cdot \frac{f_{T_1, T}{(x, t)}}{f_{T}(t)}dx= \\
-&= \int_{-\infty}^{\infty} x \cdot \frac{f_{T_1, T_2}{(x, t-x)}}{f_{T}(t)}dx
+	E(T_1|T)(t) & = \int_{-\infty}^{\infty} x \cdot f_{T_1| T}(x,t)dx = \int_{-\infty}^{\infty} x \cdot \frac{f_{T_1, T}{(x, t)}}{f_{T}(t)}dx= \\
+	            & = \int_{-\infty}^{\infty} x \cdot \frac{f_{T_1, T_2}{(x, t-x)}}{f_{T}(t)}dx
 \end{align*}
 Z kolei druga warunkowa wartość oczekiwana:
 \begin{align*}
-    E(T|T_1) = E(T_1+T_2|T_1) = E(T_1|T_1) + E(T_2|T_1) = T_1 + E(T_2|T_1)
-    \\
-    E(T|T_1)(t) = t + \int_{-\infty}^{\infty}x \cdot f_{T_2 | T_1}(x, t)dx = t + \int_{-\infty}^{\infty}x\cdot \frac{f_{T_1, T_2}(t, x)}{f_{T_1}(t)} dx
+	E(T|T_1) = E(T_1+T_2|T_1) = E(T_1|T_1) + E(T_2|T_1) = T_1 + E(T_2|T_1)
+	\\
+	E(T|T_1)(t) = t + \int_{-\infty}^{\infty}x \cdot f_{T_2 | T_1}(x, t)dx = t + \int_{-\infty}^{\infty}x\cdot \frac{f_{T_1, T_2}(t, x)}{f_{T_1}(t)} dx
 \end{align*}
 
-W przypadku, gdy $T_1$ i $T_2$ niekoniecznie są niezależne, nie znając $f_{T_1, T_2}$, nie jesteśmy w stanie obliczyć konkretnych wartości oczekiwanych. Z kolei gdy $T_1, T_2$ niezależne, to:\\
-\textbf{1.} z symetrii która wynika z niezależności i takiego samego parametru rozkładu wykładniczego: $E(T_1|T) = E(T_2|T) = T/2$\\
-\textbf{2.} z niezależności: $E(T|T_1) = T_1 + E(T_2|T_1) = T_1 + E(T_2) = T_1 + \frac{1}{\lambda} = T_1 + 1$
+W przypadku, gdy \(T_1\) i \(T_2\) niekoniecznie są niezależne, nie znając \(f_{T_1, T_2}\), nie jesteśmy w stanie obliczyć konkretnych wartości oczekiwanych. Z kolei gdy \(T_1, T_2\) niezależne, to:\\
+\textbf{1.} z symetrii która wynika z niezależności i takiego samego parametru rozkładu wykładniczego: \(E(T_1|T) = E(T_2|T) = T/2\)\\
+\textbf{2.} z niezależności: \(E(T|T_1) = T_1 + E(T_2|T_1) = T_1 + E(T_2) = T_1 + \frac{1}{\lambda} = T_1 + 1\)
 
 \subsection*{Odpowiedź}
 \[
-\boxed{
-\begin{aligned}
-\text{Dla przypadku } T_1, T_2 \text{ niezależne:} \\
-E(T_1 \mid T) &= \frac{T}{2}, \\
-E(T \mid T_1) &= T_1 + 1.
-\end{aligned}
-}
+	\boxed{
+		\begin{aligned}
+			\text{Dla przypadku } T_1, T_2 \text{ niezależne:} \\
+			E(T_1 \mid T) & = \frac{T}{2},                     \\
+			E(T \mid T_1) & = T_1 + 1.
+		\end{aligned}
+	}
 \]

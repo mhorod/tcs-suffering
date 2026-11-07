@@ -11,10 +11,10 @@ Wynik podaj jako funkcję \(p\).
 
 \subsection*{Algorytm}
 \begin{itemize}
-  \item Rzuć monetą dwa razy, wynik \(i\)-tego rzutu to \(e_i \in \{\texttt{OO}, \texttt{OR}, \texttt{RO}, \texttt{RR}\}\).
-  \item Jeżeli \(e_i = \texttt{OR}\) to zwróć \texttt{R}.
-  \item Jeżeli \(e_i = \texttt{RO}\) to zwróć \texttt{O}.
-  \item Jeżeli \(e_i = \texttt{OO}\) lub \(e_i = \texttt{RR}\) to powtórz algorytm.
+	\item Rzuć monetą dwa razy, wynik \(i\)-tego rzutu to \(e_i \in \{\texttt{OO}, \texttt{OR}, \texttt{RO}, \texttt{RR}\}\).
+	\item Jeżeli \(e_i = \texttt{OR}\) to zwróć \texttt{R}.
+	\item Jeżeli \(e_i = \texttt{RO}\) to zwróć \texttt{O}.
+	\item Jeżeli \(e_i = \texttt{OO}\) lub \(e_i = \texttt{RR}\) to powtórz algorytm.
 \end{itemize}
 
 \subsection*{Model probabilistyczny}
@@ -25,12 +25,12 @@ Wynik podaj jako funkcję \(p\).
 \(\{ A_i \}_{i \in \mathbb{N}}\) to rodzina zdarzeń niezależnych, gdzie \(A_i\) to zdarzenie,
 że \(i\)-ta para rzutów daje \texttt{OR} lub \texttt{RO}, czyli kończy algorytm:
 \[
-  A_i = \Big\{ e \in \Omega \mid e_i \in \{\texttt{OR}, \texttt{RO}\} \Big\}
+	A_i = \Big\{ e \in \Omega \mid e_i \in \{\texttt{OR}, \texttt{RO}\} \Big\}
 \]
 \begin{align*}
-  \forall_{i \in \mathbb{N}}\ &P(e_i = \texttt{OO}) = p^2\\
-  \forall_{i \in \mathbb{N}}\ &P(e_i = \texttt{RR}) = (1-p)^2\\
-  \forall_{i \in \mathbb{N}}\ &P(A_i) = p(1-p) + (1-p)p = 2p(1-p)
+	\forall_{i \in \mathbb{N}}\  & P(e_i = \texttt{OO}) = p^2         \\
+	\forall_{i \in \mathbb{N}}\  & P(e_i = \texttt{RR}) = (1-p)^2     \\
+	\forall_{i \in \mathbb{N}}\  & P(A_i) = p(1-p) + (1-p)p = 2p(1-p)
 \end{align*}
 Takie zdarzenia są niezależne.
 Oba zdarzenia kończące algorytm są równoprawdopodobne, więc algorytm zwróci
@@ -40,25 +40,25 @@ Wprowadźmy zmienną losową \(X \colon \Omega \to \mathbb{N}\) oznaczającą li
 par rzutów wykonanych przez algorytm. \(P(X = 0) = 0\).
 Dla \(n \in \mathbb{N}_+\) mamy:
 \begin{align*}
-P(X \geq n) &= P\big(
-  \underbrace{(\Omega \setminus A_0) \cap (\Omega \setminus A_1) \cap \cdots \cap (\Omega \setminus A_{n-1})}
-  _\text{pierwsze \(n-1\) rzutów nie zakończyło algorytmu}
-\big)\\
-&= \big(1-P(A_0)\big)\big(1-P(A_1)\big)\cdots\big(1-P(A_{n-1})\big) &&\text{(z niezależności)}\\
-&= \big(1-2p(1-p)\big)^{n-1}
+	P(X \geq n) & = P\big(
+	\underbrace{(\Omega \setminus A_0) \cap (\Omega \setminus A_1) \cap \cdots \cap (\Omega \setminus A_{n-1})}
+	_\text{pierwsze \(n-1\) rzutów nie zakończyło algorytmu}
+	\big)                                                                                                          \\
+	            & = \big(1-P(A_0)\big)\big(1-P(A_1)\big)\cdots\big(1-P(A_{n-1})\big) &  & \text{(z niezależności)} \\
+	            & = \big(1-2p(1-p)\big)^{n-1}
 \end{align*}
 
 \(X\) przyjmuje jedynie wartości w liczbach naturalnych więc z lematu P\&C
 z Sufferingu mamy:
 \begin{align*}
-\mathbb{E}[X]
-&= \sum_{n=1}^{\infty} P(X \geq n)
-= \sum_{n=1}^{\infty} \big(1-2p(1-p)\big)^{n-1}
-= \sum_{n=0}^{\infty} \big(1-2p(1-p)\big)^n\\
-&= \frac{1}{2p(1-p)}
+	\ev{X}
+	 & = \sum_{n=1}^{\infty} P(X \geq n)
+	= \sum_{n=1}^{\infty} \big(1-2p(1-p)\big)^{n-1}
+	= \sum_{n=0}^{\infty} \big(1-2p(1-p)\big)^n \\
+	 & = \frac{1}{2p(1-p)}
 \end{align*}
-\(\mathbb{E}[X] = \frac{1}{2p(1-p)}\) to oczekiwana liczba par rzutów,
+\(\ev{X} = \frac{1}{2p(1-p)}\) to oczekiwana liczba par rzutów,
 więc oczekiwana liczba rzutów to:
 \[
-\boxed{\frac{1}{p(1-p)}}
+	\boxed{\frac{1}{p(1-p)}}
 \]

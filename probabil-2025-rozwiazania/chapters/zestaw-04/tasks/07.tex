@@ -1,15 +1,15 @@
 \section{Zadanie 7}
-Powiedzmy, że w urnie znajduje się $N$ kul z czego $K$ jest zielonych a reszta czerwone. Losujemy $n$ kul bez zwracania. 
-Niech $X$ będzie liczbą zielonych kul które wylosowaliśmy. Jaki rozkład ma $X$? Innymi słowy, ile wynosi $P(X = k)$?
+Powiedzmy, że w urnie znajduje się \(N\) kul z czego \(K\) jest zielonych a reszta czerwone. Losujemy \(n\) kul bez zwracania.
+Niech \(X\) będzie liczbą zielonych kul które wylosowaliśmy. Jaki rozkład ma \(X\)? Innymi słowy, ile wynosi \(P(X = k)\)?
 
 \subsection*{Rozwiązanie}
-$k$ kul zielonych spośród wszystkich kul zielonych można wybrać na $\binom{K}{k}$ sposobów, analogicznie $n-k$ kul czerwonych na $\binom{N-K}{n-k}$ sposobów. Wszystkich sposobów na wybranie $n$ kul ze zbioru $N$ kul jest $\binom{N}{n}$. Wynik wynosi więc:
+\(k\) kul zielonych spośród wszystkich kul zielonych można wybrać na \(\binom{K}{k}\) sposobów, analogicznie \(n-k\) kul czerwonych na \(\binom{N-K}{n-k}\) sposobów. Wszystkich sposobów na wybranie \(n\) kul ze zbioru \(N\) kul jest \(\binom{N}{n}\). Wynik wynosi więc:
 
 \[
-\frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}}
+	\frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}}
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}} \text{, jest to rozkład hipergeometryczny}}
+	\boxed{\frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}} \text{, jest to rozkład hipergeometryczny}}
 \]

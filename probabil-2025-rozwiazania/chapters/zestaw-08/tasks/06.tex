@@ -17,17 +17,17 @@ wypadku jeden z łuków \(AC\) lub \(BC\), niezawierający trzeciego
 wierzchołka, byłby dłuższy niż połowa okręgu.
 
 \begin{tikzpicture}
-    \draw[thick] (0,0) circle(2.5cm);
-    \draw[thick][red]
-        (2.5,0) arc[start angle=0, end angle=127, radius=2.5cm];
+	\draw[thick] (0,0) circle(2.5cm);
+	\draw[thick][red]
+	(2.5,0) arc[start angle=0, end angle=127, radius=2.5cm];
 
-    \fill (-2.5,0) circle (2pt) node[left] {A};
-    \fill (1.5,-2) circle (2pt) node[below right] {B};
-    \fill (0,2.5) circle (2pt) node[above right] {C};
-    \fill (2.5,0) circle (2pt) node[right] {A'};
-    \fill (-1.5,2) circle (2pt) node[above left] {B'};
-    \draw[dashed] (-2.5,0) -- (2.5,0);
-    \draw[dashed] (1.5,-2) -- (-1.5,2);
+	\fill (-2.5,0) circle (2pt) node[left] {A};
+	\fill (1.5,-2) circle (2pt) node[below right] {B};
+	\fill (0,2.5) circle (2pt) node[above right] {C};
+	\fill (2.5,0) circle (2pt) node[right] {A'};
+	\fill (-1.5,2) circle (2pt) node[above left] {B'};
+	\draw[dashed] (-2.5,0) -- (2.5,0);
+	\draw[dashed] (1.5,-2) -- (-1.5,2);
 
 \end{tikzpicture}
 
@@ -35,7 +35,7 @@ Mając ustalony punkt \(A\) widzimy, że długość łuku \(AB\) jest
 zmienną o rozkładzie jednostajnym na przedziale \([0, \pi r]\).
 
 Dla dowolnego wyboru \(B\) prawdopodobieństwo, że \(C\) będzie dobre,
-wynosi 
+wynosi
 \(\frac{\overset{\huge\frown}{A'B'}}{2\pi r}\)
 \(= \frac{\overset{\huge\frown}{AB}}{2\pi r}\)
 
@@ -43,10 +43,10 @@ wynosi
 
 To widać, ale można ciut formalniej
 \[
-    \int_0^{\pi r} \frac{\frac{t}{\pi r}}{2\pi r}~dt
-    = \frac{1}{2\pi^2r^2} \int_0^{\pi r} t~dt
-    = \frac{1}{2\pi^2r^2} \cdot \frac {\pi^2r^2}2
-    = \frac{1}{4}
+	\int_0^{\pi r} \frac{\frac{t}{\pi r}}{2\pi r}~dt
+	= \frac{1}{2\pi^2r^2} \int_0^{\pi r} t~dt
+	= \frac{1}{2\pi^2r^2} \cdot \frac {\pi^2r^2}2
+	= \frac{1}{4}
 \]
 
 Bardzo drobnymi zmianami można zmienić to rozumowanie na bardzo podobne
@@ -54,5 +54,5 @@ do rozwiązania zadania 7., co pozostawiam jako ćwiczenie dla czytelnika.
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\frac 1 4}
+	\boxed{\frac 1 4}
 \]

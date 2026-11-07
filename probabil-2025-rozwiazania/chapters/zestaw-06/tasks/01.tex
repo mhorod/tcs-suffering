@@ -2,16 +2,16 @@
 Wyznacz wartość oczekiwaną i wariancję rozkładu Poissona na podstawie funkcji tworzącej wyliczonej na wykładzie.
 
 \subsection*{Rozwiązanie}
-Niech X - zmienna losowa o rozkładzie Poissona z parametrem $\mu$\\
-$M_X(t) = e^{\mu (e^t-1)} = \frac{e^{\mu e^t}}{e^\mu}$\\
+Niech X - zmienna losowa o rozkładzie Poissona z parametrem \(\mu\)\\
+\(M_X(t) = e^{\mu (e^t-1)} = \frac{e^{\mu e^t}}{e^\mu}\)\\
 korzystając ze wzoru na pochodną złożenia funkcji\\
-$M_X^{(1)}(t) = \frac{1}{e^\mu}\cdot e^{\mu e^t} \cdot \mu e^t = \frac{\mu}{e^\mu} e^{\mu e^t+t}$\\
-$M_X^{(2)}(t) = \frac{\mu}{e^{\mu}} \cdot e^{\mu e^t + t}(1+\mu e^t)$\\
-$E(X) = M_X^{(1)}(0) = \frac{\mu}{e^{\mu}}e^{\mu} = \mu$\\
-$M_X^{(2)}(0) = \frac{\mu}{e^{\mu}} e^{\mu}(1+\mu) = \mu^2+\mu$\\
-$Var(X) = E(X^2) - E(X)^2 = \mu^2 + \mu - \mu^2 = \mu$
+\(M_X^{(1)}(t) = \frac{1}{e^\mu}\cdot e^{\mu e^t} \cdot \mu e^t = \frac{\mu}{e^\mu} e^{\mu e^t+t}\)\\
+\(M_X^{(2)}(t) = \frac{\mu}{e^{\mu}} \cdot e^{\mu e^t + t}(1+\mu e^t)\)\\
+\(E(X) = M_X^{(1)}(0) = \frac{\mu}{e^{\mu}}e^{\mu} = \mu\)\\
+\(M_X^{(2)}(0) = \frac{\mu}{e^{\mu}} e^{\mu}(1+\mu) = \mu^2+\mu\)\\
+\(Var(X) = E(X^2) - E(X)^2 = \mu^2 + \mu - \mu^2 = \mu\)
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{$E(X)=Var(X) = \mu$}}
+	\boxed{\text{\(E(X)=Var(X) = \mu\)}}
 \]

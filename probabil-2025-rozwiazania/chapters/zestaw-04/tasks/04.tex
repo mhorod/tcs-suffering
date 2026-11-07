@@ -1,105 +1,105 @@
 \section{Zadanie 4}
 Każdy z n graczy rzuca niezależnie od pozostałych kostką.
 \begin{enumerate}[label=(\roman*)]
-    \item\label{set04.task04.1} Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje 1 punkt.
-    Znaleźć wariancję liczby uzyskanych punktów.
-    \item\label{set04.task04.2} Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje tyle punktów
-    ile wyrzucili. Znaleźć wariancję liczby uzyskanych punktów.
+	\item\label{set04.task04.1} Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje 1 punkt.
+	      Znaleźć wariancję liczby uzyskanych punktów.
+	\item\label{set04.task04.2} Za dowolną parę graczy którzy wyrzucili ten sam wynik grupa dostaje tyle punktów
+	      ile wyrzucili. Znaleźć wariancję liczby uzyskanych punktów.
 \end{enumerate}
 
 \subsection*{Wstęp}
-Niech $X_i$ będzie wynikiem rzutu $i$-tego gracza, dla $i = 1, \dots, n$.
-Zmienne $X_i$ są niezależne i mają jednakowy rozkład: $P(X_i = k) = \frac{1}{6}$ dla $k \in \{1, 2, 3, 4, 5, 6\}$.
+Niech \(X_i\) będzie wynikiem rzutu \(i\)-tego gracza, dla \(i = 1, \dots, n\).
+Zmienne \(X_i\) są niezależne i mają jednakowy rozkład: \(P(X_i = k) = \frac{1}{6}\) dla \(k \in \{1, 2, 3, 4, 5, 6\}\).
 
 Będziemy korzystać ze wzoru na wariancję sumy zmiennych losowych:
-$$\text{Var}\left(\sum_{k} A_k\right) = \sum_{k} \text{Var}(A_k) + \sum_{k \neq l} \text{Cov}(A_k, A_l)$$
+\[\variance{\sum_{k} A_k} = \sum_{k} \variance{A_k} + \sum_{k \neq l} \text{Cov}(A_k, A_l)\]
 
 \subsection*{Rozwiązanie podpunktu \ref{set04.task04.1}}
 
-Definiujemy zmienną losową $Y$ jako całkowitą liczbę punktów.
-Liczba punktów jest sumą punktów przyznanych każdej parze graczy. Jest $\binom{n}{2}$ takich par.
+Definiujemy zmienną losową \(Y\) jako całkowitą liczbę punktów.
+Liczba punktów jest sumą punktów przyznanych każdej parze graczy. Jest \(\binom{n}{2}\) takich par.
 
-Dla każdej pary graczy $(i, j)$ z $1 \le i < j \le n$, zdefiniujmy indykator $Y_{ij}$:
-$$Y_{ij} = \begin{cases} 1 & \text{gdy } X_i = X_j \\ 0 & \text{gdy } X_i \neq X_j \end{cases}$$
+Dla każdej pary graczy \((i, j)\) z \(1 \le i < j \le n\), zdefiniujmy indykator \(Y_{ij}\):
+\[Y_{ij} = \begin{cases} 1 & \text{gdy } X_i = X_j \\ 0 & \text{gdy } X_i \neq X_j \end{cases}\]
 
-Całkowita liczba punktów $Y$ to oczywiście suma tych zmiennych:
-$$Y = \sum_{1 \le i < j \le n} Y_{ij}$$
+Całkowita liczba punktów \(Y\) to oczywiście suma tych zmiennych:
+\[Y = \sum_{1 \le i < j \le n} Y_{ij}\]
 
-Aby znaleźć $\text{Var}(Y)$, musimy obliczyć $\text{Var}(Y_{ij})$ oraz $\text{Cov}(Y_{ij}, Y_{kl})$ dla $(i,j) \neq (k,l)$.
+Aby znaleźć \(\variance{Y}\), musimy obliczyć \(\variance{Y_{ij}}\) oraz \(\text{Cov}(Y_{ij}, Y_{kl})\) dla \((i,j) \neq (k,l)\).
 \subsubsection*{Wariancja}
-Wartość oczekiwana: $E[Y_{ij}] = p = \frac{1}{6}$. \\
-Wariancja: $\text{Var}(Y_{ij}) = p(1-p) = \frac{1}{6} \left(1 - \frac{1}{6}\right) = \frac{1}{6} \cdot \frac{5}{6} = \frac{5}{36}$.
+Wartość oczekiwana: \(E[Y_{ij}] = p = \frac{1}{6}\). \\
+Wariancja: \(\variance{Y_{ij}} = p(1-p) = \frac{1}{6} \left(1 - \frac{1}{6}\right) = \frac{1}{6} \cdot \frac{5}{6} = \frac{5}{36}\).
 \subsubsection*{Kowariancja}
 Dla par rozłącznych Kowariancja jest równa 0 zastanówmy co dzieje się dla par mających jeden wspólny wskaźnik.
-BSO weźmy pary $(i, j)$ i $(i, k)$, wtedy
-$$P(Y_{ij} = 1\ \text{i}\ Y_{ik} = 1) = P(\text{wszyscy trzej gracze mają ten sam wynik}) = \frac{1}{36}$$
+BSO weźmy pary \((i, j)\) i \((i, k)\), wtedy
+\[P(Y_{ij} = 1\ \text{i}\ Y_{ik} = 1) = P(\text{wszyscy trzej gracze mają ten sam wynik}) = \frac{1}{36}\]
 stąd
-$$Cov(Y_{ij}, Y_{ik}) = \frac{1}{36} - (\frac{1}{6})^2 = 0 $$
-zatem wszystkie kowariancje pomiedzy dwoma różnymi $Y_{ij}$ są równe $0$
+\[Cov(Y_{ij}, Y_{ik}) = \frac{1}{36} - (\frac{1}{6})^2 = 0 \]
+zatem wszystkie kowariancje pomiedzy dwoma różnymi \(Y_{ij}\) są równe \(0\)
 \subsubsection{A zatem}
 wariancja sumy jest po prostu sumą wariancji:
-$$\text{Var}(Y) = \sum_{1 \le i < j \le n} \text{Var}(Y_{ij})$$
-Liczba par $(i, j)$ wynosi $\binom{n}{2} = \frac{n(n-1)}{2}$.
-$$\text{Var}(Y) = \binom{n}{2} \cdot \text{Var}(Y_{ij}) = \frac{n(n-1)}{2} \cdot \frac{5}{36} = \frac{5n(n-1)}{72}$$
+\[\variance{Y} = \sum_{1 \le i < j \le n} \variance{Y_{ij}}\]
+Liczba par \((i, j)\) wynosi \(\binom{n}{2} = \frac{n(n-1)}{2}\).
+\[\variance{Y} = \binom{n}{2} \cdot \variance{Y_{ij}} = \frac{n(n-1)}{2} \cdot \frac{5}{36} = \frac{5n(n-1)}{72}\]
 
 
 \subsection*{Rozwiązanie podpunktu \ref{set04.task04.2}}
-Definiujemy zmienną losową $Y$ jako całkowitą liczbę punktów.
-Dla każdej pary graczy $(i, j)$ z $1 \le i < j \le n$, zdefiniujmy zmienną $Y_{ij}$:
-$$Y_{ij} = \begin{cases} X_i & \text{gdy } X_i = X_j \\ 0 & \text{gdy } X_i \neq X_j \end{cases}$$
+Definiujemy zmienną losową \(Y\) jako całkowitą liczbę punktów.
+Dla każdej pary graczy \((i, j)\) z \(1 \le i < j \le n\), zdefiniujmy zmienną \(Y_{ij}\):
+\[Y_{ij} = \begin{cases} X_i & \text{gdy } X_i = X_j \\ 0 & \text{gdy } X_i \neq X_j \end{cases}\]
 
 \subsubsection*{Moment pierwszego i drugiego rzędu}
 \[
-\E[Y_{ij}] = \sum_{k=1}^{6} k \cdot \frac{1}{36} = \frac{21}{36} = \frac{7}{12},
+	\E[Y_{ij}] = \sum_{k=1}^{6} k \cdot \frac{1}{36} = \frac{21}{36} = \frac{7}{12},
 \]
 \[
-\E[Y_{ij}^2] = \sum_{k=1}^{6} k^2 \cdot \frac{1}{36} = \frac{91}{36},
+	\E[Y_{ij}^2] = \sum_{k=1}^{6} k^2 \cdot \frac{1}{36} = \frac{91}{36},
 \]
 \[
-Var(Y_{ij}) = \frac{91}{36} - \left(\frac{7}{12}\right)^2 = \frac{35}{16}.
+	Var(Y_{ij}) = \frac{91}{36} - \left(\frac{7}{12}\right)^2 = \frac{35}{16}.
 \]
 
 \subsubsection*{Kowariancja dwóch zmiennych}
 Jeśli pary są rozłączne, kowariancja = 0.
 Jeśli pary mają wspólnego gracza (\(Y_{ij}\) i \(Y_{ik}\)):
 \[
-\E[Y_{ij}Y_{ik}] = \sum_{k=1}^{6} k^2 \cdot \frac{1}{216} = \frac{91}{216},
+	\E[Y_{ij}Y_{ik}] = \sum_{k=1}^{6} k^2 \cdot \frac{1}{216} = \frac{91}{216},
 \]
 \[
-Cov(Y_{ij}, Y_{ik}) = \frac{91}{216} - \left(\frac{7}{12}\right)^2 = \frac{35}{432}.
+	Cov(Y_{ij}, Y_{ik}) = \frac{91}{216} - \left(\frac{7}{12}\right)^2 = \frac{35}{432}.
 \]
 
 \subsubsection*{Liczba par wskaźników ze wspólnym graczem}
 Liczba uporządkowanych par o wspólnym wskaźniku (takich potrzebujemy do sumy) to: \\
 \[
-2 \cdot 3 \cdot \binom{n}{3} = n(n-1)(n-2).
+	2 \cdot 3 \cdot \binom{n}{3} = n(n-1)(n-2).
 \]
 
 \subsubsection*{Wariancja całkowita}
 Wiemy, że
 \[
-Y = \sum_{1 \le i < j \le n} Y_{ij}.
+	Y = \sum_{1 \le i < j \le n} Y_{ij}.
 \]
 Wtedy
 \[
-\begin{aligned}
-\operatorname{Var}(Y)
-&= \sum_{\{i,j\}} \operatorname{Var}(Y_{ij})
-   + \sum_{\substack{(i < j) \neq (k < l)\\}}
-     \operatorname{Cov}(Y_{ij}, Y_{ik})\\[6pt]
-&= \binom{n}{2} \cdot \frac{35}{16} + n(n-1)(n-2) \cdot \frac{35}{432}\\[6pt]
-&= \frac{35\,n(n-1)}{32} + \frac{35\,n(n-1)(n-2)}{432}\\[6pt]
-&= 35 \cdot \frac{n(n-1)(2n+23)}{864}.
-\end{aligned}
+	\begin{aligned}
+		\variance{Y}
+		 & = \sum_{\{i,j\}} \variance{Y_{ij}}
+		+ \sum_{\substack{(i < j) \neq (k < l)\\}}
+		\operatorname{Cov}(Y_{ij}, Y_{ik})                                       \\[6pt]
+		 & = \binom{n}{2} \cdot \frac{35}{16} + n(n-1)(n-2) \cdot \frac{35}{432} \\[6pt]
+		 & = \frac{35\,n(n-1)}{32} + \frac{35\,n(n-1)(n-2)}{432}                 \\[6pt]
+		 & = 35 \cdot \frac{n(n-1)(2n+23)}{864}.
+	\end{aligned}
 \]
 
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{
-    \text{(i)}\ \binom{n}{2} \cdot \frac{5}{36} = \frac{5n(n-1)}{72}
-    \qquad
-    \text{(ii)}\ \frac{35\,n(n-1)(2n+23)}{864}
-    }
+	\boxed{
+		\text{(i)}\ \binom{n}{2} \cdot \frac{5}{36} = \frac{5n(n-1)}{72}
+		\qquad
+		\text{(ii)}\ \frac{35\,n(n-1)(2n+23)}{864}
+	}
 \]

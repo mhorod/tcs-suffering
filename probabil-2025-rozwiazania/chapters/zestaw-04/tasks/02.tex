@@ -13,50 +13,50 @@ oczekiwaną liczbę rzutów -- rozpisałem się trochę (+ w vs code ciężko cz
 
 Zdefiniujmy sobie trzy stany:
 \begin{itemize}
-    \item Stan $N$ (neutralny) -- stan w którym w ostatnim rzucie nie wypadła szóstka (albo jest to pierwszy rzut).
-    \item Stan $S$ (jedna szóstka) -- stan w którym w ostatnim rzucie wypadła szóstka, ale nie mamy jeszcze dwóch szóstek pod rząd.
-    \item Stan $K$ (dwie szóstki, koniec) -- stan w którym mamy już dwie szóstki pod rząd.
+	\item Stan \(N\) (neutralny) -- stan w którym w ostatnim rzucie nie wypadła szóstka (albo jest to pierwszy rzut).
+	\item Stan \(S\) (jedna szóstka) -- stan w którym w ostatnim rzucie wypadła szóstka, ale nie mamy jeszcze dwóch szóstek pod rząd.
+	\item Stan \(K\) (dwie szóstki, koniec) -- stan w którym mamy już dwie szóstki pod rząd.
 \end{itemize}
 
-Niech $X$ będzie zmienną losową, oznaczającą liczbę rzutów potrzebnych do zakończenia gry.
+Niech \(X\) będzie zmienną losową, oznaczającą liczbę rzutów potrzebnych do zakończenia gry.
 
 Niech:
 \begin{itemize}
-    \item $E_N = E(X | \text{ jesteśmy w stanie } N)$ -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie $N$,
-    \item $E_S = E(X | \text{ jesteśmy w stanie } S)$ -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie $S$,
-    \item $E_K = E(X | \text{ jesteśmy w stanie } K)$ -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie $K$.
+	\item \(E_N = E(X | \text{ jesteśmy w stanie } N)\) -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie \(N\),
+	\item \(E_S = E(X | \text{ jesteśmy w stanie } S)\) -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie \(S\),
+	\item \(E_K = E(X | \text{ jesteśmy w stanie } K)\) -- oczekiwana liczba rzutów do zakończenia gry, jeśli zaczynamy w stanie \(K\).
 \end{itemize}
 
-Oczywiście $E_K = 0$, bo gra się już skończyła.
+Oczywiście \(E_K = 0\), bo gra się już skończyła.
 
-Rozważmy teraz stan $N$. W tym stanie rzucamy kostką:
+Rozważmy teraz stan \(N\). W tym stanie rzucamy kostką:
 \begin{itemize}
-    \item Z prawdopodobieństwem $\frac{1}{6}$ wypada szóstka i przechodzimy do stanu $S$.
-    \item Z prawdopodobieństwem $\frac{5}{6}$ nie wypada szóstka i pozostajemy w stanie $N$.
+	\item Z prawdopodobieństwem \(\frac{1}{6}\) wypada szóstka i przechodzimy do stanu \(S\).
+	\item Z prawdopodobieństwem \(\frac{5}{6}\) nie wypada szóstka i pozostajemy w stanie \(N\).
 \end{itemize}
 W każdym przypadku wykonaliśmy jeden rzut, więc możemy zapisać równanie:
 \[E_N = \frac{1}{6}(E_S + 1) + \frac{5}{6}(E_N + 1)\]
-Podobnie jest ze stanem $S$:
+Podobnie jest ze stanem \(S\):
 \begin{itemize}
-    \item Z prawdopodobieństwem $\frac{1}{6}$ wypada szóstka i przechodzimy do stanu $K$.
-    \item Z prawdopodobieństwem $\frac{5}{6}$ nie wypada szóstka i wracamy do stanu $N$.
+	\item Z prawdopodobieństwem \(\frac{1}{6}\) wypada szóstka i przechodzimy do stanu \(K\).
+	\item Z prawdopodobieństwem \(\frac{5}{6}\) nie wypada szóstka i wracamy do stanu \(N\).
 \end{itemize}
 Znowu wykonaliśmy jeden rzut, więc mamy:
 \[E_S = \frac{1}{6}(E_K + 1) + \frac{5}{6}(E_N + 1)\]
 
 Teraz pozostaje tylko rozwiązać układ równań (bardzo ciężki):
 \begin{align*}
-E_N &= \frac{1}{6}(E_S + 1) + \frac{5}{6}(E_N + 1) \\
-&= \frac{1}{6}(\frac{1}{6}(E_K + 1) + \frac{5}{6}(E_N + 1) + 1) + \frac{5}{6}(E_N + 1) \\
-&= \frac{1}{6}(\frac{1}{6} + \frac{5}{6}E_N + \frac{5}{6} + 1) + \frac{5}{6}(E_N + 1) \\
-&= \frac{2}{6} + \frac{5}{36}E_N + \frac{5}{6}E_N + \frac{5}{6} \\
-&= \frac{7}{6} + \frac{35}{36}E_N \\
-E_N &= \frac{7}{6} \cdot \frac{36}{1} = 42
+	E_N & = \frac{1}{6}(E_S + 1) + \frac{5}{6}(E_N + 1)                                         \\
+	    & = \frac{1}{6}(\frac{1}{6}(E_K + 1) + \frac{5}{6}(E_N + 1) + 1) + \frac{5}{6}(E_N + 1) \\
+	    & = \frac{1}{6}(\frac{1}{6} + \frac{5}{6}E_N + \frac{5}{6} + 1) + \frac{5}{6}(E_N + 1)  \\
+	    & = \frac{2}{6} + \frac{5}{36}E_N + \frac{5}{6}E_N + \frac{5}{6}                        \\
+	    & = \frac{7}{6} + \frac{35}{36}E_N                                                      \\
+	E_N & = \frac{7}{6} \cdot \frac{36}{1} = 42
 \end{align*}
 
-Jako iż $N$ to jest stan z którego rozpoczynamy grę, to odpowiedzią jest właśnie $E_N = 42$.
+Jako iż \(N\) to jest stan z którego rozpoczynamy grę, to odpowiedzią jest właśnie \(E_N = 42\).
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{42}}
+	\boxed{\text{42}}
 \]

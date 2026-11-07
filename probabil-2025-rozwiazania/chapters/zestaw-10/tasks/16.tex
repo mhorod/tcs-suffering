@@ -13,7 +13,7 @@ sukcesu \(\frac{2}{\pi}\).
 
 Wartość oczekiwana sumy tych indykatorów po n próbach jest
 \(E(\sum_{i=1}^n X_i) = \frac{2}{\pi}n\),\\
-a wariancja wyniesie 
+a wariancja wyniesie
 \(Var(\sum_{i=1}^n X_i) = n \cdot \frac{2}{\pi} \cdot
 \left(1-\frac{2}{\pi}\right)\)
 
@@ -27,22 +27,22 @@ obliczymy \(\frac{2}{\pi}\) z dokładnością \(0.02\).
 Przyjmiemy \(p=\frac{2}{\pi}\), \(\varepsilon = 0.02\)
 
 \[
-    P(p-\varepsilon \leqslant S \leqslant p+\varepsilon)
-    = P(-\varepsilon \leqslant S-p \leqslant \varepsilon)
+	P(p-\varepsilon \leqslant S \leqslant p+\varepsilon)
+	= P(-\varepsilon \leqslant S-p \leqslant \varepsilon)
 \]
 \[G
-    = P\left(
-    -\varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
-    \leqslant (S-p) \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
-    \leqslant \varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
-    \right)
+	= P\left(
+	-\varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+	\leqslant (S-p) \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+	\leqslant \varepsilon \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+	\right)
 \]
 
 Kopiując z zadania wyżej (lub sprawdzając w tablicach),\\ widzimy że
-$\Phi(x) \geq 0.975$ dla $x \geq 1.959964$. Czyli 
+\(\Phi(x) \geq 0.975\) dla \(x \geq 1.959964\). Czyli
 \[
-0.02 \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
-\geqslant 1.959964 \implies n \geqslant 2222
+	0.02 \cdot \sqrt{\frac{\pi^2n}{2(\pi - 2)}}
+	\geqslant 1.959964 \implies n \geqslant 2222
 \]
 
 Moglibyśmy założyć, że mamy jakąś ograniczoną wiedzę na
@@ -56,5 +56,5 @@ Wiedząc jedynie, że \(\pi > 2\), dostalibyśmy \(n \geqslant 2401\)
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{2222}}
+	\boxed{\text{2222}}
 \]

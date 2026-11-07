@@ -7,7 +7,7 @@ Niech \(X\) będzie zmienną losową liczącą liczbę kopii kliki \(K_4\) na cz
 Wartość oczekiwana jest prosta do wyliczenia. Wystarczy zdefiniować indykatory \(\{X_I\}_{I \in \binom{V}{4}}\) dla każdego 4-elementowego podzbioru wierzchołków, które są równe 1 wpp. gdy ten zbiór indukuje kopię \(K_4\). Otrzymujemy wartość oczekiwaną:
 
 \[
-E[X] = E[\sum_{I \in \binom{V}{4}}X_I] = \sum_{I \in \binom V 4}E[X_I] = \sum_{I \in \binom V 4}p^6 = \binom{n}{4}p^6
+	E[X] = E[\sum_{I \in \binom{V}{4}}X_I] = \sum_{I \in \binom V 4}E[X_I] = \sum_{I \in \binom V 4}p^6 = \binom{n}{4}p^6
 \]
 
 Z wariancją jest nieco więcej zabawy, ale na szczęście możemy zauważyć, że indykatory zbiorów o 0 lub 1 wspólnych wierzchołkach byłyby rozłączne krawędziowo, więc byłyby niezależne (a więc \(Cov(X_I, X_J) = 0\)). Możemy więc wyliczyć wariancję pierwsze poznając wartości kowariancji dla przecinających się krawędziowo zbiorów.
@@ -17,8 +17,8 @@ Z wariancją jest nieco więcej zabawy, ale na szczęście możemy zauważyć, �
 Niech \(X, Y \in \binom{V}{4}, |X \cap Y| = 2\).
 
 \begin{align*}
-    Cov(X_I, X_J) &= E[X_IX_J] - E[X_I]E[X_J] =\\
-    &= p^{11} - (p^{6})^2 = (1-p)p^{11}
+	Cov(X_I, X_J) & = E[X_IX_J] - E[X_I]E[X_J] =       \\
+	              & = p^{11} - (p^{6})^2 = (1-p)p^{11}
 \end{align*}
 
 \subsubsection*{3 wspólne wierzchołki}
@@ -26,8 +26,8 @@ Niech \(X, Y \in \binom{V}{4}, |X \cap Y| = 2\).
 Niech \(X, Y \in \binom{V}{4}, |X \cap Y| = 3\)
 
 \begin{align*}
-    Cov(X_I, X_J) &= E[X_IX_J] - E[X_I]E[X_J] =\\
-    &= p^9 - (p^6)^2 = (1-p^3)p^9
+	Cov(X_I, X_J) & = E[X_IX_J] - E[X_I]E[X_J] = \\
+	              & = p^9 - (p^6)^2 = (1-p^3)p^9
 \end{align*}
 
 \subsubsection*{Wariancje}
@@ -35,20 +35,20 @@ Niech \(X, Y \in \binom{V}{4}, |X \cap Y| = 3\)
 Pozostaje jeszcze tylko wyliczyć wariancję pojedynczego indykatora:
 
 \[
-Var(X_I) = E[X_I^2] - E[X_I]^2 = p^6 - p^{12} = (1-p^6)p^6
+	Var(X_I) = E[X_I^2] - E[X_I]^2 = p^6 - p^{12} = (1-p^6)p^6
 \]
 
 I ostateczny wynik:
 
 \begin{align*}
-Var(X) &= Var(\sum_{I \in \binom V 4}X_I) = \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \neq J}Cov(X_I, X_J)\\
-&= \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \cap J = 2}Cov(X_I, X_J) + \sum_{I, J \in \binom V 4, I \cap J = 3}Cov(X_I, X_J)\\
-&= \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \cap J = 2}Cov(X_I, X_J) + \sum_{I, J \in \binom V 4, I \cap J = 3}Cov(X_I, X_J)\\
-&= \binom{n}{4}(1-p^6)p^6 + \binom{n}{6}\binom{6}{2}\binom{4}{2}(1-p)p^{11} + \binom{n}{5}\binom{5}{3}\binom{2}{1}(1-p^3)p^9\\
-&= \binom{n}{4}(1-p^6)p^6 + 90\binom{n}{6}(1-p)p^{11} + 20\binom{n}{5}(1-p^3)p^9\\
+	Var(X) & = Var(\sum_{I \in \binom V 4}X_I) = \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \neq J}Cov(X_I, X_J)                           \\
+	       & = \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \cap J = 2}Cov(X_I, X_J) + \sum_{I, J \in \binom V 4, I \cap J = 3}Cov(X_I, X_J) \\
+	       & = \sum_{I \in \binom V 4}Var(X_I) + \sum_{I, J \in \binom V 4, I \cap J = 2}Cov(X_I, X_J) + \sum_{I, J \in \binom V 4, I \cap J = 3}Cov(X_I, X_J) \\
+	       & = \binom{n}{4}(1-p^6)p^6 + \binom{n}{6}\binom{6}{2}\binom{4}{2}(1-p)p^{11} + \binom{n}{5}\binom{5}{3}\binom{2}{1}(1-p^3)p^9                       \\
+	       & = \binom{n}{4}(1-p^6)p^6 + 90\binom{n}{6}(1-p)p^{11} + 20\binom{n}{5}(1-p^3)p^9                                                                   \\
 \end{align*}
 
 \subsection*{Odpowiedź}
 \[
-\boxed{E[X] = \binom{n}{4}p^6, Var[X] \text{ powyżej}}
+	\boxed{E[X] = \binom{n}{4}p^6, Var[X] \text{ powyżej}}
 \]

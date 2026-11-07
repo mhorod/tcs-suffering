@@ -1,32 +1,32 @@
 \section{Zadanie 6}
 \autor{Kacper Orszulak}
-Alicja i Bob rozgrywają pomiędzy sobą $n$ pojedynków. Alicja jest lepsza i każdy pojedynek wygrywa niezależnie od pozostałych z prawdopodobieństwem 0.6. Zwycięzcą jest osoba, która wygra więcej pojedynków. Za pomocą nierówności Czernowa ogranicz prawdopodobieństwo tego, że zwycięzcą jest Bob.
+Alicja i Bob rozgrywają pomiędzy sobą \(n\) pojedynków. Alicja jest lepsza i każdy pojedynek wygrywa niezależnie od pozostałych z prawdopodobieństwem 0.6. Zwycięzcą jest osoba, która wygra więcej pojedynków. Za pomocą nierówności Czernowa ogranicz prawdopodobieństwo tego, że zwycięzcą jest Bob.
 
 \subsection*{Rozwiązanie}
-Niech $X_i$ to indykator tego, że Alicja wygrała z Bobem w $i$-tym pojedynku. Dostajemy $\mathcal{P}(X_i = 1) = 0.6 = p$. Niech $X = \sum_{i \in [n]} X_i$ oznacza ilość wygranych przez Alicję pojedynków. Okazuje się, że $X$ ma rozkład dwumianowy $B(n, p)$, a zatem $\mathbb{E}[X] = np$. Liczymy z funkcji tworzącej:
+Niech \(X_i\) to indykator tego, że Alicja wygrała z Bobem w \(i\)-tym pojedynku. Dostajemy \(\mathcal{P}(X_i = 1) = 0.6 = p\). Niech \(X = \sum_{i \in [n]} X_i\) oznacza ilość wygranych przez Alicję pojedynków. Okazuje się, że \(X\) ma rozkład dwumianowy \(B(n, p)\), a zatem \(\ev{X} = np\). Liczymy z funkcji tworzącej:
 \[
-    M_{X_i}(t) = \mathbb{E}[e^{tX_i}] = pe^{1 \cdot t} + (1-p) e^{0 \cdot t} = 1 + p(e^t-1) \le \footnote{Korzystamy z tego, że $1+x \le e^x$.} e^{p(e^t-1)}
+	M_{X_i}(t) = \ev{e^{tX_i}} = pe^{1 \cdot t} + (1-p) e^{0 \cdot t} = 1 + p(e^t-1) \le \footnote{Korzystamy z tego, że \(1+x \le e^x\).} e^{p(e^t-1)}
 \]
 \[
-    M_X(t) = \prod_{i = 1}^nM_{X_i}(t) \le \prod_{i=1}^n e^{p(e^t-1)} = e^{np(e^t-1)}
+	M_X(t) = \prod_{i = 1}^nM_{X_i}(t) \le \prod_{i=1}^n e^{p(e^t-1)} = e^{np(e^t-1)}
 \]
-Bob wygrywa dla $X \le \frac{n}{2}$. Policzmy zatem:
+Bob wygrywa dla \(X \le \frac{n}{2}\). Policzmy zatem:
 \[
-    \mathcal{P}(X \le \frac{n}{2}) \overset{\text{Nierówność Czernowa}}{\le} \frac{\mathbb{E}[e^{tX}]}{e^{t\frac{n}{2}}} \le \frac{e^{np(e^t-1)}}{e^{t\frac{n}{2}}} = e^{n(pe^t - p - t\frac{1}{2})}
+	\mathcal{P}(X \le \frac{n}{2}) \overset{\text{Nierówność Czernowa}}{\le} \frac{\ev{e^{tX}}}{e^{t\frac{n}{2}}} \le \frac{e^{np(e^t-1)}}{e^{t\frac{n}{2}}} = e^{n(pe^t - p - t\frac{1}{2})}
 \]
 Teraz minimalizujemy wykładnik:
 \[
-    f(t) = pe^t - p - t\frac{1}{2} \implies f'(t) = pe^t - \frac{1}{2} \text{ oraz } f''(t) = pe^t
+	f(t) = pe^t - p - t\frac{1}{2} \implies f'(t) = pe^t - \frac{1}{2} \text{ oraz } f''(t) = pe^t
 \]
-Dla $f'(t) = 0$ dostajemy $t = ln\left(\frac{5}{6}\right)$ oraz $\forall_t \; f''(t) > 0$, a więc $t = ln\left(\frac{5}{6}\right)$ minimalizuje wykładnik.
+Dla \(f'(t) = 0\) dostajemy \(t = ln\left(\frac{5}{6}\right)\) oraz \(\forall_t \; f''(t) > 0\), a więc \(t = ln\left(\frac{5}{6}\right)\) minimalizuje wykładnik.
 
 Dostajemy zatem:
 \[
-    \mathcal{P}(X \le \frac{n}{2}) \le e^{n\left(-\frac{1}{10}-\frac{ln\left(\frac{5}{6}\right)}{2}\right)} \approx e^{-n \; \cdot \; 0.00884}
+	\mathcal{P}(X \le \frac{n}{2}) \le e^{n\left(-\frac{1}{10}-\frac{ln\left(\frac{5}{6}\right)}{2}\right)} \approx e^{-n \; \cdot \; 0.00884}
 \]
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\mathcal{P}(X \le \frac{n}{2}) \le e^{-n \; \cdot \; 0.00884}}
+	\boxed{\mathcal{P}(X \le \frac{n}{2}) \le e^{-n \; \cdot \; 0.00884}}
 \]

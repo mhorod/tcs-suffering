@@ -1,50 +1,50 @@
 \section{Zadanie 13}
 \autor{Oskar Prusik}
-\textbf{Teza:} Niech $f, g : \mathbb{R} \to \mathbb{R}$ będą mierzalne. Czy ich suma również jest mierzalna?
+\textbf{Teza:} Niech \(f, g : \mathbb{R} \to \mathbb{R}\) będą mierzalne. Czy ich suma również jest mierzalna?
 
 \subsection*{Rozwiązanie}
 
 
-Niech $\mathcal{G} = \{ (-\infty, c) : c \in \mathbb{R} \}$. 
-Wiadomo, że $\sigma(\mathcal{G}) = \mathcal{B}(\mathbb{R})$.
-(co łatwo wynika z warunków na $\sigma$-algebrę oraz faktu, że $\sigma(\mathcal{A}_0) = \mathcal{B}(\mathbb{R})$)
+Niech \(\mathcal{G} = \{ (-\infty, c) : c \in \mathbb{R} \}\).
+Wiadomo, że \(\sigma(\mathcal{G}) = \mathcal{B}(\mathbb{R})\).
+(co łatwo wynika z warunków na \(\sigma\)-algebrę oraz faktu, że \(\sigma(\mathcal{A}_0) = \mathcal{B}(\mathbb{R})\))
 
-Zgodnie z zadaniem 10, aby wykazać mierzalność $f + g$, wystarczy sprawdzić, że dla każdego $G \in \mathcal{G}$:
+Zgodnie z zadaniem 10, aby wykazać mierzalność \(f + g\), wystarczy sprawdzić, że dla każdego \(G \in \mathcal{G}\):
 \[
-(f + g)^{-1}(G) \in \mathcal{B}(\mathbb{R}).
+	(f + g)^{-1}(G) \in \mathcal{B}(\mathbb{R}).
 \]
 
-Weźmy dowolne $c \in \mathbb{R}$ i rozważmy zbiór:
+Weźmy dowolne \(c \in \mathbb{R}\) i rozważmy zbiór:
 \[
-A = \{ x \in \mathbb{R} : f(x) + g(x) < c \} = (f + g)^{-1}((-\infty, c)).
+	A = \{ x \in \mathbb{R} : f(x) + g(x) < c \} = (f + g)^{-1}((-\infty, c)).
 \]
 
 Zauważmy, że:
 \[
-f(x) + g(x) < c \quad \iff \quad f(x) < c - g(x).
+	f(x) + g(x) < c \quad \iff \quad f(x) < c - g(x).
 \]
-Istnieje wtedy liczba wymierna $r \in \mathbb{Q}$ taka, że:
+Istnieje wtedy liczba wymierna \(r \in \mathbb{Q}\) taka, że:
 \[
-f(x) < r < c - g(x).
+	f(x) < r < c - g(x).
 \]
 Zatem:
 \[
-A = \bigcup_{r \in \mathbb{Q}} \left( \{ x : f(x) < r \} \cap \{ x : g(x) < c - r \} \right).
+	A = \bigcup_{r \in \mathbb{Q}} \left( \{ x : f(x) < r \} \cap \{ x : g(x) < c - r \} \right).
 \]
 
-Ponieważ $f$ i $g$ są mierzalne, zbiory:
+Ponieważ \(f\) i \(g\) są mierzalne, zbiory:
 \[
-\{ x : f(x) < r \} \in \mathcal{B}(\mathbb{R}), \quad \{ x : g(x) < c - r \} \in \mathcal{B}(\mathbb{R}).
+	\{ x : f(x) < r \} \in \mathcal{B}(\mathbb{R}), \quad \{ x : g(x) < c - r \} \in \mathcal{B}(\mathbb{R}).
 \]
-Przekrój dwóch zbiorów borelowskich jest borelowski, a przeliczalna suma zbiorów borelowskich jest borelowska. 
-Zatem $A \in \mathcal{B}(\mathbb{R})$.
+Przekrój dwóch zbiorów borelowskich jest borelowski, a przeliczalna suma zbiorów borelowskich jest borelowska.
+Zatem \(A \in \mathcal{B}(\mathbb{R})\).
 
-Wnioskujemy, że $(f + g)^{-1}((-\infty, c)) \in \mathcal{B}(\mathbb{R})$ dla każdego $c \in \mathbb{R}$, 
-czyli warunek mierzalności jest spełniony na generatorze $\mathcal{G}$. 
-Z zadania 10 wynika, że $f + g$ jest mierzalna.
+Wnioskujemy, że \((f + g)^{-1}((-\infty, c)) \in \mathcal{B}(\mathbb{R})\) dla każdego \(c \in \mathbb{R}\),
+czyli warunek mierzalności jest spełniony na generatorze \(\mathcal{G}\).
+Z zadania 10 wynika, że \(f + g\) jest mierzalna.
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{Suma też jest mierzalna.}}
+	\boxed{\text{Suma też jest mierzalna.}}
 \]

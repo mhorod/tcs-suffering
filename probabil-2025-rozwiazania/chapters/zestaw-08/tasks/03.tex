@@ -1,67 +1,67 @@
 \section{Zadanie 3}
 \autor{Dominik Korsa}
 Niech \(X\) oraz \(Y\) będą niezależnymi zmiennymi losowymi z rozkładu
-jednostajnego na przedziale $[0, 1]$. Znajdź gęstość, dystrybuantę, wartość
+jednostajnego na przedziale \([0, 1]\). Znajdź gęstość, dystrybuantę, wartość
 oczekiwaną i wariancję zmiennych:
 
 \begin{enumerate}[label=(\roman*)]
-    \item\label{set08.task03.1} \(Z = X + Y\),
-    \item\label{set08.task03.2} \(Z = X - Y\),
-    \item\label{set08.task03.3} \(Z = |X - Y|\).
+	\item\label{set08.task03.1} \(Z = X + Y\),
+	\item\label{set08.task03.2} \(Z = X - Y\),
+	\item\label{set08.task03.3} \(Z = |X - Y|\).
 \end{enumerate}
 
 \subsection*{Rozwiązanie \ref{set08.task03.1}}
 
 Zmienne losowe \(X\) oraz \(Y\) mają rozkład opisany gęstością:
 \[
-f_X(x) = f_Y(x)
-= \begin{cases}
-    \frac{1}{1-0} = 1 &\text{w przedziale } x \in [0, 1]\\
-    0 &\text{wpp.}
-\end{cases}
+	f_X(x) = f_Y(x)
+	= \begin{cases}
+		\frac{1}{1-0} = 1 & \text{w przedziale } x \in [0, 1] \\
+		0                 & \text{wpp.}
+	\end{cases}
 \]
 oraz dystrybuantą:
 \[
-F_X(x) = F_Y(x)
-= \begin{cases}
-    0 & \text{gdy } x \leq 0\\
-    \frac{x-0}{1-0} = x &\text{w przedziale } x \in [0, 1]\\
-    1 & \text{gdy } x \geq 1 
-\end{cases}.
+	F_X(x) = F_Y(x)
+	= \begin{cases}
+		0                   & \text{gdy } x \leq 0              \\
+		\frac{x-0}{1-0} = x & \text{w przedziale } x \in [0, 1] \\
+		1                   & \text{gdy } x \geq 1
+	\end{cases}.
 \]
 
 Skorzystamy z wzorów na splatanie z początku zestawu.
 W rozwiązaniu podpunktu \ref{set08.task03.1} zacznę od policzenia gęstości \(f_{X+Y}\):
 \begin{align*}
-    f_{X+Y}(z)
-    &= \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \, dx\\
-    &= \int_{0}^{1} f_X(x) f_Y(z-x) \, dx
-        \tag{1}\label{set08.task03.1.tagA}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < 0\) lub \(z > 2\)}\\
-        \int_{0}^{z} f_X(x) f_Y(z-x) \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-        \int_{z-1}^{1} f_X(x) f_Y(z-x) \, dx
-            & \text{gdy \(z \in [1, 2]\)}\\
-    \end{cases}
-        \tag{2}\label{set08.task03.1.tagB}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < 0\) lub \(z > 2\)}\\
-        \int_{0}^{z} 1 \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-        \int_{z-1}^{1} 1 \, dx
-            & \text{gdy \(z \in [1, 2]\)}\\
-    \end{cases}\\
-    &= \boxed{\begin{cases}
-        0
-            & \text{gdy \(z < 0\) lub \(z > 2\)}\\
-        z
-            & \text{gdy \(z \in [0, 1]\)}\\
-        2 - z
-            & \text{gdy \(z \in [1, 2]\)}\\
-    \end{cases}}\\
+	f_{X+Y}(z)
+	 & = \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \, dx            \\
+	 & = \int_{0}^{1} f_X(x) f_Y(z-x) \, dx
+	\tag{1}\label{set08.task03.1.tagA}                            \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < 0\) lub \(z > 2\)} \\
+		     \int_{0}^{z} f_X(x) f_Y(z-x) \, dx
+		      & \text{gdy \(z \in [0, 1]\)}        \\
+		     \int_{z-1}^{1} f_X(x) f_Y(z-x) \, dx
+		      & \text{gdy \(z \in [1, 2]\)}        \\
+	     \end{cases}
+	\tag{2}\label{set08.task03.1.tagB}                            \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < 0\) lub \(z > 2\)} \\
+		     \int_{0}^{z} 1 \, dx
+		      & \text{gdy \(z \in [0, 1]\)}        \\
+		     \int_{z-1}^{1} 1 \, dx
+		      & \text{gdy \(z \in [1, 2]\)}        \\
+	     \end{cases}        \\
+	 & = \boxed{\begin{cases}
+			            0
+			             & \text{gdy \(z < 0\) lub \(z > 2\)} \\
+			            z
+			             & \text{gdy \(z \in [0, 1]\)}        \\
+			            2 - z
+			             & \text{gdy \(z \in [1, 2]\)}        \\
+		            \end{cases}} \\
 \end{align*}
 
 \eqref{set08.task03.1.tagA}, bo tylko gdy \(x \in (0, 1)\) zachodzi \(f_X(x) \neq 0\).
@@ -71,51 +71,51 @@ również warunek \(z-x \in [0, 1]\), żeby \(f_X(z-x) \neq 0\).
 
 Dystrybuanta \(F_{X+Y}(z)\) to z definicji:
 \begin{align*}
-    F_{X+Y}(z)
-    &= \int_{-\infty}^{z} f(z) \,dx\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < 0\)}\\
-        \int_{0}^{z} x \, dx 
-            & \text{gdy \(z \in [0, 1]\)}\\
-        \int_{0}^{1} x \, dx + \int_{1}^{z} 2-x \, dx
-            & \text{gdy \(z \in [1, 2]\)}\\
-        \int_{0}^{1} x \, dx + \int_{1}^{2} 2-x \, dx
-            & \text{gdy \(z > 2\)}\\
-    \end{cases}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < 0\)}\\
-        \frac{1}{2}z^2
-            & \text{gdy \(z \in [0, 1]\)}\\
-        \frac{1}{2} + \left(-\frac{1}{2}z^2 + 2z - \frac{3}{2}\right)
-            & \text{gdy \(z \in [1, 2]\)}\\
-        \frac{1}{2} + \frac{1}{2}
-            & \text{gdy \(z > 2\)}\\
-    \end{cases}\\
-    &= \boxed{\begin{cases}
-        0
-            & \text{gdy \(z < 0\)}\\
-        \frac{1}{2}z^2
-            & \text{gdy \(z \in [0, 1]\)}\\
-        1 - \frac{1}{2}(2-z)^2
-            & \text{gdy \(z \in [1, 2]\)}\\
-        1
-            & \text{gdy \(z > 2\)}\\
-    \end{cases}}\\
+	F_{X+Y}(z)
+	 & = \int_{-\infty}^{z} f(z) \,dx                                 \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < 0\)}        \\
+		     \int_{0}^{z} x \, dx
+		      & \text{gdy \(z \in [0, 1]\)} \\
+		     \int_{0}^{1} x \, dx + \int_{1}^{z} 2-x \, dx
+		      & \text{gdy \(z \in [1, 2]\)} \\
+		     \int_{0}^{1} x \, dx + \int_{1}^{2} 2-x \, dx
+		      & \text{gdy \(z > 2\)}        \\
+	     \end{cases}                 \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < 0\)}        \\
+		     \frac{1}{2}z^2
+		      & \text{gdy \(z \in [0, 1]\)} \\
+		     \frac{1}{2} + \left(-\frac{1}{2}z^2 + 2z - \frac{3}{2}\right)
+		      & \text{gdy \(z \in [1, 2]\)} \\
+		     \frac{1}{2} + \frac{1}{2}
+		      & \text{gdy \(z > 2\)}        \\
+	     \end{cases} \\
+	 & = \boxed{\begin{cases}
+			            0
+			             & \text{gdy \(z < 0\)}        \\
+			            \frac{1}{2}z^2
+			             & \text{gdy \(z \in [0, 1]\)} \\
+			            1 - \frac{1}{2}(2-z)^2
+			             & \text{gdy \(z \in [1, 2]\)} \\
+			            1
+			             & \text{gdy \(z > 2\)}        \\
+		            \end{cases}}            \\
 \end{align*}
 
 Policzmy wartość oczekiwaną z liniowości:
 \[
-E[X+Y] = E[X] + E[Y] = \frac{1-0}{2} + \frac{1-0}{2} = \boxed{1},
+	E[X+Y] = E[X] + E[Y] = \frac{1-0}{2} + \frac{1-0}{2} = \boxed{1},
 \]
 
 oraz wariancję, dzięki niezależności zmiennych:
 \[
-\operatorname{Var}(X+Y)
-= \operatorname{Var}(X) + \operatorname{Var}(Y)
-= 2 \cdot \frac{(1-0)^2}{12}
-= \boxed{\frac{1}{6}}
+	\variance{X+Y}
+	= \variance{X} + \variance{Y}
+	= 2 \cdot \frac{(1-0)^2}{12}
+	= \boxed{\frac{1}{6}}
 \]
 
 \subsection*{Rozwiązanie \ref{set08.task03.2}}
@@ -123,167 +123,167 @@ Potraktujmy \(Z = X - Y\) jako sumę zmiennych losowych \(X\) oraz \(-Y\).
 \(-Y\) możemy traktować jak zmienną losową z rozkładem jednostajnym na przedziale
 \([-1, 0]\):
 \[
-f_{-Y}(x)
-= \begin{cases}
-    \frac{1}{0-(-1)} = 1 &\text{w przedziale } x \in [-1, 0]\\
-    0 &\text{wpp.}
-\end{cases}
+	f_{-Y}(x)
+	= \begin{cases}
+		\frac{1}{0-(-1)} = 1 & \text{w przedziale } x \in [-1, 0] \\
+		0                    & \text{wpp.}
+	\end{cases}
 \]
 oraz:
 \[
-F_{-Y}
-= \begin{cases}
-    0 & \text{gdy } x \leq -1\\
-    \frac{x-(-1)}{0-(-1)} = x+1 &\text{w przedziale } x \in [-1, 0]\\
-    1 & \text{gdy } x \geq 0 
-\end{cases}.
+	F_{-Y}
+	= \begin{cases}
+		0                           & \text{gdy } x \leq -1              \\
+		\frac{x-(-1)}{0-(-1)} = x+1 & \text{w przedziale } x \in [-1, 0] \\
+		1                           & \text{gdy } x \geq 0
+	\end{cases}.
 \]
 
 Policzmy gęstość \(f_{X-Y}\):
 \begin{align*}
-    f_{X-Y}(z)
-    &= \int_{-\infty}^{\infty} f_X(x) f_{-Y}(z-x) \, dx\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < -1\) lub \(z > 1\)}\\
-        \int_{0}^{1+z} f_X(x) f_Y(z-x) \, dx
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        \int_{z}^{1} f_X(x) f_Y(z-x) \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-    \end{cases}
-        \tag{2}\label{set08.task03.2.tagA}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < -1\) lub \(z > 1\)}\\
-        \int_{0}^{1+z} 1 \, dx
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        \int_{z}^{1} 1 \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-    \end{cases}\\
-    &= \boxed{\begin{cases}
-        0
-            & \text{gdy \(z < -1\) lub \(z > 1\)}\\
-        1+z
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        1-z
-            & \text{gdy \(z \in [0, 1]\)}\\
-    \end{cases}}\\
+	f_{X-Y}(z)
+	 & = \int_{-\infty}^{\infty} f_X(x) f_{-Y}(z-x) \, dx          \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < -1\) lub \(z > 1\)} \\
+		     \int_{0}^{1+z} f_X(x) f_Y(z-x) \, dx
+		      & \text{gdy \(z \in [-1, 0]\)}        \\
+		     \int_{z}^{1} f_X(x) f_Y(z-x) \, dx
+		      & \text{gdy \(z \in [0, 1]\)}         \\
+	     \end{cases}
+	\tag{2}\label{set08.task03.2.tagA}                             \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < -1\) lub \(z > 1\)} \\
+		     \int_{0}^{1+z} 1 \, dx
+		      & \text{gdy \(z \in [-1, 0]\)}        \\
+		     \int_{z}^{1} 1 \, dx
+		      & \text{gdy \(z \in [0, 1]\)}         \\
+	     \end{cases}        \\
+	 & = \boxed{\begin{cases}
+			            0
+			             & \text{gdy \(z < -1\) lub \(z > 1\)} \\
+			            1+z
+			             & \text{gdy \(z \in [-1, 0]\)}        \\
+			            1-z
+			             & \text{gdy \(z \in [0, 1]\)}         \\
+		            \end{cases}} \\
 \end{align*}
 
 \eqref{set08.task03.2.tagA}: aby \(f_X(x) \neq 0\) oraz \(f_{-Y}(z-x) \neq 0\)
 mamy warunki:
 \begin{itemize}
-    \item \(0 \leq x \leq 1\), oraz
-    \item \(-1 \leq z-x \leq 0\), czyli \(z \leq x \leq z+1\).
+	\item \(0 \leq x \leq 1\), oraz
+	\item \(-1 \leq z-x \leq 0\), czyli \(z \leq x \leq z+1\).
 \end{itemize}
 
 Policzmy dysrybuantę:
 \begin{align*}
-    F_{X-Y}(z) 
-    &= \int_{\infty}^z f(x) \, dx\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < -1\)}\\
-        \int_{-1}^{z} 1+x \, dx
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        \int_{-1}^{0} 1+x \, dx + \int_{0}^{z} 1-x \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-        1
-            & \text{gdy \(z > 1\)}\\
-    \end{cases}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < -1\)}\\
-        \int_{0}^{z+1} x \, dx
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        \int_{0}^{1} x \, dx - \int_{1}^{z+1} x \, dx
-            & \text{gdy \(z \in [0, 1]\)}\\
-        1
-            & \text{gdy \(z > 1\)}\\
-    \end{cases}\\
-    &= \begin{cases}
-        0
-            & \text{gdy \(z < -1\)}\\
-        \frac{1}{2}(z+1)^2
-            & \text{gdy \(z \in [-1, 0]\)}\\
-        1 - \frac{1}{2} (1-z)^2
-            & \text{gdy \(z \in [0, 1]\)}\\
-        1
-            & \text{gdy \(z > 1\)}\\
-    \end{cases}\\
+	F_{X-Y}(z)
+	 & = \int_{\infty}^z f(x) \, dx                      \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < -1\)}        \\
+		     \int_{-1}^{z} 1+x \, dx
+		      & \text{gdy \(z \in [-1, 0]\)} \\
+		     \int_{-1}^{0} 1+x \, dx + \int_{0}^{z} 1-x \, dx
+		      & \text{gdy \(z \in [0, 1]\)}  \\
+		     1
+		      & \text{gdy \(z > 1\)}         \\
+	     \end{cases} \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < -1\)}        \\
+		     \int_{0}^{z+1} x \, dx
+		      & \text{gdy \(z \in [-1, 0]\)} \\
+		     \int_{0}^{1} x \, dx - \int_{1}^{z+1} x \, dx
+		      & \text{gdy \(z \in [0, 1]\)}  \\
+		     1
+		      & \text{gdy \(z > 1\)}         \\
+	     \end{cases}    \\
+	 & = \begin{cases}
+		     0
+		      & \text{gdy \(z < -1\)}        \\
+		     \frac{1}{2}(z+1)^2
+		      & \text{gdy \(z \in [-1, 0]\)} \\
+		     1 - \frac{1}{2} (1-z)^2
+		      & \text{gdy \(z \in [0, 1]\)}  \\
+		     1
+		      & \text{gdy \(z > 1\)}         \\
+	     \end{cases}    \\
 \end{align*}
 
 Podpobnie jak w kroku \ref{set08.task03.1}, policzmy wartość oczekiwaną z liniowości:
 \[
-E[X-Y] = E[X] - E[Y] = \frac{1-0}{2} - \frac{1-0}{2} = \boxed{0},
+	E[X-Y] = E[X] - E[Y] = \frac{1-0}{2} - \frac{1-0}{2} = \boxed{0},
 \]
 
 oraz wariancję, dzięki niezależności zmiennych:
 \[
-\operatorname{Var}(X+Y)
-= \operatorname{Var}(X) + \operatorname{Var}(-Y)
-= \frac{(1-0)^2}{12} + \frac{(0-1)^2}{12}
-= \boxed{\frac{1}{6}}
+	\variance{X+Y}
+	= \variance{X} + \variance{-Y}
+	= \frac{(1-0)^2}{12} + \frac{(0-1)^2}{12}
+	= \boxed{\frac{1}{6}}
 \]
 
 
 \subsection*{Rozwiązanie \ref{set08.task03.3}}
-\subsubsection*{Dystrybuanta $F_Z(z)$}
-Rozkład łączny pary $(X, Y)$ jest jednostajny na kwadracie jednostkowym $[0, 1] \times [0, 1]$. Pole tego kwadratu wynosi 1.
+\subsubsection*{Dystrybuanta \(F_Z(z)\)}
+Rozkład łączny pary \((X, Y)\) jest jednostajny na kwadracie jednostkowym \([0, 1] \times [0, 1]\). Pole tego kwadratu wynosi 1.
 
 Szukamy prawdopodobieństwa:
-$$ F_Z(z) = P(Z \le z) = P(|X - Y| \le z) $$
-Dla $z \in [0, 1]$, nierówność $|X - Y| \le z$ jest równoważna układowi:
-$$ -z \le X - Y \le z \iff Y \le X + z \quad \text{oraz} \quad Y \ge X - z $$
+\[ F_Z(z) = P(Z \le z) = P(|X - Y| \le z) \]
+Dla \(z \in [0, 1]\), nierówność \(|X - Y| \le z\) jest równoważna układowi:
+\[ -z \le X - Y \le z \iff Y \le X + z \quad \text{oraz} \quad Y \ge X - z \]
 
-Geometrycznie łatwiej jest obliczyć prawdopodobieństwo zdarzenia przeciwnego $P(|X - Y| > z)$ i odjąć je od 1. Zdarzenie to odpowiada dwóm trójkątom w narożnikach kwadratu:
+Geometrycznie łatwiej jest obliczyć prawdopodobieństwo zdarzenia przeciwnego \(P(|X - Y| > z)\) i odjąć je od 1. Zdarzenie to odpowiada dwóm trójkątom w narożnikach kwadratu:
 \begin{enumerate}
-    \item Górny lewy róg ($Y > X + z$): trójkąt o przyprostokątnych $1-z$. Pole wynosi $\frac{1}{2}(1-z)^2$.
-    \item Dolny prawy róg ($Y < X - z$): trójkąt o przyprostokątnych $1-z$. Pole wynosi $\frac{1}{2}(1-z)^2$.
+	\item Górny lewy róg (\(Y > X + z\)): trójkąt o przyprostokątnych \(1-z\). Pole wynosi \(\frac{1}{2}(1-z)^2\).
+	\item Dolny prawy róg (\(Y < X - z\)): trójkąt o przyprostokątnych \(1-z\). Pole wynosi \(\frac{1}{2}(1-z)^2\).
 \end{enumerate}
 
-Suma pól obszarów "zakazanych" wynosi $(1-z)^2$. Zatem dystrybuanta dla $z \in [0, 1]$ to:
-$$ F_Z(z) = 1 - (1-z)^2 = 1 - (1 - 2z + z^2) = 2z - z^2 $$
+Suma pól obszarów "zakazanych" wynosi \((1-z)^2\). Zatem dystrybuanta dla \(z \in [0, 1]\) to:
+\[ F_Z(z) = 1 - (1-z)^2 = 1 - (1 - 2z + z^2) = 2z - z^2 \]
 
 Pełny wzór dystrybuanty:
-$$
-F_Z(z) = \begin{cases} 
-0 & \text{dla } z < 0 \\
-2z - z^2 & \text{dla } 0 \le z \le 1 \\
-1 & \text{dla } z > 1
-\end{cases}
-$$
+\[
+	F_Z(z) = \begin{cases}
+		0        & \text{dla } z < 0         \\
+		2z - z^2 & \text{dla } 0 \le z \le 1 \\
+		1        & \text{dla } z > 1
+	\end{cases}
+\]
 
-\subsubsection*{Gęstość $f_Z(z)$}
-Gęstość otrzymujemy poprzez zróżniczkowanie dystrybuanty w przedziale $(0, 1)$:
-$$ f_Z(z) = F_Z'(z) = (2z - z^2)' = 2 - 2z = 2(1-z) $$
+\subsubsection*{Gęstość \(f_Z(z)\)}
+Gęstość otrzymujemy poprzez zróżniczkowanie dystrybuanty w przedziale \((0, 1)\):
+\[ f_Z(z) = F_Z'(z) = (2z - z^2)' = 2 - 2z = 2(1-z) \]
 
 Pełny wzór gęstości:
-$$
-f_Z(z) = \begin{cases} 
-2(1-z) & \text{dla } 0 < z < 1 \\
-0 & \text{w p.p.}
-\end{cases}
-$$
+\[
+	f_Z(z) = \begin{cases}
+		2(1-z) & \text{dla } 0 < z < 1 \\
+		0      & \text{w p.p.}
+	\end{cases}
+\]
 
-\subsubsection*{Wartość oczekiwana $E[Z]$}
+\subsubsection*{Wartość oczekiwana \(E[Z]\)}
 Obliczamy wartość oczekiwaną z definicji dla zmiennej ciągłej:
-$$ E[Z] = \int_{-\infty}^{\infty} z \cdot f_Z(z) \, dz = \int_{0}^{1} z \cdot 2(1-z) \, dz $$
-$$ = 2 \int_{0}^{1} (z - z^2) \, dz = 2 \left[ \frac{z^2}{2} - \frac{z^3}{3} \right]_0^1 $$
-$$ = 2 \left( \frac{1}{2} - \frac{1}{3} \right) = 2 \cdot \frac{1}{6} = \frac{1}{3} $$
+\[ E[Z] = \int_{-\infty}^{\infty} z \cdot f_Z(z) \, dz = \int_{0}^{1} z \cdot 2(1-z) \, dz \]
+\[ = 2 \int_{0}^{1} (z - z^2) \, dz = 2 \left[ \frac{z^2}{2} - \frac{z^3}{3} \right]_0^1 \]
+\[ = 2 \left( \frac{1}{2} - \frac{1}{3} \right) = 2 \cdot \frac{1}{6} = \frac{1}{3} \]
 
-\subsubsection*{Wariancja $Var(Z)$}
-Korzystamy ze wzoru $Var(Z) = E[Z^2] - (E[Z])^2$. Najpierw obliczamy drugi moment:
-$$ E[Z^2] = \int_{0}^{1} z^2 \cdot 2(1-z) \, dz = 2 \int_{0}^{1} (z^2 - z^3) \, dz $$
-$$ = 2 \left[ \frac{z^3}{3} - \frac{z^4}{4} \right]_0^1 = 2 \left( \frac{1}{3} - \frac{1}{4} \right) = 2 \cdot \frac{1}{12} = \frac{1}{6} $$
+\subsubsection*{Wariancja \(Var(Z)\)}
+Korzystamy ze wzoru \(Var(Z) = E[Z^2] - (E[Z])^2\). Najpierw obliczamy drugi moment:
+\[ E[Z^2] = \int_{0}^{1} z^2 \cdot 2(1-z) \, dz = 2 \int_{0}^{1} (z^2 - z^3) \, dz \]
+\[ = 2 \left[ \frac{z^3}{3} - \frac{z^4}{4} \right]_0^1 = 2 \left( \frac{1}{3} - \frac{1}{4} \right) = 2 \cdot \frac{1}{12} = \frac{1}{6} \]
 
 Obliczamy wariancję:
-$$ Var(Z) = \frac{1}{6} - \left(\frac{1}{3}\right)^2 = \frac{1}{6} - \frac{1}{9} = \frac{3}{18} - \frac{2}{18} = \frac{1}{18} $$
+\[ Var(Z) = \frac{1}{6} - \left(\frac{1}{3}\right)^2 = \frac{1}{6} - \frac{1}{9} = \frac{3}{18} - \frac{2}{18} = \frac{1}{18} \]
 
 
 \begin{itemize}
-    \item \textbf{Dystrybuanta:} $F_Z(z) = 2z - z^2$ dla $z \in [0,1]$
-    \item \textbf{Gęstość:} $f_Z(z) = 2(1-z)$ dla $z \in (0,1)$
-    \item \textbf{Wartość oczekiwana:} $E[Z] = \frac{1}{3}$
-    \item \textbf{Wariancja:} $Var(Z) = \frac{1}{18}$
+	\item \textbf{Dystrybuanta:} \(F_Z(z) = 2z - z^2\) dla \(z \in [0,1]\)
+	\item \textbf{Gęstość:} \(f_Z(z) = 2(1-z)\) dla \(z \in (0,1)\)
+	\item \textbf{Wartość oczekiwana:} \(E[Z] = \frac{1}{3}\)
+	\item \textbf{Wariancja:} \(Var(Z) = \frac{1}{18}\)
 \end{itemize}

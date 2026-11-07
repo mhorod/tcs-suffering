@@ -8,51 +8,51 @@ Do N ponumerowanych listów wkładamy losowo N liczb. Jakie jest prawdopodobień
 \subsection*{Rozwiązanie}
 Całe zadanie to jest dosłownie zasada włączeń i wyłączeń.
 
-Niech $A_i$ - zdarzenie, że $i$-ta liczba trafiła do $i$-tego listu (dla $i = 1, 2, \ldots, N$).
+Niech \(A_i\) - zdarzenie, że \(i\)-ta liczba trafiła do \(i\)-tego listu (dla \(i = 1, 2, \ldots, N\)).
 
 Z zasady włączeń i wyłączeń:
 \[
-\left| \bigcup_{i=1}^N A_i \right| = \sum_{\substack{I \subseteq [N] \\ I \neq \emptyset}} (-1)^{|I| + 1} \left| \bigcap_{i \in I} A_i \right|
+	\left| \bigcup_{i=1}^N A_i \right| = \sum_{\substack{I \subseteq [N] \\ I \neq \emptyset}} (-1)^{|I| + 1} \left| \bigcap_{i \in I} A_i \right|
 \]
 
 \subsection*{Obliczenie mocy przekrojów}
 
-Dla ustalonego $I \subseteq [N]$ z $|I| = k$:
+Dla ustalonego \(I \subseteq [N]\) z \(|I| = k\):
 \[
-\left| \bigcap_{i \in I} A_i \right| = (N-k)!
+	\left| \bigcap_{i \in I} A_i \right| = (N-k)!
 \]
-ponieważ jeśli $k$ liczb jest na swoich miejscach, to pozostałe $N-k$ liczb można rozmieścić dowolnie.
+ponieważ jeśli \(k\) liczb jest na swoich miejscach, to pozostałe \(N-k\) liczb można rozmieścić dowolnie.
 
-Liczba takich podzbiorów $I$ to $\binom{N}{k}$, więc:
+Liczba takich podzbiorów \(I\) to \(\binom{N}{k}\), więc:
 \[
-\sum_{\substack{I \subseteq [N] \\ |I| = k}} \left| \bigcap_{i \in I} A_i \right| = \binom{N}{k} (N-k)!
+	\sum_{\substack{I \subseteq [N] \\ |I| = k}} \left| \bigcap_{i \in I} A_i \right| = \binom{N}{k} (N-k)!
 \]
 
 \subsection*{Moc zdarzenia że przynajmniej jedna liczba trafiła dobrze}
 
 \[
-\left| \bigcup_{i=1}^N A_i \right| = \sum_{k=1}^N (-1)^{k+1} \binom{N}{k} (N-k)!
+	\left| \bigcup_{i=1}^N A_i \right| = \sum_{k=1}^N (-1)^{k+1} \binom{N}{k} (N-k)!
 \]
 
 \subsection*{Prawdopodobieństwo że przynajmniej jedna liczba trafiła dobrze}
 
 \[
-P\left( \bigcup_{i=1}^N A_i \right) = \frac{\left| \bigcup_{i=1}^N A_i \right|}{N!} 
-= \sum_{k=1}^N (-1)^{k+1} \frac{ \binom{N}{k} (N-k)!}{N!}
- = \sum_{k=1}^N (-1)^{k+1} \frac{1}{k!}
+	P\left( \bigcup_{i=1}^N A_i \right) = \frac{\left| \bigcup_{i=1}^N A_i \right|}{N!}
+	= \sum_{k=1}^N (-1)^{k+1} \frac{ \binom{N}{k} (N-k)!}{N!}
+	= \sum_{k=1}^N (-1)^{k+1} \frac{1}{k!}
 \]
 
 \subsection*{Prawdopodobieństwo że żadna liczba nie trafiła dobrze}
 
 \[
-P\left( \text{żadna liczba nie trafiła do odpowiedniego listu} \right) = 1 - P\left( \bigcup_{i=1}^N A_i \right)
+	P\left( \text{żadna liczba nie trafiła do odpowiedniego listu} \right) = 1 - P\left( \bigcup_{i=1}^N A_i \right)
 \]
 
 \[
-P\left( \text{żadna liczba nie trafiła do odpowiedniego listu} \right) = 1 - \sum_{k=1}^N (-1)^{k+1} \frac{1}{k!} = \sum_{k=0}^N \frac{(-1)^k}{k!}
+	P\left( \text{żadna liczba nie trafiła do odpowiedniego listu} \right) = 1 - \sum_{k=1}^N (-1)^{k+1} \frac{1}{k!} = \sum_{k=0}^N \frac{(-1)^k}{k!}
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{ \sum_{k=0}^N \frac{(-1)^k}{k!} }
+	\boxed{ \sum_{k=0}^N \frac{(-1)^k}{k!} }
 \]

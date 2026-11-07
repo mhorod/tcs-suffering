@@ -10,36 +10,36 @@ coś innego, to wyrzucamy kulę do śmieci.\\
 \subsection*{Rozwiązanie}
 Problem jest bardzo podobny do tego z zadania 5. Będę używał wniosków tego zadania jako blackboxa i oznaczał to gwiazdką (*)\\
 Rozbijmy problem na prostszy, aby sprawnie policzyć wszystkie podpunkty. Rozbijmy najpierw zmienną X.\\
-$$X' -\text{kule które zostawiamy}$$
-$$W - \text{kule które wyrzucamy}$$
-Zostawiamy kulę, jeśli wyrzucimy 1 lub 2 (z $p=\frac{1}{3}$).\\
-Z (*) X' ma rozkład Poissona z parametrem $\frac{2022}{3}=674$.
+\[X' -\text{kule które zostawiamy}\]
+\[W - \text{kule które wyrzucamy}\]
+Zostawiamy kulę, jeśli wyrzucimy 1 lub 2 (z \(p=\frac{1}{3}\)).\\
+Z (*) X' ma rozkład Poissona z parametrem \(\frac{2022}{3}=674\).
 Wynik W nie będzie nas dalej interesował.\\
 Analogicznie rozbijamy X':
-$$C -\text{kule które pomalowano na czarno}$$
-$$B - \text{kule które pomalowano na biało}$$
-Zauważmy, że zostawiona kula z prawdopodobieństwem $\frac{1}{2}$ będzie biała, albo będzie czarna z takim samym prawdopodobieństwem.\\
-Jeszcze raz z (*) B oraz C są zmiennymi Poissona z parametrem $\frac{674}{2}=337$, co więcej te zmienne są niezależne (również z (*)).
+\[C -\text{kule które pomalowano na czarno}\]
+\[B - \text{kule które pomalowano na biało}\]
+Zauważmy, że zostawiona kula z prawdopodobieństwem \(\frac{1}{2}\) będzie biała, albo będzie czarna z takim samym prawdopodobieństwem.\\
+Jeszcze raz z (*) B oraz C są zmiennymi Poissona z parametrem \(\frac{674}{2}=337\), co więcej te zmienne są niezależne (również z (*)).
 Mając to wszystko możemy przejść do podpunktów.\\\\
 (i)  Z jakim prawdopodobieństwem będziemy mieć więcej czarnych kul niż białych?\\
-Wystarczy policzyć $P(B>C)$. Zauważmy, że jako, że te zmienne mają ten sam rozkład to mamy symetrycznie $P(B>C)=P(C>B)$. Stąd dostaniemy $P(B>C)=\frac{1-P(B=C)}{2}$
-$$P(B=C)=\sum_{n=0}^\infty P(B=n \cap C=n) = \sum_{n=0}^\infty P(B=n) \cdot P(C=n)=$$
-$$\sum_{n=0}^\infty \left(\frac{e^{-337}(337)^n}{n!}\right)^2$$
+Wystarczy policzyć \(P(B>C)\). Zauważmy, że jako, że te zmienne mają ten sam rozkład to mamy symetrycznie \(P(B>C)=P(C>B)\). Stąd dostaniemy \(P(B>C)=\frac{1-P(B=C)}{2}\)
+\[P(B=C)=\sum_{n=0}^\infty P(B=n \cap C=n) = \sum_{n=0}^\infty P(B=n) \cdot P(C=n)=\]
+\[\sum_{n=0}^\infty \left(\frac{e^{-337}(337)^n}{n!}\right)^2\]
 Stąd mamy odpowiedź:
-$$P(B>C)=\frac{1-\sum_{n=0}^\infty \left(\frac{e^{-337}(337)^n}{n!}\right)^2}{2}$$
+\[P(B>C)=\frac{1-\sum_{n=0}^\infty \left(\frac{e^{-337}(337)^n}{n!}\right)^2}{2}\]
 (ii) Jaki jest rozkład liczby czarnych kul przy założeniu, że nie uzyskaliśmy żadnej białej kuli?\\
-Liczymy $P(C|B=0)$ z definicji
-$$P(C=k|B=0)=\frac{P(C=k \cap B=0)}{P(B=0)} = \frac{P(C=k) \cdot P( B=0)}{P(B=0)} = P(C=k)$$
+Liczymy \(P(C|B=0)\) z definicji
+\[P(C=k|B=0)=\frac{P(C=k \cap B=0)}{P(B=0)} = \frac{P(C=k) \cdot P( B=0)}{P(B=0)} = P(C=k)\]
 Rozkład jest taki sam jak dla samej zmiennej C (warunek się skraca z niezależności), czyli:
-$$P(C=k)=\frac{e^{-337}(337^k)}{k!}$$
+\[P(C=k)=\frac{e^{-337}(337^k)}{k!}\]
 (iii) Jaka jest oczekiwana liczba białych kul przy założeniu, że czarnych kul jest dwa razy więcej od białych?
 Liczymy wartość oczekiwaną z definicji:
-$$E(B|C=2B) = \sum_{k=0}^\infty kP(B=k|C=2B)=\sum_{k=0}^\infty \frac{kP(B=k\cap C=2k)}{P(C=2B)} =$$
-$$ \frac{ \sum_{k=0}^\infty k P(B=k)\cdot P(C=2k)}{\sum_{j=0}^\infty P(B=j)\cdot P(C=2j)}$$
+\[E(B|C=2B) = \sum_{k=0}^\infty kP(B=k|C=2B)=\sum_{k=0}^\infty \frac{kP(B=k\cap C=2k)}{P(C=2B)} =\]
+\[ \frac{ \sum_{k=0}^\infty k P(B=k)\cdot P(C=2k)}{\sum_{j=0}^\infty P(B=j)\cdot P(C=2j)}\]
 To już nam się tak ładnie nie skróci. Możemy jedynie podstawić wzór na rozkład Poissona:
-$$E(B|C=2B) = \sum_{k}^\infty \frac{k \frac{e^{-337}(337^k)}{k!} \frac{e^{-337}(337^{2k})}{(2k)!}}{\sum_{j=0}^\infty \frac{e^{-337}(337^j)}{j!} \frac{e^{-337}(337^{2j})}{(2j)!}} = $$
-$$ \frac{ \sum_{k=0}^\infty k \frac{(337^{3k})}{k!(2k)!}}{\sum_{j=0}^\infty \frac{(337^{3j})}{j!(2j)!}} $$
+\[E(B|C=2B) = \sum_{k}^\infty \frac{k \frac{e^{-337}(337^k)}{k!} \frac{e^{-337}(337^{2k})}{(2k)!}}{\sum_{j=0}^\infty \frac{e^{-337}(337^j)}{j!} \frac{e^{-337}(337^{2j})}{(2j)!}} = \]
+\[ \frac{ \sum_{k=0}^\infty k \frac{(337^{3k})}{k!(2k)!}}{\sum_{j=0}^\infty \frac{(337^{3j})}{j!(2j)!}} \]
 \subsection*{Odpowiedź}
-$$\text{(i) } \frac{1-P(B=C)}{2}$$
-$$\text{(ii) } P(C=k)$$
-$$\text{(iii) }  \frac{ \sum_{k=0}^\infty k P(B=k)\cdot P(C=2k)}{\sum_{j=0}^\infty P(B=j)\cdot P(C=2j)}$$
+\[\text{(i) } \frac{1-P(B=C)}{2}\]
+\[\text{(ii) } P(C=k)\]
+\[\text{(iii) }  \frac{ \sum_{k=0}^\infty k P(B=k)\cdot P(C=2k)}{\sum_{j=0}^\infty P(B=j)\cdot P(C=2j)}\]

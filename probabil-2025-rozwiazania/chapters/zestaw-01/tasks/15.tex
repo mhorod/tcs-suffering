@@ -1,16 +1,16 @@
 \section{Zadanie 15}
 \autor{Filip Manijak}
-Niech $\pi$ będzie losową permutacją zbioru $[n]$. Punkt stały permutacji $\pi$ to taki $x$, że
-$$\pi(x) = x.$$
-Wyznacz oczekiwaną liczbę punktów stałych permutacji $\pi$.
+Niech \(\pi\) będzie losową permutacją zbioru \([n]\). Punkt stały permutacji \(\pi\) to taki \(x\), że
+\[\pi(x) = x.\]
+Wyznacz oczekiwaną liczbę punktów stałych permutacji \(\pi\).
 
 \subsection*{Rozwiązanie}
-Naszą zmienną losową $X$ rozbijamy na sumę indykatorów tego że $i$ jest punktem stałym, tj:
-$$\mathbb{E}[X] = \mathbb{E}[X_1+X_2+...+X_n] = \sum \mathbb{E}[X_i] = \sum \frac{1}{n} = 1$$
-Ponieważ wiemy, że $\mathbb{E}[X_i] = P(\pi(i)=i) = \frac{1}{n}$ ponieważ permutacji dla których $\pi(i)=j$ jest tyle samo dla każdego j (symetria).
+Naszą zmienną losową \(X\) rozbijamy na sumę indykatorów tego że \(i\) jest punktem stałym, tj:
+\[\ev{X} = \ev{X_1+X_2+...+X_n} = \sum \ev{X_i} = \sum \frac{1}{n} = 1\]
+Ponieważ wiemy, że \(\ev{X_i} = P(\pi(i)=i) = \frac{1}{n}\) ponieważ permutacji dla których \(\pi(i)=j\) jest tyle samo dla każdego j (symetria).
 
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{1}}
+	\boxed{\text{1}}
 \]

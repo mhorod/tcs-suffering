@@ -1,3 +1,24 @@
 \section[\nierozwiazane{Zadanie 6}]{Zadanie 6}
+Niech \(p, q \in (0, 1)\) takie, że \(p + q = 1\) i niech \(n \geqslant 3\). Rozważ łańcuch Markowa
+\((M_t)_{t \in \mathbb{N}}\) na zbiorze wierzchołków \(n\)-wierzchołkowego cyklu taki, że jeśli \(M_t = v\), to
+\begin{itemize}
+	\item \(M_{t+1} = v\) z prawd. \(\frac{1}{2}\),
+	\item \(M_{t+1}\) jest sąsiadem \(v\) zgodnie z wskazówkami zegara z prawd. \(\frac{p}{2}\),
+	\item \(M_{t+1}\) jest sąsiadem \(v\) przeciwnie do wskazówek zegara z prawd. \(\frac{q}{2}\).
+\end{itemize}
+Zauważ, że rozkład stacjonarny \((M_t)_{t \in \mathbb{N}}\) istnieje i jest on jednostajny. Wykaż, że istnieją
+dodatnie stałe \(\alpha, \beta\) takie, że
+\[
+	\alpha n^2 \leqslant \tau_{\text{mix}} \leqslant \beta n^2.
+\]
+\textit{Wskazówka 1:} nam wyszło \(\alpha = \frac{1}{32}\) i \(\beta = 1\).
+
+\textit{Wskazówka 2 (ograniczenie górne):} Zaprojektuj sprzęganie \((X_t, Y_t)\) takie, że jeśli \(X_t \neq Y_t\),
+to tylko jeden łańcuch się ,,porusza'' w danym kroku. Niech \(d_t\) będzie odległością zgodną
+z kierunkiem wskazówek zegara pomiędzy \(X_t\) a \(Y_t\). Rozważ jak zmienia się \(d_t\).
+
+\textit{Wskazówka 3 (ograniczenie dolne):} Zamodeluj łańcuch z treści jako łańcuch na \(\mathbb{Z}\). Jako
+zbiór \(A_t\) świadczący o tym, że \(\tau_{\text{mix}}\) jest duże, weź połowę cyklu przeciwną do oczekiwanej
+projekcji spaceru na \(\mathbb{Z}\) na cykl. Zaaplikuj nierówność Czebyszewa, aby ograniczyć \(P(X_t \in A_t)\).
 
 \brakrozwiazania

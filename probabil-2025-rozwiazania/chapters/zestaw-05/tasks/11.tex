@@ -1,40 +1,40 @@
 \section{Zadanie 11}
-Niech $X = X_1 + \ldots + X_n$, gdzie $X_i$ są niezależnymi zmiennymi losowymi z rozkładu jednostajnego na zbiorze $\{0, 1, 2\}$. Wyprowadź nierówność Czernowa dla zmiennej $X$, tj. ogranicz od góry następujące prawdopodobieństwa: $P (X \geqslant (1 + \delta) n)$ oraz $P (X \leqslant (1 - \delta) n)$ dla $0 < \delta < 1$.
+Niech \(X = X_1 + \ldots + X_n\), gdzie \(X_i\) są niezależnymi zmiennymi losowymi z rozkładu jednostajnego na zbiorze \(\{0, 1, 2\}\). Wyprowadź nierówność Czernowa dla zmiennej \(X\), tj. ogranicz od góry następujące prawdopodobieństwa: \(P (X \geqslant (1 + \delta) n)\) oraz \(P (X \leqslant (1 - \delta) n)\) dla \(0 < \delta < 1\).
 \subsection*{Rozwiązanie}
 
 Niech \( X = X_1 + \ldots + X_n \), gdzie \( X_i \) są niezależnymi zmiennymi losowymi o rozkładzie jednostajnym na zbiorze \( \{0, 1, 2\} \). Wówczas:
 \[
-P(X_i = k) = \frac{1}{3}, \quad \text{dla } k = 0, 1, 2.
+	P(X_i = k) = \frac{1}{3}, \quad \text{dla } k = 0, 1, 2.
 \]
 
 Nierówność Chernoffa daje:
 \[
-P(X \geq (1+\delta)n) \leq \min_{t > 0} \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{t(1+\delta)n}}.
+	P(X \geq (1+\delta)n) \leq \min_{t > 0} \frac{\ev{e^{tX}}}{e^{t(1+\delta)n}}.
 \]
 Gdzie
 \[
-\mathbb{E}\left[ e^{t X_i} \right] = \frac{1}{3} e^{t \cdot 0} + \frac{1}{3} e^{t \cdot 1} + \frac{1}{3} e^{t \cdot 2} = \frac{1}{3} \left( 1 + e^t + e^{2t} \right).
+	\ev{e^{t X_i}} = \frac{1}{3} e^{t \cdot 0} + \frac{1}{3} e^{t \cdot 1} + \frac{1}{3} e^{t \cdot 2} = \frac{1}{3} \left( 1 + e^t + e^{2t} \right).
 \]
 Ponieważ zmienne \( X_i \) są niezależne, wartość oczekiwana sumy \( X \) jest iloczynem wartości oczekiwanych składowych:
 \[
-\mathbb{E}[e^{tX}] =\mathbb{E}[\prod_{i=1}^ne^{tX_i}]= \prod_{i=1}^n \mathbb{E}[e^{tX_i}] = \left[ \frac{1 + e^t + e^{2t}}{3} \right]^n.
+	\ev{e^{tX}} =\ev{\prod_{i=1}^ne^{tX_i}}= \prod_{i=1}^n \ev{e^{tX_i}} = \left[ \frac{1 + e^t + e^{2t}}{3} \right]^n.
 \]
 
 \subsubsection*{Ograniczenie górne dla \( P(X \geq (1+\delta)n) \)}
 
 \[
-P(X \geq (1+\delta)n) \leq \min_{t > 0} \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{t(1+\delta)n}} = \min_{t > 0} \left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)^n.
+	P(X \geq (1+\delta)n) \leq \min_{t > 0} \frac{\ev{e^{tX}}}{e^{t(1+\delta)n}} = \min_{t > 0} \left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)^n.
 \]
 \[
-f(t)=\left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)
+	f(t)=\left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)
 \]
-ma miejsce zerowe w $t = ln \left( \frac{\delta+\sqrt{4-3 \delta^2}}{1-\delta} \right)$
+ma miejsce zerowe w \(t = ln \left( \frac{\delta+\sqrt{4-3 \delta^2}}{1-\delta} \right)\)
 
 
 \subsubsection*{Ograniczenie górne dla \( P(X \leq (1-\delta)n) \)}
 
 Analogicznie, dla \( t < 0 \):
 \[
-P(X \leq (1-\delta)n) \leq \min_{t < 0} \frac{\mathbb{E}\left[ e^{tX} \right]}{e^{t(1-\delta)n}} = \min_{t < 0} \left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)^n.
+	P(X \leq (1-\delta)n) \leq \min_{t < 0} \frac{\ev{e^{tX}}}{e^{t(1-\delta)n}} = \min_{t < 0} \left( \frac{1 + e^t + e^{2t}}{3 e^{t(1+\delta)}} \right)^n.
 \]
-Dla $t = ln \left( \frac{\delta-\sqrt{4-3 \delta^2}}{1-\delta} \right)$
+Dla \(t = ln \left( \frac{\delta-\sqrt{4-3 \delta^2}}{1-\delta} \right)\)

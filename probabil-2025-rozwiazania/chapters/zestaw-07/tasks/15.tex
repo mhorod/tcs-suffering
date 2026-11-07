@@ -1,68 +1,68 @@
 \section{Zadanie 15}
-Niech $X_n$ będzie zmienną losową równą sumie oczek w $n$ niezależnych rzutach sprawiedliwą kostką. Pokaż, że dla każdego $k \in \mathbb{N}_2$ zachodzi
+Niech \(X_n\) będzie zmienną losową równą sumie oczek w \(n\) niezależnych rzutach sprawiedliwą kostką. Pokaż, że dla każdego \(k \in \mathbb{N}_2\) zachodzi
 \[
-\lim_{n \to \infty} P(X_n \text{ jest podzielne przez } k) = \frac{1}{k}.
+	\lim_{n \to \infty} P(X_n \text{ jest podzielne przez } k) = \frac{1}{k}.
 \]
 
 \subsection*{Rozwiązanie}
 
-Oznaczmy $A_n$ - zmienną losową będącą liczbą oczek w $n$-tym rzucie.
+Oznaczmy \(A_n\) - zmienną losową będącą liczbą oczek w \(n\)-tym rzucie.
 
 Zauważmy, że:
 \[
-X_{n+1} \equiv X_n + A_{n+1} \pmod{k},
+	X_{n+1} \equiv X_n + A_{n+1} \pmod{k},
 \]
-więc $X_n$ tworzy łańcuch Markowa ze stanami będącymi resztami z dzielenia przez $k$.
+więc \(X_n\) tworzy łańcuch Markowa ze stanami będącymi resztami z dzielenia przez \(k\).
 
 Policzymy rozkład stacjonarny tego łańcucha.
 
-Prawdopodobieństwo przejścia z dowolnego stanu $i$ do każdego z $i+1, i+2, \dots, i+6 \pmod{k}$ jest równe $\frac{1}{6}$. Macierz przejścia przyjmie więc postać:
+Prawdopodobieństwo przejścia z dowolnego stanu \(i\) do każdego z \(i+1, i+2, \dots, i+6 \pmod{k}\) jest równe \(\frac{1}{6}\). Macierz przejścia przyjmie więc postać:
 \[
-P =
-\begin{bmatrix}
-\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & \cdots & 0\\[2ex]
-0 & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & \cdots\\[2ex]
-\vdots & & & & & & & & \vdots\\[2ex]
-\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & \cdots & 0 & \frac{1}{6}\\[2ex]
-\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0 & \cdots & 0
-\end{bmatrix}.
+	P =
+	\begin{bmatrix}
+		\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & \cdots & 0           \\[2ex]
+		0           & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0      & \cdots      \\[2ex]
+		\vdots      &             &             &             &             &             &             &        & \vdots      \\[2ex]
+		\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & \cdots      & 0      & \frac{1}{6} \\[2ex]
+		\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} & 0           & \cdots & 0
+	\end{bmatrix}.
 \]
 
-Równanie na rozkład stacjonarny $\pi$ przyjmuje postać:
+Równanie na rozkład stacjonarny \(\pi\) przyjmuje postać:
 \[
-\pi = P \pi,
+	\pi = P \pi,
 \]
 czyli
 \[
-\begin{bmatrix}
-\pi_0\\[1.5ex]
-\pi_1\\[1.5ex]
-\vdots\\[1.5ex]
-\pi_{k-1}
-\end{bmatrix}
-=
-\begin{bmatrix}
-\frac{\pi_1+\pi_2+\pi_3+\pi_4+\pi_5+\pi_6}{6} \\[1.5ex]
-\frac{\pi_2+\pi_3+\pi_4+\pi_5+\pi_6+\pi_7}{6} \\[1.5ex]
-\vdots\\[1.5ex]
-\frac{\pi_0+\pi_1+\pi_2+\pi_3+\pi_4+\pi_5}{6}
-\end{bmatrix},
-\quad
-\text{oraz} \quad
-\sum_{i=0}^{k-1} \pi_i = 1.
+	\begin{bmatrix}
+		\pi_0  \\[1.5ex]
+		\pi_1  \\[1.5ex]
+		\vdots \\[1.5ex]
+		\pi_{k-1}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\frac{\pi_1+\pi_2+\pi_3+\pi_4+\pi_5+\pi_6}{6} \\[1.5ex]
+		\frac{\pi_2+\pi_3+\pi_4+\pi_5+\pi_6+\pi_7}{6} \\[1.5ex]
+		\vdots                                        \\[1.5ex]
+		\frac{\pi_0+\pi_1+\pi_2+\pi_3+\pi_4+\pi_5}{6}
+	\end{bmatrix},
+	\quad
+	\text{oraz} \quad
+	\sum_{i=0}^{k-1} \pi_i = 1.
 \]
 
 Jasno widać, że rozwiązaniem tego układu jest:
 \[
-\pi_i = \frac{1}{k}, \quad i = 0,1,\dots,k-1.
+	\pi_i = \frac{1}{k}, \quad i = 0,1,\dots,k-1.
 \]
 
 Z własności rozkładu stacjonarnego wynika więc:
 \[
-\lim_{n \to \infty} P(X_n \equiv i \pmod{k}) = \pi_i =  \frac{1}{k}.
+	\lim_{n \to \infty} P(X_n \equiv i \pmod{k}) = \pi_i =  \frac{1}{k}.
 \]
 
 W szczególności:
 \[
-\lim_{n \to \infty} P(X_n \equiv 0 \pmod{k}) = \pi_0 = \frac{1}{k}.
+	\lim_{n \to \infty} P(X_n \equiv 0 \pmod{k}) = \pi_0 = \frac{1}{k}.
 \]

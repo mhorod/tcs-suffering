@@ -1,25 +1,25 @@
 \section{Zadanie 7}
 \autor{Aleksander Wieczorek}
-Niech $A_0,A_1,\dots$ będzie nieskończonym ciągiem zdarzeń i niech $P(\Omega-A_n)\le \frac{1}{3^n}$ dla każdego $n$. Uzasadnij, że
-$$P(\bigcap_{n=1}^\infty A_n) \ge \frac{1}{2}$$
+Niech \(A_0,A_1,\dots\) będzie nieskończonym ciągiem zdarzeń i niech \(P(\Omega-A_n)\le \frac{1}{3^n}\) dla każdego \(n\). Uzasadnij, że
+\[P(\bigcap_{n=1}^\infty A_n) \ge \frac{1}{2}\]
 \subsection*{Rozwiązanie}
 Na początku musimy zauważyć, że:
-$$\Omega-\bigcap_{n=1}^\infty A_n=\bigcup_{n=1}^\infty (\Omega-A_n)$$
-Najprościej jest to narysować i "to widać". Machając rękami możemy powiedzieć, że prawa strona dla każdego i bierze wszystko co nie leży w $A_i$.
+\[\Omega-\bigcap_{n=1}^\infty A_n=\bigcup_{n=1}^\infty (\Omega-A_n)\]
+Najprościej jest to narysować i "to widać". Machając rękami możemy powiedzieć, że prawa strona dla każdego i bierze wszystko co nie leży w \(A_i\).
 Po zsumowaniu okaże się, że dostaniemy wszystko oprócz przecięcia, czyli lewą stronę.\\
 Dalsza część jest już dosyć prosta.\\
-Korzystając z powyższej obserwacji dostaniemy: 
-$$P(\Omega-\bigcap_{n=1}^\infty A_n)=P(\bigcup_{n=1}^\infty (\Omega-A_n))$$
+Korzystając z powyższej obserwacji dostaniemy:
+\[P(\Omega-\bigcap_{n=1}^\infty A_n)=P(\bigcup_{n=1}^\infty (\Omega-A_n))\]
 co daje:
-$$1-P(\bigcap_{n=1}^\infty A_n)=P(\bigcup_{n=1}^\infty (\Omega-A_n))$$
-$$1-P(\bigcup_{n=1}^\infty (\Omega-A_n))=P(\bigcap_{n=1}^\infty A_n)$$
+\[1-P(\bigcap_{n=1}^\infty A_n)=P(\bigcup_{n=1}^\infty (\Omega-A_n))\]
+\[1-P(\bigcup_{n=1}^\infty (\Omega-A_n))=P(\bigcap_{n=1}^\infty A_n)\]
 Teraz przekształcamy tezę:
-$$P(\bigcap_{n=1}^\infty A_n) \ge \frac{1}{2}$$
-$$1-P(\bigcup_{n=1}^\infty (\Omega-A_n))\ge \frac{1}{2}$$
-$$P(\bigcup_{n=1}^\infty (\Omega-A_n))\le \frac{1}{2}$$
-Teraz wystarczy tylko pokazać, że $P(\bigcup_{n=1}^\infty (\Omega-A_n))\le \frac{1}{2}$. Z zadania 3. wiemy, że 
-$$P(\bigcup_{n=0}^\infty A_n) \le \sum_{n=0}^\infty P(A_n)$$
-teraz obliczmy naszą sumę korzystając z $P(\Omega-A_n)\le \frac{1}{3^n}$:
-$$\sum_{n=0}^\infty P(\Omega - A_n)\le \frac{1}{3}+\frac{1}{9}+\dots = \frac{\frac{1}{3}}{1-\frac{1}{3}}=\frac{1}{2}$$
+\[P(\bigcap_{n=1}^\infty A_n) \ge \frac{1}{2}\]
+\[1-P(\bigcup_{n=1}^\infty (\Omega-A_n))\ge \frac{1}{2}\]
+\[P(\bigcup_{n=1}^\infty (\Omega-A_n))\le \frac{1}{2}\]
+Teraz wystarczy tylko pokazać, że \(P(\bigcup_{n=1}^\infty (\Omega-A_n))\le \frac{1}{2}\). Z zadania 3. wiemy, że
+\[P(\bigcup_{n=0}^\infty A_n) \le \sum_{n=0}^\infty P(A_n)\]
+teraz obliczmy naszą sumę korzystając z \(P(\Omega-A_n)\le \frac{1}{3^n}\):
+\[\sum_{n=0}^\infty P(\Omega - A_n)\le \frac{1}{3}+\frac{1}{9}+\dots = \frac{\frac{1}{3}}{1-\frac{1}{3}}=\frac{1}{2}\]
 Co daje:
-$$P(\bigcup_{n=0}^\infty (\Omega-A_n)) \le \sum_{n=0}^\infty P(A_n)\le \frac{1}{2}$$
+\[P(\bigcup_{n=0}^\infty (\Omega-A_n)) \le \sum_{n=0}^\infty P(A_n)\le \frac{1}{2}\]

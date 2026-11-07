@@ -1,20 +1,34 @@
 \section{Zadanie 15}
 \autor{Filip Manijak}
-tutaj wpisz treść zadania
+Dane są dwa procesory P1 i P2 oraz \(2025\) zadań ponumerowanych liczbami
+ze zbioru \(\{1, \ldots, 2025\}\). Procesor P1, odpowiednio P2, przetwarza dowolne z tych zadań
+w czasie będącym zmienną losową o rozkładzie wykładniczym z parametrem \(2025\), odpowiednio \(1\).
+Wszystkie czasy przetwarzania są niezależne. Rozważ proces losowy, w którym
+zadanie \(1\) jest przydzielone do P1, zadanie \(2\) jest przydzielone do P2. Kiedy zadanie zostanie
+wykonane, procesor natychmiast przyjmuje pierwsze wolne zadanie, a w przypadku
+gdy nie ma takiego zadania, to kończy działanie.
+\begin{enumerate}
+	\item[(i)] Jakie jest prawdopodobieństwo, że P2 wykona więcej niż jedno zadanie?
+	\item[(ii)] Jaka jest oczekiwana liczba zadań wykonanych na P2?
+	\item[(iii)] Z jakim prawdopodobieństwem zadanie \(2024\) zostanie wykonane na P1?
+	\item[(iv)] Z jakim prawdopodobieństwem zadanie \(1000\) zostanie wykonane jako ostatnie na P2?
+	\item[(v)] Zakładając, że P2 wykonał dokładnie trzy zadania, jakie jest prawdopodobieństwo,
+	      że wykonał zadanie o numerze większym niż \(2000\)?
+\end{enumerate}
 
 \subsection*{Rozwiązanie}
 \subsection{i}
 Rozważmy taki eksperyment: Jednemu z procesorów P1, P2 zostało przydzielone nowe zadanie. Jakie jest prawdopodobieństwo, że P1 skończy pierwszy? Korzystamy z faktu z wykładu:
-$$P(P1 < P2) = \frac{\lambda_1}{\lambda_1+\lambda_2} = \frac{2025}{2026}$$
+\[P(P1 < P2) = \frac{\lambda_1}{\lambda_1+\lambda_2} = \frac{2025}{2026}\]
 Teraz zauważmy, że prawdopodobieństwo tego, że P2 zrobi tylko jedno, to prawdopobieństwo tego że P1 wygra każdy z 2023 eksperymentów, czyli nasza odpowiedź to:
-$$1-\left( \frac{2025}{2026} \right)^{2023}$$
+\[1-\left( \frac{2025}{2026} \right)^{2023}\]
 \subsection{ii}
-Możemy rozbić wartość oczekiwaną, na indykatory czy dane zadanie zostało wykonane na P2. Z eksperymentu powyżej, każdy indykator ma wartość oczekwianą $\frac{1}{2026}$, czyli $E[X] = 1+\frac{2023}{2026}$
+Możemy rozbić wartość oczekiwaną, na indykatory czy dane zadanie zostało wykonane na P2. Z eksperymentu powyżej, każdy indykator ma wartość oczekwianą \(\frac{1}{2026}\), czyli \(E[X] = 1+\frac{2023}{2026}\)
 \subsection{iii}
-Zauważmy, że po prostu wykonujemy ten sam eksperyment co w (i). Szansa to: $\frac{2025}{2026}$.
+Zauważmy, że po prostu wykonujemy ten sam eksperyment co w (i). Szansa to: \(\frac{2025}{2026}\).
 \subsection{iv}
 Zauważmy, że pytamy tutaj o prawdopodobieństwo, zajścia 2 zadań niezależnie: P2 wygrał eksperyment o zadanie 1000 i przegrał każdy kolejny (niezależne, bo rozkład bez pamięci):
-$$P(T_{1000} \mbox{ na P2 } \wedge T_{1001}-T_{2025} \mbox{ na P1}) = \frac{1}{2026} * \left( \frac{2025}{2026} \right)^{1025} $$
+\[P(T_{1000} \mbox{ na P2 } \wedge T_{1001}-T_{2025} \mbox{ na P1}) = \frac{1}{2026} * \left( \frac{2025}{2026} \right)^{1025} \]
 \subsection{v}
 Wiemy, że P2 wykonał dokładnie 3 zadania, czyli P1 wykonał wszystkie inne. Możemy to policzyć z prostego kombi:
-$$P(zdarzenia) = \frac{\binom{2023}{2}-\binom{1999}{2}}{\binom{2023}{2}} =1 - \frac{1999*1998}{2023*2022} = 0.02359219 $$
+\[P(zdarzenia) = \frac{\binom{2023}{2}-\binom{1999}{2}}{\binom{2023}{2}} =1 - \frac{1999*1998}{2023*2022} = 0.02359219 \]

@@ -1,31 +1,31 @@
 \section{Zadanie 7}
-Niech $X,Y$ będą niezależnymi zmiennymi z rozkładu $N(0,1)$. Wyznacz rozkład $X+Y$ pod warunkiem, że $X > 0$ i $Y > 0$. To znaczy, dla każdego $z$ oblicz:
+Niech \(X,Y\) będą niezależnymi zmiennymi z rozkładu \(N(0,1)\). Wyznacz rozkład \(X+Y\) pod warunkiem, że \(X > 0\) i \(Y > 0\). To znaczy, dla każdego \(z\) oblicz:
 \[
-P(X + Y < z | X > 0, Y > 0).
+	P(X + Y < z | X > 0, Y > 0).
 \]
 \textit{Wskazówka:} Wynik podaj w terminach standardowego rozkładu normalnego.
 
 \subsection*{Rozwiązanie}
 
 \begin{align*}
-P(X + Y < z | X > 0, Y > 0) = \frac{P(X+Y<z, X>0, Y>0)}{P(X>0, Y>0)}
+	P(X + Y < z | X > 0, Y > 0) = \frac{P(X+Y<z, X>0, Y>0)}{P(X>0, Y>0)}
 \end{align*}
-Mianownik tego wyrażenia wynosi $ \frac{1}{2}\cdot \frac{1}{2}  =\frac{1}{4} $(z niezależności $X,Y$). \\
+Mianownik tego wyrażenia wynosi \( \frac{1}{2}\cdot \frac{1}{2}  =\frac{1}{4} \)(z niezależności \(X,Y\)). \\
 \\
-Aby łatwiej obliczyć licznik, wprowadźmy zmienne $U = \frac{X+Y}{\sqrt{2}}, V=\frac{X-Y}{\sqrt{2}}$. Z Zadania 5(podpunkt $iii$) wiemy, że $X+Y$ oraz $X-Y$ są niezależne, więc $U$ oraz $V$ są niezależne. Oprócz tego $X+Y$ ma rozkład $N(0,2)$, a po 'przeskalowaniu' przez $\sqrt{2}$ dostajemy, że $U,V$ mają rozkład standardowy normalny.\\
-Obliczmy więc licznik, po drodze korzystając z faktu, że $\phi(u)$ to pochodna $\Phi(u)$, więc $\int \phi(u)\Phi(u) du = \frac{1}{2}\Phi(u)^2$, co z kolei implikuje $\int_{0}^{t} \phi(u)\Phi(u) du = \frac{1}{2}(\Phi(t)^2 - \Phi(0)^2) = \frac{1}{2}\Phi(t)^2 - \frac{1}{8}$.
+Aby łatwiej obliczyć licznik, wprowadźmy zmienne \(U = \frac{X+Y}{\sqrt{2}}, V=\frac{X-Y}{\sqrt{2}}\). Z Zadania 5(podpunkt \(iii\)) wiemy, że \(X+Y\) oraz \(X-Y\) są niezależne, więc \(U\) oraz \(V\) są niezależne. Oprócz tego \(X+Y\) ma rozkład \(N(0,2)\), a po 'przeskalowaniu' przez \(\sqrt{2}\) dostajemy, że \(U,V\) mają rozkład standardowy normalny.\\
+Obliczmy więc licznik, po drodze korzystając z faktu, że \(\phi(u)\) to pochodna \(\Phi(u)\), więc \(\int \phi(u)\Phi(u) du = \frac{1}{2}\Phi(u)^2\), co z kolei implikuje \(\int_{0}^{t} \phi(u)\Phi(u) du = \frac{1}{2}(\Phi(t)^2 - \Phi(0)^2) = \frac{1}{2}\Phi(t)^2 - \frac{1}{8}\).
 \begin{align*}
-& P(X+Y<z, X>0, Y>0) = P(0<U<\frac{z}{\sqrt{2}}, -U<V<U) = \int_{0}^{\frac{z}{\sqrt{2}}} \phi(u) \int_{-u}^{u} \phi(v) dvdu = \\
-&= \int_{0}^{\frac{z}{\sqrt{2}}} \phi(u) (2\Phi(u) - 1)du = 2\int_{0}^{\frac{z}{\sqrt{2}}}\phi(u)\Phi(u) du - \int_{0}^{\frac{z}{\sqrt{2}}}\phi(u)du = 
-\Phi(\frac{z}{\sqrt{2}})^2 - \Phi(0)^2
-- \Phi(\frac{z}{\sqrt{2}})+\frac{1}{2} =\\&= 
-\Phi(\frac{z}{\sqrt{2}})^2 - \Phi(\frac{z}{\sqrt{2}}) + \frac{1}{4} = (\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2
+	 & P(X+Y<z, X>0, Y>0) = P(0<U<\frac{z}{\sqrt{2}}, -U<V<U) = \int_{0}^{\frac{z}{\sqrt{2}}} \phi(u) \int_{-u}^{u} \phi(v) dvdu =                           \\
+	 & = \int_{0}^{\frac{z}{\sqrt{2}}} \phi(u) (2\Phi(u) - 1)du = 2\int_{0}^{\frac{z}{\sqrt{2}}}\phi(u)\Phi(u) du - \int_{0}^{\frac{z}{\sqrt{2}}}\phi(u)du =
+	\Phi(\frac{z}{\sqrt{2}})^2 - \Phi(0)^2
+	- \Phi(\frac{z}{\sqrt{2}})+\frac{1}{2} =                                                                                                                 \\&=
+	\Phi(\frac{z}{\sqrt{2}})^2 - \Phi(\frac{z}{\sqrt{2}}) + \frac{1}{4} = (\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2
 \end{align*}
 
-Łącząc otrzymane wyniki, otrzymujemy wynik $4(\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2$
+Łącząc otrzymane wyniki, otrzymujemy wynik \(4(\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2\)
 \subsection*{Odpowiedź}
 \[
-\boxed{
-4(\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2 \text{ dla } z > 0\text{, wpp. } 0
-}
+	\boxed{
+		4(\Phi(\frac{z}{\sqrt{2}}) - \frac{1}{2})^2 \text{ dla } z > 0\text{, wpp. } 0
+	}
 \]

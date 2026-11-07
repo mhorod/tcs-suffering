@@ -9,25 +9,25 @@ Parafrazując: wszystko jest nieujemne i sumuje się do zera, więc
 
 Zdefinujmy \(g: R_{\geqslant0} \to R_{\geqslant0}\) jako
 \[
-    g(x) = 
-    \begin{cases}
-        0 & x=0,\\
-        \max\{2^a \mid a\in{\mathbb Z}, 2^a \leqslant x\}, & x>0
-    \end{cases}
+	g(x) =
+	\begin{cases}
+		0                                                  & x=0, \\
+		\max\{2^a \mid a\in{\mathbb Z}, 2^a \leqslant x\}, & x>0
+	\end{cases}
 \]
-Teraz zdefiniujmy \(f = g \circ h\). Przyglądając się dostatecznie długo 
+Teraz zdefiniujmy \(f = g \circ h\). Przyglądając się dostatecznie długo
 mamy, że \(f\) jest mierzalne.
 
-Oczywiście \(f \leqslant h\) (bo \(g\leqslant id\)), oraz 
+Oczywiście \(f \leqslant h\) (bo \(g\leqslant id\)), oraz
 \(\forall_x f(x) = 0 \Leftrightarrow g(x) = 0\).
 
-Korzystając ze schodkowej definicji \(f\), niech \[S_a = 
-\{x\in E\mid h(x) \in [2^a, 2^{a+1})\} = \{x\in E\mid f(x) = 2^a\}\]
+Korzystając ze schodkowej definicji \(f\), niech \[S_a =
+	\{x\in E\mid h(x) \in [2^a, 2^{a+1})\} = \{x\in E\mid f(x) = 2^a\}\]
 oraz niech \(\widetilde S = \{x\mid f(x) = h(x) = 0\}\). Wtedy:
 \[
-    0 = \int_E h\ d\mu \geqslant \int_E f\ d\mu
-    = 0\cdot\mu(\widetilde S) + \sum_{a\in\mathbb{Z}} 2^a\mu(S_a)
-    = \sum_{a\in\mathbb{Z}} 2^a\mu(S_a)
+	0 = \int_E h\ d\mu \geqslant \int_E f\ d\mu
+	= 0\cdot\mu(\widetilde S) + \sum_{a\in\mathbb{Z}} 2^a\mu(S_a)
+	= \sum_{a\in\mathbb{Z}} 2^a\mu(S_a)
 \]
 {\tiny
 (łatwo jest wprowadzić na \(\mathbb{Z}\) dobry porządek podobny do
@@ -39,9 +39,9 @@ Aby suma liczb nieujemnych była zerowa, musi to być sumą samych zer.
 
 Wracając do tezy:
 \[
-    \mu(\{x\in E \mid h(x) \neq 0\})
-    = \mu(\{x\in E \mid f(x) \neq 0\})
-    = \mu(\bigcup_{a\in\mathbb Z} S_a)
-    = \sum_{a\in\mathbb Z} \mu(S_a)
-    = 0
+	\mu(\{x\in E \mid h(x) \neq 0\})
+	= \mu(\{x\in E \mid f(x) \neq 0\})
+	= \mu(\bigcup_{a\in\mathbb Z} S_a)
+	= \sum_{a\in\mathbb Z} \mu(S_a)
+	= 0
 \]

@@ -12,27 +12,27 @@ Teraz rozważmy prawdopodobieństwo, że spacer uderzy w \(n\). Niech:
 
 Można zauważyć, że \(P(X_0) = 0\), bo dla \(k = 0\) spacer natychmiastowo uderza w barierę \(0\), a \(P(X_n) = 1\), bo dla \(k = n\) spacer od razu uderza w \(n\). Dodatkowo możemy zauważyć, że:
 
-$$ \forall_{i \in [n-1]} P(X_i) = \frac{P(X_{i-1})}{2} + \frac{P(X_{i+1})}{2} $$
+\[ \forall_{i \in [n-1]} P(X_i) = \frac{P(X_{i-1})}{2} + \frac{P(X_{i+1})}{2} \]
 
 Używając tego wzoru, możemy teraz policzyć stosunek \(P(X_1)\) do \(P(X_2)\), później \(P(x_2)\) do \(P(x_3)\), itd. Udowodnię indukcyjnie, że \(P(X_i) = \frac{i}{i+1} P(X_{i+1})\). Baza indukcji:
 
-$$ P(X_1) = \frac{P(X_{0})}{2} + \frac{P(X_{2})}{2} = \frac{P(X_{2})}{2} $$
+\[ P(X_1) = \frac{P(X_{0})}{2} + \frac{P(X_{2})}{2} = \frac{P(X_{2})}{2} \]
 
 Krok indukcyjny:
-$$ P(X_i) = \frac{i}{i+1} P(X_{i+1}) $$
-$$ P(X_{i+1}) = \frac{P(X_{i})}{2} + \frac{P(X_{i+2})}{2} = \frac{iP(X_{i+1})}{2i +2} + \frac{P(X_{i+2})}{2}$$
-$$ \frac{P(X_{i+1})(i+2)}{2i+2} = \frac{P(X_{i+2})}{2} $$
-$$ P(X_{i+1}) = \frac{P(X_{i+2})}{2} \frac{2i+2}{i+2} = \frac{i+1}{i+2} P(X_{i+2}) $$
+\[ P(X_i) = \frac{i}{i+1} P(X_{i+1}) \]
+\[ P(X_{i+1}) = \frac{P(X_{i})}{2} + \frac{P(X_{i+2})}{2} = \frac{iP(X_{i+1})}{2i +2} + \frac{P(X_{i+2})}{2}\]
+\[ \frac{P(X_{i+1})(i+2)}{2i+2} = \frac{P(X_{i+2})}{2} \]
+\[ P(X_{i+1}) = \frac{P(X_{i+2})}{2} \frac{2i+2}{i+2} = \frac{i+1}{i+2} P(X_{i+2}) \]
 
 W takim razie, zachodzi:
-$$ P(X_i) = \frac{i}{i+1} P(X_{i+1}) = \frac{i}{i+1}\frac{i+1}{i+2} P(X_{i+2}) = \frac{i}{i+1} \frac{i+1}{i+2} \ldots \frac{n-1}{n} P(X_n) = \frac{i}{n} P(X_n) = \frac{i}{n}  $$
+\[ P(X_i) = \frac{i}{i+1} P(X_{i+1}) = \frac{i}{i+1}\frac{i+1}{i+2} P(X_{i+2}) = \frac{i}{i+1} \frac{i+1}{i+2} \ldots \frac{n-1}{n} P(X_n) = \frac{i}{n} P(X_n) = \frac{i}{n}  \]
 
 A więc dla ustalonego \(k\), prawdopodobieństwo, że spacer uderzy w \(n\) to \(\frac{k}{n}\).
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{Prawdopodobieństwo, że spacer uderzy w którąś z barier = 1}}
+	\boxed{\text{Prawdopodobieństwo, że spacer uderzy w którąś z barier = 1}}
 \]
 \[
-\boxed{\text{Prawdopodobieństwo, że spacer uderzy w \(n\) = \(\frac{k}{n}\)}}
+	\boxed{\text{Prawdopodobieństwo, że spacer uderzy w \(n\) = \(\frac{k}{n}\)}}
 \]

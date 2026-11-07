@@ -1,78 +1,78 @@
 \section{Zadanie 11}
 \autor{Mateusz Wojaczek}
-Niech $(X_n)_{n=1}^{\infty}$ będą niezależnymi zmiennymi losowymi 
-rozkładu jednostajnego na przedziale $[0, 1]$. Dla danego $k \in (0, 1)$
-niech 
+Niech \((X_n)_{n=1}^{\infty}\) będą niezależnymi zmiennymi losowymi
+rozkładu jednostajnego na przedziale \([0, 1]\). Dla danego \(k \in (0, 1)\)
+niech
 \[
-N(k) = \min \left\{ n : \prod_{i=1}^{n} X_i < k \right\}.
+	N(k) = \min \left\{ n : \prod_{i=1}^{n} X_i < k \right\}.
 \]
-Wyznacz $\mathbb{E}[N(k)]$.
+Wyznacz \(\ev{N(k)}\).
 
 \subsection*{Rozwiązanie}
 \[
-\mathbb{E}[N(k)] = \sum_{n=0}^{\infty} P(N(k) > n)
+	\ev{N(k)} = \sum_{n=0}^{\infty} P(N(k) > n)
 \]
 
 \[
-P(N(k) > n) = P\Big(\prod_{i=1}^{n} X_i \ge k \Big) 
-= P\Big(\ln \big(\prod_{i=1}^{n} X_i \big) \ge \ln(k) \Big)
+	P(N(k) > n) = P\Big(\prod_{i=1}^{n} X_i \ge k \Big)
+	= P\Big(\ln \big(\prod_{i=1}^{n} X_i \big) \ge \ln(k) \Big)
 \]
 
 \[
-= P\Big( \sum_{i=1}^{n} -\ln(X_i) \le -\ln(k) \Big)
+	= P\Big( \sum_{i=1}^{n} -\ln(X_i) \le -\ln(k) \Big)
 \]
 
-Niech 
+Niech
 \[
-Y_i = -\ln(X_i) \sim \text{Exp}(1)
-\]
-
-\[
-S_n = \sum_{i=1}^{n} Y_i \sim \text{Gamma}(n, 1) \quad // \text{twierdzenie 12.3.1 suffering}
-\]
-
-Niech $c = -\ln(k)$, zatem 
-\[
-P(N(k) > n) = P(S_n \le c) = \int_{0}^{c} f_{S_n}(x) \, dx
-\]
-
-gdzie 
-\[
-f_{S_n}(x) = \frac{1}{\Gamma(n)} x^{n-1} e^{-x} \quad // \text{definicja 12.3.2 suffering}
+	Y_i = -\ln(X_i) \sim \text{Exp}(1)
 \]
 
 \[
-P(N(k) > n) = \int_{0}^{c} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx
+	S_n = \sum_{i=1}^{n} Y_i \sim \text{Gamma}(n, 1) \quad // \text{twierdzenie 12.3.1 suffering}
 \]
 
-
+Niech \(c = -\ln(k)\), zatem
 \[
-\mathbb{E}[N(k)] = \sum_{n=0}^{\infty} P(N(k) > n) =
-P(N(k) > 0) +  \sum_{n=1}^{\infty} P(N(k) > n) = 
-1 + \sum_{n=1}^{\infty} P(N(k) > n)
+	P(N(k) > n) = P(S_n \le c) = \int_{0}^{c} f_{S_n}(x) \, dx
 \]
 
-zatem 
+gdzie
 \[
-\mathbb{E}[N(k)] = 1 + \sum_{n=1}^{\infty} \int_{0}^{c} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx 
-= 1 + \int_{0}^{c} \sum_{n=1}^{\infty} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx
+	f_{S_n}(x) = \frac{1}{\Gamma(n)} x^{n-1} e^{-x} \quad // \text{definicja 12.3.2 suffering}
 \]
 
 \[
-= 1 + \int_{0}^{c} e^{-x} \sum_{n=0}^{\infty} \frac{x^n}{n!} \, dx \quad // \text{rozwinięcie Taylora}
-\]
-
-\[
-= 1 + \int_{0}^{c} e^{-x} \cdot e^x \, dx = 1 + \int_{0}^{c} 1 \, dx 
-= 1 + [x]_0^c = 1 + c
+	P(N(k) > n) = \int_{0}^{c} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx
 \]
 
 
 \[
-1 + c = 1 - ln(k)
+	\ev{N(k)} = \sum_{n=0}^{\infty} P(N(k) > n) =
+	P(N(k) > 0) +  \sum_{n=1}^{\infty} P(N(k) > n) =
+	1 + \sum_{n=1}^{\infty} P(N(k) > n)
+\]
+
+zatem
+\[
+	\ev{N(k)} = 1 + \sum_{n=1}^{\infty} \int_{0}^{c} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx
+	= 1 + \int_{0}^{c} \sum_{n=1}^{\infty} \frac{1}{(n-1)!} x^{n-1} e^{-x} \, dx
+\]
+
+\[
+	= 1 + \int_{0}^{c} e^{-x} \sum_{n=0}^{\infty} \frac{x^n}{n!} \, dx \quad // \text{rozwinięcie Taylora}
+\]
+
+\[
+	= 1 + \int_{0}^{c} e^{-x} \cdot e^x \, dx = 1 + \int_{0}^{c} 1 \, dx
+	= 1 + [x]_0^c = 1 + c
+\]
+
+
+\[
+	1 + c = 1 - ln(k)
 \]
 
 \subsection*{Odpowiedź}
 \[
-\boxed{\text{1 - ln(k)}}
+	\boxed{\text{1 - ln(k)}}
 \]

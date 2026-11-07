@@ -1,71 +1,71 @@
 \section{Zadanie 5}
-Niech $G$ będzie skończonym grafem spójnym na co najmniej dwóch wierzchołkach. Rozważmy łańcuch Markowa, gdzie przestrzeń stanów $\Omega(G)$ jest rodziną wszystkich zbiorów niezależnych w $G$. Krok ze stanu $M_t$ do następnego stanu działa następująco. Losujemy jednostajnie i niezależnie: $uv \in E(G)$, $p \in \{1, 2, 3\}$.
+Niech \(G\) będzie skończonym grafem spójnym na co najmniej dwóch wierzchołkach. Rozważmy łańcuch Markowa, gdzie przestrzeń stanów \(\Omega(G)\) jest rodziną wszystkich zbiorów niezależnych w \(G\). Krok ze stanu \(M_t\) do następnego stanu działa następująco. Losujemy jednostajnie i niezależnie: \(uv \in E(G)\), \(p \in \{1, 2, 3\}\).
 \begin{itemize}
-    \item Jeśli $p = 1$, to $M'_t = M_t \setminus \{u, v\}$.
-    \item Jeśli $p = 2$, to $M'_t = M_t \setminus \{u\} \cup \{v\}$.
-    \item Jeśli $p = 3$, to $M'_t = M_t \setminus \{v\} \cup \{u\}$.
+	\item Jeśli \(p = 1\), to \(M'_t = M_t \setminus \{u, v\}\).
+	\item Jeśli \(p = 2\), to \(M'_t = M_t \setminus \{u\} \cup \{v\}\).
+	\item Jeśli \(p = 3\), to \(M'_t = M_t \setminus \{v\} \cup \{u\}\).
 \end{itemize}
-Jeśli $M'_t$ jest zbiorem niezależnym w $G$, to $M_{t+1} = M'_t$, a w przeciwnym przypadku $M_{t+1} = M_t$. Udowodnij, że ten łańcuch jest nieprzywiedlny, nieokresowy i jego rozkład stacjonarny jest jednostajny.
+Jeśli \(M'_t\) jest zbiorem niezależnym w \(G\), to \(M_{t+1} = M'_t\), a w przeciwnym przypadku \(M_{t+1} = M_t\). Udowodnij, że ten łańcuch jest nieprzywiedlny, nieokresowy i jego rozkład stacjonarny jest jednostajny.
 
 \subsection*{Rozwiązanie}
-Niech $N = |E(G)|$ oznacza liczbę krawędzi w grafie.
+Niech \(N = |E(G)|\) oznacza liczbę krawędzi w grafie.
 
 \subsection*{1. Nieprzywiedlność}
 
-Łańcuch jest nieprzywiedlny, jeśli z każdego stanu $S$ można dojść do każdego innego stanu $T$ w skończonej liczbie kroków. Ponieważ wykażemy później, że łańcuch jest odwracalny, wystarczy pokazać, że z dowolnego zbioru niezależnego $S$ można dojść do zbioru pustego $\emptyset$.
+Łańcuch jest nieprzywiedlny, jeśli z każdego stanu \(S\) można dojść do każdego innego stanu \(T\) w skończonej liczbie kroków. Ponieważ wykażemy później, że łańcuch jest odwracalny, wystarczy pokazać, że z dowolnego zbioru niezależnego \(S\) można dojść do zbioru pustego \(\emptyset\).
 
-Wybierzmy dowolny wierzchołek $u \in S$.
+Wybierzmy dowolny wierzchołek \(u \in S\).
 \begin{enumerate}
-    \item Ponieważ $G$ jest spójny i ma co najmniej 2 wierzchołki, istnieje krawędź $uv \in E(G)$.
-    \item Ponieważ $S$ jest zbiorem niezależnym i $u \in S$, to z definicji $v \notin S$.
+	\item Ponieważ \(G\) jest spójny i ma co najmniej 2 wierzchołki, istnieje krawędź \(uv \in E(G)\).
+	\item Ponieważ \(S\) jest zbiorem niezależnym i \(u \in S\), to z definicji \(v \notin S\).
 \end{enumerate}
 
-Wtedy weźmy krok łańcucha, w którym wylosowano krawędź $uv$ oraz $p=1$.
-$M' = S \setminus \{u, v\}$. Skoro $v \notin S$, operacja ta redukuje się do $M' = S \setminus \{u\}$. Zbiór $M'$ (jako podzbiór zbioru niezależnego) jest nadal niezależny, więc przejście jest akceptowane z prawdopodobieństwem co najmniej $\frac{1}{3N}$.
+Wtedy weźmy krok łańcucha, w którym wylosowano krawędź \(uv\) oraz \(p=1\).
+\(M' = S \setminus \{u, v\}\). Skoro \(v \notin S\), operacja ta redukuje się do \(M' = S \setminus \{u\}\). Zbiór \(M'\) (jako podzbiór zbioru niezależnego) jest nadal niezależny, więc przejście jest akceptowane z prawdopodobieństwem co najmniej \(\frac{1}{3N}\).
 
-Powtarzając tę procedurę dla każdego wierzchołka w $S$, redukujemy zbiór aż do osiągnięcia stanu $\emptyset$. Zatem graf przejść jest spójny.
+Powtarzając tę procedurę dla każdego wierzchołka w \(S\), redukujemy zbiór aż do osiągnięcia stanu \(\emptyset\). Zatem graf przejść jest spójny.
 
 \subsection*{2. Nieokresowość}
 
-Aby wykazać nieokresowość, wystarczy wskazać stan, dla którego prawdopodobieństwo pozostania w nim w jednym kroku jest dodatnie ($P(S \to S) > 0$).
+Aby wykazać nieokresowość, wystarczy wskazać stan, dla którego prawdopodobieństwo pozostania w nim w jednym kroku jest dodatnie (\(P(S \to S) > 0\)).
 
-Niech $S$ będzie dowolnym zbiorem niezależnym. Rozważmy dowolną krawędź $uv$.
+Niech \(S\) będzie dowolnym zbiorem niezależnym. Rozważmy dowolną krawędź \(uv\).
 \begin{itemize}
-    \item \textbf{Przypadek A:} $u \notin S$ i $v \notin S$.
-    Jeśli wylosujemy $p=1$, to $M' = S \setminus \{u, v\} = S$. Stan nie ulega zmianie.
-    \item \textbf{Przypadek B:} $u \in S$ (wtedy $v \notin S$).
-    Jeśli wylosujemy $p=3$ (operacja $M_t \setminus \{v\} \cup \{u\}$), to ponieważ $v \notin S$ i $u \in S$, otrzymujemy $M' = S$. Stan nie ulega zmianie.
+	\item \textbf{Przypadek A:} \(u \notin S\) i \(v \notin S\).
+	      Jeśli wylosujemy \(p=1\), to \(M' = S \setminus \{u, v\} = S\). Stan nie ulega zmianie.
+	\item \textbf{Przypadek B:} \(u \in S\) (wtedy \(v \notin S\)).
+	      Jeśli wylosujemy \(p=3\) (operacja \(M_t \setminus \{v\} \cup \{u\}\)), to ponieważ \(v \notin S\) i \(u \in S\), otrzymujemy \(M' = S\). Stan nie ulega zmianie.
 \end{itemize}
-W obu przypadkach istnieje niezerowe prawdopodobieństwo pozostania w stanie $S$. Zatem łańcuch jest nieokresowy.
+W obu przypadkach istnieje niezerowe prawdopodobieństwo pozostania w stanie \(S\). Zatem łańcuch jest nieokresowy.
 
 \subsection*{3. Jednostajny rozkład stacjonarny}
 
-Aby udowodnić, że rozkład stacjonarny $\pi$ jest jednostajny, wystarczy pokazać, że macierz przejścia jest symetryczna, czyli dla dowolnych stanów $A, B$:
+Aby udowodnić, że rozkład stacjonarny \(\pi\) jest jednostajny, wystarczy pokazać, że macierz przejścia jest symetryczna, czyli dla dowolnych stanów \(A, B\):
 \[ P(A \to B) = P(B \to A) \]
 Przejścia zmieniające stan są możliwe tylko między zbiorami różniącymi się w obrębie dwóch wierzchołków
 
-\textbf{Przypadek 1: Zmiana liczby wierzchołków ($|A| = |B| + 1$)} \\
-Niech $A = B \cup \{u\}$, gdzie $u \notin B$. Aby przejście było możliwe, $A$ musi być niezależny, więc żaden sąsiad $u$ nie należy do $B$.
+\textbf{Przypadek 1: Zmiana liczby wierzchołków (\(|A| = |B| + 1\))} \\
+Niech \(A = B \cup \{u\}\), gdzie \(u \notin B\). Aby przejście było możliwe, \(A\) musi być niezależny, więc żaden sąsiad \(u\) nie należy do \(B\).
 \begin{itemize}
-    \item \textbf{Przejście $A \to B$ (usunięcie $u$):} Wymaga wylosowania krawędzi $uv$ incydentnej z $u$ oraz $p=1$ ($M' = A \setminus \{u, v\}$). Ponieważ $v \notin A$, usuwamy tylko $u$. Prawdopodobieństwo wynosi:
-    \[ P(A \to B) = \sum_{v \in N(u)} \frac{1}{3N} = \frac{\deg(u)}{3N} \]
-    \item \textbf{Przejście $B \to A$ (dodanie $u$):} Wymaga wylosowania krawędzi $uv$ incydentnej z $u$. Musimy dodać $u$. W stanie $B$ nie ma $u$ ani $v$.
-    Dla $p=3$ operacja to $B \setminus \{v\} \cup \{u\} = B \cup \{u\} = A$.
-    Dla $p=2$ operacja to $B \setminus \{u\} \cup \{v\} = B \cup \{v\} \neq A$.
-    Zatem interesuje nas tylko $p=3$:
-    \[ P(B \to A) = \sum_{v \in N(u)} \frac{1}{3N} = \frac{\deg(u)}{3N} \]
+	\item \textbf{Przejście \(A \to B\) (usunięcie \(u\)):} Wymaga wylosowania krawędzi \(uv\) incydentnej z \(u\) oraz \(p=1\) (\(M' = A \setminus \{u, v\}\)). Ponieważ \(v \notin A\), usuwamy tylko \(u\). Prawdopodobieństwo wynosi:
+	      \[ P(A \to B) = \sum_{v \in N(u)} \frac{1}{3N} = \frac{\deg(u)}{3N} \]
+	\item \textbf{Przejście \(B \to A\) (dodanie \(u\)):} Wymaga wylosowania krawędzi \(uv\) incydentnej z \(u\). Musimy dodać \(u\). W stanie \(B\) nie ma \(u\) ani \(v\).
+	      Dla \(p=3\) operacja to \(B \setminus \{v\} \cup \{u\} = B \cup \{u\} = A\).
+	      Dla \(p=2\) operacja to \(B \setminus \{u\} \cup \{v\} = B \cup \{v\} \neq A\).
+	      Zatem interesuje nas tylko \(p=3\):
+	      \[ P(B \to A) = \sum_{v \in N(u)} \frac{1}{3N} = \frac{\deg(u)}{3N} \]
 \end{itemize}
-Otrzymujemy $P(A \to B) = P(B \to A)$.
+Otrzymujemy \(P(A \to B) = P(B \to A)\).
 
 \textbf{Przypadek 2: Wymiana wierzchołka} \\
-Niech $A$ zawiera $u$, $B$ zawiera $v$, gdzie $uv \in E(G)$, a $A \setminus \{u\} = B \setminus \{v\}$.
+Niech \(A\) zawiera \(u\), \(B\) zawiera \(v\), gdzie \(uv \in E(G)\), a \(A \setminus \{u\} = B \setminus \{v\}\).
 \begin{itemize}
-    \item \textbf{Przejście $A \to B$:} Wymaga wylosowania konkretnej krawędzi $uv$ oraz $p=2$ ($A \setminus \{u\} \cup \{v\}$).
-    \[ P(A \to B) = \frac{1}{N} \cdot \frac{1}{3} = \frac{1}{3N} \]
-    \item \textbf{Przejście $B \to A$:} Wymaga wylosowania krawędzi $uv$ oraz $p=3$ ($B \setminus \{v\} \cup \{u\}$).
-    \[ P(B \to A) = \frac{1}{N} \cdot \frac{1}{3} = \frac{1}{3N} \]
+	\item \textbf{Przejście \(A \to B\):} Wymaga wylosowania konkretnej krawędzi \(uv\) oraz \(p=2\) (\(A \setminus \{u\} \cup \{v\}\)).
+	      \[ P(A \to B) = \frac{1}{N} \cdot \frac{1}{3} = \frac{1}{3N} \]
+	\item \textbf{Przejście \(B \to A\):} Wymaga wylosowania krawędzi \(uv\) oraz \(p=3\) (\(B \setminus \{v\} \cup \{u\}\)).
+	      \[ P(B \to A) = \frac{1}{N} \cdot \frac{1}{3} = \frac{1}{3N} \]
 \end{itemize}
-Tutaj również $P(A \to B) = P(B \to A)$.
+Tutaj również \(P(A \to B) = P(B \to A)\).
 
 \textbf{Wniosek:}
 Macierz przejścia jest symetryczna, co z poprzedniego zestawu z łańcuchów Markowa wiemy, że daje nam rozkład stacjnonarny, jednostajny.

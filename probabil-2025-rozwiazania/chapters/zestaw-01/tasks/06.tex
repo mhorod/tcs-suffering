@@ -1,78 +1,78 @@
 \section{Zadanie 6}
 \autor{Mateusz Wojaczek}
-Pokaż, że jeżeli zdarzenia $A_1, A_2, \ldots, A_n$ są niezależne, 
-to zdarzenia 
+Pokaż, że jeżeli zdarzenia \(A_1, A_2, \ldots, A_n\) są niezależne,
+to zdarzenia
 \[
-\Omega \setminus A_1,\, \Omega \setminus A_2,\, \ldots,\, \Omega \setminus A_n
+	\Omega \setminus A_1,\, \Omega \setminus A_2,\, \ldots,\, \Omega \setminus A_n
 \]
 również są niezależne.
 
 \subsection*{Rozwiązanie}
 
-\subsection*{Założenie (niezależność zdarzeń $A_1, \dots, A_n$)}
+\subsection*{Założenie (niezależność zdarzeń \(A_1, \dots, A_n\))}
 
 \[
-\forall I \subseteq \{1,2,\dots,n\}, \quad
-P\!\left(\bigcap_{i \in I} A_i \right) = \prod_{i \in I} P(A_i).
+	\forall I \subseteq \{1,2,\dots,n\}, \quad
+	P\!\left(\bigcap_{i \in I} A_i \right) = \prod_{i \in I} P(A_i).
 \]
 
 \subsection*{Teza do udowodnienia}
 
-Dla dowolnego $I \subseteq \{1, \dots, n\}$ zachodzi
+Dla dowolnego \(I \subseteq \{1, \dots, n\}\) zachodzi
 \[
-P\!\left(\bigcap_{i \in I} (\Omega \setminus A_i)\right)
-= \prod_{i \in I} P(\Omega \setminus A_i).
+	P\!\left(\bigcap_{i \in I} (\Omega \setminus A_i)\right)
+	= \prod_{i \in I} P(\Omega \setminus A_i).
 \]
 
 \subsection*{Dowód}
 
-Niech $I \subseteq [n]$. Rozpoczynamy od przekształcenia przecięcia dopełnień przy użyciu prawa De Morgana:
+Niech \(I \subseteq [n]\). Rozpoczynamy od przekształcenia przecięcia dopełnień przy użyciu prawa De Morgana:
 
 \begin{align*}
-P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
-&= P\!\left( \Omega \setminus \bigcup_{i \in I} A_i \right) 
-\text{(De Morgan)} \\
-&= P(\Omega) - P\!\left( \bigcup_{i \in I} A_i \right) 
-= 1 - P\!\left( \bigcup_{i \in I} A_i \right).
+	P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
+	 & = P\!\left( \Omega \setminus \bigcup_{i \in I} A_i \right)
+	\text{(De Morgan)}                                            \\
+	 & = P(\Omega) - P\!\left( \bigcup_{i \in I} A_i \right)
+	= 1 - P\!\left( \bigcup_{i \in I} A_i \right).
 \end{align*}
 
 
 \[
-P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
-= 1 - \sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} P\!\left( \bigcap_{i \in J} A_i \right).
+	P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
+	= 1 - \sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} P\!\left( \bigcap_{i \in J} A_i \right).
 \]
 
-Ponieważ zdarzenia $A_i$ są niezależne
+Ponieważ zdarzenia \(A_i\) są niezależne
 
 \[
-P\!\left( \bigcap_{i \in J} A_i \right) = \prod_{i \in J} P(A_i),
+	P\!\left( \bigcap_{i \in J} A_i \right) = \prod_{i \in J} P(A_i),
 \]
 
 więc
 
 \[
-P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
-= 1 - \sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} \prod_{i \in J} P(A_i).
+	P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
+	= 1 - \sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} \prod_{i \in J} P(A_i).
 \]
 
 Teraz zauważamy, że suma odpowiada funkcji tworzącej iloczynu:
 
 \[
-\sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} \prod_{i \in J} P(A_i)
-= 1 - \prod_{i \in I} \big( 1 - P(A_i) \big).
+	\sum_{\substack{J \subseteq I \\ J \neq \emptyset}} (-1)^{|J|+1} \prod_{i \in J} P(A_i)
+	= 1 - \prod_{i \in I} \big( 1 - P(A_i) \big).
 \]
 
 Podstawiając to, otrzymujemy:
 
 \begin{align*}
-P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
-&= 1 - \left[ 1 - \prod_{i \in I} \big( 1 - P(A_i) \big) \right] \\
-&= \prod_{i \in I} \big( 1 - P(A_i) \big) \\
-&= \prod_{i \in I} P(\Omega \setminus A_i).
+	P\!\left( \bigcap_{i \in I} (\Omega \setminus A_i) \right)
+	 & = 1 - \left[ 1 - \prod_{i \in I} \big( 1 - P(A_i) \big) \right] \\
+	 & = \prod_{i \in I} \big( 1 - P(A_i) \big)                        \\
+	 & = \prod_{i \in I} P(\Omega \setminus A_i).
 \end{align*}
 
 
 \subsection*{Odpowiedź}
 \[
-\hfill \square
+	\hfill \square
 \]

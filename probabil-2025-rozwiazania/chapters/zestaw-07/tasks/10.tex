@@ -1,40 +1,40 @@
 \section{Zadanie 10}
 \autor{Kacper Orszulak}
-Udowodnij, że jeżeli $\pi$ jest rozkładem stacjonarnym skończonego łańcucha Markowa o macierzy przejścia $P$, to $\pi_{y_0} = 0$ dla wszystkich nieistotnych stanów $y_0$.
+Udowodnij, że jeżeli \(\pi\) jest rozkładem stacjonarnym skończonego łańcucha Markowa o macierzy przejścia \(P\), to \(\pi_{y_0} = 0\) dla wszystkich nieistotnych stanów \(y_0\).
 
 \subsection*{Rozwiązanie}
-$$
-\begin{aligned}
-    \pi &= \pi P \\
-    \forall_{n \in \mathbb{N}} \; \pi &= \pi P^n \\
-    \forall_{n \in \mathbb{N}} \; \pi_{y_0} &= \sum_{x \in S} \pi_x \mathcal{P}_{xy_0}(n) \\
-    \sum_{n = 0}^\infty \pi_{y_0} &= \sum_{n = 0}^\infty \sum_{x \in S} \pi_x \mathcal{P}_{xy_0}(n) \\
-\end{aligned}
-$$
+\[
+	\begin{aligned}
+		\pi                                     & = \pi P                                                          \\
+		\forall_{n \in \mathbb{N}} \; \pi       & = \pi P^n                                                        \\
+		\forall_{n \in \mathbb{N}} \; \pi_{y_0} & = \sum_{x \in S} \pi_x \mathcal{P}_{xy_0}(n)                     \\
+		\sum_{n = 0}^\infty \pi_{y_0}           & = \sum_{n = 0}^\infty \sum_{x \in S} \pi_x \mathcal{P}_{xy_0}(n) \\
+	\end{aligned}
+\]
 \begin{equation} \label{eq:1}
-    \sum_{n = 0}^\infty \pi_{y_0} = \sum_{x \in S} \pi_x \sum_{n = 0}^\infty \mathcal{P}_{xy_0}(n) \\
+	\sum_{n = 0}^\infty \pi_{y_0} = \sum_{x \in S} \pi_x \sum_{n = 0}^\infty \mathcal{P}_{xy_0}(n) \\
 \end{equation}
 
-Pokażemy teraz, że $\forall_{x \in S} \; \sum_{n = 0}^\infty \mathcal{P}_{xy_0}(n) < \infty$.
+Pokażemy teraz, że \(\forall_{x \in S} \; \sum_{n = 0}^\infty \mathcal{P}_{xy_0}(n) < \infty\).
 
-Niech $N := |\{n \ge 0 \; | \; X_n = y_0\}| = $ liczba wizyt w $y_0$.
+Niech \(N := |\{n \ge 0 \; | \; X_n = y_0\}| = \) liczba wizyt w \(y_0\).
 
-$$
-\begin{aligned}
-    \sum_{n=0}^\infty \; \mathcal{P}_{xy_0}(n) &=
-    \sum_{n=0}^\infty \; \mathcal{P}(X_n = y_0 \; | \; X_0 = x) \\
-    &= \mathbb{E}[N \; | X_0 = x] \\
-    &= \sum_{n = 0}^\infty n \cdot \mathcal{P}(N = n \; | \; X_0 = x) \\
-    &= \sum_{k = 1}^\infty \mathcal{P}(N \ge k \; | \; X_0 = x) \\
-    &= \sum_{k = 1}^\infty \mathcal{P}_x(\text{liczba wizyt w $y_0$ co najmniej $k$ razy}) \\
-    &= \sum_{k = 1}^\infty \mathcal{P}_x(\substack{\text{wizyta w } y_0 \\ \text{ po skończonej liczbie kroków}}) \cdot \mathcal{P}_{y_0}(\substack{\text{powrót do } y_0 \\ \text{po skończonej liczbie kroków}})^{k-1} \\
-    &= \sum_{k = 1}^\infty \underbrace{\mathcal{P}_x(\tau_{y_0}^+ < \infty)}_{a} \cdot {\underbrace{\mathcal{P}_{y_0}(\tau_{y_0}^+ < \infty)}_{q}}^{k-1} \\
-\end{aligned}
-$$
+\[
+	\begin{aligned}
+		\sum_{n=0}^\infty \; \mathcal{P}_{xy_0}(n) & =
+		\sum_{n=0}^\infty \; \mathcal{P}(X_n = y_0 \; | \; X_0 = x)                                                                                                                                      \\
+		                                           & = \ev{N \; | X_0 = x}                                                                                                                               \\
+		                                           & = \sum_{n = 0}^\infty n \cdot \mathcal{P}(N = n \; | \; X_0 = x)                                                                                    \\
+		                                           & = \sum_{k = 1}^\infty \mathcal{P}(N \ge k \; | \; X_0 = x)                                                                                          \\
+		                                           & = \sum_{k = 1}^\infty \mathcal{P}_x(\text{liczba wizyt w \(y_0\) co najmniej \(k\) razy})                                                           \\
+		                                           & = \sum_{k = 1}^\infty \mathcal{P}_x(\substack{\text{wizyta w } y_0                                                                                  \\ \text{ po skończonej liczbie kroków}}) \cdot \mathcal{P}_{y_0}(\substack{\text{powrót do } y_0 \\ \text{po skończonej liczbie kroków}})^{k-1} \\
+		                                           & = \sum_{k = 1}^\infty \underbrace{\mathcal{P}_x(\tau_{y_0}^+ < \infty)}_{a} \cdot {\underbrace{\mathcal{P}_{y_0}(\tau_{y_0}^+ < \infty)}_{q}}^{k-1} \\
+	\end{aligned}
+\]
 
-Korzystając z \hyperref[set07.task7]{zadania 7.}, wiemy iż $q < 1$. Dany szereg jest zatem zbieżny:
-$$
-    \sum_{k=1}^\infty a \cdot q^{k-1} = \frac{p}{q-1} < \infty
-$$
+Korzystając z \hyperref[set07.task7]{zadania 7.}, wiemy iż \(q < 1\). Dany szereg jest zatem zbieżny:
+\[
+	\sum_{k=1}^\infty a \cdot q^{k-1} = \frac{p}{q-1} < \infty
+\]
 
-Pokazaliśmy zatem, że $RHS$ równania \eqref{eq:1} jest skończone. Lewa strona zatem też musi być skończona. LHS to nieskończona suma pewnej stałej, zatem ta stała musi być zero. Dokładniej $\pi_{y_0} = 0$. \hfill $\square$
+Pokazaliśmy zatem, że \(RHS\) równania \eqref{eq:1} jest skończone. Lewa strona zatem też musi być skończona. LHS to nieskończona suma pewnej stałej, zatem ta stała musi być zero. Dokładniej \(\pi_{y_0} = 0\). \hfill \(\square\)

@@ -1,27 +1,27 @@
 \section{Zadanie 7}
 \autor{Aleksander Wieczorek}
-W samolocie leci $N = n_1+n_2+n_3+n_4+1$ rodzin, gdzie $n_i$ rodzin ma $i$ sztuk
- bagażu, dla $i \in \{1,2,3,4\}$, a nasza rodzina jest jedyną z pięcioma bagażami.\\
- Przyjmując, że kolejność wydawania walizek jest losowa, jaka jest oczekiwana liczba rodzin, które będą
- czekać dłużej od naszej na swoje bagaże?
+W samolocie leci \(N = n_1+n_2+n_3+n_4+1\) rodzin, gdzie \(n_i\) rodzin ma \(i\) sztuk
+bagażu, dla \(i \in \{1,2,3,4\}\), a nasza rodzina jest jedyną z pięcioma bagażami.\\
+Przyjmując, że kolejność wydawania walizek jest losowa, jaka jest oczekiwana liczba rodzin, które będą
+czekać dłużej od naszej na swoje bagaże?
 
 \subsection*{Rozwiązanie}
 Jak zwykle rozbijemy problem na indykatory. Oznaczmy:\\
-$$X= \text{Liczba rodzin czekająca dłużej od nas}$$
-$$X_{ij}=\begin{cases}
-1 & \text{jeśli j-ta rodzina z $n_i$ czeka dłużej od nas} \\
-0 & \text{w p.p.}
-\end{cases}
-$$
-Żeby policzyć $P(X_{ij})$ będziemy rozważać tylko jak są ustawione bagaże naszej rodziny i rodziny, która ma i bagaży (względem siebie).\\
+\[X= \text{Liczba rodzin czekająca dłużej od nas}\]
+\[X_{ij}=\begin{cases}
+		1 & \text{jeśli j-ta rodzina z \(n_i\) czeka dłużej od nas} \\
+		0 & \text{w p.p.}
+	\end{cases}
+\]
+Żeby policzyć \(P(X_{ij})\) będziemy rozważać tylko jak są ustawione bagaże naszej rodziny i rodziny, która ma i bagaży (względem siebie).\\
 Tzn. rozpatrujemy tylko sytuacje, gdy mamy 5+i bagaży oraz 1 spośród i bagaży wyjedzie ostatni.\\
 \includegraphics[width=\textwidth]{./tasks/07.png}
-W powyższym przykładzie niebieskie kwadraty to nasze walizki, a czerwone to bagaże jakiejś rodziny z $n_3$\\
-Ostatni bagaż jest ustalony, więc ustawień dla których $X_{3j}=1$ jest $\binom{7}{2}$, a wszystkich jest $\binom{8}{3}$, stąd $P(X_{3j})=\frac{\binom{7}{2}}{\binom{8}{3}}$\\
-Ogólniej dla każdej rodziny z $n_i$ mamy $P(X_{ij})=\frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}$\\
+W powyższym przykładzie niebieskie kwadraty to nasze walizki, a czerwone to bagaże jakiejś rodziny z \(n_3\)\\
+Ostatni bagaż jest ustalony, więc ustawień dla których \(X_{3j}=1\) jest \(\binom{7}{2}\), a wszystkich jest \(\binom{8}{3}\), stąd \(P(X_{3j})=\frac{\binom{7}{2}}{\binom{8}{3}}\)\\
+Ogólniej dla każdej rodziny z \(n_i\) mamy \(P(X_{ij})=\frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}\)\\
 Liczymy wartość oczekiwaną jak zawsze:\\
-$$E(X)=E(\sum_i \sum_j X_{ij})=\sum_i \sum_jE(X_{ij})=\sum_{i=1}^4 n_i\cdot \frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}$$
-Teraz możemy uprościć $\frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}$ do $\frac{i}{i+5}$.\\
-Zapisujemy mianownik jako $\frac{i+5}{i} \binom{5+i-1}{i-1}$, dwumian się skróci, więc dostaniemy:
+\[E(X)=E(\sum_i \sum_j X_{ij})=\sum_i \sum_jE(X_{ij})=\sum_{i=1}^4 n_i\cdot \frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}\]
+Teraz możemy uprościć \(\frac{\binom{5+i-1}{i-1}}{\binom{5+i}{i}}\) do \(\frac{i}{i+5}\).\\
+Zapisujemy mianownik jako \(\frac{i+5}{i} \binom{5+i-1}{i-1}\), dwumian się skróci, więc dostaniemy:
 \subsection*{Odpowiedź}
-$$E(X)=\sum_{i=1}^4 n_i \cdot \frac{i}{i+5}$$
+\[E(X)=\sum_{i=1}^4 n_i \cdot \frac{i}{i+5}\]
